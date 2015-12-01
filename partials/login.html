@@ -1,0 +1,28 @@
+<div translate-namespace="LOGIN">
+    <form name="loginForm" ng-submit="loginSubmit()">
+        <md-toolbar class="md-primary md-hue-3">
+            <div class="md-toolbar-tools">
+                <h3>
+                    <span translate>.HEADER_LOGIN.T_TITLE</span>
+                </h3>
+            </div>
+        </md-toolbar>
+
+        <md-content layout-padding>
+            <div layout="column">
+                <md-input-container flex>
+                    <label translate>.FIELD_USERNAME.T_TITLE</label>
+                    <input ng-model="user.Username"/>
+                </md-input-container>
+                <md-input-container flex>
+                    <label translate>.FIELD_PASSWORD.T_TITLE</label>
+                    <input ng-model="user.Password" type="password"/>
+                </md-input-container>
+            </div>
+        </md-content>
+
+        <md-toolbar class="md-theme-dark">
+            <button class="btn btn-ok" translate>.BUTTON_OK.T_TITLE</button>
+        </md-toolbar>
+    </form>
+</div>

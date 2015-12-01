@@ -1,0 +1,22 @@
+{
+  "name": "arkeo",
+  "private": "true",
+  "dependencies": {
+    "angular-ui-router": "latest",
+    "jquery": "latest",
+    "angular-material": "latest",
+    "angular-animate": "latest",
+    "angular-resource": "latest",
+    "angular-leaflet-directive": "latest",
+    "angular-simple-logger": "latest",
+    "Leaflet.fullscreen": "http://github.com/Leaflet/Leaflet.fullscreen/archive/v0.0.4.tar.gz",
+    "leaflet": "latest",
+    "angular-messages": "latest",
+    "angular-translate": "latest",
+    "angular-translate-loader-url": "latest",
+    "angular-translate-loader-static-files": "latest",
+    "ng-file-upload": "latest",
+    "angular-material-data-table": "latest",
+    "angular-nvd3": "lastest"
+  }
+}

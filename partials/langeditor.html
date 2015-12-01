@@ -1,0 +1,87 @@
+<div class="LangEditor" translate-namespace="LANGEDITOR">
+    <md-toolbar class="md-primary md-hue-3">
+        <div class="md-toolbar-tools">
+            <h3>
+                <span translate>.HEADER_LANGEDITOR.T_TITLE</span>
+            </h3>
+        </div>
+    </md-toolbar>
+
+    <section layout="row">
+
+        <md-sidenav class="md-sidenav-left" flex md-is-locked-open="true">
+            <md-toolbar class="md-primary md-hue-3">
+                <h4>Domain</h4>
+            </md-toolbar>
+            <md-content layout="column">
+                <md-button class="md-primary" ng-class="{'selected': (d == domain)}" ng-click="setDomain(d)" ng-repeat="d in domains">
+                    {{d}}
+                </md-button>
+            </md-content>
+        </md-sidenav>
+
+        <div flex>
+            <form name="forms.langeditorForm" ng-submit="submit()">
+
+                <div layout="column">
+
+                    <div class="langchoice" flex layout="row">
+                        <md-card class="row row-left" flex>
+                            <md-input-container style="width: 300px">
+                                <label translate>.SELECT_SRCLANG.T_TITLE</label>
+                                <md-select ng-change="setSrcLang(this.src_lang)" ng-model="src_lang">
+                                    <md-option ng-repeat="lang in langs" ng-value="lang.iso_code">{{lang.iso_code}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </md-card>
+
+                        <md-card class="row row-right" flex>
+                            <md-input-container style="width: 300px">
+                                <label translate>.SELECT_DSTLANG.T_TITLE</label>
+                                <md-select ng-change="setDstLang(this.dst_lang)" ng-model="dst_lang" ng-disabled="forms.langeditorForm.$dirty">
+                                    <md-option ng-repeat="lang in langs" ng-value="lang.iso_code">{{lang.iso_code}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </md-card>
+                    </div>
+
+                    <div class="tradsection" flex layout="column" ng-repeat="(section, subtree_section) in translates_src">
+                        <div flex class="section-header">{{section}}</div>
+
+                        <div flex layout="row">
+                            <md-card flex layout="column">
+                                <div flex ng-repeat="(tradkey, tradval) in subtree_section">
+                                    <div class="row row-left" flex ng-class="{'unset': translates_src[section][tradkey]['str'].substr(0,3)=='#!#'}">
+                                        <md-input-container>
+                                            <label>{{tradkey}}</label>
+                                            <input disabled ng-model="translates_src[section][tradkey]['str']" type="text"/>
+                                        </md-input-container>
+                                    </div>
+                                </div>
+                            </md-card>
+                            <md-card flex layout="column">
+                                <div flex ng-repeat="(tradkey, tradval) in subtree_section">
+                                    <div class="row row-right" flex ng-class="{'unset': translates_dst[section][tradkey]['str'].substr(0,3)=='#!#'}">
+                                        <md-input-container>
+                                            <label>{{tradkey}}</label>
+                                            <input ng-model="translates_dst[section][tradkey]['str']"/>
+                                        </md-input-container>
+                                    </div>
+                                </div>
+                            </md-card>
+                        </div>
+                    </div>
+
+                    <section style="margin-top: 40px" layout="row" layout-align="end">
+                        <button class="md-raised md-hue-1" ng-click="reload()" confirm="confirmer"><span translate>.BUTTON_CANCEL.T_TITLE</span></button>
+                        <md-button class="md-raised md-hue-1" ng-click="reload()" confirm="T'es sur ?"><span translate>.BUTTON_CANCEL.T_TITLE</span></md-button>
+                        <md-button class="md-primary md-raised" ng-click="save()"><span translate>.BUTTON_SAVE.T_TITLE</span></md-button>
+                    </section>
+
+                </div>
+
+            </form>
+        </div>
+
+    </section>
+</div>

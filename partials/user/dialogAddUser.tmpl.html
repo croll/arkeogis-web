@@ -1,0 +1,146 @@
+<md-dialog aria-label="Add user..." ng-cloak ng-controller="UserCtrl" translate-namespace="USER">
+    <form name="userForm" ng-submit="userAddSubmit()">
+        <md-toolbar>
+            <div class='md-toolbar-tools'>
+                <h2 translate>.HEADER_ADDUSER.T_TITLE</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">X</md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content style="min-width:1100px">
+            <md-content layout-padding>
+                <div layout layout-sm="column">
+                    <md-input-container flex>
+                        <label translate>.FIELD_FIRST_NAME.T_TITLE</label>
+                        <input ng-model="user.Firstname"/>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label translate>.FIELD_LAST_NAME.T_TITLE</label>
+                        <input ng-model="user.Lastname"/>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label translate>.FIELD_EMAIL.T_TITLE</label>
+                        <input required type="email" name="email" ng-model="user.Email" minlength="6" maxlength="255" ng-pattern="/^.+@.+\..+$/" />
+                        <div ng-messages="userForm.email.$error" role="alert">
+                            <div ng-message-exp="['required']" ng-if="userForm.email.$dirty">{{ 'USER.FIELD_EMAIL.T_CHECK_MANDATORY' | translate }}</div>
+                            <div ng-message-exp="['minlength', 'maxlength', 'pattern']">{{ 'USER.FIELD_EMAIL.T_CHECK_INCORRECT' | translate }}</div>
+                        </div>
+                    </md-input-container>
+                    <md-autocomplete md-floating-label="{{ 'USER.FIELD_COUNTRY.T_TITLE' | translate }}" md-selected-item="user.Country" md-search-text="searchTextCountry" md-items="item in autocompleteCountry(searchTextCountry)" md-item-text="item.display" md-min-length="1" md-no-cache="1">
+                        <md-item-template>
+                             <span md-highlight-text="searchTextCountry">{{item.display}}</span>
+                        </md-item-template>
+                        <md-not-found>{{ 'USER.FIELD_COUNTRY.T_CHECK_NOMATCH' | translate }}</md-not-found>
+                    </md-autocomplete>
+                    <md-autocomplete md-floating-label="{{ 'USER.FIELD_CITY.T_TITLE' | translate }}" md-selected-item="user.City" md-search-text="searchTextCity" md-items="item in autocompleteCity(user.Country ? user.Country.value : null, searchTextCity)" md-item-text="item.display" md-min-length="2" md-no-cache="1">
+                        <md-item-template>
+                            <span md-highlight-text="searchTextCity">{{item.display}}</span>
+                        </md-item-template>
+                        <md-not-found>{{ 'USER.FIELD_CITY.T_CHECK_NOMATCH' | translate }}</md-not-found>
+                    </md-autocomplete>
+                </div>
+                <div layout layout-sm="column">
+                    <md-input-container flex="30">
+                        <label translate>.FIELD_USERNAME.T_TITLE</label>
+                        <input name="username" ng-change="userForm.username.$error.exists=false" ng-model="user.Username" required/>
+                        <div ng-messages="userForm.username.$error" role="alert">
+                            <div ng-message="exists">{{ 'USER.FIELD_USERNAME.T_CHECK_ALREADYEXISTS' | translate }}</div>
+                            <div ng-message-exp="['required']" ng-if="userForm.username.$dirty">{{ 'USER.FIELD_USERNAME.T_CHECK_MANDATORY' | translate }}</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex="20">
+                        <label translate>.FIELD_ACTIVE.T_TITLE</label>
+                        <md-select required name="active" ng-model="user.Active">
+                            <md-option value="false" translate>.FIELD_ACTIVE.T_ITEM_NO</md-option>
+                            <md-option value="true" translate>.FIELD_ACTIVE.T_ITEM_YES</md-option>
+                        </md-select>
+                        <div ng-messages="userForm.active.$error" role="alert">
+                            <div ng-message-exp="['required']" ng-if="userForm.active.$dirty">{{ 'USER.FIELD_ACTIVE.T_CHECK_MANDATORY' | translate }}</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex="50">
+                        <label translate>.FIELD_DESCRIPTION.T_TITLE</label>
+                        <input ng-model="user.Description"/>
+                    </md-input-container>
+                </div>
+
+
+
+                <div layout layout-sm="column">
+                    <md-input-container flex>
+                        <label translate>.FIELD_PASSWORD.T_TITLE</label>
+                        <input type="password" ng-model="user.Password"/>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label translate>.FIELD_USERTYPE.T_TITLE</label>
+                        <md-select ng-model="user.Type">
+                            <md-option value="1">Poilu(e)</md-option>
+                            <md-option value="2">Rasé(e)</md-option>
+                            <md-option value="3">Épilé(e)</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-autocomplete md-floating-label="{{ 'USER.FIELD_COMPANY1.T_TITLE' | translate }}" md-selected-item="user.Company1.Name" md-search-text="user.Company1.SearchName" md-items="item in autocompleteCountry(user.Company1.SearchName)" md-item-text="item.display" md-min-length="1" md-no-cache="1">
+                        <md-item-template>
+                            <span md-highlight-text="user.Company1.SearchName">{{item.display}}</span>
+                        </md-item-template>
+                        <md-not-found>{{ 'USER.FIELD_COMPANY.T_CHECK_NOMATCH' | translate }}</md-not-found>
+                    </md-autocomplete>
+                    <md-autocomplete md-floating-label="{{ 'USER.FIELD_COMPANY1_COUNTRY.T_TITLE' | translate }}" md-selected-item="user.Company1_country" md-search-text="user_searchTextCompany1Country" md-items="item in autocompleteCountry(user_searchTextCompany1Country)" md-item-text="item.display" md-min-length="1" md-no-cache="1">
+                        <md-item-template>
+                            <span md-highlight-text="user_searchTextCompany1Country">{{item.display}}</span>
+                        </md-item-template>
+                        <md-not-found>{{ 'USER.FIELD_COMPANY_COUNTRY.T_CHECK_NOMATCH' | translate }}</md-not-found>
+                    </md-autocomplete>
+                    <md-autocomplete md-floating-label="{{ 'USER.FIELD_COMPANY1_CITY.T_TITLE' | translate }}" md-selected-item="user.Company1.City" md-search-text="user_searchTextCompany1City" md-items="item in autocompleteCity(user.Company1_country ? user.Company1_country.value : null, user_searchTextCompany1City)" md-item-text="item.display" md-min-length="2" md-no-cache="1">
+                        <md-item-template>
+                            <span md-highlight-text="user_searchTextCompany1City">{{item.display}}</span>
+                        </md-item-template>
+                        <md-not-found>{{ 'USER.FIELD_COMPANY_CITY.T_CHECK_NOMATCH' | translate }}</md-not-found>
+                    </md-autocomplete>
+                </div>
+
+
+
+                <div layout layout-sm="column">
+                    <md-input-container flex>
+                        <label translate>.FIELD_PASSWORD2.T_TITLE</label>
+                        <input type="password" ng-model="user.Password"/>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label translate>.FIELD_WORKINGGROUP.T_TITLE</label>
+                        <md-select ng-model="user.Workinggroup">
+                            <md-option value="1">Branlos</md-option>
+                            <md-option value="2">Blagueurs</md-option>
+                            <md-option value="3">Creuseurs de tombes</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-autocomplete md-floating-label="{{ 'USER.FIELD_COMPANY2.T_TITLE' | translate }}" md-selected-item="user.Company2.Name" md-search-text="user.Company2.SearchName" md-items="item in autocompleteCountry(user.Company2.SearchName)" md-item-text="item.display" md-min-length="1" md-no-cache="1">
+                        <md-item-template>
+                            <span md-highlight-text="user.Company2.SearchName">{{item.display}}</span>
+                        </md-item-template>
+                        <md-not-found>{{ 'USER.FIELD_COMPANY.T_CHECK_NOMATCH' | translate }}</md-not-found>
+                    </md-autocomplete>
+                    <md-autocomplete md-floating-label="{{ 'USER.FIELD_COMPANY2_COUNTRY.T_TITLE' | translate }}" md-selected-item="user.Company2_country" md-search-text="user_searchTextCompany2Country" md-items="item in autocompleteCountry(user_searchTextCompany2Country)" md-item-text="item.display" md-min-length="1" md-no-cache="1">
+                        <md-item-template>
+                            <span md-highlight-text="user_searchTextCompany2Country">{{item.display}}</span>
+                        </md-item-template>
+                        <md-not-found>{{ 'USER.FIELD_COMPANY_COUNTRY.T_CHECK_NOMATCH' | translate }}</md-not-found>
+                    </md-autocomplete>
+                    <md-autocomplete md-floating-label="{{ 'USER.FIELD_COMPANY2_CITY.T_TITLE' | translate }}" md-selected-item="user.Company2.City" md-search-text="user_searchTextCompany2City" md-items="item in autocompleteCity(user.Company2_country ? user.Company2_country.value : null, user_searchTextCompany2City)" md-item-text="item.display" md-min-length="2" md-no-cache="1">
+                        <md-item-template>
+                            <span md-highlight-text="user_searchTextCompany2City">{{item.display}}</span>
+                        </md-item-template>
+                        <md-not-found>{{ 'USER.FIELD_COMPANY_CITY.T_CHECK_NOMATCH' | translate }}</md-not-found>
+                    </md-autocomplete>
+                </div>
+
+                <div layout layout-sm="column" layout-align="center end" layout-wrap>
+                    <md-button class="md-raised">Annuler</md-button>
+                    <md-button type="submit" class="md-raised md-primary">Ok</md-button>
+                </div>
+
+            </md-content>
+        </md-dialog-content>
+    </form>
+
+</md-dialog>

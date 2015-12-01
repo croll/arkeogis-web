@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<base href="/">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<title>ArkeoGIS</title>
+	<link rel="stylesheet" href="bower_components/angular-material/angular-material.css"></link>
+	<link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css"></link>
+	<link rel="stylesheet" href="bower_components/Leaflet.fullscreen/dist/leaflet.fullscreen.css"></link>
+	<!-- <link rel="stylesheet" href="bower_components/ng-table/dist/ng-table.css"></link> -->
+	<link rel="stylesheet" href="bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="bower_components/nvd3/build/nv.d3.css">
+	<!-- module -->
+	<link rel="stylesheet" href="css/arkeo.css"></link>
+	<script src="bower_components/jquery/dist/jquery.js"></script>
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-messages/angular-messages.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<script src="bower_components/angular-resource/angular-resource.js"></script>
+	<script src="bower_components/angular-animate/angular-animate.js"></script>
+	<script src="bower_components/angular-aria/angular-aria.js"></script>
+	<script src="bower_components/angular-material/angular-material.js"></script>
+	<script src="bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script>
+	<script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
+	<script src="bower_components/leaflet/dist/leaflet.js"></script>
+	<script src="bower_components/Leaflet.fullscreen/dist/Leaflet.fullscreen.js"></script>
+	<script src="bower_components/angular-translate/angular-translate.min.js"></script>
+	<!-- shim is needed to support non-HTML5 FormData browsers (IE8-9)-->
+	<script src="bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
+	<script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+	<script src="bower_components/ng-confirm/dist/ng-confirm.min.js"></script>
+	<!-- <script src="bower_components/ng-table/dist/ng-table.min.js"></script> -->
+	<script type="text/javascript" src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+	<script src="bower_components/d3/d3.js"></script>
+	<script src="bower_components/nvd3/build/nv.d3.js"></script>
+	<!-- or use another assembly -->
+	<script src="bower_components/angular-nvd3/dist/angular-nvd3.js"></script>
+	<!--<script src="bower_components/angular-translate-loader-url/angular-translate-loader-url.min.js"></script>-->
+	<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+	<script src="app/app.js"></script>
+	<script src="app/filters.js"></script>
+	<script src="app/controllers/UserCtrl.js"></script>
+	<script src="app/controllers/LoginCtrl.js"></script>
+	<script src="app/controllers/LangEditorCtrl.js"></script>
+	<script src="app/controllers/MapCtrl.js"></script>
+	<script src="app/controllers/ArkeoCtrl.js"></script>
+	<script src="app/controllers/ImportCtrl.js"></script>
+	<script src="app/services/arkeo.js"></script>
+	<script src="app/services/user.js"></script>
+	<script src="app/services/translates.js"></script>
+	<script src="app/services/login.js"></script>
+	<script src="app/services/import.js"></script>
+	<script src="app/services/langs.js"></script>
+</head>
+
+<body ng-app="ArkeoGIS" ng-controller="ArkeoCtrl as arkeo" layout="row" ng-cloak translate-namespace="MAIN">
+	<div layout="column" flex>
+		<md-toolbar class="md-toolbar-tools">
+			<h1 flex>ArkeoGIS</h1>
+			<layout layout="row" layout-align="end center">
+
+				<div>{{ArkeoGIS.token}}</div>
+
+				<!-- Lang menu -->
+				<md-menu md-position-mode="target-right target">
+					<md-button aria-label="Language" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+						<!--<md-icon md-menu-origin md-svg-src="/img/flags/fr.svg"></md-icon>-->
+						<img style="vertical-align: middle" ng-src="/img/flags/{{getLang()}}.png" />
+					</md-button>
+					<md-menu-content width="4">
+						<md-menu-item ng-repeat="(lang, language) in {
+                                'fr' : 'MAIN.FIELD_LANG.T_ITEM_FRENCH',
+                                'en' : 'MAIN.FIELD_LANG.T_ITEM_ENGLISH',
+                                'de' : 'MAIN.FIELD_LANG.T_ITEM_DEUTCH'
+                               }">
+							<md-button ng-click="setLang(lang)" aria-label="Lang">
+								<img style="vertical-align: middle" ng-src="/img/flags/{{lang}}.png" />&nbsp;{{ language | translate }}
+							</md-button>
+						</md-menu-item>
+					</md-menu-content>
+				</md-menu>
+
+				<!-- Main Menu -->
+				<md-menu md-position-mode="target-right target" id="mainMenu">
+					<md-button class="md-icon-button" aria-label="Toggle Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+						<md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
+					</md-button>
+					<md-menu-content width="4">
+						<md-menu-item>
+							<md-button ui-sref="map">
+								<p flex translate>.FIELD_MAINMENU.T_ITEM_MAP</p>
+								<md-icon md-svg-icon="img/icons/map.svg" md-menu-align-target></md-icon>
+							</md-button>
+						</md-menu-item>
+						<md-menu-item>
+							<md-button ui-sref="user">
+								<p flex translate>.FIELD_MAINMENU.T_ITEM_USERSMANAGER</p>
+								<md-icon md-svg-icon="img/icons/users.svg" md-menu-align-target></md-icon>
+							</md-button>
+						</md-menu-item>
+						<md-menu-item>
+							<md-button ui-sref="import.step1">
+								<p flex translate>.FIELD_MAINMENU.T_ITEM_IMPORT</p>
+								<md-icon md-svg-icon="img/icons/import.svg" md-menu-align-target></md-icon>
+							</md-button>
+						</md-menu-item>
+						<md-menu-item>
+							<md-button ui-sref="langeditor">
+								<p flex translate>.FIELD_MAINMENU.T_ITEM_LANGEDITOR</p>
+								<md-icon md-svg-icon="img/icons/langeditor.svg" md-menu-align-target></md-icon>
+							</md-button>
+						</md-menu-item>
+						<md-menu-item>
+							<md-button ui-sref="login">
+								<p flex translate>.FIELD_MAINMENU.T_ITEM_LOGIN</p>
+								<md-icon md-svg-icon="img/icons/login.svg" md-menu-align-target></md-icon>
+							</md-button>
+						</md-menu-item>
+					</md-menu-content>
+				</md-menu>
+			</layout>
+		</md-toolbar>
+		<ui-view></ui-view>
+	</div>
+</body>
+
+</html>
