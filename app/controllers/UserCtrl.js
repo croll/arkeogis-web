@@ -60,7 +60,7 @@
 
 		$scope.users_query = {
 			order: 'u.created_at',
-			limit: 25,
+			limit: 10,
 			page: 1,
 			filter: ''
 		}
