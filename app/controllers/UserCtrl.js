@@ -23,16 +23,10 @@
 	'use strict';
 	ArkeoGIS.controller('UserCtrl', ['$scope', 'user', '$mdDialog', "$http", "$q", "arkeoService", function ($scope, user, $mdDialog, $http, $q, arkeoService) {
 
-		$scope.users = user.query();
+		//$scope.users = user.query();
         $scope.user = new user();
         $scope.selectedCountry=null;
         $scope.selectedCity=0;
-
-		$scope.markAll = function (checkit) {
-			$scope.users.forEach(function (user) {
-				user.checked = checkit;
-			});
-		};
 
         $scope.openDialogAdd = function (ev) {
             $mdDialog.show({
@@ -59,6 +53,67 @@
                     $scope.userForm.username.$error.exists=true;
             });
         }
+
+
+
+		/* users list */
+
+		$scope.users_query = {
+			order: 'u.created_at',
+			limit: 25,
+			page: 1,
+			filter: ''
+		}
+		$scope.users_filter = {
+			show: false,
+			options: {
+			}
+		}
+		var users_bookmark_page=1;
+
+		function getUsers(query) {
+			$scope.promise = user.get(query || $scope.users_query, getUsersSuccess).$promise;
+		}
+
+		// used by getUsers on promise success
+		function getUsersSuccess(users) {
+			$scope.users = users;
+		}
+
+		$scope.users_onPaginate = function (page, limit) {
+			getUsers(angular.extend({}, $scope.users_query, {page: page, limit: limit}));
+		}
+
+		$scope.users_onReorder = function (order) {
+			getUsers(angular.extend({}, $scope.users_query, {order: order}));
+		}
+
+		$scope.users_removeFilter = function () {
+	      $scope.users_filter.show = false;
+	      $scope.users_query.filter = '';
+
+	      if($scope.users_filter.form.$dirty) {
+	        $scope.users_filter.form.$setPristine();
+	      }
+	    }
+
+		$scope.$watch('users_query.filter', function (newValue, oldValue) {
+	      	if(!oldValue) {
+	        	users_bookmark_page = $scope.users_query.page;
+	      	}
+
+	      	if(newValue !== oldValue) {
+	        	$scope.users_query.page = 1;
+	      	}
+
+	      	if(!newValue) {
+	        	$scope.users_query.page = users_bookmark_page;
+	      	}
+
+	      	getUsers();
+	    });
+
+		getUsers();
 
 	}]);
 

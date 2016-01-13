@@ -28,9 +28,6 @@
             update: {
                 method: 'PUT'
             },
-            get: {
-                isArray: true
-            }
         });
     }]);
 })();

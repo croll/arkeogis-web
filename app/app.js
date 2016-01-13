@@ -95,7 +95,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
         })
         .state('user', {
             url: "/user",
-            templateUrl: "partials/user.html",
+            templateUrl: "partials/user/users.html",
             controller: "UserCtrl",
             resolve: {}
         })
