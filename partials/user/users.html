@@ -1,8 +1,28 @@
 <div class="bloc-userslist" translate-namespace="USER">
-    <md-toolbar class="md-table-toolbar md-default">
-        <div class="md-toolbar-tools">
-            <span translate>USER.HEADER_USERS.T_TITLE</span>
-        </div>
+
+    <md-toolbar class="md-table-toolbar md-default" ng-show="!users_filter.show">
+      <div class="md-toolbar-tools">
+        <h2 class="md-title" translate>USER.HEADER_USERS.T_TITLE</h2>
+        <div flex></div>
+        <md-button class="md-icon-button" ng-click="users_filter.show = true">
+          <md-icon>filter_list</md-icon>
+        </md-button>
+        <md-button class="md-icon-button" ng-click="openDialogAdd($event)">
+          <md-icon>local_dining</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-toolbar class="md-table-toolbar md-default" ng-show="users_filter.show">
+      <div class="md-toolbar-tools">
+        <md-icon>search</md-icon>
+        <form flex name="users_filter.form">
+          <input type="text" ng-model="users_query.filter" ng-model-options="users_filter.options" placeholder="{{'USER.HEADER_USERSLIST.T_SEARCH' | translate}}">
+        </form>
+        <md-button class="md-icon-button" ng-click="users_removeFilter()">
+          <md-icon>close</md-icon>
+        </md-button>
+      </div>
     </md-toolbar>
 
     <!-- table userslist -->
@@ -10,49 +30,49 @@
         <table md-progress="promise" md-row-select md-table ng-model="selected">
             <thead md-head md-on-reorder="users_onReorder" md-order="users_query.order">
                 <tr md-row>
-                    <th md-column md-order-by="nameToLower">
+                    <th md-column md-order-by="u.username">
                         <span translate>USER.HEADER_USERSLIST.T_USERNAME</span>
                     </th>
-                    <th md-column md-order-by="user.Created_at">
+                    <th md-column md-order-by="u.created_at">
                         <span translate>USER.HEADER_USERSLIST.T_CREATEDAT</span>
                     </th>
-                    <th md-column md-order-by="user.Updated_at">
+                    <th md-column md-order-by="u.updated_at">
                         <span translate>USER.HEADER_USERSLIST.T_UPDATEDAT</span>
                     </th>
-                    <th md-column>
+                    <th md-column md-order-by="u.lastname, u.firstname">
                         <span translate>USER.HEADER_USERSLIST.T_NAME</span>
                     </th>
-                    <th md-column>
+                    <th md-column md-order-by="u.email">
                         <span translate>USER.HEADER_USERSLIST.T_EMAIL</span>
                     </th>
                     <th md-column><span translate>USER.HEADER_USERSLIST.T_GROUPS</span></th>
                     <th md-column><span translate>USER.HEADER_USERSLIST.T_GROUPS_CHRONO</span></th>
                     <th md-column><span translate>USER.HEADER_USERSLIST.T_GROUPS_CARACS</span></th>
-                    <th md-column><span translate>USER.HEADER_USERSLIST.T_ACTIVE</span></th>
+                    <th md-column md-order-by="u.active"><span translate>USER.HEADER_USERSLIST.T_ACTIVE</span></th>
                     <th md-column><span translate>USER.HEADER_USERSLIST.T_COUNTRY</span></th>
                     <th md-column><span translate>USER.HEADER_USERSLIST.T_COMPANY1</span></th>
                     <th md-column><span translate>USER.HEADER_USERSLIST.T_DATABASES</span></th>
                 </tr>
             </thead>
             <tbody md-body>
-                <tr md-auto-select md-row md-select-id="{{user.Id}}" md-select="user" ng-repeat="user in users.Data">
-                    <td md-cell>{{user.Username}}</td>
-                    <td md-cell>{{user.Created_at | date:'short'}}</td>
-                    <td md-cell>{{user.Updated_at | date:'short'}}</td>
-                    <td md-cell>{{user.Lastname}} {{user.Firstname}}</td>
-                    <td md-cell>{{user.Email}}</td>
-                    <td md-cell>{{user.Groups}}</td>
-                    <td md-cell>{{user.Groups_chrono}}</td>
-                    <td md-cell>{{user.Groups_caracs}}</td>
-                    <td md-cell>{{user.Active}}</td>
-                    <td md-cell>{{user.Country}}</td>
-                    <td md-cell>{{user.Company1}}</td>
-                    <td md-cell>{{user.Databases}}</td>
+                <tr md-auto-select md-row ng-repeat="user in users.data">
+                    <td md-cell>{{user.username}}</td>
+                    <td md-cell>{{user.created_at | date:'short'}}</td>
+                    <td md-cell>{{user.updated_at | date:'short'}}</td>
+                    <td md-cell>{{user.lastname}} {{user.firstname}}</td>
+                    <td md-cell>{{user.email}}</td>
+                    <td md-cell>{{user.groups}}</td>
+                    <td md-cell>{{user.groups_chrono}}</td>
+                    <td md-cell>{{user.groups_caracs}}</td>
+                    <td md-cell>{{user.active}}</td>
+                    <td md-cell>{{user.country}}</td>
+                    <td md-cell>{{user.company1}}</td>
+                    <td md-cell>{{user.databases}}</td>
                 </tr>
             </tbody>
         </table>
     </md-table-container>
 
     <md-table-pagination md-label="{page: '{{'USER.FOOTER_USERSLIST.T_PAGE' | translate }}', rowsPerPage: '{{'USER.FOOTER_USERSLIST.T_ROWSPERPAGE' | translate }}', of: '{{'USER.FOOTER_USERSLIST.T_ROWSPERPAGE_OF' | translate }}'}"
-                         md-limit="users_query.limit" md-on-paginate="users_onPaginate" md-page-select md-page="users_query.page" md-total="{{users.Count}}"></md-table-pagination>
+                         md-limit="users_query.limit" md-on-paginate="users_onPaginate" md-page-select md-page="users_query.page" md-total="{{users.count}}"></md-table-pagination>
 </div>

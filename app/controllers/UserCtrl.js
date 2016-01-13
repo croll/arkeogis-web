@@ -59,10 +59,17 @@
 		/* users list */
 
 		$scope.users_query = {
-			order: 'Created_by',
+			order: 'u.created_at',
 			limit: 25,
-			page: 1
+			page: 1,
+			filter: ''
 		}
+		$scope.users_filter = {
+			show: false,
+			options: {
+			}
+		}
+		var users_bookmark_page=1;
 
 		function getUsers(query) {
 			$scope.promise = user.get(query || $scope.users_query, getUsersSuccess).$promise;
@@ -73,13 +80,38 @@
 			$scope.users = users;
 		}
 
-		$scope.onPaginate = function (page, limit) {
+		$scope.users_onPaginate = function (page, limit) {
 			getUsers(angular.extend({}, $scope.users_query, {page: page, limit: limit}));
 		}
 
-		$scope.onReorder = function (order) {
-			getUsers(angular.extend({}, $scope.users_query, {order: oredr}));
+		$scope.users_onReorder = function (order) {
+			getUsers(angular.extend({}, $scope.users_query, {order: order}));
 		}
+
+		$scope.users_removeFilter = function () {
+	      $scope.users_filter.show = false;
+	      $scope.users_query.filter = '';
+
+	      if($scope.users_filter.form.$dirty) {
+	        $scope.users_filter.form.$setPristine();
+	      }
+	    }
+
+		$scope.$watch('users_query.filter', function (newValue, oldValue) {
+	      	if(!oldValue) {
+	        	users_bookmark_page = $scope.users_query.page;
+	      	}
+
+	      	if(newValue !== oldValue) {
+	        	$scope.users_query.page = 1;
+	      	}
+
+	      	if(!newValue) {
+	        	$scope.users_query.page = users_bookmark_page;
+	      	}
+
+	      	getUsers();
+	    });
 
 		getUsers();
 
