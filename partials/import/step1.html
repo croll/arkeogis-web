@@ -1,10 +1,10 @@
 <div layout layout-md="column" layout-sm="column">
-    <md-card class="animate-hide" ng-hide="userPreferences.hideIntro"
-    flex>
+    <md-card class="animate-hide" ng-hide="userPreferences.hideIntro" flex>
         <md-card-content>
             <p>Afin d’importer votre base de données sur la plate-forme ArkeoGIS,
                 merci de bien vouloir renseigner les champs suivants pour pouvoir
-                importer.</p>
+                importer.
+            </p>
             <p>Ces informations ne sont demandées qu’une fois avant importation, lors
                 de ré-importation possibles de la base de données ces informations
                 ne vous seront pas redemandées.</p>
@@ -35,49 +35,45 @@
 <div class="animate-hide" ng-hide="!userPreferences.conditionsAccepted">
     <md-content class="main-md-content md-padding">
         <h1 class="md-display-1">Import your database</h1>
-        <form name="importForm" class="md-padding">
-            <div layout layout-sm="column">
-                <md-input-container>
-                    <label>* Database name</label>
-                    <input name="databaseName" ng-minlength="3" ng-maxlength="50" ng-model="importFields.DatabaseName"
-                    required>
-                    <div ng-messages="importForm.databaseName.$error">
-                        <div ng-message="minlength">The database name must be 3 characters min.</div>
-                        <div ng-message="maxlength">The database name must be 50 characters max.</div>
-                        <div ng-message="required">This field is required</div>
-                    </div>
-                </md-input-container>
-                <md-content class="blank" hide-sm flex></md-content>
-            </div>
-            <div layout layout-sm="column">
-                <md-input-container flex="20" flex-sm="100" flex-md="100">
-                    <label>* Database lang</label>
-                    <md-select name="databaseLang" ng-model="importFields.DatabaseLang" ng-init="loadLangs()"
-                    required>
-                        <md-option ng-value="lang.id" ng-repeat="lang in langs">{{lang.iso_code | uppercase}}</md-option>
-                    </md-select>
-                </md-input-container>
-                <md-content class="blank" hide-sm flex></md-content>
-            </div>
+        <form name="importForm" class="md-padding" layout="column">
+			<!-- Database name -->
+            <md-input-container>
+                <label>* Database name</label>
+                <input name="databaseName" ng-minlength="3" ng-maxlength="50"
+                ng-model="importFields.DatabaseName" required flex-gt-xs="30" flex-gt-md="20">
+                <div ng-messages="importForm.databaseName.$error">
+                    <div ng-message="minlength">The database name must be 3 characters min.</div>
+                    <div ng-message="maxlength">The database name must be 50 characters max.</div>
+                    <div ng-message="required">This field is required</div>
+                </div>
+            </md-input-container>
+			<!-- Database lang -->
+            <md-input-container>
+                <label>* Database lang</label>
+                <md-select name="databaseLang" ng-model="importFields.DatabaseLang" ng-init="loadLangs()"
+                required flex-gt-xs="30" flex-gt-md="20">
+                    <md-option ng-value="lang.id" ng-repeat="lang in langs">{{lang.iso_code | uppercase}}</md-option>
+                </md-select>
+            </md-input-container>
             <div class="help-block" ng-hide="importFields.DatabaseLang" style="margin-left: 5px"
             flex>
                 Langue utilisée dans la base de données pour décrire les caractérisations Mobilier
                 / Immobilier / Production / Paysage / Texte - Iconographie.
             </div>
-            <div layout layout-sm="column">
-                <md-content flex="20" flex-sm="100" style="background-color: transparent">
-                    <md-input-container>
-                        <label>* Geographical extent</label>
-                        <md-select name="geographicalExtent" ng-model="importFields.GeographicalExtent"
-                        ng-change="importFields.SelectedCountries = [];importFields.SelectedContinent = ''"
-                        required>
-                            <md-option value="country">Country</md-option>
-                            <md-option value="continent">Continent</md-option>
-                            <md-option value="world">World</md-option>
-                        </md-select>
-                    </md-input-container>
-                </md-content>
-                <div ng-hide="importFields.GeographicalExtent != 'country'" style="margin: 1px 0 0 5px"
+			<!-- Geographical Extent -->
+            <md-content layout="column" layout-gt-xs="row">
+				<md-input-container flex="20">
+					<label>* Geographical extent</label>
+					<md-select name="geographicalExtent" ng-model="importFields.GeographicalExtent"
+					ng-change="importFields.SelectedCountries = [];importFields.SelectedContinent = ''"
+					required>
+						<md-option value="country">Country</md-option>
+						<md-option value="continent">Continent</md-option>
+						<md-option value="world">World</md-option>
+					</md-select>
+				</md-input-container>
+				<!-- Country -->
+                <md-content ng-hide="importFields.GeographicalExtent != 'country'" style="margin: 1px 0 0 5px"
                 flex>
                     <md-chips ng-model="importFields.SelectedCountries" md-autocomplete-snap md-require-match="true"
                     md-allow-repeats="false">
@@ -90,23 +86,25 @@
                             <em>({{$chip.value}})</em>
                         </md-chip-template>
                     </md-chips>
-                </div>
-                <div ng-hide="importFields.GeographicalExtent != 'continent'" flex>
-                    <md-input-container flex="20" flex-sm="100" flex-md="100">
+                </md-content>
+				<!-- Continent -->
+                <md-content ng-hide="importFields.GeographicalExtent != 'continent'" flex>
+                    <md-input-container>
                         <label>* Pick a continent</label>
                         <md-select name="continent" ng-model="importFields.SelectedContinent" ng-init="loadContinents()"
                         ng-required="importFields.GeographicalExtent == 'continent'">
                             <md-option ng-value="continent.geonameid" ng-repeat="continent in continents">{{continent.name}}</md-option>
                         </md-select>
                     </md-input-container>
-                </div>
-            </div>
+                </md-content>
+            </md-content>
             <div class="help-block" ng-hide="importFields.GeographicalExtent != 'country' || importFields.SelectedCountries.length"
             flex hide-sm>
                 <div>Pays sur le territoire duquel se trouve au moins un point de la
                     base de données.</div>
                 <div>Plusieurs choix possibles</div>
             </div>
+			<!-- Use Geonames -->
             <md-switch aria-label="Use geonames" ng-model="importFields.UseGeonames" style="margin: 15px 0 25px 0">
                 Use geonames
             </md-switch>
@@ -115,44 +113,38 @@
                 title="geonames" target="_blank">geonames.org</a> pour géolocaliser
                 les sites.
             </div>
-            <div layout layout-sm="column">
-                <md-input-container>
-                    <label>* Separator</label>
-                    <input name="separator" ng-maxlength="1" ng-model="importFields.Separator" required>
-                    <div ng-messages="importForm.separator.$error">
-                        <div ng-message="maxlength">The value has to wwwbe equal to 1 character long.</div>
-                        <div ng-message="required">This field is required</div>
-                    </div>
-                </md-input-container>
-                <md-content class="blank" hide-sm flex></md-content>
-            </div>
-            <div layout layout-sm="column">
-                <md-input-container>
-                    <label>* Echap character</label>
-                    <input name="echap_character" ng-maxlength="1" ng-model="importFields.Echap_character"
-                    required>
-                    <div class="help-block" ng-hide="importForm.separator.$error.required" flex>
-                        Utilisez \t si votre séparateur est une tabulation.
-                    </div>
-                    <div ng-messages="importForm.echap_character.$error">
-                        <div ng-message="maxlength">The value has to be equal to 1 character long.</div>
-                        <div ng-message="required">This field is required</div>
-                    </div>
-                </md-input-container>
-                <md-content class="blank" hide-sm flex></md-content>
-            </div>
-            <div>
-                <div layout layout-sm="column">
-                    <md-button class="md-primary md-raised" ng-disabled="!importForm.$valid" ngf-select="uploadCSV(file)"
-                    ng-model="file" name="file" ngf-pattern="'.csv,.txt'" accept=".csv,.txt"
-                    ngf-max-size="100MB">Envoyer le fichier et passer à l'étape suivante</md-button>
-                    <md-button class="md-raised md-hue-1" ng-click="reset()">Reset</md-button>
+			<!-- Separator -->
+            <md-input-container>
+                <label>* Separator</label>
+                <input name="separator" ng-maxlength="1" ng-model="importFields.Separator" required flex-gt-xs="30" flex-gt-md="20">
+                <div ng-messages="importForm.separator.$error">
+                    <div ng-message="maxlength">The value has to wwwbe equal to 1 character long.</div>
+                    <div ng-message="required">This field is required</div>
                 </div>
-                <md-progress-linear md-mode="determinate" value="{{uploadProgress}}" md-buffer-value="100"
-                ng-hide="!file"></md-progress-linear>
-                <div class="help-block" style="margin-top: 3px" hide-sm>
-                    Utilisez un fichier de type csv au format d’encodage UTF8 pour votre importation.
+            </md-input-container>
+            <div class="help-block" ng-hide="importForm.separator.$error.required" flex>
+                Utilisez \t si votre séparateur est une tabulation.
+            </div>
+			<!-- Echap characters -->
+            <md-input-container>
+                <label>* Echap character</label>
+                <input name="echap_character" ng-maxlength="1" ng-model="importFields.Echap_character"
+                required flex-gt-xs="30" flex-gt-md="20">
+                <div ng-messages="importForm.echap_character.$error">
+                    <div ng-message="maxlength">The value has to be equal to 1 character long.</div>
+                    <div ng-message="required">This field is required</div>
                 </div>
+            </md-input-container>
+            <div layout layout-sm="column">
+                <md-button class="md-primary md-raised" ng-disabled="!importForm.$valid" ngf-select="uploadCSV(file)"
+                ng-model="file" name="file" ngf-pattern="'.csv,.txt'" accept=".csv,.txt"
+                ngf-max-size="100MB">Envoyer le fichier et passer à l'étape suivante</md-button>
+                <md-button class="md-raised md-hue-1" ng-click="reset()">Reset</md-button>
+            </div>
+            <md-progress-linear md-mode="determinate" value="{{uploadProgress}}" md-buffer-value="100"
+            ng-hide="!file"></md-progress-linear>
+            <div class="help-block" style="margin-top: 3px" hide-sm>
+                Utilisez un fichier de type csv au format d’encodage UTF8 pour votre importation.
             </div>
         </form>
     </md-content>

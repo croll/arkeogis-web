@@ -1,4 +1,5 @@
 @import '_material-design-icons.scss';
+@import '_import.scss';
 
 html, body {
 	background-color: rgb(238, 238, 238);
@@ -6,6 +7,7 @@ html, body {
 
 html,
 body,
+
 md-content {
   -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
@@ -41,19 +43,13 @@ md-switch {
 }
 
 .help-block {
-    margin: -15px 0 20px 5px;
     font-size: 0.8rem;
     font-style: italic;
     font-weight: 300;
-    color: #9e9e9e;
-	z-index: 100000;
+    color: #555;
 	a {
 		color: #999
 	}
-}
-
-.blank {
-	height: 0
 }
 
 input::-webkit-input-placeholder {
@@ -96,6 +92,7 @@ input::input-placeholder {
   color: rgba(0, 0, 0, 0.26);
   font-weight: 300;
 }
+/*
 .md-button.md-icon-button {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -107,6 +104,7 @@ input::input-placeholder {
 .md-button.md-icon-button > i {
   margin: auto;
 }
+*/
 md-data-table-toolbar.ng-hide {
   display: none;
 }
@@ -128,57 +126,6 @@ md-data-table-toolbar > form > input {
 }
 md-data-table-toolbar > form > input:focus {
   outline: none;
-}
-
-/* ******************************** */
-/* IMPORT ************************* */
-/* ******************************** */
-
-.import {
-
-	.step2 {
-		.help-block {
-			margin: 0;
-		}
-		.nvd3Chart text {
-			fill: #c8c8c8 !important;
-			font-family: arial;
-		}
-		.legend {
-			font-size: 1.1em;
-
-			.l {
-				padding: 7px 0;
-				&:first-child {
-					margin-top: 8px;
-				}
-			}
-			.b {
-				font-weight: bold;
-			}
-			.ok {
-				color: #9ad49a;
-			}
-			.nok {
-				color: #fb7378;
-			}
-		}
-		.actions {
-			h3 {
-				padding: 0;
-				margin: 17px 17px 0 17px;
-			}
-			.help-block {
-				margin-left: 17px;
-			}
-			a {
-				display: table-cell;
-				padding: 10px 10px;
-			}
-		}
-	}
-
-
 }
 
 /* ******************************** */

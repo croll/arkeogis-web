@@ -23,7 +23,9 @@
     'use strict';
     ArkeoGIS.controller('ImportMainCtrl', ['$scope', '$location', '$rootScope', '$state', 'importService',
         function($scope, $location, $rootScope, $state, importService) {
-            $scope.tabs = importService.tabs;
+			// debug
+			return $state.go('import.step3');
+            $scope.tabs = importService.tabs; //jshint ignore: line
             var checkPath = function(p) {
                 var tabNum = p.split('step')[1];
                 importService.tabs.selectedIndex = tabNum;
@@ -209,6 +211,42 @@
                 if ($scope.filter.form.$dirty) {
                     $scope.filter.form.$setPristine();
                 }
+            };
+
+        }
+    ]);
+})();
+
+(function() {
+    'use strict';
+    ArkeoGIS.controller('ImportStep3Ctrl', ['$scope', '$state', 'arkeoService', 'importService',
+        function($scope, $state, arkeoService, importService) {
+
+            $scope.reset = function() {
+                var a = importService.reset();
+                $scope.tabs.enabled[3] = a.enabled[3];
+                $scope.importFields = importService.importFields;
+                $scope.file = undefined;
+            };
+
+            $scope.importFields = importService.importFields;
+
+            $scope.userPreferences = importService.userPreferences;
+
+            $scope.countrySearch = function(txt) {
+                return arkeoService.autocompleteCountry(txt);
+            };
+
+            $scope.loadLangs = function() {
+                arkeoService.loadLangs().then(function(langs) {
+                    $scope.langs = langs;
+                });
+            };
+
+            $scope.loadContinents = function() {
+                arkeoService.loadContinents().then(function(continents) {
+                    $scope.continents = continents;
+                });
             };
 
         }

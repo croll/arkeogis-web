@@ -36,11 +36,11 @@
 
 		this.userPreferences = {
 			firstLangId: 48, // TODO: Get it from real
-			conditionsAccepted: false,
-			savePreferencesAccepted: false,
-			hideIntro: false 
+			conditionsAccepted: true,
+			hideIntro: true
 		};
 
+		// Step 1
 		this.importFieldsDefaultValues = {
 			DatabaseLang: self.userPreferences.firstLangId, // TODO: set it accordingly
 			//DatabaseName: 'Db de test',
@@ -56,16 +56,78 @@
 
 		this.importFields = angular.copy(this.importFieldsDefaultValues);
 
-		this.tabs = angular.copy(this.defaultTabsValues);
+		// Step 3
+		this.publicationFieldsDefaultValues = {
+			Authors: '',
+			Type: '',
+			CreationDate: '',
+			License: '',
+			Subject: '',
+			Context: '',
+			ScaleResolution: '',
+			State: '',
+			Description: [
+				{
+					iso_code: '',
+					value: ''
+				},
+				{
+					iso_code: '',
+					value: ''
+				}
+			]
 
-		this.data = [];
+		};
 
+		this.publicationFields = angular.copy(this.publicationFieldsDefaultValues);
+
+		// Step 4
+		this.moreInfosFieldsDefaultValues = {
+			Struture: '',
+			Source: '',
+			Contributor: '',
+			Relations: '',
+			Url: '',
+			Date: '',
+			GeographicalExtent: [
+				{
+					iso_code: '',
+					value: ''
+				},
+				{
+					iso_code: '',
+					value: ''
+				}
+			],
+			Bibliography: [
+				{
+					iso_code: '',
+					value: ''
+				},
+				{
+					iso_code: '',
+					value: ''
+				}
+			]
+		};
+
+		this.moreInfosFields = angular.copy(this.moreInfosFieldsDefaultValues);
+
+		// Data reset
 		this.reset = function() {
 			self.tabs = angular.copy(self.defaultTabsValues);
 			self.importFields = angular.copy(self.importFieldsDefaultValues);
+			self.publicationFields = angular.copy(self.publicationFieldsDefaultValues);
+			self.moreInfosFields = angular.copy(self.moreInfosFieldsDefaultValues);
 			return self.tabs;
 		};
 
+
+		// Tabs
+		this.tabs = angular.copy(this.defaultTabsValues);
+		this.data = [];
+
+		// CSV upload
 		this.uploadCSV = function(file) {
 			var values = angular.copy(self.importFields);
 			var countriesID = [];
