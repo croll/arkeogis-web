@@ -24,7 +24,6 @@
     ArkeoGIS.controller('ImportMainCtrl', ['$scope', '$location', '$rootScope', '$state', 'importService',
         function($scope, $location, $rootScope, $state, importService) {
 			// debug
-			// return $state.go('import.step3');
             $scope.tabs = importService.tabs; //jshint ignore: line
             var checkPath = function(p) {
                 var tabNum = p.split('step')[1];

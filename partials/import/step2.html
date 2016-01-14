@@ -7,37 +7,37 @@
             <div class="l" ng-hide="nbSitesOK < 0">
                 <div>Nombre de lignes traitées: <span class="b">{{nbLines}}</span>
                 </div>
-                <div class="help-block">
+                <ark-help>
                     Hormis la première ligne.
-                </div>
+                </ark-help>
             </div>
             <div class="l" ng-hide="nbSitesOK < 0">
                 <div>Nombre de sites détectés dans le fichier: <span class="b">{{nbSites}}</span>
                 </div>
-                <div class="help-block">
+                <ark-help>
                     Nombre de SITE_ID_SOURCE différents.
-                </div>
+                </ark-help>
             </div>
             <div class="l" ng-hide="nbSitesOK < 0">
                 <div>Nombre de sites valides: <span class="b ok">{{nbSitesOK}}</span>
                 </div>
-                <div class="help-block">
+                <ark-help>
                     Importables dans ArkeoGIS
-                </div>
+                </ark-help>
             </div>
             <div class="l" ng-hide="nbSitesOK < 0">
                 <div>Nombre de sites en erreur: <span class="b nok">{{nbSitesNOK}}</span>
                 </div>
-                <div class="help-block">
+                <ark-help>
                     Qui ont au moins une informations invalide
-                </div>
+                </ark-help>
             </div>
             <div class="l">
                 <div>Nombre total d'erreurs: <span class="b">{{nbErrors}}</span>
                 </div>
-                <div class="help-block">
+                <ark-help>
                     Liste détaillée ci-dessous.
-                </div>
+                </ark-help>
             </div>
         </div>
     </md-card>
@@ -48,9 +48,9 @@
                 <div layout-padding>
                     <a ng-click="goToStep3()">Étape suivante</a>
                 </div>
-                <div class="help-block" hide-sm>
+                <ark-help hide-sm>
                     Accéder au formulaire de publication
-                </div>
+                </ark-help>
             </div>
         </md-card>
         <md-card flex ng-hide="nbErrors == 0">
@@ -61,73 +61,84 @@
             </div>
             <md-progress-linear md-mode="determinate" value="{{uploadProgress}}" md-buffer-value="100"
             ng-hide="!file"></md-progress-linear>
-            <div class="help-block" hide-sm>
+            <ark-help hide-sm>
                 Effectuer une autre importation de la même base de données après correction des
                 erreurs.
-            </div>
+            </ark-help>
         </md-card>
         <md-card flex>
             <h3>Modifier les options d'import</h3>
             <div layout-padding>
                 <a ui-sref="import.step1">Revenir à l'étape précédente</a>
             </div>
-            <div class="help-block" hide-sm>
+            <ark-help hide-sm>
                 Modifier les informations de la base, les options d'import, et renvoyer un nouveau
                 fichier.
-            </div>
-        </md-card>
     </div>
+    </md-card>
+</div>
 </div>
 
 <div ng-hide="nbErrors == 0">
-    <md-data-table-toolbar ng-hide="selected.length || filter.show">
-        <h2 class="md-title">Report</h2>
-        <div flex></div>
-        <md-button class="md-icon-button" ng-click="filter.show = true">
-            <md-tooltip md-direction="left">
-				Filtrer les résultats
-            </md-tooltip>
-            <i class="material-icons md-dark">filter_list</i>
-        </md-button>
-    </md-data-table-toolbar>
+    <md-content layout-padding>
+        <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length || filter.show">
+            <div class="md-toolbar-tools">
+                <h2 class="md-title">Report</h2>
+                <div flex></div>
+                <md-button class="md-icon-button" ng-click="filter.show = true">
+                    <md-tooltip md-direction="left">
+                        Filtrer les résultats
+                    </md-tooltip>
+                    <i class="material-icons md-dark">filter_list</i>
+                </md-button>
+            </div>
+        </md-toolbar>
 
-    <md-data-table-toolbar ng-show="filter.show && !selected.length">
-        <i class="material-icons md-dark">search</i>
-        <form flex name="filter.form">
-            <input type="text" ng-model="query.filter" ng-model-options="filter.options" placeholder="search" style="margin-top: 22px">
-			<div class="help-block" style="margin: 7px 0 0 0">
-				Saisissez du texte pour filtrer les résultats. Toutes les colonnes sont prises en compte.
-			</div>
-        </form>
-        <md-button class="md-icon-button" ng-click="removeFilter()">
-            <i class="material-icons md-dark">close</i>
-        </md-button>
-    </md-data-table-toolbar>
+        <md-toolbar class="md-table-toolbar md-default" ng-show="filter.show && !selected.length">
+            <div class="md-toolbar-tools">
+                <i class="material-icons md-dark">search</i>
+                <form flex name="filter.form" style="margin: 39px 0 0 15px;">
+                    <ark-form-block>
+                        <md-input-container>
+                            <input type="text" ng-model="query.filter" ng-model-options="filter.options" placeholder="search">
+                        </md-input-container>
+                        <ark-help>
+                            Saisissez du texte pour filtrer les résultats. Toutes les colonnes sont prises
+                            en compte.
+                        </ark-help>
+                    </ark-form-block>
+                </form>
+                <md-button class="md-icon-button" ng-click="removeFilter()">
+                    <i class="material-icons md-dark">close</i>
+                </md-button>
+            </div>
+        </md-toolbar>
 
-    <md-data-table-container>
-        <table md-data-table>
-            <thead md-order="query.order" md-trigger="onOrderChange">
-                <tr>
-                    <th numeric name="Line" order-by="line"></th>
-                    <th numeric name="Site code" order-by="siteCode"></th>
-                    <th numeric name="Columns" order-by="columns"></th>
-                    <th numeric name="Value" order-by="value"></th>
-                    <th numeric name="Error Message" order-by="errMsg"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr md-auto-select ng-repeat="error in importErrors.data | filter:query.filter | orderBy: order | limitTo: query.limit : (query.page - 1) * query.limit">
-                    <td>{{error.line}}</td>
-                    <td>
-                        {{error.siteCode}}
-                    </td>
-                    <td>{{error.columns|join}}</td>
-                    <td>{{error.value}}</td>
-                    <td>{{error.errMsg}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </md-data-table-container>
+        <md-table-container>
+            <table md-table>
+                <thead md-head md-order="query.order" md-trigger="onOrderChange">
+                    <tr md-row>
+                        <th md-column md-numeric name="Line" order-by="line"></th>
+                        <th md-column md-numeric name="Site code" order-by="siteCode"></th>
+                        <th md-column md-numeric name="Columns" order-by="columns"></th>
+                        <th md-column md-numeric name="Value" order-by="value"></th>
+                        <th md-column md-numeric name="Error Message" order-by="errMsg"></th>
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row md-auto-select ng-repeat="error in importErrors.data | filter:query.filter | orderBy: order | limitTo: query.limit : (query.page - 1) * query.limit">
+                        <td md-cell>{{error.line}}</td>
+                        <td md-cell>
+                            {{error.siteCode}}
+                        </td md-cell>
+                        <td md-cell>{{error.columns|join}}</td>
+                        <td md-cell>{{error.value}}</td>
+                        <td md-cell>{{error.errMsg}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
 
-    <md-data-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{importErrors.total}}"
-    md-row-select="query.numRows"></md-data-table-pagination>
+        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{importErrors.total}}"
+        md-row-select="query.numRows" md-page-select></md-table-pagination>
+    </md-content>

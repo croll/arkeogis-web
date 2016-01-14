@@ -1,6 +1,13 @@
 .import {
 
 	.step2 {
+		md-card ark-help {
+			margin-left: 20px;
+
+		}
+		.legend ark-help {
+			margin-left: 0;
+		}
 		.nvd3Chart text {
 			fill: #c8c8c8 !important;
 			font-family: arial;
@@ -32,6 +39,17 @@
 			a {
 				display: table-cell;
 				padding: 10px 10px;
+			}
+		}
+		.md-toolbar-tools {
+		}
+	}
+
+	.step3 {
+		form {
+			.md-padding {
+				padding-top: 0px;
+				padding-bottom: 0px;
 			}
 		}
 	}

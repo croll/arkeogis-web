@@ -134,7 +134,7 @@
                 </div>
             </md-content>
             <!-- Description blocks -->
-            <md-content layout="column" layout-gt-sm="row">
+            <md-content layout="column" layout-gt-sm="row" class="description-blocks">
                 <div class="md-padding" flex>
                     <ark-form-block>
                         <md-input-container class="md-block">
@@ -160,6 +160,11 @@
                     </ark-form-block>
                 </div>
             </md-content>
+			<!-- Actions -->
+            <div layout layout-sm="column">
+                <md-button class="md-primary md-raised" ng-disabled="!publicationForm.$valid">Publier la base et passer à l'étape suivante</md-button>
+                <md-button class="md-raised md-hue-1" ng-click="reset()">Retour vers le formulaire d'importation</md-button>
+            </div>
         </form>
     </div>
 </div>
