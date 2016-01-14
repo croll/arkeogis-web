@@ -43,13 +43,13 @@
 		// Step 1
 		this.importFieldsDefaultValues = {
 			DatabaseLang: self.userPreferences.firstLangId, // TODO: set it accordingly
-			//DatabaseName: 'Db de test',
-			DatabaseName: '',
+			//DatabaseName: '',
+			DatabaseName: 'Db de test',
 			SelectedContinent: '',
 			SelectedCountries: [],
 			UseGeonames: false,
-			//GeographicalExtent: 'world',
-			GeographicalExtent: '',
+			//GeographicalExtent: '',
+			GeographicalExtent: 'world',
 			Separator: ';',
 			Echap_character: '"'
 		};
@@ -85,10 +85,12 @@
 		this.moreInfosFieldsDefaultValues = {
 			Struture: '',
 			Source: '',
+			Identifier: '',
 			Contributor: '',
 			Relations: '',
-			Url: '',
-			Date: '',
+			SourceUrl: '',
+			SourceCreationDate: '',
+			ContextDescription: '',
 			GeographicalExtent: [
 				{
 					iso_code: '',

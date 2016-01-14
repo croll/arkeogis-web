@@ -46,7 +46,7 @@
             <div>
                 <h3>Importation réussie</h3>
                 <div layout-padding>
-                    <a ng-click="goToStep3()">Étape suivante</a>
+                    <a ui-sref="import.step3">Étape suivante</a>
                 </div>
                 <ark-help hide-sm>
                     Accéder au formulaire de publication
@@ -118,11 +118,11 @@
             <table md-table>
                 <thead md-head md-order="query.order" md-trigger="onOrderChange">
                     <tr md-row>
-                        <th md-column md-numeric name="Line" order-by="line"></th>
-                        <th md-column md-numeric name="Site code" order-by="siteCode"></th>
-                        <th md-column md-numeric name="Columns" order-by="columns"></th>
-                        <th md-column md-numeric name="Value" order-by="value"></th>
-                        <th md-column md-numeric name="Error Message" order-by="errMsg"></th>
+                        <th md-column md-numeric order-by="line">Line</th>
+                        <th md-column md-numeric order-by="siteCode">Site code</th>
+                        <th md-column md-numeric order-by="columns">Columns</th>
+                        <th md-column md-numeric order-by="value">Value</th>
+                        <th md-column md-numeric order-by="errMsg">Error message</th>
                     </tr>
                 </thead>
                 <tbody md-body>
@@ -142,3 +142,7 @@
         <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{importErrors.total}}"
         md-row-select="query.numRows" md-page-select></md-table-pagination>
     </md-content>
+</div>
+<md-content ng-hide="nbErrors > 0" class="md-headline" layout-padding style="min-height: 100px; text-align: center; padding-top: 40px">
+	Aucune erreur.
+</md-content>

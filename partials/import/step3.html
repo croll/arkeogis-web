@@ -17,8 +17,8 @@
         </md-card-content>
     </md-card>
     <div class="layout-padding">
-        <h1 class="md-display-1" translate>.IMPORT.HEADER_STEP3.T_TITLE</h1>
-        <form name="importForm" class="md-padding">
+		<h1 class="md-display-1" translate>Demande de publication de la base "{{importFields.DatabaseName}}"</h1>
+        <form name="publicationForm" class="md-padding">
             <md-content layout="column" layout-gt-sm="row">
                 <!-- left block -->
                 <div class="md-padding" flex>
@@ -41,7 +41,7 @@
                     </ark-form-block>
                     <!-- Creation date -->
                     <ark-form-block>
-                        <md-datepicker ng-model="creationDate" md-placeholder="Date de création"></md-datepicker>
+                        <md-datepicker ng-model="creationDate" md-placeholder="* Date de création" ng-required></md-datepicker>
                         <ark-help>
                             Date de la base de données, non pas la date de l’importation.
                         </ark-help>
@@ -49,7 +49,7 @@
                     <!-- License -->
                     <ark-form-block>
                         <md-input-container>
-                            <label>License</label>
+                            <label>* License</label>
                             <md-select name="license" ng-model="publicationFields.License" ng-init="loadLicenses()"
                             required flex-gt-xs="30" flex-gt-md="20">
                                 <md-option ng-value="license.id" ng-repeat="license in licenses">{{license.label}}</md-option>
@@ -76,7 +76,7 @@
                     <!-- Type -->
                     <ark-form-block>
                         <md-input-container>
-                            <label>Type</label>
+                            <label>* Type</label>
                             <md-select name="type" ng-model="publicationFields.Type" ng-init="loadTypes()"
                             required flex-gt-xs="30" flex-gt-md="20">
                                 <md-option ng-value="type.id" ng-repeat="type in types">{{type.label}}</md-option>
@@ -89,7 +89,7 @@
                     <!-- Context -->
                     <ark-form-block>
                         <md-chips ng-model="publicationFields.Context" md-autocomplete-snap md-require-match="true"
-                        md-allow-repeats="false">
+                        md-allow-repeats="false" required>
                             <md-autocomplete md-search-text="context" md-items="context in contextSearch(context)"
                             md-item-text="context.name" placeholder="Cadre de réalisation">
                                 <span md-highlight-text="context">{{item.display}}</span>
@@ -106,7 +106,7 @@
                     <!-- Scale resolution -->
                     <ark-form-block>
                         <md-input-container>
-                            <label>Echelle des points</label>
+                            <label>* Echelle des points</label>
                             <md-select name="scale" ng-model="publicationFields.ScaleResolution" ng-init="loadScaleResolutions()"
                             required flex-gt-xs="30" flex-gt-md="20">
                                 <md-option ng-value="scaleResolution.id" ng-repeat="scaleResolution in scaleResolution">{{type.label}}</md-option>
@@ -120,7 +120,7 @@
                     <!-- State -->
                     <ark-form-block>
                         <md-input-container>
-                            <label>Etat</label>
+                            <label>* Etat</label>
                             <md-select name="state" ng-model="publicationFields.State" ng-init="loadStates()"
                             required>
                                 <md-option ng-value="state.id" ng-repeat="state in states">{{state.label}}</md-option>
@@ -137,9 +137,9 @@
             <md-content layout="column" layout-gt-sm="row" class="description-blocks">
                 <div class="md-padding" flex>
                     <ark-form-block>
-                        <md-input-container class="md-block">
+                        <md-input-container>
                             <textarea ng-model="publicationFields.Description[0].value" placeholder="Description langue principale"
-                            md-no-autogrow="true" style="height: 100px"></textarea>
+                            md-no-autogrow="true" style="height: 100px" required></textarea>
                         </md-input-container>
                         <ark-help>
                             Résumé, texte de présentation, mots-clés complémentaires table des matières.
@@ -148,10 +148,10 @@
                 </div>
                 <div class="md-padding" flex-offset-gt-md="5" flex>
                     <ark-form-block>
-                        <md-input-container class="md-block">
+                        <md-input-container>
                             <textarea ng-model="publicationFields.Description[1].value" columns="3" rows="5"
                             placeholder="Description langue secondaire" md-no-autogrow="true"
-                            style="min-height: 100px"></textarea>
+                            style="min-height: 100px" required></textarea>
                         </md-input-container>
                         <ark-help>
                             Résumé, texte de présentation, mots-clés complémentaires table des matières pour
@@ -161,10 +161,10 @@
                 </div>
             </md-content>
 			<!-- Actions -->
-            <div layout layout-sm="column">
-                <md-button class="md-primary md-raised" ng-disabled="!publicationForm.$valid">Publier la base et passer à l'étape suivante</md-button>
-                <md-button class="md-raised md-hue-1" ng-click="reset()">Retour vers le formulaire d'importation</md-button>
-            </div>
+			<md-content layout layout-sm="column" layout-padding layout-align="center center">
+					<md-button class="md-primary md-raised" ng-disabled="publicationForm.$valid" ui-sref="import.step4">Publier la base et passer à l'étape suivante</md-button>
+					<md-button class="md-raised md-hue-1" ui-sref="import.step2">Retour vers le formulaire d'importation</md-button>
+			<md-content>
         </form>
     </div>
 </div>

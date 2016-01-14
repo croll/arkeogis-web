@@ -1,1 +1,140 @@
-4
+<div class="step3" flex>
+    <md-card class="animate-hide" ng-hide="userPreferences.hideIntro" flex>
+        <md-card-content translate>
+			<p>Merci de bien vouloir renseigner les champs suivants de complément de présentation de votre travail pour les autres utilisateurs de la plate-forme d’ArkeoGIS.</p>
+			<p>Ces informations ne sont demandées qu’une fois avant publication, lors de ré-importation possibles de  “nom de la base de données” ces informations ne vous seront pas redemandées. Aucun de ces champs n’est obligatoire, vous pouvez n’en renseigner que certains. Il vous sera possible par la suite de compléter, de modifier ces informations relatives à la présentation de votre travail dans votre interface personnelle de gestion des informations des bases de données. Cette interface de gestion est accessible depuis l’index des bases de donnée.</p>
+        </md-card-content>
+    </md-card>
+    <div class="layout-padding">
+		<h1 class="md-display-1" translate>Complément d’informations de présentation de la base "{{importFields.DatabaseName}}"</h1>
+        <form name="publicationForm" class="md-padding">
+            <md-content layout="column" layout-gt-sm="row">
+                <!-- left block -->
+                <div class="md-padding" flex>
+					<ark-form-block>
+						<md-input-container>
+							<label>Structure éditrice</label>
+							<input name="structure" ng-model="moreInfosFields.Structure">
+						</md-input-container>
+						<ark-help>
+							Nom de l'organisation ou du service à l'origine de la publication du document.
+						</ark-help>
+					</ark-form-block>
+					<ark-form-block>
+						<md-input-container>
+							<label>Contributeur</label>
+							<input name="contributor" ng-model="moreInfosFields.Contributor">
+						</md-input-container>
+						<ark-help>
+							Nom de l'organisation ou du service qui contribue ou a contribué  à l’élaboration du document.
+						</ark-help>
+					</ark-form-block>
+					<ark-form-block>
+						<md-input-container>
+							<label>Identifiant uniforme de la ressource</label>
+							<input name="identifier" ng-model="moreInfosFields.Identifier">
+						</md-input-container>
+						<ark-help>
+							Identifiant unique de la ressource
+						</ark-help>
+					</ark-form-block>
+					<ark-form-block>
+						<md-input-container>
+							<label>URL</label>
+							<input name="source_url" ng-model="moreInfosFields.SourceUrl">
+						</md-input-container>
+						<ark-help>
+							Identifiant unique de la ressource
+						</ark-help>
+					</ark-form-block>
+                    <ark-form-block>
+                        <md-datepicker ng-model="moreInfosFields.SourceCreationDate" md-placeholder="Date IUR"></md-datepicker>
+                        <ark-help>
+							Date de dépôt de la ressource de référence.
+                        </ark-help>
+                    </ark-form-block>
+				</div>
+                <!-- right block -->
+                <div class="md-padding" flex-offset-gt-md="5" flex>
+                    <ark-form-block>
+                        <md-input-container>
+							<textarea ng-model="moreInfosFields.Source" placeholder="Ressource dont dérive la base de données.
+								"
+                            md-no-autogrow="true" style="height: 120px"></textarea>
+                        </md-input-container>
+                        <ark-help>
+							Ressource dont dérive la base de données.
+                        </ark-help>
+                    </ark-form-block>
+                    <ark-form-block>
+                        <md-input-container>
+							<textarea ng-model="moreInfosFields.Relations" placeholder="Lien avec d'autres ressources."
+                            md-no-autogrow="true" style="height: 120px"></textarea>
+                        </md-input-container>
+                        <ark-help>
+							Lien avec d'autres ressources.
+                        </ark-help>
+                    </ark-form-block>
+                    <ark-form-block>
+                        <md-input-container>
+							<textarea ng-model="moreInfosFields.ContextDescription" placeholder5="Précision du cadre de réalisation"
+                            md-no-autogrow="true" style="height: 120px"></textarea>
+                        </md-input-container>
+                    </ark-form-block>
+				</div>
+			</md-content>
+            <!-- Geographical extent -->
+            <md-content layout="column" layout-gt-sm="row" class="textarea-blocks">
+                <div class="md-padding" flex>
+                    <ark-form-block>
+                        <md-input-container>
+							<textarea ng-model="moreInfosFields.GeographicalExtent[0].value" placeholder="Précision sur l'emprise géographique Langue 1 :
+								"
+                            md-no-autogrow="true" style="height: 100px" required></textarea>
+                        </md-input-container>
+                        <ark-help>
+							Suite aux informations nationales demandées dans le formulaire d’importation ,vous pouvez ici ajouter des précisions de localisations libres.
+                        </ark-help>
+                    </ark-form-block>
+                </div>
+                <div class="md-padding" flex>
+                    <ark-form-block>
+                        <md-input-container>
+							<textarea ng-model="moreInfosFields.GeographicalExtent[1].value" placeholder="Précision sur l'emprise géographique Langue 2 :
+								"
+                            md-no-autogrow="true" style="height: 100px" required></textarea>
+                        </md-input-container>
+                    </ark-form-block>
+                </div>
+            </md-content>
+            <!-- Bibliography -->
+            <md-content layout="column" layout-gt-sm="row" class="textarea-blocks">
+                <div class="md-padding" flex>
+                    <ark-form-block>
+                        <md-input-container>
+							<textarea ng-model="moreInfosFields.Bibliography[0].value" placeholder="Bibliographie langue 1"
+                            md-no-autogrow="true" style="height: 100px" required></textarea>
+                        </md-input-container>
+                        <ark-help>
+							Merci de rédiger la citation qui doit être reprise à l’identique pour présenter ce travail.
+                        </ark-help>
+                    </ark-form-block>
+                </div>
+                <div class="md-padding" flex>
+                    <ark-form-block>
+                        <md-input-container>
+							<textarea ng-model="moreInfosFields.Bibliography[1].value" placeholder="Bibliographie langue 2 :
+								"
+                            md-no-autogrow="true" style="height: 100px" required></textarea>
+                        </md-input-container>
+                    </ark-form-block>
+                </div>
+            </md-content>
+			<!-- Actions -->
+			<md-content layout layout-sm="column" layout-padding layout-align="center center">
+					<md-button class="md-primary md-raised" ng-disabled="!publicationForm.$valid">Valider les informations complémentaires</md-button>
+					<md-button class="md-raised md-hue-1" ui-sref="import.step3">Retour vers le formulaire de publication</md-button>
+			<md-content>
+		</form>
+	</div>
+			

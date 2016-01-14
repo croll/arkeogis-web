@@ -221,14 +221,8 @@
     ArkeoGIS.controller('ImportStep3Ctrl', ['$scope', '$state', 'arkeoService', 'importService',
         function($scope, $state, arkeoService, importService) {
 
-            $scope.reset = function() {
-                var a = importService.reset();
-                $scope.tabs.enabled[3] = a.enabled[3];
-                $scope.importFields = importService.importFields;
-                $scope.file = undefined;
-            };
-
             $scope.importFields = importService.importFields;
+            $scope.publicationFields = importService.publicationFields;
 
             $scope.userPreferences = importService.userPreferences;
 
