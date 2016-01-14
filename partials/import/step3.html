@@ -21,124 +21,145 @@
         <form name="importForm" class="md-padding">
             <md-content layout="column" layout-gt-sm="row">
                 <!-- left block -->
-                <div flex class="md-padding">
+                <div class="md-padding" flex>
                     <!-- Authors -->
-                    <md-chips ng-model="publicationFields.Authors" md-autocomplete-snap md-require-match="true"
-                    md-allow-repeats="false">
-                        <md-autocomplete md-search-text="userName" md-items="user in userSearch(userName)"
-                        md-item-text="user.name" placeholder="* Attribuée à">
-                            <span md-highlight-text="userName">{{item.display}}</span>
-                        </md-autocomplete>
-                        <md-chip-template>
-                            <strong>{{$chip.display}}</strong>
-                            <em>({{$chip.value}})</em>
-                        </md-chip-template>
-                    </md-chips>
-                    <div class="help-block" style="margin: 10px 0 0 5px">
-                        Prénom et nom d l'auteur de l’importation. Il n’y a pas de nombre maximum de co-auteurs.
-                    </div>
+                    <ark-form-block>
+                        <md-chips ng-model="publicationFields.Authors" md-autocomplete-snap md-require-match="true"
+                        md-allow-repeats="false">
+                            <md-autocomplete md-search-text="userName" md-items="user in userSearch(userName)"
+                            md-item-text="user.name" placeholder="* Attribuée à">
+                                <span md-highlight-text="userName">{{item.display}}</span>
+                            </md-autocomplete>
+                            <md-chip-template>
+                                <strong>{{$chip.display}}</strong>
+                                <em>({{$chip.value}})</em>
+                            </md-chip-template>
+                        </md-chips>
+                        <ark-help>
+                            Prénom et nom d l'auteur de l’importation. Il n’y a pas de nombre maximum de co-auteurs.
+                        </ark-help>
+                    </ark-form-block>
                     <!-- Creation date -->
-                    <div style="margin-top: 30px">
+                    <ark-form-block>
                         <md-datepicker ng-model="creationDate" md-placeholder="Date de création"></md-datepicker>
-                    </div>
-                    <div class="help-block" style="margin-top: 8px">
-                        Date de la base de données, non pas la date de l’importation.
-                    </div>
+                        <ark-help>
+                            Date de la base de données, non pas la date de l’importation.
+                        </ark-help>
+                    </ark-form-block>
                     <!-- License -->
-                    <md-input-container>
-                        <label>License</label>
-                        <md-select name="license" ng-model="publicationFields.License" ng-init="loadLicenses()"
-                        required flex-gt-xs="30" flex-gt-md="20">
-                            <md-option ng-value="license.id" ng-repeat="license in licenses">{{license.label}}</md-option>
-                        </md-select>
-                    </md-input-container>
-                    <div class="help-block">
-                        Merci de choisir une des licences <a>Creative Commons</a> compatibles
-                        avec la plate-forme ArkeoGIS pour protéger votre travail.
-                    </div>
-					<!-- Subject / Keywords -->
-					<md-input-container>
-						<label>* Sujet(s) / Mots clés</label>
-						<input name="subject" ng-maxlength="1" ng-model="publicationFields.Subject"
-						required>
-					</md-input-container>
-                    <div class="help-block" style="margin-top: -35px">
-						Résumé, texte de présentation, mots-clés complémentaires table des matières.
-                    </div>
-				</div>
+                    <ark-form-block>
+                        <md-input-container>
+                            <label>License</label>
+                            <md-select name="license" ng-model="publicationFields.License" ng-init="loadLicenses()"
+                            required flex-gt-xs="30" flex-gt-md="20">
+                                <md-option ng-value="license.id" ng-repeat="license in licenses">{{license.label}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <ark-help>
+                            Merci de choisir une des licences <a>Creative Commons</a> compatibles
+                            avec la plate-forme ArkeoGIS pour protéger votre travail.
+                        </ark-help>
+                    </ark-form-block>
+                    <ark-form-block>
+                        <!-- Subject / Keywords -->
+                        <md-input-container>
+                            <label>* Sujet(s) / Mots clés</label>
+                            <input name="subject" ng-maxlength="1" ng-model="publicationFields.Subject" required>
+                        </md-input-container>
+                        <ark-help>
+                            Résumé, texte de présentation, mots-clés complémentaires table des matières.
+                        </ark-help>
+                    </ark-form-block>
+                </div>
                 <!-- right block -->
                 <div class="md-padding" flex-offset-gt-md="5" flex>
                     <!-- Type -->
-                    <md-input-container>
-                        <label>Type</label>
-                        <md-select name="type" ng-model="publicationFields.Type" ng-init="loadTypes()" required
-                        flex-gt-xs="30" flex-gt-md="20">
-                            <md-option ng-value="type.id" ng-repeat="type in types">{{type.label}}</md-option>
-                        </md-select>
-                    </md-input-container>
-                    <div class="help-block">
-                        Travail issu d’un Inventaire, d’une Recherche ou de la transcription d’un Ouvrage.
-                    </div>
+                    <ark-form-block>
+                        <md-input-container>
+                            <label>Type</label>
+                            <md-select name="type" ng-model="publicationFields.Type" ng-init="loadTypes()"
+                            required flex-gt-xs="30" flex-gt-md="20">
+                                <md-option ng-value="type.id" ng-repeat="type in types">{{type.label}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <ark-help>
+                            Travail issu d’un Inventaire, d’une Recherche ou de la transcription d’un Ouvrage.
+                        </ark-help>
+                    </ark-form-block>
                     <!-- Context -->
-					<div style="margin-top: 35px">
-						<md-chips ng-model="publicationFields.Context" md-autocomplete-snap md-require-match="true"
-						md-allow-repeats="false">
-							<md-autocomplete md-search-text="context" md-items="context in contextSearch(context)"
-							md-item-text="context.name" placeholder="Cadre de réalisation">
-								<span md-highlight-text="context">{{item.display}}</span>
-							</md-autocomplete>
-							<md-chip-template>
-								<strong>{{$chip.display}}</strong>
-								<em>({{$chip.value}})</em>
-							</md-chip-template>
-						</md-chips>
-						<div class="help-block" style="margin: 8px 0 0 5px">
-							Travail réalisé dans le ou les cadre (s) de :
-						</div>
-					</div>
+                    <ark-form-block>
+                        <md-chips ng-model="publicationFields.Context" md-autocomplete-snap md-require-match="true"
+                        md-allow-repeats="false">
+                            <md-autocomplete md-search-text="context" md-items="context in contextSearch(context)"
+                            md-item-text="context.name" placeholder="Cadre de réalisation">
+                                <span md-highlight-text="context">{{item.display}}</span>
+                            </md-autocomplete>
+                            <md-chip-template>
+                                <strong>{{$chip.display}}</strong>
+                                <em>({{$chip.value}})</em>
+                            </md-chip-template>
+                        </md-chips>
+                        <ark-help>
+                            Travail réalisé dans le ou les cadre (s) de :
+                        </ark-help>
+                    </ark-form-block>
                     <!-- Scale resolution -->
-                    <md-input-container style="margin-top: 35px">
-                        <label>Echelle des points</label>
-                        <md-select name="scale" ng-model="publicationFields.ScaleResolution" ng-init="loadScaleResolutions()" required
-                        flex-gt-xs="30" flex-gt-md="20">
-                            <md-option ng-value="scaleResolution.id" ng-repeat="scaleResolution in scaleResolution">{{type.label}}</md-option>
-                        </md-select>
-                    </md-input-container>
-                    <div class="help-block">
-						Cette base de données concerne des objets, ou des sites ou des bassins versants  etc …
-                    </div>
-					<!-- State -->
-                    <md-input-container style="margin-top: 20px">
-                        <label>Etat</label>
-                        <md-select name="state" ng-model="publicationFields.State" ng-init="loadStates()" required
-                        >
-                            <md-option ng-value="state.id" ng-repeat="state in states">{{state.label}}</md-option>
-                        </md-select>
-                    </md-input-container>
-                    <div class="help-block">
-						Cette base de données concerne des objets, ou des sites ou des bassins versants  etc …
-                    </div>
+                    <ark-form-block>
+                        <md-input-container>
+                            <label>Echelle des points</label>
+                            <md-select name="scale" ng-model="publicationFields.ScaleResolution" ng-init="loadScaleResolutions()"
+                            required flex-gt-xs="30" flex-gt-md="20">
+                                <md-option ng-value="scaleResolution.id" ng-repeat="scaleResolution in scaleResolution">{{type.label}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <ark-help>
+                            Cette base de données concerne des objets, ou des sites ou des bassins versants
+                            etc …
+                        </ark-help>
+                    </ark-form-block>
+                    <!-- State -->
+                    <ark-form-block>
+                        <md-input-container>
+                            <label>Etat</label>
+                            <md-select name="state" ng-model="publicationFields.State" ng-init="loadStates()"
+                            required>
+                                <md-option ng-value="state.id" ng-repeat="state in states">{{state.label}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <ark-help>
+                            Cette base de données concerne des objets, ou des sites ou des bassins versants
+                            etc …
+                        </ark-help>
+                    </ark-form-block>
                 </div>
-			</md-content>
-			<!-- Description blocks -->
-			<md-content layout="column" layout-gt-sm="row">
-				<div class="md-padding" style="padding-top: 0px; margin-top: -20px" flex>
-					<md-input-container class="md-block">
-						<textarea ng-model="publicationFields.Description[0].value"  placeholder="Description langue principale" md-no-autogrow="true" style="height: 100px"></textarea>
-					</md-input-container>
-					<div class="help-block" style="margin-top: 110px">
-						Résumé, texte de présentation, mots-clés complémentaires table des matières.
-					</div>
-				</div>
-				<div class="md-padding" style="padding-top: 0px; margin-top: -20px" flex-offset-gt-md="5" flex>
-					<md-input-container class="md-block">
-						<textarea ng-model="publicationFields.Description[1].value" columns="3" rows="5" placeholder="Description langue secondaire" md-no-autogrow="true" style="min-height: 100px"></textarea>
-					</md-input-container>
-					<div class="help-block" style="margin-top: 110px">
-						Résumé, texte de présentation, mots-clés complémentaires table des matières pour la langue secondaire.
-					</div>
-				</div>
-			</md-content>
+            </md-content>
+            <!-- Description blocks -->
+            <md-content layout="column" layout-gt-sm="row">
+                <div class="md-padding" flex>
+                    <ark-form-block>
+                        <md-input-container class="md-block">
+                            <textarea ng-model="publicationFields.Description[0].value" placeholder="Description langue principale"
+                            md-no-autogrow="true" style="height: 100px"></textarea>
+                        </md-input-container>
+                        <ark-help>
+                            Résumé, texte de présentation, mots-clés complémentaires table des matières.
+                        </ark-help>
+                    </ark-form-block>
+                </div>
+                <div class="md-padding" flex-offset-gt-md="5" flex>
+                    <ark-form-block>
+                        <md-input-container class="md-block">
+                            <textarea ng-model="publicationFields.Description[1].value" columns="3" rows="5"
+                            placeholder="Description langue secondaire" md-no-autogrow="true"
+                            style="min-height: 100px"></textarea>
+                        </md-input-container>
+                        <ark-help>
+                            Résumé, texte de présentation, mots-clés complémentaires table des matières pour
+                            la langue secondaire.
+                        </ark-help>
+                    </ark-form-block>
+                </div>
+            </md-content>
         </form>
     </div>
 </div>
