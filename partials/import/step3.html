@@ -1,1 +1,170 @@
-3
+<div class="step3" flex>
+    <md-card class="animate-hide" ng-hide="userPreferences.hideIntro" flex>
+        <md-card-content translate>
+            <p>Suite à votre importation de la base de données : “nom de la base importée”
+                , merci de bien vouloir renseigner les champs suivants de présentation
+                de votre travail pour pouvoir publier votre base de données sur
+                la plate-forme ArkeoGIS. <b>Par publier on entend de pouvoir interroger la base de données sur l’interface cartographique et la proposer à l’usage des autres utilisateurs d’ArkeoGIS.</b>
+            </p>
+            <p>Ces informations ne sont demandées qu’une fois avant publication, lors
+                de réimportation possibles de “nom de la base de données” ces informations
+                ne vous seront pas redemandées. Il vous sera possible par la suite
+                de modifier ces informations et de renseigner d'autres champs complémentaires
+                non obligatoires relatifs à la présentation de votre travail dans
+                votre interface personnelle de gestion des informations relatives
+                à la base de données. Cette interface de gestion est accessible
+                depuis l’index des bases de donnée.</p>
+        </md-card-content>
+    </md-card>
+    <div class="layout-padding">
+		<h1 class="md-display-1" translate>Demande de publication de la base "{{importFields.DatabaseName}}"</h1>
+        <form name="publicationForm" class="md-padding">
+            <md-content layout="column" layout-gt-sm="row">
+                <!-- left block -->
+                <div class="md-padding" flex>
+                    <!-- Authors -->
+                    <ark-form-block>
+                        <md-chips ng-model="publicationFields.Authors" md-autocomplete-snap md-require-match="true"
+                        md-allow-repeats="false">
+                            <md-autocomplete md-search-text="userName" md-items="user in userSearch(userName)"
+                            md-item-text="user.name" placeholder="* Attribuée à">
+                                <span md-highlight-text="userName">{{item.display}}</span>
+                            </md-autocomplete>
+                            <md-chip-template>
+                                <strong>{{$chip.display}}</strong>
+                                <em>({{$chip.value}})</em>
+                            </md-chip-template>
+                        </md-chips>
+                        <ark-help>
+                            Prénom et nom d l'auteur de l’importation. Il n’y a pas de nombre maximum de co-auteurs.
+                        </ark-help>
+                    </ark-form-block>
+                    <!-- Creation date -->
+                    <ark-form-block>
+                        <md-datepicker ng-model="creationDate" md-placeholder="* Date de création" ng-required></md-datepicker>
+                        <ark-help>
+                            Date de la base de données, non pas la date de l’importation.
+                        </ark-help>
+                    </ark-form-block>
+                    <!-- License -->
+                    <ark-form-block>
+                        <md-input-container>
+                            <label>* License</label>
+                            <md-select name="license" ng-model="publicationFields.License" ng-init="loadLicenses()"
+                            required flex-gt-xs="30" flex-gt-md="20">
+                                <md-option ng-value="license.id" ng-repeat="license in licenses">{{license.label}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <ark-help>
+                            Merci de choisir une des licences <a>Creative Commons</a> compatibles
+                            avec la plate-forme ArkeoGIS pour protéger votre travail.
+                        </ark-help>
+                    </ark-form-block>
+                    <ark-form-block>
+                        <!-- Subject / Keywords -->
+                        <md-input-container>
+                            <label>* Sujet(s) / Mots clés</label>
+                            <input name="subject" ng-maxlength="1" ng-model="publicationFields.Subject" required>
+                        </md-input-container>
+                        <ark-help>
+                            Résumé, texte de présentation, mots-clés complémentaires table des matières.
+                        </ark-help>
+                    </ark-form-block>
+                </div>
+                <!-- right block -->
+                <div class="md-padding" flex-offset-gt-md="5" flex>
+                    <!-- Type -->
+                    <ark-form-block>
+                        <md-input-container>
+                            <label>* Type</label>
+                            <md-select name="type" ng-model="publicationFields.Type" ng-init="loadTypes()"
+                            required flex-gt-xs="30" flex-gt-md="20">
+                                <md-option ng-value="type.id" ng-repeat="type in types">{{type.label}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <ark-help>
+                            Travail issu d’un Inventaire, d’une Recherche ou de la transcription d’un Ouvrage.
+                        </ark-help>
+                    </ark-form-block>
+                    <!-- Context -->
+                    <ark-form-block>
+                        <md-chips ng-model="publicationFields.Context" md-autocomplete-snap md-require-match="true"
+                        md-allow-repeats="false" required>
+                            <md-autocomplete md-search-text="context" md-items="context in contextSearch(context)"
+                            md-item-text="context.name" placeholder="Cadre de réalisation">
+                                <span md-highlight-text="context">{{item.display}}</span>
+                            </md-autocomplete>
+                            <md-chip-template>
+                                <strong>{{$chip.display}}</strong>
+                                <em>({{$chip.value}})</em>
+                            </md-chip-template>
+                        </md-chips>
+                        <ark-help>
+                            Travail réalisé dans le ou les cadre (s) de :
+                        </ark-help>
+                    </ark-form-block>
+                    <!-- Scale resolution -->
+                    <ark-form-block>
+                        <md-input-container>
+                            <label>* Echelle des points</label>
+                            <md-select name="scale" ng-model="publicationFields.ScaleResolution" ng-init="loadScaleResolutions()"
+                            required flex-gt-xs="30" flex-gt-md="20">
+                                <md-option ng-value="scaleResolution.id" ng-repeat="scaleResolution in scaleResolution">{{type.label}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <ark-help>
+                            Cette base de données concerne des objets, ou des sites ou des bassins versants
+                            etc …
+                        </ark-help>
+                    </ark-form-block>
+                    <!-- State -->
+                    <ark-form-block>
+                        <md-input-container>
+                            <label>* Etat</label>
+                            <md-select name="state" ng-model="publicationFields.State" ng-init="loadStates()"
+                            required>
+                                <md-option ng-value="state.id" ng-repeat="state in states">{{state.label}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <ark-help>
+                            Cette base de données concerne des objets, ou des sites ou des bassins versants
+                            etc …
+                        </ark-help>
+                    </ark-form-block>
+                </div>
+            </md-content>
+            <!-- Description blocks -->
+            <md-content layout="column" layout-gt-sm="row" class="description-blocks">
+                <div class="md-padding" flex>
+                    <ark-form-block>
+                        <md-input-container>
+                            <textarea ng-model="publicationFields.Description[0].value" placeholder="Description langue principale"
+                            md-no-autogrow="true" style="height: 100px" required></textarea>
+                        </md-input-container>
+                        <ark-help>
+                            Résumé, texte de présentation, mots-clés complémentaires table des matières.
+                        </ark-help>
+                    </ark-form-block>
+                </div>
+                <div class="md-padding" flex-offset-gt-md="5" flex>
+                    <ark-form-block>
+                        <md-input-container>
+                            <textarea ng-model="publicationFields.Description[1].value" columns="3" rows="5"
+                            placeholder="Description langue secondaire" md-no-autogrow="true"
+                            style="min-height: 100px" required></textarea>
+                        </md-input-container>
+                        <ark-help>
+                            Résumé, texte de présentation, mots-clés complémentaires table des matières pour
+                            la langue secondaire.
+                        </ark-help>
+                    </ark-form-block>
+                </div>
+            </md-content>
+			<!-- Actions -->
+			<md-content layout layout-sm="column" layout-padding layout-align="center center">
+					<md-button class="md-primary md-raised" ng-disabled="publicationForm.$valid" ui-sref="import.step4">Publier la base et passer à l'étape suivante</md-button>
+					<md-button class="md-raised md-hue-1" ui-sref="import.step2">Retour vers le formulaire d'importation</md-button>
+			<md-content>
+        </form>
+    </div>
+</div>

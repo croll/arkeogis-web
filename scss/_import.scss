@@ -1,0 +1,56 @@
+.import {
+
+	.step2 {
+		md-card ark-help {
+			margin-left: 20px;
+
+		}
+		.legend ark-help {
+			margin-left: 0;
+		}
+		.nvd3Chart text {
+			fill: #c8c8c8 !important;
+			font-family: arial;
+		}
+		.legend {
+			font-size: 1.1em;
+
+			.l {
+				padding: 7px 0;
+				&:first-child {
+					margin-top: 8px;
+				}
+			}
+			.b {
+				font-weight: bold;
+			}
+			.ok {
+				color: #9ad49a;
+			}
+			.nok {
+				color: #fb7378;
+			}
+		}
+		.actions {
+			h3 {
+				padding: 0;
+				margin: 17px 17px 0 17px;
+			}
+			a {
+				display: table-cell;
+				padding: 10px 10px;
+			}
+		}
+		.md-toolbar-tools {
+		}
+	}
+
+	.step3 {
+		form {
+			.md-padding {
+				padding-top: 0px;
+				padding-bottom: 0px;
+			}
+		}
+	}
+}
