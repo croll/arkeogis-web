@@ -21,7 +21,10 @@
 
 (function () {
 	'use strict';
-	ArkeoGIS.controller('UserCtrl', ['$scope', 'user', '$mdDialog', "$http", "$q", "arkeoService", function ($scope, user, $mdDialog, $http, $q, arkeoService) {
+	ArkeoGIS.controller('UserCtrl', ['$scope', 'user', 'Langs', '$mdDialog', "$http", "$q", "arkeoService", function ($scope, user, Langs, $mdDialog, $http, $q, arkeoService) {
+
+
+		$scope.langs = Langs.query();
 
 		//$scope.users = user.query();
         $scope.user = new user();
@@ -44,7 +47,7 @@
         $scope.autocompleteCity = arkeoService.autocompleteCity;
 
         $scope.userAddSubmit = function () {
-            $scope.user.Active = $scope.user.Active == "true" ? true : false;
+            $scope.user.active = $scope.user.active == "true" ? true : false;
             $scope.user.$save().then(function(ret) {
                 console.log("ret ! ", ret);
             }, function(err) {
