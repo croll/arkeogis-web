@@ -1,5 +1,6 @@
 @import '_material-design-icons.scss';
 @import '_import.scss';
+@import '_langeditor.scss';
 
 html, body {
 	background-color: rgb(238, 238, 238);
@@ -141,39 +142,4 @@ md-data-table-toolbar > form > input {
 }
 md-data-table-toolbar > form > input:focus {
   outline: none;
-}
-
-/* ******************************** */
-/* LangEditor ********************* */
-/* ******************************** */
-.LangEditor {
-	md-sidenav md-toolbar {
-		text-align: center;
-	}
-	md-sidenav {
-		button {
-			text-align: center;
-		}
-		button.selected {
-			background-color: rgb(130,177,255);
-		}
-	}
-	.row {
-		padding: 10px;
-		background-color: white;
-	}
-	.section-header {
-		color: rgb(33,150,243);
-		padding: 10px;
-		padding-top: 20px;
-	}
-	.row-left {
-	}
-	.row-right {
-	}
-	.section-footer {
-	}
-	.unset {
-		background-color: #faa;
-	}
 }

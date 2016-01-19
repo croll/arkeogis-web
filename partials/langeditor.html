@@ -52,7 +52,7 @@
                             <md-card flex layout="column">
                                 <div flex ng-repeat="(tradkey, tradval) in subtree_section">
                                     <div class="row row-left" flex ng-class="{'unset': translates_src[section][tradkey]['str'].substr(0,3)=='#!#'}">
-                                        <md-input-container>
+                                        <md-input-container flex>
                                             <label>{{tradkey}}</label>
                                             <input disabled ng-model="translates_src[section][tradkey]['str']" type="text"/>
                                         </md-input-container>
@@ -61,8 +61,8 @@
                             </md-card>
                             <md-card flex layout="column">
                                 <div flex ng-repeat="(tradkey, tradval) in subtree_section">
-                                    <div class="row row-right" flex ng-class="{'unset': translates_dst[section][tradkey]['str'].substr(0,3)=='#!#'}">
-                                        <md-input-container>
+                                    <div layout="row" class="row row-right" flex ng-class="{'unset': translates_dst[section][tradkey]['str'].substr(0,3)=='#!#'}">
+                                        <md-input-container flex>
                                             <label>{{tradkey}}</label>
                                             <input ng-model="translates_dst[section][tradkey]['str']"/>
                                         </md-input-container>
