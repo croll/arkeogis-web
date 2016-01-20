@@ -36,31 +36,55 @@
 			lang = lang || 'fr';
 			var params = {
 				search: searchTextCountry,
-				lang: 'fr'
+				lang: 'fr',
+				limit: 25
 			};
-			return self.wrapCall('/api/countries', params);
+			return self.wrapCall('/api/countries', params, {
+				geonameid: 'value',
+				name: 'display',
+				name_ascii: 'name_ascii' // not sure this is used somewhere
+			});
         };
 
-        this.autocompleteCity = function (selectedCountry, searchTextCity, lang) {
+		this.autocompleteCity = function (selectedCountry, searchTextCity, lang) {
             if (searchTextCity === null) {
 				return [];
 			}
 			lang = lang || 'fr';
             var params = {
                 search: searchTextCity,
-				lang : lang
+				lang: lang,
+				limit: 25
             };
             if (selectedCountry) {
                 params.id_country = selectedCountry;
 			}
-			return self.wrapCall('/api/cities', params);
+			return self.wrapCall('/api/cities', params, {
+				geonameid: 'value',
+				name: 'display'
+			});
+        };
+
+		this.autocompleteCompany = function (searchTextCompany, lang) {
+            if (searchTextCompany === null) {
+				return [];
+			}
+			lang = lang || 'fr';
+			var params = {
+				search: searchTextCompany,
+				lang: 'fr'
+			};
+			return self.wrapCall('/api/companies', params);
         };
 
 		this.loadLangs = function() {
-			return self.wrapCall('/api/langs');
+			return self.wrapCall('/api/langs', {}, {
+			});
 		};
 
-		this.wrapCall = function(uri, params) {
+		// call rest list
+		this.wrapCall = function(uri, params, remap) {
+			var self=this;
 			var p = {
 				responseType: "json"
 			};
@@ -69,11 +93,28 @@
 			}
 			var d = $q.defer();
 			$http.get(uri, p).then(function(data) {
+				if (typeof remap === 'object')
+					data.data = self.remap(remap, data.data);
 				d.resolve(data.data);
 			}, function(err) {
 				d.reject(err);
 			});
 			return d.promise;
 		};
+
+		// remap data array of object
+		// exemple: remap({id: 'value', name: 'display'}, [ { id: 1, name: 'Albert'}, { id: 2, name: 'Alfred' }])
+		// will return : [ { value: 1, display: 'Albert'}, { value: 2, display: 'Alfred'}]
+		this.remap = function(remap, data) {
+			var newdata=[];
+			for (var i=0; i<data.length; i++) {
+				newdata[i]={};
+				for (var k in remap) {
+					var nk = remap[k];
+					newdata[i][nk]=data[i][k];
+				}
+			}
+			return newdata;
+		}
 	}]);
 })();
