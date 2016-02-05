@@ -52,8 +52,23 @@
                 console.log("ret ! ", ret);
             }, function(err) {
                 console.log("err ! ", err);
-                if (err.status == 409)
-                    $scope.userForm.username.$error.exists=true;
+				if (err.data.errors) {
+					err.data.errors.forEach(function(error) {
+						switch(error.field_path) {
+							case "user.first_lang_id":
+								$scope.userForm.first_lang_id.$error={ server: error.error_string };
+								break;
+							case "user.second_lang_id":
+								$scope.userForm.second_lang_id.$error.server=error.error_string;
+								break;
+							case "user.username":
+								$scope.userForm.username.$error.server=error.error_string;
+								break;
+							default:
+								alert(error.error_string);
+						}
+					})
+				}
             });
         }
 

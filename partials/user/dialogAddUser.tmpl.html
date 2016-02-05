@@ -53,6 +53,7 @@
                                 <label translate>.FIELD_USERNAME.T_TITLE</label>
                                 <input name="username" ng-change="userForm.username.$error.exists=false" ng-model="user.username" required/>
                                 <div ng-messages="userForm.username.$error" role="alert">
+                                    <div ng-if="userForm.username.$error.server">err: {{ userForm.username.$error.server | translate }}</div>
                                     <div ng-message="exists">{{ 'USER.FIELD_USERNAME.T_CHECK_ALREADYEXISTS' | translate }}</div>
                                     <div ng-if="userForm.username.$dirty" ng-message-exp="['required']">{{ 'USER.FIELD_USERNAME.T_CHECK_MANDATORY' | translate }}</div>
                                 </div>
@@ -77,18 +78,24 @@
                         <div flex>
                             <md-input-container>
                                 <label translate>.FIELD_LANG1.T_TITLE</label>
-                                <md-select ng-model="user.first_lang_id">
+                                <md-select name="first_lang_id" ng-model="user.first_lang_id">
                                     <md-option ng-repeat="lang in langs" ng-value="lang.id">{{lang.iso_code}}</md-option>
                                 </md-select>
+                                <div ng-messages="userForm.first_lang_id.$error" role="alert">
+                                    <div ng-if="userForm.first_lang_id.$error.server">{{ userForm.first_lang_id.$error.server | translate }}</div>
+                                </div>
                             </md-input-container>
                         </div>
 
                         <div flex>
                             <md-input-container>
                                 <label translate>.FIELD_LANG2.T_TITLE</label>
-                                <md-select ng-model="user.second_lang_id">
+                                <md-select name="second_lang_id" ng-model="user.second_lang_id">
                                     <md-option ng-repeat="lang in langs" ng-value="lang.id">{{lang.iso_code}}</md-option>
                                 </md-select>
+                                <div ng-messages="userForm.second_lang_id.$error" role="alert">
+                                    <div ng-if="userForm.second_lang_id.$error.server">{{ userForm.second_lang_id.$error.server | translate }}</div>
+                                </div>
                             </md-input-container>
                         </div>
 
