@@ -53,7 +53,7 @@
             }, function(err) {
                 console.log("err ! ", err);
 				if (err.data.errors) {
-					arkeoService.setFormErrorsFromServer($scope.userForm, err.data.errors, "user.");
+					arkeoService.setFormErrorsFromServer($scope.userForm, err.data.errors, "");
 				}
             });
         }
