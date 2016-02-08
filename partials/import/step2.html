@@ -5,57 +5,57 @@
         </div>
         <div class="legend" layout-padding flex layout-align="start center">
             <div class="l" ng-hide="nbSitesOK < 0">
-                <div><span translate>IMPORT.STEP_TWO.T_LABEL_NB_OF_LINES</span>: <span class="b">{{nbLines}}</span>
+                <div><span translate>IMPORT_STEP2.REPORT_BLOCKS.T_LABEL_NB_OF_LINES</span>: <span class="b">{{nbLines}}</span>
                 </div>
-                <ark-help translate>IMPORT.STEP_TWO.T_LABEL_NOT_FIRST_LINE</ark-help>
+                <ark-help translate>IMPORT_STEP2.REPORT_BLOCKS.T_LABEL_NOT_FIRST_LINE</ark-help>
             </div>
             <div class="l" ng-hide="nbSitesOK < 0">
-                <div><span translate>IMPORT.STEP_TWO.T_LABEL_NB_DETECTED_SITES</span>: <span class="b">{{nbSites}}</span></div>
-                <ark-help translate>IMPORT.STEP_TWO.T_HELP_NB_DETECTED_SITES</ark-help>
+                <div><span translate>IMPORT_STEP2.REPORT_BLOCKS.T_LABEL_NB_DETECTED_SITES</span>: <span class="b">{{nbSites}}</span></div>
+                <ark-help translate>IMPORT_STEP2.REPORT_BLOCKS.T_HELP_NB_DETECTED_SITES</ark-help>
             </div>
             <div class="l" ng-hide="nbSitesOK < 0">
-                <div><span translate>IMPORT.STEP_TWO.T_LABEL_NB_VALID_SITES</span>: <span class="b ok">{{nbSitesOK}}</span>
+                <div><span translate>IMPORT_STEP2.REPORT_BLOCKS.T_LABEL_NB_VALID_SITES</span>: <span class="b ok">{{nbSitesOK}}</span>
                 </div>
-                <ark-help translate>IMPORT.STEP_TWO.T_HELP_NB_VALID_SITES</ark-help>
+                <ark-help translate>IMPORT_STEP2.REPORT_BLOCKS.T_HELP_NB_VALID_SITES</ark-help>
             </div>
             <div class="l" ng-hide="nbSitesOK < 0">
-                <div><span translate>IMPORT.STEP_TWO.T_LABEL_NB_SITES_WITH_ERROR</span>: <span class="b nok">{{nbSitesNOK}}</span>
+                <div><span translate>IMPORT_STEP2.REPORT_BLOCKS.T_LABEL_NB_SITES_WITH_ERROR</span>: <span class="b nok">{{nbSitesNOK}}</span>
                 </div>
-                <ark-help translate>IMPORT.STEP_TWO.T_HELP_NB_SITES_WITH_ERROR</ark-help>
+                <ark-help translate>IMPORT_STEP2.REPORT_BLOCKS.T_HELP_NB_SITES_WITH_ERROR</ark-help>
             </div>
             <div class="l">
-                <div><span translate>IMPORT.STEP_TWO.T_LABEL_NB_ERRORS_TOTAL</span>: <span class="b">{{nbErrors}}</span>
+                <div><span translate>IMPORT_STEP2.REPORT_BLOCKS.T_LABEL_NB_ERRORS_TOTAL</span>: <span class="b">{{nbErrors}}</span>
                 </div>
-                <ark-help translate>IMPORT.STEP_TWO.T_HELP_NB_ERRORS_TOTAL</ark-help>
+                <ark-help translate>IMPORT_STEP2.REPORT_BLOCKS.T_HELP_NB_ERRORS_TOTAL</ark-help>
             </div>
         </div>
     </md-card>
     <div class="actions" layout="column" flex>
         <md-card flex ng-hide="nbErrors > 0">
             <div>
-                <h3 translate>IMPORT.STEP_TWO.T_LABEL_IMPORT_SUCCESS</h3>
+                <h3 translate>IMPORT_STEP2.REPORT_BLOCKS.T_LABEL_IMPORT_SUCCESS</h3>
                 <div layout-padding>
-                    <a ui-sref="import.step3" translate>IMPORT.STEP_TWO.T_LABEL_NEXT_STEP</a>
+                    <a ui-sref="import.step3" translate>IMPORT_STEP2.REPORT_BLOCKS.T_LABEL_NEXT_STEP</a>
                 </div>
-                <ark-help hide-sm translate>IMPORT.STEP_TWO.T_LABEL_ACCESS_TO_PUBLICATION</ark-help>
+                <ark-help hide-sm translate>IMPORT_STEP2.REPORT_BLOCKS.T_LABEL_ACCESS_TO_PUBLICATION</ark-help>
             </div>
         </md-card>
         <md-card flex ng-hide="nbErrors == 0">
-            <h3 translate>IMPORT.STEP_TWO.T_LABEL_IMPORT_ANOTHER_FILE</h3>
+            <h3 translate>IMPORT_STEP2.REPORT_BLOCKS.T_LABEL_IMPORT_ANOTHER_FILE</h3>
             <div layout layout-sm="column" layout-padding>
                 <md-button class="md-primary md-raised" ngf-select="uploadCSV(file)" ng-model="file"
-                name="file" ngf-pattern="'.csv,.txt'" accept=".csv,.txt" ngf-max-size="100MB" translate>IMPORT.STEP_TWO.T_BUTTON_CHOOSE_FILE</md-button>
+                name="file" ngf-pattern="'.csv,.txt'" accept=".csv,.txt" ngf-max-size="100MB" translate>IMPORT_STEP2.REPORT_BLOCKS.T_BUTTON_CHOOSE_FILE</md-button>
             </div>
             <md-progress-linear md-mode="determinate" value="{{uploadProgress}}" md-buffer-value="100"
             ng-hide="!file"></md-progress-linear>
-            <ark-help hide-sm translate>IMPORT.STEP_TWO.T_HELP_IMPORT_ANOTHER_FILE</ark-help>
+            <ark-help hide-sm translate>IMPORT_STEP2.REPORT_BLOCKS.T_HELP_IMPORT_ANOTHER_FILE</ark-help>
         </md-card>
         <md-card flex>
-            <h3 translate>IMPORT.STEP_TWO.T_LABEL_MODIFY_IMPORT_OPTIONS</h3>
+            <h3 translate>IMPORT_STEP2.REPORT_BLOCKS.T_LABEL_MODIFY_IMPORT_OPTIONS</h3>
             <div layout-padding>
-                <a ui-sref="import.step1" translate>IMPORT.STEP_TWO.T_LABEL_PREVIOUS_STEP</a>
+                <a ui-sref="import.step1" translate>IMPORT_STEP2.REPORT_BLOCKS.T_LABEL_PREVIOUS_STEP</a>
             </div>
-            <ark-help hide-sm translate>IMPORT.STEP_TWO.T_HELP_MODIFY_IMPORT_OPTIONS</ark-help>
+            <ark-help hide-sm translate>IMPORT_STEP2.REPORT_BLOCKS.T_HELP_MODIFY_IMPORT_OPTIONS</ark-help>
         </md-card>
     </div>
 </div>
@@ -64,11 +64,11 @@
     <md-content layout-padding>
         <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length || filter.show">
             <div class="md-toolbar-tools">
-                <h2 class="md-title" translate>IMPORT.STEP_TWO.T_LABEL_REPORT</h2>
+                <h2 class="md-title" translate>IMPORT_STEP2.REPORT_TABLE.T_LABEL_REPORT</h2>
                 <div flex></div>
                 <md-button class="md-icon-button" ng-click="filter.show = true">
-                    <md-tooltip md-direction="left">
-                      IMPORT.STEP_TWO.FILTER_RESULTS
+                    <md-tooltip md-direction="left" translate>
+                      IMPORT_STEP2.REPORT_TABLE.FILTER_RESULTS
                     </md-tooltip>
                     <i class="material-icons md-dark">filter_list</i>
                 </md-button>
@@ -83,7 +83,7 @@
                         <md-input-container>
                             <input type="text" ng-model="query.filter" ng-model-options="filter.options" placeholder="search">
                         </md-input-container>
-                        <ark-help translate>T_HELP_FILTER_RESULTS</ark-help>
+                        <ark-help translate>IMPORT_STEP2.REPORT_TABLE.T_HELP_FILTER_RESULTS</ark-help>
                     </ark-form-block>
                 </form>
                 <md-button class="md-icon-button" ng-click="removeFilter()">
@@ -96,11 +96,11 @@
             <table md-table>
                 <thead md-head md-order="query.order" md-trigger="onOrderChange">
                     <tr md-row>
-                        <th md-column md-numeric order-by="line"><span translate>IMPORT.RESULT_HEADER.T_LABEL_LINE</span></th>
-                        <th md-column md-numeric order-by="siteCode"><span translate>IMPORT.RESULT_HEADER.T_LABEL_SITE_CODE</span></th>
-                        <th md-column md-numeric order-by="columns"><span translate>IMPORT.RESULT_HEADER.T_LABEL_COLUMN</span></th>
-                        <th md-column md-numeric order-by="value"><span translate>IMPORT.RESULT_HEADER.T_LABEL_VALUE</span></th>
-                        <th md-column md-numeric order-by="errMsg"><span translate>IMPORT.RESULT_HEADER.T_LABEL_ERROR_MESSAGE</span></th>
+                        <th md-column md-numeric order-by="line"><span translate>IMPORT_STEP2.REPORT_TABLE.T_LABEL_LINE</span></th>
+                        <th md-column md-numeric order-by="siteCode"><span translate>IMPORT_STEP2.REPORT_TABLE.T_LABEL_SITE_CODE</span></th>
+                        <th md-column md-numeric order-by="columns"><span translate>IMPORT_STEP2.REPORT_TABLE.T_LABEL_COLUMN</span></th>
+                        <th md-column md-numeric order-by="value"><span translate>IMPORT_STEP2.REPORT_TABLE.T_LABEL_VALUE</span></th>
+                        <th md-column md-numeric order-by="errMsg"><span translate>IMPORT_STEP2.REPORT_TABLE.T_LABEL_ERROR_MESSAGE</span></th>
                     </tr>
                 </thead>
                 <tbody md-body>
@@ -121,4 +121,4 @@
         md-row-select="query.numRows" md-page-select></md-table-pagination>
     </md-content>
 </div>
-<md-content ng-hide="nbErrors > 0" class="md-headline" layout-padding style="min-height: 100px; text-align: center; padding-top: 40px" translate>IMPORT.STEP_TWO.T_LABEL_NO_ERROR</md-content>
+<md-content ng-hide="nbErrors > 0" class="md-headline" layout-padding style="min-height: 100px; text-align: center; padding-top: 40px" translate>IMPORT_STEP2.REPORT_TABLE.T_LABEL_NO_ERROR</md-content>
