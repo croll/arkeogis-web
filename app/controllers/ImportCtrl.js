@@ -23,7 +23,11 @@
     'use strict';
     ArkeoGIS.controller('ImportMainCtrl', ['$scope', '$location', '$rootScope', '$state', 'importService',
         function($scope, $location, $rootScope, $state, importService) {
-			// debug
+			      // Debug
+            //importService.tabs.selectedIndex = 4;
+            //return;
+            // Fin Debug
+
             $scope.tabs = importService.tabs; //jshint ignore: line
             var checkPath = function(p) {
                 var tabNum = p.split('step')[1];
@@ -183,7 +187,7 @@
                 value: (nbSites > 0) ? nbSites - sitesWithErrors.length : 0
             }, {
                 key: "Sites en erreur:",
-                value: sitesWithErrors.length || nbErrors 
+                value: sitesWithErrors.length || nbErrors
             }];
 
             $scope.filter = {
