@@ -2,12 +2,12 @@
   <md-card class="animate-hide" ng-hide="userPreferences.hideIntro" flex>
     <md-card-content translate>
       <p translate>IMPORT_STEP4.INFOS.T_LINE1</p>
-      <p translate>IMPORT_STEP3.INFOS.T_LINE2</p>
+      <p translate>IMPORT_STEP4.INFOS.T_LINE2</p>
     </md-card-content>
   </md-card>
   <div class="layout-padding">
     <h1 class="md-display-1">
-      <span translate>IMPORT_STEP3.FORM.T_TITLE</span>
+      <span translate>IMPORT_STEP4.FORM.T_TITLE</span>
       "{{importFields.DatabaseName}}"</h1>
     <form name="publicationForm" class="md-padding">
       <md-content layout="column" layout-gt-sm="row">
@@ -51,22 +51,19 @@
         <div class="md-padding" flex-offset-gt-md="5" flex>
           <ark-form-block>
             <md-input-container>
-              <textarea ng-model="moreInfosFields.Source" placeholder="{{ 'IMPORT_STEP4.RESOURCE.T_LABEL' | translate }}
+              <textarea ng-model="moreInfosFields.Source" placeholder="{{ 'IMPORT_STEP4.FIELD_RESOURCE.T_LABEL' | translate }}
 								" md-no-autogrow="true" style="height: 120px"></textarea>
             </md-input-container>
             <ark-help translate>IMPORT_STEP4.FIELD_RESOURCE.T_HELP</ark-help>
           </ark-form-block>
           <ark-form-block>
             <md-input-container>
-              <textarea ng-model="moreInfosFields.Relations" placeholder="Lien avec d'autres ressources." md-no-autogrow="true" style="height: 120px"></textarea>
+              <textarea ng-model="moreInfosFields.Relations" placeholder="{{ 'IMPORT_STEP4.FIELD_RELATIONS.T_LABEL' | translate }}" md-no-autogrow="true" style="height: 120px"></textarea>
             </md-input-container>
-            <ark-help>
-              Lien avec d'autres ressources.
-            </ark-help>
           </ark-form-block>
           <ark-form-block>
             <md-input-container>
-              <textarea ng-model="moreInfosFields.ContextDescription" placeholder5="Précision du cadre de réalisation" md-no-autogrow="true" style="height: 120px"></textarea>
+              <textarea ng-model="moreInfosFields.ContextDescription" placeholder="{{ 'IMPORT_STEP4.FIELD_CONTEXT_DESCRIPTION.T_LABEL' | translate }}" md-no-autogrow="true" style="height: 120px"></textarea>
             </md-input-container>
           </ark-form-block>
         </div>
@@ -76,19 +73,15 @@
         <div class="md-padding" flex>
           <ark-form-block>
             <md-input-container>
-              <textarea ng-model="moreInfosFields.GeographicalExtent[0].value" placeholder="Précision sur l'emprise géographique Langue 1 :
-								" md-no-autogrow="true" style="height: 100px" required></textarea>
+              <textarea ng-model="moreInfosFields.GeographicalExtent[0].value" placeholder="{{ 'IMPORT_STEP4.FIELD_GEOGRAPHICAL_EXTENT1.T_LABEL' | translate }}" md-no-autogrow="true" style="height: 100px" required></textarea>
             </md-input-container>
-            <ark-help>
-              Suite aux informations nationales demandées dans le formulaire d’importation ,vous pouvez ici ajouter des précisions de localisations libres.
-            </ark-help>
+            <ark-help translate>IMPORT_STEP4.FIELD_GEOGRAPHICAL_EXTENT1.T_HELP</ark-help>
           </ark-form-block>
         </div>
         <div class="md-padding" flex>
           <ark-form-block>
             <md-input-container>
-              <textarea ng-model="moreInfosFields.GeographicalExtent[1].value" placeholder="Précision sur l'emprise géographique Langue 2 :
-								" md-no-autogrow="true" style="height: 100px" required></textarea>
+              <textarea ng-model="moreInfosFields.GeographicalExtent[1].value" placeholder="{{ 'IMPORT_STEP4.FIELD_GEOGRAPHICAL_EXTENT2.T_LABEL' | translate }}" md-no-autogrow="true" style="height: 100px" required></textarea>
             </md-input-container>
           </ark-form-block>
         </div>
@@ -98,25 +91,22 @@
         <div class="md-padding" flex>
           <ark-form-block>
             <md-input-container>
-              <textarea ng-model="moreInfosFields.Bibliography[0].value" placeholder="Bibliographie langue 1" md-no-autogrow="true" style="height: 100px" required></textarea>
+              <textarea ng-model="moreInfosFields.Bibliography[0].value" placeholder="{{ 'IMPORT_STEP4.FIELD_BIBLIOGRAPHY1.T_LABEL' | translate }}" md-no-autogrow="true" style="height: 100px" required></textarea>
             </md-input-container>
-            <ark-help>
-              Merci de rédiger la citation qui doit être reprise à l’identique pour présenter ce travail.
-            </ark-help>
+            <ark-help translate>IMPORT_STEP4.FIELD_BIBLIOGRAPHY1.T_HELP</ark-help>
           </ark-form-block>
         </div>
         <div class="md-padding" flex>
           <ark-form-block>
             <md-input-container>
-              <textarea ng-model="moreInfosFields.Bibliography[1].value" placeholder="Bibliographie langue 2 :
-								" md-no-autogrow="true" style="height: 100px" required></textarea>
+              <textarea ng-model="moreInfosFields.Bibliography[1].value" placeholder="{{ 'IMPORT_STEP4.FIELD_BIBLIOGRAPHY2.T_LABEL' | translate }}" md-no-autogrow="true" style="height: 100px" required></textarea>
             </md-input-container>
           </ark-form-block>
         </div>
       </md-content>
       <!-- Actions -->
       <md-content layout layout-sm="column" layout-padding layout-align="center center">
-        <md-button class="md-primary md-raised" ng-disabled="!publicationForm.$valid">Valider les informations complémentaires</md-button>
-        <md-button class="md-raised md-hue-1" ui-sref="import.step3">Retour vers le formulaire de publication</md-button>
+        <md-button class="md-primary md-raised" ng-disabled="!publicationForm.$valid"><span translate>IMPORT_STEP4.FORM.T_BUTTON_SUBMIT</span></md-button>
+        <md-button class="md-raised md-hue-1" ui-sref="import.step3"><span translate>IMPORT_STEP4.FORM.T_BUTTON_BACK</span></md-button>
         <md-content></form>
       </div>
