@@ -5,89 +5,70 @@
         </div>
         <div class="legend" layout-padding flex layout-align="start center">
             <div class="l" ng-hide="nbSitesOK < 0">
-                <div>Nombre de lignes traitées: <span class="b">{{nbLines}}</span>
+                <div><span translate>IMPORT.STEP_TWO.T_LABEL_NB_OF_LINES</span>: <span class="b">{{nbLines}}</span>
                 </div>
-                <ark-help>
-                    Hormis la première ligne.
-                </ark-help>
+                <ark-help translate>IMPORT.STEP_TWO.T_LABEL_NOT_FIRST_LINE</ark-help>
             </div>
             <div class="l" ng-hide="nbSitesOK < 0">
-                <div>Nombre de sites détectés dans le fichier: <span class="b">{{nbSites}}</span>
-                </div>
-                <ark-help>
-                    Nombre de SITE_ID_SOURCE différents.
-                </ark-help>
+                <div><span translate>IMPORT.STEP_TWO.T_LABEL_NB_DETECTED_SITES</span>: <span class="b">{{nbSites}}</span></div>
+                <ark-help translate>IMPORT.STEP_TWO.T_HELP_NB_DETECTED_SITES</ark-help>
             </div>
             <div class="l" ng-hide="nbSitesOK < 0">
-                <div>Nombre de sites valides: <span class="b ok">{{nbSitesOK}}</span>
+                <div><span translate>IMPORT.STEP_TWO.T_LABEL_NB_VALID_SITES</span>: <span class="b ok">{{nbSitesOK}}</span>
                 </div>
-                <ark-help>
-                    Importables dans ArkeoGIS
-                </ark-help>
+                <ark-help translate>IMPORT.STEP_TWO.T_HELP_NB_VALID_SITES</ark-help>
             </div>
             <div class="l" ng-hide="nbSitesOK < 0">
-                <div>Nombre de sites en erreur: <span class="b nok">{{nbSitesNOK}}</span>
+                <div><span translate>IMPORT.STEP_TWO.T_LABEL_NB_SITES_WITH_ERROR</span>: <span class="b nok">{{nbSitesNOK}}</span>
                 </div>
-                <ark-help>
-                    Qui ont au moins une informations invalide
-                </ark-help>
+                <ark-help translate>IMPORT.STEP_TWO.T_HELP_NB_SITES_WITH_ERROR</ark-help>
             </div>
             <div class="l">
-                <div>Nombre total d'erreurs: <span class="b">{{nbErrors}}</span>
+                <div><span translate>IMPORT.STEP_TWO.T_LABEL_NB_ERRORS_TOTAL</span>: <span class="b">{{nbErrors}}</span>
                 </div>
-                <ark-help>
-                    Liste détaillée ci-dessous.
-                </ark-help>
+                <ark-help translate>IMPORT.STEP_TWO.T_HELP_NB_ERRORS_TOTAL</ark-help>
             </div>
         </div>
     </md-card>
     <div class="actions" layout="column" flex>
         <md-card flex ng-hide="nbErrors > 0">
             <div>
-                <h3>Importation réussie</h3>
+                <h3 translate>IMPORT.STEP_TWO.T_LABEL_IMPORT_SUCCESS</h3>
                 <div layout-padding>
-                    <a ui-sref="import.step3">Étape suivante</a>
+                    <a ui-sref="import.step3" translate>IMPORT.STEP_TWO.T_LABEL_NEXT_STEP</a>
                 </div>
-                <ark-help hide-sm>
-                    Accéder au formulaire de publication
-                </ark-help>
+                <ark-help hide-sm translate>IMPORT.STEP_TWO.T_LABEL_ACCESS_TO_PUBLICATION</ark-help>
             </div>
         </md-card>
         <md-card flex ng-hide="nbErrors == 0">
-            <h3>Importer un autre fichier</h3>
+            <h3 translate>IMPORT.STEP_TWO.T_LABEL_IMPORT_ANOTHER_FILE</h3>
             <div layout layout-sm="column" layout-padding>
                 <md-button class="md-primary md-raised" ngf-select="uploadCSV(file)" ng-model="file"
-                name="file" ngf-pattern="'.csv,.txt'" accept=".csv,.txt" ngf-max-size="100MB">Choisir un fichier à importer</md-button>
+                name="file" ngf-pattern="'.csv,.txt'" accept=".csv,.txt" ngf-max-size="100MB" translate>IMPORT.STEP_TWO.T_BUTTON_CHOOSE_FILE</md-button>
             </div>
             <md-progress-linear md-mode="determinate" value="{{uploadProgress}}" md-buffer-value="100"
             ng-hide="!file"></md-progress-linear>
-            <ark-help hide-sm>
-                Effectuer une autre importation de la même base de données après correction des
-                erreurs.
-            </ark-help>
+            <ark-help hide-sm translate>IMPORT.STEP_TWO.T_HELP_IMPORT_ANOTHER_FILE</ark-help>
         </md-card>
         <md-card flex>
-            <h3>Modifier les options d'import</h3>
+            <h3 translate>IMPORT.STEP_TWO.T_LABEL_MODIFY_IMPORT_OPTIONS</h3>
             <div layout-padding>
-                <a ui-sref="import.step1">Revenir à l'étape précédente</a>
+                <a ui-sref="import.step1" translate>IMPORT.STEP_TWO.T_LABEL_PREVIOUS_STEP</a>
             </div>
-            <ark-help hide-sm>
-                Modifier les informations de la base, les options d'import, et renvoyer un nouveau
-                fichier.
+            <ark-help hide-sm translate>IMPORT.STEP_TWO.T_HELP_MODIFY_IMPORT_OPTIONS</ark-help>
+        </md-card>
     </div>
-    </md-card>
-</div>
 </div>
 
 <div ng-hide="nbErrors == 0">
     <md-content layout-padding>
         <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length || filter.show">
             <div class="md-toolbar-tools">
-                <h2 class="md-title">Report</h2>
+                <h2 class="md-title" translate>IMPORT.STEP_TWO.T_LABEL_REPORT</h2>
                 <div flex></div>
                 <md-button class="md-icon-button" ng-click="filter.show = true">
                     <md-tooltip md-direction="left">
-                        Filtrer les résultats
+                      IMPORT.STEP_TWO.FILTER_RESULTS
                     </md-tooltip>
                     <i class="material-icons md-dark">filter_list</i>
                 </md-button>
@@ -102,10 +83,7 @@
                         <md-input-container>
                             <input type="text" ng-model="query.filter" ng-model-options="filter.options" placeholder="search">
                         </md-input-container>
-                        <ark-help>
-                            Saisissez du texte pour filtrer les résultats. Toutes les colonnes sont prises
-                            en compte.
-                        </ark-help>
+                        <ark-help translate>T_HELP_FILTER_RESULTS</ark-help>
                     </ark-form-block>
                 </form>
                 <md-button class="md-icon-button" ng-click="removeFilter()">
@@ -118,11 +96,11 @@
             <table md-table>
                 <thead md-head md-order="query.order" md-trigger="onOrderChange">
                     <tr md-row>
-                        <th md-column md-numeric order-by="line">Line</th>
-                        <th md-column md-numeric order-by="siteCode">Site code</th>
-                        <th md-column md-numeric order-by="columns">Columns</th>
-                        <th md-column md-numeric order-by="value">Value</th>
-                        <th md-column md-numeric order-by="errMsg">Error message</th>
+                        <th md-column md-numeric order-by="line"><span translate>IMPORT.RESULT_HEADER.T_LABEL_LINE</span></th>
+                        <th md-column md-numeric order-by="siteCode"><span translate>IMPORT.RESULT_HEADER.T_LABEL_SITE_CODE</span></th>
+                        <th md-column md-numeric order-by="columns"><span translate>IMPORT.RESULT_HEADER.T_LABEL_COLUMN</span></th>
+                        <th md-column md-numeric order-by="value"><span translate>IMPORT.RESULT_HEADER.T_LABEL_VALUE</span></th>
+                        <th md-column md-numeric order-by="errMsg"><span translate>IMPORT.RESULT_HEADER.T_LABEL_ERROR_MESSAGE</span></th>
                     </tr>
                 </thead>
                 <tbody md-body>
@@ -143,6 +121,4 @@
         md-row-select="query.numRows" md-page-select></md-table-pagination>
     </md-content>
 </div>
-<md-content ng-hide="nbErrors > 0" class="md-headline" layout-padding style="min-height: 100px; text-align: center; padding-top: 40px">
-	Aucune erreur.
-</md-content>
+<md-content ng-hide="nbErrors > 0" class="md-headline" layout-padding style="min-height: 100px; text-align: center; padding-top: 40px" translate>IMPORT.STEP_TWO.T_LABEL_NO_ERROR</md-content>

@@ -27,7 +27,7 @@
       <ark-form-block>
         <md-input-container>
           <label translate>IMPORT.FIELD_DATABASE_NAME.T_LABEL</label>
-          <input name="databaseName" ng-minlength="3" ng-maxlength="50" ng-model="importFields.DatabaseName" required>
+          <input name="databaseName" ng-minlength="3" ng-maxlength="50" ng-model="importFields.DatabaseName" required></input>
           <div ng-messages="importForm.databaseName.$error">
             <div ng-message="minlength" translate>IMPORT.FIELD_DATABASE_NAME.T_ERROR_MIN_LEN</div>
             <div ng-message="maxlength" translate>IMPORT.FIELD_DATABASE_NAME.T_ERROR_MAX_LEN</div>
@@ -89,7 +89,7 @@
       <ark-form-block>
         <md-input-container>
           <label translate>IMPORT.FIELD_SEPARATOR.T_LABEL</label>
-          <input name="separator" ng-maxlength="1" ng-model="importFields.Separator" required>
+          <input name="separator" ng-maxlength="1" ng-model="importFields.Separator" required></input>
           <div ng-messages="importForm.separator.$error">
             <div ng-message="maxlength" translate>IMPORT.FIELD_SEPARATOR.T_ERROR_LEN</div>
             <div ng-message="required" translate>IMPORT.FIELD_DATABASE_ALL.T_ERROR_REQUIRED</div>
@@ -103,7 +103,7 @@
       <ark-form-block>
         <md-input-container>
           <label translate>IMPORT.FIELD_ECHAP_CHARACTER.T_LABEL</label>
-          <input name="echap_character" ng-maxlength="1" ng-model="importFields.Echap_character" required>
+          <input name="echap_character" ng-maxlength="1" ng-model="importFields.Echap_character" required></input>
           <div ng-messages="importForm.echap_character.$error">
             <div ng-message="required" translate>IMPORT.FIELD_DATABASE_ALL.T_ERROR_REQUIRED</div>
           </div>
