@@ -98,9 +98,10 @@
                         } else {
                             console.log("adding: ", src[k]['str']);
                             res[src[k].side]++;
-                            if (src[k].side == "server")
+                            if (src[k].side == "server") {
                                 dst_server[k]=src[k]['str'];
-                            else if (src[k].side == "web")
+                                dst_web[k]=src[k]['str']; // hack: we now also save server translation into web
+                            } else if (src[k].side == "web")
                                 dst_web[k]=src[k]['str'];
                             else console.error("side unknown :", src[k].side);
                         }
