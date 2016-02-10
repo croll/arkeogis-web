@@ -32,9 +32,12 @@
 		//  <div ng-messages="myform.myfieldname.$error" role="alert">
 		//   <div ng-if="myform.myfieldname.$error.server">{{ myform.myfieldname.$error.server | translate }}</div>
 		//  </div>
+        // You also must name the input field with name="myfieldname"
+        // And probably want to add in it something like this : ng-change="userForm.myfieldname.$error.server=false"
         this.setFormErrorFromServer = function(form, error, startswith) {
             if (error.field_path.startsWith(startswith)) {
                 var path = error.field_path.substr(startswith.length);
+                console.log("field error from server : ", path, error.error_string)
                 var elems = path.split(".");
                 var obj = form;
                 for (var i = 0; i < elems.length; i++) {
@@ -52,6 +55,8 @@
 		//  <div ng-messages="myform.myfieldname.$error" role="alert">
 		//   <div ng-if="myform.myfieldname.$error.server">{{ myform.myfieldname.$error.server | translate }}</div>
 		//  </div>
+        // You also must name the input field with name="myfieldname"
+        // And probably want to add in it something like this : ng-change="userForm.myfieldname.$error.server=false"
         this.setFormErrorsFromServer = function(form, errors, startswith) {
 			errors.forEach(function(error) {
 				self.setFormErrorFromServer(form, error, startswith);
