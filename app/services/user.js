@@ -25,9 +25,9 @@
         return $resource('/api/users/:id', {
             id: '@id'
         }, {
-            update: {
+/*            update: {
                 method: 'PUT'
-            },
+            },*/
         });
     }]);
 })();

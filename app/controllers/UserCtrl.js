@@ -106,7 +106,7 @@
 
 		$scope.langs = Langs.query();
 
-        $scope.user = id_user ? User.get({id: id_user}) : new User();
+        $scope.user = id_user != undefined ? User.get({id: id_user}) : new User();
         $scope.selectedCountry=null;
         $scope.selectedCity=0;
 
