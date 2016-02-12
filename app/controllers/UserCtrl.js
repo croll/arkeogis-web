@@ -49,7 +49,9 @@
         $scope.userAddSubmit = function () {
             $scope.user.active = $scope.user.active == "true" ? true : false;
             $scope.user.$save().then(function(ret) {
-                console.log("ret ! ", ret);
+                console.log("user saved ", ret);
+				$scope.hide();
+				getUsers();
             }, function(err) {
                 console.log("err ! ", err);
 				if (err.data.errors) {
@@ -82,6 +84,7 @@
 		// used by getUsers on promise success
 		function getUsersSuccess(users) {
 			$scope.users = users;
+			console.log("updated ! ", users);
 		}
 
 		$scope.users_onPaginate = function (page, limit) {
