@@ -38,6 +38,7 @@
                 targetEvent: ev
             }).then(function(answer) {
                 console.log("Dialog Add User Answer : "+answer);
+				getUsers();
             }, function() {
                 console.log("Dialog Add User cancelled");
             });
@@ -51,7 +52,6 @@
             $scope.user.$save().then(function(ret) {
                 console.log("user saved ", ret);
 				$scope.hide();
-				getUsers();
             }, function(err) {
                 console.log("err ! ", err);
 				if (err.data.errors) {
@@ -60,6 +60,19 @@
             });
         }
 
+		$scope.edit_user = function (id_user) {
+			console.log("edit user: ", id_user);
+			$mdDialog.show({
+                controller: DialogAddUserController,
+                templateUrl: 'partials/user/dialogAddUser.tmpl.html',
+                //targetEvent: ev
+            }).then(function(answer) {
+                console.log("Dialog Add User Answer : "+answer);
+				getUsers();
+            }, function() {
+                console.log("Dialog Add User cancelled");
+            });
+		}
 
 
 		/* users list */

@@ -56,7 +56,7 @@
             </thead>
             <tbody md-body>
                 <tr md-auto-select md-row ng-repeat="user in users.data">
-                    <td md-cell>{{user.username}}</td>
+                    <td md-cell><a ng-click="edit_user(user.id)">{{user.username}}</a></td>
                     <td md-cell>{{user.created_at | date:'short'}}</td>
                     <td md-cell>{{user.updated_at | date:'short'}}</td>
                     <td md-cell>{{user.lastname}} {{user.firstname}}</td>
