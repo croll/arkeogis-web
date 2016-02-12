@@ -21,61 +21,7 @@
 
 (function () {
 	'use strict';
-	ArkeoGIS.controller('UserCtrl', ['$scope', 'user', 'Langs', '$mdDialog', "$http", "$q", "arkeoService", function ($scope, user, Langs, $mdDialog, $http, $q, arkeoService) {
-
-
-		$scope.langs = Langs.query();
-
-		//$scope.users = user.query();
-        $scope.user = new user();
-        $scope.selectedCountry=null;
-        $scope.selectedCity=0;
-
-        $scope.openDialogAdd = function (ev) {
-            $mdDialog.show({
-                controller: DialogAddUserController,
-                templateUrl: 'partials/user/dialogAddUser.tmpl.html',
-                targetEvent: ev
-            }).then(function(answer) {
-                console.log("Dialog Add User Answer : "+answer);
-				getUsers();
-            }, function() {
-                console.log("Dialog Add User cancelled");
-            });
-        };
-
-        $scope.autocompleteCountry = arkeoService.autocompleteCountry;
-        $scope.autocompleteCity = arkeoService.autocompleteCity;
-
-        $scope.userAddSubmit = function () {
-            $scope.user.active = $scope.user.active == "true" ? true : false;
-            $scope.user.$save().then(function(ret) {
-                console.log("user saved ", ret);
-				$scope.hide();
-            }, function(err) {
-                console.log("err ! ", err);
-				if (err.data.errors) {
-					arkeoService.setFormErrorsFromServer($scope.userForm, err.data.errors, "json.");
-				}
-            });
-        }
-
-		$scope.edit_user = function (id_user) {
-			console.log("edit user: ", id_user);
-			$mdDialog.show({
-                controller: DialogAddUserController,
-                templateUrl: 'partials/user/dialogAddUser.tmpl.html',
-                //targetEvent: ev
-            }).then(function(answer) {
-                console.log("Dialog Add User Answer : "+answer);
-				getUsers();
-            }, function() {
-                console.log("Dialog Add User cancelled");
-            });
-		}
-
-
-		/* users list */
+	ArkeoGIS.controller('UserCtrl', ['$scope', 'user', 'Langs', '$mdDialog', "$http", "$q", "arkeoService", function ($scope, User, Langs, $mdDialog, $http, $q, arkeoService) {
 
 		$scope.users_query = {
 			order: 'u.created_at',
@@ -91,12 +37,12 @@
 		var users_bookmark_page=1;
 
 		function getUsers(query) {
-			$scope.promise = user.get(query || $scope.users_query, getUsersSuccess).$promise;
+			$scope.users = User.get(query || $scope.users_query, getUsersSuccess);
 		}
 
 		// used by getUsers on promise success
 		function getUsersSuccess(users) {
-			$scope.users = users;
+			//$scope.users = users;
 			console.log("updated ! ", users);
 		}
 
@@ -130,14 +76,41 @@
 	        	$scope.users_query.page = users_bookmark_page;
 	      	}
 
+			console.log("yo watch");
 	      	getUsers();
 	    });
 
-		getUsers();
+		$scope.openDialogEdit = function (ev, id_user) {
+            $mdDialog.show({
+                controller: "UserEditCtrl",
+                templateUrl: 'partials/user/dialogAddUser.tmpl.html',
+                targetEvent: ev,
+				locals: {
+					id_user: id_user
+				}
+            }).then(function(answer) {
+                console.log("Dialog Add User Answer : "+answer);
+				//getUsers();
+            }, function() {
+                console.log("Dialog Add User cancelled");
+            });
+        };
+
+		console.log("yo 1");
+		//getUsers();
 
 	}]);
 
-    function DialogAddUserController($scope, $mdDialog) {
+
+	ArkeoGIS.controller('UserEditCtrl', ['$scope', 'user', 'Langs', '$mdDialog', "$http", "$q", "arkeoService", "id_user", function ($scope, User, Langs, $mdDialog, $http, $q, arkeoService, id_user) {
+
+		$scope.langs = Langs.query();
+
+        $scope.user = id_user ? User.get({id: id_user}) : new User();
+        $scope.selectedCountry=null;
+        $scope.selectedCity=0;
+
+
         $scope.hide = function() {
             $mdDialog.hide();
         };
@@ -147,6 +120,23 @@
         $scope.answer = function(answer) {
             $mdDialog.hide(answer);
         };
-    }
 
-})();
+        $scope.autocompleteCountry = arkeoService.autocompleteCountry;
+        $scope.autocompleteCity = arkeoService.autocompleteCity;
+
+        $scope.userAddSubmit = function () {
+            $scope.user.active = $scope.user.active == "true" ? true : false;
+            $scope.user.$save().then(function(ret) {
+                console.log("user saved ", ret);
+				$scope.hide();
+            }, function(err) {
+                console.log("err ! ", err);
+				if (err.data.errors) {
+					arkeoService.setFormErrorsFromServer($scope.userForm, err.data.errors, "json.");
+				}
+            });
+        };
+
+	}]);
+
+})(angular);

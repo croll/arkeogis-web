@@ -22,7 +22,7 @@
 (function () {
     'use strict';
     ArkeoGIS.service('user', ['$resource', function ($resource) {
-        return $resource('/api/users:id', {
+        return $resource('/api/users/:id', {
             id: '@id'
         }, {
             update: {
