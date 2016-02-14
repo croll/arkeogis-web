@@ -135,13 +135,13 @@
                             <md-autocomplete flex
                                              md-floating-label="{{ 'USER.FIELD_COMPANY1.T_TITLE' | translate }}"
                                              md-item-text="item.display"
-                                             md-items="item in autocompleteCompany(user.companies[0].SearchName)"
+                                             md-items="item in autocompleteCompany(user.companies[0].searchname)"
                                              md-min-length="1"
                                              md-no-cache="1"
-                                             md-search-text="user.companies[0].SearchName"
-                                             md-selected-item="user.companies[0].Name">
+                                             md-search-text="user.companies[0].searchname"
+                                             md-selected-item="user.companies[0]">
                                 <md-item-template>
-                                    <span md-highlight-text="user.companies[0].SearchName">{{item.display}}</span>
+                                    <span md-highlight-text="user.companies[0].searchname">{{item.display}}</span>
                                 </md-item-template>
                                 <md-not-found>{{ 'USER.FIELD_COMPANY.T_CHECK_NOMATCH' | translate }}</md-not-found>
                             </md-autocomplete>
@@ -179,13 +179,13 @@
                             <md-autocomplete flex
                                              md-floating-label="{{ 'USER.FIELD_COMPANY2.T_TITLE' | translate }}"
                                              md-item-text="item.display"
-                                             md-items="item in autocompleteCompany(user.companies[1].SearchName)"
+                                             md-items="item in autocompleteCompany(user.companies[1].searchname)"
                                              md-min-length="1"
                                              md-no-cache="1"
-                                             md-search-text="user.companies[1].SearchName"
-                                             md-selected-item="user.companies[1].Name">
+                                             md-search-text="user.companies[1].searchname"
+                                             md-selected-item="user.companies[1]">
                                 <md-item-template>
-                                    <span md-highlight-text="user.companies[1].SearchName">{{item.display}}</span>
+                                    <span md-highlight-text="user.companies[1].searchname">{{item.display}}</span>
                                 </md-item-template>
                                 <md-not-found>{{ 'USER.FIELD_COMPANY.T_CHECK_NOMATCH' | translate }}</md-not-found>
                             </md-autocomplete>

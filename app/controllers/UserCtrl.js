@@ -141,7 +141,8 @@
         };
 
         $scope.autocompleteCountry = arkeoService.autocompleteCountry;
-        $scope.autocompleteCity = arkeoService.autocompleteCity;
+		$scope.autocompleteCity = arkeoService.autocompleteCity;
+		$scope.autocompleteCompany = arkeoService.autocompleteCompany;
 
         $scope.userAddSubmit = function () {
             $scope.user.active = $scope.user.active == "true" ? true : false;
