@@ -38,12 +38,13 @@
 
 		function getUsers(query) {
 			$scope.users = User.get(query || $scope.users_query, getUsersSuccess);
+			//User.get(query || $scope.users_query, getUsersSuccess);
 		}
 
 		// used by getUsers on promise success
 		function getUsersSuccess(users) {
-			//$scope.users = users;
 			console.log("updated ! ", users);
+			//$scope.users = users;
 		}
 
 		$scope.users_onPaginate = function (page, limit) {
@@ -106,10 +107,28 @@
 
 		$scope.langs = Langs.query();
 
-        $scope.user = id_user != undefined ? User.get({id: id_user}) : new User();
+		$scope.user = id_user != undefined ? User.get({id: id_user}, getUserSuccess) : hackUserCompanies(new User());
         $scope.selectedCountry=null;
         $scope.selectedCity=0;
 
+		function hackUserCompanies(user) {
+			while (user.companies.length < 2) {
+				user.companies[user.companies.length] = {
+					data: {
+						value: undefined,
+						display: "",
+					},
+					searchname: "",
+				}
+			}
+			return user;
+		}
+
+		function getUserSuccess(user) {
+			hackUserCompanies(user);
+			//$scope.user=user;
+			console.log("user loaded : ", user);
+		};
 
         $scope.hide = function() {
             $mdDialog.hide();
