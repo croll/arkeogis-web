@@ -107,9 +107,9 @@
 
 		$scope.langs = Langs.query();
 
-		$scope.user = id_user != undefined ? User.get({id: id_user}, getUserSuccess) : hackUserCompanies(new User());
+		$scope.user = id_user != undefined ? User.get({id: id_user}, getUserSuccess) : hackAutocompletes(new User());
 
-		function hackUserCompanies(user) {
+		function hackAutocompletes(user) {
 			if (user.companies == undefined) {
 				user.companies = [];
 			}
@@ -124,14 +124,18 @@
 			}
 			user.companies[0].searchname=user.companies[0].name;
 			user.companies[1].searchname=user.companies[1].name;
+			$scope.searchTextCountry = user.city_and_country.country.name;
+			$scope.searchTextCity = user.city_and_country.city.name;
 			return user;
 		}
 
 		function getUserSuccess(user) {
-			hackUserCompanies(user);
+			hackAutocompletes(user);
 			//$scope.user=user;
 			console.log("user loaded : ", user);
 			console.log("user.companies[0] : ", user.companies[0]);
+			$scope.searchTextCountry = user.city_and_country.country.name;
+			$scope.searchTextCity = user.city_and_country.city.name;
 		};
 
         $scope.hide = function() {

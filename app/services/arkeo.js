@@ -80,11 +80,11 @@
                 lang: 'fr',
                 limit: 25
             };
-            return self.wrapCall('/api/countries', params, {
+            return self.wrapCall('/api/countries', params/*, {
                 geonameid: 'value',
                 name: 'display',
                 name_ascii: 'name_ascii' // not sure this is used somewhere
-            });
+            }*/);
         };
 
         this.autocompleteCity = function(selectedCountry, searchTextCity, lang) {
@@ -100,10 +100,10 @@
             if (selectedCountry) {
                 params.id_country = selectedCountry;
             }
-            return self.wrapCall('/api/cities', params, {
+            return self.wrapCall('/api/cities', params/*, {
                 geonameid: 'value',
                 name: 'display'
-            });
+            }*/);
         };
 
         this.autocompleteCompany = function(searchTextCompany, lang) {
@@ -119,7 +119,7 @@
         };
 
         this.loadLangs = function() {
-            return self.wrapCall('/api/langs', {}, {});
+            return self.wrapCall('/api/langs', {});
         };
 
         // call rest list

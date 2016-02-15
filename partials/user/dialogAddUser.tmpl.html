@@ -34,14 +34,14 @@
                     <md-autocomplete flex="20"
                                      md-autoselect="true"
                                      md-floating-label="{{ 'USER.FIELD_COUNTRY.T_TITLE' | translate }}"
-                                     md-item-text="item.display"
+                                     md-item-text="item.name"
                                      md-items="item in autocompleteCountry(searchTextCountry)"
                                      md-min-length="1"
                                      md-no-cache="1"
                                      md-search-text="searchTextCountry"
-                                     md-selected-item="user.country">
+                                     md-selected-item="user.city_and_country.country">
                         <md-item-template>
-                            <span md-highlight-text="searchTextCountry">{{item.display}}</span>
+                            <span md-highlight-text="searchTextCountry">{{item.name}}</span>
                         </md-item-template>
                         <md-not-found>{{ 'USER.FIELD_COUNTRY.T_CHECK_NOMATCH' | translate }}</md-not-found>
                     </md-autocomplete>
@@ -49,14 +49,14 @@
                     <md-autocomplete flex="20"
                                      md-autoselect="true"
                                      md-floating-label="{{ 'USER.FIELD_CITY.T_TITLE' | translate }}"
-                                     md-item-text="item.display"
-                                     md-items="item in autocompleteCity(user.country ? user.country.display.value : null, searchTextCity)"
+                                     md-item-text="item.name"
+                                     md-items="item in autocompleteCity(user.city_and_country.country ? user.city_and_country.country.geonameid : null, searchTextCity)"
                                      md-min-length="2"
                                      md-no-cache="1"
                                      md-search-text="searchTextCity"
-                                     md-selected-item="user.city">
+                                     md-selected-item="user.city_and_country.city">
                         <md-item-template>
-                            <span md-highlight-text="searchTextCity">{{item.display}}</span>
+                            <span md-highlight-text="searchTextCity">{{item.name}}</span>
                         </md-item-template>
                         <md-not-found>{{ 'USER.FIELD_CITY.T_CHECK_NOMATCH' | translate }}</md-not-found>
                     </md-autocomplete>
@@ -288,6 +288,8 @@
                         <md-button class="md-raised" ng-click="cancel()">Annuler</md-button>
                         <md-button class="md-raised md-primary" type="submit">Ok</md-button>
                 </div>
+
+                <div>{{user}}</div>
 
             </md-content>
         </md-dialog-content>
