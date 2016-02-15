@@ -113,7 +113,7 @@
             lang = lang || 'fr';
             var params = {
                 search: searchTextCompany,
-                lang: 'fr'
+                lang: lang
             };
             return self.wrapCall('/api/companies', params);
         };
@@ -140,6 +140,12 @@
                 d.reject(err);
             });
             return d.promise;
+        };
+
+        this.getCity = function(id_city, lang) {
+            return self.wrapCall('/api/cities/'+id_city, {
+                lang: 'fr'
+            })
         };
 
         // remap data array of object

@@ -32,6 +32,7 @@
                     </md-input-container>
 
                     <md-autocomplete flex="20"
+                                     md-search-text-change="searchTextCity=''"
                                      md-autoselect="true"
                                      md-floating-label="{{ 'USER.FIELD_COUNTRY.T_TITLE' | translate }}"
                                      md-item-text="item.name"
@@ -138,28 +139,29 @@
                                              md-select-on-match="true"
                                              md-floating-label="{{ 'USER.FIELD_COMPANY1.T_TITLE' | translate }}"
                                              md-item-text="item.name"
-                                             md-items="item in autocompleteCompany(user.companies[0].searchname)"
+                                             md-items="item in autocompleteCompany(companies_search[0])"
                                              md-min-length="1"
                                              md-no-cache="1"
-                                             md-search-text="user.companies[0].searchname"
-                                             md-selected-item="user.companies[0]">
+                                             md-search-text="companies_search[0]"
+                                             md-selected-item="companies[0]">
                                 <md-item-template>
-                                    <span md-highlight-text="user.companies[0].searchname">{{item.name}}</span>
+                                    <span md-highlight-text="companies_search[0]">{{item.name}}</span>
                                 </md-item-template>
                                 <md-not-found>{{ 'USER.FIELD_COMPANY.T_CHECK_NOMATCH' | translate }}</md-not-found>
                             </md-autocomplete>
 
                             <md-autocomplete flex
+                                             md-search-text-change="companies_city_search[0]=''"
                                              md-autoselect="true"
                                              md-floating-label="{{ 'USER.FIELD_COMPANY1_COUNTRY.T_TITLE' | translate }}"
-                                             md-item-text="item.display"
-                                             md-items="item in autocompleteCountry(user_searchTextCompany1Country)"
+                                             md-item-text="item.name"
+                                             md-items="item in autocompleteCountry(companies_country_search[0])"
                                              md-min-length="1"
                                              md-no-cache="1"
-                                             md-search-text="user_searchTextCompany1Country"
-                                             md-selected-item="user.company1_country">
+                                             md-search-text="companies_country_search[0]"
+                                             md-selected-item="companies_country[0]">
                                 <md-item-template>
-                                    <span md-highlight-text="user_searchTextCompany1Country">{{item.display}}</span>
+                                    <span md-highlight-text="companies_country_search[0]">{{item.name}}</span>
                                 </md-item-template>
                                 <md-not-found>{{ 'USER.FIELD_COMPANY_COUNTRY.T_CHECK_NOMATCH' | translate }}</md-not-found>
                             </md-autocomplete>
@@ -167,14 +169,14 @@
                             <md-autocomplete flex
                                              md-autoselect="true"
                                              md-floating-label="{{ 'USER.FIELD_COMPANY1_CITY.T_TITLE' | translate }}"
-                                             md-item-text="item.display"
-                                             md-items="item in autocompleteCity(user.company1_country ? user.company1_country.value : null, user_searchTextCompany1City)"
+                                             md-item-text="item.name"
+                                             md-items="item in autocompleteCity(companies_country[0] ? companies_country[0].geonameid : null, companies_city_search[0])"
                                              md-min-length="2"
                                              md-no-cache="1"
-                                             md-search-text="user_searchTextCompany1City"
-                                             md-selected-item="user.companies[0].city">
+                                             md-search-text="companies_city_search[0]"
+                                             md-selected-item="companies_city[0]">
                                 <md-item-template>
-                                    <span md-highlight-text="user_searchTextCompany1City">{{item.display}}</span>
+                                    <span md-highlight-text="companies_city_search[0]">{{item.name}}</span>
                                 </md-item-template>
                                 <md-not-found>{{ 'USER.FIELD_COMPANY_CITY.T_CHECK_NOMATCH' | translate }}</md-not-found>
                             </md-autocomplete>
@@ -185,28 +187,29 @@
                                              md-select-on-match="true"
                                              md-floating-label="{{ 'USER.FIELD_COMPANY2.T_TITLE' | translate }}"
                                              md-item-text="item.name"
-                                             md-items="item in autocompleteCompany(user.companies[1].searchname)"
+                                             md-items="item in autocompleteCompany(companies_search[1])"
                                              md-min-length="1"
                                              md-no-cache="1"
-                                             md-search-text="user.companies[1].searchname"
-                                             md-selected-item="user.companies[1]">
+                                             md-search-text="companies_search[1]"
+                                             md-selected-item="companies[1]">
                                 <md-item-template>
-                                    <span md-highlight-text="user.companies[1].searchname">{{item.display}}</span>
+                                    <span md-highlight-text="companies_search[1]">{{item.name}}</span>
                                 </md-item-template>
                                 <md-not-found>{{ 'USER.FIELD_COMPANY.T_CHECK_NOMATCH' | translate }}</md-not-found>
                             </md-autocomplete>
 
                             <md-autocomplete flex
+                                             md-search-text-change="companies_city_search[1]=''"
                                              md-autoselect="true"
                                              md-floating-label="{{ 'USER.FIELD_COMPANY2_COUNTRY.T_TITLE' | translate }}"
-                                             md-item-text="item.display"
-                                             md-items="item in autocompleteCountry(user_searchTextCompany2Country)"
+                                             md-item-text="item.name"
+                                             md-items="item in autocompleteCountry(companies_country_search[1])"
                                              md-min-length="1"
                                              md-no-cache="1"
-                                             md-search-text="user_searchTextCompany2Country"
-                                             md-selected-item="user.company2_country">
+                                             md-search-text="companies_country_search[1]"
+                                             md-selected-item="companies_country[1]">
                                 <md-item-template>
-                                    <span md-highlight-text="user_searchTextCompany2Country">{{item.display}}</span>
+                                    <span md-highlight-text="companies_country_search[1]">{{item.name}}</span>
                                 </md-item-template>
                                 <md-not-found>{{ 'USER.FIELD_COMPANY_COUNTRY.T_CHECK_NOMATCH' | translate }}</md-not-found>
                             </md-autocomplete>
@@ -214,18 +217,19 @@
                             <md-autocomplete flex
                                              md-autoselect="true"
                                              md-floating-label="{{ 'USER.FIELD_COMPANY2_CITY.T_TITLE' | translate }}"
-                                             md-item-text="item.display"
-                                             md-items="item in autocompleteCity(user.company2_country ? user.company2_country.value : null, user_searchTextCompany2City)"
+                                             md-item-text="item.name"
+                                             md-items="item in autocompleteCity(companies_country[1] ? companies_country[1].geonameid : null, companies_city_search[1])"
                                              md-min-length="2"
                                              md-no-cache="1"
-                                             md-search-text="user_searchTextCompany2City"
-                                             md-selected-item="user.companies[1].city">
+                                             md-search-text="companies_city_search[1]"
+                                             md-selected-item="companies_city[1]">
                                 <md-item-template>
-                                    <span md-highlight-text="user_searchTextCompany2City">{{item.display}}</span>
+                                    <span md-highlight-text="companies_city_search[1]">{{item.name}}</span>
                                 </md-item-template>
                                 <md-not-found>{{ 'USER.FIELD_COMPANY_CITY.T_CHECK_NOMATCH' | translate }}</md-not-found>
                             </md-autocomplete>
                         </div>
+
 
                         <div flex layout="row">
                             <md-input-container flex>
@@ -288,8 +292,9 @@
                         <md-button class="md-raised" ng-click="cancel()">Annuler</md-button>
                         <md-button class="md-raised md-primary" type="submit">Ok</md-button>
                 </div>
-
-                <div>{{user}}</div>
+                <div>companie 0 : {{user.companies[0]}} / user_searchTextCompany1 : {{user_searchTextCompany1}}</div>
+                <div>user.city_and_country.country : {{user.city_and_country.country}} / searchTextCountry : {{searchTextCountry}}</div>
+                <div>user.city_and_country.city : {{user.city_and_country.city}} / searchTextCity : {{searchTextCity}}</div>
 
             </md-content>
         </md-dialog-content>

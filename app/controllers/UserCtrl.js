@@ -108,34 +108,80 @@
 		$scope.langs = Langs.query();
 
 		$scope.user = id_user != undefined ? User.get({id: id_user}, getUserSuccess) : hackAutocompletes(new User());
+		$scope.companies=[null, null];
+		$scope.companies_search=[null, null];
+		$scope.companies_city=[null, null];
+		$scope.companies_city_search=[null, null];
+		$scope.companies_country=[null, null];
+		$scope.companies_country_search=[null, null];
 
 		function hackAutocompletes(user) {
-			if (user.companies == undefined) {
+			// companies fields
+			if (user.companies == undefined || user.companies == null) {
 				user.companies = [];
 			}
 			while (user.companies.length < 2) {
 				user.companies[user.companies.length] = {
-					data: {
-						value: undefined,
-						display: "",
+					name: "",
+					id:0,
+					city_and_country: {
+						city: {
+							name:"",
+							geonameid:0,
+						},
+						country: {
+							name:"",
+							geonameid:0,
+						},
 					},
-					searchname: "",
+				};
+			}
+
+			for (var i=0; i<user.companies.length; i++) {
+				if (user.companies[i] && user.companies[i].name.length > 0) {
+					$scope.companies[i]={
+						name: user.companies[i].name,
+						id: user.companies[i].id,
+					};
+
+					if (user.companies[i].city_and_country && user.companies[i].city_and_country.country && user.companies[i].city_and_country.country.name && user.companies[i].city_and_country.country.name.length > 0) {
+						$scope.companies_country[i]={
+							name: user.companies[i].city_and_country.country.name,
+							geonameid: user.companies[i].city_and_country.country.geonameid,
+						};
+					}
+
+					if (user.companies[i].city_and_country && user.companies[i].city_and_country.city && user.companies[i].city_and_country.city.name && user.companies[i].city_and_country.city.name.length > 0) {
+						$scope.companies_city[i]={
+							name: user.companies[i].city_and_country.city.name,
+							geonameid: user.companies[i].city_and_country.city.geonameid,
+						};
+					}
 				}
 			}
-			user.companies[0].searchname=user.companies[0].name;
-			user.companies[1].searchname=user.companies[1].name;
-			$scope.searchTextCountry = user.city_and_country.country.name;
-			$scope.searchTextCity = user.city_and_country.city.name;
+
+			// city & country field of user
+			if (user.city_and_country == undefined) {
+				user.city_and_country={
+					city: null,
+					country: null,
+				};
+			}
+
+			if (user.city_and_country.country && user.city_and_country.country.name == "") {
+				user.city_and_country.country=null;
+			}
+			if (user.city_and_country.city && user.city_and_country.city.name == "") {
+				user.city_and_country.city=null;
+			}
 			return user;
 		}
 
 		function getUserSuccess(user) {
+			console.log("user loaded before hack: ", user.companies);
 			hackAutocompletes(user);
 			//$scope.user=user;
-			console.log("user loaded : ", user);
-			console.log("user.companies[0] : ", user.companies[0]);
-			$scope.searchTextCountry = user.city_and_country.country.name;
-			$scope.searchTextCity = user.city_and_country.city.name;
+			console.log("user loaded after hack: ", user.companies);
 		};
 
         $scope.hide = function() {
@@ -154,6 +200,18 @@
 
         $scope.userAddSubmit = function () {
             $scope.user.active = $scope.user.active == "true" ? true : false;
+			for (var i=0; i<2; i++) {
+				if (($scope.companies[i] || $scope.companies_search[i]) && $scope.companies_country[i] && $scope.companies_city[i]) {
+					$scope.user.companies[i] = $scope.companies[i] ? $scope.companies[i] : {};
+					$scope.user.companies[i].name = $scope.companies_search[i];
+					$scope.user.companies[i].city_and_country = {
+						country: $scope.companies_country[i],
+						city: $scope.companies_city[i],
+					};
+				} else {
+					console.log("naze", i, $scope.companies[i], $scope.companies_country[i], $scope.companies_city[i])
+				}
+			}
             $scope.user.$save().then(function(ret) {
                 console.log("user saved ", ret);
 				$scope.hide();
