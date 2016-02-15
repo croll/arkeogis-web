@@ -108,10 +108,11 @@
 		$scope.langs = Langs.query();
 
 		$scope.user = id_user != undefined ? User.get({id: id_user}, getUserSuccess) : hackUserCompanies(new User());
-        $scope.selectedCountry=null;
-        $scope.selectedCity=0;
 
 		function hackUserCompanies(user) {
+			if (user.companies == undefined) {
+				user.companies = [];
+			}
 			while (user.companies.length < 2) {
 				user.companies[user.companies.length] = {
 					data: {
@@ -121,6 +122,8 @@
 					searchname: "",
 				}
 			}
+			user.companies[0].searchname=user.companies[0].name;
+			user.companies[1].searchname=user.companies[1].name;
 			return user;
 		}
 
@@ -128,6 +131,7 @@
 			hackUserCompanies(user);
 			//$scope.user=user;
 			console.log("user loaded : ", user);
+			console.log("user.companies[0] : ", user.companies[0]);
 		};
 
         $scope.hide = function() {
