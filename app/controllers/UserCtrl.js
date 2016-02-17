@@ -138,26 +138,7 @@
 			}
 
 			for (var i=0; i<user.companies.length; i++) {
-				if (user.companies[i] && user.companies[i].name.length > 0) {
-					$scope.companies[i]={
-						name: user.companies[i].name,
-						id: user.companies[i].id,
-					};
-
-					if (user.companies[i].city_and_country && user.companies[i].city_and_country.country && user.companies[i].city_and_country.country.name && user.companies[i].city_and_country.country.name.length > 0) {
-						$scope.companies_country[i]={
-							name: user.companies[i].city_and_country.country.name,
-							geonameid: user.companies[i].city_and_country.country.geonameid,
-						};
-					}
-
-					if (user.companies[i].city_and_country && user.companies[i].city_and_country.city && user.companies[i].city_and_country.city.name && user.companies[i].city_and_country.city.name.length > 0) {
-						$scope.companies_city[i]={
-							name: user.companies[i].city_and_country.city.name,
-							geonameid: user.companies[i].city_and_country.city.geonameid,
-						};
-					}
-				}
+				set_company(i, user.companies[i]);
 			}
 
 			// city & country field of user
@@ -177,11 +158,47 @@
 			return user;
 		}
 
+		function set_company(index, company) {
+			console.log("got: ", company);
+			if (company && company.name.length > 0) {
+				if (!$scope.companies[index] || $scope.companies[index].id != company.id || $scope.companies[index].name != company.name) {
+					$scope.companies[index]={
+						name: company.name,
+						id: company.id,
+					};
+				}
+
+				if (company.city_and_country && company.city_and_country.country && company.city_and_country.country.name && company.city_and_country.country.name.length > 0) {
+					$scope.companies_country[index]={
+						name: company.city_and_country.country.name,
+						geonameid: company.city_and_country.country.geonameid,
+					};
+				}
+
+				if (company.city_and_country && company.city_and_country.city && company.city_and_country.city.name && company.city_and_country.city.name.length > 0) {
+					$scope.companies_city[index]={
+						name: company.city_and_country.city.name,
+						geonameid: company.city_and_country.city.geonameid,
+					};
+				}
+			}
+		}
+
 		function getUserSuccess(user) {
 			console.log("user loaded before hack: ", user.companies);
 			hackAutocompletes(user);
 			//$scope.user=user;
 			console.log("user loaded after hack: ", user.companies);
+		};
+
+		$scope.company_change = function(num) {
+			if ($scope.companies[num] && $scope.companies[num].id) {
+				arkeoService.getCompany($scope.companies[num].id).then(function(company) {
+					set_company(num, company);
+				});
+			} else {
+				set_company(num, null);
+			}
 		};
 
         $scope.hide = function() {

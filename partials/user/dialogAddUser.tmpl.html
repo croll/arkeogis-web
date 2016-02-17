@@ -136,6 +136,7 @@
                     <div flex="60" layout="column">
                         <div flex layout="row">
                             <md-autocomplete flex
+                                             md-selected-item-change="company_change(0)"
                                              md-select-on-match="true"
                                              md-floating-label="{{ 'USER.FIELD_COMPANY1.T_TITLE' | translate }}"
                                              md-item-text="item.name"
@@ -184,6 +185,7 @@
 
                         <div flex layout="row">
                             <md-autocomplete flex
+                                             md-selected-item-change="company_change(1)"
                                              md-select-on-match="true"
                                              md-floating-label="{{ 'USER.FIELD_COMPANY2.T_TITLE' | translate }}"
                                              md-item-text="item.name"
@@ -247,7 +249,7 @@
                 <div layout="row">
                     <md-input-container flex>
                         <label translate>.FIELD_CHRONOGROUP.T_TITLE</label>
-                        <md-select ng-model="user.chronogroup">
+                        <md-select ng-model="user.chronogroup" multiple>
                             <md-option value="1">Branlos</md-option>
                             <md-option value="2">Blagueurs</md-option>
                             <md-option value="3">Creuseurs de tombes</md-option>
@@ -256,7 +258,7 @@
 
                     <md-input-container flex>
                         <label translate>.FIELD_CARACSGROUP.T_TITLE</label>
-                        <md-select ng-model="user.caracsgroup">
+                        <md-select ng-model="user.caracsgroup" multiple>
                             <md-option value="1">Branlos</md-option>
                             <md-option value="2">Blagueurs</md-option>
                             <md-option value="3">Creuseurs de tombes</md-option>
