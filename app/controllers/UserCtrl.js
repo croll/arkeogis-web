@@ -193,9 +193,15 @@
 
 		$scope.company_change = function(num) {
 			if ($scope.companies[num] && $scope.companies[num].id) {
-				arkeoService.getCompany($scope.companies[num].id).then(function(company) {
-					set_company(num, company);
-				});
+
+				// check if we already have it from the init query
+				if ($scope.user.companies && $scope.user.companies[num] && $scope.user.companies[num].id && $scope.user.companies[num].id == $scope.companies[num].id) {
+					set_company(num, $scope.user.companies[num]);
+				} else {
+					arkeoService.getCompany($scope.companies[num].id).then(function(company) {
+						set_company(num, company);
+					});
+				}
 			} else {
 				set_company(num, null);
 			}
