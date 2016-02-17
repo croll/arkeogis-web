@@ -19,9 +19,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var ArkeoGIS = angular.module('ArkeoGIS', ['md.data.table', 'ngMaterial', 'ngMessages', 'ui.router', 'ngResource', 'nemLogging', 'leaflet-directive', 'pascalprecht.translate', 'ngFileUpload', 'nvd3']);
+var ArkeoGIS = angular.module('ArkeoGIS', ['md.data.table', 'ngMaterial', 'ngMessages', 'ui.router', 'ngResource', 'nemLogging', 'leaflet-directive', 'pascalprecht.translate', 'ngFileUpload', 'nvd3', 'ngCookies']);
 
-ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$translateProvider', '$httpProvider', function($mdThemingProvider, $stateProvider, $urlRouterProvider, $locationProvider, $translateProvider, $httpProvider) {
+ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$translateProvider', '$httpProvider',
+                 function($mdThemingProvider, $stateProvider, $urlRouterProvider, $locationProvider, $translateProvider, $httpProvider) {
 
 
 
@@ -113,19 +114,17 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
         });
     /**********/
 
-    this.token="";
-
     /*
      * http tokens
      */
 
-    ArkeoGIS.token = "";
-    $httpProvider.interceptors.push(['$q', '$location', function($q, $location, user) {
+    $httpProvider.interceptors.push(['$q', '$location', '$cookies', function($q, $location, $cookies) {
         return {
             'request': function(config) {
                 config.headers = config.headers || {};
-                if (ArkeoGIS.token) {
-                    config.headers.Authorization = ArkeoGIS.token;
+                var token = $cookies.get('arkeogis_session_token');
+                if (token) {
+                    config.headers.Authorization = token;
                 }
                 return config;
             },

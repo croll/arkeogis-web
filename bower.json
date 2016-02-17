@@ -12,6 +12,7 @@
     "Leaflet.fullscreen": "http://github.com/Leaflet/Leaflet.fullscreen/archive/v0.0.4.tar.gz",
     "leaflet": "latest",
     "angular-messages": "latest",
+    "angular-cookies": "latest",
     "angular-translate": "latest",
     "angular-translate-loader-url": "latest",
     "angular-translate-loader-static-files": "latest",

@@ -21,7 +21,7 @@
 
 (function () {
     'use strict';
-    ArkeoGIS.service('login', ['$http', 'user', '$q', function ($http, User, $q) {
+    ArkeoGIS.service('login', ['$http', 'user', '$q', '$cookies', function ($http, User, $q, $cookies) {
 
         var self=this;
 
@@ -32,7 +32,8 @@
 
         this.login = function(user) {
             return $http.post('/api/login', user).then(function(ret) {
-                ArkeoGIS.token=ret.data.Token;
+                $cookies.put('arkeogis_session_token', ret.data.Token);
+                //ArkeoGIS.token=ret.data.Token;
                 self.user=new User(ret.data.User);
                 return self.user;
             });
