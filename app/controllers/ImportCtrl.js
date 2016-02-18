@@ -20,232 +20,232 @@
  */
 
 (function() {
-    'use strict';
-    ArkeoGIS.controller('ImportMainCtrl', ['$scope', '$location', '$rootScope', '$state', 'importService',
-        function($scope, $location, $rootScope, $state, importService) {
-			      // Debug
-            //importService.tabs.selectedIndex = 4;
-            //return;
-            // Fin Debug
+  'use strict';
+  ArkeoGIS.controller('ImportMainCtrl', ['$scope', '$location', '$rootScope', '$state', 'importService',
+    function($scope, $location, $rootScope, $state, importService) {
+      // Debug
+      //importService.tabs.selectedIndex = 4;
+      //return;
+      // Fin Debug
 
-            $scope.tabs = importService.tabs; //jshint ignore: line
-            var checkPath = function(p) {
-                var tabNum = p.split('step')[1];
-                importService.tabs.selectedIndex = tabNum;
-                if (tabNum === 1) {
-                    return;
-                }
-                while (tabNum > 0) {
-                    if (importService.tabs.enabled[tabNum] === true) {
-                        importService.tabs.selectedIndex = tabNum;
-                        $state.go('import.step' + importService.tabs.selectedIndex);
-                        return;
-                    }
-                    tabNum--;
-                }
-            };
-            $scope.uploadCSV = function(file) {
-                importService.uploadCSV(file).then(function(resp) {
-                    importService.data = resp.data;
-					if ($location.path().split("/")[2] === "step2") {
-						$state.reload();
-					}  else {
-						$state.go('import.step2');
-					}
-                }, function(resp) {
-                    console.log('Import Error. Status: ' + resp.status);
-                }, function(evt) {
-                    $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total);
-                    if ($scope.uploadProgress === 100) {
-                        $scope.tabs.enabled[2] = true;
-                        $scope.tabs.selectedIndex = 2;
-                    }
-                });
-            };
-            return checkPath($location.path());
+      $scope.tabs = importService.tabs; //jshint ignore: line
+      var checkPath = function(p) {
+        var tabNum = p.split('step')[1];
+        importService.tabs.selectedIndex = tabNum;
+        if (tabNum === 1) {
+          return;
         }
-    ]);
+        while (tabNum > 0) {
+          if (importService.tabs.enabled[tabNum] === true) {
+            importService.tabs.selectedIndex = tabNum;
+            $state.go('import.step' + importService.tabs.selectedIndex);
+            return;
+          }
+          tabNum--;
+        }
+      };
+      $scope.uploadCSV = function(file) {
+        importService.uploadCSV(file).then(function(resp) {
+          importService.data = resp.data;
+          if ($location.path().split("/")[2] === "step2") {
+            $state.reload();
+          } else {
+            $state.go('import.step2');
+          }
+        }, function(resp) {
+          console.log('Import Error. Status: ' + resp.status);
+        }, function(evt) {
+          $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total);
+          if ($scope.uploadProgress === 100) {
+            $scope.tabs.enabled[2] = true;
+            $scope.tabs.selectedIndex = 2;
+          }
+        });
+      };
+      return checkPath($location.path());
+    }
+  ]);
 })();
 
 (function() {
-    'use strict';
-    ArkeoGIS.controller('ImportStep1Ctrl', ['$scope', '$state', 'arkeoService', 'importService',
-        function($scope, $state, arkeoService, importService) {
+  'use strict';
+  ArkeoGIS.controller('ImportStep1Ctrl', ['$scope', '$state', 'arkeoService', 'importService',
+    function($scope, $state, arkeoService, importService) {
 
-            $scope.reset = function() {
-                var a = importService.reset();
-                $scope.tabs.enabled[2] = a.enabled[2];
-                $scope.importFields = importService.importFields;
-                $scope.file = undefined;
-            };
+      $scope.reset = function() {
+        var a = importService.reset();
+        $scope.tabs.enabled[2] = a.enabled[2];
+        $scope.importFields = importService.importFields;
+        $scope.file = undefined;
+      };
 
-            $scope.importFields = importService.importFields;
+      $scope.importFields = importService.importFields;
 
-            $scope.userPreferences = importService.userPreferences;
+      $scope.userPreferences = importService.userPreferences;
 
-            $scope.countrySearch = function(txt) {
-                return arkeoService.autocompleteCountry(txt);
-            };
+      $scope.countrySearch = function(txt) {
+        return arkeoService.autocompleteCountry(txt);
+      };
 
-            $scope.loadLangs = function() {
-                arkeoService.loadLangs().then(function(langs) {
-                    $scope.langs = langs;
-                });
-            };
+      $scope.loadLangs = function() {
+        arkeoService.loadLangs().then(function(langs) {
+          $scope.langs = langs;
+        });
+      };
 
-            $scope.loadContinents = function() {
-                arkeoService.loadContinents().then(function(continents) {
-                    $scope.continents = continents;
-                });
-            };
+      $scope.loadContinents = function() {
+        arkeoService.loadContinents().then(function(continents) {
+          $scope.continents = continents;
+        });
+      };
 
-        }
-    ]);
+    }
+  ]);
 })();
 
 (function() {
-    'use strict';
-    ArkeoGIS.controller('ImportStep2Ctrl', ['$scope', 'importService',
-        function($scope, importService) {
+  'use strict';
+  ArkeoGIS.controller('ImportStep2Ctrl', ['$scope', 'importService',
+    function($scope, importService) {
 
-            if (!angular.isDefined(importService.data)) {
-                return;
-            }
+      if (!angular.isDefined(importService.data)) {
+        return;
+      }
 
-            var sitesWithErrors = [];
-            var nbSitesOK = 0;
-            var nbSitesNOK = 0;
-            var nbSites = importService.data.nbSites || 0;
-			var nbErrors = 0;
+      var sitesWithErrors = [];
+      var nbSitesOK = 0;
+      var nbSitesNOK = 0;
+      var nbSites = importService.data.nbSites || 0;
+      var nbErrors = 0;
 
-            if (angular.isDefined(importService.data.errors) && (angular.isObject(importService.data.errors))) {
+      if (angular.isDefined(importService.data.errors) && (angular.isObject(importService.data.errors))) {
 
-                $scope.importErrors = {
-                    total: importService.data.errors.length,
-                    data: importService.data.errors
-                };
+        $scope.importErrors = {
+          total: importService.data.errors.length,
+          data: importService.data.errors
+        };
 
-                importService.data.errors.forEach(function(e) {
-                    if (sitesWithErrors.indexOf(e.siteCode) === -1) {
-                        sitesWithErrors.push(e.siteCode);
-                    }
-                });
+        importService.data.errors.forEach(function(e) {
+          if (sitesWithErrors.indexOf(e.siteCode) === -1) {
+            sitesWithErrors.push(e.siteCode);
+          }
+        });
 
-                nbSitesNOK = sitesWithErrors.length;
-                nbSitesOK = nbSites - nbSitesNOK;
-				nbErrors = importService.data.errors.length;
-            } else {
-				nbSitesOK = nbSites;
-			}
+        nbSitesNOK = sitesWithErrors.length;
+        nbSitesOK = nbSites - nbSitesNOK;
+        nbErrors = importService.data.errors.length;
+      } else {
+        nbSitesOK = nbSites;
+      }
 
-            $scope.nbSites = nbSites;
-            $scope.nbSitesOK = nbSitesOK;
-            $scope.nbSitesNOK = nbSitesNOK;
-            $scope.nbErrors = nbErrors;
-            $scope.nbLines = importService.data.nbLines;
+      $scope.nbSites = nbSites;
+      $scope.nbSitesOK = nbSitesOK;
+      $scope.nbSitesNOK = nbSitesNOK;
+      $scope.nbErrors = nbErrors;
+      $scope.nbLines = importService.data.nbLines;
 
-            var tooltip = nv.models.tooltip();
-            tooltip.duration(0);
+      var tooltip = nv.models.tooltip();
+      tooltip.duration(0);
 
-            var percent = (nbSites > 0) ? Math.round(nbSitesOK * 100 / nbSites) : 0;
+      var percent = (nbSites > 0) ? Math.round(nbSitesOK * 100 / nbSites) : 0;
 
-            $scope.nvd3Options = {
-                chart: {
-                    type: 'pieChart',
-                    height: 280,
-                    width: 280,
-                    arcsRadius: [{
-                        inner: 0.65,
-                        outer: 0.85
-                    }, {
-                        inner: 0.7,
-                        outer: 0.8
-                    }],
-                    x: function(d) {
-                        return d.key;
-                    },
-                    y: function(d) {
-                        return d.value;
-                    },
-                    showLabels: false,
-                    donut: true,
-                    labelType: "percent",
-                    transitionDuration: 500,
-                    title: percent + "%",
-                    color: ["#9ad49a", "#FB7378"],
-                    showLegend: false,
-                    legendPosition: 'right',
-                    valueFormat: function(d) {
-                        return d;
-                    },
-                }
-            };
-
-
-            $scope.nvd3Datas = [{
-                key: "Sites valides:",
-                value: (nbSites > 0) ? nbSites - sitesWithErrors.length : 0
-            }, {
-                key: "Sites en erreur:",
-                value: sitesWithErrors.length || nbErrors
-            }];
-
-            $scope.filter = {
-                show: false,
-                options: {}
-            };
-
-            $scope.query = {
-                filter: '',
-                order: 'line',
-                limit: 20,
-                page: 1,
-                numRows: ['All', 10, 20, 30]
-            };
-
-            $scope.onOrderChange = function(order) {
-                $scope.order = order;
-            };
-
-            $scope.removeFilter = function() {
-                $scope.filter.show = false;
-                $scope.query.filter = '';
-
-                if ($scope.filter.form.$dirty) {
-                    $scope.filter.form.$setPristine();
-                }
-            };
-
+      $scope.nvd3Options = {
+        chart: {
+          type: 'pieChart',
+          height: 280,
+          width: 280,
+          arcsRadius: [{
+            inner: 0.65,
+            outer: 0.85
+          }, {
+            inner: 0.7,
+            outer: 0.8
+          }],
+          x: function(d) {
+            return d.key;
+          },
+          y: function(d) {
+            return d.value;
+          },
+          showLabels: false,
+          donut: true,
+          labelType: "percent",
+          transitionDuration: 500,
+          title: percent + "%",
+          color: ["#9ad49a", "#FB7378"],
+          showLegend: false,
+          legendPosition: 'right',
+          valueFormat: function(d) {
+            return d;
+          },
         }
-    ]);
+      };
+
+
+      $scope.nvd3Datas = [{
+        key: "Sites valides:",
+        value: (nbSites > 0) ? nbSites - sitesWithErrors.length : 0
+      }, {
+        key: "Sites en erreur:",
+        value: sitesWithErrors.length || nbErrors
+      }];
+
+      $scope.filter = {
+        show: false,
+        options: {}
+      };
+
+      $scope.query = {
+        filter: '',
+        order: 'line',
+        limit: 20,
+        page: 1,
+        numRows: ['All', 10, 20, 30]
+      };
+
+      $scope.onOrderChange = function(order) {
+        $scope.order = order;
+      };
+
+      $scope.removeFilter = function() {
+        $scope.filter.show = false;
+        $scope.query.filter = '';
+
+        if ($scope.filter.form.$dirty) {
+          $scope.filter.form.$setPristine();
+        }
+      };
+
+    }
+  ]);
 })();
 
 (function() {
-    'use strict';
-    ArkeoGIS.controller('ImportStep3Ctrl', ['$scope', '$state', 'arkeoService', 'importService',
-        function($scope, $state, arkeoService, importService) {
+  'use strict';
+  ArkeoGIS.controller('ImportStep3Ctrl', ['$scope', '$state', 'arkeoService', 'importService',
+    function($scope, $state, arkeoService, importService) {
 
-            $scope.importFields = importService.importFields;
-            $scope.publicationFields = importService.publicationFields;
+      $scope.importFields = importService.importFields;
+      $scope.publicationFields = importService.publicationFields;
 
-            $scope.userPreferences = importService.userPreferences;
+      $scope.userPreferences = importService.userPreferences;
 
-            $scope.countrySearch = function(txt) {
-                return arkeoService.autocompleteCountry(txt);
-            };
+      $scope.countrySearch = function(txt) {
+        return arkeoService.autocompleteCountry(txt);
+      };
 
-            $scope.loadLangs = function() {
-                arkeoService.loadLangs().then(function(langs) {
-                    $scope.langs = langs;
-                });
-            };
+      $scope.loadLangs = function() {
+        arkeoService.loadLangs().then(function(langs) {
+          $scope.langs = langs;
+        });
+      };
 
-            $scope.loadContinents = function() {
-                arkeoService.loadContinents().then(function(continents) {
-                    $scope.continents = continents;
-                });
-            };
+      $scope.loadContinents = function() {
+        arkeoService.loadContinents().then(function(continents) {
+          $scope.continents = continents;
+        });
+      };
 
-        }
-    ]);
+    }
+  ]);
 })();

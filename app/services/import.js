@@ -20,127 +20,130 @@
  */
 
 (function() {
-	ArkeoGIS.service('importService', ['Upload', function(Upload) {
+  ArkeoGIS.service('importService', ['Upload', '$resource', function(Upload, $resource) {
 
-		var self = this;
+    var self = this;
 
-		this.defaultTabsValues = {
-			selectedIndex: 0,
-			enabled: {
-				1: true,
-				2: false,
-				3: false,
-				4: false
-			}
-		};
+    var ImportResource = $resource('/api/import/:id', {
+      id: '@id'
+    }, {
+       update: {
+         method: 'PUT'
+      }
+    });
 
-		this.userPreferences = {
-			firstLangId: 48, // TODO: Get it from real
-			conditionsAccepted: true,
-			hideIntro: true
-		};
+    this.defaultTabsValues = {
+      selectedIndex: 0,
+      enabled: {
+        1: true,
+        2: false,
+        3: false,
+        4: false
+      }
+    };
 
-		// Step 1
-		this.importFieldsDefaultValues = {
-			DatabaseLang: self.userPreferences.firstLangId, // TODO: set it accordingly
-			//DatabaseName: '',
-			DatabaseName: 'Db de test',
-			SelectedContinent: '',
-			SelectedCountries: [],
-			UseGeonames: false,
-			//GeographicalExtent: '',
-			GeographicalExtent: 'world',
-			Separator: ';',
-			Echap_character: '"'
-		};
+    this.userPreferences = {
+      firstLangId: 48, // TODO: Get it from real
+      conditionsAccepted: true,
+      hideIntro: true
+    };
 
-		this.importFields = angular.copy(this.importFieldsDefaultValues);
+    // Step 1
+    this.importFieldsDefaultValues = {
+      DatabaseLang: self.userPreferences.firstLangId, // TODO: set it accordingly
+      //DatabaseName: '',
+      DatabaseName: 'Db de test',
+      SelectedContinent: '',
+      SelectedCountries: [],
+      UseGeonames: false,
+      //GeographicalExtent: '',
+      GeographicalExtent: 'world',
+      Separator: ';',
+      EchapCharacter: '"'
+    };
 
-		// Step 3
-		this.publicationFieldsDefaultValues = {
-			Authors: '',
-			Type: '',
-			CreationDate: '',
-			License: '',
-			Subject: '',
-			Context: '',
-			ScaleResolution: '',
-			State: '',
-			Description: [
-				{
-					iso_code: '',
-					value: ''
-				},
-				{
-					iso_code: '',
-					value: ''
-				}
-			]
+    this.importFields = angular.copy(this.importFieldsDefaultValues);
 
-		};
+    // Step 3
+    this.publicationFieldsDefaultValues = {
+      Authors: '',
+      Type: '',
+      CreationDate: '',
+      License: '',
+      Subject: '',
+      Context: '',
+      ScaleResolution: '',
+      State: '',
+      Description: [{
+        iso_code: '',
+        value: ''
+      }, {
+        iso_code: '',
+        value: ''
+      }]
 
-		this.publicationFields = angular.copy(this.publicationFieldsDefaultValues);
+    };
 
-		// Step 4
-		this.moreInfosFieldsDefaultValues = {
-			Struture: '',
-			Source: '',
-			Identifier: '',
-			Contributor: '',
-			Relations: '',
-			SourceUrl: '',
-			SourceCreationDate: '',
-			ContextDescription: '',
-			GeographicalExtent: [
-				{
-					iso_code: '',
-					value: ''
-				},
-				{
-					iso_code: '',
-					value: ''
-				}
-			],
-			Bibliography: [
-				{
-					iso_code: '',
-					value: ''
-				},
-				{
-					iso_code: '',
-					value: ''
-				}
-			]
-		};
+    this.publicationFields = angular.copy(this.publicationFieldsDefaultValues);
 
-		this.moreInfosFields = angular.copy(this.moreInfosFieldsDefaultValues);
+    // Step 4
+    this.moreInfosFieldsDefaultValues = {
+      Struture: '',
+      Source: '',
+      Identifier: '',
+      Contributor: '',
+      Relations: '',
+      SourceUrl: '',
+      SourceCreationDate: '',
+      ContextDescription: '',
+      GeographicalExtent: [{
+        iso_code: '',
+        value: ''
+      }, {
+        iso_code: '',
+        value: ''
+      }],
+      Bibliography: [{
+        iso_code: '',
+        value: ''
+      }, {
+        iso_code: '',
+        value: ''
+      }]
+    };
 
-		// Data reset
-		this.reset = function() {
-			self.tabs = angular.copy(self.defaultTabsValues);
-			self.importFields = angular.copy(self.importFieldsDefaultValues);
-			self.publicationFields = angular.copy(self.publicationFieldsDefaultValues);
-			self.moreInfosFields = angular.copy(self.moreInfosFieldsDefaultValues);
-			return self.tabs;
-		};
+    this.moreInfosFields = angular.copy(this.moreInfosFieldsDefaultValues);
 
+    // Data reset
+    this.reset = function() {
+      self.tabs = angular.copy(self.defaultTabsValues);
+      self.importFields = angular.copy(self.importFieldsDefaultValues);
+      self.publicationFields = angular.copy(self.publicationFieldsDefaultValues);
+      self.moreInfosFields = angular.copy(self.moreInfosFieldsDefaultValues);
+      return self.tabs;
+    };
 
-		// Tabs
-		this.tabs = angular.copy(this.defaultTabsValues);
-		this.data = [];
+    // Tabs
+    this.tabs = angular.copy(this.defaultTabsValues);
+    this.data = [];
 
-		// CSV upload
-		this.uploadCSV = function(file) {
-			var values = angular.copy(self.importFields);
-			var countriesID = [];
-			self.importFields.SelectedCountries.forEach(function(sc) {
-				countriesID.push(sc.value);	
-			});
-			values.SelectedCountries = countriesID;
-			return Upload.upload({
-				url: 'api/import/step1',
-				data: {csv: file, infos: Upload.json(values)}
-			});
-		};
-	}]);
+    // CSV upload
+    this.uploadCSV = function(file) {
+      var values = angular.copy(self.importFields);
+      var countriesID = [];
+      self.importFields.SelectedCountries.forEach(function(sc) {
+        countriesID.push(sc.value);
+      });
+      values.SelectedCountries = countriesID;
+      console.log(values);
+      return Upload.upload({
+        url: 'api/import/step1',
+        data: {
+          csv: file,
+          infos: Upload.json(values)
+        }
+      });
+    };
+
+  }]);
 })();

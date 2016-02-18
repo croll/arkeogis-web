@@ -82,7 +82,7 @@
       </ark-form-block>
       <!-- Use Geonames -->
       <ark-form-block>
-        <md-switch aria-label="Use geonames" ng-model="importFields.UseGeonames" style="margin: 15px 0 25px 0" translate>IMPORT_STEP1.FIELD_GEONAMES.T_LABEL</md-switch>
+        <md-switch aria-label="Use geonames" ng-model="importFields.UseGeonames" style="margin: 15px 0 25px 0"><span translate>IMPORT_STEP1.FIELD_GEONAMES.T_LABEL</span></md-switch>
         <ark-help flex translate>IMPORT_STEP1.FIELD_GEONAMES.T_HELP</ark-help>
       </ark-form-block>
       <!-- Separator -->
@@ -101,7 +101,7 @@
       <ark-form-block>
         <md-input-container>
           <label translate>IMPORT_STEP1.FIELD_ECHAP_CHARACTER.T_LABEL</label>
-          <input name="echap_character" ng-maxlength="1" ng-model="importFields.Echap_character" required></input>
+          <input name="echap_character" ng-maxlength="1" ng-model="importFields.EchapCharacter" required></input>
           <div ng-messages="importForm.echap_character.$error">
             <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
           </div>
