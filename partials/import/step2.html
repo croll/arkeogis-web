@@ -44,7 +44,7 @@
             <h3 translate>IMPORT_STEP2.REPORT_BLOCKS.T_LABEL_IMPORT_ANOTHER_FILE</h3>
             <div layout layout-sm="column" layout-padding>
                 <md-button class="md-primary md-raised" ngf-select="uploadCSV(file)" ng-model="file"
-                name="file" ngf-pattern="'.csv,.txt'" accept=".csv,.txt" ngf-max-size="100MB" translate>IMPORT_STEP2.REPORT_BLOCKS.T_BUTTON_CHOOSE_FILE</md-button>
+                name="file" ngf-pattern="'.csv,.txt'" accept=".csv,.txt" ngf-max-size="100MB"><span translate>IMPORT_STEP2.REPORT_BLOCKS.T_BUTTON_CHOOSE_FILE</span></md-button>
             </div>
             <md-progress-linear md-mode="determinate" value="{{uploadProgress}}" md-buffer-value="100"
             ng-hide="!file"></md-progress-linear>
