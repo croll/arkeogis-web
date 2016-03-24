@@ -2,17 +2,6 @@
 /* LangEditor ********************* */
 /* ******************************** */
 .LangEditor {
-	md-sidenav md-toolbar {
-		text-align: center;
-	}
-	md-sidenav {
-		button {
-			text-align: center;
-		}
-		button.selected {
-			background-color: rgb(130,177,255);
-		}
-	}
 	.row {
 		padding: 10px;
 		background-color: white;

@@ -143,3 +143,17 @@ md-data-table-toolbar > form > input {
 md-data-table-toolbar > form > input:focus {
   outline: none;
 }
+
+/*** sidenav ***/
+
+md-sidenav md-toolbar {
+	text-align: center;
+}
+md-sidenav {
+	button {
+		text-align: center;
+	}
+	button.selected {
+		background-color: rgb(130,177,255);
+	}
+}
