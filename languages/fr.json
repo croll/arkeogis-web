@@ -1,4 +1,34 @@
 {
+	"GROUP": {
+		"BUTTON_GROUPSAVE": {
+			"T_TITLE": "Enregistrer"
+		},
+		"FOOTER_GROUPSLIST": {
+			"T_PAGE": "Page :",
+			"T_ROWSPERPAGE": "Lignes par page :",
+			"T_ROWSPERPAGE_OF": "de"
+		},
+		"GROUPTYPE_CHARAC": {
+			"T_TITLE": "Groupe de characteristiques"
+		},
+		"GROUPTYPE_CHRONOLOGY": {
+			"T_TITLE": "Groupe de chronologies"
+		},
+		"GROUPTYPE_USER": {
+			"T_TITLE": "Groupe d'utilisateurs"
+		},
+		"HEADER_DOMAIN": {
+			"T_TITLE": "Type de groupe"
+		},
+		"HEADER_GROUPS": {
+			"T_TITLE": "Administration des groupes"
+		},
+		"HEADER_GROUPSLIST": {
+			"T_ACTION": "Action",
+			"T_GROUPNAME": "Nom du groupe",
+			"T_USERS": "Utilisateurs"
+		}
+	},
 	"IMPORT": {
 		"FIELD_ALL": {
 			"T_ERROR_REQUIRED": "Ce champs est requis."
@@ -236,6 +266,7 @@
 			"T_ITEM_FRENCH": "Français"
 		},
 		"FIELD_MAINMENU": {
+			"T_ITEM_GROUPSMANAGER": "Administration des groupes",
 			"T_ITEM_IMPORT": "Import",
 			"T_ITEM_LANGEDITOR": "Éditeur de langues",
 			"T_ITEM_LOGIN": "S'identifier",
