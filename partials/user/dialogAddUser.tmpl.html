@@ -285,7 +285,10 @@
                 <div layout="row">
                     <md-input-container flex>
                         <label translate>.FIELD_PHOTO.T_TITLE</label>
-                        <input type="file" ng-model="user.photo" accept="image/*"/>
+                        <div layout="row">
+                            <input width=10 style="width: 80px" ngf-select="" ngf-accept="'image/*'" ng-model="user.photo" ngf-resize="{width: 240, height: 240, type: 'image/jpeg', quality: .9, centerCrop: true}" name="photo"/>
+                            <img ngf-src="user.photo" style="max-width: 64px; max-height: 64px">
+                        </div>
                     </md-input-container>
 
                     <md-input-container flex>
