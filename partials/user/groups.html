@@ -1,0 +1,82 @@
+<div class="bloc-groupslist" translate-namespace="GROUP">
+
+    <!-- title bar, with buttons -->
+    <md-toolbar class="md-table-toolbar md-default" ng-show="!groups_filter.show">
+        <div class="md-toolbar-tools">
+            <h2 class="md-title" translate>GROUP.HEADER_GROUPS.T_TITLE</h2>
+            <div flex></div>
+            <md-button class="md-icon-button" ng-click="groups_filter.show = true">
+                <md-icon>search</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="openDialogEdit($event)">
+                <md-icon>person_add</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <!-- section under the title bar -->
+    <section layout="row">
+
+        <!-- sidenav on the left -->
+        <md-sidenav class="md-sidenav-left" flex md-is-locked-open="true">
+            <md-toolbar class="md-primary md-hue-3">
+                <h4 translate>GROUP.HEADER_DOMAIN.T_TITLE</h4>
+            </md-toolbar>
+            <md-content layout="column">
+                <md-button class="md-primary" ng-class="{'selected': (d == domain)}" ng-click="setDomain(d)" ng-repeat="d in domains">
+                    {{d.tr | translate}}
+                </md-button>
+            </md-content>
+        </md-sidenav>
+
+        <!-- group list -->
+        <div flex>
+            <md-table-container>
+                <table md-progress="promise" md-row-select md-table ng-model="selected">
+                    <thead md-head md-on-reorder="groups_onReorder" md-order="groups_query.order">
+                        <tr md-row>
+                            <th md-column md-order-by="g_tr.name">
+                                <span translate>GROUP.HEADER_GROUPSLIST.T_GROUPNAME</span>
+                            </th>
+                            <th md-column>
+                                <span translate>GROUP.HEADER_GROUPSLIST.T_USERS</span>
+                            </th>
+                            <th md-column>
+                                <span translate>GROUP.HEADER_GROUPSLIST.T_ACTION</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-auto-select md-row ng-repeat="group in groups.data">
+                            <td md-cell>
+                                {{group.name}}
+                            </td>
+
+                            <td md-cell>
+                                <form name="formgroups[{{group.id}}]">
+                                    <md-content class="md-padding autocomplete" layout="column">
+                                        <md-contact-chips name="truit" ng-model="group.users"
+                                          md-contacts="querySearchUsers($query)"
+                                          md-contact-name="name"
+                                          md-contact-image="image"
+                                          md-contact-email="email"
+                                          md-require-match="true"
+                                          md-highlight-flags="i"
+                                          placeholder="">
+                                      </md-contact-chips>
+                                    </md-content>
+                                </form>
+                            </td>
+
+                            <td md-cell>
+                                <md-button ng-show="formgroups[group.id].$dirty" ng-click="updateGroup(group)">{{'GROUP.BUTTON_GROUPSAVE.T_TITLE' | translate}}</md-button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+
+            <md-table-pagination md-label="{page: '{{'GROUP.FOOTER_GROUPSLIST.T_PAGE' | translate }}', rowsPerPage: '{{'GROUP.FOOTER_GROUPSLIST.T_ROWSPERPAGE' | translate }}', of: '{{'GROUP.FOOTER_GROUPSLIST.T_ROWSPERPAGE_OF' | translate }}'}" md-limit="groups_query.limit" md-on-paginate="groups_onPaginate" md-page-select md-page="groups_query.page" md-total="{{groups.count}}"></md-table-pagination>
+        </div>
+    </section>
+</div>

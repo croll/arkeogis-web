@@ -45,6 +45,7 @@
 	<script src="app/filters.js"></script>
 	<script src="app/directives/help.js"></script>
 	<script src="app/controllers/UserCtrl.js"></script>
+	<script src="app/controllers/GroupCtrl.js"></script>
 	<script src="app/controllers/LoginCtrl.js"></script>
 	<script src="app/controllers/LangEditorCtrl.js"></script>
 	<script src="app/controllers/MapCtrl.js"></script>
@@ -52,6 +53,7 @@
 	<script src="app/controllers/ImportCtrl.js"></script>
 	<script src="app/services/arkeo.js"></script>
 	<script src="app/services/user.js"></script>
+	<script src="app/services/group.js"></script>
 	<script src="app/services/translates.js"></script>
 	<script src="app/services/login.js"></script>
 	<script src="app/services/import.js"></script>
@@ -100,7 +102,13 @@
 						<md-menu-item>
 							<md-button ui-sref="user">
 								<p flex translate>.FIELD_MAINMENU.T_ITEM_USERSMANAGER</p>
-								<md-icon md-svg-icon="img/icons/users.svg" md-menu-align-target></md-icon>
+								<md-icon>person</md-icon>
+							</md-button>
+						</md-menu-item>
+						<md-menu-item>
+							<md-button ui-sref="group">
+								<p flex translate>.FIELD_MAINMENU.T_ITEM_GROUPSMANAGER</p>
+								<md-icon>group</md-icon>
 							</md-button>
 						</md-menu-item>
 						<md-menu-item>
@@ -112,13 +120,13 @@
 						<md-menu-item>
 							<md-button ui-sref="langeditor">
 								<p flex translate>.FIELD_MAINMENU.T_ITEM_LANGEDITOR</p>
-								<md-icon md-svg-icon="img/icons/langeditor.svg" md-menu-align-target></md-icon>
+								<md-icon>translate</md-icon>
 							</md-button>
 						</md-menu-item>
 						<md-menu-item>
 							<md-button ui-sref="login">
 								<p flex translate>.FIELD_MAINMENU.T_ITEM_LOGIN</p>
-								<md-icon md-svg-icon="img/icons/login.svg" md-menu-align-target></md-icon>
+								<md-icon>perm_identity</md-icon>
 							</md-button>
 						</md-menu-item>
 					</md-menu-content>

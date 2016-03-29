@@ -100,6 +100,12 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
             controller: "UserCtrl",
             resolve: {}
         })
+        .state('group', {
+            url: "/group",
+            templateUrl: "partials/user/groups.html",
+            controller: "GroupCtrl",
+            resolve: {}
+        })
         .state('langeditor', {
             url: "/langeditor",
             templateUrl: "partials/langeditor.html",
