@@ -1,5 +1,5 @@
 <md-dialog aria-label="Add user..." ng-cloak ng-controller="UserCtrl" translate-namespace="USER">
-    <form name="userForm" ng-submit="userAddSubmit()">
+    <form name="userForm" ng-submit="userAddSubmit(this.userForm)">
         <md-toolbar>
             <div class='md-toolbar-tools'>
                 <h2 translate>.HEADER_ADDUSER.T_TITLE</h2>
@@ -13,17 +13,17 @@
 
                     <md-input-container flex="20">
                         <label translate>.FIELD_LAST_NAME.T_TITLE</label>
-                        <input ng-model="user.lastname"/>
+                        <input required ng-model="user.lastname"/>
                     </md-input-container>
 
                     <md-input-container flex="20">
                         <label translate>.FIELD_FIRST_NAME.T_TITLE</label>
-                        <input ng-model="user.firstname"/>
+                        <input required ng-model="user.firstname"/>
                     </md-input-container>
 
                     <md-input-container flex="20">
                         <label translate>.FIELD_EMAIL.T_TITLE</label>
-                        <input maxlength="255" minlength="6" name="email" ng-model="user.email" ng-pattern="/^.+@.+\..+$/" required type="email" ng-change="userForm.email.$error.server=false"/>
+                        <input maxlength="255" minlength="6" name="email" ng-model="user.email" ng-pattern="/^.+@.+\..+$/" required type="email" ng-change="userForm.email.$setValidity('server', true)"/>
                         <div ng-messages="userForm.email.$error" role="alert">
                             <div ng-if="userForm.email.$dirty" ng-message-exp="['required']">{{ 'USER.FIELD_EMAIL.T_CHECK_MANDATORY' | translate }}</div>
                             <div ng-if="userForm.email.$error.server">{{ userForm.email.$error.server | translate }}</div>
@@ -32,6 +32,7 @@
                     </md-input-container>
 
                     <md-autocomplete flex="20"
+                                     required
                                      md-search-text-change="searchTextCity=''"
                                      md-autoselect="true"
                                      md-floating-label="{{ 'USER.FIELD_COUNTRY.T_TITLE' | translate }}"
@@ -48,6 +49,8 @@
                     </md-autocomplete>
 
                     <md-autocomplete flex="20"
+                                     required
+                                     name="searchTextCity"
                                      md-autoselect="true"
                                      md-floating-label="{{ 'USER.FIELD_CITY.T_TITLE' | translate }}"
                                      md-item-text="item.name"
@@ -55,7 +58,8 @@
                                      md-min-length="2"
                                      md-no-cache="1"
                                      md-search-text="searchTextCity"
-                                     md-selected-item="user.city_and_country.city">
+                                     md-selected-item="user.city_and_country.city"
+                                     >
                         <md-item-template>
                             <span md-highlight-text="searchTextCity">{{item.name}}</span>
                         </md-item-template>
@@ -69,7 +73,7 @@
                         <div flex>
                             <md-input-container>
                                 <label translate>.FIELD_USERNAME.T_TITLE</label>
-                                <input name="username" ng-change="userForm.username.$error.exists=false; userForm.username.$error.server=false" ng-model="user.username" required/>
+                                <input name="username" ng-change="userForm.username.$setValidity('exists', true); userForm.username.$setValidity('server', true)" ng-model="user.username" required/>
                                 <div ng-messages="userForm.username.$error" role="alert">
                                     <div ng-if="userForm.username.$error.server">{{ userForm.username.$error.server | translate }}</div>
                                     <div ng-message="exists">{{ 'USER.FIELD_USERNAME.T_CHECK_ALREADYEXISTS' | translate }}</div>
@@ -80,7 +84,7 @@
                         <div flex>
                             <md-input-container>
                                 <label translate>.FIELD_PASSWORD.T_TITLE</label>
-                                <input name="password" ng-model="user.password" ng-change="userForm.password.$error.server=false" type="password"/>
+                                <input name="password" ng-model="user.password" ng-change="userForm.password.$setValidity('server', true)" type="password"/>
                                 <div ng-messages="userForm.password.$error" role="alert">
                                     <div ng-if="userForm.password.$error.server">{{ userForm.password.$error.server | translate }}</div>
                                 </div>
@@ -89,7 +93,7 @@
                         <div flex>
                             <md-input-container>
                                 <label translate>.FIELD_PASSWORD2.T_TITLE</label>
-                                <input ng-model="user.password2" type="password"/>
+                                <input name="password2" ng-model="user.password2" type="password"/>
                             </md-input-container>
                         </div>
                     </div>
@@ -99,7 +103,7 @@
                         <div flex>
                             <md-input-container>
                                 <label translate>.FIELD_LANG1.T_TITLE</label>
-                                <md-select name="first_lang_id" ng-model="user.first_lang_id" ng-change="userForm.first_lang_id.$error.server=false">
+                                <md-select required name="first_lang_id" ng-model="user.first_lang_id" ng-change="userForm.first_lang_id.$setValidity('server', true)">
                                     <md-option ng-repeat="lang in langs" ng-value="lang.id">{{lang.iso_code}}</md-option>
                                 </md-select>
                                 <div ng-messages="userForm.first_lang_id.$error" role="alert">
@@ -111,7 +115,7 @@
                         <div flex>
                             <md-input-container>
                                 <label translate>.FIELD_LANG2.T_TITLE</label>
-                                <md-select name="second_lang_id" ng-model="user.second_lang_id" ng-change="userForm.second_lang_id.$error.server=false">
+                                <md-select required name="second_lang_id" ng-model="user.second_lang_id" ng-change="userForm.second_lang_id.$setValidity('server', true)">
                                     <md-option ng-repeat="lang in langs" ng-value="lang.id">{{lang.iso_code}}</md-option>
                                 </md-select>
                                 <div ng-messages="userForm.second_lang_id.$error" role="alert">
@@ -236,7 +240,7 @@
                         <div flex layout="row">
                             <md-input-container flex>
                                 <label translate>.FIELD_DESCRIPTION.T_TITLE</label>
-                                <textarea name="description" rows="3" ng-model="user.description" ng-change="userForm.description.$error.server=false"></textarea>
+                                <textarea required name="description" rows="3" ng-model="user.description" ng-change="userForm.description.$setValidity('server', true)"></textarea>
                                 <div ng-messages="userForm.description.$error" role="alert">
                                     <div ng-if="userForm.description.$error.server">{{ userForm.description.$error.server | translate }}</div>
                                 </div>
