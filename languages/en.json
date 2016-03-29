@@ -288,6 +288,7 @@
 			"T_TITLE": "Chrono Groups"
 		},
 		"FIELD_CITY": {
+			"T_CHECK_MANDATORY": "Country and city are mandatory",
 			"T_CHECK_NOMATCH": "No match...",
 			"T_TITLE": "City"
 		},
@@ -326,6 +327,7 @@
 			"T_TITLE": "Databases"
 		},
 		"FIELD_DESCRIPTION": {
+			"T_CHECK_MANDATORY": "Description is mandatory",
 			"T_TITLE": "Description"
 		},
 		"FIELD_EMAIL": {
@@ -349,6 +351,7 @@
 			"T_TITLE": "Lastname"
 		},
 		"FIELD_PASSWORD": {
+			"T_CHECK_INCORRECT": "Password is incorrect",
 			"T_TITLE": "Password"
 		},
 		"FIELD_PASSWORD2": {
@@ -359,6 +362,7 @@
 		},
 		"FIELD_USERNAME": {
 			"T_CHECK_ALREADYEXISTS": "This user already exists",
+			"T_CHECK_INCORRECT": "Username is incorrect",
 			"T_CHECK_MANDATORY": "This field is mandatory",
 			"T_TITLE": "Username"
 		},
