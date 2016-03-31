@@ -33,17 +33,27 @@
 		//   <div ng-if="myform.myfieldname.$error.server">{{ myform.myfieldname.$error.server | translate }}</div>
 		//  </div>
         // You also must name the input field with name="myfieldname"
-        // And probably want to add in it something like this : ng-change="userForm.myfieldname.$error.server=false"
+        // And probably want to add in it something like this : ng-change="myform.myfieldname.$setValidity('server', true)"
         this.setFormErrorFromServer = function(form, error, startswith) {
+            if (form == undefined) {
+                console.error("call to setFormErrorFromServer with form = undefined !");
+                return;
+            }
             if (error.field_path.startsWith(startswith)) {
                 var path = error.field_path.substr(startswith.length);
                 console.log("field error from server : ", path, error.error_string)
                 var elems = path.split(".");
                 var obj = form;
                 for (var i = 0; i < elems.length; i++) {
+                    if (!(elems[i] in obj)) {
+                        console.error("there is no form path : "+path+" (no '"+elems[i]+"' field)");
+                        return;
+                    }
                     obj = obj[elems[i]];
                 }
                 obj.$error.server = error.error_string;
+            } else {
+                console.log("error ignored: ", error.field_path, ", need to starts with: ", startswith);
             }
         };
 
@@ -56,7 +66,7 @@
 		//   <div ng-if="myform.myfieldname.$error.server">{{ myform.myfieldname.$error.server | translate }}</div>
 		//  </div>
         // You also must name the input field with name="myfieldname"
-        // And probably want to add in it something like this : ng-change="userForm.myfieldname.$error.server=false"
+        // And probably want to add in it something like this : ng-change="myform.myfieldname.$setValidity('server', true)"
         this.setFormErrorsFromServer = function(form, errors, startswith) {
 			errors.forEach(function(error) {
 				self.setFormErrorFromServer(form, error, startswith);

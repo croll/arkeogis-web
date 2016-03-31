@@ -221,7 +221,7 @@
 		$scope.autocompleteCity = arkeoService.autocompleteCity;
 		$scope.autocompleteCompany = arkeoService.autocompleteCompany;
 
-        $scope.userAddSubmit = function () {
+        $scope.userAddSubmit = function (userForm) {
             $scope.user.active = $scope.user.active == "true" ? true : false;
 			for (var i=0; i<2; i++) {
 				if (($scope.companies[i] || $scope.companies_search[i]) && $scope.companies_country[i] && $scope.companies_city[i]) {
@@ -241,7 +241,7 @@
             }, function(err) {
                 console.log("err ! ", err);
 				if (err.data.errors) {
-					arkeoService.setFormErrorsFromServer($scope.userForm, err.data.errors, "json.");
+					arkeoService.setFormErrorsFromServer(userForm, err.data.errors, "json.");
 				}
             });
         };

@@ -4,7 +4,7 @@
   "dependencies": {
     "angular-ui-router": "latest",
     "jquery": "latest",
-    "angular-material": "latest",
+    "angular-material": ">=1.1",
     "angular-animate": "latest",
     "angular-resource": "latest",
     "angular-leaflet-directive": "latest",
