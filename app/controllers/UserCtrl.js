@@ -52,6 +52,7 @@
 					user.groups_user = json_groups_to_str(user.groups_user);
 					user.groups_chronology = json_groups_to_str(user.groups_chronology);
 					user.groups_charac = json_groups_to_str(user.groups_charac);
+					user.country = JSON.parse(user.country_and_city).country_name;
 				});
 				$scope.users = users;
 			});
