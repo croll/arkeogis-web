@@ -36,15 +36,25 @@
 		}
 		var users_bookmark_page=1;
 
-		function getUsers(query) {
-			$scope.users = User.get(query || $scope.users_query, getUsersSuccess);
-			//User.get(query || $scope.users_query, getUsersSuccess);
+		function json_groups_to_str(groups) {
+			groups = JSON.parse(groups);
+			var groups_str = ""
+			groups.forEach(function(group) {
+				groups_str += (groups_str == "" ? "" : ", ") + group.name;
+			});
+			return groups_str;
 		}
 
-		// used by getUsers on promise success
-		function getUsersSuccess(users) {
-			console.log("updated ! ", users);
-			//$scope.users = users;
+		function getUsers(query) {
+			$scope.users = User.get(query || $scope.users_query).$promise.then(function(users) {
+				console.log("updated ! ", users);
+				users.data.forEach(function(user) {
+					user.groups_user = json_groups_to_str(user.groups_user);
+					user.groups_chronology = json_groups_to_str(user.groups_chronology);
+					user.groups_charac = json_groups_to_str(user.groups_charac);
+				});
+				$scope.users = users;
+			});
 		}
 
 		$scope.users_onPaginate = function (page, limit) {
