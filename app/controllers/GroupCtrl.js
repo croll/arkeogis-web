@@ -62,6 +62,7 @@
 					if (group.users) {
 						group.users.forEach(function(user) {
 							user.name = user.firstname + " " + user.lastname;
+							user.image = '/api/users/'+user.id+'/photo'
 						})
 					} else group.users=[];
 				})

@@ -30,6 +30,9 @@
         <table md-progress="promise" md-row-select md-table ng-model="selected">
             <thead md-head md-on-reorder="users_onReorder" md-order="users_query.order">
                 <tr md-row>
+                    <th md-column>
+                        <span translate>USER.HEADER_USERSLIST.T_PHOTO</span>
+                    </th>
                     <th md-column md-order-by="u.username">
                         <span translate>USER.HEADER_USERSLIST.T_USERNAME</span>
                     </th>
@@ -56,14 +59,19 @@
             </thead>
             <tbody md-body>
                 <tr md-auto-select md-row ng-repeat="user in users.data">
-                    <td md-cell><a ng-click="openDialogEdit($event, user.id)">{{user.username}}</a></td>
+                    <td md-cell>
+                        <img style="max-width: 64px; max-height: 64px" class="user_photo" ng-src='/api/users/{{user.id}}/photo'></img>
+                    </td>
+                    <td md-cell>
+                        <a ng-click="openDialogEdit($event, user.id)">{{user.username}}</a>
+                    </td>
                     <td md-cell>{{user.created_at | date:'short'}}</td>
                     <td md-cell>{{user.updated_at | date:'short'}}</td>
                     <td md-cell>{{user.lastname}} {{user.firstname}}</td>
                     <td md-cell>{{user.email}}</td>
-                    <td md-cell>{{user.groups}}</td>
-                    <td md-cell>{{user.groups_chrono}}</td>
-                    <td md-cell>{{user.groups_caracs}}</td>
+                    <td md-cell>{{user.groups_user}}</td>
+                    <td md-cell>{{user.groups_chronology}}</td>
+                    <td md-cell>{{user.groups_charac}}</td>
                     <td md-cell>{{user.active}}</td>
                     <td md-cell>{{user.country}}</td>
                     <td md-cell>{{user.company1}}</td>
@@ -72,7 +80,7 @@
             </tbody>
         </table>
     </md-table-container>
-    
+
     <md-table-pagination md-label="{page: '{{'USER.FOOTER_USERSLIST.T_PAGE' | translate }}', rowsPerPage: '{{'USER.FOOTER_USERSLIST.T_ROWSPERPAGE' | translate }}', of: '{{'USER.FOOTER_USERSLIST.T_ROWSPERPAGE_OF' | translate }}'}"
                          md-limit="users_query.limit" md-on-paginate="users_onPaginate" md-page-select md-page="users_query.page" md-total="{{users.count}}"></md-table-pagination>
 </div>

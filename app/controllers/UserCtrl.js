@@ -36,15 +36,26 @@
 		}
 		var users_bookmark_page=1;
 
-		function getUsers(query) {
-			$scope.users = User.get(query || $scope.users_query, getUsersSuccess);
-			//User.get(query || $scope.users_query, getUsersSuccess);
+		function json_groups_to_str(groups) {
+			groups = JSON.parse(groups);
+			var groups_str = ""
+			groups.forEach(function(group) {
+				groups_str += (groups_str == "" ? "" : ", ") + group.name;
+			});
+			return groups_str;
 		}
 
-		// used by getUsers on promise success
-		function getUsersSuccess(users) {
-			console.log("updated ! ", users);
-			//$scope.users = users;
+		function getUsers(query) {
+			$scope.users = User.get(query || $scope.users_query).$promise.then(function(users) {
+				console.log("updated ! ", users);
+				users.data.forEach(function(user) {
+					user.groups_user = json_groups_to_str(user.groups_user);
+					user.groups_chronology = json_groups_to_str(user.groups_chronology);
+					user.groups_charac = json_groups_to_str(user.groups_charac);
+					user.country = JSON.parse(user.country_and_city).country_name;
+				});
+				$scope.users = users;
+			});
 		}
 
 		$scope.users_onPaginate = function (page, limit) {
@@ -103,7 +114,7 @@
 	}]);
 
 
-	ArkeoGIS.controller('UserEditCtrl', ['$scope', 'user', 'Langs', '$mdDialog', "$http", "$q", "arkeoService", "id_user", function ($scope, User, Langs, $mdDialog, $http, $q, arkeoService, id_user) {
+	ArkeoGIS.controller('UserEditCtrl', ['$scope', 'Upload', 'user', 'Langs', '$mdDialog', "$http", "$q", "arkeoService", "id_user", function ($scope, Upload, User, Langs, $mdDialog, $http, $q, arkeoService, id_user) {
 
 		$scope.langs = Langs.query();
 
@@ -221,7 +232,7 @@
 		$scope.autocompleteCity = arkeoService.autocompleteCity;
 		$scope.autocompleteCompany = arkeoService.autocompleteCompany;
 
-        $scope.userAddSubmit = function (userForm) {
+        $scope.userAddSubmit = function (userForm, photo) {
             $scope.user.active = $scope.user.active == "true" ? true : false;
 			for (var i=0; i<2; i++) {
 				if (($scope.companies[i] || $scope.companies_search[i]) && $scope.companies_country[i] && $scope.companies_city[i]) {
@@ -235,6 +246,25 @@
 					console.log("naze", i, $scope.companies[i], $scope.companies_country[i], $scope.companies_city[i])
 				}
 			}
+
+			var plop=Upload.upload({
+				url: '/api/users/42',
+				data: {
+					beve_sent_des_pieds: Upload.json($scope.user),
+					et_pas_que: $scope.user.photo,
+				}
+			}).then(function(ret) {
+                console.log("user saved ", ret);
+				$scope.hide();
+            }, function(err) {
+                console.log("err ! ", err);
+				if (err.data.errors) {
+					arkeoService.setFormErrorsFromServer(userForm, err.data.errors, "json.");
+				}
+            });
+
+
+			/*
             $scope.user.$save().then(function(ret) {
                 console.log("user saved ", ret);
 				$scope.hide();
@@ -244,7 +274,28 @@
 					arkeoService.setFormErrorsFromServer(userForm, err.data.errors, "json.");
 				}
             });
+			*/
         };
+
+/*
+		$scope.uploadForm = function(url, json, file) {
+			file.upload = Upload.upload({
+				url: url,
+				data: {username: $scope.username, file: file},
+			});
+
+			file.upload.then(function (response) {
+				$timeout(function () {
+					file.result = response.data;
+				});
+			}, function (response) {
+				if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
+			}, function (evt) {
+				// Math.min is to fix IE which reports 200% sometimes
+				file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+			});
+		}
+*/
 
 	}]);
 
