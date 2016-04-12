@@ -46,23 +46,32 @@
 		}
 
 		$scope.users_onPaginate = function (page, limit) {
-			getUsers(angular.extend({}, $scope.users_query, {page: page+1, limit: limit}));
+			console.log("users_onPaginate", page, limit);
+			//getUsers(angular.extend({}, $scope.users_query, {page: page, limit: limit}));
+			if (page > 0)
+				getUsers();
+			else {
+				console.error("page 0 ?");
+			}
 		}
 
 		$scope.users_onReorder = function (order) {
+			console.log("users_onReorder", order)
 			getUsers(angular.extend({}, $scope.users_query, {order: order}));
 		}
 
 		$scope.users_removeFilter = function () {
-	      $scope.users_filter.show = false;
-	      $scope.users_query.filter = '';
+			console.log("users_removeFilter", order)
+	      	$scope.users_filter.show = false;
+	      	$scope.users_query.filter = '';
 
-	      if($scope.users_filter.form.$dirty) {
-	        $scope.users_filter.form.$setPristine();
-	      }
+	      	if($scope.users_filter.form.$dirty) {
+	        	$scope.users_filter.form.$setPristine();
+	      	}
 	    }
 
 		$scope.$watch('users_query.filter', function (newValue, oldValue) {
+			console.log("users_query.filter", newValue, oldValue);
 	      	if(!oldValue) {
 	        	users_bookmark_page = $scope.users_query.page;
 	      	}
