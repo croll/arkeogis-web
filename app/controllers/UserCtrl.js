@@ -112,6 +112,8 @@
 		$scope.companies_country_search=[null, null];
 
 		function hackAutocompletes(user) {
+			//console.log("hack user: ", user);
+
 			// companies fields
 			if (user.companies == undefined || user.companies == null) {
 				user.companies = [];
@@ -147,10 +149,13 @@
 
 			if (user.city_and_country.country && user.city_and_country.country.name == "") {
 				user.city_and_country.country=null;
+				$scope.searchTextCountry = "";
 			}
+
 			if (user.city_and_country.city && user.city_and_country.city.name == "") {
 				user.city_and_country.city=null;
 			}
+
 			return user;
 		}
 
@@ -181,10 +186,10 @@
 		}
 
 		function getUserSuccess(user) {
-			console.log("user loaded before hack: ", user.companies);
+			console.log("user loaded before hack: ", user);
 			hackAutocompletes(user);
 			//$scope.user=user;
-			console.log("user loaded after hack: ", user.companies);
+			console.log("user loaded after hack: ", user);
 		};
 
 		$scope.company_change = function(num) {
@@ -233,7 +238,7 @@
 			}
 
 			var plop=Upload.upload({
-				url: '/api/users/',
+				url: '/api/users'+(('id' in $scope.user && $scope.user.id >= 0) ? '/'+$scope.user.id : ''),
 				data: {
 					beve_sent_des_pieds: Upload.json($scope.user),
 					et_pas_que: $scope.user.photo,
