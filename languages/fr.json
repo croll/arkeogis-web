@@ -288,7 +288,7 @@
 			"T_TITLE": "Groupes Chronologie"
 		},
 		"FIELD_CITY": {
-			"T_CHECK_MANDATORY": "Le Pays et la Ville sont obligatoire",
+			"T_CHECK_MANDATORY": "La ville est obligatoire",
 			"T_CHECK_NOMATCH": "Ville introuvable...",
 			"T_TITLE": "Ville"
 		},
@@ -351,7 +351,7 @@
 			"T_TITLE": "Nom"
 		},
 		"FIELD_PASSWORD": {
-			"T_CHECK_INCORRECT": "Le mot de pass est incorrect",
+			"T_CHECK_INCORRECT": "Le mot de passe est incorrect",
 			"T_TITLE": "Mot de passe"
 		},
 		"FIELD_PASSWORD2": {
@@ -362,7 +362,7 @@
 		},
 		"FIELD_USERNAME": {
 			"T_CHECK_ALREADYEXISTS": "Cet utilisateur existe déjà",
-			"T_CHECK_INCORRECT": "Le nom d'utilisateur est incorrect",
+			"T_CHECK_INCORRECT": "Le nom d'utlilsateur est incorrect",
 			"T_CHECK_MANDATORY": "Ce champ est obligatoire",
 			"T_TITLE": "Identifiant"
 		},
@@ -392,6 +392,10 @@
 			"T_SEARCH": "chercher...",
 			"T_UPDATEDAT": "Dernière Modif.",
 			"T_USERNAME": "Identifiant"
+		},
+		"USERSLIST_ACTIVE": {
+			"T_FALSE": "non",
+			"T_TRUE": "oui"
 		}
 	}
 }
