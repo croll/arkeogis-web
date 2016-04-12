@@ -73,7 +73,7 @@
                     <td md-cell><span ng-repeat="group in user.groups_chronology">{{group.name}}{{$last ? '' : ', '}}</span></td>
                     <td md-cell><span ng-repeat="group in user.groups_charac">{{group.name}}{{$last ? '' : ', '}}</span></td>
                     <td md-cell>{{(user.active ? 'USER.USERSLIST_ACTIVE.T_TRUE' : 'USER.USERSLIST_ACTIVE.T_FALSE') | translate}}</td>
-                    <td md-cell>{{user.country}}</td>
+                    <td md-cell>{{user.country_and_city.country_name}}</td>
                     <td md-cell>{{user.company1}}</td>
                     <td md-cell>{{user.databases}}</td>
                 </tr>
