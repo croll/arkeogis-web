@@ -48,12 +48,6 @@
 		function getUsers(query) {
 			$scope.users = User.get(query || $scope.users_query).$promise.then(function(users) {
 				console.log("updated ! ", users);
-				users.data.forEach(function(user) {
-					user.groups_user = json_groups_to_str(user.groups_user);
-					user.groups_chronology = json_groups_to_str(user.groups_chronology);
-					user.groups_charac = json_groups_to_str(user.groups_charac);
-					user.country = JSON.parse(user.country_and_city).country_name;
-				});
 				$scope.users = users;
 			});
 		}
@@ -248,7 +242,7 @@
 			}
 
 			var plop=Upload.upload({
-				url: '/api/users/42',
+				url: '/api/users/',
 				data: {
 					beve_sent_des_pieds: Upload.json($scope.user),
 					et_pas_que: $scope.user.photo,

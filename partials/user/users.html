@@ -69,9 +69,9 @@
                     <td md-cell>{{user.updated_at | date:'short'}}</td>
                     <td md-cell>{{user.lastname}} {{user.firstname}}</td>
                     <td md-cell>{{user.email}}</td>
-                    <td md-cell>{{user.groups_user}}</td>
-                    <td md-cell>{{user.groups_chronology}}</td>
-                    <td md-cell>{{user.groups_charac}}</td>
+                    <td md-cell ng-repeat="group in user.groups_user">{{group.name}}</td>
+                    <td md-cell ng-repeat="group in user.groups_chronology">{{group.name}}</td>
+                    <td md-cell ng-repeat="group in user.groups_charac">{{group.name}}</td>
                     <td md-cell>{{user.active}}</td>
                     <td md-cell>{{user.country}}</td>
                     <td md-cell>{{user.company1}}</td>
