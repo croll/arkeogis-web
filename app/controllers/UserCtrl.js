@@ -37,14 +37,16 @@
 		var users_bookmark_page=1;
 
 		function getUsers(query) {
-			$scope.users = User.get(query || $scope.users_query).$promise.then(function(users) {
+ 			$scope.users = User.get(query || $scope.users_query).$promise.then(function(users) {
 				console.log("updated ! ", users);
 				$scope.users = users;
+			}, function(err) {
+				console.error("error to display to the user: ", err);
 			});
 		}
 
 		$scope.users_onPaginate = function (page, limit) {
-			getUsers(angular.extend({}, $scope.users_query, {page: page, limit: limit}));
+			getUsers(angular.extend({}, $scope.users_query, {page: page+1, limit: limit}));
 		}
 
 		$scope.users_onReorder = function (order) {
@@ -87,7 +89,7 @@
 				}
             }).then(function(answer) {
                 console.log("Dialog Add User Answer : "+answer);
-				//getUsers();
+				getUsers();
             }, function() {
                 console.log("Dialog Add User cancelled");
             });
