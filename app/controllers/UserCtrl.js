@@ -36,15 +36,6 @@
 		}
 		var users_bookmark_page=1;
 
-		function json_groups_to_str(groups) {
-			groups = JSON.parse(groups);
-			var groups_str = ""
-			groups.forEach(function(group) {
-				groups_str += (groups_str == "" ? "" : ", ") + group.name;
-			});
-			return groups_str;
-		}
-
 		function getUsers(query) {
 			$scope.users = User.get(query || $scope.users_query).$promise.then(function(users) {
 				console.log("updated ! ", users);
