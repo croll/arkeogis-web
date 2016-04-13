@@ -74,20 +74,15 @@
 		};
 
         this.loadContinents = function(lang) {
-            lang = lang || 'fr';
-            return self.wrapCall('/api/continents', {
-                lang: lang
-            });
+            return self.wrapCall('/api/continents');
         };
 
         this.autocompleteCountry = function(searchTextCountry, lang) {
             if (searchTextCountry === null) {
                 return [];
             }
-            lang = lang || 'fr';
             var params = {
                 search: searchTextCountry,
-                lang: 'fr',
                 limit: 25
             };
             return self.wrapCall('/api/countries', params/*, {
@@ -101,10 +96,8 @@
             if (searchTextCity === null) {
                 return [];
             }
-            lang = lang || 'fr';
             var params = {
                 search: searchTextCity,
-                lang: lang,
                 limit: 25
             };
             if (selectedCountry) {
@@ -120,10 +113,8 @@
             if (searchTextCompany === null) {
                 return [];
             }
-            lang = lang || 'fr';
             var params = {
-                search: searchTextCompany,
-                lang: lang
+                search: searchTextCompany
             };
             return self.wrapCall('/api/companies', params);
         };
@@ -153,15 +144,11 @@
         };
 
         this.getCity = function(id_city, lang) {
-            return self.wrapCall('/api/cities/'+id_city, {
-                lang: 'fr'
-            })
+            return self.wrapCall('/api/cities/'+id_city)
         };
 
         this.getCompany = function(id, lang) {
-            return self.wrapCall('/api/companies/'+id, {
-                lang: 'fr'
-            })
+            return self.wrapCall('/api/companies/'+id)
         };
 
         // remap data array of object
