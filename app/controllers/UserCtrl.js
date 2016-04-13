@@ -110,7 +110,7 @@
 	}]);
 
 
-	ArkeoGIS.controller('UserEditCtrl', ['$scope', 'Upload', 'user', 'Langs', '$mdDialog', "$http", "$q", "arkeoService", "id_user", function ($scope, Upload, User, Langs, $mdDialog, $http, $q, arkeoService, id_user) {
+	ArkeoGIS.controller('UserEditCtrl', ['$scope', 'Upload', 'user', 'group', 'Langs', '$mdDialog', "$http", "$q", "arkeoService", "id_user", function ($scope, Upload, User, Group, Langs, $mdDialog, $http, $q, arkeoService, id_user) {
 
 		$scope.langs = Langs.query();
 
@@ -121,6 +121,10 @@
 		$scope.companies_city_search=[null, null];
 		$scope.companies_country=[null, null];
 		$scope.companies_country_search=[null, null];
+
+		$scope.available_groups_user = Group.get({type: 'user', limit: 100, page: 1, order: 'g_tr.name'});
+		$scope.available_groups_charac = Group.get({type: 'charac', limit: 100, page: 1, order: 'g_tr.name'});
+		$scope.available_groups_chronology = Group.get({type: 'chronology', limit: 100, page: 1, order: 'g_tr.name'});
 
 		function hackAutocompletes(user) {
 			//console.log("hack user: ", user);

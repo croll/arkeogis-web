@@ -128,9 +128,7 @@
                             <md-input-container>
                                 <label translate>.FIELD_GROUPS.T_TITLE</label>
                                 <md-select ng-model="user.groups">
-                                    <md-option value="1">Étudiants</md-option>
-                                    <md-option value="2">Professeurs</md-option>
-                                    <md-option value="3">Chercheurs</md-option>
+                                    <md-option ng-repeat="group in available_groups_user.data" ng-value="group.id">{{group.name}}</md-option>
                                 </md-select>
                             </md-input-container>
                         </div>
@@ -254,18 +252,14 @@
                     <md-input-container flex>
                         <label translate>.FIELD_CHRONOGROUP.T_TITLE</label>
                         <md-select ng-model="user.chronogroup" multiple>
-                            <md-option value="1">Branlos</md-option>
-                            <md-option value="2">Blagueurs</md-option>
-                            <md-option value="3">Creuseurs de tombes</md-option>
+                            <md-option ng-repeat="group in available_groups_chronology.data" ng-value="group.id">{{group.name}}</md-option>
                         </md-select>
                     </md-input-container>
 
                     <md-input-container flex>
                         <label translate>.FIELD_CARACSGROUP.T_TITLE</label>
                         <md-select ng-model="user.caracsgroup" multiple>
-                            <md-option value="1">Branlos</md-option>
-                            <md-option value="2">Blagueurs</md-option>
-                            <md-option value="3">Creuseurs de tombes</md-option>
+                            <md-option ng-repeat="group in available_groups_charac.data" ng-value="group.id">{{group.name}}</md-option>
                         </md-select>
                     </md-input-container>
 
