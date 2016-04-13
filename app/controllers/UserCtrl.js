@@ -56,12 +56,12 @@
 		}
 
 		$scope.users_onReorder = function (order) {
-			console.log("users_onReorder", order)
+			console.log("users_onReorder", order);
 			getUsers(angular.extend({}, $scope.users_query, {order: order}));
 		}
 
 		$scope.users_removeFilter = function () {
-			console.log("users_removeFilter", order)
+			console.log("users_removeFilter");
 	      	$scope.users_filter.show = false;
 	      	$scope.users_query.filter = '';
 
