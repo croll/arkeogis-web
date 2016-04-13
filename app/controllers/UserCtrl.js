@@ -171,6 +171,26 @@
 				user.city_and_country.city=null;
 			}
 
+			// also hack groups
+			user.groups_user=[];
+			user.groups_chronology=[];
+			user.groups_charac=[];
+			user.groups.forEach(function(group) {
+				switch(group.type) {
+					case 'user':
+						user.groups_user.push(group.id);
+					break;
+					case 'chronology':
+						user.groups_chronology.push(group.id);
+					break;
+					case 'charac':
+						user.groups_charac.push(group.id);
+					break;
+					default:
+					console.error("unknown group type fro group: ", group);
+				}
+			})
+
 			return user;
 		}
 
@@ -238,7 +258,10 @@
 		$scope.autocompleteCompany = arkeoService.autocompleteCompany;
 
         $scope.userAddSubmit = function (userForm, photo) {
+			// update user.active to a real bool
             $scope.user.active = $scope.user.active == "true" ? true : false;
+
+			// update companies of the user
 			for (var i=0; i<2; i++) {
 				if (($scope.companies[i] || $scope.companies_search[i]) && $scope.companies_country[i] && $scope.companies_city[i]) {
 					$scope.user.companies[i] = $scope.companies[i] ? $scope.companies[i] : {};
@@ -251,6 +274,18 @@
 					console.log("naze", i, $scope.companies[i], $scope.companies_country[i], $scope.companies_city[i])
 				}
 			}
+
+			//  update groups
+			$scope.user.groups=[];
+			$scope.user.groups_user.forEach(function(id_group) {
+				$scope.user.groups.push({id: id_group});
+			});
+			$scope.user.groups_chronology.forEach(function(id_group) {
+				$scope.user.groups.push({id: id_group});
+			});
+			$scope.user.groups_charac.forEach(function(id_group) {
+				$scope.user.groups.push({id: id_group});
+			});
 
 			var plop=Upload.upload({
 				url: '/api/users'+(('id' in $scope.user && $scope.user.id >= 0) ? '/'+$scope.user.id : ''),
