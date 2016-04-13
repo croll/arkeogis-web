@@ -175,6 +175,8 @@
 			user.groups_user=[];
 			user.groups_chronology=[];
 			user.groups_charac=[];
+			if (!('groups' in user))
+				user.groups=[];
 			user.groups.forEach(function(group) {
 				switch(group.type) {
 					case 'user':
