@@ -94,6 +94,9 @@
                             <md-input-container>
                                 <label translate>.FIELD_PASSWORD2.T_TITLE</label>
                                 <input name="password2" ng-model="user.password2" type="password"/>
+                                <div ng-messages="userForm.password2.$error" role="alert">
+                                    <div ng-if="user.password != user.password2">{{ 'USER.FIELD_PASSWORD.T_CHECK_NOTSAME' | translate }}</div>
+                                </div>
                             </md-input-container>
                         </div>
                     </div>
