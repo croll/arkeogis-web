@@ -21,7 +21,7 @@
 
 (function () {
     'use strict';
-    ArkeoGIS.service('login', ['$http', 'user', '$q', '$cookies', function ($http, User, $q, $cookies) {
+    ArkeoGIS.service('login', ['$http', 'user', '$q', '$cookies', 'arkeoService', function ($http, User, $q, $cookies, Arkeo) {
 
         var self=this;
 
@@ -35,6 +35,8 @@
                 $cookies.put('arkeogis_session_token', ret.data.Token);
                 //ArkeoGIS.token=ret.data.Token;
                 self.user=new User(ret.data.User);
+                Arkeo.setLang1(ret.data.lang1.iso_code)
+                Arkeo.setLang2(ret.data.lang2.iso_code)
                 return self.user;
             });
         };

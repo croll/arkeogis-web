@@ -21,12 +21,12 @@
 
 (function() {
 	'use strict';
-	ArkeoGIS.controller('ArkeoCtrl', ['$scope', '$translate', function($scope, $translate) {
+	ArkeoGIS.controller('ArkeoCtrl', ['$scope', 'arkeoService', function($scope, Arkeo) {
 		$scope.setLang = function(lang) {
-             $translate.use(lang);
+			Arkeo.setLang1(lang);
 		};
         $scope.getLang = function() {
-             return $translate.use();
+			return Arkeo.getLang1();
         };
 	}]);
 })();

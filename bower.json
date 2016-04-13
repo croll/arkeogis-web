@@ -18,6 +18,7 @@
     "angular-translate-loader-static-files": "latest",
     "ng-file-upload": "latest",
     "angular-material-data-table": "latest",
-    "angular-nvd3": "latest"
+    "angular-nvd3": "latest",
+    "angular-i18n": "latest"
   }
 }

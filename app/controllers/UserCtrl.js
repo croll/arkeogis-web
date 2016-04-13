@@ -36,46 +36,42 @@
 		}
 		var users_bookmark_page=1;
 
-		function json_groups_to_str(groups) {
-			groups = JSON.parse(groups);
-			var groups_str = ""
-			groups.forEach(function(group) {
-				groups_str += (groups_str == "" ? "" : ", ") + group.name;
-			});
-			return groups_str;
-		}
-
 		function getUsers(query) {
-			$scope.users = User.get(query || $scope.users_query).$promise.then(function(users) {
+ 			$scope.users = User.get(query || $scope.users_query).$promise.then(function(users) {
 				console.log("updated ! ", users);
-				users.data.forEach(function(user) {
-					user.groups_user = json_groups_to_str(user.groups_user);
-					user.groups_chronology = json_groups_to_str(user.groups_chronology);
-					user.groups_charac = json_groups_to_str(user.groups_charac);
-					user.country = JSON.parse(user.country_and_city).country_name;
-				});
 				$scope.users = users;
+			}, function(err) {
+				console.error("error to display to the user: ", err);
 			});
 		}
 
 		$scope.users_onPaginate = function (page, limit) {
-			getUsers(angular.extend({}, $scope.users_query, {page: page, limit: limit}));
+			console.log("users_onPaginate", page, limit);
+			//getUsers(angular.extend({}, $scope.users_query, {page: page, limit: limit}));
+			if (page > 0)
+				getUsers();
+			else {
+				console.error("page 0 ?");
+			}
 		}
 
 		$scope.users_onReorder = function (order) {
+			console.log("users_onReorder", order);
 			getUsers(angular.extend({}, $scope.users_query, {order: order}));
 		}
 
 		$scope.users_removeFilter = function () {
-	      $scope.users_filter.show = false;
-	      $scope.users_query.filter = '';
+			console.log("users_removeFilter");
+	      	$scope.users_filter.show = false;
+	      	$scope.users_query.filter = '';
 
-	      if($scope.users_filter.form.$dirty) {
-	        $scope.users_filter.form.$setPristine();
-	      }
+	      	if($scope.users_filter.form.$dirty) {
+	        	$scope.users_filter.form.$setPristine();
+	      	}
 	    }
 
 		$scope.$watch('users_query.filter', function (newValue, oldValue) {
+			console.log("users_query.filter", newValue, oldValue);
 	      	if(!oldValue) {
 	        	users_bookmark_page = $scope.users_query.page;
 	      	}
@@ -102,7 +98,7 @@
 				}
             }).then(function(answer) {
                 console.log("Dialog Add User Answer : "+answer);
-				//getUsers();
+				getUsers();
             }, function() {
                 console.log("Dialog Add User cancelled");
             });
@@ -114,7 +110,7 @@
 	}]);
 
 
-	ArkeoGIS.controller('UserEditCtrl', ['$scope', 'Upload', 'user', 'Langs', '$mdDialog', "$http", "$q", "arkeoService", "id_user", function ($scope, Upload, User, Langs, $mdDialog, $http, $q, arkeoService, id_user) {
+	ArkeoGIS.controller('UserEditCtrl', ['$scope', 'Upload', 'user', 'group', 'Langs', '$mdDialog', "$http", "$q", "arkeoService", "id_user", function ($scope, Upload, User, Group, Langs, $mdDialog, $http, $q, arkeoService, id_user) {
 
 		$scope.langs = Langs.query();
 
@@ -126,7 +122,13 @@
 		$scope.companies_country=[null, null];
 		$scope.companies_country_search=[null, null];
 
+		$scope.available_groups_user = Group.get({type: 'user', limit: 100, page: 1, order: 'g_tr.name'});
+		$scope.available_groups_charac = Group.get({type: 'charac', limit: 100, page: 1, order: 'g_tr.name'});
+		$scope.available_groups_chronology = Group.get({type: 'chronology', limit: 100, page: 1, order: 'g_tr.name'});
+
 		function hackAutocompletes(user) {
+			//console.log("hack user: ", user);
+
 			// companies fields
 			if (user.companies == undefined || user.companies == null) {
 				user.companies = [];
@@ -162,10 +164,35 @@
 
 			if (user.city_and_country.country && user.city_and_country.country.name == "") {
 				user.city_and_country.country=null;
+				$scope.searchTextCountry = "";
 			}
+
 			if (user.city_and_country.city && user.city_and_country.city.name == "") {
 				user.city_and_country.city=null;
 			}
+
+			// also hack groups
+			user.groups_user=[];
+			user.groups_chronology=[];
+			user.groups_charac=[];
+			if (!('groups' in user))
+				user.groups=[];
+			user.groups.forEach(function(group) {
+				switch(group.type) {
+					case 'user':
+						user.groups_user.push(group.id);
+					break;
+					case 'chronology':
+						user.groups_chronology.push(group.id);
+					break;
+					case 'charac':
+						user.groups_charac.push(group.id);
+					break;
+					default:
+					console.error("unknown group type fro group: ", group);
+				}
+			})
+
 			return user;
 		}
 
@@ -196,10 +223,10 @@
 		}
 
 		function getUserSuccess(user) {
-			console.log("user loaded before hack: ", user.companies);
+			console.log("user loaded before hack: ", user);
 			hackAutocompletes(user);
 			//$scope.user=user;
-			console.log("user loaded after hack: ", user.companies);
+			console.log("user loaded after hack: ", user);
 		};
 
 		$scope.company_change = function(num) {
@@ -233,7 +260,10 @@
 		$scope.autocompleteCompany = arkeoService.autocompleteCompany;
 
         $scope.userAddSubmit = function (userForm, photo) {
+			// update user.active to a real bool
             $scope.user.active = $scope.user.active == "true" ? true : false;
+
+			// update companies of the user
 			for (var i=0; i<2; i++) {
 				if (($scope.companies[i] || $scope.companies_search[i]) && $scope.companies_country[i] && $scope.companies_city[i]) {
 					$scope.user.companies[i] = $scope.companies[i] ? $scope.companies[i] : {};
@@ -247,8 +277,20 @@
 				}
 			}
 
+			//  update groups
+			$scope.user.groups=[];
+			$scope.user.groups_user.forEach(function(id_group) {
+				$scope.user.groups.push({id: id_group});
+			});
+			$scope.user.groups_chronology.forEach(function(id_group) {
+				$scope.user.groups.push({id: id_group});
+			});
+			$scope.user.groups_charac.forEach(function(id_group) {
+				$scope.user.groups.push({id: id_group});
+			});
+
 			var plop=Upload.upload({
-				url: '/api/users/42',
+				url: '/api/users'+(('id' in $scope.user && $scope.user.id >= 0) ? '/'+$scope.user.id : ''),
 				data: {
 					beve_sent_des_pieds: Upload.json($scope.user),
 					et_pas_que: $scope.user.photo,
@@ -263,39 +305,7 @@
 				}
             });
 
-
-			/*
-            $scope.user.$save().then(function(ret) {
-                console.log("user saved ", ret);
-				$scope.hide();
-            }, function(err) {
-                console.log("err ! ", err);
-				if (err.data.errors) {
-					arkeoService.setFormErrorsFromServer(userForm, err.data.errors, "json.");
-				}
-            });
-			*/
         };
-
-/*
-		$scope.uploadForm = function(url, json, file) {
-			file.upload = Upload.upload({
-				url: url,
-				data: {username: $scope.username, file: file},
-			});
-
-			file.upload.then(function (response) {
-				$timeout(function () {
-					file.result = response.data;
-				});
-			}, function (response) {
-				if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
-			}, function (evt) {
-				// Math.min is to fix IE which reports 200% sometimes
-				file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-			});
-		}
-*/
 
 	}]);
 

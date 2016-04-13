@@ -20,7 +20,7 @@
  */
 
 (function() {
-    ArkeoGIS.service('arkeoService', ['$http', '$q', function($http, $q) {
+    ArkeoGIS.service('arkeoService', ['$http', '$q', '$cookies', '$translate', function($http, $q, $cookies, $translate) {
 
         var self = this;
 
@@ -74,20 +74,15 @@
 		};
 
         this.loadContinents = function(lang) {
-            lang = lang || 'fr';
-            return self.wrapCall('/api/continents', {
-                lang: lang
-            });
+            return self.wrapCall('/api/continents');
         };
 
         this.autocompleteCountry = function(searchTextCountry, lang) {
             if (searchTextCountry === null) {
                 return [];
             }
-            lang = lang || 'fr';
             var params = {
                 search: searchTextCountry,
-                lang: 'fr',
                 limit: 25
             };
             return self.wrapCall('/api/countries', params/*, {
@@ -101,10 +96,8 @@
             if (searchTextCity === null) {
                 return [];
             }
-            lang = lang || 'fr';
             var params = {
                 search: searchTextCity,
-                lang: lang,
                 limit: 25
             };
             if (selectedCountry) {
@@ -120,10 +113,8 @@
             if (searchTextCompany === null) {
                 return [];
             }
-            lang = lang || 'fr';
             var params = {
-                search: searchTextCompany,
-                lang: lang
+                search: searchTextCompany
             };
             return self.wrapCall('/api/companies', params);
         };
@@ -153,15 +144,11 @@
         };
 
         this.getCity = function(id_city, lang) {
-            return self.wrapCall('/api/cities/'+id_city, {
-                lang: 'fr'
-            })
+            return self.wrapCall('/api/cities/'+id_city)
         };
 
         this.getCompany = function(id, lang) {
-            return self.wrapCall('/api/companies/'+id, {
-                lang: 'fr'
-            })
+            return self.wrapCall('/api/companies/'+id)
         };
 
         // remap data array of object
@@ -177,6 +164,32 @@
                 }
             }
             return newdata;
-        }
+        };
+
+        this.setLang1 = function(iso_code) {
+            $translate.use(iso_code);
+            $cookies.put('arkeogis_lang_1', iso_code);
+        };
+
+        this.setLang2 = function(iso_code) {
+            $cookies.put('arkeogis_lang_2', iso_code);
+        };
+
+        this.getLang1 = function() {
+            var iso_code = $cookies.get('arkeogis_lang_1');
+            if (!iso_code) iso_code = $translate.use();
+            if (!iso_code) iso_code = 'en';
+            return iso_code;
+        };
+
+        this.getLang1 = function() {
+            var iso_code = $cookies.get('arkeogis_lang_2');
+            if (!iso_code) iso_code = 'en';
+            return iso_code;
+        };
+
+        this.getLangs = function() {
+            return this.getLang1() + "," + this.getLang2();
+        };
     }]);
 })();
