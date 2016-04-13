@@ -352,6 +352,7 @@
 		},
 		"FIELD_PASSWORD": {
 			"T_CHECK_INCORRECT": "The password is mandatory",
+			"T_CHECK_NOTSAME": "The two passwords must be the same",
 			"T_TITLE": "Password"
 		},
 		"FIELD_PASSWORD2": {

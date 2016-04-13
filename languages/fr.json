@@ -352,6 +352,7 @@
 		},
 		"FIELD_PASSWORD": {
 			"T_CHECK_INCORRECT": "Le mot de passe est incorrect",
+			"T_CHECK_NOTSAME": "Les deux mots de passe doivent correspondre",
 			"T_TITLE": "Mot de passe"
 		},
 		"FIELD_PASSWORD2": {
