@@ -24,8 +24,7 @@
   ArkeoGIS.controller('ImportMainCtrl', ['$scope', '$location', '$rootScope', '$state', 'importService',
     function($scope, $location, $rootScope, $state, importService) {
       // Debug
-      //importService.tabs.selectedIndex = 4;
-      //return;
+      // importService.tabs.selectedIndex = 3;
       // Fin Debug
 
       $scope.tabs = importService.tabs; //jshint ignore: line
@@ -44,7 +43,9 @@
           tabNum--;
         }
       };
+
       $scope.uploadCSV = function(file) {
+        console.log("ici")
         importService.uploadCSV(file).then(function(resp) {
           importService.data = resp.data;
           if ($location.path().split("/")[2] === "step2") {
@@ -53,6 +54,7 @@
             $state.go('import.step2');
           }
         }, function(resp) {
+          console.log(resp);
           console.log('Import Error. Status: ' + resp.status);
         }, function(evt) {
           $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total);
@@ -69,8 +71,8 @@
 
 (function() {
   'use strict';
-  ArkeoGIS.controller('ImportStep1Ctrl', ['$scope', '$state', 'arkeoService', 'importService',
-    function($scope, $state, arkeoService, importService) {
+  ArkeoGIS.controller('ImportStep1Ctrl', ['$scope', '$state', 'arkeoService', 'databaseService', 'importService',
+    function($scope, $state, arkeoService, databaseService, importService) {
 
       $scope.reset = function() {
         var a = importService.reset();
@@ -80,6 +82,8 @@
       };
 
       $scope.importFields = importService.importFields;
+
+      $scope.scaleResolution = databaseService.scaleResolution;
 
       $scope.userPreferences = importService.userPreferences;
 
@@ -144,8 +148,8 @@
       $scope.nbErrors = nbErrors;
       $scope.nbLines = importService.data.nbLines;
 
-      var tooltip = nv.models.tooltip();
-      tooltip.duration(0);
+      //var tooltip = nv.models.tooltip();
+      //tooltip.duration(0);
 
       var percent = (nbSites > 0) ? Math.round(nbSitesOK * 100 / nbSites) : 0;
 

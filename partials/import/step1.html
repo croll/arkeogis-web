@@ -14,8 +14,8 @@
         <p translate>IMPORT_STEP1.CONDITIONS.T_LINE1</p>
         <p translate>IMPORT_STEP1.CONDITIONS.T_LINE2</p>
       </div>
-      <md-checkbox ng-model="userPreferences.conditionsAccepted"></md-checkbox>
-      <md-checkbox ng-model="userPreferences.saveConditionsAccepted" ng-hide="!userPreferences.conditionsAccepted" translate>IMPORT_STEP1.CONDITIONS.T_BUTTON_SAVE_CHOICES</md-checkbox>
+      <md-checkbox ng-model="userPreferences.conditionsAccepted" aria-label="."></md-checkbox>
+      <md-checkbox ng-model="userPreferences.saveConditionsAccepted" aria-label="." ng-hide="!userPreferences.conditionsAccepted" translate>IMPORT_STEP1.CONDITIONS.T_BUTTON_SAVE_CHOICES</md-checkbox>
     </md-card-content>
   </md-card>
 </div>
@@ -27,7 +27,7 @@
       <ark-form-block>
         <md-input-container>
           <label translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_LABEL</label>
-          <input name="databaseName" ng-minlength="3" ng-maxlength="50" ng-model="importFields.DatabaseName" required>
+          <input name="name" ng-minlength="3" ng-maxlength="50" ng-model="importFields.name" required>
           <div ng-messages="importForm.databaseName.$error">
             <div ng-message="minlength" translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_ERROR_MIN_LEN</div>
             <div ng-message="maxlength" translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_ERROR_MAX_LEN</div>
@@ -50,10 +50,9 @@
           <!-- Geographical extent -->
           <md-input-container>
             <label translate>IMPORT_STEP1.FIELD_GEO_EXTENT.T_LABEL</label>
-            <md-select name="geographicalExtent" ng-model="importFields.GeographicalExtent" ng-change="importFields.SelectedCountries = [];importFields.SelectedContinent = ''" required>
-              <md-option value="country" translate>IMPORT_STEP1.FIELD_GEO_EXTENT.T_COUNTRY</md-option>
-              <md-option value="continent" translate>IMPORT_STEP1.FIELD_GEO_EXTENT.T_CONTINENT</md-option>
-              <md-option value="world" translate>IMPORT_STEP1.FIELD_GEO_EXTENT.T_WORLD</md-option>
+            {{databaseService.geographicalExtent}}
+            <md-select name="geographicalExtent" ng-model="importFields.GeographicalExtent" ng-change="importFields.SelectedCountries = [];importFields.SelectedContinent = ''" required ng-repeat="(tr, id) in databaseService.geographicalExtent">
+              <md-option value="{{value}}" translate>{{label}}</md-option>
             </md-select>
           </md-input-container>
           <!-- Country -->
