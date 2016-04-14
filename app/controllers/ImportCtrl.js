@@ -83,7 +83,7 @@
 
       $scope.importFields = importService.importFields;
 
-      $scope.scaleResolution = databaseService.scaleResolution;
+      $scope.geographicalExtent = databaseService.geographicalExtent;
 
       $scope.userPreferences = importService.userPreferences;
 

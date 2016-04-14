@@ -50,20 +50,19 @@
           <!-- Geographical extent -->
           <md-input-container>
             <label translate>IMPORT_STEP1.FIELD_GEO_EXTENT.T_LABEL</label>
-            {{databaseService.geographicalExtent}}
-            <md-select name="geographicalExtent" ng-model="importFields.GeographicalExtent" ng-change="importFields.SelectedCountries = [];importFields.SelectedContinent = ''" required ng-repeat="(tr, id) in databaseService.geographicalExtent">
-              <md-option value="{{value}}" translate>{{label}}</md-option>
+            <md-select name="geographicalExtent" ng-model="importFields.GeographicalExtent" ng-change="importFields.SelectedCountries = [];importFields.SelectedContinent = ''" required >
+              <md-option value="{{geoex.id}}" ng-repeat="geoex in geographicalExtent" translate>{{geoex.tr}}</md-option>
             </md-select>
           </md-input-container>
           <!-- Country -->
           <div ng-hide="importFields.GeographicalExtent != 'country'" style="margin: -17px 0 0 45px" flex>
             <md-chips ng-model="importFields.SelectedCountries" md-autocomplete-snap md-require-match="true" md-allow-repeats="false">
               <md-autocomplete md-search-text="searchText" md-items="item in countrySearch(searchText)" md-item-text="item.name" placeholder="* Enter country name">
-                <span md-highlight-text="searchText">{{item.display}}</span>
+                <span md-highlight-text="searchText">{{item.name}}</span>
               </md-autocomplete>
               <md-chip-template>
-                <strong>{{$chip.display}}</strong>
-                <em>({{$chip.value}})</em>
+                <strong>{{$chip.name}}</strong>
+                <em>({{$chip.geonameid}})</em>
               </md-chip-template>
             </md-chips>
           </div>
