@@ -45,7 +45,6 @@
       };
 
       $scope.uploadCSV = function(file) {
-        console.log("ici")
         importService.uploadCSV(file).then(function(resp) {
           importService.data = resp.data;
           if ($location.path().split("/")[2] === "step2") {
@@ -54,7 +53,6 @@
             $state.go('import.step2');
           }
         }, function(resp) {
-          console.log(resp);
           console.log('Import Error. Status: ' + resp.status);
         }, function(evt) {
           $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total);

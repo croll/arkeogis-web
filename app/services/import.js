@@ -121,11 +121,10 @@
 
     // CSV upload
     this.uploadCSV = function(file) {
-    console.log("ICI");
       var values = angular.copy(self.importFields);
       var countriesID = [];
       self.importFields.SelectedCountries.forEach(function(sc) {
-        countriesID.push(sc.value);
+        countriesID.push(sc.geonameid);
       });
       values.SelectedCountries = countriesID;
       console.log(values);

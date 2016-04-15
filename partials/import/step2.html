@@ -60,7 +60,7 @@
     </div>
 </div>
 
-<div ng-hide="nbErrors == 0">
+<div ng-hide="nbErrors == 0 && nbSitesOK > 0">
     <md-content layout-padding>
         <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length || filter.show">
             <div class="md-toolbar-tools">
@@ -96,15 +96,15 @@
             <table md-table>
                 <thead md-head md-order="query.order" md-trigger="onOrderChange">
                     <tr md-row>
-                        <th md-column md-numeric order-by="line"><span translate>IMPORT_STEP2.REPORT_TABLE.T_LABEL_LINE</span></th>
-                        <th md-column md-numeric order-by="siteCode"><span translate>IMPORT_STEP2.REPORT_TABLE.T_LABEL_SITE_CODE</span></th>
-                        <th md-column md-numeric order-by="columns"><span translate>IMPORT_STEP2.REPORT_TABLE.T_LABEL_COLUMN</span></th>
-                        <th md-column md-numeric order-by="value"><span translate>IMPORT_STEP2.REPORT_TABLE.T_LABEL_VALUE</span></th>
-                        <th md-column md-numeric order-by="errMsg"><span translate>IMPORT_STEP2.REPORT_TABLE.T_LABEL_ERROR_MESSAGE</span></th>
+                        <th md-column md-numeric md-order-by="line"><span translate>IMPORT_STEP2.REPORT_TABLE.T_LABEL_LINE</span></th>
+                        <th md-column md-order-by="siteCode"><span translate>IMPORT_STEP2.REPORT_TABLE.T_LABEL_SITE_CODE</span></th>
+                        <th md-column md-order-by="columns"><span translate>IMPORT_STEP2.REPORT_TABLE.T_LABEL_COLUMN</span></th>
+                        <th md-column md-order-by="value"><span translate>IMPORT_STEP2.REPORT_TABLE.T_LABEL_VALUE</span></th>
+                        <th md-column md-order-by="errMsg"><span translate>IMPORT_STEP2.REPORT_TABLE.T_LABEL_ERROR_MESSAGE</span></th>
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row md-auto-select ng-repeat="error in importErrors.data | filter:query.filter | orderBy: order | limitTo: query.limit : (query.page - 1) * query.limit">
+                    <tr md-row md-auto-select ng-repeat="error in importErrors.data | filter:query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
                         <td md-cell>{{error.line}}</td>
                         <td md-cell>
                             {{error.siteCode}}
