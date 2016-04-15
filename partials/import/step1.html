@@ -14,8 +14,8 @@
         <p translate>IMPORT_STEP1.CONDITIONS.T_LINE1</p>
         <p translate>IMPORT_STEP1.CONDITIONS.T_LINE2</p>
       </div>
-      <md-checkbox ng-model="userPreferences.conditionsAccepted"></md-checkbox>
-      <md-checkbox ng-model="userPreferences.saveConditionsAccepted" ng-hide="!userPreferences.conditionsAccepted" translate>IMPORT_STEP1.CONDITIONS.T_BUTTON_SAVE_CHOICES</md-checkbox>
+      <md-checkbox ng-model="userPreferences.conditionsAccepted" aria-label="."></md-checkbox>
+      <md-checkbox ng-model="userPreferences.saveConditionsAccepted" aria-label="." ng-hide="!userPreferences.conditionsAccepted" translate>IMPORT_STEP1.CONDITIONS.T_BUTTON_SAVE_CHOICES</md-checkbox>
     </md-card-content>
   </md-card>
 </div>
@@ -27,7 +27,7 @@
       <ark-form-block>
         <md-input-container>
           <label translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_LABEL</label>
-          <input name="databaseName" ng-minlength="3" ng-maxlength="50" ng-model="importFields.DatabaseName" required>
+          <input name="name" ng-minlength="3" ng-maxlength="50" ng-model="importFields.name" required>
           <div ng-messages="importForm.databaseName.$error">
             <div ng-message="minlength" translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_ERROR_MIN_LEN</div>
             <div ng-message="maxlength" translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_ERROR_MAX_LEN</div>
@@ -38,8 +38,7 @@
       <!-- Database lang -->
       <ark-form-block>
         <md-input-container>
-          <label translate>IMPORT_STEP1.FIELD_LANG.T_LABEL</label>
-          <md-select name="databaseLang" ng-model="importFields.DatabaseLang" ng-init="loadLangs()" required>
+          <label translate>IMPORT_STEP1.FIELD_LANG.T_LABEL</label> <md-select name="databaseLang" ng-model="importFields.DatabaseLang" ng-init="loadLangs()" required>
             <md-option ng-value="lang.id" ng-repeat="lang in langs">{{lang.iso_code | uppercase}}</md-option>
           </md-select>
         </md-input-container>
@@ -51,21 +50,19 @@
           <!-- Geographical extent -->
           <md-input-container>
             <label translate>IMPORT_STEP1.FIELD_GEO_EXTENT.T_LABEL</label>
-            <md-select name="geographicalExtent" ng-model="importFields.GeographicalExtent" ng-change="importFields.SelectedCountries = [];importFields.SelectedContinent = ''" required>
-              <md-option value="country" translate>IMPORT_STEP1.FIELD_GEO_EXTENT.T_COUNTRY</md-option>
-              <md-option value="continent" translate>IMPORT_STEP1.FIELD_GEO_EXTENT.T_CONTINENT</md-option>
-              <md-option value="world" translate>IMPORT_STEP1.FIELD_GEO_EXTENT.T_WORLD</md-option>
+            <md-select name="geographicalExtent" ng-model="importFields.GeographicalExtent" ng-change="importFields.SelectedCountries = [];importFields.SelectedContinent = ''" required >
+              <md-option value="{{geoex.id}}" ng-repeat="geoex in geographicalExtent" translate>{{geoex.tr}}</md-option>
             </md-select>
           </md-input-container>
           <!-- Country -->
           <div ng-hide="importFields.GeographicalExtent != 'country'" style="margin: -17px 0 0 45px" flex>
             <md-chips ng-model="importFields.SelectedCountries" md-autocomplete-snap md-require-match="true" md-allow-repeats="false">
               <md-autocomplete md-search-text="searchText" md-items="item in countrySearch(searchText)" md-item-text="item.name" placeholder="* Enter country name">
-                <span md-highlight-text="searchText">{{item.display}}</span>
+                <span md-highlight-text="searchText">{{item.name}}</span>
               </md-autocomplete>
               <md-chip-template>
-                <strong>{{$chip.display}}</strong>
-                <em>({{$chip.value}})</em>
+                <strong>{{$chip.name}}</strong>
+                <em>({{$chip.geonameid}})</em>
               </md-chip-template>
             </md-chips>
           </div>
@@ -95,7 +92,7 @@
             <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
           </div>
         </md-input-container>
-        <ark-help ng-hide="importForm.separator.$error.required" flex>IMPORT_STEP1.FIELD_SEPARATOR.T_HELP</ark-help>
+        <ark-help ng-hide="importForm.separator.$error.required" flex translate>IMPORT_STEP1.FIELD_SEPARATOR.T_HELP</ark-help>
       </ark-form-block>
       <!-- Echap characters -->
       <ark-form-block>

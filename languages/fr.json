@@ -1,4 +1,81 @@
 {
+	"DATABASE": {
+		"CONTEXT_TODO": {
+			"T_TITLE": "Todo"
+		},
+		"GEOGRAPHICAL_EXTENT_CONTINENT": {
+			"T_TITLE": "Continent"
+		},
+		"GEOGRAPHICAL_EXTENT_COUNTRY": {
+			"T_TITLE": "Pays"
+		},
+		"GEOGRAPHICAL_EXTENT_WORLD": {
+			"T_TITLE": "Monde"
+		},
+		"KNOWLEDGE_TYPE_DIG": {
+			"T_TITLE": "Fouillé"
+		},
+		"KNOWLEDGE_TYPE_LITERATURE": {
+			"T_TITLE": "Littérature"
+		},
+		"KNOWLEDGE_TYPE_NOTDOCUMENTED": {
+			"T_TITLE": "Non documenté"
+		},
+		"KNOWLEDGE_TYPE_PROSPECTED_AERIAL": {
+			"T_TITLE": "Prospection aérienne"
+		},
+		"KNOWLEDGE_TYPE_PROSPECTED_PEDESTRIAN": {
+			"T_TITLE": "Prospection terrestre"
+		},
+		"KNOWLEDGE_TYPE_SURVEYED": {
+			"T_TITLE": "Sondé"
+		},
+		"SCALE_RESOLUTION_COUNTRY": {
+			"T_TITLE": "Pays"
+		},
+		"SCALE_RESOLUTION_EUROPA": {
+			"T_TITLE": "Europe"
+		},
+		"SCALE_RESOLUTION_MICROREGION": {
+			"T_TITLE": "Micro région"
+		},
+		"SCALE_RESOLUTION_OBJECT": {
+			"T_TITLE": "Objet"
+		},
+		"SCALE_RESOLUTION_REGION": {
+			"T_TITLE": "Région"
+		},
+		"SCALE_RESOLUTION_SITE": {
+			"T_TITLE": "Site"
+		},
+		"SCALE_RESOLUTION_WATERSHED": {
+			"T_TITLE": "Watershed"
+		},
+		"SITE_OCCUPATION_CONTINUOUS": {
+			"T_TITLE": "Continue"
+		},
+		"SITE_OCCUPATION_MULTIPLE": {
+			"T_TITLE": "Multiple"
+		},
+		"SITE_OCCUPATION_SINGLE": {
+			"T_TITLE": "Unique"
+		},
+		"STATE_FINISHED": {
+			"T_TITLE": "Terminée"
+		},
+		"STATE_INPROGRESS": {
+			"T_TITLE": "En cours"
+		},
+		"TYPE_INVENTORY": {
+			"T_TITLE": "Inventaire"
+		},
+		"TYPE_LITERARYWORK": {
+			"T_TITLE": "Travail littéraire"
+		},
+		"TYPE_RESEARCH": {
+			"T_TITLE": "Recherche"
+		}
+	},
 	"GROUP": {
 		"BUTTON_GROUPSAVE": {
 			"T_TITLE": "Enregistrer"
@@ -62,10 +139,7 @@
 			"T_LABEL": "Geonames"
 		},
 		"FIELD_GEO_EXTENT": {
-			"T_CONTINENT": "Continent",
-			"T_COUNTRY": "Pays",
-			"T_LABEL": "* Echelle des points",
-			"T_WORLD": "Monde"
+			"T_LABEL": "* Echelle des points"
 		},
 		"FIELD_LANG": {
 			"T_HELP": "Langue utilisée dans la base de données pour décrire les caractérisations Mobilier / Immobilier / Production / Paysage / Texte - Iconographie.",
@@ -288,7 +362,6 @@
 			"T_TITLE": "Groupes Chronologie"
 		},
 		"FIELD_CITY": {
-			"T_CHECK_MANDATORY": "La ville est obligatoire",
 			"T_CHECK_NOMATCH": "Ville introuvable...",
 			"T_TITLE": "Ville"
 		},
@@ -327,7 +400,6 @@
 			"T_TITLE": "Base de données"
 		},
 		"FIELD_DESCRIPTION": {
-			"T_CHECK_MANDATORY": "La description est obligatoire",
 			"T_TITLE": "Description"
 		},
 		"FIELD_EMAIL": {
@@ -351,7 +423,6 @@
 			"T_TITLE": "Nom"
 		},
 		"FIELD_PASSWORD": {
-			"T_CHECK_INCORRECT": "Le mot de passe est incorrect",
 			"T_CHECK_NOTSAME": "Les deux mots de passe doivent correspondre",
 			"T_TITLE": "Mot de passe"
 		},
@@ -363,7 +434,6 @@
 		},
 		"FIELD_USERNAME": {
 			"T_CHECK_ALREADYEXISTS": "Cet utilisateur existe déjà",
-			"T_CHECK_INCORRECT": "Le nom d'utlilsateur est incorrect",
 			"T_CHECK_MANDATORY": "Ce champ est obligatoire",
 			"T_TITLE": "Identifiant"
 		},

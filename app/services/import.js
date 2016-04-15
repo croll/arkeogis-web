@@ -24,14 +24,6 @@
 
     var self = this;
 
-    var ImportResource = $resource('/api/import/:id', {
-      id: '@id'
-    }, {
-       update: {
-         method: 'PUT'
-      }
-    });
-
     this.defaultTabsValues = {
       selectedIndex: 0,
       enabled: {
@@ -52,7 +44,7 @@
     this.importFieldsDefaultValues = {
       DatabaseLang: self.userPreferences.firstLangId, // TODO: set it accordingly
       //DatabaseName: '',
-      DatabaseName: 'Db de test',
+      name: 'Db de test',
       SelectedContinent: '',
       SelectedCountries: [],
       UseGeonames: false,
@@ -132,7 +124,7 @@
       var values = angular.copy(self.importFields);
       var countriesID = [];
       self.importFields.SelectedCountries.forEach(function(sc) {
-        countriesID.push(sc.value);
+        countriesID.push(sc.geonameid);
       });
       values.SelectedCountries = countriesID;
       console.log(values);
