@@ -375,6 +375,9 @@
 		"HEADER_ADDUSER": {
 			"T_TITLE": "New user"
 		},
+		"HEADER_EDITUSER": {
+			"T_TITLE": "Edit User..."
+		},
 		"HEADER_USERS": {
 			"T_TITLE": "Users Administration"
 		},
