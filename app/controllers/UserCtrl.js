@@ -193,6 +193,10 @@
 				}
 			})
 
+			// and Password
+			user.password="";
+			user.password2="";
+
 			return user;
 		}
 
