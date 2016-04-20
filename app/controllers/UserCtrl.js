@@ -180,7 +180,7 @@
 			user.groups.forEach(function(group) {
 				switch(group.type) {
 					case 'user':
-						user.groups_user.push(group.id);
+						user.groups_user = group.id; // only one group per user
 					break;
 					case 'chronology':
 						user.groups_chronology.push(group.id);
