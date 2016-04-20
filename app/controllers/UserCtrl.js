@@ -175,7 +175,7 @@
 			user.groups_user=[];
 			user.groups_chronology=[];
 			user.groups_charac=[];
-			if (!('groups' in user))
+			if ((!('groups' in user)) || !user.groups)
 				user.groups=[];
 			user.groups.forEach(function(group) {
 				switch(group.type) {
@@ -192,6 +192,10 @@
 					console.error("unknown group type fro group: ", group);
 				}
 			})
+
+			// and Password
+			user.password="";
+			user.password2="";
 
 			return user;
 		}
@@ -279,9 +283,12 @@
 
 			//  update groups
 			$scope.user.groups=[];
+			$scope.user.groups.push({id: $scope.user.groups_user}); // mono select version
+			/* multi select version
 			$scope.user.groups_user.forEach(function(id_group) {
 				$scope.user.groups.push({id: id_group});
 			});
+			*/
 			$scope.user.groups_chronology.forEach(function(id_group) {
 				$scope.user.groups.push({id: id_group});
 			});
