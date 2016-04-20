@@ -133,6 +133,8 @@
           }
         });
 
+        console.log(importService.data.errors);
+
         nbSitesNOK = sitesWithErrors.length;
         nbSitesOK = nbSites - nbSitesNOK;
         nbErrors = importService.data.errors.length;

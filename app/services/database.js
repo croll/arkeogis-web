@@ -52,7 +52,10 @@
     ];
 
     this.context = [
-      {tr : 'DATABASE.CONTEXT_TODO.T_TITLE', id: 'todo'}
+      {tr : 'DATABASE.CONTEXT_ACADEMIC_WORK.T_TITLE', id: 'academic_work'},
+      {tr : 'DATABASE.CONTEXT_CONTRACT.T_TITLE', id: 'contract'},
+      {tr : 'DATABASE.CONTEXT_RESEARCH_TEAM.T_TITLE', id: 'research_team'},
+      {tr : 'DATABASE.CONTEXT_OTHER.T_TITLE', id: 'other'}
     ];
 
     this.occupation = [
