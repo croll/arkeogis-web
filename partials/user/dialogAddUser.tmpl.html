@@ -84,7 +84,7 @@
                         <div flex>
                             <md-input-container>
                                 <label translate>.FIELD_PASSWORD.T_TITLE</label>
-                                <input name="password" ng-model="user.password" ng-change="userForm.password.$setValidity('server', true)" type="password"/>
+                                <input name="password" ng-model="user.password" ng-change="userForm.password.$setValidity('server', true)" type="password" ng-required="user.id == undefined"/>
                                 <div ng-messages="userForm.password.$error" role="alert">
                                     <div ng-if="userForm.password.$error.server">{{ userForm.password.$error.server | translate }}</div>
                                 </div>
@@ -93,7 +93,7 @@
                         <div flex>
                             <md-input-container>
                                 <label translate>.FIELD_PASSWORD2.T_TITLE</label>
-                                <input name="password2" ng-model="user.password2" type="password"/>
+                                <input name="password2" ng-model="user.password2" type="password" ng-required="user.id == undefined"/>
                                 <div ng-messages="userForm.password2.$error" role="alert">
                                     <div ng-if="user.password != user.password2">{{ 'USER.FIELD_PASSWORD.T_CHECK_NOTSAME' | translate }}</div>
                                 </div>
