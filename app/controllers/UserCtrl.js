@@ -318,6 +318,7 @@
 			if (confirm("Delete this user ?"))
 				User.delete({id: $scope.user.id}).$promise.then(function(ret) {
 					console.log("user deleted.");
+					$scope.hide();
 				}, function(err) {
 					console.error("err: ", err);
 				});
