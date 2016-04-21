@@ -62,7 +62,7 @@
 
     // Step 3
     this.publicationFieldsDefaultValues = {
-      Authors: '',
+      Authors: [],
       Type: '',
       CreationDate: '',
       License: '',
