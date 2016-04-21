@@ -1,7 +1,16 @@
 {
 	"DATABASE": {
-		"CONTEXT_TODO": {
-			"T_TITLE": "Todo"
+		"CONTEXT_ACADEMIC_WORK": {
+			"T_TITLE": "#!#DATABASE.CONTEXT_ACADEMIC_WORK.T_TITLE"
+		},
+		"CONTEXT_CONTRACT": {
+			"T_TITLE": "#!#DATABASE.CONTEXT_CONTRACT.T_TITLE"
+		},
+		"CONTEXT_OTHER": {
+			"T_TITLE": "#!#DATABASE.CONTEXT_OTHER.T_TITLE"
+		},
+		"CONTEXT_RESEARCH_TEAM": {
+			"T_TITLE": "#!#DATABASE.CONTEXT_RESEARCH_TEAM.T_TITLE"
 		},
 		"GEOGRAPHICAL_EXTENT_CONTINENT": {
 			"T_TITLE": "Continent"
@@ -349,6 +358,15 @@
 		}
 	},
 	"USER": {
+		"BUTTON_CANCEL": {
+			"T_TITLE": "Annuler"
+		},
+		"BUTTON_DELETE": {
+			"T_TITLE": "Supprimer"
+		},
+		"BUTTON_SUBMIT": {
+			"T_TITLE": "Ok"
+		},
 		"FIELD_ACTIVE": {
 			"T_CHECK_MANDATORY": "Ce champ est obligatoire",
 			"T_ITEM_NO": "Non",
@@ -362,6 +380,7 @@
 			"T_TITLE": "Groupes Chronologie"
 		},
 		"FIELD_CITY": {
+			"T_CHECK_MANDATORY": "La ville est obligatoire",
 			"T_CHECK_NOMATCH": "Ville introuvable...",
 			"T_TITLE": "Ville"
 		},
@@ -400,6 +419,7 @@
 			"T_TITLE": "Base de données"
 		},
 		"FIELD_DESCRIPTION": {
+			"T_CHECK_MANDATORY": "La description est obligatoire",
 			"T_TITLE": "Description"
 		},
 		"FIELD_EMAIL": {
@@ -423,6 +443,7 @@
 			"T_TITLE": "Nom"
 		},
 		"FIELD_PASSWORD": {
+			"T_CHECK_INCORRECT": "Le mot de passe est incorrect",
 			"T_CHECK_NOTSAME": "Les deux mots de passe doivent correspondre",
 			"T_TITLE": "Mot de passe"
 		},
@@ -434,6 +455,7 @@
 		},
 		"FIELD_USERNAME": {
 			"T_CHECK_ALREADYEXISTS": "Cet utilisateur existe déjà",
+			"T_CHECK_INCORRECT": "Le nom d'utlilsateur est incorrect",
 			"T_CHECK_MANDATORY": "Ce champ est obligatoire",
 			"T_TITLE": "Identifiant"
 		},
