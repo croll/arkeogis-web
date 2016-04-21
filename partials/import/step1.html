@@ -38,7 +38,8 @@
       <!-- Database lang -->
       <ark-form-block>
         <md-input-container>
-          <label translate>IMPORT_STEP1.FIELD_LANG.T_LABEL</label> <md-select name="databaseLang" ng-model="importFields.DatabaseLang" ng-init="loadLangs()" required>
+          <label translate>IMPORT_STEP1.FIELD_LANG.T_LABEL</label>
+          <md-select name="databaseLang" ng-model="importFields.DatabaseLang" ng-init="loadLangs()" required>
             <md-option ng-value="lang.id" ng-repeat="lang in langs">{{lang.iso_code | uppercase}}</md-option>
           </md-select>
         </md-input-container>
