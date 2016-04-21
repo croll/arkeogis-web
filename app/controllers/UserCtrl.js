@@ -314,6 +314,15 @@
 
         };
 
+		$scope.deluser = function() {
+			if (confirm("Delete this user ?"))
+				User.delete({id: $scope.user.id}).$promise.then(function(ret) {
+					console.log("user deleted.");
+				}, function(err) {
+					console.error("err: ", err);
+				});
+		};
+
 	}]);
 
 })(angular);

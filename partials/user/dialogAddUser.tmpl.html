@@ -130,7 +130,7 @@
                         <div flex>
                             <md-input-container>
                                 <label translate>.FIELD_GROUPS.T_TITLE</label>
-                                <md-select ng-model="user.groups_user">
+                                <md-select ng-model="user.groups_user" required="required">
                                     <md-option ng-repeat="group in available_groups_user.data" ng-value="group.id" ng-selected="">{{group.name}}</md-option>
                                 </md-select>
                             </md-input-container>
@@ -295,8 +295,9 @@
                 </div>
 
                 <div layout="row" layout-align="end" layout-wrap>
-                        <md-button class="md-raised" ng-click="cancel()">Annuler</md-button>
-                        <md-button class="md-raised md-primary" type="submit">Ok</md-button>
+                    <md-button ng-show="user.id != undefined" class="md-raised" ng-click="deluser()" translate>.BUTTON_DELETE.T_TITLE</md-button>
+                    <md-button class="md-raised" ng-click="cancel()" translate>.BUTTON_CANCEL.T_TITLE</md-button>
+                    <md-button class="md-raised md-primary" type="submit" translate>.BUTTON_SUBMIT.T_TITLE</md-button>
                 </div>
 
             </md-content>
