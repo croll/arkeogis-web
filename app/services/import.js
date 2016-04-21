@@ -41,7 +41,7 @@
 
     this.refreshUserInfos = function() {
         self.user = login.user;
-        self.importFieldsDefaultValues.DatabaseLang = self.user.first_lang_id;
+        self.importFields.DatabaseLang = self.user.first_lang_id;
     }
 
     // Step 1

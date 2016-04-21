@@ -79,7 +79,7 @@
     function($scope, $state, arkeoService, databaseService, importService) {
 
       importService.refreshUserInfos();
-      
+
       $scope.reset = function() {
         var a = importService.reset();
         $scope.tabs.enabled[2] = a.enabled[2];
