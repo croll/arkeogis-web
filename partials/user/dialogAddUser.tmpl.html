@@ -107,7 +107,7 @@
                             <md-input-container>
                                 <label translate>.FIELD_LANG1.T_TITLE</label>
                                 <md-select required name="first_lang_id" ng-model="user.first_lang_id" ng-change="userForm.first_lang_id.$setValidity('server', true)">
-                                    <md-option ng-repeat="lang in langs" ng-value="lang.id">{{lang.iso_code}}</md-option>
+                                    <md-option ng-repeat="lang in langs" ng-value="lang.id">{{lang.name || lang.iso_code}}</md-option>
                                 </md-select>
                                 <div ng-messages="userForm.first_lang_id.$error" role="alert">
                                     <div ng-if="userForm.first_lang_id.$error.server">{{ userForm.first_lang_id.$error.server | translate }}</div>
@@ -119,7 +119,7 @@
                             <md-input-container>
                                 <label translate>.FIELD_LANG2.T_TITLE</label>
                                 <md-select required name="second_lang_id" ng-model="user.second_lang_id" ng-change="userForm.second_lang_id.$setValidity('server', true)">
-                                    <md-option ng-repeat="lang in langs" ng-value="lang.id">{{lang.iso_code}}</md-option>
+                                    <md-option ng-repeat="lang in langs" ng-value="lang.id">{{lang.name || lang.iso_code}}</md-option>
                                 </md-select>
                                 <div ng-messages="userForm.second_lang_id.$error" role="alert">
                                     <div ng-if="userForm.second_lang_id.$error.server">{{ userForm.second_lang_id.$error.server | translate }}</div>
@@ -269,8 +269,8 @@
                     <md-input-container flex>
                         <label translate>.FIELD_ACTIVE.T_TITLE</label>
                         <md-select name="active" ng-model="user.active" required>
-                            <md-option translate value="false">.FIELD_ACTIVE.T_ITEM_NO</md-option>
-                            <md-option translate value="true">.FIELD_ACTIVE.T_ITEM_YES</md-option>
+                            <md-option translate value="f">.FIELD_ACTIVE.T_ITEM_NO</md-option>
+                            <md-option translate value="t">.FIELD_ACTIVE.T_ITEM_YES</md-option>
                         </md-select>
                         <div ng-messages="userForm.active.$error" role="alert">
                             <div ng-if="userForm.active.$dirty" ng-message-exp="['required']">{{ 'USER.FIELD_ACTIVE.T_CHECK_MANDATORY' | translate }}</div>
