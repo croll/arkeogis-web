@@ -24,6 +24,8 @@
 
         var self = this;
 
+        this.theme = 'grey';
+
 		// automatically set message error from server on form fields
 		// - form is the $scope.form of the form :)
 		// - error is the error object that come from the server

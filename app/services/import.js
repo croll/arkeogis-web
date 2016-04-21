@@ -20,7 +20,7 @@
  */
 
 (function() {
-  ArkeoGIS.service('importService', ['Upload', '$resource', function(Upload, $resource) {
+  ArkeoGIS.service('importService', ['Upload', '$resource', 'login', function(Upload, $resource, login) {
 
     var self = this;
 
@@ -35,14 +35,18 @@
     };
 
     this.userPreferences = {
-      firstLangId: 48, // TODO: Get it from real
       conditionsAccepted: true,
       hideIntro: true
     };
 
+    this.refreshUserInfos = function() {
+        self.user = login.user;
+        self.importFieldsDefaultValues.DatabaseLang = self.user.first_lang_id;
+    }
+
     // Step 1
     this.importFieldsDefaultValues = {
-      DatabaseLang: self.userPreferences.firstLangId, // TODO: set it accordingly
+      DatabaseLang: '',
       //DatabaseName: '',
       name: 'Db de test',
       SelectedContinent: '',
@@ -127,6 +131,7 @@
         countriesID.push(sc.geonameid);
       });
       values.SelectedCountries = countriesID;
+      values.SelectedContients = [values.SelectedContinent]
       console.log(values);
       return Upload.upload({
         url: 'api/import/step1',

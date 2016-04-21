@@ -67,9 +67,11 @@
 </head>
 
 <body ng-app="ArkeoGIS" ng-controller="ArkeoCtrl as arkeo" layout="row" ng-cloak translate-namespace="MAIN">
-	<div layout="column" flex>
+	<div layout="column" flex md-theme="{{theme}}">
 		<md-toolbar class="md-toolbar-tools">
 			<h1 flex>ArkeoGIS</h1>
+			<md-button ng-click="setTheme('grey')" ng-hide="theme == 'grey'">La vie en bleu</md-button>
+			<md-button ng-click="setTheme('pink')" ng-hide="theme == 'pink'">La vie en rose</md-button>
 			<layout layout="row" layout-align="end center">
 
 				<div>{{ArkeoGIS.token}}</div>

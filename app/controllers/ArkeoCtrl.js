@@ -28,5 +28,12 @@
         $scope.getLang = function() {
 			return Arkeo.getLang1();
         };
+
+			$scope.theme = Arkeo.theme;
+
+			$scope.setTheme = function(name) {
+				Arkeo.theme = name;
+				$scope.theme = name;
+			}
 	}]);
 })();

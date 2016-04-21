@@ -29,14 +29,16 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
     /*
      * Theme
      */
-    $mdThemingProvider.theme('default')
-        .primaryPalette('blue', {});
+     $mdThemingProvider.alwaysWatchTheme(true);
+    $mdThemingProvider.theme('pink')
+        .primaryPalette('pink', {})
+        .accentPalette('red');
 
     $mdThemingProvider.theme('grey')
         .backgroundPalette('grey', {
             'default': '100'
         })
-        .accentPalette('red');
+        .accentPalette('orange');
     /******/
 
     /*

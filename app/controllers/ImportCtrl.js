@@ -21,8 +21,14 @@
 
 (function() {
   'use strict';
-  ArkeoGIS.controller('ImportMainCtrl', ['$scope', '$location', '$rootScope', '$state', 'importService',
-    function($scope, $location, $rootScope, $state, importService) {
+  ArkeoGIS.controller('ImportMainCtrl', ['$scope', '$location', '$rootScope', '$state', 'importService', 'login',
+    function($scope, $location, $rootScope, $state, importService, login) {
+
+
+      if (!angular.isDefined(login.user.id) || login.user.id == 0) {
+        $state.go('login');
+        return;
+      }
       // Debug
       // importService.tabs.selectedIndex = 3;
       // Fin Debug
@@ -72,6 +78,8 @@
   ArkeoGIS.controller('ImportStep1Ctrl', ['$scope', '$state', 'arkeoService', 'databaseService', 'importService',
     function($scope, $state, arkeoService, databaseService, importService) {
 
+      importService.refreshUserInfos();
+      
       $scope.reset = function() {
         var a = importService.reset();
         $scope.tabs.enabled[2] = a.enabled[2];
@@ -252,4 +260,4 @@
 
     }
   ]);
-})();
+})(angular);
