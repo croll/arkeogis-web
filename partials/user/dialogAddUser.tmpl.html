@@ -269,8 +269,8 @@
                     <md-input-container flex>
                         <label translate>.FIELD_ACTIVE.T_TITLE</label>
                         <md-select name="active" ng-model="user.active" required>
-                            <md-option translate value="f">.FIELD_ACTIVE.T_ITEM_NO</md-option>
-                            <md-option translate value="t">.FIELD_ACTIVE.T_ITEM_YES</md-option>
+                            <md-option translate ng-value="false">.FIELD_ACTIVE.T_ITEM_NO</md-option>
+                            <md-option translate ng-value="true">.FIELD_ACTIVE.T_ITEM_YES</md-option>
                         </md-select>
                         <div ng-messages="userForm.active.$error" role="alert">
                             <div ng-if="userForm.active.$dirty" ng-message-exp="['required']">{{ 'USER.FIELD_ACTIVE.T_CHECK_MANDATORY' | translate }}</div>

@@ -276,7 +276,7 @@
 
         $scope.userAddSubmit = function (userForm, photo) {
 			// update user.active to a real bool
-            $scope.user.active = $scope.user.active == "true" ? true : false;
+            //$scope.user.active = $scope.user.active == "true" ? true : false;
 
 			// update companies of the user
 			for (var i=0; i<2; i++) {
