@@ -114,7 +114,7 @@
 
 		$scope.langs = Langs.query();
 
-		$scope.user = id_user != undefined ? User.get({id: id_user}, getUserSuccess) : hackAutocompletes(new User());
+		//$scope.user = id_user != undefined ? User.get({id: id_user}, getUserSuccess) : hackAutocompletes(new User());
 		$scope.companies=[null, null];
 		$scope.companies_search=[null, null];
 		$scope.companies_city=[null, null];
@@ -125,6 +125,17 @@
 		$scope.available_groups_user = Group.get({type: 'user', limit: 100, page: 1, order: 'g_tr.name'});
 		$scope.available_groups_charac = Group.get({type: 'charac', limit: 100, page: 1, order: 'g_tr.name'});
 		$scope.available_groups_chronology = Group.get({type: 'chronology', limit: 100, page: 1, order: 'g_tr.name'});
+
+		init();
+		function init() {
+
+			$q.all($scope.available_groups_user.$promise, $scope.available_groups_charac.$promise, $scope.companies_country_search.$promise).then(function() {
+				console.log("all loaded !");
+				$scope.user = id_user != undefined ? User.get({id: id_user}, getUserSuccess) : hackAutocompletes(new User());
+			}, function(error) {
+				console.error("all not loaded !", error);
+			});
+		}
 
 		function hackAutocompletes(user) {
 			//console.log("hack user: ", user);
