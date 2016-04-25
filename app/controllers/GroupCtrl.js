@@ -62,7 +62,7 @@
 					if (group.users) {
 						group.users.forEach(function(user) {
 							user.name = user.firstname + " " + user.lastname;
-							user.image = '/api/users/'+user.id+'/photo'
+							user.image = '/api/users/photo/'+user.photo_id;
 						})
 					} else group.users=[];
 				})
