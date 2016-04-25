@@ -60,7 +60,7 @@
             <tbody md-body>
                 <tr md-auto-select md-row ng-repeat="user in users.data">
                     <td md-cell>
-                        <img style="max-width: 64px; max-height: 64px" class="user_photo" ng-src='/api/users/{{user.id}}/photo'></img>
+                        <img style="max-width: 64px; max-height: 64px" class="user_photo" ng-src='/api/users/photo/{{user.photo_id}}'></img>
                     </td>
                     <td md-cell>
                         <a ng-click="openDialogEdit($event, user.id)">{{user.username}}</a>
