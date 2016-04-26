@@ -26,7 +26,7 @@
 
 
       if (!angular.isDefined(login.user.id) || login.user.id == 0) {
-        $state.go('login');
+        $state.go('login', {redirectTo: 'import.step1'});
         return;
       }
       // Debug
@@ -260,4 +260,4 @@
 
     }
   ]);
-})(angular);
+})();

@@ -118,6 +118,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
             url: "/login",
             templateUrl: "partials/login.html",
             controller: "LoginCtrl",
+            params: {redirectTo: ''},
             resolve: {}
         });
     /**********/

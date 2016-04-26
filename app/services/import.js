@@ -131,7 +131,8 @@
         countriesID.push(sc.geonameid);
       });
       values.SelectedCountries = countriesID;
-      values.SelectedContients = [values.SelectedContinent]
+      values.SelectedContinents = [values.SelectedContinent]
+      delete values.SelectedContinent;
       console.log(values);
       return Upload.upload({
         url: 'api/import/step1',
