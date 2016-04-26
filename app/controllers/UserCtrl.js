@@ -21,7 +21,7 @@
 
 (function () {
 	'use strict';
-	ArkeoGIS.controller('UserCtrl', ['$scope', 'user', 'Langs', '$mdDialog', "$http", "$q", "arkeoService", function ($scope, User, Langs, $mdDialog, $http, $q, arkeoService) {
+	ArkeoGIS.controller('UserCtrl', ['$scope', 'user', 'Langs', '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", function ($scope, User, Langs, $mdDialog, $http, $q, arkeoService, $mdToast) {
 
 		$scope.users_query = {
 			order: 'u.created_at',
@@ -41,7 +41,7 @@
 				console.log("updated ! ", users);
 				$scope.users = users;
 			}, function(err) {
-				console.error("error to display to the user: ", err);
+				$mdToast.show($mdToast.simple().textContent("Something bas appened ! can't load users...").position('bottom left'));
 			});
 		}
 
@@ -133,6 +133,7 @@
 				console.log("all loaded !");
 				$scope.user = id_user != undefined ? User.get({id: id_user}, getUserSuccess) : hackAutocompletes(new User());
 			}, function(error) {
+				$mdToast.show($mdToast.simple().textContent("Something bas appened ! can't load some datas...").position('bottom left'));
 				console.error("all not loaded !", error);
 			});
 		}
@@ -315,11 +316,14 @@
 				}
 			}).then(function(ret) {
                 console.log("user saved ", ret);
+				$mdToast.show($mdToast.simple().textContent('User saved').position('bottom left'));
 				$scope.hide();
             }, function(err) {
                 console.log("err ! ", err);
 				if (err.data.errors) {
 					arkeoService.setFormErrorsFromServer(userForm, err.data.errors, "json.");
+				} else {
+					$mdToast.show($mdToast.simple().textContent('Something bas appened !').position('bottom left'));
 				}
             });
 
@@ -328,9 +332,11 @@
 		$scope.deluser = function() {
 			if (confirm("Delete this user ?"))
 				User.delete({id: $scope.user.id}).$promise.then(function(ret) {
+					$mdToast.show($mdToast.simple().textContent('User deleted').position('bottom left'));
 					console.log("user deleted.");
 					$scope.hide();
 				}, function(err) {
+					$mdToast.show($mdToast.simple().textContent('Something bas appened !').position('bottom left'));
 					console.error("err: ", err);
 				});
 		};
