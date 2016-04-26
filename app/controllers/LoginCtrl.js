@@ -21,7 +21,7 @@
 
 (function () {
     'use strict';
-	ArkeoGIS.controller('LoginCtrl', ['$scope', 'login', 'user', "$location", "$state", "$stateParams", function ($scope, login, User, $location, $state, $stateParams) {
+	ArkeoGIS.controller('LoginCtrl', ['$scope', 'login', 'user', "$state", "$stateParams", function ($scope, login, User, $state, $stateParams) {
 
         $scope.user = login.user;
 
@@ -32,7 +32,7 @@
                   $state.go($stateParams.redirectTo);
                   $stateParams.redirectTo = "";
                 } else {
-                  $location.path('/');
+                  $state.go("map");
                 }
             }, function(err) {
                 console.log("err ! ", err);
