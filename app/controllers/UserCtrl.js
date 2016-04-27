@@ -110,7 +110,7 @@
 	}]);
 
 
-	ArkeoGIS.controller('UserEditCtrl', ['$scope', 'Upload', 'user', 'group', 'Langs', '$mdDialog', "$http", "$q", "arkeoService", "id_user", function ($scope, Upload, User, Group, Langs, $mdDialog, $http, $q, arkeoService, id_user) {
+	ArkeoGIS.controller('UserEditCtrl', ['$scope', 'Upload', 'user', 'group', 'Langs', '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", "id_user", function ($scope, Upload, User, Group, Langs, $mdDialog, $http, $q, arkeoService, $mdToast, id_user) {
 
 		$scope.langs = Langs.query();
 
