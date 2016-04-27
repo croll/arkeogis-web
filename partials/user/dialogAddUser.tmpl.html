@@ -130,7 +130,7 @@
                         <div flex>
                             <md-input-container>
                                 <label translate>.FIELD_GROUPS.T_TITLE</label>
-                                <md-select ng-model="user.groups_user" required="required">
+                                <md-select ng-model="user.groups_user" required="required" multiple>
                                     <md-option ng-repeat="group in available_groups_user.data" ng-value="group.id" ng-selected="">{{group.name}}</md-option>
                                 </md-select>
                             </md-input-container>

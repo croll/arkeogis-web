@@ -192,7 +192,8 @@
 			user.groups.forEach(function(group) {
 				switch(group.type) {
 					case 'user':
-						user.groups_user = group.id; // only one group per user
+						//user.groups_user = group.id; // only one group per user
+						user.groups_user.push(group.id); // multi groups
 					break;
 					case 'chronology':
 						user.groups_chronology.push(group.id);
@@ -295,12 +296,10 @@
 
 			//  update groups
 			$scope.user.groups=[];
-			$scope.user.groups.push({id: $scope.user.groups_user}); // mono select version
-			/* multi select version
-			$scope.user.groups_user.forEach(function(id_group) {
+			//$scope.user.groups.push({id: $scope.user.groups_user}); // mono select version
+			$scope.user.groups_user.forEach(function(id_group) { // multi select version
 				$scope.user.groups.push({id: id_group});
 			});
-			*/
 			$scope.user.groups_chronology.forEach(function(id_group) {
 				$scope.user.groups.push({id: id_group});
 			});
