@@ -21,14 +21,19 @@
 
 (function () {
     'use strict';
-	ArkeoGIS.controller('LoginCtrl', ['$scope', 'login', 'user', "$location", "arkeoService", "$mdToast", function ($scope, login, User, $location, arkeoService, $mdToast) {
+	ArkeoGIS.controller('LoginCtrl', ['$scope', 'login', 'user', "$state", "$stateParams", "arkeoService", "$mdToast", function ($scope, login, User, $state, $stateParams, arkeoService, $mdToast) {
 
         $scope.user = login.user;
 
 		$scope.loginSubmit = function () {
             login.login($scope.user).then(function(ret) {
-                $scope.user= ret;
-                $location.path('/');
+                $scope.user = ret;
+                if ($stateParams.redirectTo != "") {
+                  $state.go($stateParams.redirectTo);
+                  $stateParams.redirectTo = "";
+                } else {
+                  $state.go("map");
+                }
             }, function(err) {
                 console.log("err ! ", err);
                 if (err.data.errors) {
