@@ -97,15 +97,13 @@
         return arkeoService.autocompleteCountry(txt);
       };
 
+      $scope.continentSearch = function(txt) {
+        return arkeoService.autocompleteContinent(txt);
+      };
+
       $scope.loadLangs = function() {
         arkeoService.loadLangs().then(function(langs) {
           $scope.langs = langs;
-        });
-      };
-
-      $scope.loadContinents = function() {
-        arkeoService.loadContinents().then(function(continents) {
-          $scope.continents = continents;
         });
       };
 
@@ -242,19 +240,9 @@
 
       $scope.userPreferences = importService.userPreferences;
 
-      $scope.countrySearch = function(txt) {
-        return arkeoService.autocompleteCountry(txt);
-      };
-
       $scope.loadLangs = function() {
         arkeoService.loadLangs().then(function(langs) {
           $scope.langs = langs;
-        });
-      };
-
-      $scope.loadContinents = function() {
-        arkeoService.loadContinents().then(function(continents) {
-          $scope.continents = continents;
         });
       };
 

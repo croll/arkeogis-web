@@ -49,7 +49,7 @@
       DatabaseLang: '',
       //DatabaseName: '',
       name: 'Db de test',
-      SelectedContinent: '',
+      SelectedContinents: [],
       SelectedCountries: [],
       UseGeonames: false,
       //GeographicalExtent: '',
@@ -127,11 +127,15 @@
     this.uploadCSV = function(file) {
       var values = angular.copy(self.importFields);
       var countriesID = [];
+      var continentsID = [];
       self.importFields.SelectedCountries.forEach(function(sc) {
         countriesID.push(sc.geonameid);
       });
+      self.importFields.SelectedContinents.forEach(function(sc) {
+        continentsID.push(sc.geonameid);
+      });
       values.SelectedCountries = countriesID;
-      values.SelectedContinents = [values.SelectedContinent]
+      values.SelectedContinents = continentsID;
       delete values.SelectedContinent;
       console.log(values);
       return Upload.upload({
