@@ -94,6 +94,22 @@
             }*/);
         };
 
+        this.autocompleteContinent = function(searchTextContinent, lang) {
+            if (searchTextContinent === null) {
+                return [];
+            }
+            var params = {
+                search: searchTextContinent,
+                limit: 25
+            };
+            console.log(params)
+            return self.wrapCall('/api/continents', params/*, {
+                geonameid: 'value',
+                name: 'display',
+                name_ascii: 'name_ascii' // not sure this is used somewhere
+            }*/);
+        };
+
         this.autocompleteCity = function(selectedCountry, searchTextCity, lang) {
             if (searchTextCity === null) {
                 return [];

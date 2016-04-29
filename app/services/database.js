@@ -36,6 +36,7 @@
 
     this.geographicalExtent = [
       {tr : 'DATABASE.GEOGRAPHICAL_EXTENT_WORLD.T_TITLE', id: 'world'},
+      {tr : 'DATABASE.GEOGRAPHICAL_EXTENT_INTERNATIONAL_WATERS.T_TITLE', id: 'international_waters'},
       {tr : 'DATABASE.GEOGRAPHICAL_EXTENT_CONTINENT.T_TITLE', id: 'continent'},
       {tr : 'DATABASE.GEOGRAPHICAL_EXTENT_COUNTRY.T_TITLE', id: 'country'}
     ];
