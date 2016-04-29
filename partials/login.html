@@ -12,7 +12,10 @@
             <div layout="column">
                 <md-input-container flex>
                     <label translate>.FIELD_USERNAME.T_TITLE</label>
-                    <input ng-model="user.Username"/>
+                    <input name="username" ng-model="user.Username"/>
+                    <div ng-messages="loginForm.username.$error" role="alert">
+            		 <div ng-if="loginForm.username.$error.server">{{ loginForm.username.$error.server | translate }}</div>
+            		</div>
                 </md-input-container>
                 <md-input-container flex>
                     <label translate>.FIELD_PASSWORD.T_TITLE</label>

@@ -21,7 +21,7 @@
 
 (function () {
     'use strict';
-	ArkeoGIS.controller('LoginCtrl', ['$scope', 'login', 'user', "$state", "$stateParams", function ($scope, login, User, $state, $stateParams) {
+	ArkeoGIS.controller('LoginCtrl', ['$scope', 'login', 'user', "$state", "$stateParams", "arkeoService", "$mdToast", function ($scope, login, User, $state, $stateParams, arkeoService, $mdToast) {
 
         $scope.user = login.user;
 
@@ -36,6 +36,13 @@
                 }
             }, function(err) {
                 console.log("err ! ", err);
+                if (err.data.errors) {
+					arkeoService.setFormErrorsFromServer(loginForm, err.data.errors, "json.");
+                } else {
+                    //alert('Login Failed');
+                    $mdToast.show($mdToast.simple().textContent("Login Failed !").position('bottom left'));
+                //loginForm.username.$error.server = "Login Failed";
+                }
             });
 		}
 	}]);
