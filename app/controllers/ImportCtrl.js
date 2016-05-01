@@ -50,6 +50,8 @@
         }
       };
 
+      $scope.toto = "rpout";
+
       $scope.uploadCSV = function(file) {
         importService.uploadCSV(file).then(function(resp) {
           importService.data = resp.data;
@@ -63,8 +65,7 @@
         }, function(evt) {
           $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total);
           if ($scope.uploadProgress === 100) {
-            $scope.tabs.enabled[2] = true;
-            $scope.tabs.selectedIndex = 2;
+            importService.selectTab(2)
           }
         });
       };
@@ -138,8 +139,6 @@
             sitesWithErrors.push(e.siteCode);
           }
         });
-
-        console.log(importService.data.errors);
 
         nbSitesNOK = sitesWithErrors.length;
         nbSitesOK = nbSites - nbSitesNOK;
@@ -235,16 +234,18 @@
   ArkeoGIS.controller('ImportStep3Ctrl', ['$scope', '$state', 'arkeoService', 'importService',
     function($scope, $state, arkeoService, importService) {
 
-      $scope.importFields = importService.importFields;
-      $scope.publicationFields = importService.publicationFields;
+      importService.selectTab(3)
 
-      $scope.userPreferences = importService.userPreferences;
+    }
+  ]);
+})();
 
-      $scope.loadLangs = function() {
-        arkeoService.loadLangs().then(function(langs) {
-          $scope.langs = langs;
-        });
-      };
+(function() {
+  'use strict';
+  ArkeoGIS.controller('ImportStep4Ctrl', ['$scope', '$state', 'arkeoService', 'importService',
+    function($scope, $state, arkeoService, importService) {
+
+      importService.selectTab(4)
 
     }
   ]);

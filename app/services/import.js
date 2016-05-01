@@ -123,6 +123,14 @@
     this.tabs = angular.copy(this.defaultTabsValues);
     this.data = [];
 
+    this.selectTab = function(num) {
+        self.tabs.enabled[num] = true;
+        self.tabs.selectedIndex = num;
+        for(var i = num+1; i < 5; i++) {
+          self.tabs.enabled[i] = false;
+        }
+    }
+
     // CSV upload
     this.uploadCSV = function(file) {
       var values = angular.copy(self.importFields);
