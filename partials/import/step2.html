@@ -31,7 +31,7 @@
         </div>
     </md-card>
     <div class="actions" layout="column" flex>
-        <md-card flex ng-hide="nbErrors > 0">
+        <md-card flex ng-hide="!nbSitesOK || nbSitesOK <= 0">
             <div>
                 <h3 translate>IMPORT_STEP2.REPORT_BLOCKS.T_LABEL_IMPORT_SUCCESS</h3>
                 <div layout-padding>
