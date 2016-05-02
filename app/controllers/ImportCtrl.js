@@ -24,11 +24,9 @@
   ArkeoGIS.controller('ImportMainCtrl', ['$scope', '$location', '$rootScope', '$state', 'importService', 'login',
     function($scope, $location, $rootScope, $state, importService, login) {
 
+        if (!login.requirePermission('import', 'import.step1'))
+            return;
 
-      if (!angular.isDefined(login.user.id) || login.user.id == 0) {
-        $state.go('login', {redirectTo: 'import.step1'});
-        return;
-      }
       // Debug
       // importService.tabs.selectedIndex = 3;
       // Fin Debug
