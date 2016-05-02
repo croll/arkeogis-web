@@ -1,22 +1,25 @@
 {
 	"DATABASE": {
 		"CONTEXT_ACADEMIC_WORK": {
-			"T_TITLE": "#!#DATABASE.CONTEXT_ACADEMIC_WORK.T_TITLE"
+			"T_TITLE": "Travail universitaire"
 		},
 		"CONTEXT_CONTRACT": {
-			"T_TITLE": "#!#DATABASE.CONTEXT_CONTRACT.T_TITLE"
+			"T_TITLE": "Contrat"
 		},
 		"CONTEXT_OTHER": {
-			"T_TITLE": "#!#DATABASE.CONTEXT_OTHER.T_TITLE"
+			"T_TITLE": "Autres"
 		},
 		"CONTEXT_RESEARCH_TEAM": {
-			"T_TITLE": "#!#DATABASE.CONTEXT_RESEARCH_TEAM.T_TITLE"
+			"T_TITLE": "Équipe de recherche"
 		},
 		"GEOGRAPHICAL_EXTENT_CONTINENT": {
 			"T_TITLE": "Continent"
 		},
 		"GEOGRAPHICAL_EXTENT_COUNTRY": {
 			"T_TITLE": "Pays"
+		},
+		"GEOGRAPHICAL_EXTENT_INTERNATIONAL_WATERS": {
+			"T_TITLE": "Haute mer"
 		},
 		"GEOGRAPHICAL_EXTENT_WORLD": {
 			"T_TITLE": "Monde"
@@ -28,7 +31,7 @@
 			"T_TITLE": "Littérature"
 		},
 		"KNOWLEDGE_TYPE_NOTDOCUMENTED": {
-			"T_TITLE": "Non documenté"
+			"T_TITLE": "Non renseigné"
 		},
 		"KNOWLEDGE_TYPE_PROSPECTED_AERIAL": {
 			"T_TITLE": "Prospection aérienne"
@@ -132,9 +135,6 @@
 			"T_LINE1": "Les données de la base importée dans le service ArkeoGIS sont librement consultables par des personnes identifiées par le service ArkeoGIS",
 			"T_LINE2": "Ces données sont exportables à des fins de recherche (selon la licence retenue) par des personnes identifiées par le service ArkeoGIS comme étudiants, technicien, chercheurs ou administrateur du service ArkeoGIS."
 		},
-		"FIELD_CONTINENT": {
-			"T_LABEL": "Choisissez un continent"
-		},
 		"FIELD_DATABASE_NAME": {
 			"T_ERROR_MAX_LEN": "Le nom de la base de donnée ne peut dépasser les 50 caractères.",
 			"T_ERROR_MIN_LEN": "Le nom de la base de donnée ne peut pas être plus court que 3 caractères.",
@@ -145,10 +145,10 @@
 		},
 		"FIELD_GEONAMES": {
 			"T_HELP": " Utiliser les codes communes fournies par Geonames pour géolocaliser les sites.",
-			"T_LABEL": "Geonames"
+			"T_LABEL": "Utilisation des Geoname."
 		},
 		"FIELD_GEO_EXTENT": {
-			"T_LABEL": "* Echelle des points"
+			"T_LABEL": "* Étendue géographique de la base de données."
 		},
 		"FIELD_LANG": {
 			"T_HELP": "Langue utilisée dans la base de données pour décrire les caractérisations Mobilier / Immobilier / Production / Paysage / Texte - Iconographie.",
@@ -156,7 +156,7 @@
 		},
 		"FIELD_SEPARATOR": {
 			"T_ERROR_LEN": "Ce champ ne peut comporter qu'un caractère maximum.",
-			"T_HELP": "Utilisez \t si votre séparateur est une tabulation.",
+			"T_HELP": "Utilisez \\t si votre séparateur est une tabulation.",
 			"T_LABEL": "Séparateur"
 		},
 		"FORM": {
@@ -380,7 +380,6 @@
 			"T_TITLE": "Groupes Chronologie"
 		},
 		"FIELD_CITY": {
-			"T_CHECK_MANDATORY": "La ville est obligatoire",
 			"T_CHECK_NOMATCH": "Ville introuvable...",
 			"T_TITLE": "Ville"
 		},
@@ -419,7 +418,6 @@
 			"T_TITLE": "Base de données"
 		},
 		"FIELD_DESCRIPTION": {
-			"T_CHECK_MANDATORY": "La description est obligatoire",
 			"T_TITLE": "Description"
 		},
 		"FIELD_EMAIL": {
@@ -443,7 +441,6 @@
 			"T_TITLE": "Nom"
 		},
 		"FIELD_PASSWORD": {
-			"T_CHECK_INCORRECT": "Le mot de passe est incorrect",
 			"T_CHECK_NOTSAME": "Les deux mots de passe doivent correspondre",
 			"T_TITLE": "Mot de passe"
 		},
@@ -455,7 +452,6 @@
 		},
 		"FIELD_USERNAME": {
 			"T_CHECK_ALREADYEXISTS": "Cet utilisateur existe déjà",
-			"T_CHECK_INCORRECT": "Le nom d'utlilsateur est incorrect",
 			"T_CHECK_MANDATORY": "Ce champ est obligatoire",
 			"T_TITLE": "Identifiant"
 		},

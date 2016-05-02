@@ -18,6 +18,9 @@
 		"GEOGRAPHICAL_EXTENT_COUNTRY": {
 			"T_TITLE": "#!#DATABASE.GEOGRAPHICAL_EXTENT_COUNTRY.T_TITLE"
 		},
+		"GEOGRAPHICAL_EXTENT_INTERNATIONAL_WATERS": {
+			"T_TITLE": "#!#DATABASE.GEOGRAPHICAL_EXTENT_INTERNATIONAL_WATERS.T_TITLE"
+		},
 		"GEOGRAPHICAL_EXTENT_WORLD": {
 			"T_TITLE": "#!#DATABASE.GEOGRAPHICAL_EXTENT_WORLD.T_TITLE"
 		},
@@ -129,11 +132,8 @@
 	"IMPORT_STEP1": {
 		"CONDITIONS": {
 			"T_BUTTON_SAVE_CHOICES": "#!#IMPORT_STEP1.CONDITIONS.T_BUTTON_SAVE_CHOICES",
-			"T_LINE1": "#!#IMPORT_STEP1.CONDITIONS.T_LINE1",
-			"T_LINE2": "#!#IMPORT_STEP1.CONDITIONS.T_LINE2"
-		},
-		"FIELD_CONTINENT": {
-			"T_LABEL": "#!#IMPORT_STEP1.FIELD_CONTINENT.T_LABEL"
+			"T_LINE1": "ArkeoGISen erabiltzaileek (segurtasun kodigo baten bidez identifikatuak).",
+			"T_LINE2": "ArkeoGISen dauden baseak libreki irakurtzen ahal dituzte. Bestalde, erabiltzaileek (ikaske, ikertzaile, administratzaile…) ikerkuntza lanentzat eskuratzen ahal dituzte datu horiek."
 		},
 		"FIELD_DATABASE_NAME": {
 			"T_ERROR_MAX_LEN": "#!#IMPORT_STEP1.FIELD_DATABASE_NAME.T_ERROR_MAX_LEN",

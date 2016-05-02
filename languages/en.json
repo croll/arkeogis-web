@@ -13,34 +13,37 @@
 			"T_TITLE": "#!#DATABASE.CONTEXT_RESEARCH_TEAM.T_TITLE"
 		},
 		"GEOGRAPHICAL_EXTENT_CONTINENT": {
-			"T_TITLE": "#!#DATABASE.GEOGRAPHICAL_EXTENT_CONTINENT.T_TITLE"
+			"T_TITLE": "Continent"
 		},
 		"GEOGRAPHICAL_EXTENT_COUNTRY": {
-			"T_TITLE": "#!#DATABASE.GEOGRAPHICAL_EXTENT_COUNTRY.T_TITLE"
+			"T_TITLE": "Country"
+		},
+		"GEOGRAPHICAL_EXTENT_INTERNATIONAL_WATERS": {
+			"T_TITLE": "International waters"
 		},
 		"GEOGRAPHICAL_EXTENT_WORLD": {
-			"T_TITLE": "#!#DATABASE.GEOGRAPHICAL_EXTENT_WORLD.T_TITLE"
+			"T_TITLE": "World"
 		},
 		"KNOWLEDGE_TYPE_DIG": {
-			"T_TITLE": "#!#DATABASE.KNOWLEDGE_TYPE_DIG.T_TITLE"
+			"T_TITLE": "Dig"
 		},
 		"KNOWLEDGE_TYPE_LITERATURE": {
-			"T_TITLE": "#!#DATABASE.KNOWLEDGE_TYPE_LITERATURE.T_TITLE"
+			"T_TITLE": "Literature"
 		},
 		"KNOWLEDGE_TYPE_NOTDOCUMENTED": {
-			"T_TITLE": "#!#DATABASE.KNOWLEDGE_TYPE_NOTDOCUMENTED.T_TITLE"
+			"T_TITLE": "Not documented"
 		},
 		"KNOWLEDGE_TYPE_PROSPECTED_AERIAL": {
-			"T_TITLE": "#!#DATABASE.KNOWLEDGE_TYPE_PROSPECTED_AERIAL.T_TITLE"
+			"T_TITLE": "Prospected aerial"
 		},
 		"KNOWLEDGE_TYPE_PROSPECTED_PEDESTRIAN": {
-			"T_TITLE": "#!#DATABASE.KNOWLEDGE_TYPE_PROSPECTED_PEDESTRIAN.T_TITLE"
+			"T_TITLE": "Prospected pedestrian"
 		},
 		"KNOWLEDGE_TYPE_SURVEYED": {
-			"T_TITLE": "#!#DATABASE.KNOWLEDGE_TYPE_SURVEYED.T_TITLE"
+			"T_TITLE": "Surveyed"
 		},
 		"SCALE_RESOLUTION_COUNTRY": {
-			"T_TITLE": "#!#DATABASE.SCALE_RESOLUTION_COUNTRY.T_TITLE"
+			"T_TITLE": "Country"
 		},
 		"SCALE_RESOLUTION_EUROPA": {
 			"T_TITLE": "#!#DATABASE.SCALE_RESOLUTION_EUROPA.T_TITLE"
@@ -49,25 +52,25 @@
 			"T_TITLE": "#!#DATABASE.SCALE_RESOLUTION_MICROREGION.T_TITLE"
 		},
 		"SCALE_RESOLUTION_OBJECT": {
-			"T_TITLE": "#!#DATABASE.SCALE_RESOLUTION_OBJECT.T_TITLE"
+			"T_TITLE": "Object"
 		},
 		"SCALE_RESOLUTION_REGION": {
 			"T_TITLE": "#!#DATABASE.SCALE_RESOLUTION_REGION.T_TITLE"
 		},
 		"SCALE_RESOLUTION_SITE": {
-			"T_TITLE": "#!#DATABASE.SCALE_RESOLUTION_SITE.T_TITLE"
+			"T_TITLE": "Site"
 		},
 		"SCALE_RESOLUTION_WATERSHED": {
 			"T_TITLE": "#!#DATABASE.SCALE_RESOLUTION_WATERSHED.T_TITLE"
 		},
 		"SITE_OCCUPATION_CONTINUOUS": {
-			"T_TITLE": "#!#DATABASE.SITE_OCCUPATION_CONTINUOUS.T_TITLE"
+			"T_TITLE": "Continuous"
 		},
 		"SITE_OCCUPATION_MULTIPLE": {
-			"T_TITLE": "#!#DATABASE.SITE_OCCUPATION_MULTIPLE.T_TITLE"
+			"T_TITLE": "Multiple"
 		},
 		"SITE_OCCUPATION_SINGLE": {
-			"T_TITLE": "#!#DATABASE.SITE_OCCUPATION_SINGLE.T_TITLE"
+			"T_TITLE": "Single"
 		},
 		"STATE_FINISHED": {
 			"T_TITLE": "#!#DATABASE.STATE_FINISHED.T_TITLE"
@@ -128,45 +131,42 @@
 	},
 	"IMPORT_STEP1": {
 		"CONDITIONS": {
-			"T_BUTTON_SAVE_CHOICES": "#!#IMPORT_STEP1.CONDITIONS.T_BUTTON_SAVE_CHOICES",
-			"T_LINE1": "#!#IMPORT_STEP1.CONDITIONS.T_LINE1",
-			"T_LINE2": "#!#IMPORT_STEP1.CONDITIONS.T_LINE2"
-		},
-		"FIELD_CONTINENT": {
-			"T_LABEL": "#!#IMPORT_STEP1.FIELD_CONTINENT.T_LABEL"
+			"T_BUTTON_SAVE_CHOICES": "I agree with these conditions.",
+			"T_LINE1": "Any data of the uploaded databases on the ArkeoGIS' services are freely available for any user logged in ArkeoGIS.",
+			"T_LINE2": "These datas are downloadable for research purposes (according to the licence owned by the user) only by users registered into ArkeoGIS, with different status : student, IT technician, researcher or administrator of the ArkeoGIS' services."
 		},
 		"FIELD_DATABASE_NAME": {
 			"T_ERROR_MAX_LEN": "#!#IMPORT_STEP1.FIELD_DATABASE_NAME.T_ERROR_MAX_LEN",
 			"T_ERROR_MIN_LEN": "#!#IMPORT_STEP1.FIELD_DATABASE_NAME.T_ERROR_MIN_LEN",
-			"T_LABEL": "#!#IMPORT_STEP1.FIELD_DATABASE_NAME.T_LABEL"
+			"T_LABEL": "* Name of the database"
 		},
 		"FIELD_ECHAP_CHARACTER": {
-			"T_LABEL": "#!#IMPORT_STEP1.FIELD_ECHAP_CHARACTER.T_LABEL"
+			"T_LABEL": "* Escape character"
 		},
 		"FIELD_GEONAMES": {
-			"T_HELP": "#!#IMPORT_STEP1.FIELD_GEONAMES.T_HELP",
-			"T_LABEL": "#!#IMPORT_STEP1.FIELD_GEONAMES.T_LABEL"
+			"T_HELP": "Please use the codes for the municipalities provided by geonames.org to geolocalize the sites.",
+			"T_LABEL": "Using GEONAME"
 		},
 		"FIELD_GEO_EXTENT": {
-			"T_LABEL": "#!#IMPORT_STEP1.FIELD_GEO_EXTENT.T_LABEL"
+			"T_LABEL": "* Geographical coverage of the database"
 		},
 		"FIELD_LANG": {
-			"T_HELP": "#!#IMPORT_STEP1.FIELD_LANG.T_HELP",
-			"T_LABEL": "#!#IMPORT_STEP1.FIELD_LANG.T_LABEL"
+			"T_HELP": "Language used to describe the caracterizations Furniture/ Real-Estate/ Production / Landscape / Text or iconography.",
+			"T_LABEL": "* Language of the database"
 		},
 		"FIELD_SEPARATOR": {
 			"T_ERROR_LEN": "#!#IMPORT_STEP1.FIELD_SEPARATOR.T_ERROR_LEN",
 			"T_HELP": "#!#IMPORT_STEP1.FIELD_SEPARATOR.T_HELP",
-			"T_LABEL": "#!#IMPORT_STEP1.FIELD_SEPARATOR.T_LABEL"
+			"T_LABEL": "Delimiter"
 		},
 		"FORM": {
-			"T_HELP": "#!#IMPORT_STEP1.FORM.T_HELP",
-			"T_IMPORT_YOUR_DB": "#!#IMPORT_STEP1.FORM.T_IMPORT_YOUR_DB",
+			"T_HELP": "Please use a .CSV file encoded with the UTF-8 system for your upload.",
+			"T_IMPORT_YOUR_DB": "To upload your database.",
 			"T_RESET": "#!#IMPORT_STEP1.FORM.T_RESET",
 			"T_SUBMIT": "#!#IMPORT_STEP1.FORM.T_SUBMIT"
 		},
 		"INFOS": {
-			"T_LINE1": "#!#IMPORT_STEP1.INFOS.T_LINE1",
+			"T_LINE1": "To upload your database on the ArkeoGIS' plateform, please fill out the following fields.",
 			"T_LINE2": "#!#IMPORT_STEP1.INFOS.T_LINE2",
 			"T_LINE3": "#!#IMPORT_STEP1.INFOS.T_LINE3"
 		}
@@ -380,7 +380,6 @@
 			"T_TITLE": "Chrono Groups"
 		},
 		"FIELD_CITY": {
-			"T_CHECK_MANDATORY": "City is mandatory",
 			"T_CHECK_NOMATCH": "No match...",
 			"T_TITLE": "City"
 		},
@@ -419,7 +418,6 @@
 			"T_TITLE": "Databases"
 		},
 		"FIELD_DESCRIPTION": {
-			"T_CHECK_MANDATORY": "Description is mandatory",
 			"T_TITLE": "Description"
 		},
 		"FIELD_EMAIL": {
@@ -443,7 +441,6 @@
 			"T_TITLE": "Lastname"
 		},
 		"FIELD_PASSWORD": {
-			"T_CHECK_INCORRECT": "The password is mandatory",
 			"T_CHECK_NOTSAME": "The two passwords must be the same",
 			"T_TITLE": "Password"
 		},
@@ -455,7 +452,6 @@
 		},
 		"FIELD_USERNAME": {
 			"T_CHECK_ALREADYEXISTS": "This user already exists",
-			"T_CHECK_INCORRECT": "The username is not correct",
 			"T_CHECK_MANDATORY": "This field is mandatory",
 			"T_TITLE": "Username"
 		},
