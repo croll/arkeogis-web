@@ -21,7 +21,11 @@
 
 (function () {
 	'use strict';
-	ArkeoGIS.controller('LangEditorCtrl', ['$scope', '$q', 'Langs', 'Translates', function ($scope, $q, Langs, Translates) {
+	ArkeoGIS.controller('LangEditorCtrl', ['$scope', '$q', 'Langs', 'Translates', 'login', function ($scope, $q, Langs, Translates, Login) {
+
+		if (!Login.requirePermission('langeditor', 'langeditor'))
+            return;
+
         var self=this;
 
         $scope.forms = {};
