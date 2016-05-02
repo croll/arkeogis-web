@@ -21,7 +21,10 @@
 
 (function () {
 	'use strict';
-	ArkeoGIS.controller('UserCtrl', ['$scope', 'user', 'Langs', '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", function ($scope, User, Langs, $mdDialog, $http, $q, arkeoService, $mdToast) {
+	ArkeoGIS.controller('UserCtrl', ['$scope', 'user', 'login', 'Langs', '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", function ($scope, User, Login, Langs, $mdDialog, $http, $q, arkeoService, $mdToast) {
+
+		if (!Login.requirePermission('adminusers', 'user'))
+            return;
 
 		$scope.users_query = {
 			order: 'u.created_at',
@@ -110,7 +113,10 @@
 	}]);
 
 
-	ArkeoGIS.controller('UserEditCtrl', ['$scope', 'Upload', 'user', 'group', 'Langs', '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", "id_user", function ($scope, Upload, User, Group, Langs, $mdDialog, $http, $q, arkeoService, $mdToast, id_user) {
+	ArkeoGIS.controller('UserEditCtrl', ['$scope', 'Upload', 'user', 'login', 'group', 'Langs', '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", "id_user", function ($scope, Upload, User, Login, Group, Langs, $mdDialog, $http, $q, arkeoService, $mdToast, id_user) {
+
+		if (!Login.requirePermission('adminusers', 'user'))
+            return;
 
 		$scope.langs = Langs.query();
 
