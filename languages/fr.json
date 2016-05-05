@@ -122,11 +122,17 @@
 		"FIELD_ALL": {
 			"T_ERROR_REQUIRED": "Ce champs est requis."
 		},
-		"HEADER_TABS": {
-			"T_STEP1": "Étape 1",
-			"T_STEP2": "Étape 2",
-			"T_STEP3": "Étape 3",
-			"T_STEP4": "Étape 4"
+		"HEADER_TAB_GENERAL_INFOS": {
+			"T_LABEL": "Informations générales"
+		},
+		"HEADER_TAB_IMPORT_REPORT": {
+			"T_LABEL": "Rapport d'importation"
+		},
+		"HEADER_TAB_MORE_INFOS": {
+			"T_LABEL": "Informations complémentaires"
+		},
+		"HEADER_TAB_PUBLICATION_INFOS": {
+			"T_LABEL": "Informations pour publication"
 		}
 	},
 	"IMPORT_STEP1": {
@@ -218,11 +224,9 @@
 			"T_LABEL": "Date de création"
 		},
 		"FIELD_DESCRIPTION_LANG1": {
-			"T_HELP": "Résumé, texte de présentation, mots-clés complémentaires table des matières.",
 			"T_LABEL": "Description langue principale"
 		},
 		"FIELD_DESCRIPTION_LANG2": {
-			"T_HELP": "Résumé, texte de présentation, mots-clés complémentaires table des matières.",
 			"T_LABEL": "Description langue secondaire"
 		},
 		"FIELD_LICENSE": {
