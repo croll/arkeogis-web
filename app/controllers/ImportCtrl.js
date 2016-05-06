@@ -21,40 +21,46 @@
 
 (function() {
   'use strict';
-  ArkeoGIS.controller('ImportMainCtrl', ['$scope', '$location', '$rootScope', '$state', 'importService', 'login',
-    function($scope, $location, $rootScope, $state, importService, login) {
+  ArkeoGIS.controller('ImportMainCtrl', ['$scope', '$location', '$rootScope', '$state', 'arkeoImport', 'login', 'database',
+    function($scope, $location, $rootScope, $state, arkeoImport, login, database) {
 
+     console.log(database);
+
+    this.user = login.user;
+    //this.database.default_language = self.user.first_lang_id;
+
+    console.log(this.user)
+
+     $scope.database = database;
 
       if (!angular.isDefined(login.user.id) || login.user.id == 0) {
         $state.go('login', {redirectTo: 'import.step1'});
         return;
       }
       // Debug
-      // importService.tabs.selectedIndex = 3;
+      // arkeoImport.tabs.selectedIndex = 3;
       // Fin Debug
 
-      $scope.tabs = importService.tabs; //jshint ignore: line
+      $scope.tabs = arkeoImport.tabs; //jshint ignore: line
       var checkPath = function(p) {
         var tabNum = p.split('step')[1];
-        importService.tabs.selectedIndex = tabNum;
+        arkeoImport.tabs.selectedIndex = tabNum;
         if (tabNum === 1) {
           return;
         }
         while (tabNum > 0) {
-          if (importService.tabs.enabled[tabNum] === true) {
-            importService.tabs.selectedIndex = tabNum;
-            $state.go('import.step' + importService.tabs.selectedIndex);
+          if (arkeoImport.tabs.enabled[tabNum] === true) {
+            arkeoImport.tabs.selectedIndex = tabNum;
+            $state.go('import.step' + arkeoImport.tabs.selectedIndex);
             return;
           }
           tabNum--;
         }
       };
 
-      $scope.toto = "rpout";
-
       $scope.uploadCSV = function(file) {
-        importService.uploadCSV(file).then(function(resp) {
-          importService.data = resp.data;
+        arkeoImport.uploadCSV(file, $scope.database).then(function(resp) {
+          arkeoImport.data = resp.data;
           if ($location.path().split("/")[2] === "step2") {
             $state.reload();
           } else {
@@ -65,7 +71,7 @@
         }, function(evt) {
           $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total);
           if ($scope.uploadProgress === 100) {
-            importService.selectTab(2)
+            arkeoImport.selectTab(2)
           }
         });
       };
@@ -76,23 +82,23 @@
 
 (function() {
   'use strict';
-  ArkeoGIS.controller('ImportStep1Ctrl', ['$scope', '$state', 'arkeoService', 'databaseService', 'importService',
-    function($scope, $state, arkeoService, databaseService, importService) {
+  ArkeoGIS.controller('ImportStep1Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoDatabase', 'arkeoImport',
+    function($scope, $state, arkeoService, arkeoDatabase, arkeoImport) {
 
-      importService.refreshUserInfos();
+
 
       $scope.reset = function() {
-        var a = importService.reset();
+        var a = arkeoImport.reset();
         $scope.tabs.enabled[2] = a.enabled[2];
-        $scope.importFields = importService.importFields;
+        $scope.importFields = arkeoImport.importFields;
         $scope.file = undefined;
       };
 
-      $scope.importFields = importService.importFields;
+      $scope.database = arkeoImport.database;
 
-      $scope.geographicalExtent = databaseService.geographicalExtent;
+      $scope.geographicalExtent = arkeoDatabase.geographicalExtent;
 
-      $scope.userPreferences = importService.userPreferences;
+      $scope.userPreferences = arkeoImport.userPreferences;
 
       $scope.countrySearch = function(txt) {
         return arkeoService.autocompleteCountry(txt);
@@ -114,27 +120,27 @@
 
 (function() {
   'use strict';
-  ArkeoGIS.controller('ImportStep2Ctrl', ['$scope', 'importService',
-    function($scope, importService) {
+  ArkeoGIS.controller('ImportStep2Ctrl', ['$scope', 'arkeoImport',
+    function($scope, arkeoImport) {
 
-      if (!angular.isDefined(importService.data)) {
+      if (!angular.isDefined(arkeoImport.data)) {
         return;
       }
 
       var sitesWithErrors = [];
       var nbSitesOK = 0;
       var nbSitesNOK = 0;
-      var nbSites = importService.data.nbSites || 0;
+      var nbSites = arkeoImport.data.nbSites || 0;
       var nbErrors = 0;
 
-      if (angular.isDefined(importService.data.errors) && (angular.isObject(importService.data.errors))) {
+      if (angular.isDefined(arkeoImport.data.errors) && (angular.isObject(arkeoImport.data.errors))) {
 
         $scope.importErrors = {
-          total: importService.data.errors.length,
-          data: importService.data.errors
+          total: arkeoImport.data.errors.length,
+          data: arkeoImport.data.errors
         };
 
-        importService.data.errors.forEach(function(e) {
+        arkeoImport.data.errors.forEach(function(e) {
           if (sitesWithErrors.indexOf(e.siteCode) === -1) {
             sitesWithErrors.push(e.siteCode);
           }
@@ -142,7 +148,7 @@
 
         nbSitesNOK = sitesWithErrors.length;
         nbSitesOK = nbSites - nbSitesNOK;
-        nbErrors = importService.data.errors.length;
+        nbErrors = arkeoImport.data.errors.length;
       } else {
         nbSitesOK = nbSites;
       }
@@ -151,7 +157,7 @@
       $scope.nbSitesOK = nbSitesOK;
       $scope.nbSitesNOK = nbSitesNOK;
       $scope.nbErrors = nbErrors;
-      $scope.nbLines = importService.data.nbLines;
+      $scope.nbLines = arkeoImport.data.nbLines;
 
       //var tooltip = nv.models.tooltip();
       //tooltip.duration(0);
@@ -231,10 +237,10 @@
 
 (function() {
   'use strict';
-  ArkeoGIS.controller('ImportStep3Ctrl', ['$scope', '$state', 'arkeoService', 'importService',
-    function($scope, $state, arkeoService, importService) {
+  ArkeoGIS.controller('ImportStep3Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoImport',
+    function($scope, $state, arkeoService, arkeoImport) {
 
-      importService.selectTab(3)
+      arkeoImport.selectTab(3)
 
     }
   ]);
@@ -242,10 +248,10 @@
 
 (function() {
   'use strict';
-  ArkeoGIS.controller('ImportStep4Ctrl', ['$scope', '$state', 'arkeoService', 'importService',
-    function($scope, $state, arkeoService, importService) {
+  ArkeoGIS.controller('ImportStep4Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoImport',
+    function($scope, $state, arkeoService, arkeoImport) {
 
-      importService.selectTab(4)
+      arkeoImport.selectTab(4)
 
     }
   ]);
