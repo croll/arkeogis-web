@@ -76,13 +76,12 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
             resolve: {
                 database: function($stateParams, arkeoDatabase, login) {
                     var id = $stateParams.databaseId || 0;
-                    return arkeoDatabase.db.get({id: parseInt(id)});
+                    return arkeoDatabase.Database.get({id: parseInt(id)}, function(db) {
+                        if (!db.id && login.user.firstname) {
+                            db.default_language = login.user.first_lang_id;
+                        }
+                    });
                 }
-                /*
-                database: function() {
-                    return {}
-                }
-                */
             }
         })
         .state('import.step1', {
