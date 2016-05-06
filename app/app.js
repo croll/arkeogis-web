@@ -70,13 +70,19 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
             resolve: {}
         })
         .state('import', {
-            url: "/import/:databaseId",
+            url: "/import/:database_id",
             templateUrl: "partials/import/import.html",
             controller: "ImportMainCtrl",
             resolve: {
-                database: function($stateParams, arkeoDatabase, login) {
-                    var id = $stateParams.databaseId || 0;
+                database: function($stateParams, arkeoDatabase, arkeoImport, login, $q) {
+                    if ($stateParams.database_id == -1) {
+                        var deferred = $q.defer();
+                        deferred.resolve(arkeoImport.currentDb);
+                        return deferred.promise;
+                    }
+                    var id = $stateParams.database_id || 0;
                     return arkeoDatabase.Database.get({id: parseInt(id)}, function(db) {
+                        arkeoImport.currentDb = db;
                         if (!db.id && login.user.firstname) {
                             db.default_language = login.user.first_lang_id;
                         }

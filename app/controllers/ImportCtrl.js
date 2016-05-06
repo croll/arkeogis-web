@@ -33,14 +33,11 @@
 
             $scope.user = login.user;
 
-
             if (typeof(database.id) == undefined || !database.id) {
                 database.default_language = login.user.first_lang_id;
             }
-
             $scope.database = database;
 
-$scope.toto = "TITI";
             $scope.definitions = arkeoDatabase.definitions;
 
             $scope.importChoices = arkeoImport.importChoicesDefaultValues;
@@ -67,8 +64,11 @@ $scope.toto = "TITI";
             $scope.uploadCSV = function(file) {
                 arkeoImport.uploadCSV(file, $scope.importChoices, $scope.database).then(function(resp) {
                     arkeoImport.data = resp.data;
-                    if ($location.path().split("/")[2] === "step2") {
-                        $state.reload();
+                    if (angular.isDefined(resp.data.database_id) && resp.data.database_id) {
+                        $scope.database.id = resp.data.database_id;
+                    }
+                    if ($location.path().split("/").pop() === "step2") {
+                        $state.go($state.current, {database_id: -1}, {reload: true});
                     } else {
                         $state.go('import.step2');
                     }
@@ -77,7 +77,9 @@ $scope.toto = "TITI";
                 }, function(evt) {
                     $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total);
                     if ($scope.uploadProgress === 100) {
-                        arkeoImport.selectTab(2)
+                        if ($location.path().split("/").pop() !== "step2") {
+                            arkeoImport.selectTab(2)
+                        }
                     }
                 });
             };
