@@ -9,14 +9,14 @@
         </md-card-content>
     </md-card>
     <div class="layout-padding">
-		<h1 class="md-display-1"><span translate>IMPORT_STEP3.FORM.T_TITLE</span> "{{importFields.DatabaseName}}"</h1>
+		<h1 class="md-display-1"><span translate>IMPORT_STEP3.FORM.T_TITLE</span> "{{database.name}}"</h1>
         <form name="publicationForm" class="md-padding">
             <md-content layout="column" layout-gt-sm="row">
                 <!-- left block -->
                 <div class="md-padding" flex>
                     <!-- Authors -->
                     <ark-form-block>
-                        <md-chips ng-model="publicationFields.Authors" md-autocomplete-snap md-require-match="true"
+                        <md-chips ng-model="database.authors" md-autocomplete-snap md-require-match="true"
                         md-allow-repeats="false">
                             <md-autocomplete md-search-text="userName" md-items="user in userSearch(userName)"
                             md-item-text="user.name" placeholder="* {{ 'IMPORT_STEP3.FIELD_AUTHOR.T_LABEL' | translate}}">
@@ -31,14 +31,14 @@
                     </ark-form-block>
                     <!-- Creation date -->
                     <ark-form-block>
-                        <md-datepicker ng-model="creationDate" md-placeholder="* {{ 'IMPORT_STEP3.FIELD_CREATION_DATE.T_LABEL' | translate}}" ng-required></md-datepicker>
+                        <md-datepicker ng-model="database.creation_date" md-placeholder="* {{ 'IMPORT_STEP3.FIELD_CREATION_DATE.T_LABEL' | translate}}" ng-required></md-datepicker>
                         <ark-help translate>IMPORT_STEP3.FIELD_CREATION_DATE.T_HELP</ark-help>
                     </ark-form-block>
                     <!-- License -->
                     <ark-form-block>
                         <md-input-container>
                             <label>* <span translate>IMPORT_STEP3.FIELD_LICENSE.T_LABEL</span></label>
-                            <md-select name="license" ng-model="publicationFields.License" ng-init="loadLicenses()"
+                            <md-select name="license_id" ng-model="database.license_id" ng-init="loadLicenses()"
                             required flex-gt-xs="30" flex-gt-md="20">
                                 <md-option ng-value="license.id" ng-repeat="license in licenses">{{license.label}}</md-option>
                             </md-select>
@@ -49,9 +49,9 @@
                         <!-- Subject / Keywords -->
                         <md-input-container>
                             <label>* <span translate>IMPORT_STEP3.FIELD_SUBJECT.T_LABEL</span></label>
-                            <input name="subject" ng-maxlength="1" ng-model="publicationFields.Subject" required>
+                            <input name="subject" ng-maxlength="1" ng-model="database.subject" required>
                         </md-input-container>
-                        <ark-help>IMPORT_STEP3.FIELD_SUBJECT.T_HELP</ark-help>
+                        <ark-help translate>IMPORT_STEP3.FIELD_SUBJECT.T_HELP</ark-help>
                     </ark-form-block>
                 </div>
                 <!-- right block -->
@@ -60,20 +60,20 @@
                     <ark-form-block>
                         <md-input-container>
                             <label>* <span translate>IMPORT_STEP3.FIELD_TYPE.T_LABEL</span></label>
-                            <md-select name="type" ng-model="publicationFields.Type" ng-init="loadTypes()"
+                            <md-select name="type" ng-model="database.type"
                             required flex-gt-xs="30" flex-gt-md="20">
-                                <md-option ng-value="type.id" ng-repeat="type in types">{{type.label}}</md-option>
+                                <md-option ng-value="type.id" ng-repeat="type in definitions.types">{{type.tr}}</md-option>
                             </md-select>
                         </md-input-container>
                         <ark-help translate>IMPORT_STEP3.FIELD_TYPE.T_HELP</ark-help>
                     </ark-form-block>
                     <!-- Context -->
                     <ark-form-block>
-                        <md-chips ng-model="publicationFields.Context" md-autocomplete-snap md-require-match="true"
+                        <md-chips ng-model="database.contexts" md-autocomplete-snap md-require-match="true"
                         md-allow-repeats="false" required>
-                            <md-autocomplete md-search-text="context" md-items="context in contextSearch(context)"
+                            <md-autocomplete md-search-text="context" md-items="context in definitions.context"
                             md-item-text="context.name" placeholder="{{ 'IMPORT_STEP3.FIELD_CONTEXT.T_LABEL' | translate}}">
-                                <span md-highlight-text="context">{{item.display}}</span>
+                                <span md-highlight-text="context">{{item.tr}}</span>
                             </md-autocomplete>
                             <md-chip-template>
                                 <strong>{{$chip.display}}</strong>
@@ -86,9 +86,9 @@
                     <ark-form-block>
                         <md-input-container>
                             <label>* <span translate>IMPORT_STEP3.FIELD_SCALE_RESOLUTION.T_LABEL</span></label>
-                            <md-select name="scale" ng-model="publicationFields.ScaleResolution" ng-init="loadScaleResolutions()"
+                            <md-select name="scale" ng-model="database.scale"
                             required flex-gt-xs="30" flex-gt-md="20">
-                                <md-option ng-value="scaleResolution.id" ng-repeat="scaleResolution in scaleResolution">{{type.label}}</md-option>
+                                <md-option ng-value="scaleResolution.id" ng-repeat="scaleResolution in definitions.scaleResolutions">{{scaleResolution.tr}}</md-option>
                             </md-select>
                         </md-input-container>
                         <ark-help translate>IMPORT_STEP3.FIELD_SCALE_RESOLUTION.T_HELP</ark-help>
@@ -97,9 +97,9 @@
                     <ark-form-block>
                         <md-input-container>
                             <label>* <span translate>IMPORT_STEP3.FIELD_STATE.T_LABEL</span></label>
-                            <md-select name="state" ng-model="publicationFields.State" ng-init="loadStates()"
+                            <md-select name="state" ng-model="database.state"
                             required>
-                                <md-option ng-value="state.id" ng-repeat="state in states">{{state.label}}</md-option>
+                                <md-option ng-value="state.id" ng-repeat="state in definitions.states">{{state.tr}}</md-option>
                             </md-select>
                         </md-input-container>
                         <ark-help translate>IMPORT_STEP3.FIELD_STATE.T_HELP</ark-help>
@@ -111,7 +111,7 @@
                 <div class="md-padding" flex>
                     <ark-form-block>
                         <md-input-container>
-                            <textarea ng-model="publicationFields.Description[0].value" placeholder="{{ 'IMPORT_STEP3.FIELD_DESCRIPTION_LANG1.T_LABEL' | translate}}"
+                            <textarea ng-model="database.description.lang1.value" placeholder="{{ 'IMPORT_STEP3.FIELD_DESCRIPTION_LANG1.T_LABEL' | translate}}"
                             md-no-autogrow="true" style="height: 100px" required></textarea>
                         </md-input-container>
                     </ark-form-block>
@@ -119,7 +119,7 @@
                 <div class="md-padding" flex-offset-gt-md="5" flex>
                     <ark-form-block>
                         <md-input-container>
-                            <textarea ng-model="publicationFields.Description[1].value" columns="3" rows="5"
+                            <textarea ng-model="database.description.lang2.value" columns="3" rows="5"
                             placeholder="{{ 'IMPORT_STEP3.FIELD_DESCRIPTION_LANG2.T_LABEL' | translate}}" md-no-autogrow="true"
                             style="min-height: 100px" required></textarea>
                         </md-input-container>
