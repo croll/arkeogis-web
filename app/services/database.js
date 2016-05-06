@@ -20,11 +20,59 @@
  */
 
 (function() {
-    ArkeoGIS.service('databaseService', ['$http', '$q', function($http, $q) {
+    ArkeoGIS.service('arkeoDatabase', ['$http', '$q', '$resource', function($http, $q, $resource) {
 
     var self = this;
 
-  	this.scaleResolution = [
+    /*
+    this.defaultValues = {
+        id: null,
+        name: "",
+        scale_resolution: "",
+        geographical_extent: "world",
+        type: "undefined",
+        owner: null,
+        source_creation_date: "",
+        data_set: "",
+        identifier: "",
+        source: "",
+        source_url: "",
+        publisher: "",
+        contributor: "",
+        default_language: null,
+        relation: "",
+        coverage: "",
+        copyright: "",
+        state: "undefined",
+        license_id: 0,
+        context: "undefined",
+        context_description: "",
+        subject: "",
+        published: false,
+        soft_deleted: false,
+        created_at: null,
+        updated_at: null,
+        geographical_limit: "",
+        bibliography: "",
+        countries: [],
+        continents: [],
+        handles: [],
+        number_of_sites: [],
+        owner_name: ""
+    }
+    */
+
+    this.getInfos = function(databaseId) {
+        if (!databaseId || databaseId <= 0) {
+            return self.defaultValues;
+        }
+    }
+
+    this.db = $resource('/api/database/:id', {}, {'query' : {method: 'GET', isArray: true}});
+
+    this.definitions = {};
+
+  	this.definitions.scaleResolution = [
   		{ tr: 'DATABASE.SCALE_RESOLUTION_OBJECT.T_TITLE', id: 'object'},
   		{ tr: 'DATABASE.SCALE_RESOLUTION_SITE.T_TITLE', id: 'site'},
   		{ tr: 'DATABASE.SCALE_RESOLUTION_WATERSHED.T_TITLE', id: 'watershed'},
@@ -34,39 +82,39 @@
   		{ tr: 'DATABASE.SCALE_RESOLUTION_EUROPA.T_TITLE', id: 'europa'}
   	];
 
-    this.geographicalExtent = [
+    this.definitions.geographicalExtent = [
       {tr : 'DATABASE.GEOGRAPHICAL_EXTENT_WORLD.T_TITLE', id: 'world'},
       {tr : 'DATABASE.GEOGRAPHICAL_EXTENT_INTERNATIONAL_WATERS.T_TITLE', id: 'international_waters'},
       {tr : 'DATABASE.GEOGRAPHICAL_EXTENT_CONTINENT.T_TITLE', id: 'continent'},
       {tr : 'DATABASE.GEOGRAPHICAL_EXTENT_COUNTRY.T_TITLE', id: 'country'}
     ];
 
-    this.type = [
+    this.definitions.type = [
       {tr : 'DATABASE.TYPE_INVENTORY.T_TITLE', id: 'inventory'},
       {tr : 'DATABASE.TYPE_RESEARCH.T_TITLE', id: 'research'},
       {tr : 'DATABASE.TYPE_LITERARYWORK.T_TITLE', id: 'literary-work'}
     ];
 
-    this.state = [
+    this.definitions.state = [
       {tr : 'DATABASE.STATE_INPROGRESS.T_TITLE', id: 'in-progress'},
       {tr : 'DATABASE.STATE_FINISHED.T_TITLE', id: 'finished'}
     ];
 
-    this.context = [
+    this.definitions.context = [
       {tr : 'DATABASE.CONTEXT_ACADEMIC_WORK.T_TITLE', id: 'academic_work'},
       {tr : 'DATABASE.CONTEXT_CONTRACT.T_TITLE', id: 'contract'},
       {tr : 'DATABASE.CONTEXT_RESEARCH_TEAM.T_TITLE', id: 'research_team'},
       {tr : 'DATABASE.CONTEXT_OTHER.T_TITLE', id: 'other'}
     ];
 
-    this.occupation = [
+    this.definitions.occupation = [
       {tr : 'DATABASE.SITE_OCCUPATION_NOTDOCUMENTED', id: 'not_documented'},
       {tr : 'DATABASE.SITE_OCCUPATION_SINGLE.T_TITLE', id: 'single'},
       {tr : 'DATABASE.SITE_OCCUPATION_CONTINUOUS.T_TITLE', id: 'continuous'},
       {tr : 'DATABASE.SITE_OCCUPATION_MULTIPLE.T_TITLE', id: 'multiple'}
     ];
 
-    this.knowledgeType = [
+    this.definitions.knowledgeType = [
       {tr : 'DATABASE.KNOWLEDGE_TYPE_NOTDOCUMENTED.T_TITLE', id: 'not_documented'},
       {tr : 'DATABASE.KNOWLEDGE_TYPE_LITERATURE.T_TITLE', id: 'literature'},
       {tr : 'DATABASE.KNOWLEDGE_TYPE_PROSPECTED_AERIAL.T_TITLE', id: 'prospected_aerial'},

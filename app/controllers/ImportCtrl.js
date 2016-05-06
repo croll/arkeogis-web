@@ -24,19 +24,15 @@
   ArkeoGIS.controller('ImportMainCtrl', ['$scope', '$location', '$rootScope', '$state', 'arkeoImport', 'login', 'database',
     function($scope, $location, $rootScope, $state, arkeoImport, login, database) {
 
-     console.log(database);
-
     this.user = login.user;
     //this.database.default_language = self.user.first_lang_id;
 
     console.log(this.user)
 
      $scope.database = database;
+        if (!login.requirePermission('import', 'import.step1'))
+            return;
 
-      if (!angular.isDefined(login.user.id) || login.user.id == 0) {
-        $state.go('login', {redirectTo: 'import.step1'});
-        return;
-      }
       // Debug
       // arkeoImport.tabs.selectedIndex = 3;
       // Fin Debug

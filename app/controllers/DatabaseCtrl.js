@@ -21,7 +21,7 @@
 
 (function() {
   'use strict';
-  ArkeoGIS.controller('DatabaseCtrl', ['$scope',
+  ArkeoGIS.controller('ArkeoDatabaseCtrl', ['$scope',
     function($scope) {
     }
   ]);

@@ -20,7 +20,7 @@
  */
 
 (function() {
-  ArkeoGIS.service('importService', ['Upload', '$resource', 'login', function(Upload, $resource, login) {
+  ArkeoGIS.service('arkeoImport', ['Upload', '$resource', 'login', function(Upload, $resource, login) {
 
     var self = this;
 
@@ -30,93 +30,20 @@
         1: true,
         2: false,
         3: false,
-        4: false
+        4: false,
+        5: false
       }
     };
+
+    this.importChoicesDefaultValues = {
+        UseGeonames: false,
+        Separator: ";",
+        EchapCharacter: "\""
+    }
 
     this.userPreferences = {
       conditionsAccepted: true,
       hideIntro: true
-    };
-
-    this.refreshUserInfos = function() {
-        self.user = login.user;
-        self.importFields.DatabaseLang = self.user.first_lang_id;
-    }
-
-    // Step 1
-    this.importFieldsDefaultValues = {
-      DatabaseLang: '',
-      //DatabaseName: '',
-      name: 'Db de test',
-      SelectedContinents: [],
-      SelectedCountries: [],
-      UseGeonames: false,
-      //GeographicalExtent: '',
-      GeographicalExtent: 'world',
-      Separator: ';',
-      EchapCharacter: '"'
-    };
-
-    this.importFields = angular.copy(this.importFieldsDefaultValues);
-
-    // Step 3
-    this.publicationFieldsDefaultValues = {
-      Authors: [],
-      Type: '',
-      CreationDate: '',
-      License: '',
-      Subject: '',
-      Context: '',
-      ScaleResolution: '',
-      State: '',
-      Description: [{
-        iso_code: '',
-        value: ''
-      }, {
-        iso_code: '',
-        value: ''
-      }]
-
-    };
-
-    this.publicationFields = angular.copy(this.publicationFieldsDefaultValues);
-
-    // Step 4
-    this.moreInfosFieldsDefaultValues = {
-      Struture: '',
-      Source: '',
-      Identifier: '',
-      Contributor: '',
-      Relations: '',
-      SourceUrl: '',
-      SourceCreationDate: '',
-      ContextDescription: '',
-      GeographicalExtent: [{
-        iso_code: '',
-        value: ''
-      }, {
-        iso_code: '',
-        value: ''
-      }],
-      Bibliography: [{
-        iso_code: '',
-        value: ''
-      }, {
-        iso_code: '',
-        value: ''
-      }]
-    };
-
-    this.moreInfosFields = angular.copy(this.moreInfosFieldsDefaultValues);
-
-    // Data reset
-    this.reset = function() {
-      self.tabs = angular.copy(self.defaultTabsValues);
-      self.importFields = angular.copy(self.importFieldsDefaultValues);
-      self.publicationFields = angular.copy(self.publicationFieldsDefaultValues);
-      self.moreInfosFields = angular.copy(self.moreInfosFieldsDefaultValues);
-      return self.tabs;
     };
 
     // Tabs
@@ -132,8 +59,9 @@
     }
 
     // CSV upload
-    this.uploadCSV = function(file) {
-      var values = angular.copy(self.importFields);
+    this.uploadCSV = function(file, datas) {
+
+      var values = angular.extend(self.importFields, datas);
       var countriesID = [];
       var continentsID = [];
       self.importFields.SelectedCountries.forEach(function(sc) {
@@ -145,7 +73,6 @@
       values.SelectedCountries = countriesID;
       values.SelectedContinents = continentsID;
       delete values.SelectedContinent;
-      console.log(values);
       return Upload.upload({
         url: 'api/import/step1',
         data: {

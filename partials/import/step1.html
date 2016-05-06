@@ -27,7 +27,7 @@
       <ark-form-block>
         <md-input-container>
           <label translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_LABEL</label>
-          <input name="name" ng-minlength="3" ng-maxlength="50" ng-model="importFields.name" required>
+          <input name="name" ng-minlength="3" ng-maxlength="50" ng-model="database.name" required>
           <div ng-messages="importForm.databaseName.$error">
             <div ng-message="minlength" translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_ERROR_MIN_LEN</div>
             <div ng-message="maxlength" translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_ERROR_MAX_LEN</div>
@@ -39,7 +39,7 @@
       <ark-form-block>
         <md-input-container>
           <label translate>IMPORT_STEP1.FIELD_LANG.T_LABEL</label>
-          <md-select name="databaseLang" ng-model="importFields.DatabaseLang" ng-init="loadLangs()" required>
+          <md-select name="databaseLang" ng-model="database.default_language" ng-init="loadLangs()" required>
             <md-option ng-value="lang.id" ng-repeat="lang in langs">{{lang.name}}</md-option>
           </md-select>
         </md-input-container>
@@ -51,13 +51,13 @@
           <!-- Geographical extent -->
           <md-input-container>
             <label translate>IMPORT_STEP1.FIELD_GEO_EXTENT.T_LABEL</label>
-            <md-select name="geographicalExtent" ng-model="importFields.GeographicalExtent" ng-change="importFields.SelectedCountries = [];importFields.SelectedContinent = ''" required >
-              <md-option value="{{geoex.id}}" ng-repeat="geoex in geographicalExtent" translate>{{geoex.tr}}</md-option>
+            <md-select name="geographical_extent" ng-model="database.geographical_extent" ng-change="database.countries = [];database.continents = ''" required >
+              <md-option value="{{geoex.id}}" ng-repeat="geoex in geographical_extent" translate>{{geoex.tr}}</md-option>
             </md-select>
           </md-input-container>
           <!-- Country -->
-          <div ng-hide="importFields.GeographicalExtent != 'country'" style="margin: -17px 0 0 45px" flex>
-            <md-chips ng-model="importFields.SelectedCountries" md-autocomplete-snap md-require-match="true" md-allow-repeats="false">
+          <div ng-hide="database.geographical_extent != 'country'" style="margin: -17px 0 0 45px" flex>
+            <md-chips ng-model="database.countries" md-autocomplete-snap md-require-match="true" md-allow-repeats="false">
               <md-autocomplete md-search-text="searchText" md-items="item in countrySearch(searchText)" md-item-text="item.name" placeholder="* Enter country name">
                 <span md-highlight-text="searchText">{{item.name}}</span>
               </md-autocomplete>
@@ -68,8 +68,8 @@
             </md-chips>
           </div>
           <!-- Continent -->
-          <div ng-hide="importFields.GeographicalExtent != 'continent'" flex style="margin-left: 45px">
-            <md-chips ng-model="importFields.SelectedContinents" md-autocomplete-snap md-require-match="true" md-allow-repeats="false">
+          <div ng-hide="database.geographical_extent != 'continent'" flex style="margin-left: 45px">
+            <md-chips ng-model="database.continents" md-autocomplete-snap md-require-match="true" md-allow-repeats="false">
               <md-autocomplete md-search-text="searchText" md-items="item in continentSearch(searchText)" md-item-text="item.name" placeholder="* Enter continent name">
                 <span md-highlight-text="searchText">{{item.name}}</span>
               </md-autocomplete>
@@ -83,14 +83,14 @@
       </ark-form-block>
       <!-- Use Geonames -->
       <ark-form-block>
-        <md-switch aria-label="Use geonames" ng-model="importFields.UseGeonames" style="margin: 15px 0 25px 0"><span translate>IMPORT_STEP1.FIELD_GEONAMES.T_LABEL</span></md-switch>
+        <md-switch aria-label="Use geonames" ng-model="importChoices.UseGeonames" style="margin: 15px 0 25px 0"><span translate>IMPORT_STEP1.FIELD_GEONAMES.T_LABEL</span></md-switch>
         <ark-help flex translate>IMPORT_STEP1.FIELD_GEONAMES.T_HELP</ark-help>
       </ark-form-block>
       <!-- Separator -->
       <ark-form-block>
         <md-input-container>
           <label translate>IMPORT_STEP1.FIELD_SEPARATOR.T_LABEL</label>
-          <input name="separator" ng-maxlength="1" ng-model="importFields.Separator" required></input>
+          <input name="separator" ng-maxlength="1" ng-model="importChoices.Separator" required></input>
           <div ng-messages="importForm.separator.$error">
             <div ng-message="maxlength" translate>IMPORT_STEP1.FIELD_SEPARATOR.T_ERROR_LEN</div>
             <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
@@ -102,7 +102,7 @@
       <ark-form-block>
         <md-input-container>
           <label translate>IMPORT_STEP1.FIELD_ECHAP_CHARACTER.T_LABEL</label>
-          <input name="echap_character" ng-maxlength="1" ng-model="importFields.EchapCharacter" required></input>
+          <input name="echap_character" ng-maxlength="1" ng-model="importChoices.EchapCharacter" required></input>
           <div ng-messages="importForm.echap_character.$error">
             <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
           </div>
@@ -119,5 +119,5 @@
   </md-content>
 </div>
 <div style="margin: 20px 10px">
-  {{importFields}}
+  {{importChoices}}
 </div>

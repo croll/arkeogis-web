@@ -70,15 +70,25 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
             resolve: {}
         })
         .state('import', {
-            url: "/import",
+            url: "/import/:databaseId",
             templateUrl: "partials/import/import.html",
-            controller: "ImportMainCtrl"
+            controller: "ImportMainCtrl",
+            resolve: {
+                database: function($stateParams, arkeoDatabase, login) {
+                    var id = $stateParams.databaseId || 0;
+                    return arkeoDatabase.db.get({id: parseInt(id)});
+                }
+                /*
+                database: function() {
+                    return {}
+                }
+                */
+            }
         })
         .state('import.step1', {
             url: "/step1",
             controller: "ImportStep1Ctrl",
-            templateUrl: "partials/import/step1.html",
-            resolve: {}
+            templateUrl: "partials/import/step1.html"
         })
         .state('import.step2', {
             url: "/step2",
@@ -96,6 +106,12 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
             url: "/step4",
             templateUrl: "partials/import/step4.html",
             controller: "ImportStep4Ctrl",
+            resolve: {}
+        })
+        .state('import.step5', {
+            url: "/step5",
+            templateUrl: "partials/import/step5.html",
+            controller: "ImportStep5Ctrl",
             resolve: {}
         })
         .state('user', {

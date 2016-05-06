@@ -21,7 +21,7 @@
 
 (function () {
     'use strict';
-    ArkeoGIS.service('login', ['$http', 'user', '$q', '$cookies', 'arkeoService', function ($http, User, $q, $cookies, Arkeo) {
+    ArkeoGIS.service('login', ['$http', 'user', '$q', '$cookies', 'arkeoService', '$state', function ($http, User, $q, $cookies, Arkeo, $state) {
 
         var self=this;
 
@@ -29,6 +29,8 @@
             Username: "",
             Password: ""
         });
+
+        this.permissions = [];
 
         this.login = function(user) {
             var promise = $q(function(resolve, reject) {
@@ -44,6 +46,41 @@
                 });
             });
             return promise;
+        };
+
+
+        /*
+         * check if the user has the permission "permname"
+         * if the user is not logged, he will be redirected to login page
+         * if the user is logged and have the permission, true is returned
+         * if the user is logged and didin't have the permission :
+             - if redirectTo isn't defined, false is returned
+             - if redirectTo is defined, it will be redirecte to map !
+         */
+        this.requirePermission = function(permname, redirectTo) {
+            if (!angular.isDefined(self.user.id) || self.user.id == 0) {
+                // user is not logged, so try to login first
+                if (redirectTo)
+                    $state.go('login', { redirectTo: redirectTo});
+                return false;
+            } else {
+                // user is logged, check permissions
+                var haveperm=false;
+                console.log("permissions: ", self.permissions);
+                self.permissions.forEach(function(permission) {
+                    if (permission.name == permname)
+                        haveperm=true;
+                })
+                if (haveperm) {
+                    // everything is ok
+                    return true;
+                } else {
+                    // user is logged but didn't have the permission
+                    if (redirectTo)
+                        $state.go('map');
+                    return false;
+                }
+            }
         };
 
     }]);
