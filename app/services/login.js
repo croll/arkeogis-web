@@ -40,6 +40,7 @@
                     self.user=new User(ret.data.User);
                     Arkeo.setLang1(ret.data.lang1.iso_code)
                     Arkeo.setLang2(ret.data.lang2.iso_code)
+                    self.permissions=ret.data.permissions;
                     resolve(self.user);
                 }, function(err) {
                     reject(err);
