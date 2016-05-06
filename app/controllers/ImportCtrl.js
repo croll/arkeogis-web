@@ -249,6 +249,8 @@
 
             arkeoImport.selectTab(3)
 
+            console.log($scope.definitions);
+
         }
     ]);
 })();

@@ -52,7 +52,7 @@
           <md-input-container>
             <label translate>IMPORT_STEP1.FIELD_GEO_EXTENT.T_LABEL</label>
             <md-select name="geographical_extent" ng-model="database.geographical_extent" ng-change="database.countries = [];database.continents = []" required >
-              <md-option value="{{geoex.id}}" ng-repeat="geoex in definitions.geographicalExtent" translate>{{geoex.tr}}</md-option>
+              <md-option value="{{geoex.id}}" ng-repeat="geoex in definitions.geographicalExtents" translate>{{geoex.tr}}</md-option>
             </md-select>
           </md-input-container>
           <!-- Country -->

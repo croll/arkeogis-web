@@ -98,26 +98,22 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
         .state('import.step2', {
             url: "/step2",
             templateUrl: "partials/import/step2.html",
-            controller: "ImportStep2Ctrl",
-            resolve: {}
+            controller: "ImportStep2Ctrl"
         })
         .state('import.step3', {
             url: "/step3",
             templateUrl: "partials/import/step3.html",
-            controller: "ImportStep3Ctrl",
-            resolve: {}
+            controller: "ImportStep3Ctrl"
         })
         .state('import.step4', {
             url: "/step4",
             templateUrl: "partials/import/step4.html",
-            controller: "ImportStep4Ctrl",
-            resolve: {}
+            controller: "ImportStep4Ctrl"
         })
         .state('import.step5', {
             url: "/step5",
             templateUrl: "partials/import/step5.html",
-            controller: "ImportStep5Ctrl",
-            resolve: {}
+            controller: "ImportStep5Ctrl"
         })
         .state('user', {
             url: "/user",
