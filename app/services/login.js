@@ -31,14 +31,19 @@
         });
 
         this.login = function(user) {
-            return $http.post('/api/login', user).then(function(ret) {
-                $cookies.put('arkeogis_session_token', ret.data.Token);
-                //ArkeoGIS.token=ret.data.Token;
-                self.user=new User(ret.data.User);
-                Arkeo.setLang1(ret.data.lang1.iso_code)
-                Arkeo.setLang2(ret.data.lang2.iso_code)
-                return self.user;
+            var promise = $q(function(resolve, reject) {
+                $http.post('/api/login', user).then(function(ret) {
+                    $cookies.put('arkeogis_session_token', ret.data.Token);
+                    //ArkeoGIS.token=ret.data.Token;
+                    self.user=new User(ret.data.User);
+                    Arkeo.setLang1(ret.data.lang1.iso_code)
+                    Arkeo.setLang2(ret.data.lang2.iso_code)
+                    resolve(self.user);
+                }, function(err) {
+                    reject(err);
+                });
             });
+            return promise;
         };
 
     }]);
