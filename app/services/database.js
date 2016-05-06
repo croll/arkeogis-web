@@ -62,13 +62,7 @@
     }
     */
 
-    this.getInfos = function(databaseId) {
-        if (!databaseId || databaseId <= 0) {
-            return self.defaultValues;
-        }
-    }
-
-    this.db = $resource('/api/database/:id', {}, {'query' : {method: 'GET', isArray: true}});
+    this.Database = $resource('/api/database/:id', {}, {'query' : {method: 'GET', isArray: true}});
 
     this.definitions = {};
 

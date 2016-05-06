@@ -39,7 +39,7 @@
       <ark-form-block>
         <md-input-container>
           <label translate>IMPORT_STEP1.FIELD_LANG.T_LABEL</label>
-          <md-select name="databaseLang" ng-model="database.default_language" ng-init="loadLangs()" required>
+          <md-select name="default_language" ng-model="database.default_language" ng-init="loadLangs()" required>
             <md-option ng-value="lang.id" ng-repeat="lang in langs">{{lang.name}}</md-option>
           </md-select>
         </md-input-container>
@@ -51,8 +51,8 @@
           <!-- Geographical extent -->
           <md-input-container>
             <label translate>IMPORT_STEP1.FIELD_GEO_EXTENT.T_LABEL</label>
-            <md-select name="geographical_extent" ng-model="database.geographical_extent" ng-change="database.countries = [];database.continents = ''" required >
-              <md-option value="{{geoex.id}}" ng-repeat="geoex in geographical_extent" translate>{{geoex.tr}}</md-option>
+            <md-select name="geographical_extent" ng-model="database.geographical_extent" ng-change="database.countries = [];database.continents = []" required >
+              <md-option value="{{geoex.id}}" ng-repeat="geoex in definitions.geographicalExtent" translate>{{geoex.tr}}</md-option>
             </md-select>
           </md-input-container>
           <!-- Country -->
@@ -119,5 +119,5 @@
   </md-content>
 </div>
 <div style="margin: 20px 10px">
-  {{importChoices}}
+  {{database}}
 </div>

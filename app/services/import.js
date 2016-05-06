@@ -59,20 +59,9 @@
     }
 
     // CSV upload
-    this.uploadCSV = function(file, datas) {
+    this.uploadCSV = function(file, choices, datas) {
 
-      var values = angular.extend(self.importFields, datas);
-      var countriesID = [];
-      var continentsID = [];
-      self.importFields.SelectedCountries.forEach(function(sc) {
-        countriesID.push(sc.geonameid);
-      });
-      self.importFields.SelectedContinents.forEach(function(sc) {
-        continentsID.push(sc.geonameid);
-      });
-      values.SelectedCountries = countriesID;
-      values.SelectedContinents = continentsID;
-      delete values.SelectedContinent;
+      var values = angular.extend(choices, datas);
       return Upload.upload({
         url: 'api/import/step1',
         data: {
