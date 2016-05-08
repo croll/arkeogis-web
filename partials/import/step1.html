@@ -21,13 +21,14 @@
 </div>
 <div class="animate-hide" ng-hide="!userPreferences.conditionsAccepted">
   <md-content class="main-md-content md-padding">
-    <h1 class="md-display-1" translate>IMPORT_STEP1.FORM.T_IMPORT_YOUR_DB</h1>
+      {{user}}
+    <h1 class="md-display-1"><span translate>IMPORT_STEP1.TITLE.T_IMPORT_YOUR_DB</span> <span translate>IMPORT_STEP1.TITLE.T_BY</span> {{user.firstname}} {{user.lastname}}</h1>
     <form name="importForm" class="md-padding" layout="column">
       <!-- Database name -->
       <ark-form-block>
         <md-input-container>
           <label translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_LABEL</label>
-          <input name="name" ng-minlength="3" ng-maxlength="50" ng-model="database.name" required>
+          <input name="name" ng-minlength="3" ng-maxlength="30" ng-model="database.name" required>
           <div ng-messages="importForm.databaseName.$error">
             <div ng-message="minlength" translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_ERROR_MIN_LEN</div>
             <div ng-message="maxlength" translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_ERROR_MAX_LEN</div>
