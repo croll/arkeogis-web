@@ -242,8 +242,8 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('ImportStep3Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoImport', 'login',
-        function($scope, $state, arkeoService, arkeoImport, login) {
+    ArkeoGIS.controller('ImportStep3Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoImport', 'arkeoDatabase', 'login', '$translate', '$q',
+        function($scope, $state, arkeoService, arkeoImport, arkeoDatabase, login, $translate, $q) {
 
             if (!login.requirePermission('import', 'import.step1'))
                 return;
@@ -252,17 +252,39 @@
 
             $scope.loadLicenses = function() {
                 arkeoService.loadLicenses().then(function(l) {
-                    var lincenses = [];
-                    licences.each(function(l) {
-                        if (l.name !== '-') {
-                            licenses.push(l)
+                    var licenses = [];
+                    angular.forEach(l, function(license) {
+                        if (license.name !== '-') {
+                            licenses.push(license)
                         }
                     });
                     $scope.licenses = licenses;
                 });
             };
 
-            console.log($scope.definitions);
+            $scope.searchContext = function(txt) {
+                var contexts = [];
+                var ctxByKey = {};
+                var ctxKeys = []
+
+                if (txt == "") {
+                    return $q.defer().resolve([]).promise;
+                }
+
+                angular.forEach(arkeoDatabase.definitions.contexts, function(ctx) {
+                    ctxByKey[ctx.tr] = ctx.id
+                    ctxKeys.push(ctx.tr);
+                });
+
+                return $translate(ctxKeys).then(function(translations) {
+                    for (var k in translations) {
+                        if (translations[k].toLowerCase().indexOf(txt.toLowerCase()) !== -1) {
+                                contexts.push({id: ctxByKey[k], label: translations[k]});
+                        }
+                    }
+                    return contexts;
+                });
+            };
 
         }
     ]);
