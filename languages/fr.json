@@ -122,11 +122,14 @@
 		"FIELD_ALL": {
 			"T_ERROR_REQUIRED": "Ce champs est requis."
 		},
+		"HEADER_IMPORT_RESUME": {
+			"T_LABEL": "Reprise des informations"
+		},
+		"HEADER_TAB_CSV_IMPORT_REPORT": {
+			"T_LABEL": "Rapport"
+		},
 		"HEADER_TAB_GENERAL_INFOS": {
 			"T_LABEL": "Informations générales"
-		},
-		"HEADER_TAB_IMPORT_REPORT": {
-			"T_LABEL": "Rapport d'importation"
 		},
 		"HEADER_TAB_MORE_INFOS": {
 			"T_LABEL": "Informations complémentaires"
@@ -167,7 +170,6 @@
 		},
 		"FORM": {
 			"T_HELP": "Utilisez un fichier de type csv au format d’encodage UTF8 pour votre importation.",
-			"T_IMPORT_YOUR_DB": "Import de votre base de données",
 			"T_RESET": "Réinitialiser",
 			"T_SUBMIT": "Envoyer le fichier et passer à l'étape suivante"
 		},
@@ -175,6 +177,10 @@
 			"T_LINE1": "Afin d’importer votre base de données sur la plate-forme ArkeoGIS, merci de bien vouloir renseigner les champs suivants pour pouvoir importer.",
 			"T_LINE2": "Ces informations ne sont demandées qu’une fois avant importation, lors de ré-importation possibles de la base de données ces informations ne vous seront pas redemandées.",
 			"T_LINE3": "Il vous sera possible par la suite de modifier ces informations et ne renseigner d'autres champs relatifs à la présentation de votre travail dans votre interface personnelle de gestion des informations relatives à la base de données."
+		},
+		"TITLE": {
+			"T_BY": "#!#IMPORT_STEP1.TITLE.T_BY",
+			"T_IMPORT_YOUR_DB": "Import de la base de donnée"
 		}
 	},
 	"IMPORT_STEP2": {
