@@ -39,7 +39,7 @@
                         <md-input-container>
                             <label>* <span translate>IMPORT_STEP3.FIELD_LICENSE.T_LABEL</span></label>
                             <md-select name="license_id" ng-model="database.license_id" ng-init="loadLicenses()"
-                            required flex-gt-xs="30" flex-gt-md="20">
+                            required>
                                 <md-option ng-value="license.id" ng-repeat="license in licenses">{{license.name}}</md-option>
                             </md-select>
                         </md-input-container>
@@ -49,7 +49,7 @@
                         <!-- Subject / Keywords -->
                         <md-input-container>
                             <label>* <span translate>IMPORT_STEP3.FIELD_SUBJECT.T_LABEL</span></label>
-                            <input name="subject" ng-maxlength="1" ng-model="database.subject" required>
+                            <input name="subject" ng-model="database.subject" required>
                         </md-input-container>
                         <ark-help translate>IMPORT_STEP3.FIELD_SUBJECT.T_HELP</ark-help>
                     </ark-form-block>
@@ -61,8 +61,15 @@
                         <md-input-container>
                             <label>* <span translate>IMPORT_STEP3.FIELD_TYPE.T_LABEL</span></label>
                             <md-select name="type" ng-model="database.type"
-                            required flex-gt-xs="30" flex-gt-md="20">
-                                <md-option ng-value="type.id" ng-repeat="type in definitions.types">{{type.tr}}</md-option>
+                                required>
+                                <md-option ng-value="type.id" ng-repeat="type in definitions.types">{{type.tr | translate}}</md-option>
+                                <!--
+                                <md-option ng-value="type.id" ng-repeat="type in [
+                                    {tr : 'DATABASE.TYPE_INVENTORY.T_TITLE', id: 'inventory'},
+                                    {tr : 'DATABASE.TYPE_RESEARCH.T_TITLE', id: 'research'},
+                                    {tr : 'DATABASE.TYPE_LITERARYWORK.T_TITLE', id: 'literary-work'}
+                                    ]">{{type.tr | translate}}</md-option>
+                                -->
                             </md-select>
                         </md-input-container>
                         <ark-help translate>IMPORT_STEP3.FIELD_TYPE.T_HELP</ark-help>
@@ -71,13 +78,12 @@
                     <ark-form-block>
                         <md-chips ng-model="database.contexts" md-autocomplete-snap md-require-match="true"
                         md-allow-repeats="false" required>
-                            <md-autocomplete md-search-text="context" md-items="context in definitions.context"
-                            md-item-text="context.name" placeholder="{{ 'IMPORT_STEP3.FIELD_CONTEXT.T_LABEL' | translate}}">
-                                <span md-highlight-text="context">{{item.tr}}</span>
+                            <md-autocomplete md-search-text="searchText" md-items="context in searchContext(searchText)"
+                            md-item-text="context.label" placeholder="{{ 'IMPORT_STEP3.FIELD_CONTEXT.T_LABEL' | translate}}">
+                                <span md-highlight-text="searchText">{{context.label}}</span>
                             </md-autocomplete>
                             <md-chip-template>
-                                <strong>{{$chip.display}}</strong>
-                                <em>({{$chip.value}})</em>
+                                <strong>{{$chip}}</strong>
                             </md-chip-template>
                         </md-chips>
                         <ark-help translate>IMPORT_STEP3.FIELD_CONTEXT.T_HELP</ark-help>
@@ -87,8 +93,8 @@
                         <md-input-container>
                             <label>* <span translate>IMPORT_STEP3.FIELD_SCALE_RESOLUTION.T_LABEL</span></label>
                             <md-select name="scale" ng-model="database.scale"
-                            required flex-gt-xs="30" flex-gt-md="20">
-                                <md-option ng-value="scaleResolution.id" ng-repeat="scaleResolution in definitions.scaleResolutions">{{scaleResolution.tr}}</md-option>
+                            required>
+                                <md-option ng-value="scaleResolution.id" ng-repeat="scaleResolution in definitions.scaleResolutions">{{scaleResolution.tr | translate}}</md-option>
                             </md-select>
                         </md-input-container>
                         <ark-help translate>IMPORT_STEP3.FIELD_SCALE_RESOLUTION.T_HELP</ark-help>
@@ -99,7 +105,7 @@
                             <label>* <span translate>IMPORT_STEP3.FIELD_STATE.T_LABEL</span></label>
                             <md-select name="state" ng-model="database.state"
                             required>
-                                <md-option ng-value="state.id" ng-repeat="state in definitions.states">{{state.tr}}</md-option>
+                                <md-option ng-value="state.id" ng-repeat="state in definitions.states">{{state.tr | translate}}</md-option>
                             </md-select>
                         </md-input-container>
                         <ark-help translate>IMPORT_STEP3.FIELD_STATE.T_HELP</ark-help>
