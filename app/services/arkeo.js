@@ -102,7 +102,6 @@
                 search: searchTextContinent,
                 limit: 25
             };
-            console.log(params)
             return self.wrapCall('/api/continents', params/*, {
                 geonameid: 'value',
                 name: 'display',
@@ -167,6 +166,10 @@
 
         this.getCompany = function(id, lang) {
             return self.wrapCall('/api/companies/'+id)
+        };
+
+        this.loadLicenses = function(id, lang) {
+            return self.wrapCall('/api/licenses')
         };
 
         // remap data array of object

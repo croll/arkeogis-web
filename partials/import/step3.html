@@ -40,7 +40,7 @@
                             <label>* <span translate>IMPORT_STEP3.FIELD_LICENSE.T_LABEL</span></label>
                             <md-select name="license_id" ng-model="database.license_id" ng-init="loadLicenses()"
                             required flex-gt-xs="30" flex-gt-md="20">
-                                <md-option ng-value="license.id" ng-repeat="license in licenses">{{license.label}}</md-option>
+                                <md-option ng-value="license.id" ng-repeat="license in licenses">{{license.name}}</md-option>
                             </md-select>
                         </md-input-container>
                         <ark-help translate>IMPORT_STEP3.FIELD_LICENSE.T_HELP</ark-help>

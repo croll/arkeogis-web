@@ -45,6 +45,7 @@
             $scope.userPreferences = arkeoImport.userPreferences;
 
             $scope.tabs = arkeoImport.tabs; //jshint ignore: line
+
             var checkPath = function(p) {
                 var tabNum = p.split('step')[1];
                 arkeoImport.tabs.selectedIndex = tabNum;
@@ -248,6 +249,18 @@
                 return;
 
             arkeoImport.selectTab(3)
+
+            $scope.loadLicenses = function() {
+                arkeoService.loadLicenses().then(function(l) {
+                    var lincenses = [];
+                    licences.each(function(l) {
+                        if (l.name !== '-') {
+                            licenses.push(l)
+                        }
+                    });
+                    $scope.licenses = licenses;
+                });
+            };
 
             console.log($scope.definitions);
 
