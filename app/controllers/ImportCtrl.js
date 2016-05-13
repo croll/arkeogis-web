@@ -288,13 +288,7 @@
             };
 
             $scope.searchUser = function(txt) {
-                /*
-                if (txt === "") {
-                    return $q.defer().resolve([]);
-                }
-                */
                 return $http.get('/api/users/'+txt).then(function(result) {
-                    //if (!result.data) return [];
                     return result.data;
                 });
             }

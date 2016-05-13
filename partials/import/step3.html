@@ -30,7 +30,7 @@
                     </ark-form-block>
                     <!-- Creation date -->
                     <ark-form-block>
-                        <md-datepicker ng-model="database.creation_date" md-placeholder="* {{ 'IMPORT_STEP3.FIELD_CREATION_DATE.T_LABEL' | translate}}" ng-required></md-datepicker>
+                        <md-datepicker ng-model="database.creation_date" md-placeholder="* {{ 'IMPORT_STEP3.FIELD_CREATION_DATE.T_LABEL' | translate}}" ng-required flex></md-datepicker>
                         <ark-help translate>IMPORT_STEP3.FIELD_CREATION_DATE.T_HELP</ark-help>
                     </ark-form-block>
                     <!-- License -->
@@ -54,7 +54,7 @@
                     </ark-form-block>
                 </div>
                 <!-- right block -->
-                <div class="md-padding" flex-offset-gt-md="5" flex>
+                <div class="md-padding" flex-offset-gt-md="4" flex>
                     <!-- Type -->
                     <ark-form-block>
                         <md-input-container>
@@ -62,13 +62,6 @@
                             <md-select name="type" ng-model="database.type"
                                 required>
                                 <md-option ng-value="type.id" ng-repeat="type in definitions.types">{{type.tr | translate}}</md-option>
-                                <!--
-                                <md-option ng-value="type.id" ng-repeat="type in [
-                                    {tr : 'DATABASE.TYPE_INVENTORY.T_TITLE', id: 'inventory'},
-                                    {tr : 'DATABASE.TYPE_RESEARCH.T_TITLE', id: 'research'},
-                                    {tr : 'DATABASE.TYPE_LITERARYWORK.T_TITLE', id: 'literary-work'}
-                                    ]">{{type.tr | translate}}</md-option>
-                                -->
                             </md-select>
                         </md-input-container>
                         <ark-help translate>IMPORT_STEP3.FIELD_TYPE.T_HELP</ark-help>
@@ -117,7 +110,7 @@
                     <ark-form-block>
                         <md-input-container>
                             <textarea ng-model="database.description.lang1.value" placeholder="{{ 'IMPORT_STEP3.FIELD_DESCRIPTION_LANG1.T_LABEL' | translate}}"
-                            md-no-autogrow="true" style="height: 100px" required></textarea>
+                             required></textarea>
                         </md-input-container>
                     </ark-form-block>
                 </div>
@@ -125,8 +118,8 @@
                     <ark-form-block>
                         <md-input-container>
                             <textarea ng-model="database.description.lang2.value" columns="3" rows="5"
-                            placeholder="{{ 'IMPORT_STEP3.FIELD_DESCRIPTION_LANG2.T_LABEL' | translate}}" md-no-autogrow="true"
-                            style="min-height: 100px" required></textarea>
+                            placeholder="{{ 'IMPORT_STEP3.FIELD_DESCRIPTION_LANG2.T_LABEL' | translate}}"
+                             required></textarea>
                         </md-input-container>
                     </ark-form-block>
                 </div>

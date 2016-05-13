@@ -22,9 +22,7 @@
 (function () {
     'use strict';
     ArkeoGIS.service('Langs', ['$resource', function ($resource) {
-        return $resource('/api/langs:id', {
-            id: '@id'
-        }, {
+        return $resource('/api/langs', {}, {
             query: {
                 isArray: true
             }
