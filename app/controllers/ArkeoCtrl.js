@@ -22,18 +22,20 @@
 (function() {
 	'use strict';
 	ArkeoGIS.controller('ArkeoCtrl', ['$scope', 'arkeoService', function($scope, Arkeo) {
+		
 		$scope.setLang = function(lang) {
 			Arkeo.setLang1(lang);
 		};
+
         $scope.getLang = function() {
 			return Arkeo.getLang1();
         };
 
-			$scope.theme = Arkeo.theme;
+		$scope.theme = Arkeo.theme;
 
-			$scope.setTheme = function(name) {
-				Arkeo.theme = name;
-				$scope.theme = name;
-			}
+		$scope.setTheme = function(name) {
+			Arkeo.theme = name;
+			$scope.theme = name;
+		}
 	}]);
 })();

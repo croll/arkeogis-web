@@ -18,13 +18,12 @@
                     <ark-form-block>
                         <md-chips ng-model="database.authors" md-autocomplete-snap md-require-match="true"
                         md-allow-repeats="false">
-                            <md-autocomplete md-search-text="userName" md-items="user in userSearch(userName)"
-                            md-item-text="user.name" placeholder="* {{ 'IMPORT_STEP3.FIELD_AUTHOR.T_LABEL' | translate}}">
-                                <span md-highlight-text="userName">{{item.display}}</span>
+                            <md-autocomplete md-search-text="userName" md-items="user in searchUser(userName)"
+                            md-item-text="user.fullname" placeholder="* {{ 'IMPORT_STEP3.FIELD_AUTHOR.T_LABEL' | translate}}">
+                                <span md-highlight-text="userName">{{user.fullname}}</span>
                             </md-autocomplete>
                             <md-chip-template>
-                                <strong>{{$chip.display}}</strong>
-                                <em>({{$chip.value}})</em>
+                                <strong>{{$chip.fullname}}</strong>
                             </md-chip-template>
                         </md-chips>
                         <ark-help translate>IMPORT_STEP3.FIELD_AUTHOR.T_HELP</ark-help>
@@ -83,7 +82,7 @@
                                 <span md-highlight-text="searchText">{{context.label}}</span>
                             </md-autocomplete>
                             <md-chip-template>
-                                <strong>{{$chip}}</strong>
+                                <strong disabled="disabled">{{$chip.label}}</strong>
                             </md-chip-template>
                         </md-chips>
                         <ark-help translate>IMPORT_STEP3.FIELD_CONTEXT.T_HELP</ark-help>

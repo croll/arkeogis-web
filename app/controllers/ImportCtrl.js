@@ -66,8 +66,9 @@
                 arkeoImport.uploadCSV(file, $scope.importChoices, $scope.database).then(function(resp) {
                     arkeoImport.data = resp.data;
                     if (angular.isDefined(resp.data.database_id) && resp.data.database_id) {
-                        $scope.database.id = resp.data.database_id;
+                        database.id = resp.data.database_id;
                     }
+                    database.authors = [{id: login.user.id, fullname: login.user.firstname+' '+login.user.lastname}];
                     if ($location.path().split("/").pop() === "step2") {
                         $state.go($state.current, {database_id: -1}, {reload: true});
                     } else {
@@ -242,8 +243,8 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('ImportStep3Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoImport', 'arkeoDatabase', 'login', '$translate', '$q',
-        function($scope, $state, arkeoService, arkeoImport, arkeoDatabase, login, $translate, $q) {
+    ArkeoGIS.controller('ImportStep3Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoImport', 'arkeoDatabase', 'login', '$translate', '$q', '$http',
+        function($scope, $state, arkeoService, arkeoImport, arkeoDatabase, login, $translate, $q, $http) {
 
             if (!login.requirePermission('import', 'import.step1'))
                 return;
@@ -285,6 +286,18 @@
                     return contexts;
                 });
             };
+
+            $scope.searchUser = function(txt) {
+                /*
+                if (txt === "") {
+                    return $q.defer().resolve([]);
+                }
+                */
+                return $http.get('/api/users/'+txt).then(function(result) {
+                    //if (!result.data) return [];
+                    return result.data;
+                });
+            }
 
         }
     ]);
