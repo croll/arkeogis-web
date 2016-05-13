@@ -17,7 +17,7 @@
                     <!-- Authors -->
                     <ark-form-block>
                         <md-chips ng-model="database.authors" md-autocomplete-snap md-require-match="true"
-                        md-allow-repeats="false">
+                        md-allow-repeats="false" md-on-remove="removeAuthor($chip)">
                             <md-autocomplete md-search-text="userName" md-items="user in searchUser(userName)"
                             md-item-text="user.fullname" placeholder="* {{ 'IMPORT_STEP3.FIELD_AUTHOR.T_LABEL' | translate}}">
                                 <span md-highlight-text="userName">{{user.fullname}}</span>

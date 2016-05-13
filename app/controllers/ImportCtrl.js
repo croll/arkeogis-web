@@ -243,8 +243,8 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('ImportStep3Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoImport', 'arkeoDatabase', 'login', '$translate', '$q', '$http',
-        function($scope, $state, arkeoService, arkeoImport, arkeoDatabase, login, $translate, $q, $http) {
+    ArkeoGIS.controller('ImportStep3Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoImport', 'arkeoDatabase', 'database', 'login', '$translate', '$q', '$http',
+        function($scope, $state, arkeoService, arkeoImport, arkeoDatabase, database, login, $translate, $q, $http) {
 
             if (!login.requirePermission('import', 'import.step1'))
                 return;
@@ -297,6 +297,13 @@
                     //if (!result.data) return [];
                     return result.data;
                 });
+            }
+
+            $scope.removeAuthor = function(user) {
+                if (user.id == login.user.id) {
+                    arkeoService.showMessage('IMPORT_STEP3.AUTHORS.T_UNABLE_TO_REMOVE_MAIN_AUTHOR');
+                    database.authors.unshift(user);
+                }
             }
 
         }
