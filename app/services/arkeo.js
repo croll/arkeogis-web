@@ -20,7 +20,7 @@
  */
 
 (function() {
-    ArkeoGIS.service('arkeoService', ['$http', '$q', '$cookies', '$translate', function($http, $q, $cookies, $translate) {
+    ArkeoGIS.service('arkeoService', ['$http', '$q', '$cookies', '$translate', '$mdToast', function($http, $q, $cookies, $translate, $mdToast) {
 
         var self = this;
 
@@ -212,5 +212,16 @@
         this.getLangs = function() {
             return this.getLang1() + "," + this.getLang2();
         };
+
+        this.showMessage = function(str) {
+            if (!angular.isArray(str)) {
+                str = [str]
+            }
+            $translate(str).then(function(translations) {
+                for (var k in translations) {
+                    $mdToast.show($mdToast.simple().textContent(translations[k]).position('bottom left'));
+                }
+            });
+        }
     }]);
 })();
