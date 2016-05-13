@@ -82,10 +82,14 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                     }
                     var id = $stateParams.database_id || 0;
                     return arkeoDatabase.Database.get({id: parseInt(id)}, function(db) {
+                        // debug
+                        db.name = 'pouet';
+                        db.geographical_extent = 'world';
                         arkeoImport.currentDb = db;
                         if (!db.id && login.user.firstname) {
                             db.default_language = login.user.first_lang_id;
                         }
+                        console.log(db);
                     });
                 }
             }
