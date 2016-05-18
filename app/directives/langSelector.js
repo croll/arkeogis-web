@@ -21,18 +21,18 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.directive('arkLangSelector', function(Langs, login) {
+    ArkeoGIS.directive('arkLangSelector', function(arkeoLang, login) {
 
 		return {
 			restrict: 'E',
 			replace: true,
-			template: '<div><md-select ng-model="selectedLanguage"><md-option>uhuh</md-option></md-select><md-input-container><textarea>{{content}}</textarea></md-input-container></div>',
+			template: '<div><md-select ng-model="Langs.selectedLang2"><md-option>uhuh</md-option></md-select><md-input-container><textarea>{{content}}</textarea></md-input-container></div>',
             scope: {
                 arkTranslationsDone: '=',
                 arkIsFirstLang: '='
             },
 			link: function(scope, element, attrs) {
-                Langs.query().$promise.then(function(langs) {
+                arkeoLang.getActiveLangs().then(function(langs) {
                     console.log(element.context.innerHTML);
                     console.log(langs);
                     console.log(login.user);

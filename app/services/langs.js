@@ -21,11 +21,44 @@
 
 (function () {
     'use strict';
-    ArkeoGIS.service('Langs', ['$resource', function ($resource) {
-        return $resource('/api/langs', {}, {
-            query: {
-                isArray: true
-            }
-        });
-    }]);
+
+    ArkeoGIS.service('arkeoLang', ['$http', '$cookies', '$translate', '$q', 'arkeoService', function ($http, $cookies, $translate, $q, arkeoService) {
+
+    var self = this;
+
+    this.getLangs = function(onlyActive) {
+        var params = {};
+        if (onlyActive === true) {
+            params.active = 1;
+        }
+       return arkeoService.wrapCall('/api/langs', params)
+    };
+
+    this.getActiveLangs = function() {
+        return self.getLangs(true);
+    };
+
+    this.setLang1 = function(iso_code) {
+        $translate.use(iso_code);
+        $cookies.put('arkeogis_lang_1', iso_code);
+    };
+
+    this.setLang2 = function(iso_code) {
+        $cookies.put('arkeogis_lang_2', iso_code);
+    };
+
+    this.getLang1 = function() {
+        var iso_code = $cookies.get('arkeogis_lang_1');
+        if (!iso_code) iso_code = $translate.use();
+        if (!iso_code) iso_code = 'en';
+        return iso_code;
+    };
+
+    this.getLang2 = function() {
+        var iso_code = $cookies.get('arkeogis_lang_2');
+        if (!iso_code) iso_code = 'en';
+        return iso_code;
+    };
+
+}]);
 })();

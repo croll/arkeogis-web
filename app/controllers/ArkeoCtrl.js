@@ -21,14 +21,14 @@
 
 (function() {
 	'use strict';
-	ArkeoGIS.controller('ArkeoCtrl', ['$scope', 'arkeoService', function($scope, Arkeo) {
-		
+	ArkeoGIS.controller('ArkeoCtrl', ['$scope', 'arkeoService', 'arkeoLang', function($scope, Arkeo, arkeoLang) {
+
 		$scope.setLang = function(lang) {
-			Arkeo.setLang1(lang);
+			arkeoLang.setLang1(lang);
 		};
 
         $scope.getLang = function() {
-			return Arkeo.getLang1();
+			return arkeoLang.getLang1();
         };
 
 		$scope.theme = Arkeo.theme;

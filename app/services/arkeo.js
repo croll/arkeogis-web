@@ -20,7 +20,7 @@
  */
 
 (function() {
-    ArkeoGIS.service('arkeoService', ['$http', '$q', '$cookies', '$translate', '$mdToast', function($http, $q, $cookies, $translate, $mdToast) {
+    ArkeoGIS.service('arkeoService', ['$http', '$q', '$translate', '$mdToast', function($http, $q, $translate, $mdToast) {
 
         var self = this;
 
@@ -136,30 +136,6 @@
             return self.wrapCall('/api/companies', params);
         };
 
-        this.loadLangs = function() {
-            return self.wrapCall('/api/langs', {});
-        };
-
-        // call rest list
-        this.wrapCall = function(uri, params, remap) {
-            var self = this;
-            var p = {
-                responseType: "json"
-            };
-            if (typeof params === 'object') {
-                p.params = params;
-            }
-            var d = $q.defer();
-            $http.get(uri, p).then(function(data) {
-                if (typeof remap === 'object')
-                    data.data = self.remap(remap, data.data);
-                d.resolve(data.data);
-            }, function(err) {
-                d.reject(err);
-            });
-            return d.promise;
-        };
-
         this.getCity = function(id_city, lang) {
             return self.wrapCall('/api/cities/'+id_city)
         };
@@ -187,30 +163,24 @@
             return newdata;
         };
 
-        this.setLang1 = function(iso_code) {
-            $translate.use(iso_code);
-            $cookies.put('arkeogis_lang_1', iso_code);
-        };
-
-        this.setLang2 = function(iso_code) {
-            $cookies.put('arkeogis_lang_2', iso_code);
-        };
-
-        this.getLang1 = function() {
-            var iso_code = $cookies.get('arkeogis_lang_1');
-            if (!iso_code) iso_code = $translate.use();
-            if (!iso_code) iso_code = 'en';
-            return iso_code;
-        };
-
-        this.getLang1 = function() {
-            var iso_code = $cookies.get('arkeogis_lang_2');
-            if (!iso_code) iso_code = 'en';
-            return iso_code;
-        };
-
-        this.getLangs = function() {
-            return this.getLang1() + "," + this.getLang2();
+        // call rest list
+        this.wrapCall = function(uri, params, remap) {
+            var self = this;
+            var config = {
+                responseType: "json"
+            };
+            if (typeof params === 'object') {
+                config.params = params;
+            }
+            var d = $q.defer();
+            $http.get(uri, config).then(function(data) {
+                if (typeof remap === 'object')
+                    data.data = self.remap(remap, data.data);
+                d.resolve(data.data);
+            }, function(err) {
+                d.reject(err);
+            });
+            return d.promise;
         };
 
         this.showMessage = function(str) {

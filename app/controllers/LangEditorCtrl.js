@@ -21,7 +21,7 @@
 
 (function () {
 	'use strict';
-	ArkeoGIS.controller('LangEditorCtrl', ['$scope', '$q', 'Langs', 'Translates', 'login', function ($scope, $q, Langs, Translates, Login) {
+	ArkeoGIS.controller('LangEditorCtrl', ['$scope', '$q', 'arkeoLang', 'Translates', 'login', function ($scope, $q, arkeoLang, Translates, Login) {
 
 		if (!Login.requirePermission('langeditor', 'langeditor'))
             return;
@@ -29,8 +29,7 @@
         var self=this;
 
         $scope.forms = {};
-
-        $scope.langs = Langs.query();
+		$scope.langs = [];
         $scope.domains = {};
         $scope.domain="LOGIN";
         $scope.src_lang="fr";
@@ -38,6 +37,9 @@
         $scope.translates_src = {};
         $scope.translates_dst = {};
 
+		arkeoLang.getActiveLangs().then(function(langs) {
+			$scope.langs = langs;
+		});
 
         $scope.setSrcLang = function (newval) {
             $scope.src_lang=newval;
