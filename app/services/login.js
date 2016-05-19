@@ -37,10 +37,10 @@
                 $http.post('/api/login', user).then(function(ret) {
                     $cookies.put('arkeogis_session_token', ret.data.Token);
                     //ArkeoGIS.token=ret.data.Token;
-                    self.user=new User(ret.data.User);
-                    arkeoLang.setLang1(ret.data.lang1.iso_code)
-                    arkeoLang.setLang2(ret.data.lang2.iso_code)
-                    self.permissions=ret.data.permissions;
+                    self.user = new User(ret.data.User);
+                    arkeoLang.setLang(1, ret.data.lang1.iso_code)
+                    arkeoLang.setLang(2, ret.data.lang2.iso_code)
+                    self.permissions = ret.data.permissions;
                     resolve(self.user);
                 }, function(err) {
                     reject(err);

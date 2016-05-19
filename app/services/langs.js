@@ -26,26 +26,36 @@
 
     var self = this;
 
-    this.getLangs = function(onlyActive) {
+    this.init = function() {
+        self.getLangs(true, true).then(function(langs) {
+            self.langs = langs;
+        });
+    }
+
+    this.getLangs = function(onlyActive, force) {
         var params = {};
         if (onlyActive === true) {
             params.active = 1;
         }
-       return arkeoService.wrapCall('/api/langs', params)
+        if (force) {
+            return arkeoService.wrapCall('/api/langs', params)
+        } else {
+            var d = $q.defer();
+            d.resolve(self.langs);
+            return d.promise;
+        }
     };
 
-    this.getActiveLangs = function() {
+    this.getActiveLangs = function(force) {
         return self.getLangs(true);
     };
 
     this.setLang = function(num, idOrIsoCode) {
         if (idOrIsoCode === parseInt(idOrIsoCode)) {
-            self.getLangs().then(function(langs) {
-                angular.forEach(langs, function(l) {
-                    if (parseInt(l.id) == parseInt(idOrIsoCode)) {
-                        self.setCookie(num, l.iso_code);
-                    }
-                });
+            angular.forEach(self.langs, function(l) {
+                if (parseInt(l.id) == parseInt(idOrIsoCode)) {
+                    self.setCookie(num, l.iso_code);
+                }
             });
         } else if (idOrIsoCode.match(/^[a-z]{2}$/)) {
             self.setCookie(num, idOrIsoCode);
@@ -67,6 +77,9 @@
         if (!iso_code) iso_code = $translate.use() || 'en';
         return iso_code;
     };
+
+    this.getTranslationLangs = function(translations) {
+    }
 
 }]);
 })();

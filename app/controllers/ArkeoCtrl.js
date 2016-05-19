@@ -24,18 +24,17 @@
 	ArkeoGIS.controller('ArkeoCtrl', ['$scope', 'arkeoService', 'arkeoLang', function($scope, Arkeo, arkeoLang) {
 
 		$scope.setLang = function(lang) {
-			arkeoLang.setLang1(lang);
+			arkeoLang.setLang(1, lang);
+        	$scope.langIsoCode = arkeoLang.getLang(1);
 		};
 
-        $scope.getLang = function() {
-			return arkeoLang.getLang1();
-        };
+        $scope.langIsoCode = arkeoLang.getLang(1);
 
 		$scope.theme = Arkeo.theme;
 
 		$scope.setTheme = function(name) {
 			Arkeo.theme = name;
 			$scope.theme = name;
-		}
+		};
 	}]);
 })();
