@@ -170,3 +170,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
 
 
 }]);
+
+ArkeoGIS.run(['arkeoLang', function(arkeoLang) {
+    arkeoLang.init();
+}]);
