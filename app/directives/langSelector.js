@@ -25,21 +25,35 @@
 
 		return {
 			restrict: 'E',
-			replace: true,
-			template: '<div><md-select ng-model="Langs.selectedLang2"><md-option>uhuh</md-option></md-select><md-input-container><textarea>{{content}}</textarea></md-input-container></div>',
+			template: '<div class="ark-lang-selector"><md-select ng-model="ngModel"><md-option ng-hide="arkHide.indexOf(lang.iso_code) !== -1" {{ng-if arkDisabled.indexOf(lang.iso_code) !== -1}} disabled{{/ng-if}} ng-value="lang.id" ng-repeat="lang in langs" arial-label="lang.name"><img ng-hide="!arkFlags" src="/img/blank.gif" class="flag flag-{{lang.iso_code}}" alt="{{lang.name}}"><span  ng-class="{caption: true, \'ark-flags-spacer\': arkFlags}">{{lang.name}}</span></md-option></md-select></div>',
+            replace: true,
             scope: {
-                arkTranslationsDone: '=',
-                arkIsFirstLang: '='
+                ngModel: '=',
+                arkDisabled: '=?',
+                arkHide: '=?',
+                arkFlags: '=?'
             },
 			link: function(scope, element, attrs) {
+                scope.langs = [];
+                if (scope.arkFlags === undefined) {
+                    scope.arkFlags = true;
+                }
+                if (scope.arkDisabled === undefined) {
+                    scope.arkDisabled = [];
+                }
+                if (scope.arkHide === undefined) {
+                    scope.arkHide = [];
+                }
                 arkeoLang.getActiveLangs().then(function(langs) {
-                    console.log(element.context.innerHTML);
-                    console.log(langs);
-                    console.log(login.user);
-                    console.log(scope.langs);
-                    console.log(scope.default);
+                    scope.langs = langs;
+                    /*
+                    angular.forEach(langs, function(lang) {
+                        if (scope.arkHide.indexOf(lang.iso_code) === -1) {
+                            scope.langs.push(lang);
+                        }
+                    });
+                    */
                 });
-                return "FUCK";
 			}
 		};
     });

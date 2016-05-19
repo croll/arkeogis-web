@@ -35,18 +35,16 @@
           </div>
         </md-input-container>
       </ark-form-block>
-      <!-- Database lang -->
+      <!-- Database test -->
       <ark-form-block>
         <md-input-container>
           <label translate>IMPORT_STEP1.FIELD_LANG.T_LABEL</label>
-          <md-select name="default_language" ng-model="database.default_language" ng-init="loadLangs()" required>
-            <md-option ng-value="lang.id" ng-repeat="lang in langs">{{lang.name}}</md-option>
-          </md-select>
+          <ark-lang-selector ng-model="database.default_language" ark-disabled="['en']" ark-hide="['de']" ark-flags="true">t</ark-lang-selector>
         </md-input-container>
         <ark-help flex translate>IMPORT_STEP1.FIELD_LANG.T_HELP</ark-help>
       </ark-form-block>
+      <!-- Geographical extent main container -->
       <ark-form-block>
-        <!-- Geographical extent main container -->
         <!-- <div layout="column" layout-gt-xs="row"> -->
           <!-- Geographical extent -->
           <md-input-container>
@@ -116,7 +114,6 @@
       <md-progress-linear md-mode="determinate" value="{{uploadProgress}}" md-buffer-value="100" ng-hide="!file"></md-progress-linear>
       <ark-help hide-sm translate>IMPORT_STEP1.FORM.T_HELP</ark-help>
     </form>
-    <ark-lang-selector ark-translations-done="['fr','en','de']" ark-is-first-lang>Youpi</ark-lang-selector>
   </md-content>
 </div>
 <div style="margin: 20px 10px">
