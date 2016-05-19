@@ -50,25 +50,53 @@
         return self.getLangs(true);
     };
 
-    this.setLang = function(num, idOrIsoCode) {
+    this.setLang = function(num, idOrIsoCode, isTranslation) {
+        var iso_code = self.getIsoCode(idOrIsoCode);
+        if (!iso_code) return false;
+        self.setCookie(num, iso_code, isTranslation);
+        return true;
+    };
+
+    self.getIsoCode = function(idOrIsoCode) {
+        var iso_code = null;
         if (idOrIsoCode === parseInt(idOrIsoCode)) {
             angular.forEach(self.langs, function(l) {
                 if (parseInt(l.id) == parseInt(idOrIsoCode)) {
-                    self.setCookie(num, l.iso_code);
+                    iso_code =  l.iso_code;
                 }
             });
         } else if (idOrIsoCode.match(/^[a-z]{2}$/)) {
-            self.setCookie(num, idOrIsoCode);
+            iso_code = idOrIsoCode;
         } else {
-            console.log("Wrong parameter passed to setLang()");
+            console.log("Wrong parameter passed to getIsoCode()");
         }
+        return iso_code;
+    }
+
+    this.setTranslationLang = function(num, idOrIsoCode, englishTranslationDone) {
+        var iso_code = self.getIsoCode(idOrIsoCode);
+        if (!iso_code) {
+            console.log('Unable to set translation lang');
+            return;
+        }
+        if (num > 1) {
+            var iso_code1 = self.getLang(1);
+            if (!englishTranslationDone && iso_code1 != 'en' && iso_code2 != 'en') {
+                arkeoService.showMessage('GENERAL.INVALIDE_CHOICE.T_CAN_T_SET_OTHER_TRANSLATION_LANG_IF_NO_ENGLISH_TRANSLATION_DONE');
+            }
+        }
+        self.setLang(num, idOrIsoCode, true);
     };
 
-    this.setCookie = function(num, iso_code) {
-        if (num == 1) {
-            $translate.use(iso_code);
+    this.setCookie = function(num, iso_code, isTranslation) {
+        if (isTranslation) {
+            $cookies.put('arkeogis_translation_lang_'+num, iso_code);
+        } else {
+            if (num == 1) {
+                $translate.use(iso_code);
+            }
+            $cookies.put('arkeogis_lang_'+num, iso_code);
         }
-        $cookies.put('arkeogis_lang_'+num, iso_code);
     }
 
     this.getLang = function(num) {
@@ -78,7 +106,13 @@
         return iso_code;
     };
 
-    this.getTranslationLangs = function(translations) {
+    this.getTranslationLangs = function() {
+        var iso_code1 = $cookies.get('arkeogis_translation_lang_1');
+        if (!iso_code1) iso_code1 = self.getLang(1);
+        var iso_code2 = $cookies.get('arkeogis_translation_lang_2');
+        if (!iso_code2) iso_code2 = self.getLang(2);
+        if (iso_code1 != 'en') iso_code2 = 'en';
+        return [iso_code1, iso_code2];
     }
 
 }]);

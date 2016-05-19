@@ -32,7 +32,7 @@
                 arkDisabled: '=?',
                 arkHide: '=?',
                 arkFlags: '=?',
-                arkSetAsLangTrad: '=?'
+                arkSetAsTranslationLang: '=?'
             },
 			link: function(scope, element, attrs, ngModel) {
                 scope.langs = [];
@@ -53,29 +53,18 @@
                 */
 
                 scope.changedValue = function() {
-                    if (!scope.arkSetAsLangTrad) {
+                    if (!scope.arkSetAsTranslationLang) {
                         return;
                     }
-
-                    var val = parseInt(scope.arkSetAsLangTrad);
+                    var val = parseInt(scope.arkSetAsTranslationLang);
                     if ([1,2].indexOf(val) === -1) {
                         console.log("Wrong value for ark-set-as-lang-trad. Should be 1 or 2");
                     } else {
-                        arkeoLang.setLang(1, parseInt(scope.ngModel));
-                        console.log("LANG OK: "+scope.ngModel);
+                        arkeoLang.setTranslationLang(1, parseInt(scope.ngModel));
                     }
                 }
 
-                arkeoLang.getActiveLangs().then(function(langs) {
-                    scope.langs = langs;
-                    /*
-                    angular.forEach(langs, function(lang) {
-                        if (scope.arkHide.indexOf(lang.iso_code) === -1) {
-                            scope.langs.push(lang);
-                        }
-                    });
-                    */
-                });
+                scope.langs = arkeoLang.langs;
 			}
 		};
     });
