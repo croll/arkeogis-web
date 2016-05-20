@@ -25,11 +25,11 @@
 
 		return {
 			restrict: 'E',
-			template: '<div class="ark-lang-selector"><md-select ng-model="ngModel" ng-change="changedValue()"><md-option ng-hide="arkHide.indexOf(lang.iso_code) !== -1" {{ng-if arkDisabled.indexOf(lang.iso_code) !== -1}} disabled{{/ng-if}} ng-value="lang.id" ng-repeat="lang in langs" arial-label="lang.name"><img ng-hide="!arkFlags" src="/img/blank.gif" class="flag flag-{{lang.iso_code}}" alt="{{lang.name}}"><span  ng-class="{caption: true, \'ark-flags-spacer\': arkFlags}">{{lang.name}}</span></md-option></md-select></div>',
+			template: '<div class="ark-lang-selector"><md-select ng-model="ngModel" ng-change="changedValue()" ng-attr-ng-disabled="ngDisabled"><md-option ng-hide="arkHide.indexOf(lang.iso_code) != -1" ng-disabled="{{lang.disabled}}" ng-value="lang.id" ng-repeat="lang in langs" arial-label="lang.name"><img ng-hide="!arkFlags" src="/img/blank.gif" class="flag flag-{{lang.iso_code}}" alt="{{lang.name}}"><span  ng-class="{caption: true, \'ark-flags-spacer\': arkFlags}">{{lang.name}}</span></md-option></md-select></div>',
             replace: true,
             scope: {
                 ngModel: '=',
-                arkDisabled: '=?',
+                ngDisabled: '=?',
                 arkHide: '=?',
                 arkFlags: '=?',
                 arkSetAsTranslationLang: '=?'
@@ -45,13 +45,14 @@
                 if (scope.arkHide === undefined) {
                     scope.arkHide = [];
                 }
-
-                /*
-                scope.$watch('ngModel', function() {
-                    console.log(scope.ngModel);
+                scope.langs = [];
+                scope.translationLangsDisabled = (angular.isDefined(attrs.arkLangsDisabled)) ? attrs.arkLangsDisabled : [];
+                angular.forEach(arkeoLang.langs, function(lang) {
+                    if (scope.translationLangsDisabled.indexOf(lang.iso_code) != -1) {
+                        lang.disabled = true;
+                    }
+                    scope.langs.push(lang);
                 });
-                */
-
                 scope.changedValue = function() {
                     if (!scope.arkSetAsTranslationLang) {
                         return;
@@ -63,8 +64,6 @@
                         arkeoLang.setTranslationLang(1, parseInt(scope.ngModel));
                     }
                 }
-
-                scope.langs = arkeoLang.langs;
 			}
 		};
     });
