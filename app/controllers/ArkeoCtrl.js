@@ -23,14 +23,14 @@
 	'use strict';
 	ArkeoGIS.controller('ArkeoCtrl', ['$scope', 'arkeoService', 'arkeoLang', function($scope, Arkeo, arkeoLang) {
 
+        $scope.langIsoCode = arkeoLang.getUserLang(1);
+
+		$scope.theme = Arkeo.theme;
+
 		$scope.setUserLang = function(lang) {
 			arkeoLang.setUserLang(1, lang);
         	$scope.langIsoCode = arkeoLang.getUserLang(1);
 		};
-
-        $scope.langIsoCode = arkeoLang.getUserLang(1);
-
-		$scope.theme = Arkeo.theme;
 
 		$scope.setTheme = function(name) {
 			Arkeo.theme = name;

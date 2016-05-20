@@ -85,13 +85,9 @@
 						<img src="/img/blank.gif" class="flag flag-{{langIsoCode}}" alt="{{langIsoCode}}" />
 					</md-button>
 					<md-menu-content width="4">
-						<md-menu-item ng-repeat="(lang, language) in {
-                                'fr' : 'MAIN.FIELD_LANG.T_ITEM_FRENCH',
-                                'en' : 'MAIN.FIELD_LANG.T_ITEM_ENGLISH',
-                                'de' : 'MAIN.FIELD_LANG.T_ITEM_DEUTCH'
-                               }">
-							<md-button ng-click="setUserLang(lang)" aria-label="Lang">
-								<img src="/img/blank.gif" class="flag flag-{{lang}}" />&nbsp;{{ language | translate }}
+						<md-menu-item ng-repeat="lang in langs">
+							<md-button ng-click="setUserLang(lang.id)" aria-label="Lang">
+								<img src="/img/blank.gif" class="flag flag-{{lang.iso_code}}" />&nbsp;{{lang.name}}
 							</md-button>
 						</md-menu-item>
 					</md-menu-content>

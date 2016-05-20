@@ -141,7 +141,13 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
             templateUrl: "partials/login.html",
             controller: "LoginCtrl",
             params: {redirectTo: ''},
-            resolve: {}
+            resolve: {
+                langs: function($rootScope, arkeoLang) {
+                    return arkeoLang.getLangs(true, true).then(function(langs) {
+                        $rootScope.langs = langs;
+                    });
+                }
+            }
         });
     /**********/
 
