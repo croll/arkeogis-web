@@ -49,6 +49,7 @@
 	<script src="app/filters.js"></script>
 	<script src="app/directives/help.js"></script>
 	<script src="app/directives/langSelector.js"></script>
+	<script src="app/directives/translate.js"></script>
 	<script src="app/controllers/UserCtrl.js"></script>
 	<script src="app/controllers/GroupCtrl.js"></script>
 	<script src="app/controllers/LoginCtrl.js"></script>
@@ -89,7 +90,7 @@
                                 'en' : 'MAIN.FIELD_LANG.T_ITEM_ENGLISH',
                                 'de' : 'MAIN.FIELD_LANG.T_ITEM_DEUTCH'
                                }">
-							<md-button ng-click="setLang(lang)" aria-label="Lang">
+							<md-button ng-click="setUserLang(lang)" aria-label="Lang">
 								<img src="/img/blank.gif" class="flag flag-{{lang}}" />&nbsp;{{ language | translate }}
 							</md-button>
 						</md-menu-item>

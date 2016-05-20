@@ -117,6 +117,11 @@
                 });
             };
 
+            $scope.myTransLang1 = angular.copy(arkeoLang.default_language);
+            $scope.translations = {'fr': 'Nico est beau', 'en': 'Nico is beautiful', 'es': 'Nico es bella'};
+
+            $scope.myTransLang2 = angular.copy(arkeoLang.default_language);
+            $scope.translations2 = {'fr': 'Beve est beau', 'en': 'Beve is beautiful', 'es': 'Beve es bello'};
         }
     ]);
 })();

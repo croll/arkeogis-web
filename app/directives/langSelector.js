@@ -25,16 +25,17 @@
 
 		return {
 			restrict: 'E',
-			template: '<div class="ark-lang-selector"><md-select ng-model="ngModel" ng-change="changedValue()" ng-attr-ng-disabled="ngDisabled"><md-option ng-hide="arkHide.indexOf(lang.iso_code) != -1" ng-disabled="{{lang.disabled}}" ng-value="lang.id" ng-repeat="lang in langs" arial-label="lang.name"><img ng-hide="!arkFlags" src="/img/blank.gif" class="flag flag-{{lang.iso_code}}" alt="{{lang.name}}"><span  ng-class="{caption: true, \'ark-flags-spacer\': arkFlags}">{{lang.name}}</span></md-option></md-select></div>',
+			template: '<div class="ark-lang-selector"><md-select ng-model="arkTranslationLangSelected" ng-change="changedValue()" ng-attr-ng-disabled="ngDisabled" aria-label="Lang switcher"><md-option ng-hide="arkHide.indexOf(lang.iso_code) != -1" ng-disabled="{{lang.disabled}}" ng-value="lang.iso_code" ng-repeat="lang in langs" arial-label="lang.name"><img ng-hide="!arkFlags" src="/img/blank.gif" class="flag flag-{{lang.iso_code}}" alt="{{lang.name}}"><span  ng-class="{caption: true, \'ark-flags-spacer\': arkFlags}">{{lang.name}}</span></md-option></md-select></div>',
             replace: true,
             scope: {
                 ngModel: '=',
                 ngDisabled: '=?',
                 arkHide: '=?',
                 arkFlags: '=?',
-                arkSetAsTranslationLang: '=?'
+                arkSetAsTranslationLang: '=?',
+                arkTranslationLangSelected: '@',
             },
-			link: function(scope, element, attrs, ngModel) {
+			link: function(scope, element, attrs) {
                 scope.langs = [];
                 if (scope.arkFlags === undefined) {
                     scope.arkFlags = true;
@@ -45,6 +46,7 @@
                 if (scope.arkHide === undefined) {
                     scope.arkHide = [];
                 }
+                scope.arkTranslationLangSelected = arkeoLang.getTranslationLang(scope.arkSetAsTranslationLang);
                 scope.langs = [];
                 scope.translationLangsDisabled = (angular.isDefined(attrs.arkLangsDisabled)) ? attrs.arkLangsDisabled : [];
                 angular.forEach(arkeoLang.langs, function(lang) {
@@ -61,7 +63,7 @@
                     if ([1,2].indexOf(val) === -1) {
                         console.log("Wrong value for ark-set-as-lang-trad. Should be 1 or 2");
                     } else {
-                        arkeoLang.setTranslationLang(1, parseInt(scope.ngModel));
+                        arkeoLang.setTranslationLang(val, scope.arkTranslationLangSelected);
                     }
                 }
 			}
