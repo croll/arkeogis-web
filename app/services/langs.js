@@ -22,7 +22,7 @@
 (function () {
     'use strict';
 
-    ArkeoGIS.service('arkeoLang', ['$http', '$cookies', '$translate', '$q', 'arkeoService', function ($http, $cookies, $translate, $q, arkeoService) {
+    ArkeoGIS.service('arkeoLang', ['$http', '$rootScope', '$cookies', '$translate', '$q', 'arkeoService', function ($http, $rootScope, $cookies, $translate, $q, arkeoService) {
 
     var self = this;
 
@@ -31,11 +31,14 @@
     self.translationLangs = {};
 
     this.init = function() {
-        self.getLangs(true, true).then(function(langs) {
-            self.langs = langs;
-        });
         self.setTranslationLang(1, self.getUserLang(1));
         self.setTranslationLang(2, self.getUserLang(2), true, false);
+        return self.getLangs(true, true).then(function(langs) {
+            self.langs = langs;
+            $rootScope.langs = langs;
+            $rootScope.userLangs = self.userLangs;
+            $rootScope.translationLangs = self.translationLangs;
+        });
     }
 
     this.getLangs = function(onlyActive, reload) {
@@ -79,6 +82,9 @@
         if (!iso_code) return false;
         self.userLangs[num] = iso_code;
         $cookies.put('arkeogis_user_lang_'+num, iso_code);
+        if (num == 1) {
+            $translate.use(iso_code);
+        }
         return true;
     };
 

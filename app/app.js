@@ -142,10 +142,8 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
             controller: "LoginCtrl",
             params: {redirectTo: ''},
             resolve: {
-                langs: function($rootScope, arkeoLang) {
-                    return arkeoLang.getLangs(true, true).then(function(langs) {
-                        $rootScope.langs = langs;
-                    });
+                langs: function(arkeoLang) {
+                    return arkeoLang.init();
                 }
             }
         });
@@ -175,8 +173,4 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
     }]);
 
 
-}]);
-
-ArkeoGIS.run(['arkeoLang', function(arkeoLang) {
-    arkeoLang.init();
 }]);

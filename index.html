@@ -76,13 +76,11 @@
 			<md-button ng-click="setTheme('pink')" ng-hide="theme == 'pink'">La vie en rose</md-button>
 			<layout layout="row" layout-align="end center">
 
-				<div>{{ArkeoGIS.token}}</div>
-
 				<!-- Lang menu -->
 				<md-menu md-position-mode="target-right target">
 					<md-button aria-label="Language" class="md-icon-button" ng-click="$mdOpenMenu($event)">
 						<!--<md-icon md-menu-origin md-svg-src="/img/flags/fr.svg"></md-icon>-->
-						<img src="/img/blank.gif" class="flag flag-{{langIsoCode}}" alt="{{langIsoCode}}" />
+						<img src="/img/blank.gif" class="flag flag-{{userLangs[1]}}" alt="{{userLangs[1]}}" />
 					</md-button>
 					<md-menu-content width="4">
 						<md-menu-item ng-repeat="lang in langs">

@@ -32,14 +32,14 @@
               <textarea ng-model="trans1" ark-translations="translations" ark-translate ark-translate-bind-lang="1" aria-label="-"></textarea>
           </md-input-container>
           <md-input-container>
-              <textarea ng-model="trans2" ark-translations="translations2" ark-translate ark-translate-bind-lang="1" aria-label="-"></textarea>
+              <input ng-model="trans2" ark-translations="translations2" ark-translate ark-translate-bind-lang="1" aria-label="-"></input>
           </md-input-container>
       </ark-form-block>
       <!-- Database name -->
       <ark-form-block>
         <md-input-container>
           <label translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_LABEL</label>
-          <input name="name" ng-minlength="3" ng-maxlength="30" ng-model="database.name" required>
+          <input name="name" ng-minlength="3" ng-maxlength="30" ng-model="database.name" required></input>
           <div ng-messages="importForm.databaseName.$error">
             <div ng-message="minlength" translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_ERROR_MIN_LEN</div>
             <div ng-message="maxlength" translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_ERROR_MAX_LEN</div>
@@ -131,4 +131,3 @@
 <div style="margin: 20px 10px">
   {{database}}
 </div>
-  {{translations}}
