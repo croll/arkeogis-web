@@ -172,6 +172,10 @@
             return self.wrapCall('/api/licenses')
         };
 
+        this.loadCharacsAll = function() {
+            return self.wrapCall('/api/characs')
+        };
+
         // remap data array of object
         // exemple: remap({id: 'value', name: 'display'}, [ { id: 1, name: 'Albert'}, { id: 2, name: 'Alfred' }])
         // will return : [ { value: 1, display: 'Albert'}, { value: 2, display: 'Alfred'}]
