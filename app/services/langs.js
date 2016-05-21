@@ -68,6 +68,7 @@
         if (!angular.isDefined(self.userLangs[num])) {
             var iso_code = $cookies.get('arkeogis_user_lang_'+num);
             if (!iso_code && num == 1) iso_code = $translate.use() || 'en';
+            if (!iso_code && num == 2) iso_code = 'en';
             self.userLangs[num] = iso_code;
         }
         return self.userLangs[num];
