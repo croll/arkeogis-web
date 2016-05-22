@@ -38,6 +38,8 @@
             }
             $scope.database = database;
 
+            console.log($scope.database);
+
             $scope.definitions = arkeoDatabase.definitions;
 
             $scope.importChoices = arkeoImport.importChoicesDefaultValues;
