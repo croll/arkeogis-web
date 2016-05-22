@@ -34,6 +34,8 @@
                 arkFlags: '=?',
                 arkSetAsTranslationLang: '=?',
                 arkTranslationLangSelected: '@',
+                arkTranslationLangsDisabled: '=?',
+                traductionLangs: '@'
             },
 			link: function(scope, element, attrs) {
                 scope.langs = [];
@@ -46,11 +48,14 @@
                 if (scope.arkHide === undefined) {
                     scope.arkHide = [];
                 }
+                if (scope.arkTranslationLangsDisabled === undefined) {
+                    scope.arkTranslationLangsDisabled = [];
+                }
                 scope.arkTranslationLangSelected = arkeoLang.getTranslationLang(scope.arkSetAsTranslationLang);
                 scope.langs = [];
-                scope.translationLangsDisabled = (angular.isDefined(attrs.arkLangsDisabled)) ? attrs.arkLangsDisabled : [];
-                angular.forEach(arkeoLang.langs, function(lang) {
-                    if (scope.translationLangsDisabled.indexOf(lang.iso_code) != -1) {
+                //scope.translationLangsDisabled = (angular.isDefined(attrs.arkLangsDisabled)) ? attrs.arkLangsDisabled : [];
+                angular.forEach(angular.copy(arkeoLang.langs), function(lang) {
+                    if (scope.arkTranslationLangsDisabled.indexOf(lang.iso_code) != -1) {
                         lang.disabled = true;
                     }
                     scope.langs.push(lang);
