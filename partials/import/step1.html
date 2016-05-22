@@ -26,13 +26,13 @@
       <!-- test beve -->
       <ark-form-block>
           <md-input-container>
-              <ark-lang-selector ng-model="myTransLang1" ark-set-as-translation-lang="1" ng-disabled="false" ark-langs-disabled="['en']" ark-hide="['de']" ark-flags="true"></ark-lang-selector>
+              <ark-lang-selector ng-model="myTransLang1" ark-set-as-translation-lang="1" ng-disabled="false" ark-langs-disabled="['es']" ark-hide="['de']" ark-flags="true"></ark-lang-selector>
           </md-input-container>
           <md-input-container>
-              <textarea ng-model="trans1" ark-translations="translations" ark-translate ark-translate-bind-lang="1" aria-label="-"></textarea>
+              <textarea ng-model="trans1" ark-translations="database.translations.description" ark-translate ark-translate-bind-lang="1" aria-label="-"></textarea>
           </md-input-container>
           <md-input-container>
-              <input ng-model="trans2" ark-translations="translations2" ark-translate ark-translate-bind-lang="1" aria-label="-"></input>
+              <input ng-model="trans2" ark-translations="database.translations.bibliography" ark-translate ark-translate-bind-lang="1" aria-label="-"></input>
           </md-input-container>
       </ark-form-block>
       <!-- Database name -->
@@ -51,7 +51,6 @@
         <md-input-container>
           <label translate>IMPORT_STEP1.FIELD_LANG.T_LABEL</label>
           <ark-lang-selector ng-model="database.infos.default_language" ark-flags="true"></ark-lang-selector>
-          <!--<ark-lang-selector ng-model="database.default_language" ark-define-as-lang1 ark-disabled="['en']" ark-hide="['de']" ark-flags="true">t</ark-lang-selector> -->
         </md-input-container>
         <ark-help flex translate>IMPORT_STEP1.FIELD_LANG.T_HELP</ark-help>
       </ark-form-block>
