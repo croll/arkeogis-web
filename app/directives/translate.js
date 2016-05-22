@@ -29,7 +29,8 @@
             scope: {
                 ngModel: '=',
                 arkTranslations: '=',
-                arkTranslateBindLang: '='
+                arkTranslateBindLang: '=',
+                database: '='
             },
 			link: function(scope, element, attrs) {
 

@@ -67,7 +67,7 @@
             } else {
                 // user is logged, check permissions
                 var haveperm=false;
-                console.log("permissions: ", self.permissions);
+                // console.log("permissions: ", self.permissions);
                 self.permissions.forEach(function(permission) {
                     if (permission.name == permname)
                         haveperm=true;

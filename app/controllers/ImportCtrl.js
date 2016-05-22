@@ -38,8 +38,6 @@
             }
             $scope.database = database;
 
-            console.log($scope.database);
-
             $scope.definitions = arkeoDatabase.definitions;
 
             $scope.importChoices = arkeoImport.importChoicesDefaultValues;
@@ -94,8 +92,8 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('ImportStep1Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoDatabase', 'arkeoImport', 'login', 'arkeoLang',
-        function($scope, $state, arkeoService, arkeoDatabase, arkeoImport, login, arkeoLang) {
+    ArkeoGIS.controller('ImportStep1Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoDatabase', 'arkeoImport', 'login', 'arkeoLang', 'database',
+        function($scope, $state, arkeoService, arkeoDatabase, arkeoImport, login, arkeoLang, database) {
 
             if (!login.requirePermission('import', 'import.step1'))
                 return;
@@ -120,10 +118,8 @@
             };
 
             $scope.myTransLang1 = angular.copy(arkeoLang.default_language);
-            $scope.translations = {'fr': 'Nico est beau', 'en': 'Nico is beautiful', 'es': 'Nico es bella'};
 
             $scope.myTransLang2 = angular.copy(arkeoLang.default_language);
-            $scope.translations2 = {'fr': 'Beve est beau', 'en': 'Beve is beautiful', 'es': 'Beve es bello'};
         }
     ]);
 })();

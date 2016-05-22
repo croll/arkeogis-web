@@ -81,7 +81,6 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                     } else {
                         var id = $stateParams.database_id || 0;
                         arkeoDatabase.Database.get({id: parseInt(id)}, function(db) {
-                            console.log("resolved");
                             // debug
                             //db.name = 'pouet';
                             //db.geographical_extent = 'world';
