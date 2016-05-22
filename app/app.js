@@ -75,21 +75,24 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
             controller: "ImportMainCtrl",
             resolve: {
                 database: function($stateParams, arkeoDatabase, arkeoImport, login, $q) {
+                    var deferred = $q.defer();
                     if ($stateParams.database_id == -1) {
-                        var deferred = $q.defer();
                         deferred.resolve(arkeoImport.currentDb);
-                        return deferred.promise;
+                    } else {
+                        var id = $stateParams.database_id || 0;
+                        arkeoDatabase.Database.get({id: parseInt(id)}, function(db) {
+                            console.log("resolved");
+                            // debug
+                            //db.name = 'pouet';
+                            //db.geographical_extent = 'world';
+                            arkeoImport.currentDb = db;
+                            if (!db.id && login.user.firstname) {
+                                db.default_language = login.user.first_lang_id;
+                            }
+                            deferred.resolve(db);
+                        });
                     }
-                    var id = $stateParams.database_id || 0;
-                    return arkeoDatabase.Database.get({id: parseInt(id)}, function(db) {
-                        // debug
-                        //db.name = 'pouet';
-                        //db.geographical_extent = 'world';
-                        arkeoImport.currentDb = db;
-                        if (!db.id && login.user.firstname) {
-                            db.default_language = login.user.first_lang_id;
-                        }
-                    });
+                    return deferred.promise;
                 }
             }
         })
