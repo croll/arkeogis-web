@@ -21,13 +21,17 @@
 
 (function() {
 	'use strict';
-	ArkeoGIS.controller('MapCtrl', ['$scope', function($scope) {
+	ArkeoGIS.controller('MapCtrl', ['$scope', '$mdSidenav', '$mdComponentRegistry', 'arkeoService',
+	function($scope, $mdSidenav, $mdComponentRegistry, arkeoService) {
 		// Get map area to fit full screen
 		var resize = function() {
 			$scope.mapHeight = $(window).height() - $(".md-default-theme .md-toolbar-tools").height() - 65 +"px";
 		};
+
 		$(window).on('resize', resize);
+
 		resize();
+
 		// Leaflet init
 		angular.extend($scope, {
 			defaults: {
@@ -47,6 +51,96 @@
 					position: 'topright'
 				}
 			}
-	});
+		});
+
+
+		// sideNav
+
+		$scope.sideNavLeftisOpen = function() { return false };
+		$scope.sideNavRightisOpen = function() { return false };
+
+		// Register bindnig function
+		$mdComponentRegistry
+		            .when("sidenav-left")
+		            .then(function(sideNav) {
+		                $scope.sideNavLeftisOpen = angular.bind(sideNav, sideNav.isOpen );
+		});
+
+		$mdComponentRegistry
+		            .when("sidenav-right")
+		            .then(function(sideNav) {
+		                $scope.sideNavRightisOpen = angular.bind(sideNav, sideNav.isOpen );
+		});
+
+
+		$scope.$watch("sideNavLeftisOpen()",function(newValue,oldValue) {
+			// save your changes here
+			if (newValue == false) {
+				$mdSidenav('sidenav-right').close();
+			}
+		},true);
+
+		$scope.$watch("sideNavRightisOpen()",function (newValue,oldValue) {
+			// save your changes here
+			if (newValue == false) {
+				$mdSidenav('sidenav-left').close();
+			}
+		},true);
+
+		$scope.open_sides = function() {
+			$mdSidenav('sidenav-left').open();
+			$mdSidenav('sidenav-right').open();
+		};
+
+		// characs
+		//$scope.characs = arkeoService.loadCharacsAll();
+		arkeoService.loadCharacsAll().then(function(characs) {
+			// construct a tree with characs
+			var main={id:0, sub:[]};
+
+			function addsub(c) {
+				characs.forEach(function(sub) {
+					if (sub.parent_id == c.id) {
+						if (!('sub' in c)) c.sub=[];
+						c.sub.push(sub);
+						addsub(sub); // recurse
+					}
+				})
+			}
+
+			addsub(main);
+			$scope.characs = main;
+		});
+
+		// the Query
+		$scope.query = {
+		}
+
+		$scope.addInQuery = function(k, v, text) {
+			if (!(k in $scope.query)) {
+				$scope.query[k] = [];
+			}
+			$scope.query[k].push({
+				k: k,
+				v: v,
+				text: text,
+			})
+		};
+
+		$scope.removeFromQuery = function(k, v) {
+			if (k in $scope.query) {
+				for (var i in $scope.query[k]) {
+					console.log("i: ", i);
+					if ($scope.query[k][i].v == v) {
+						$scope.query[k].splice(i, 1);
+						if ($scope.query[k].length == 0) {
+							delete $scope.query[k];
+						}
+						break;
+					}
+				}
+			}
+		};
+
 	}]);
 })();
