@@ -163,3 +163,30 @@ md-sidenav {
 input, .md-option {
 		background-color: #ece8c3!important;
 }
+
+/*** Lang selector ***/
+
+.ark-flags-spacer {
+	position: absolute;
+	top: 15px;
+	left: 52px;
+}
+
+.ark-lang-selector {
+	height: 40px;
+	margin-top: -20px;
+
+	.caption {
+		display: inline-block;
+	}
+
+	_md-text {
+		position: relative;
+	}
+
+	.ark-flags-spacer {
+		position: absolute;
+		top: 9px;
+		left: 35px;
+	}
+}

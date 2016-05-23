@@ -21,7 +21,7 @@
 
 (function () {
 	'use strict';
-	ArkeoGIS.controller('UserCtrl', ['$scope', 'user', 'login', 'Langs', '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", function ($scope, User, Login, Langs, $mdDialog, $http, $q, arkeoService, $mdToast) {
+	ArkeoGIS.controller('UserCtrl', ['$scope', 'user', 'login', 'arkeoLang', '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", function ($scope, User, Login, arkeoLangs, $mdDialog, $http, $q, arkeoService, $mdToast) {
 
 		if (!Login.requirePermission('adminusers', 'user'))
             return;
@@ -41,7 +41,7 @@
 
 		function getUsers(query) {
  			$scope.users = User.get(query || $scope.users_query).$promise.then(function(users) {
-				console.log("updated ! ", users);
+//				console.log("updated ! ", users);
 				$scope.users = users;
 			}, function(err) {
 				$mdToast.show($mdToast.simple().textContent("Something bas appened ! can't load users...").position('bottom left'));
@@ -113,12 +113,14 @@
 	}]);
 
 
-	ArkeoGIS.controller('UserEditCtrl', ['$scope', 'Upload', 'user', 'login', 'group', 'Langs', '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", "id_user", function ($scope, Upload, User, Login, Group, Langs, $mdDialog, $http, $q, arkeoService, $mdToast, id_user) {
+	ArkeoGIS.controller('UserEditCtrl', ['$scope', 'Upload', 'user', 'login', 'group', 'arkeoLang', '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", "id_user", function ($scope, Upload, User, Login, Group, arkeoLang, $mdDialog, $http, $q, arkeoService, $mdToast, id_user) {
 
 		if (!Login.requirePermission('adminusers', 'user'))
             return;
 
-		$scope.langs = Langs.query();
+		arkeoLang.getActiveLangs().then(function(langs) {
+			$scope.langs = langs;
+		});
 
 		//$scope.user = id_user != undefined ? User.get({id: id_user}, getUserSuccess) : hackAutocompletes(new User());
 		$scope.companies=[null, null];
@@ -220,7 +222,7 @@
 		}
 
 		function set_company(index, company) {
-			console.log("got: ", company);
+//			console.log("got: ", company);
 			if (company && company.name.length > 0) {
 				if (!$scope.companies[index] || $scope.companies[index].id != company.id || $scope.companies[index].name != company.name) {
 					$scope.companies[index]={
@@ -246,10 +248,10 @@
 		}
 
 		function getUserSuccess(user) {
-			console.log("user loaded before hack: ", user);
+//			console.log("user loaded before hack: ", user);
 			hackAutocompletes(user);
 			//$scope.user=user;
-			console.log("user loaded after hack: ", user);
+//			console.log("user loaded after hack: ", user);
 		};
 
 		$scope.company_change = function(num) {
@@ -316,8 +318,8 @@
 			var plop=Upload.upload({
 				url: '/api/users'+(('id' in $scope.user && $scope.user.id >= 0) ? '/'+$scope.user.id : ''),
 				data: {
-					beve_sent_des_pieds: Upload.json($scope.user),
-					et_pas_que: $scope.user.photo,
+					json: Upload.json($scope.user),
+					file: $scope.user.photo,
 				}
 			}).then(function(ret) {
                 console.log("user saved ", ret);

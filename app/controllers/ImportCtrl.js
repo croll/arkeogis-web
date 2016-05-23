@@ -92,8 +92,8 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('ImportStep1Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoDatabase', 'arkeoImport', 'login',
-        function($scope, $state, arkeoService, arkeoDatabase, arkeoImport, login) {
+    ArkeoGIS.controller('ImportStep1Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoDatabase', 'arkeoImport', 'login', 'arkeoLang', 'database',
+        function($scope, $state, arkeoService, arkeoDatabase, arkeoImport, login, arkeoLang, database) {
 
             if (!login.requirePermission('import', 'import.step1'))
                 return;
@@ -112,11 +112,14 @@
             };
 
             $scope.loadLangs = function() {
-                arkeoService.loadLangs().then(function(langs) {
+                arkeoLang.getActiveLangs().then(function(langs) {
                     $scope.langs = langs;
                 });
             };
 
+            $scope.myTransLang1 = angular.copy(arkeoLang.default_language);
+
+            $scope.myTransLang2 = angular.copy(arkeoLang.default_language);
         }
     ]);
 })();

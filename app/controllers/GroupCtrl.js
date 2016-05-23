@@ -21,7 +21,7 @@
 
 (function () {
 	'use strict';
-	ArkeoGIS.controller('GroupCtrl', ['$scope', 'group', 'user', 'login', 'Langs', '$mdDialog', "$http", "$q", "arkeoService", function ($scope, Group, User, Login, Langs, $mdDialog, $http, $q, arkeoService) {
+	ArkeoGIS.controller('GroupCtrl', ['$scope', 'group', 'user', 'login', 'arkeoLang', '$mdDialog', "$http", "$q", "arkeoService", function ($scope, Group, User, Login, arkeoLang, $mdDialog, $http, $q, arkeoService) {
 
 		if (!Login.requirePermission('adminusers', 'group'))
             return;

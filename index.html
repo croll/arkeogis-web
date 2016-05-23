@@ -49,6 +49,7 @@
 	<script src="app/filters.js"></script>
 	<script src="app/directives/help.js"></script>
 	<script src="app/directives/langSelector.js"></script>
+	<script src="app/directives/translate.js"></script>
 	<script src="app/controllers/UserCtrl.js"></script>
 	<script src="app/controllers/GroupCtrl.js"></script>
 	<script src="app/controllers/LoginCtrl.js"></script>
@@ -75,22 +76,16 @@
 			<md-button ng-click="setTheme('pink')" ng-hide="theme == 'pink'">La vie en rose</md-button>
 			<layout layout="row" layout-align="end center">
 
-				<div>{{ArkeoGIS.token}}</div>
-
 				<!-- Lang menu -->
 				<md-menu md-position-mode="target-right target">
 					<md-button aria-label="Language" class="md-icon-button" ng-click="$mdOpenMenu($event)">
 						<!--<md-icon md-menu-origin md-svg-src="/img/flags/fr.svg"></md-icon>-->
-						<img src="/img/blank.gif" class="flag flag-{{getLang()}}" alt="{{getLang()}}" />
+						<img src="/img/blank.gif" class="flag flag-{{userLangs[1]}}" alt="{{userLangs[1]}}" />
 					</md-button>
 					<md-menu-content width="4">
-						<md-menu-item ng-repeat="(lang, language) in {
-                                'fr' : 'MAIN.FIELD_LANG.T_ITEM_FRENCH',
-                                'en' : 'MAIN.FIELD_LANG.T_ITEM_ENGLISH',
-                                'de' : 'MAIN.FIELD_LANG.T_ITEM_DEUTCH'
-                               }">
-							<md-button ng-click="setLang(lang)" aria-label="Lang">
-								<img src="/img/blank.gif" class="flag flag-{{lang}}" />&nbsp;{{ language | translate }}
+						<md-menu-item ng-repeat="lang in langs">
+							<md-button ng-click="setUserLang(lang.id)" aria-label="Lang">
+								<img src="/img/blank.gif" class="flag flag-{{lang.iso_code}}" />&nbsp;{{lang.name}}
 							</md-button>
 						</md-menu-item>
 					</md-menu-content>

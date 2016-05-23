@@ -21,7 +21,7 @@
 
 (function () {
     'use strict';
-    ArkeoGIS.service('login', ['$http', 'user', '$q', '$cookies', 'arkeoService', '$state', function ($http, User, $q, $cookies, Arkeo, $state) {
+    ArkeoGIS.service('login', ['$http', 'user', '$q', '$cookies', 'arkeoLang', '$state', function ($http, User, $q, $cookies, arkeoLang, $state) {
 
         var self=this;
 
@@ -37,10 +37,10 @@
                 $http.post('/api/login', user).then(function(ret) {
                     $cookies.put('arkeogis_session_token', ret.data.Token);
                     //ArkeoGIS.token=ret.data.Token;
-                    self.user=new User(ret.data.User);
-                    Arkeo.setLang1(ret.data.lang1.iso_code)
-                    Arkeo.setLang2(ret.data.lang2.iso_code)
-                    self.permissions=ret.data.permissions;
+                    self.user = new User(ret.data.User);
+                    arkeoLang.setUserLang(1, ret.data.lang1.iso_code)
+                    arkeoLang.setUserLang(2, ret.data.lang2.iso_code)
+                    self.permissions = ret.data.permissions;
                     resolve(self.user);
                 }, function(err) {
                     reject(err);
@@ -67,7 +67,7 @@
             } else {
                 // user is logged, check permissions
                 var haveperm=false;
-                console.log("permissions: ", self.permissions);
+                // console.log("permissions: ", self.permissions);
                 self.permissions.forEach(function(permission) {
                     if (permission.name == permname)
                         haveperm=true;

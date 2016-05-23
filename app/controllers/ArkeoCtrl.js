@@ -21,21 +21,18 @@
 
 (function() {
 	'use strict';
-	ArkeoGIS.controller('ArkeoCtrl', ['$scope', 'arkeoService', function($scope, Arkeo) {
-		
-		$scope.setLang = function(lang) {
-			Arkeo.setLang1(lang);
-		};
-
-        $scope.getLang = function() {
-			return Arkeo.getLang1();
-        };
+	ArkeoGIS.controller('ArkeoCtrl', ['$scope', 'arkeoService', 'arkeoLang', function($scope, Arkeo, arkeoLang) {
 
 		$scope.theme = Arkeo.theme;
+
+		$scope.setUserLang = function(lang) {
+			arkeoLang.setUserLang(1, lang);
+        	$scope.langIsoCode = arkeoLang.getUserLang(1);
+		};
 
 		$scope.setTheme = function(name) {
 			Arkeo.theme = name;
 			$scope.theme = name;
-		}
+		};
 	}]);
 })();
