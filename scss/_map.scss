@@ -1,0 +1,49 @@
+.arkeomap {
+    .md-button {
+        font-size: 0.55em;
+        margin: 0 0;
+    }
+
+    .query {
+        .md-button {
+            padding: 0 0;
+            margin: 0 0;
+            min-width: 0;
+        }
+    }
+}
+
+.arkeomap-submenu {
+    padding: 0 0;
+    .md-button {
+        width: 100%;
+        text-align: left;
+        margin: 0;
+    }
+}
+
+.plusminusitem {
+    position: relative;
+    padding-left: 48px;
+}
+
+.button_plus {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    border: none;
+    left: 0px;
+    top: -12px;
+    width: 16px;
+    height: 16px;
+}
+.button_minus {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    border: none;
+    left: 0px;
+    top: 10px;
+    width: 16px;
+    height: 16px;
+}
