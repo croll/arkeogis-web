@@ -25,7 +25,7 @@
 
 		return {
 			restrict: 'E',
-			template: '<md-icon class="myicon">{{state.icon}}</md-icon>',
+			template: '<md-icon class="ark-tri-button">{{state.icon}}</md-icon>',
             replace: true,
             scope: {
                 states: '=?',
@@ -54,13 +54,6 @@
 
                 scope.state=scope.states[0]; // init
                 scope.ngModel = scope.state.value;
-
-
-                element.css({
-                    backgroundColor: 'white',
-                    cursor: 'pointer',
-                    color: 'black',
-                });
 
                 element.on('mousedown', function(event) {
                     //console.log("scope.states", scope.states);
