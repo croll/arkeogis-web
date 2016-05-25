@@ -25,7 +25,7 @@
 
 		return {
 			restrict: 'E',
-			template: '<md-icon class="ark-tri-button">{{state.icon}}</md-icon>',
+			template: '<md-icon class="ark-tri-button" ng-click="click($event)">{{state.icon}}</md-icon>',
             replace: true,
             scope: {
                 states: '=?',
@@ -51,10 +51,13 @@
                 }
 
                 scope.state=scope.states[0]; // init
+                scope.states.forEach(function(state) {
+                    if (state.value == scope.ngModel)
+                        scope.state = state;
+                });
                 scope.ngModel = scope.state.value;
 
-                element.on('mousedown', function(event) {
-                    //console.log("scope.states", scope.states);
+                scope.click = function(event) {
                     event.preventDefault();
 
                     for (var i=0; i<scope.states.length; i++) {
@@ -68,12 +71,7 @@
 
                     element.html(scope.state.icon);
                     scope.ngModel = scope.state.value;
-
-                    // update ngModel
-                    scope.$apply();
-
-                    //console.log("click : ", scope.state);
-                });
+                }
             },
         };
 

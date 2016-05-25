@@ -36,7 +36,13 @@
 		return {
 			restrict: 'E',
 			template: '<div class="ark-menu">'
-            +          '<ark-menu-item ng-repeat="item in arkTree" class="ark-menu-item-{{$index}}" ark-item="item" ark-is-submenu="true"></ark-menu-item>'
+            +          '<ark-menu-item'
+            +          ' ng-model="ngModel"'
+            +          ' ng-repeat="item in arkTree"'
+            +          ' class="ark-menu-item-{{$index}}"'
+            +          ' ark-item="item"'
+            +          ' ark-is-submenu="true">'
+            +          '</ark-menu-item>'
             +         '</div>',
             scope: {
                 arkTree: '=',
@@ -71,7 +77,7 @@
 			restrict: 'E',
 			template: '<div class="ark-menu-item" ng-click="click($event)" ng-mouseover="hover($event)">'
             +          '<span class="tributtons">'
-            +           '<ark-tri-button ng-repeat="tribut in arkItem.buttons" states="tribut"></ark-tri-button>'
+            +           '<ark-tri-button ng-repeat="(name, tribut) in arkItem.buttons" states="tribut" ng-model="buttons[name]"></ark-tri-button>'
             +          '</span> {{arkItem.text}}'
             +          '<md-icon ng-show="arkItem.menu != undefined" class="ark-menu-have-submenu">chevron_right</md-icon>'
             +         '</div>',
@@ -83,6 +89,18 @@
             link: function(scope, element, attrs) {
                 var subopened=false;
                 var bigdiv=false;
+
+                if (typeof scope.ngModel !== 'object')
+                    scope.ngModel={};
+
+                if (typeof scope.ngModel[scope.arkItem.value] !== 'object')
+                    scope.ngModel[scope.arkItem.value]={};
+
+                scope.buttons=scope.ngModel[scope.arkItem.value];
+
+                scope.$watchCollection('buttons', function(newval) {
+                    scope.ngModel[scope.arkItem.value]=scope.buttons;
+                });
 
                 if (scope.arkIsSubmenu === undefined)
                     scope.arkIsSubmenu=false;
@@ -120,7 +138,7 @@
 
                     var position = element.offset();
                     position.left+= 250;
-                    subopened = $compile("<ark-menu ark-tree=\"arkItem.menu\" style='position: absolute; left: "+position.left+"px; top: "+position.top+"px;'></ark-menu>")(scope);
+                    subopened = $compile("<ark-menu ng-model='ngModel' ark-tree=\"arkItem.menu\" style='position: absolute; left: "+position.left+"px; top: "+position.top+"px;'></ark-menu>")(scope);
                     $(document.body).append(subopened);
                 }
 
