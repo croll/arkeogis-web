@@ -9,8 +9,8 @@
         </md-card-content>
     </md-card>
     <div class="layout-padding">
-		<h1 class="md-display-1"><span translate>IMPORT_STEP3.FORM.T_TITLE</span> "{{database.name}}"</h1>
-        <form name="publicationForm" class="md-padding">
+		<h1 class="md-display-1"><span translate>IMPORT_STEP3.FORM.T_TITLE</span> "{{database.infos.name}}"</h1>
+        <form name="publicationForm" class="md-padding" ng-submit="submit(this.publicationForm)" novalidate>
             <md-content layout="column" layout-gt-sm="row">
                 <!-- left block -->
                 <div class="md-padding" flex>
@@ -30,17 +30,21 @@
                     </ark-form-block>
                     <!-- Creation date -->
                     <ark-form-block>
-                        <md-datepicker ng-model="database.creation_date" md-placeholder="* {{ 'IMPORT_STEP3.FIELD_CREATION_DATE.T_LABEL' | translate}}" ng-required flex></md-datepicker>
+                        <md-datepicker name="source_creation_date" ng-model="database.infos.source_creation_date" md-placeholder="* {{ 'IMPORT_STEP3.FIELD_CREATION_DATE.T_LABEL' | translate}}" ng-required flex></md-datepicker>
                         <ark-help translate>IMPORT_STEP3.FIELD_CREATION_DATE.T_HELP</ark-help>
+                        <div ng-messages="publicationForm.source_creation_date.$error">
+                            <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
+                        </div>
                     </ark-form-block>
                     <!-- License -->
                     <ark-form-block>
                         <md-input-container>
-                            <label>* <span translate>IMPORT_STEP3.FIELD_LICENSE.T_LABEL</span></label>
-                            <md-select name="license_id" ng-model="database.license_id" ng-init="loadLicenses()"
-                            required>
+                            <md-select name="license_id" ng-model="database.infos.license_id" ng-init="loadLicenses()" placeholder="* {{'IMPORT_STEP3.FIELD_LICENSE.T_LABEL' || translate}}" required = "true">
                                 <md-option ng-value="license.id" ng-repeat="license in licenses">{{license.name}}</md-option>
                             </md-select>
+                            <div ng-messages="publicationForm.license_id.$error">
+                                <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
+                            </div>
                         </md-input-container>
                         <ark-help translate>IMPORT_STEP3.FIELD_LICENSE.T_HELP</ark-help>
                     </ark-form-block>
@@ -48,7 +52,10 @@
                         <!-- Subject / Keywords -->
                         <md-input-container>
                             <label>* <span translate>IMPORT_STEP3.FIELD_SUBJECT.T_LABEL</span></label>
-                            <input name="subject" ng-model="database.subject" required>
+                            <input name="subject" ng-model="database.infos.subject" required>
+                            <div ng-messages="publicationForm.subject.$error">
+                                <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
+                            </div>
                         </md-input-container>
                         <ark-help translate>IMPORT_STEP3.FIELD_SUBJECT.T_HELP</ark-help>
                     </ark-form-block>
@@ -58,11 +65,13 @@
                     <!-- Type -->
                     <ark-form-block>
                         <md-input-container>
-                            <label>* <span translate>IMPORT_STEP3.FIELD_TYPE.T_LABEL</span></label>
-                            <md-select name="type" ng-model="database.type"
+                            <md-select name="type" ng-model="database.infos.type" placeholder="* {{'IMPORT_STEP3.FIELD_TYPE.T_LABEL' | translate}}"
                                 required>
                                 <md-option ng-value="type.id" ng-repeat="type in definitions.types">{{type.tr | translate}}</md-option>
                             </md-select>
+                            <div ng-messages="publicationForm.type.$error">
+                                <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
+                            </div>
                         </md-input-container>
                         <ark-help translate>IMPORT_STEP3.FIELD_TYPE.T_HELP</ark-help>
                     </ark-form-block>
@@ -83,22 +92,26 @@
                     <!-- Scale resolution -->
                     <ark-form-block>
                         <md-input-container>
-                            <label>* <span translate>IMPORT_STEP3.FIELD_SCALE_RESOLUTION.T_LABEL</span></label>
-                            <md-select name="scale" ng-model="database.scale"
+                            <md-select name="scale_resolution" ng-model="database.infos.scale_resolution" placeholder="* {{'IMPORT_STEP3.FIELD_SCALE_RESOLUTION.T_LABEL' | translate}}"
                             required>
                                 <md-option ng-value="scaleResolution.id" ng-repeat="scaleResolution in definitions.scaleResolutions">{{scaleResolution.tr | translate}}</md-option>
                             </md-select>
+                            <div ng-messages="publicationForm.scale_resolution.$error">
+                                <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
+                            </div>
                         </md-input-container>
                         <ark-help translate>IMPORT_STEP3.FIELD_SCALE_RESOLUTION.T_HELP</ark-help>
                     </ark-form-block>
                     <!-- State -->
                     <ark-form-block>
                         <md-input-container>
-                            <label>* <span translate>IMPORT_STEP3.FIELD_STATE.T_LABEL</span></label>
-                            <md-select name="state" ng-model="database.state"
+                            <md-select name="state" ng-model="database.infos.state" placeholder="* {{'IMPORT_STEP3.FIELD_STATE.T_LABEL' | translate}}"
                             required>
                                 <md-option ng-value="state.id" ng-repeat="state in definitions.states">{{state.tr | translate}}</md-option>
                             </md-select>
+                            <div ng-messages="publicationForm.state.$error">
+                                <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
+                            </div>
                         </md-input-container>
                         <ark-help translate>IMPORT_STEP3.FIELD_STATE.T_HELP</ark-help>
                     </ark-form-block>
@@ -109,24 +122,33 @@
                 <div class="md-padding" flex>
                     <ark-form-block>
                         <md-input-container>
-                            <textarea ng-model="database.description.lang1.value" placeholder="{{ 'IMPORT_STEP3.FIELD_DESCRIPTION_LANG1.T_LABEL' | translate}}"
-                             required></textarea>
+                          <ark-lang-selector ng-model="myTransLang1" ark-set-as-translation-lang="1" ng-disabled="true" ark-flags="true"></ark-lang-selector>
+                        </md-input-container>
+                        <md-input-container>
+                            <textarea name="description" ng-model="database.translations.description[0]" ark-translations="database.translations.description" ark-translate ark-translate-bind-lang="1" aria-label="-" placeholder="{{ 'IMPORT_STEP3.FIELD_DESCRIPTION_LANG1.T_LABEL' | translate}}" required></textarea>
+                            <div ng-messages="publicationForm.description.$error">
+                                <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
+                            </div>
                         </md-input-container>
                     </ark-form-block>
                 </div>
                 <div class="md-padding" flex-offset-gt-md="5" flex>
                     <ark-form-block>
                         <md-input-container>
-                            <textarea ng-model="database.description.lang2.value" columns="3" rows="5"
-                            placeholder="{{ 'IMPORT_STEP3.FIELD_DESCRIPTION_LANG2.T_LABEL' | translate}}"
-                             required></textarea>
+                          <ark-lang-selector ng-model="myTransLang2" ark-set-as-translation-lang="2" ng-disabled="false" ark-flags="true"></ark-lang-selector>
+                        </md-input-container>
+                        <md-input-container>
+                            <textarea name="description2" ng-model="description2" ark-translations="database.translations.description" ark-translate ark-translate-bind-lang="2" aria-label="-" placeholder="{{ 'IMPORT_STEP3.FIELD_DESCRIPTION_LANG2.T_LABEL' | translate}}" required></textarea>
+                            <div ng-messages="publicationForm.description2.$error">
+                                <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
+                            </div>
                         </md-input-container>
                     </ark-form-block>
                 </div>
             </md-content>
 			<!-- Actions -->
 			<md-content layout layout-sm="column" layout-padding layout-align="center center">
-					<md-button class="md-primary md-raised" ng-disabled="publicationForm.$valid" ui-sref="import.step4"><span translate>IMPORT_STEP3.FORM.T_BUTTON_SUBMIT</span></md-button>
+					<md-button type="submit" class="md-primary md-raised" ng-disabled="publicationForm.$invalid"><span translate>IMPORT_STEP3.FORM.T_BUTTON_SUBMIT</span></md-button>
 					<md-button class="md-raised md-hue-1" ui-sref="import.step2"><span translate>IMPORT_STEP3.FORM.T_BUTTON_BACK</span></md-button>
 			<md-content>
         </form>

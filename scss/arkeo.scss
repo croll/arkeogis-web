@@ -10,6 +10,12 @@ html, body {
 html,
 body,
 
+/**** HACK teporaire (?) couleur des select en erreur ****/
+
+md-select.ng-invalid md-select-value span {
+	// color: rgb(221,44,0);
+}
+
 md-content {
   -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
