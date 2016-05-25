@@ -41,8 +41,6 @@
                 ngModel: '=?',
             },
             link: function(scope, element, attrs) {
-                scope.selected=false;
-
                 scope.closeAllButMe = function(item) {
                     var childs = element.children().children();
                     for (var i=0; i<childs.length; i++) {
@@ -81,17 +79,6 @@
 
                 if (scope.arkIsSubmenu === undefined)
                     scope.arkIsSubmenu=false;
-
-                if (scope.arkIsSubmenu) {
-                    scope.$parent.$watch('selected', function(selected) {
-                        console.log("new selected: ", selected);
-                        if (selected === scope.arkItem) {
-                            renderSubMenu();
-                        } else {
-                            close();
-                        }
-                    });
-                }
 
                 function close() {
                     if (subopened) {
