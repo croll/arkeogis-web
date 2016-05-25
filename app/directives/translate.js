@@ -29,8 +29,7 @@
             scope: {
                 ngModel: '=',
                 arkTranslations: '=',
-                arkTranslateBindLang: '=',
-                database: '='
+                arkTranslateBindLang: '='
             },
 			link: function(scope, element, attrs) {
 
@@ -49,7 +48,9 @@
                     if (!angular.isObject(scope.arkTranslations)) {
                         return;
                     }
-                    scope.arkTranslations[scope.translationLangs[scope.arkTranslateBindLang]] = scope.ngModel;
+                    if (scope.translationLangs[scope.arkTranslateBindLang]) {
+                        scope.arkTranslations[scope.translationLangs[scope.arkTranslateBindLang]] = scope.ngModel;
+                    }
                 });
 
                 function switchModel(newIsoCode, oldIsoCode) {
