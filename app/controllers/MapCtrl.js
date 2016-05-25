@@ -21,14 +21,17 @@
 
 (function() {
 	'use strict';
-	ArkeoGIS.controller('MapCtrl', ['$scope', function($scope) {
+	ArkeoGIS.controller('MapCtrl', ['$scope', '$http', 'leafletData', function($scope, $http, leafletData) {
+
 		// Get map area to fit full screen
 		var resize = function() {
 			$scope.mapHeight = $(window).height() - $(".md-default-theme .md-toolbar-tools").height() - 65 +"px";
 		};
+
 		$(window).on('resize', resize);
-		resize();
+
 		// Leaflet init
+
 		angular.extend($scope, {
 			defaults: {
 				zoomControlPosition: 'topright'
@@ -48,5 +51,32 @@
 				}
 			}
 	});
+	// Get the countries geojson data from a JSON
+        $http.get("/api/search/sites").success(function(data, status) {
+
+		resize();
+
+			var latlngs = [];
+            angular.extend($scope, {
+                geojson: {
+                    data: data,
+                    style: {
+                        fillColor: "green",
+                        weight: 2,
+                        opacity: 1,
+                        color: 'white',
+                        dashArray: '3',
+                        fillOpacity: 0.7
+                    }
+                }
+            });
+
+			angular.forEach(data.features, function(feature) {
+				latlngs.push([parseFloat(feature.geometry.coordinates[0]), parseFloat(feature.geometry.coordinates[1])]);
+			});
+			leafletData.getMap().then(function(map) {
+				map.fitBounds(latlngs);
+			});
+        });
 	}]);
 })();
