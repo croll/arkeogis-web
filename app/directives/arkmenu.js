@@ -67,7 +67,7 @@
 
 		return {
 			restrict: 'E',
-			template: '<div class="ark-menu-item" ng-click="click($event)" ng-mouseover="hover($event)">{{arkItem.text}}<md-icon ng-show="arkItem.menu != undefined" class="ark-menu-have-submenu">chevron_right</md-icon>',
+			template: '<div class="ark-menu-item" ng-click="click($event)" ng-mouseover="hover($event)"><span class="tributtons"><ark-tri-button ng-repeat="tribut in arkItem.buttons" states="tribut"></ark-tri-button></span> {{arkItem.text}}<md-icon ng-show="arkItem.menu != undefined" class="ark-menu-have-submenu">chevron_right</md-icon>',
             scope: {
                 arkItem: '=',
                 arkIsSubmenu: '=?',
@@ -118,7 +118,9 @@
                 }
 
                 function clickover() {
-                    close();
+                    if (subopened) return;
+
+                    close(); // not really usefull due to the precedent test
 
                     if (!('menu' in scope.arkItem)) return;
 
