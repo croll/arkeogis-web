@@ -22,7 +22,7 @@
 <div class="animate-hide" ng-hide="!userPreferences.conditionsAccepted">
   <md-content class="main-md-content md-padding">
     <h1 class="md-display-1"><span translate>IMPORT_STEP1.TITLE.T_IMPORT_YOUR_DB</span> <span translate>IMPORT_STEP1.TITLE.T_BY</span> {{user.firstname}} {{user.lastname}}</h1>
-    <form name="importForm" class="md-padding" layout="column">
+    <form name="importForm" class="md-padding" layout="column" novalidate>
       <!-- test beve -->
       <ark-form-block>
           <md-input-container>
@@ -39,11 +39,10 @@
       <ark-form-block>
         <md-input-container>
           <label translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_LABEL</label>
-          <input name="name" ng-minlength="3" ng-maxlength="30" ng-model="database.infos.name" required></input>
+          <input name="databaseName" md-minlength="3" md-maxlength="30" ng-model="database.infos.name" required=""></input>
           <div ng-messages="importForm.databaseName.$error">
-            <div ng-message="minlength" translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_ERROR_MIN_LEN</div>
-            <div ng-message="maxlength" translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_ERROR_MAX_LEN</div>
-            <div ng-message="required">IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
+            <div ng-message="md-maxlength" translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_ERROR_MAX_LEN</div>
+            <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
           </div>
         </md-input-container>
       </ark-form-block>
@@ -59,14 +58,13 @@
         <!-- <div layout="column" layout-gt-xs="row"> -->
           <!-- Geographical extent -->
           <md-input-container>
-            <label translate>IMPORT_STEP1.FIELD_GEO_EXTENT.T_LABEL</label>
-            <md-select name="geographical_extent" ng-model="database.infos.geographical_extent" ng-change="database.countries = [];database.continents = []" required >
+            <md-select name="geographical_extent" ng-model="database.infos.geographical_extent" ng-change="database.countries = [];database.continents = []" placeholder="{{'IMPORT_STEP1.FIELD_GEO_EXTENT.T_LABEL' | translate}}" required >
               <md-option value="{{geoex.id}}" ng-repeat="geoex in definitions.geographicalExtents" translate>{{geoex.tr}}</md-option>
             </md-select>
           </md-input-container>
           <!-- Country -->
           <div ng-hide="database.infos.geographical_extent != 'country'" flex>
-            <md-chips ng-model="database.countries" md-autocomplete-snap md-require-match="true" md-allow-repeats="false">
+            <md-chips name="extent_country" ng-model="database.countries" md-autocomplete-snap md-require-match="true" md-allow-repeats="false">
               <md-autocomplete md-search-text="searchText" md-items="item in countrySearch(searchText)" md-item-text="item.name" placeholder="* Enter country name">
                 <span md-highlight-text="searchText">{{item.name}}</span>
               </md-autocomplete>
@@ -75,6 +73,12 @@
                 <em>({{$chip.geonameid}})</em>
               </md-chip-template>
             </md-chips>
+            <md-input-container>
+            <div ng-messages="importForm.extent_country.$error">
+                <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
+                <div ng-message="md-minlength" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
+            </div>
+            </md-input-container>
           </div>
           <!-- Continent -->
           <div ng-hide="database.infos.geographical_extent != 'continent'" flex>
@@ -99,7 +103,7 @@
       <ark-form-block>
         <md-input-container>
           <label translate>IMPORT_STEP1.FIELD_SEPARATOR.T_LABEL</label>
-          <input name="separator" ng-maxlength="1" ng-model="importChoices.Separator" required></input>
+          <input name="separator" md-maxlength="1" ng-model="importChoices.Separator" required></input>
           <div ng-messages="importForm.separator.$error">
             <div ng-message="maxlength" translate>IMPORT_STEP1.FIELD_SEPARATOR.T_ERROR_LEN</div>
             <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
@@ -111,8 +115,9 @@
       <ark-form-block>
         <md-input-container>
           <label translate>IMPORT_STEP1.FIELD_ECHAP_CHARACTER.T_LABEL</label>
-          <input name="echap_character" ng-maxlength="1" ng-model="importChoices.EchapCharacter" required></input>
+          <input name="echap_character" md-maxlength="1" ng-model="importChoices.EchapCharacter" required></input>
           <div ng-messages="importForm.echap_character.$error">
+            <div ng-message="maxlength" translate>IMPORT_STEP1.FIELD_ECHAP_CHARACTER.T_ERROR_LEN</div>
             <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
           </div>
         </md-input-container>
