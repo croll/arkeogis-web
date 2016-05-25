@@ -92,28 +92,9 @@
 			$mdSidenav('sidenav-right').open();
 		};
 
-		// characs
-		//$scope.characs = arkeoService.loadCharacsAll();
-		arkeoService.loadCharacsAll().then(function(characs) {
-			// construct a tree with characs
-			var main={id:0, sub:[]};
-
-			function addsub(c) {
-				characs.forEach(function(sub) {
-					if (sub.parent_id == c.id) {
-						if (!('sub' in c)) c.sub=[];
-						c.sub.push(sub);
-						addsub(sub); // recurse
-					}
-				})
-			}
-
-			addsub(main);
-			$scope.characs = main;
-			//////////////////////////////////////////////////////////////////////////////////////////////////
-		});
-
-		$scope.groink={};
+		/*
+		 * characs init
+		 */
 
 		var _tributtons = {
 			inclorexcl: [
@@ -141,6 +122,32 @@
 				},
 			],
 		};
+
+		arkeoService.loadCharacsAll().then(function(characs) {
+			// construct a tree with characs
+			var main={ value: 0, menu:[]};
+
+			function addsub(c) {
+				characs.forEach(function(sub) {
+					if (sub.parent_id == c.value) {
+						if (!('menu' in c)) c.menu=[];
+						var item={
+							value: sub.id,
+							text: sub.tr[0].name,
+							buttons: _tributtons,
+						};
+						c.menu.push(item);
+						addsub(item); // recurse
+					}
+				})
+			}
+
+			addsub(main);
+			console.log("main : ", main);
+			$scope.characs = main;
+		});
+
+		$scope.groink={};
 
 		$scope.mymenu = {
 			value: '0',

@@ -5,9 +5,6 @@
             <h1 class="md-toolbar-tools">Recherche :</h1>
             <div>
                 <div>
-                    <ark-menu-item ark-item="mymenu" ng-model="groink"></ark-menu>
-                </div>
-                <div>
                     <md-menu class="arkeomap-menu">
                         <md-button aria-label="Menu Centroïde" class="md-text-button" ng-click="$mdOpenMenu()">
                             <!--<md-icon md-menu-origin>group</md-icon>-->
@@ -283,34 +280,8 @@
                     </md-menu>
                 </div>
 
-                <script type="text/ng-template" id="characsubmenu">
-                    <md-menu class="arkeomap-submenu">
-                        <md-button class="md-text-button">
-                            {{sub.tr[1].name}}
-                        </md-button>
-                        <md-button class="button_plus">
-                            <md-icon>add_circle</md-icon>
-                        </md-button>
-                        <md-button class="button_minus">
-                            <md-icon>remove_circle</md-icon>
-                        </md-button>
-                        <md-menu-content width="4">
-                            <md-menu-item class="plusminusitem" ng-repeat="sub in sub.sub" ng-include="'characsubmenu'"></md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
-                </script>
-                <div ng-repeat="sub in characs.sub">
-                    <div>
-                        <md-menu class="arkeomap-menu">
-                            <md-button aria-label="{{sub.tr[0].name}}" class="md-text-button" ng-click="$mdOpenMenu()">
-                                <!--<md-icon md-menu-origin>group</md-icon>-->
-                                {{sub.tr[1].name}}
-                            </md-button>
-                            <md-menu-content width="4">
-                                <md-menu-item class="plusminusitem" ng-repeat="sub in sub.sub" ng-include="'characsubmenu'"></md-menu-item>
-                            </md-menu-content>
-                        </md-menu>
-                    </div>
+                <div ng-repeat="item in characs.menu">
+                    <ark-menu-item ark-item="item"></ark-menu-item>
                 </div>
 
 
