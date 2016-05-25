@@ -50,8 +50,6 @@
                     ];
                 }
 
-                console.log("scope.states", scope.states);
-
                 scope.state=scope.states[0]; // init
                 scope.ngModel = scope.state.value;
 
