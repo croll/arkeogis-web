@@ -1,0 +1,25 @@
+ark-menu {
+    background-color: #eee;
+    z-index: 999;
+    transition: 0.5s;
+}
+
+ark-menu-item {
+}
+
+.ark-menu-item {
+    width: 250px;
+    position: relative;
+    cursor: pointer;
+    text-align: left;
+}
+
+.ark-menu-have-submenu {
+    position: absolute;
+    right: 0;
+}
+
+.ark-menu-item:hover {
+    background-color: #eaa;
+    transition: 0.5s;
+}
