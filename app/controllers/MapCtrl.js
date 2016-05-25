@@ -110,7 +110,79 @@
 
 			addsub(main);
 			$scope.characs = main;
+			//////////////////////////////////////////////////////////////////////////////////////////////////
 		});
+
+		$scope.groink={};
+
+		var _tributtons = {
+			inclorexcl: [
+				{
+					value: '0',
+					icon: 'brightness_1'
+				},
+				{
+					value: '+',
+					icon: 'add_circle'
+				},
+				{
+					value: '-',
+					icon: 'remove_circle'
+				},
+			],
+			exceptional: [
+				{
+					value: false,
+					icon: 'check_box_outline_blank'
+				},
+				{
+					value: true,
+					icon: 'new_releases'
+				},
+			],
+		};
+
+		$scope.mymenu = {
+			value: '0',
+			text: 'Mon menu',
+			buttons: _tributtons,
+			menu: [
+				{
+					value: '1',
+					text: 'First',
+					buttons: _tributtons,
+					menu: [
+						{
+							value: '1.1',
+							text: 'Primary First',
+							buttons: _tributtons,
+						},
+						{
+							value: '1.2',
+							text: 'Secondary First',
+							buttons: _tributtons,
+						}
+					]
+				},
+				{
+					value: '2',
+					text: 'Second',
+					buttons: _tributtons,
+					menu: [
+						{
+							value: '2.1',
+							text: 'Primary Second',
+							buttons: _tributtons,
+						},
+						{
+							value: '2.2',
+							text: 'Secondary Second',
+							buttons: _tributtons,
+						}
+					]
+				}
+			]
+		};
 
 		// the Query
 		$scope.query = {
