@@ -9,34 +9,8 @@
 
                     <ark-menu-item ng-model="query.knowledge" ark-item="menuKnowledge"></ark-menu-item>
 
-                    <md-menu class="arkeomap-menu">
-                        <md-button aria-label="Menu Occupation" class="md-text-button" ng-click="$mdOpenMenu()">
-                            <!--<md-icon md-menu-origin>group</md-icon>-->
-                            Occupation
-                        </md-button>
-                        <md-menu-content width="4">
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('occupation', 'undefined', 'Non renseigné')">
-                                    Non renseigné
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('occupation', 'uniq', 'Unique')">
-                                    Unique
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('occupation', 'continue', 'Continue (plusieurs périodes contiguës)')">
-                                    Continue (plusieurs périodes contiguës)
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('occupation', 'multiple', 'Multiple (plusieurs périodes indépendantes)')">
-                                    Multiple (plusieurs périodes indépendantes)
-                                </md-button>
-                            </md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
+                    <ark-menu-item ng-model="query.occupation" ark-item="menuOccupation"></ark-menu-item>
+
                 </div>
 
                 <div>
@@ -261,28 +235,28 @@
                 <div>{{query.characs}}</div>
                 <div>{{query.knowledge}}</div>
                 <div ng-hide="isEmptyObject(query.centroid)">
-                    Centroïde :
+                    <span translate>Centroïde</span> :
                     <span ng-repeat="o in menutolist(query.centroid, menuCentroid.menu)">{{ $first ? '' : ', ' }}
                         <md-button ng-click="removeFromQuery('centroid', o.v)">
                             <md-icon>delete</md-icon>
                         </md-button>
-                        {{ o.text }}</span>
+                        <span translate>{{ o.text }}</span></span>
                 </div>
                 <div ng-hide="isEmptyObject(query.knowledge)">
-                    Connaisance :
+                    <span translate>Connaisance</span> :
                     <span ng-repeat="o in menutolist(query.knowledge, menuKnowledge.menu)">{{ $first ? '' : ', ' }}
                         <md-button ng-click="removeFromQuery('knowledge', o.v)">
                             <md-icon>delete</md-icon>
                         </md-button>
-                        {{ o.text }}</span>
+                        <span translate>{{ o.text }}</span></span>
                 </div>
-                <div ng-show="query.occupation != undefined">
-                    Occupation :
-                    <span ng-repeat="o in query.occupation">{{ $first ? '' : ', ' }}
+                <div ng-hide="isEmptyObject(query.occupation)">
+                    <span translate>Connaisance</span> :
+                    <span ng-repeat="o in menutolist(query.occupation, menuOccupation.menu)">{{ $first ? '' : ', ' }}
                         <md-button ng-click="removeFromQuery('occupation', o.v)">
                             <md-icon>delete</md-icon>
                         </md-button>
-                        {{ o.text }}</span>
+                        <span translate>{{ o.text }}</span></span>
                 </div>
                 <div ng-show="query.searchzone != undefined">
                     Zone de recherche :

@@ -280,7 +280,7 @@
 		$scope.groink={};
 
 		$scope.menuCentroid = {
-			text: 'DATABASE.GEOGRAPHICAL_EXTENT_INTERNATIONAL_WATERS.T_TITLE',
+			text: 'T_CENTROID',
 			menu: [
 				{
 					value: 'centroid-include',
@@ -299,23 +299,59 @@
 			text: { fr: 'Connaissance', en: 'Knowledge' },
 			menu: [
 				{
-					value: 'undefined',
-					text: 'Non renseigné',
+					value: 'not_documented',
+					text: 'DATABASE.KNOWLEDGE_TYPE_NOTDOCUMENTED.T_TITLE',
 					buttons: _checkbox_buttons,
 				},
 				{
-					value: 'lit, pro',
-					text: 'Littérature, prospecté',
+					value: 'literature',
+					text: 'DATABASE.KNOWLEDGE_TYPE_LITERATURE.T_TITLE',
 					buttons: _checkbox_buttons,
 				},
 				{
-					value: 'sonde',
-					text: 'Sondé',
+					value: 'prospected_aerial',
+					text: 'DATABASE.KNOWLEDGE_TYPE_PROSPECTED_AERIAL.T_TITLE',
 					buttons: _checkbox_buttons,
 				},
 				{
-					value: 'fouilled',
-					text: 'Fouillé',
+					value: 'prospected_pedestrian',
+					text: 'DATABASE.KNOWLEDGE_TYPE_PROSPECTED_PEDESTRIAN.T_TITLE',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'surveyed',
+					text: 'DATABASE.KNOWLEDGE_TYPE_SURVEYED.T_TITLE',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'dig',
+					text: 'DATABASE.KNOWLEDGE_TYPE_DIG.T_TITLE',
+					buttons: _checkbox_buttons,
+				},
+			],
+		};
+
+		$scope.menuOccupation = {
+			text: { fr: 'Occupation', en: 'Occupation' },
+			menu: [
+				{
+					value: 'not_documented',
+					text: 'DATABASE.SITE_OCCUPATION_NOTDOCUMENTED.T_TITLE',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'single',
+					text: 'DATABASE.SITE_OCCUPATION_SINGLE.T_TITLE',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'continuous',
+					text: 'DATABASE.SITE_OCCUPATION_CONTINUOUS.T_TITLE',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'multiple',
+					text: 'DATABASE.SITE_OCCUPATION_MULTIPLE.T_TITLE',
 					buttons: _checkbox_buttons,
 				},
 			],
