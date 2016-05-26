@@ -219,7 +219,6 @@
 		var _tributtons = {
 			inclorexcl: [
 				{
-					value: '0',
 					icon: 'brightness_1'
 				},
 				{
@@ -233,7 +232,6 @@
 			],
 			exceptional: [
 				{
-					value: false,
 					icon: 'check_box_outline_blank'
 				},
 				{
@@ -246,7 +244,6 @@
 		var _centroid_buttons = {
 			_: [
 				{
-					value: false,
 					icon: 'check_box_outline_blank',
 				},
 				{
@@ -266,8 +263,8 @@
 						if (!('menu' in c)) c.menu=[];
 						var item={
 							value: sub.id,
-							text: sub.tr[0].name,
-							//text: sub.tr,
+							//text: sub.tr[0].name,
+							text: sub.tr.translations.name,
 							buttons: _tributtons,
 						};
 						c.menu.push(item);
