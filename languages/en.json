@@ -46,16 +46,16 @@
 			"T_TITLE": "Country"
 		},
 		"SCALE_RESOLUTION_EUROPA": {
-			"T_TITLE": "#!#DATABASE.SCALE_RESOLUTION_EUROPA.T_TITLE"
+			"T_TITLE": "Europe"
 		},
 		"SCALE_RESOLUTION_MICROREGION": {
-			"T_TITLE": "#!#DATABASE.SCALE_RESOLUTION_MICROREGION.T_TITLE"
+			"T_TITLE": "Micro-region"
 		},
 		"SCALE_RESOLUTION_OBJECT": {
 			"T_TITLE": "Object"
 		},
 		"SCALE_RESOLUTION_REGION": {
-			"T_TITLE": "#!#DATABASE.SCALE_RESOLUTION_REGION.T_TITLE"
+			"T_TITLE": "Region"
 		},
 		"SCALE_RESOLUTION_SITE": {
 			"T_TITLE": "Site"
@@ -73,19 +73,19 @@
 			"T_TITLE": "Single"
 		},
 		"STATE_FINISHED": {
-			"T_TITLE": "#!#DATABASE.STATE_FINISHED.T_TITLE"
+			"T_TITLE": "Finished"
 		},
 		"STATE_INPROGRESS": {
-			"T_TITLE": "#!#DATABASE.STATE_INPROGRESS.T_TITLE"
+			"T_TITLE": "In progress"
 		},
 		"TYPE_INVENTORY": {
-			"T_TITLE": "#!#DATABASE.TYPE_INVENTORY.T_TITLE"
+			"T_TITLE": "Inventory"
 		},
 		"TYPE_LITERARYWORK": {
-			"T_TITLE": "#!#DATABASE.TYPE_LITERARYWORK.T_TITLE"
+			"T_TITLE": "Literary work"
 		},
 		"TYPE_RESEARCH": {
-			"T_TITLE": "#!#DATABASE.TYPE_RESEARCH.T_TITLE"
+			"T_TITLE": "Research"
 		}
 	},
 	"GENERAL": {
