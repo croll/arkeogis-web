@@ -76,8 +76,10 @@
 	<div layout="column" flex md-theme="{{theme}}">
 		<md-toolbar class="md-toolbar-tools">
 			<h1 flex>ArkeoGIS</h1>
-			<md-button ng-click="setTheme('grey')" ng-hide="theme == 'grey'">La vie en bleu</md-button>
-			<md-button ng-click="setTheme('pink')" ng-hide="theme == 'pink'">La vie en rose</md-button>
+			<div ng-hide="true">
+				<md-button ng-click="setTheme('grey')" ng-hide="theme == 'grey'">La vie en bleu</md-button>
+				<md-button ng-click="setTheme('pink')" ng-hide="theme == 'pink'">La vie en rose</md-button>
+			</div>
 			<layout layout="row" layout-align="end center">
 
 				<!-- Lang menu -->

@@ -31,11 +31,11 @@
      *              }, { value '2', text: 'Second' } ]
      *  ng-model: the model, an array of active selections
      */
-    ArkeoGIS.directive('arkMenu', function($compile) {
+    ArkeoGIS.directive('arkMenu', function($compile, $timeout) {
 
 		return {
 			restrict: 'E',
-			template: '<div class="ark-menu">'
+			template: '<div class="ark-menu md-whiteframe-4dp md-whiteframe-z2">'
             +          '<ark-menu-item'
             +          ' ng-model="ngModel"'
             +          ' ng-repeat="item in arkTree"'
@@ -49,6 +49,10 @@
                 ngModel: '=?',
             },
             link: function(scope, element, attrs) {
+                $timeout(function() {
+                    element.addClass("ark-menu-show");
+                }, 0);
+
                 scope.closeAllButMe = function(item) {
                     var childs = element.children().children();
                     for (var i=0; i<childs.length; i++) {
@@ -78,7 +82,7 @@
 			template: '<div class="ark-menu-item" ng-click="click($event)" ng-mouseover="hover($event)">'
             +          '<span class="tributtons">'
             +           '<ark-tri-button ng-repeat="(name, tribut) in arkItem.buttons" states="tribut" ng-model="buttons[name]"></ark-tri-button>'
-            +          '</span> {{arkItem.text}}'
+            +          '</span> <span ark-get-translation ark-translations="arkItem.text"></span>'
             +          '<md-icon ng-show="arkItem.menu != undefined" class="ark-menu-have-submenu">chevron_right</md-icon>'
             +         '</div>',
             scope: {
@@ -93,14 +97,39 @@
                 if (typeof scope.ngModel !== 'object')
                     scope.ngModel={};
 
-                if (typeof scope.ngModel[scope.arkItem.value] !== 'object')
-                    scope.ngModel[scope.arkItem.value]={};
 
-                scope.buttons=scope.ngModel[scope.arkItem.value];
+                if (scope.arkItem.value !== undefined) {
 
-                scope.$watchCollection('buttons', function(newval) {
-                    scope.ngModel[scope.arkItem.value]=scope.buttons;
-                });
+                    if (!(scope.arkItem.value in scope.ngModel))
+                        scope.ngModel[scope.arkItem.value]={};
+
+                    if ('buttons' in scope.arkItem) {
+                        if ('_' in scope.arkItem.buttons)
+                            scope.buttons={ '_' : scope.ngModel[scope.arkItem.value] };
+                        else
+                            scope.buttons=scope.ngModel[scope.arkItem.value];
+                    }
+                }
+
+                if ('buttons' in scope.arkItem) {
+                    scope.$watchCollection('buttons', function(newval) {
+                        var val={};
+
+                        for (var k in scope.arkItem.buttons) {
+                            if ((k in scope.buttons) && scope.buttons[k] !== undefined)
+                                val[k]=scope.buttons[k];
+                        }
+
+                        if (('_' in scope.arkItem.buttons) && ('_' in val))
+                            val=val._;
+
+                        if ((typeof val == "object" && $.isEmptyObject(val)) || val === undefined)
+                            delete scope.ngModel[scope.arkItem.value];
+                        else
+                            scope.ngModel[scope.arkItem.value] = val;
+
+                    });
+                }
 
                 if (scope.arkIsSubmenu === undefined)
                     scope.arkIsSubmenu=false;

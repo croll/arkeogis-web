@@ -3,292 +3,36 @@
     <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="sidenav-left">
         <md-toolbar class="md-theme-indigo">
             <h1 class="md-toolbar-tools">Recherche :</h1>
+        </md-toolbar>
+        <md-content layout-padding>
             <div>
                 <div>
-                    <md-menu class="arkeomap-menu">
-                        <md-button aria-label="Menu Centroïde" class="md-text-button" ng-click="$mdOpenMenu()">
-                            <!--<md-icon md-menu-origin>group</md-icon>-->
-                            Centroïde
-                        </md-button>
-                        <md-menu-content width="4">
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('centroid', true, 'Oui')">
-                                    <md-icon md-menu-align-target>yes</md-icon>
-                                    Oui
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('centroid', false, 'Non')">
-                                    <md-icon>no</md-icon>
-                                    Non
-                                </md-button>
-                            </md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
-                    <md-menu class="arkeomap-menu">
-                        <md-button aria-label="Menu Connaissance" class="md-text-button" ng-click="$mdOpenMenu()">
-                            <!--<md-icon md-menu-origin>group</md-icon>-->
-                            Connaissance
-                        </md-button>
-                        <md-menu-content width="4">
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('knowledge', 'undefined', 'Non renseigné')">
-                                    Non renseigné
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('knowledge', 'lit, pro', 'Littérature, prospecté')">
-                                    Littérature, prospecté
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('knowledge', 'sonde', 'Sondé')">
-                                    Sondé
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('knowledge', 'fouilled', 'Fouillé')">
-                                    Fouillé
-                                </md-button>
-                            </md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
-                    <md-menu class="arkeomap-menu">
-                        <md-button aria-label="Menu Occupation" class="md-text-button" ng-click="$mdOpenMenu()">
-                            <!--<md-icon md-menu-origin>group</md-icon>-->
-                            Occupation
-                        </md-button>
-                        <md-menu-content width="4">
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('occupation', 'undefined', 'Non renseigné')">
-                                    Non renseigné
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('occupation', 'uniq', 'Unique')">
-                                    Unique
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('occupation', 'continue', 'Continue (plusieurs périodes contiguës)')">
-                                    Continue (plusieurs périodes contiguës)
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('occupation', 'multiple', 'Multiple (plusieurs périodes indépendantes)')">
-                                    Multiple (plusieurs périodes indépendantes)
-                                </md-button>
-                            </md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
+                    <ark-menu-item ng-model="query.centroid" ark-item="menuCentroid"></ark-menu-item>
+                    <ark-menu-item ng-model="query.knowledge" ark-item="menuKnowledge"></ark-menu-item>
+                    <ark-menu-item ng-model="query.occupation" ark-item="menuOccupation"></ark-menu-item>
                 </div>
 
                 <div>
-                    <md-menu class="arkeomap-menu">
-                        <md-button aria-label="Zone de recherche" class="md-text-button" ng-click="$mdOpenMenu()">
-                            <!--<md-icon md-menu-origin>group</md-icon>-->
-                            Zone de recherche
-                        </md-button>
-                        <md-menu-content width="4">
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('searchzone', 'rect', 'Rectangle')">
-                                    Rectangle
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('searchzone', 'disc', 'Disque')">
-                                    Disque
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('searchzone', 'libre', 'Libre')">
-                                    Libre
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('searchzone', 'coord', 'Coordonnées')">
-                                    Coordonnées
-                                </md-button>
-                            </md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
+                    <ark-menu-item ng-model="query.zone" ark-item="menuZone"></ark-menu-item>
                 </div>
 
                 <div>
-                    <md-menu class="arkeomap-menu">
-                        <md-button aria-label="Base" class="md-text-button" ng-click="$mdOpenMenu()">
-                            <!--<md-icon md-menu-origin>group</md-icon>-->
-                            Base
-                        </md-button>
-                        <md-menu-content width="4">
-                            <md-menu-item>
-                                <md-menu class="arkeomap-submenu">
-                                    <md-button class="md-text-button">
-                                        Recherche
-                                    </md-button>
-                                    <md-menu-content width="4">
-                                        <md-menu-item class="plusminusitem">
-                                            <md-button>Test base 1</md-button>
-                                            <md-button class="button_plus">
-                                                <md-icon>add_circle</md-icon>
-                                            </md-button>
-                                            <md-button class="button_minus">
-                                                <md-icon>remove_circle</md-icon>
-                                            </md-button>
-                                        </md-menu-item>
-                                        <md-menu-item class="plusminusitem">
-                                            <md-button>Test base deux</md-button>
-                                            <md-button class="button_plus">
-                                                <md-icon>add_circle</md-icon>
-                                            </md-button>
-                                            <md-button class="button_minus">
-                                                <md-icon>remove_circle</md-icon>
-                                            </md-button>
-                                        </md-menu-item>
-                                        <md-menu-item class="plusminusitem">
-                                            <md-button>Troisième test</md-button>
-                                            <md-button class="button_plus">
-                                                <md-icon>add_circle</md-icon>
-                                            </md-button>
-                                            <md-button class="button_minus">
-                                                <md-icon>remove_circle</md-icon>
-                                            </md-button>
-                                        </md-menu-item>
-                                    </md-menu-content>
-                                </md-menu>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-menu class="arkeomap-submenu">
-                                    <md-button>
-                                        Inventaire
-                                    </md-button>
-                                    <md-menu-content width="4">
-                                        <md-menu-item class="plusminusitem">
-                                            <md-button>Test base 1</md-button>
-                                            <md-button class="button_plus">
-                                                <md-icon>add_circle</md-icon>
-                                            </md-button>
-                                            <md-button class="button_minus">
-                                                <md-icon>remove_circle</md-icon>
-                                            </md-button>
-                                        </md-menu-item>
-                                        <md-menu-item class="plusminusitem">
-                                            <md-button>Test base deux</md-button>
-                                            <md-button class="button_plus">
-                                                <md-icon>add_circle</md-icon>
-                                            </md-button>
-                                            <md-button class="button_minus">
-                                                <md-icon>remove_circle</md-icon>
-                                            </md-button>
-                                        </md-menu-item>
-                                        <md-menu-item class="plusminusitem">
-                                            <md-button>Troisième test</md-button>
-                                            <md-button class="button_plus">
-                                                <md-icon>add_circle</md-icon>
-                                            </md-button>
-                                            <md-button class="button_minus">
-                                                <md-icon>remove_circle</md-icon>
-                                            </md-button>
-                                        </md-menu-item>
-                                    </md-menu-content>
-                                </md-menu>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-menu class="arkeomap-submenu">
-                                    <md-button class="md-text-button">
-                                        Ouvrage
-                                    </md-button>
-                                    <md-menu-content width="4">
-                                        <md-menu-item class="plusminusitem">
-                                            <md-button>Test base 1</md-button>
-                                            <md-button class="button_plus">
-                                                <md-icon>add_circle</md-icon>
-                                            </md-button>
-                                            <md-button class="button_minus">
-                                                <md-icon>remove_circle</md-icon>
-                                            </md-button>
-                                        </md-menu-item>
-                                        <md-menu-item class="plusminusitem">
-                                            <md-button>Test base deux</md-button>
-                                            <md-button class="button_plus">
-                                                <md-icon>add_circle</md-icon>
-                                            </md-button>
-                                            <md-button class="button_minus">
-                                                <md-icon>remove_circle</md-icon>
-                                            </md-button>
-                                        </md-menu-item>
-                                        <md-menu-item class="plusminusitem">
-                                            <md-button>Troisième test</md-button>
-                                            <md-button class="button_plus">
-                                                <md-icon>add_circle</md-icon>
-                                            </md-button>
-                                            <md-button class="button_minus">
-                                                <md-icon>remove_circle</md-icon>
-                                            </md-button>
-                                        </md-menu-item>
-                                    </md-menu-content>
-                                </md-menu>
-                            </md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
+                    <ark-menu-item ng-model="query.database" ark-item="menuDatabase"></ark-menu-item>
                 </div>
 
                 <div>
-                    <md-menu class="arkeomap-menu">
-                        <md-button aria-label="Période de la requête" class="md-text-button" ng-click="$mdOpenMenu()">
-                            <!--<md-icon md-menu-origin>group</md-icon>-->
-                            Période de la requête
-                        </md-button>
-                        <md-menu-content width="4">
-                            <md-menu-item>
-                                <md-menu class="arkeomap-submenu">
-                                    <md-button class="md-text-button">
-                                        Définition des bornes...
-                                    </md-button>
-                                    <md-menu-content width="4">
-                                        <md-menu-item class="plusminusitem">
-                                            <md-button>Test base 1</md-button>
-                                            <md-button class="button_plus">
-                                                <md-icon>add_circle</md-icon>
-                                            </md-button>
-                                            <md-button class="button_minus">
-                                                <md-icon>remove_circle</md-icon>
-                                            </md-button>
-                                        </md-menu-item>
-                                    </md-menu-content>
-                                </md-menu>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-menu class="arkeomap-submenu">
-                                    <md-button>
-                                        Choix par période...
-                                    </md-button>
-                                    <md-menu-content width="4">
-                                        <md-menu-item class="plusminusitem">
-                                            <md-button>Test base 1</md-button>
-                                            <md-button class="button_plus">
-                                                <md-icon>add_circle</md-icon>
-                                            </md-button>
-                                            <md-button class="button_minus">
-                                                <md-icon>remove_circle</md-icon>
-                                            </md-button>
-                                        </md-menu-item>
-                                    </md-menu-content>
-                                </md-menu>
-                            </md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
+                    <ark-menu-item ng-model="query.period" ark-item="menuPeriod"></ark-menu-item>
                 </div>
 
                 <div ng-repeat="item in characs.menu">
-                    <ark-menu-item ark-item="item"></ark-menu-item>
+                    <ark-menu-item ng-model="query.characs[item.text]" ark-item="item"></ark-menu-item>
                 </div>
+            </div> <!-- latest div for menus -->
 
-
-            </div> <!-- latest div-->
-
-        </md-toolbar>
-        <md-content layout-padding></md-content>
+            <div>
+                <md-button><span translate>MAP.BUTTON_DISPLAYMAP.T_TITLE</span></md-button>
+            </div>
+        </md-content>
     </md-sidenav>
 
     <md-content flex layout-padding>
@@ -301,29 +45,32 @@
         </md-toolbar>
         <md-content layout-padding>
             <div class="query">
-                <div ng-show="query.centroid != undefined">
-                    Centroïde :
-                    <span ng-repeat="o in query.centroid">{{ $first ? '' : ', ' }}
+                <div>{{query.centroid}}</div>
+                <div>{{query.characs}}</div>
+                <div>{{query.knowledge}}</div>
+                <div ng-hide="isEmptyObject(query.centroid)">
+                    <span translate>Centroïde</span> :
+                    <span ng-repeat="o in menutolist(query.centroid, menuCentroid.menu)">{{ $first ? '' : ', ' }}
                         <md-button ng-click="removeFromQuery('centroid', o.v)">
                             <md-icon>delete</md-icon>
                         </md-button>
-                        {{ o.text }}</span>
+                        <span translate>{{ o.text }}</span></span>
                 </div>
-                <div ng-show="query.knowledge != undefined">
-                    Connaisance :
-                    <span ng-repeat="o in query.knowledge">{{ $first ? '' : ', ' }}
+                <div ng-hide="isEmptyObject(query.knowledge)">
+                    <span translate>Connaisance</span> :
+                    <span ng-repeat="o in menutolist(query.knowledge, menuKnowledge.menu)">{{ $first ? '' : ', ' }}
                         <md-button ng-click="removeFromQuery('knowledge', o.v)">
                             <md-icon>delete</md-icon>
                         </md-button>
-                        {{ o.text }}</span>
+                        <span translate>{{ o.text }}</span></span>
                 </div>
-                <div ng-show="query.occupation != undefined">
-                    Occupation :
-                    <span ng-repeat="o in query.occupation">{{ $first ? '' : ', ' }}
+                <div ng-hide="isEmptyObject(query.occupation)">
+                    <span translate>Connaisance</span> :
+                    <span ng-repeat="o in menutolist(query.occupation, menuOccupation.menu)">{{ $first ? '' : ', ' }}
                         <md-button ng-click="removeFromQuery('occupation', o.v)">
                             <md-icon>delete</md-icon>
                         </md-button>
-                        {{ o.text }}</span>
+                        <span translate>{{ o.text }}</span></span>
                 </div>
                 <div ng-show="query.searchzone != undefined">
                     Zone de recherche :

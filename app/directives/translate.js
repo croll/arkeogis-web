@@ -69,3 +69,62 @@
 		};
     });
 })();
+
+(function() {
+    'use strict';
+    ArkeoGIS.directive('arkGetTranslation', function(arkeoLang, $translate) {
+
+		return {
+			restrict: 'A',
+			template: '',
+            scope: {
+                arkTranslations: '='
+            },
+			link: function(scope, element, attrs) {
+
+                var mainLanguage = 'en';
+                var secondLanguage = 'fr';
+                scope.userLangs = arkeoLang.userLangs;
+
+                if (Object.keys(scope.userLangs).length != 0) {
+                    mainLanguage = scope.userLangs[1];
+                    secondLanguage = scope.userLangs[2];
+                }
+
+                switchModel({1: mainLanguage, 2: secondLanguage}, {});
+
+                scope.$watchCollection('userLangs', function(newLangs) {
+                    switchModel(newLangs)
+                });
+
+                function switchModel(newLangs) {
+                    var translation = '';
+                    if (angular.isObject(scope.arkTranslations)) {
+                        if (angular.isDefined(scope.arkTranslations[newLangs[1]]) && scope.arkTranslations[newLangs[1]] != "") {
+                            translation = scope.arkTranslations[newLangs[1]];
+                        } else if (angular.isDefined(scope.arkTranslations[newLangs[2]]) && scope.arkTranslations[newLangs[2]] != "") {
+                            translation = scope.arkTranslations[newLangs[2]];
+                        } else {
+                            translation = scope.arkTranslations['en'];
+                        }
+                        setVal(translation);
+                    } else if (angular.isString(scope.arkTranslations)) {
+                        $translate(scope.arkTranslations).then(function(t) {
+                            setVal(t);
+                        }, function(t) {
+                            setVal(scope.arkTranslations);
+                        });
+                    }
+                }
+
+                function setVal(translation) {
+                    if (['INPUT'].indexOf(element[0].nodeName) != -1) {
+                        element.val(translation);
+                    } else {
+                        element.html(translation);
+                    }
+                }
+			}
+		};
+    });
+})();

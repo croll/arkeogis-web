@@ -32,7 +32,7 @@
 
 		var urlParams = $location.search();
 
-		var dbToGet =  (angular.isDefined(urlParams.id) && urlParams.id) ? urlParams.id : 15;
+		var dbToGet =  (angular.isDefined(urlParams.id) && urlParams.id) ? urlParams.id : 1;
 
 		// Leaflet init
 
@@ -219,7 +219,6 @@
 		var _tributtons = {
 			inclorexcl: [
 				{
-					value: '0',
 					icon: 'brightness_1'
 				},
 				{
@@ -233,7 +232,6 @@
 			],
 			exceptional: [
 				{
-					value: false,
 					icon: 'check_box_outline_blank'
 				},
 				{
@@ -242,6 +240,18 @@
 				},
 			],
 		};
+
+		var _checkbox_buttons = {
+			_: [
+				{
+					icon: 'check_box_outline_blank',
+				},
+				{
+					value: true,
+					icon: 'check_box',
+				},
+			]
+		}
 
 		arkeoService.loadCharacsAll().then(function(characs) {
 			// construct a tree with characs
@@ -253,9 +263,11 @@
 						if (!('menu' in c)) c.menu=[];
 						var item={
 							value: sub.id,
-							text: sub.tr[0].name,
-							buttons: _tributtons,
+							//text: sub.tr[0].name,
+							text: sub.tr.name,
 						};
+						if (sub.parent_id != 0)
+							item.buttons = _tributtons;
 						c.menu.push(item);
 						addsub(item); // recurse
 					}
@@ -266,53 +278,156 @@
 			$scope.characs = main;
 		});
 
-		$scope.groink={};
-
-		$scope.mymenu = {
-			value: '0',
-			text: 'Mon menu',
-			buttons: _tributtons,
+		$scope.menuCentroid = {
+			text: 'MAP.MENU_CENTROID.T_TITLE',
 			menu: [
 				{
-					value: '1',
-					text: 'First',
-					buttons: _tributtons,
-					menu: [
-						{
-							value: '1.1',
-							text: 'Primary First',
-							buttons: _tributtons,
-						},
-						{
-							value: '1.2',
-							text: 'Secondary First',
-							buttons: _tributtons,
-						}
-					]
+					value: 'centroid-include',
+					text: 'MAP.MENU_CENTROID.T_YES',
+					buttons: _checkbox_buttons,
 				},
 				{
-					value: '2',
-					text: 'Second',
-					buttons: _tributtons,
-					menu: [
-						{
-							value: '2.1',
-							text: 'Primary Second',
-							buttons: _tributtons,
-						},
-						{
-							value: '2.2',
-							text: 'Secondary Second',
-							buttons: _tributtons,
-						}
-					]
-				}
-			]
+					value: 'centroid-exclude',
+					text: 'MAP.MENU_CENTROID.T_NO',
+					buttons: _checkbox_buttons,
+				},
+			],
+		};
+
+		$scope.menuKnowledge = {
+			text: 'MAP.MENU_KNOWLEDGE.T_TITLE',
+			menu: [
+				{
+					value: 'not_documented',
+					text: 'MAP.MENU_KNOWLEDGE.T_NOTDOCUMENTED',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'literature',
+					text: 'MAP.MENU_KNOWLEDGE.T_LITERATURE',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'prospected_aerial',
+					text: 'MAP.MENU_KNOWLEDGE.T_PROSPECTED_AERIAL',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'prospected_pedestrian',
+					text: 'MAP.MENU_KNOWLEDGE.T_PROSPECTED_PEDESTRIAN',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'surveyed',
+					text: 'MAP.MENU_KNOWLEDGE.T_SURVEYED',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'dig',
+					text: 'MAP.MENU_KNOWLEDGE.T_DIG',
+					buttons: _checkbox_buttons,
+				},
+			],
+		};
+
+		$scope.menuOccupation = {
+			text: 'MAP.MENU_OCCUPATION.T_TITLE',
+			menu: [
+				{
+					value: 'not_documented',
+					text: 'MAP.MENU_OCCUPATION.T_NOTDOCUMENTED',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'single',
+					text: 'MAP.MENU_OCCUPATION.T_SINGLE',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'continuous',
+					text: 'MAP.MENU_OCCUPATION.T_CONTINUOUS',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'multiple',
+					text: 'MAP.MENU_OCCUPATION.T_MULTIPLE',
+					buttons: _checkbox_buttons,
+				},
+			],
+		};
+
+		$scope.menuZone = {
+			text: 'MAP.MENU_SEARCHZONE.T_TITLE',
+			menu: [
+				{
+					value: 'map',
+					text: 'MAP.MENU_SEARCHZONE.T_MAP',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'rect',
+					text: 'MAP.MENU_SEARCHZONE.T_RECT',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'disc',
+					text: 'MAP.MENU_SEARCHZONE.T_DISC',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'polygon',
+					text: 'MAP.MENU_SEARCHZONE.T_POLYGON',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'coordinates',
+					text: 'MAP.MENU_SEARCHZONE.T_COORDINATES',
+					buttons: _checkbox_buttons,
+				},
+			],
+		};
+
+		$scope.menuDatabase = {
+			text: 'MAP.MENU_DATABASE.T_TITLE',
+			menu: [
+				{
+					value: 'inventory',
+					text: 'MAP.MENU_DATABASE.T_INVENTORY',
+					menu: [],
+				},
+				{
+					value: 'research',
+					text: 'MAP.MENU_DATABASE.T_RESEARCH',
+					menu: [],
+				},
+				{
+					value: 'literary-work',
+					text: 'MAP.MENU_DATABASE.T_LITERARYWORK',
+					menu: [],
+				},
+			],
+		};
+
+		$scope.menuPeriod = {
+			text: 'MAP.MENU_PERIOD.T_TITLE',
+			menu: [
+				{
+					value: 'manual',
+					text: 'MAP.MENU_PERIOD.T_MANUAL',
+					buttons: _checkbox_buttons,
+					menu: [],
+				},
+				{
+					value: 'chronology',
+					text: 'MAP.MENU_PERIOD.T_CHRONOLOGY',
+					menu: [],
+				},
+			],
 		};
 
 		// the Query
 		$scope.query = {
-		}
+		};
 
 		$scope.addInQuery = function(k, v, text) {
 			if (!(k in $scope.query)) {
@@ -338,6 +453,22 @@
 					}
 				}
 			}
+		};
+
+		$scope.isEmptyObject = function(obj) {
+			return $.isEmptyObject(obj);
+		};
+
+		$scope.menutolist = function(data, menu) {
+			var res=[];
+			var keys = $.map(data, function(v, k) { return k; });
+			keys.forEach(function(key) {
+				menu.forEach(function(item) {
+					if (item.value == key)
+						res.push(item);
+				});
+			});
+			return res;
 		};
 
 	}]);
