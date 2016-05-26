@@ -72,7 +72,7 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.directive('arkGetTranslation', function(arkeoLang) {
+    ArkeoGIS.directive('arkGetTranslation', function(arkeoLang, $translate) {
 
 		return {
 			restrict: 'A',
@@ -99,20 +99,28 @@
 
                 function switchModel(newLangs) {
                     var translation = '';
-                    if (!angular.isObject(scope.arkTranslations)) {
-                        return;
+                    if (angular.isObject(scope.arkTranslations)) {
+                        if (angular.isDefined(scope.arkTranslations[newLangs[1]]) && scope.arkTranslations[newLangs[1]] != "") {
+                            translation = scope.arkTranslations[newLangs[1]];
+                        } else if (angular.isDefined(scope.arkTranslations[newLangs[2]]) && scope.arkTranslations[newLangs[2]] != "") {
+                            translation = scope.arkTranslations[newLangs[2]];
+                        } else {
+                            translation = scope.arkTranslations['en'];
+                        }
+                        setVal(translation);
+                    } else if (angular.isString(scope.arkTranslations)) {
+                        $translate(scope.arkTranslations).then(function(t) {
+                            translation = t;
+                            setVal(translation);
+                        });
                     }
-                    if (angular.isDefined(scope.arkTranslations[newLangs[1]]) && scope.arkTranslations[newLangs[1]] != "") {
-                        translation = scope.arkTranslations[newLangs[1]];
-                    } else if (angular.isDefined(scope.arkTranslations[newLangs[2]]) && scope.arkTranslations[newLangs[2]] != "") {
-                        translation = scope.arkTranslations[newLangs[2]];
-                    } else {
-                        translation = scope.arkTranslations['en'];
-                    }
-                    if (['SPAN', 'DIV', 'A'].indexOf(element[0].nodeName) != -1) {
-                        element.html(translation);
-                    } else {
+                }
+
+                function setVal(translation) {
+                    if (['INPUT'].indexOf(element[0].nodeName) != -1) {
                         element.val(translation);
+                    } else {
+                        element.html(translation);
                     }
                 }
 			}
