@@ -7,34 +7,8 @@
                 <div>
                     <ark-menu-item ng-model="query.centroid" ark-item="menuCentroid"></ark-menu-item>
 
-                    <md-menu class="arkeomap-menu">
-                        <md-button aria-label="Menu Connaissance" class="md-text-button" ng-click="$mdOpenMenu()">
-                            <!--<md-icon md-menu-origin>group</md-icon>-->
-                            Connaissance
-                        </md-button>
-                        <md-menu-content width="4">
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('knowledge', 'undefined', 'Non renseigné')">
-                                    Non renseigné
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('knowledge', 'lit, pro', 'Littérature, prospecté')">
-                                    Littérature, prospecté
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('knowledge', 'sonde', 'Sondé')">
-                                    Sondé
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('knowledge', 'fouilled', 'Fouillé')">
-                                    Fouillé
-                                </md-button>
-                            </md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
+                    <ark-menu-item ng-model="query.knowledge" ark-item="menuKnowledge"></ark-menu-item>
+
                     <md-menu class="arkeomap-menu">
                         <md-button aria-label="Menu Occupation" class="md-text-button" ng-click="$mdOpenMenu()">
                             <!--<md-icon md-menu-origin>group</md-icon>-->
@@ -285,7 +259,8 @@
             <div class="query">
                 <div>{{query.centroid}}</div>
                 <div>{{query.characs}}</div>
-                <div ng-show="query.centroid != undefined">
+                <div>{{query.knowledge}}</div>
+                <div ng-hide="isEmptyObject(query.centroid)">
                     Centroïde :
                     <span ng-repeat="o in query.centroid">{{ $first ? '' : ', ' }}
                         <md-button ng-click="removeFromQuery('centroid', o.v)">
@@ -293,7 +268,7 @@
                         </md-button>
                         {{ o.text }}</span>
                 </div>
-                <div ng-show="query.knowledge != undefined">
+                <div ng-show="isEmptyObject(query.knowledge)">
                     Connaisance :
                     <span ng-repeat="o in query.knowledge">{{ $first ? '' : ', ' }}
                         <md-button ng-click="removeFromQuery('knowledge', o.v)">

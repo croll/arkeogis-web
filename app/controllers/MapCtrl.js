@@ -241,7 +241,7 @@
 			],
 		};
 
-		var _centroid_buttons = {
+		var _checkbox_buttons = {
 			_: [
 				{
 					icon: 'check_box_outline_blank',
@@ -280,17 +280,43 @@
 		$scope.groink={};
 
 		$scope.menuCentroid = {
-			text: 'Centroid',
+			text: { fr: 'Centroid' },
 			menu: [
 				{
 					value: 'centroid-include',
 					text: 'Yes',
-					buttons: _centroid_buttons,
+					buttons: _checkbox_buttons,
 				},
 				{
 					value: 'centroid-exclude',
 					text: 'No',
-					buttons: _centroid_buttons,
+					buttons: _checkbox_buttons,
+				},
+			],
+		};
+
+		$scope.menuKnowledge = {
+			text: { fr: 'Connaissance', en: 'Knowledge' },
+			menu: [
+				{
+					value: 'undefined',
+					text: 'Non renseigné',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'lit, pro',
+					text: 'Littérature, prospecté',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'sonde',
+					text: 'Sondé',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'fouilled',
+					text: 'Fouillé',
+					buttons: _checkbox_buttons,
 				},
 			],
 		};
@@ -366,6 +392,10 @@
 				}
 			}
 		};
+
+		$scope.isEmptyObject = function(obj) {
+			return $.isEmptyObject(obj);
+		}
 
 	}]);
 })();
