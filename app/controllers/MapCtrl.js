@@ -264,7 +264,7 @@
 						var item={
 							value: sub.id,
 							//text: sub.tr[0].name,
-							text: sub.tr.translations.name,
+							text: sub.tr.name,
 							buttons: _tributtons,
 						};
 						c.menu.push(item);
