@@ -104,7 +104,7 @@
                     }
                     if (angular.isDefined(scope.arkTranslations[newLangs[1]]) && scope.arkTranslations[newLangs[1]] != "") {
                         translation = scope.arkTranslations[newLangs[1]];
-                    } else if (angular.isDefined(scope.arkTranslations[newLangs[1]]) && scope.arkTranslations[newLangs[1]] != "") {
+                    } else if (angular.isDefined(scope.arkTranslations[newLangs[2]]) && scope.arkTranslations[newLangs[2]] != "") {
                         translation = scope.arkTranslations[newLangs[2]];
                     } else {
                         translation = scope.arkTranslations['en'];
