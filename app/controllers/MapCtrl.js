@@ -21,14 +21,18 @@
 
 (function() {
 	'use strict';
-	ArkeoGIS.controller('MapCtrl', ['$scope', '$http', '$mdSidenav', '$mdComponentRegistry', 'arkeoService', 'leafletData',
-	function($scope, $http, $mdSidenav, $mdComponentRegistry, arkeoService, leafletData) {
+	ArkeoGIS.controller('MapCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', 'arkeoService', 'leafletData',
+	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, arkeoService, leafletData) {
 		// Get map area to fit full screen
 		var resize = function() {
 			$scope.mapHeight = $(window).height() - $(".md-default-theme .md-toolbar-tools").height() - 65 +"px";
 		};
 
 		$(window).on('resize', resize);
+
+		var urlParams = $location.search();
+
+		var dbToGet =  (angular.isDefined(urlParams.id) && urlParams.id) ? urlParams.id : 15;
 
 		// Leaflet init
 
@@ -62,7 +66,7 @@
 			}
 	});
 	// Get the countries geojson data from a JSON
-        $http.get("/api/search/sites").success(function(data, status) {
+        $http.get("/api/search/sites/"+dbToGet).success(function(data, status) {
 
 			resize();
 
