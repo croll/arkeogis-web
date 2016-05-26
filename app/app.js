@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var ArkeoGIS = angular.module('ArkeoGIS', ['md.data.table', 'ngMaterial', 'ngMessages', 'ui.router', 'ngResource', 'nemLogging', 'leaflet-directive', 'pascalprecht.translate', 'ngFileUpload', 'nvd3', 'ngCookies']);
+var ArkeoGIS = angular.module('ArkeoGIS', ['md.data.table', 'ngMaterial', 'ngMessages', 'ui.router', 'ngResource', 'nemLogging', 'ui-leaflet', 'pascalprecht.translate', 'ngFileUpload', 'nvd3', 'ngCookies']);
 
 ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$translateProvider', '$httpProvider',
                  function($mdThemingProvider, $stateProvider, $urlRouterProvider, $locationProvider, $translateProvider, $httpProvider) {
@@ -82,8 +82,9 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                         var id = $stateParams.database_id || 0;
                         arkeoDatabase.Database.get({id: parseInt(id)}, function(db) {
                             // debug
-                            //db.name = 'pouet';
-                            //db.geographical_extent = 'world';
+                            db.infos = {};
+                            db.infos.name = 'pouet';
+                            db.infos.geographical_extent = 'world';
                             arkeoImport.currentDb = db;
                             if (!db.id && login.user.firstname) {
                                 db.default_language = login.user.first_lang_id;

@@ -246,13 +246,21 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('ImportStep3Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoImport', 'arkeoDatabase', 'database', 'login', '$translate', '$q', '$http',
-        function($scope, $state, arkeoService, arkeoImport, arkeoDatabase, database, login, $translate, $q, $http) {
+    ArkeoGIS.controller('ImportStep3Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoImport', 'arkeoLang', 'arkeoDatabase', 'database', 'login', '$translate', '$q', '$http',
+        function($scope, $state, arkeoService, arkeoImport, arkeoLang, arkeoDatabase, database, login, $translate, $q, $http) {
 
             if (!login.requirePermission('import', 'import.step1'))
                 return;
 
             arkeoImport.selectTab(3)
+
+            if (!database.contexts) {
+                database.contexts = [];
+            }
+
+            if (!database.translations) {
+                database.translations = [];
+            }
 
             $scope.loadLicenses = function() {
                 arkeoService.loadLicenses().then(function(l) {
@@ -300,6 +308,35 @@
                 if (user.id == login.user.id) {
                     arkeoService.showMessage('IMPORT_STEP3.AUTHORS.T_UNABLE_TO_REMOVE_MAIN_AUTHOR');
                     database.authors.unshift(user);
+                }
+            }
+
+            $scope.submit = function(form) {
+                // Copy database object to be a little bit modified for request
+                var dbObj = angular.copy(database.infos);
+                if (form.$valid) {
+                    dbObj.authors = [];
+                    angular.forEach(database.authors, function(author) {
+                        dbObj.authors.push(author.id);
+                    });
+                    dbObj.contexts = [];
+                    angular.forEach(database.contexts, function(context) {
+                        dbObj.contexts.push(context.id);
+                    });
+                    dbObj.description = [];
+                    for (var key in database.translations.description) {
+                        if (database.translations.description.hasOwnProperty(key)) {
+                            dbObj.description.push({id: arkeoLang.getIdFromIsoCode(key), text: database.translations.description[key]});
+                        }
+                    }
+                    console.log(dbObj);
+                    $http.post("/api/import/step3", dbObj).then(function(result) {
+                        console.log("post ok");
+                        console.log(result);
+                    }, function(error) {
+                        console.log("Error sending step3");
+                        console.log(error);
+                    });
                 }
             }
 

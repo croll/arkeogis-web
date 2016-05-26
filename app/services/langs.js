@@ -149,5 +149,14 @@
         return [iso_code1, iso_code2];
     }
 
+    this.getIdFromIsoCode = function(iso_code) {
+        angular.forEach(self.langs, function(lang) {
+            if (lang.iso_code = iso_code) {
+                return lang.id;
+            }
+        });
+        return null;
+    }
+
 }]);
 })();
