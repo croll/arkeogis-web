@@ -277,19 +277,17 @@
 			$scope.characs = main;
 		});
 
-		$scope.groink={};
-
 		$scope.menuCentroid = {
-			text: 'T_CENTROID',
+			text: 'MAP.MENU_CENTROID.T_TITLE',
 			menu: [
 				{
 					value: 'centroid-include',
-					text: 'Yes',
+					text: 'MAP.MENU_CENTROID.T_YES',
 					buttons: _checkbox_buttons,
 				},
 				{
 					value: 'centroid-exclude',
-					text: 'No',
+					text: 'MAP.MENU_CENTROID.T_NO',
 					buttons: _checkbox_buttons,
 				},
 			],
@@ -332,7 +330,7 @@
 		};
 
 		$scope.menuOccupation = {
-			text: { fr: 'Occupation', en: 'Occupation' },
+			text: 'MAP.MENU_OCCUPATION.T_TITLE',
 			menu: [
 				{
 					value: 'not_documented',
@@ -357,46 +355,77 @@
 			],
 		};
 
-		$scope.mymenu = {
-			value: '0',
-			text: 'Mon menu',
-			buttons: _tributtons,
+		$scope.menuZone = {
+			text: 'MAP.MENU_SEARCHZONE.T_TITLE',
 			menu: [
 				{
-					value: '1',
-					text: 'First',
-					buttons: _tributtons,
-					menu: [
-						{
-							value: '1.1',
-							text: 'Primary First',
-							buttons: _tributtons,
-						},
-						{
-							value: '1.2',
-							text: 'Secondary First',
-							buttons: _tributtons,
-						}
-					]
+					value: 'map',
+					text: 'MAP.MENU_SEARCHZONE.T_MAP',
+					buttons: _checkbox_buttons,
 				},
 				{
-					value: '2',
-					text: 'Second',
-					buttons: _tributtons,
-					menu: [
-						{
-							value: '2.1',
-							text: 'Primary Second',
-							buttons: _tributtons,
-						},
-						{
-							value: '2.2',
-							text: 'Secondary Second',
-							buttons: _tributtons,
-						}
-					]
-				}
-			]
+					value: 'rect',
+					text: 'MAP.MENU_SEARCHZONE.T_RECT',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'disc',
+					text: 'MAP.MENU_SEARCHZONE.T_DISC',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'polygon',
+					text: 'MAP.MENU_SEARCHZONE.T_POLYGON',
+					buttons: _checkbox_buttons,
+				},
+				{
+					value: 'coordinates',
+					text: 'MAP.MENU_SEARCHZONE.T_COORDINATES',
+					buttons: _checkbox_buttons,
+				},
+			],
+		};
+
+		$scope.menuDatabase = {
+			text: 'MAP.MENU_DATABASE.T_TITLE',
+			menu: [
+				{
+					value: 'inventory',
+					text: 'MAP.MENU_DATABASE.T_INVENTORY',
+					buttons: _checkbox_buttons,
+					menu: [],
+				},
+				{
+					value: 'research',
+					text: 'MAP.MENU_DATABASE.T_RESEARCH',
+					buttons: _checkbox_buttons,
+					menu: [],
+				},
+				{
+					value: 'literary-work',
+					text: 'MAP.MENU_DATABASE.T_LITERARYWORK',
+					buttons: _checkbox_buttons,
+					menu: [],
+				},
+			],
+		};
+
+		$scope.menuPeriod = {
+			text: 'MAP.MENU_PERIOD.T_TITLE',
+			menu: [
+				{
+					value: 'manual',
+					text: 'MAP.MENU_PERIOD.T_MANUAL',
+					buttons: _checkbox_buttons,
+					menu: [],
+				},
+				{
+					value: 'chronology',
+					text: 'MAP.MENU_DATABASE.T_CHRONOLOGY',
+					buttons: _checkbox_buttons,
+					menu: [],
+				},
+			],
 		};
 
 		// the Query
