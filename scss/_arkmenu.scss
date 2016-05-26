@@ -1,6 +1,11 @@
 ark-menu {
     background-color: #eee;
     z-index: 999;
+    opacity: 0;
+}
+
+.ark-menu-show {
+    opacity: 1;
     transition: 0.5s;
 }
 
@@ -12,6 +17,7 @@ ark-menu-item {
     position: relative;
     cursor: pointer;
     text-align: left;
+    transition: 0.5s;
 }
 
 .ark-menu-have-submenu {
@@ -20,6 +26,6 @@ ark-menu-item {
 }
 
 .ark-menu-item:hover {
-    background-color: #eaa;
+    background-color: rgb(140,158,255);
     transition: 0.5s;
 }

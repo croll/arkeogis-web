@@ -31,7 +31,7 @@
      *              }, { value '2', text: 'Second' } ]
      *  ng-model: the model, an array of active selections
      */
-    ArkeoGIS.directive('arkMenu', function($compile) {
+    ArkeoGIS.directive('arkMenu', function($compile, $timeout) {
 
 		return {
 			restrict: 'E',
@@ -49,6 +49,10 @@
                 ngModel: '=?',
             },
             link: function(scope, element, attrs) {
+                $timeout(function() {
+                    element.addClass("ark-menu-show");
+                }, 0);
+
                 scope.closeAllButMe = function(item) {
                     var childs = element.children().children();
                     for (var i=0; i<childs.length; i++) {
