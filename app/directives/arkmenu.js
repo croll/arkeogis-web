@@ -78,7 +78,7 @@
 			template: '<div class="ark-menu-item" ng-click="click($event)" ng-mouseover="hover($event)">'
             +          '<span class="tributtons">'
             +           '<ark-tri-button ng-repeat="(name, tribut) in arkItem.buttons" states="tribut" ng-model="buttons[name]"></ark-tri-button>'
-            +          '</span> {{arkItem.text}}'
+            +          '</span> <span ark-translate ark-translations="arkItem.text">{{arkItem.text}}</span>'
             +          '<md-icon ng-show="arkItem.menu != undefined" class="ark-menu-have-submenu">chevron_right</md-icon>'
             +         '</div>',
             scope: {
@@ -93,13 +93,23 @@
                 if (typeof scope.ngModel !== 'object')
                     scope.ngModel={};
 
-                if (typeof scope.ngModel[scope.arkItem.value] !== 'object')
-                    scope.ngModel[scope.arkItem.value]={};
 
-                scope.buttons=scope.ngModel[scope.arkItem.value];
+                if (scope.arkItem.value !== undefined) {
+
+                    if (!(scope.arkItem.value in scope.ngModel))
+                        scope.ngModel[scope.arkItem.value]={};
+                    
+                    if ('_' in scope.arkItem.buttons)
+                        scope.buttons={ '_' : scope.ngModel[scope.arkItem.value] };
+                    else
+                        scope.buttons=scope.ngModel[scope.arkItem.value];
+                }
 
                 scope.$watchCollection('buttons', function(newval) {
-                    scope.ngModel[scope.arkItem.value]=scope.buttons;
+                    if ('_' in scope.arkItem.buttons)
+                        scope.ngModel[scope.arkItem.value]=scope.buttons._;
+                    else
+                        scope.ngModel[scope.arkItem.value]=scope.buttons;
                 });
 
                 if (scope.arkIsSubmenu === undefined)

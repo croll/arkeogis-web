@@ -5,26 +5,8 @@
             <h1 class="md-toolbar-tools">Recherche :</h1>
             <div>
                 <div>
-                    <md-menu class="arkeomap-menu">
-                        <md-button aria-label="Menu Centroïde" class="md-text-button" ng-click="$mdOpenMenu()">
-                            <!--<md-icon md-menu-origin>group</md-icon>-->
-                            Centroïde
-                        </md-button>
-                        <md-menu-content width="4">
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('centroid', true, 'Oui')">
-                                    <md-icon md-menu-align-target>yes</md-icon>
-                                    Oui
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-button ng-click="addInQuery('centroid', false, 'Non')">
-                                    <md-icon>no</md-icon>
-                                    Non
-                                </md-button>
-                            </md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
+                    <ark-menu-item ng-model="query.centroid" ark-item="menuCentroid"></ark-menu-item>
+
                     <md-menu class="arkeomap-menu">
                         <md-button aria-label="Menu Connaissance" class="md-text-button" ng-click="$mdOpenMenu()">
                             <!--<md-icon md-menu-origin>group</md-icon>-->
@@ -281,7 +263,7 @@
                 </div>
 
                 <div ng-repeat="item in characs.menu">
-                    <ark-menu-item ark-item="item"></ark-menu-item>
+                    <ark-menu-item ng-model="query.characs[item.text]" ark-item="item"></ark-menu-item>
                 </div>
 
 
@@ -301,6 +283,8 @@
         </md-toolbar>
         <md-content layout-padding>
             <div class="query">
+                <div>{{query.centroid}}</div>
+                <div>{{query.characs}}</div>
                 <div ng-show="query.centroid != undefined">
                     Centroïde :
                     <span ng-repeat="o in query.centroid">{{ $first ? '' : ', ' }}

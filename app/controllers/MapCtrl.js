@@ -32,7 +32,7 @@
 
 		var urlParams = $location.search();
 
-		var dbToGet =  (angular.isDefined(urlParams.id) && urlParams.id) ? urlParams.id : 15;
+		var dbToGet =  (angular.isDefined(urlParams.id) && urlParams.id) ? urlParams.id : 1;
 
 		// Leaflet init
 
@@ -223,6 +223,19 @@
 			],
 		};
 
+		var _centroid_buttons = {
+			_: [
+				{
+					value: false,
+					icon: 'check_box_outline_blank',
+				},
+				{
+					value: true,
+					icon: 'check_box',
+				},
+			]
+		}
+
 		arkeoService.loadCharacsAll().then(function(characs) {
 			// construct a tree with characs
 			var main={ value: 0, menu:[]};
@@ -248,6 +261,22 @@
 		});
 
 		$scope.groink={};
+
+		$scope.menuCentroid = {
+			text: 'Centroid',
+			menu: [
+				{
+					value: 'centroid-include',
+					text: 'Yes',
+					buttons: _centroid_buttons,
+				},
+				{
+					value: 'centroid-exclude',
+					text: 'No',
+					buttons: _centroid_buttons,
+				},
+			],
+		};
 
 		$scope.mymenu = {
 			value: '0',
@@ -293,7 +322,7 @@
 
 		// the Query
 		$scope.query = {
-		}
+		};
 
 		$scope.addInQuery = function(k, v, text) {
 			if (!(k in $scope.query)) {
