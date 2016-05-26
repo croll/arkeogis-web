@@ -134,6 +134,7 @@
 						var item={
 							value: sub.id,
 							text: sub.tr[0].name,
+							//text: sub.tr,
 							buttons: _tributtons,
 						};
 						c.menu.push(item);
