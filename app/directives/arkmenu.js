@@ -35,7 +35,7 @@
 
 		return {
 			restrict: 'E',
-			template: '<div class="ark-menu">'
+			template: '<div class="ark-menu md-whiteframe-4dp md-whiteframe-z2">'
             +          '<ark-menu-item'
             +          ' ng-model="ngModel"'
             +          ' ng-repeat="item in arkTree"'
