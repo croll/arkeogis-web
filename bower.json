@@ -19,6 +19,7 @@
     "angular-material-data-table": "latest",
     "angular-nvd3": "latest",
     "angular-i18n": "latest",
-    "ui-leaflet": "^1.0.0"
+    "ui-leaflet": "^1.0.0",
+    "leaflet-plugins": "^1.6.1"
   }
 }

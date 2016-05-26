@@ -48,10 +48,30 @@
 		    layers: {
                 baselayers: {
                     osm: {
-                    name: 'OpenStreetMap',
-                    url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                    type: 'xyz'
+	                    name: 'OpenStreetMap',
+	                    url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+	                    type: 'xyz'
                     },
+					mapquest: {
+						name: 'MapQuest',
+						url: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png',
+						type: 'xyz'
+					},
+					googleTerrain: {
+                        name: 'Google Terrain',
+                        layerType: 'TERRAIN',
+                        type: 'google'
+                    },
+                    googleHybrid: {
+	                    name: 'Google Hybrid',
+	                    layerType: 'HYBRID',
+	                    type: 'google'
+	                },
+                    googleRoadmap: {
+                        name: 'Google Streets',
+                        layerType: 'ROADMAP',
+                        type: 'google'
+                    }
                 },
                 overlays:{}
             },
