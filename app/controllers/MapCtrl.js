@@ -30,8 +30,6 @@
 
 		$(window).on('resize', resize);
 
-		resize();
-
 		// Leaflet init
 
 		angular.extend($scope, {
@@ -43,6 +41,16 @@
 				lng: 7.750576,
 				zoom: 8
 			},
+		    layers: {
+                baselayers: {
+                    osm: {
+                    name: 'OpenStreetMap',
+                    url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    type: 'xyz'
+                    },
+                },
+                overlays:{}
+            },
 			controls: {
 				scale: {
 					imperial: false,
@@ -59,25 +67,86 @@
 			resize();
 
 			var latlngs = [];
-	        angular.extend($scope, {
-	            geojson: {
-	                data: data,
-	                style: {
-	                    fillColor: "green",
-	                    weight: 2,
-	                    opacity: 1,
-	                    color: 'white',
-	                    dashArray: '3',
-	                    fillOpacity: 0.7
-	                }
-	            }
-	        });
+
+			var generateIcon = function(feature) {
+				var iconClasses = "icon icon-site";
+				if (feature.centroid) {
+					iconClasses += " centroid";
+				}
+
+				var characInfos = analyzeCharacs(feature);
+
+				iconClasses += " "+characInfos.iconSize;
+
+				if (characInfos.exceptional) {
+					iconClasses += " exceptional"
+				}
+
+				return L.divIcon({
+					className: 'arkeo-icon-container',
+					html: '<svg class="arkeo-icon arkeo-icon-site '+iconClasses+'"><use xlink:href="#arkeo-icon-site"></use></svg><span class="mls"></span>',
+	    			iconAnchor: [12, 0]
+				});
+			}
+
+			var analyzeCharacs = function(feature) {
+				var ret = {exceptional: false, iconSize: 0};
+				angular.forEach(feature.properties.site_ranges, function(site_range) {
+					angular.forEach(site_range.characs, function(c) {
+						if (c.exceptional) {
+							ret.exceptional = true;
+						}
+						var memorized = 0;
+						var current = 0;
+						switch (c.knowledge_type) {
+							case 'not_documented':
+								current = 1;
+								break;
+							case 'literature':
+								current = 2;
+								break;
+							case 'prospected_aerial':
+								current = 3;
+								break;
+							case 'prospected_pedestrian':
+								current = 4;
+								break;
+							case 'surveyed':
+								current = 5;
+								break;
+							case 'dig':
+								current = 6;
+								break;
+						}
+						if (memorized < current) {
+							memorized = current;
+							ret.iconSize = 'size'+current;
+						}
+					});
+				});
+				return ret;
+			}
+
+	        angular.extend($scope.layers.overlays, {
+                sites: {
+                    name:'Major Cities (Awesome Markers)',
+                    type: 'geoJSONShape',
+                    data: data,
+                    visible: true,
+					icon: generateIcon,
+					layerOptions: {
+						pointToLayer: function(feature, latlng) {
+							return L.marker(latlng, { icon: generateIcon(feature) });
+						},
+						onEachFeature: function(feature, layer) {
+							layer.bindPopup(feature.properties.infos.name+" ("+feature.properties.infos.code+")");
+						}
+					}
+                }
+            });
 
 			angular.forEach(data.features, function(feature) {
 				latlngs.push([parseFloat(feature.geometry.coordinates[0]), parseFloat(feature.geometry.coordinates[1])]);
-			});
-			leafletData.getMap().then(function(map) {
-			//	map.fitBounds(latlngs);
 			});
 		});
 
@@ -170,7 +239,6 @@
 			}
 
 			addsub(main);
-			console.log("main : ", main);
 			$scope.characs = main;
 		});
 
