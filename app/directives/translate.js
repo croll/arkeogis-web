@@ -110,8 +110,9 @@
                         setVal(translation);
                     } else if (angular.isString(scope.arkTranslations)) {
                         $translate(scope.arkTranslations).then(function(t) {
-                            translation = t;
-                            setVal(translation);
+                            setVal(t);
+                        }, function(t) {
+                            setVal(scope.arkTranslations);
                         });
                     }
                 }
