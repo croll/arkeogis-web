@@ -294,36 +294,36 @@
 		};
 
 		$scope.menuKnowledge = {
-			text: { fr: 'Connaissance', en: 'Knowledge' },
+			text: 'MAP.MENU_KNOWLEDGE.T_TITLE',
 			menu: [
 				{
 					value: 'not_documented',
-					text: 'DATABASE.KNOWLEDGE_TYPE_NOTDOCUMENTED.T_TITLE',
+					text: 'MAP.MENU_KNOWLEDGE.T_NOTDOCUMENTED',
 					buttons: _checkbox_buttons,
 				},
 				{
 					value: 'literature',
-					text: 'DATABASE.KNOWLEDGE_TYPE_LITERATURE.T_TITLE',
+					text: 'MAP.MENU_KNOWLEDGE.T_LITERATURE',
 					buttons: _checkbox_buttons,
 				},
 				{
 					value: 'prospected_aerial',
-					text: 'DATABASE.KNOWLEDGE_TYPE_PROSPECTED_AERIAL.T_TITLE',
+					text: 'MAP.MENU_KNOWLEDGE.T_PROSPECTED_AERIAL',
 					buttons: _checkbox_buttons,
 				},
 				{
 					value: 'prospected_pedestrian',
-					text: 'DATABASE.KNOWLEDGE_TYPE_PROSPECTED_PEDESTRIAN.T_TITLE',
+					text: 'MAP.MENU_KNOWLEDGE.T_PROSPECTED_PEDESTRIAN',
 					buttons: _checkbox_buttons,
 				},
 				{
 					value: 'surveyed',
-					text: 'DATABASE.KNOWLEDGE_TYPE_SURVEYED.T_TITLE',
+					text: 'MAP.MENU_KNOWLEDGE.T_SURVEYED',
 					buttons: _checkbox_buttons,
 				},
 				{
 					value: 'dig',
-					text: 'DATABASE.KNOWLEDGE_TYPE_DIG.T_TITLE',
+					text: 'MAP.MENU_KNOWLEDGE.T_DIG',
 					buttons: _checkbox_buttons,
 				},
 			],
@@ -334,22 +334,22 @@
 			menu: [
 				{
 					value: 'not_documented',
-					text: 'DATABASE.SITE_OCCUPATION_NOTDOCUMENTED.T_TITLE',
+					text: 'MAP.MENU_OCCUPATION.T_NOTDOCUMENTED',
 					buttons: _checkbox_buttons,
 				},
 				{
 					value: 'single',
-					text: 'DATABASE.SITE_OCCUPATION_SINGLE.T_TITLE',
+					text: 'MAP.MENU_OCCUPATION.T_SINGLE',
 					buttons: _checkbox_buttons,
 				},
 				{
 					value: 'continuous',
-					text: 'DATABASE.SITE_OCCUPATION_CONTINUOUS.T_TITLE',
+					text: 'MAP.MENU_OCCUPATION.T_CONTINUOUS',
 					buttons: _checkbox_buttons,
 				},
 				{
 					value: 'multiple',
-					text: 'DATABASE.SITE_OCCUPATION_MULTIPLE.T_TITLE',
+					text: 'MAP.MENU_OCCUPATION.T_MULTIPLE',
 					buttons: _checkbox_buttons,
 				},
 			],
@@ -421,7 +421,7 @@
 				},
 				{
 					value: 'chronology',
-					text: 'MAP.MENU_DATABASE.T_CHRONOLOGY',
+					text: 'MAP.MENU_PERIOD.T_CHRONOLOGY',
 					buttons: _checkbox_buttons,
 					menu: [],
 				},

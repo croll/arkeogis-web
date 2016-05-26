@@ -88,6 +88,11 @@
 			"T_TITLE": "Recherche"
 		}
 	},
+	"GENERAL": {
+		"INVALIDE_CHOICE": {
+			"T_CAN_T_SET_OTHER_TRANSLATION_LANG_IF_NO_ENGLISH_TRANSLATION_DONE": "#!#GENERAL.INVALIDE_CHOICE.T_CAN_T_SET_OTHER_TRANSLATION_LANG_IF_NO_ENGLISH_TRANSLATION_DONE"
+		}
+	},
 	"GROUP": {
 		"BUTTON_GROUPSAVE": {
 			"T_TITLE": "Enregistrer"
@@ -146,10 +151,10 @@
 		},
 		"FIELD_DATABASE_NAME": {
 			"T_ERROR_MAX_LEN": "Le nom de la base de donnée ne peut dépasser les 50 caractères.",
-			"T_ERROR_MIN_LEN": "Le nom de la base de donnée ne peut pas être plus court que 3 caractères.",
 			"T_LABEL": "* Nom de la base"
 		},
 		"FIELD_ECHAP_CHARACTER": {
+			"T_ERROR_LEN": "#!#IMPORT_STEP1.FIELD_ECHAP_CHARACTER.T_ERROR_LEN",
 			"T_LABEL": "* Caractère d'échappement"
 		},
 		"FIELD_GEONAMES": {
@@ -217,6 +222,9 @@
 		}
 	},
 	"IMPORT_STEP3": {
+		"AUTHORS": {
+			"T_UNABLE_TO_REMOVE_MAIN_AUTHOR": "#!#IMPORT_STEP3.AUTHORS.T_UNABLE_TO_REMOVE_MAIN_AUTHOR"
+		},
 		"FIELD_AUTHOR": {
 			"T_HELP": "Prénom et nom d l'auteur de l’importation. Il n’y a pas de nombre maximum de co-auteurs.",
 			"T_LABEL": "Attribuée à"
@@ -353,11 +361,6 @@
 		}
 	},
 	"MAIN": {
-		"FIELD_LANG": {
-			"T_ITEM_DEUTCH": "Allemand",
-			"T_ITEM_ENGLISH": "Anglais",
-			"T_ITEM_FRENCH": "Français"
-		},
 		"FIELD_MAINMENU": {
 			"T_ITEM_GROUPSMANAGER": "Administration des groupes",
 			"T_ITEM_IMPORT": "Import",
@@ -365,6 +368,51 @@
 			"T_ITEM_LOGIN": "S'identifier",
 			"T_ITEM_MAP": "Carte",
 			"T_ITEM_USERSMANAGER": "Éditeur d'utilisateurs"
+		}
+	},
+	"MAP": {
+		"BUTTON_DISPLAYMAP": {
+			"T_TITLE": "AFFICHER LA CARTE"
+		},
+		"MENU_CENTROID": {
+			"T_NO": "Non",
+			"T_TITLE": "Centroïd",
+			"T_YES": "Oui"
+		},
+		"MENU_DATABASE": {
+			"T_INVENTORY": "Inventaire",
+			"T_LITERARYWORK": "Ouvrage",
+			"T_RESEARCH": "Recherche",
+			"T_TITLE": "Bases de données"
+		},
+		"MENU_KNOWLEDGE": {
+			"T_DIG": "Fouillé",
+			"T_LITERATURE": "Littérature",
+			"T_NOTDOCUMENTED": "Non renseigné",
+			"T_PROSPECTED_AERIAL": "Prospection aérienne",
+			"T_PROSPECTED_PEDESTRIAN": "Prospection terrestre",
+			"T_SURVEYED": "Sondé",
+			"T_TITLE": "Connaissance"
+		},
+		"MENU_OCCUPATION": {
+			"T_CONTINUOUS": "Continue (plusieurs périodes continue)",
+			"T_MULTIPLE": "Multiple (plusieurs périodes indépendantes)",
+			"T_NOTDOCUMENTED": "Non renseigné",
+			"T_SINGLE": "Unique",
+			"T_TITLE": "Occupation"
+		},
+		"MENU_PERIOD": {
+			"T_CHRONOLOGY": "Choix par période...",
+			"T_MANUAL": "Définition des bornes...",
+			"T_TITLE": "Période"
+		},
+		"MENU_SEARCHZONE": {
+			"T_COORDINATES": "Coordonées...",
+			"T_DISC": "Disque...",
+			"T_MAP": "Carte",
+			"T_POLYGON": "Libre...",
+			"T_RECT": "Rectangle...",
+			"T_TITLE": "Zone géographique"
 		}
 	},
 	"USER": {
