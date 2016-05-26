@@ -262,15 +262,15 @@
                 <div>{{query.knowledge}}</div>
                 <div ng-hide="isEmptyObject(query.centroid)">
                     Centroïde :
-                    <span ng-repeat="o in query.centroid">{{ $first ? '' : ', ' }}
+                    <span ng-repeat="o in menutolist(query.centroid, menuCentroid.menu)">{{ $first ? '' : ', ' }}
                         <md-button ng-click="removeFromQuery('centroid', o.v)">
                             <md-icon>delete</md-icon>
                         </md-button>
                         {{ o.text }}</span>
                 </div>
-                <div ng-show="isEmptyObject(query.knowledge)">
+                <div ng-hide="isEmptyObject(query.knowledge)">
                     Connaisance :
-                    <span ng-repeat="o in query.knowledge">{{ $first ? '' : ', ' }}
+                    <span ng-repeat="o in menutolist(query.knowledge, menuKnowledge.menu)">{{ $first ? '' : ', ' }}
                         <md-button ng-click="removeFromQuery('knowledge', o.v)">
                             <md-icon>delete</md-icon>
                         </md-button>

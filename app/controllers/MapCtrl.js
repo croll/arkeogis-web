@@ -280,7 +280,7 @@
 		$scope.groink={};
 
 		$scope.menuCentroid = {
-			text: { fr: 'Centroid' },
+			text: 'DATABASE.GEOGRAPHICAL_EXTENT_INTERNATIONAL_WATERS.T_TITLE',
 			menu: [
 				{
 					value: 'centroid-include',
@@ -395,7 +395,19 @@
 
 		$scope.isEmptyObject = function(obj) {
 			return $.isEmptyObject(obj);
-		}
+		};
+
+		$scope.menutolist = function(data, menu) {
+			var res=[];
+			var keys = $.map(data, function(v, k) { return k; });
+			keys.forEach(function(key) {
+				menu.forEach(function(item) {
+					if (item.value == key)
+						res.push(item);
+				});
+			});
+			return res;
+		};
 
 	}]);
 })();
