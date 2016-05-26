@@ -393,19 +393,16 @@
 				{
 					value: 'inventory',
 					text: 'MAP.MENU_DATABASE.T_INVENTORY',
-					buttons: _checkbox_buttons,
 					menu: [],
 				},
 				{
 					value: 'research',
 					text: 'MAP.MENU_DATABASE.T_RESEARCH',
-					buttons: _checkbox_buttons,
 					menu: [],
 				},
 				{
 					value: 'literary-work',
 					text: 'MAP.MENU_DATABASE.T_LITERARYWORK',
-					buttons: _checkbox_buttons,
 					menu: [],
 				},
 			],
@@ -423,7 +420,6 @@
 				{
 					value: 'chronology',
 					text: 'MAP.MENU_PERIOD.T_CHRONOLOGY',
-					buttons: _checkbox_buttons,
 					menu: [],
 				},
 			],
