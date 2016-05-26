@@ -78,7 +78,7 @@
 			template: '<div class="ark-menu-item" ng-click="click($event)" ng-mouseover="hover($event)">'
             +          '<span class="tributtons">'
             +           '<ark-tri-button ng-repeat="(name, tribut) in arkItem.buttons" states="tribut" ng-model="buttons[name]"></ark-tri-button>'
-            +          '</span> <span ark-translate ark-translate-bind-lang="1" ark-translations="arkItem.text"></span>'
+            +          '</span> <span ark-get-translation ark-translations="arkItem.text"></span>'
             +          '<md-icon ng-show="arkItem.menu != undefined" class="ark-menu-have-submenu">chevron_right</md-icon>'
             +         '</div>',
             scope: {
