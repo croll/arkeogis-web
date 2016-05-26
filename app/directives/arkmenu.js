@@ -110,15 +110,20 @@
                 if ('buttons' in scope.arkItem) {
                     scope.$watchCollection('buttons', function(newval) {
                         var val={};
-                        if ('_' in scope.arkItem.buttons)
-                            val=scope.buttons._;
-                        else
-                            val=scope.buttons;
 
-                        if (val != {})
-                            scope.ngModel[scope.arkItem.value] = val;
+                        for (var k in scope.arkItem.buttons) {
+                            if ((k in scope.buttons) && scope.buttons[k] !== undefined)
+                                val[k]=scope.buttons[k];
+                        }
+
+                        if (('_' in scope.arkItem.buttons) && ('_' in val))
+                            val=val._;
+
+                        if ((typeof val == "object" && $.isEmptyObject(val)) || val === undefined)
+                            delete scope.ngModel[scope.arkItem.value];
                         else
-                            scope.ngModel[scope.arkItem.value] = undefined;
+                            scope.ngModel[scope.arkItem.value] = val;
+
                     });
                 }
 
