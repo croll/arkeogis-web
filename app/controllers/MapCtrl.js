@@ -133,7 +133,7 @@
 
 	        angular.extend($scope.layers.overlays, {
                 sites: {
-                    name:'Major Cities (Awesome Markers)',
+                    name:'ArkeoGIS (A)',
                     type: 'geoJSONShape',
                     data: data,
                     visible: true,
