@@ -32,7 +32,7 @@
 
 		var urlParams = $location.search();
 
-		var dbToGet =  (angular.isDefined(urlParams.id) && urlParams.id) ? urlParams.id : 1;
+		var dbToGet =  (angular.isDefined(urlParams.id) && urlParams.id) ? urlParams.id : 15;
 
 		// Leaflet init
 
