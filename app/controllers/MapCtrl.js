@@ -265,8 +265,9 @@
 							value: sub.id,
 							//text: sub.tr[0].name,
 							text: sub.tr.name,
-							buttons: _tributtons,
 						};
+						if (sub.parent_id != 0)
+							item.buttons = _tributtons;
 						c.menu.push(item);
 						addsub(item); // recurse
 					}
