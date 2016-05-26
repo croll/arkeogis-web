@@ -78,7 +78,7 @@
 			template: '<div class="ark-menu-item" ng-click="click($event)" ng-mouseover="hover($event)">'
             +          '<span class="tributtons">'
             +           '<ark-tri-button ng-repeat="(name, tribut) in arkItem.buttons" states="tribut" ng-model="buttons[name]"></ark-tri-button>'
-            +          '</span> <span ark-translate ark-translations="arkItem.text">{{arkItem.text}}</span>'
+            +          '</span> <span ark-translate ark-translate-bind-lang="1" ark-translations="arkItem.text"></span>'
             +          '<md-icon ng-show="arkItem.menu != undefined" class="ark-menu-have-submenu">chevron_right</md-icon>'
             +         '</div>',
             scope: {
@@ -98,19 +98,29 @@
 
                     if (!(scope.arkItem.value in scope.ngModel))
                         scope.ngModel[scope.arkItem.value]={};
-                    
-                    if ('_' in scope.arkItem.buttons)
-                        scope.buttons={ '_' : scope.ngModel[scope.arkItem.value] };
-                    else
-                        scope.buttons=scope.ngModel[scope.arkItem.value];
+
+                    if ('buttons' in scope.arkItem) {
+                        if ('_' in scope.arkItem.buttons)
+                            scope.buttons={ '_' : scope.ngModel[scope.arkItem.value] };
+                        else
+                            scope.buttons=scope.ngModel[scope.arkItem.value];
+                    }
                 }
 
-                scope.$watchCollection('buttons', function(newval) {
-                    if ('_' in scope.arkItem.buttons)
-                        scope.ngModel[scope.arkItem.value]=scope.buttons._;
-                    else
-                        scope.ngModel[scope.arkItem.value]=scope.buttons;
-                });
+                if ('buttons' in scope.arkItem) {
+                    scope.$watchCollection('buttons', function(newval) {
+                        var val={};
+                        if ('_' in scope.arkItem.buttons)
+                            val=scope.buttons._;
+                        else
+                            val=scope.buttons;
+
+                        if (val != {})
+                            scope.ngModel[scope.arkItem.value] = val;
+                        else
+                            scope.ngModel[scope.arkItem.value] = undefined;
+                    });
+                }
 
                 if (scope.arkIsSubmenu === undefined)
                     scope.arkIsSubmenu=false;
