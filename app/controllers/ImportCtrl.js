@@ -98,6 +98,8 @@
             if (!login.requirePermission('import', 'import.step1'))
                 return;
 
+                console.log(database);
+
             $scope.reset = function() {
                 $scope.tabs.enabled[2] = a.enabled[2];
                 $scope.file = undefined;
@@ -329,7 +331,6 @@
                             dbObj.description.push({id: arkeoLang.getIdFromIsoCode(key), text: database.translations.description[key]});
                         }
                     }
-                    console.log(dbObj);
                     $http.post("/api/import/step3", dbObj).then(function(result) {
                         console.log("post ok");
                         console.log(result);

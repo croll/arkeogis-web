@@ -89,6 +89,9 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                             if (!db.id && login.user.firstname) {
                                 db.default_language = login.user.first_lang_id;
                             }
+                            if (!angular.isDefined(db.translations)) {
+                                db.translations = {description: {}, bibliography: {}};
+                            }
                             deferred.resolve(db);
                         });
                     }
