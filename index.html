@@ -62,6 +62,7 @@
 	<script src="app/controllers/ArkeoCtrl.js"></script>
 	<script src="app/controllers/ImportCtrl.js"></script>
 	<script src="app/controllers/DatabaseCtrl.js"></script>
+	<script src="app/controllers/ChronoEditorListCtrl.js"></script>
 	<script src="app/services/arkeo.js"></script>
 	<script src="app/services/user.js"></script>
 	<script src="app/services/group.js"></script>
@@ -75,7 +76,7 @@
 <body ng-app="ArkeoGIS" ng-controller="ArkeoCtrl as arkeo" layout="row" ng-cloak translate-namespace="MAIN">
 	<div layout="column" flex md-theme="{{theme}}">
 		<md-toolbar class="md-toolbar-tools">
-			<h1 flex>ArkeoGIS</h1>
+			<h1 flex><a href="http://localhost:44444/">ArkeoGIS</a></h1>
 			<div ng-hide="true">
 				<md-button ng-click="setTheme('grey')" ng-hide="theme == 'grey'">La vie en bleu</md-button>
 				<md-button ng-click="setTheme('pink')" ng-hide="theme == 'pink'">La vie en rose</md-button>
@@ -131,6 +132,12 @@
 							<md-button ui-sref="langeditor">
 								<p flex translate>.FIELD_MAINMENU.T_ITEM_LANGEDITOR</p>
 								<md-icon>translate</md-icon>
+							</md-button>
+						</md-menu-item>
+						<md-menu-item>
+							<md-button ui-sref="chronoditor-list">
+								<p flex translate>Éditeur de chronologies</p>
+								<md-icon>build</md-icon>
 							</md-button>
 						</md-menu-item>
 						<md-menu-item>
