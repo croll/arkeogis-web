@@ -1,0 +1,113 @@
+<md-content layout="row" layout-padding>
+    <md-input-container flex>
+      <label>Nom</label>
+      <input ng-model="chrono.name"></input>
+    </md-input-container>
+    <md-input-container flex>
+        <label>Description</label>
+        <input ng-model="chrono.description"></input>
+    </md-input-container>
+    <md-input-container flex="11">
+        <ark-lang-selector ng-model="myTransLang1" ark-set-as-translation-lang="1" ng-disabled="false" ark-translation-langs-disabled="['es']" ark-hide="['de']" ark-flags="true"></ark-lang-selector>
+    </md-input-container>
+  </div>
+</md-content>
+
+<md-content>
+
+    <table style="width: 100%">
+        <tr>
+            <td rowspan="2" style="vertical-align: top">
+                Chrono 1
+            </td>
+            <td rowspan="2" style="vertical-align: top">
+                Chrono 1.1
+            </td>
+            <td rowspan="2" style="vertical-align: top">
+                Chrono 1.1.1
+            </td>
+            <td style="vertical-align: top">
+                Chrono 1.1.1.1
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top">
+                Chrono 1.1.1.2
+            </td>
+        </tr>
+    </table>
+
+    <div layout="row">
+        <div flex layout="column">
+            <div flex>
+                Chrono
+            </div>
+        </div>
+        <div flex layout="column">
+            <div flex>
+                Chrono
+            </div>
+        </div>
+        <div flex layout="column">
+            <div flex>
+                Chrono
+            </div>
+        </div>
+        <div flex layout="column">
+            <div flex>
+                Chrono
+            </div>
+            <div flex>
+                Chrono
+            </div>
+        </div>
+    </div>
+    <div layout="row">
+        <div flex layout="column">
+            <div flex>
+                Chrono
+            </div>
+        </div>
+        <div flex layout="column">
+            <div flex>
+                Chrono
+            </div>
+        </div>
+        <div flex layout="column">
+            <div flex>
+                Chrono
+            </div>
+        </div>
+        <div flex layout="column">
+            <div flex>
+                Chrono
+            </div>
+            <div flex>
+                Chrono
+            </div>
+        </div>
+    </div>
+
+    <md-grid-list md-cols="4" md-gutter="3px" md-row-height="3:1">
+        <md-grid-tile md-rowspan="3" style="background-color: #33f">
+            <span>Chrono</span>
+            <md-grid-tile-footer><h3>ok ouais</h3></md-grid-tile-footer>
+        </md-grid-tile>
+        <md-grid-tile style="background-color: #33e">
+            <span>Chrono</span>
+            <md-grid-tile-footer><h3>{{tile.title}}</h3></md-grid-tile-footer>
+        </md-grid-tile>
+        <md-grid-tile style="background-color: #33d">
+            <span>Chrono</span>
+            <md-grid-tile-footer><h3>{{tile.title}}</h3></md-grid-tile-footer>
+        </md-grid-tile>
+        <md-grid-tile style="background-color: #33c">
+            <span>Chrono</span>
+            <md-grid-tile-footer><h3>{{tile.title}}</h3></md-grid-tile-footer>
+        </md-grid-tile>
+        <md-grid-tile style="background-color: #33b">
+            <span>Chrono</span>
+            <md-grid-tile-footer><h3>{{tile.title}}</h3></md-grid-tile-footer>
+        </md-grid-tile>
+    </md-grid-list>
+</md-content>

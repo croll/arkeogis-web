@@ -130,7 +130,6 @@
             })
         };
 
-
 /*
         return $resource('/api/translates:id', {
             id: '@id'

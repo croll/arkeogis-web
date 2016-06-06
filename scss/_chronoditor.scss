@@ -1,0 +1,14 @@
+/* ******************************** */
+/* Chronoditor ******************** */
+/* ******************************** */
+
+div.arkeo-chronoditor-list {
+    table.chronolist {
+        .md-datepicker-button {
+            display: none;
+        }
+        .md-datepicker-input-container {
+            margin-left: 0;
+        }
+    }
+}

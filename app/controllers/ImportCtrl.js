@@ -98,8 +98,6 @@
             if (!login.requirePermission('import', 'import.step1'))
                 return;
 
-                console.log(database);
-
             $scope.reset = function() {
                 $scope.tabs.enabled[2] = a.enabled[2];
                 $scope.file = undefined;
@@ -316,6 +314,7 @@
             $scope.submit = function(form) {
                 // Copy database object to be a little bit modified for request
                 var dbObj = angular.copy(database.infos);
+                dbObj.translations = database.translations;
                 if (form.$valid) {
                     dbObj.authors = [];
                     angular.forEach(database.authors, function(author) {
@@ -331,8 +330,8 @@
                             dbObj.description.push({id: arkeoLang.getIdFromIsoCode(key), text: database.translations.description[key]});
                         }
                     }
+                    console.log(dbObj);
                     $http.post("/api/import/step3", dbObj).then(function(result) {
-                        console.log("post ok");
                         console.log(result);
                     }, function(error) {
                         console.log("Error sending step3");
