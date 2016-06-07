@@ -27,7 +27,7 @@
 			restrict: 'A',
 			template: '',
             scope: {
-                ngModel: '=',
+                ngModel: '=?',
                 arkTranslations: '=',
                 arkTranslateBindLang: '='
             },
