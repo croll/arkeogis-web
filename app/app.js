@@ -69,6 +69,9 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 resolve: {
                     test: function(login) {
                         return login.relogin()
+                    },
+                    langs: function(arkeoLang) {
+                        return arkeoLang.init();
                     }
                 }
             })
@@ -183,11 +186,6 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 controller: "LoginCtrl",
                 params: {
                     redirectTo: ''
-                },
-                resolve: {
-                    langs: function(arkeoLang) {
-                        return arkeoLang.init();
-                    }
                 }
             });
         /**********/
