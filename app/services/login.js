@@ -63,7 +63,6 @@
             });
             return promise;
         };
-        this.relogin();
 
         /*
          * check if the user has the permission "permname"

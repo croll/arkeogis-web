@@ -63,13 +63,22 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
         $locationProvider.html5Mode(false);
 
         $stateProvider
-            .state('map', {
+            .state('arkeogis', {
+                url: "",
+                template: "<ui-view></ui-view>",
+                resolve: {
+                    test: function(login) {
+                        return login.relogin()
+                    }
+                }
+            })
+            .state('arkeogis.map', {
                 url: "/map",
                 templateUrl: "partials/map.html",
                 controller: "MapCtrl",
                 resolve: {}
             })
-            .state('import', {
+            .state('arkeogis.import', {
                 url: "/import/:database_id",
                 templateUrl: "partials/import/import.html",
                 controller: "ImportMainCtrl",
@@ -112,63 +121,63 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                     }
                 }
             })
-            .state('import.step1', {
+            .state('arkeogis.import.step1', {
                 url: "/step1",
                 controller: "ImportStep1Ctrl",
                 templateUrl: "partials/import/step1.html"
             })
-            .state('import.step2', {
+            .state('arkeogis.import.step2', {
                 url: "/step2",
                 templateUrl: "partials/import/step2.html",
                 controller: "ImportStep2Ctrl"
             })
-            .state('import.step3', {
+            .state('arkeogis.import.step3', {
                 url: "/step3",
                 templateUrl: "partials/import/step3.html",
                 controller: "ImportStep3Ctrl"
             })
-            .state('import.step4', {
+            .state('arkeogis.import.step4', {
                 url: "/step4",
                 templateUrl: "partials/import/step4.html",
                 controller: "ImportStep4Ctrl"
             })
-            .state('import.step5', {
+            .state('arkeogis.import.step5', {
                 url: "/step5",
                 templateUrl: "partials/import/step5.html",
                 controller: "ImportStep5Ctrl"
             })
-            .state('user', {
+            .state('arkeogis.user', {
                 url: "/user",
                 templateUrl: "partials/user/users.html",
                 controller: "UserCtrl",
                 resolve: {}
             })
-            .state('group', {
+            .state('arkeogis.group', {
                 url: "/group",
                 templateUrl: "partials/user/groups.html",
                 controller: "GroupCtrl",
                 resolve: {}
             })
-            .state('langeditor', {
+            .state('arkeogis.langeditor', {
                 url: "/langeditor",
                 templateUrl: "partials/langeditor.html",
                 controller: "LangEditorCtrl",
                 resolve: {}
             })
 
-            .state('chronoditor-list', {
+            .state('arkeogis.chronoditor-list', {
                 url: "/chronoditor-list",
                 templateUrl: "partials/chronoditor-list.html",
                 controller: "ChronoEditorListCtrl",
                 resolve: {}
             })
-            .state('chronoditor', {
+            .state('arkeogis.chronoditor', {
                 url: "/chronoditor",
                 templateUrl: "partials/chronoditor.html",
                 //controller: "LangEditorCtrl",
                 resolve: {}
             })
-            .state('login', {
+            .state('arkeogis.login', {
                 url: "/login",
                 templateUrl: "partials/login.html",
                 controller: "LoginCtrl",
@@ -192,6 +201,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 'request': function(config) {
                     config.headers = config.headers || {};
                     var token = $cookies.get('arkeogis_session_token');
+                    console.log("token: ", token)
                     if (token) {
                         config.headers.Authorization = token;
                     }
@@ -205,7 +215,5 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 }
             };
         }]);
-
-
     }
 ]);
