@@ -76,7 +76,7 @@
             if (!angular.isDefined(self.user.id) || self.user.id == 0) {
                 // user is not logged, so try to login first
                 if (redirectTo)
-                    $state.go('login', { redirectTo: redirectTo});
+                    $state.go('arkeogis.login', { redirectTo: redirectTo});
                 return false;
             } else {
                 // user is logged, check permissions
@@ -92,7 +92,7 @@
                 } else {
                     // user is logged but didn't have the permission
                     if (redirectTo)
-                        $state.go('map');
+                        $state.go('arkeogis.map');
                     return false;
                 }
             }
