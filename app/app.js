@@ -108,8 +108,8 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                                 db.infos.type = "inventory";
                                 console.log(db);
                                 arkeoImport.currentDb = db;
-                                if (!db.id && login.user.firstname) {
-                                    db.default_language = login.user.first_lang_id;
+                                if (!db.infos.id && login.user.firstname) {
+                                    db.infos.default_language = login.user.first_lang_id;
                                 }
                                 if (!angular.isDefined(db.translations)) {
                                     db.translations = {

@@ -29,17 +29,12 @@
 
             $scope.user = login.user;
 
+            //arkeoImport.tabs.selectedIndex = 3;
 
-            // Debug
-            arkeoImport.tabs.selectedIndex = 3;
-            $scope.user = {Username: 'bv', firstname: 'christophe', lastname: 'beveraggi', id: 1};
-            // Fin Debug
-
-            console.log($scope.user);
-
-            if (typeof(database.id) == undefined || !database.id) {
-                database.default_language = login.user.first_lang_id;
+            if (!angular.isDefined(database.infos.id) || !database.infos.id) {
+                database.infos.default_language = login.user.first_lang_id;
             }
+
             $scope.database = database;
 
             $scope.definitions = arkeoDatabase.definitions;
@@ -70,7 +65,7 @@
                 arkeoImport.uploadCSV(file, $scope.importChoices, $scope.database).then(function(resp) {
                     arkeoImport.data = resp.data;
                     if (angular.isDefined(resp.data.database_id) && resp.data.database_id) {
-                        database.id = resp.data.database_id;
+                        database.infos.id = resp.data.database_id;
                     }
                     database.authors = [{id: login.user.id, fullname: login.user.firstname+' '+login.user.lastname}];
                     if ($location.path().split("/").pop() === "step2") {
