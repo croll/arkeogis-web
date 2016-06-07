@@ -24,14 +24,18 @@
     ArkeoGIS.controller('ImportMainCtrl', ['$scope', '$location', '$rootScope', '$state', 'arkeoImport', 'login', 'arkeoDatabase', 'database',
         function($scope, $location, $rootScope, $state, arkeoImport, login, arkeoDatabase, database) {
 
-            // Debug
-            // arkeoImport.tabs.selectedIndex = 3;
-            // Fin Debug
-
             if (!login.requirePermission('import', 'import.step1'))
                 return;
 
             $scope.user = login.user;
+
+
+            // Debug
+            arkeoImport.tabs.selectedIndex = 3;
+            $scope.user = {Username: 'bv', firstname: 'christophe', lastname: 'beveraggi', id: 1};
+            // Fin Debug
+
+            console.log($scope.user);
 
             if (typeof(database.id) == undefined || !database.id) {
                 database.default_language = login.user.first_lang_id;
@@ -111,11 +115,11 @@
                 return arkeoService.autocompleteContinent(txt);
             };
 
-            $scope.loadLangs = function() {
-                arkeoLang.getActiveLangs().then(function(langs) {
-                    $scope.langs = langs;
-                });
-            };
+            // $scope.loadLangs = function() {
+            //     arkeoLang.getActiveLangs().then(function(langs) {
+            //         $scope.langs = langs;
+            //     });
+            // };
 
             $scope.myTransLang1 = angular.copy(arkeoLang.default_language);
 
@@ -249,7 +253,7 @@
     ArkeoGIS.controller('ImportStep3Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoImport', 'arkeoLang', 'arkeoDatabase', 'database', 'login', '$translate', '$q', '$http',
         function($scope, $state, arkeoService, arkeoImport, arkeoLang, arkeoDatabase, database, login, $translate, $q, $http) {
 
-            if (!login.requirePermission('import', 'import.step1'))
+            //if (!login.requirePermission('import', 'import.step1'))
                 return;
 
             arkeoImport.selectTab(3)
@@ -314,8 +318,7 @@
             $scope.submit = function(form) {
                 // Copy database object to be a little bit modified for request
                 var dbObj = angular.copy(database.infos);
-                dbObj.translations = database.translations;
-                if (form.$valid) {
+                if (true || form.$valid) {
                     dbObj.authors = [];
                     angular.forEach(database.authors, function(author) {
                         dbObj.authors.push(author.id);
@@ -327,6 +330,9 @@
                     dbObj.description = [];
                     for (var key in database.translations.description) {
                         if (database.translations.description.hasOwnProperty(key)) {
+                            console.log(key);
+                            console.log(arkeoLang.getIdFromIsoCode(key));
+                            console.log('----');
                             dbObj.description.push({id: arkeoLang.getIdFromIsoCode(key), text: database.translations.description[key]});
                         }
                     }
