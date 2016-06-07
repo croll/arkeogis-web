@@ -155,6 +155,19 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 controller: "LangEditorCtrl",
                 resolve: {}
             })
+
+            .state('chronoditor-list', {
+                url: "/chronoditor-list",
+                templateUrl: "partials/chronoditor-list.html",
+                controller: "ChronoEditorListCtrl",
+                resolve: {}
+            })
+            .state('chronoditor', {
+                url: "/chronoditor",
+                templateUrl: "partials/chronoditor.html",
+                //controller: "LangEditorCtrl",
+                resolve: {}
+            })
             .state('login', {
                 url: "/login",
                 templateUrl: "partials/login.html",
