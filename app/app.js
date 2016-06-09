@@ -199,7 +199,6 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 'request': function(config) {
                     config.headers = config.headers || {};
                     var token = $cookies.get('arkeogis_session_token');
-                    console.log("token: ", token)
                     if (token) {
                         config.headers.Authorization = token;
                     }
@@ -213,5 +212,31 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 }
             };
         }]);
+
+        $httpProvider.interceptors.push(function($q) {
+            return {
+                'request': function(config) {
+                    $('div#arkeo_loading').show();
+                    return config;
+                },
+
+                'requestError': function(rejection) {
+                    $('div#arkeo_loading').hide();
+                    return $q.reject(rejection);
+                },
+
+
+                'response': function(response) {
+                    $('div#arkeo_loading').hide();
+                    return response;
+                },
+                'responseError': function(rejection) {
+                    $('div#arkeo_loading').hide();
+                    return $q.reject(rejection);
+                }
+
+            };
+        });
+
     }
 ]);
