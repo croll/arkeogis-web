@@ -366,8 +366,12 @@
 			"T_ITEM_IMPORT": "Import",
 			"T_ITEM_LANGEDITOR": "Éditeur de langues",
 			"T_ITEM_LOGIN": "S'identifier",
+			"T_ITEM_LOGOUT": "Déconnecter",
 			"T_ITEM_MAP": "Carte",
 			"T_ITEM_USERSMANAGER": "Éditeur d'utilisateurs"
+		},
+		"LOADING": {
+			"T_TITLE": "Chargement..."
 		}
 	},
 	"MAP": {

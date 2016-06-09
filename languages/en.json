@@ -366,8 +366,12 @@
 			"T_ITEM_IMPORT": "Import",
 			"T_ITEM_LANGEDITOR": "Lang Editor",
 			"T_ITEM_LOGIN": "Login",
+			"T_ITEM_LOGOUT": "Logout",
 			"T_ITEM_MAP": "Map",
 			"T_ITEM_USERSMANAGER": "Users Manager"
+		},
+		"LOADING": {
+			"T_TITLE": "Loading..."
 		}
 	},
 	"MAP": {
