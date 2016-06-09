@@ -64,6 +64,21 @@
             return promise;
         };
 
+        this.logout = function() {
+            var promise = $q(function(resolve, reject) {
+                $http.get('/api/logout').then(function(ret) {
+                    self.user = new User(ret.data.User);
+                    arkeoLang.setUserLang(1, ret.data.lang1.iso_code)
+                    arkeoLang.setUserLang(2, ret.data.lang2.iso_code)
+                    self.permissions = ret.data.permissions;
+                    resolve(self.user);
+                }, function(err) {
+                    reject(err);
+                });
+            });
+            return promise;
+        };
+
         /*
          * check if the user has the permission "permname"
          * if the user is not logged, he will be redirected to login page

@@ -21,7 +21,7 @@
 
 (function () {
 	'use strict';
-	ArkeoGIS.controller('LangEditorCtrl', ['$scope', '$q', 'arkeoLang', 'Translates', 'login', function ($scope, $q, arkeoLang, Translates, Login) {
+	ArkeoGIS.controller('LangEditorCtrl', ['$scope', '$q', 'arkeoLang', 'Translates', 'login', '$timeout', function ($scope, $q, arkeoLang, Translates, Login, $timeout) {
 
 		if (!Login.requirePermission('langeditor', 'arkeogis.langeditor'))
             return;
@@ -72,9 +72,15 @@
         $scope.save = function() {
             return Translates.twinsave($scope.dst_lang, $scope.domain, $scope.translates_dst).then(function(ret) {
                 $scope.forms.langeditorForm.$setPristine();
-                console.log("saved");
+				$('div#arkeo_loading').show();
+				$timeout(function() {
+					$('div#arkeo_loading').hide();
+				}, 6000);
             }, function(err) {
-                console.warn("err: ", err);
+				$('div#arkeo_loading').show();
+				$timeout(function() {
+					$('div#arkeo_loading').hide();
+				}, 6000);
             });
         };
 

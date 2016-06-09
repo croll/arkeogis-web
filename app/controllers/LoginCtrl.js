@@ -25,6 +25,10 @@
 
         $scope.user = login.user;
 
+        if ($state.current.data.logout) {
+            login.logout();
+        }
+
 		$scope.loginSubmit = function () {
             login.login($scope.user).then(function(ret) {
                 $scope.user = ret;
