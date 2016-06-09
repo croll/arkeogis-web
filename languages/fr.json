@@ -223,7 +223,7 @@
 	},
 	"IMPORT_STEP3": {
 		"AUTHORS": {
-			"T_UNABLE_TO_REMOVE_MAIN_AUTHOR": "#!#IMPORT_STEP3.AUTHORS.T_UNABLE_TO_REMOVE_MAIN_AUTHOR"
+			"T_UNABLE_TO_REMOVE_MAIN_AUTHOR": "Il est impossible de modifier l'auteur de l'importation."
 		},
 		"FIELD_AUTHOR": {
 			"T_HELP": "Prénom et nom d l'auteur de l’importation. Il n’y a pas de nombre maximum de co-auteurs.",
