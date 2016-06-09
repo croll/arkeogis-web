@@ -12,19 +12,16 @@
         height: 20px;
 }
 
-.arkeo-icon-container {
+.arkeo-marker-container {
     width: 30px;
     height: 30px;
 }
 
-.arkeo-icon {
+.arkeo-marker {
 	display: inline-block;
 	width: 1em;
 	height: 1em;
 	fill: currentColor;
-}
-
-.arkeo-icon-site {
     &.size1 {
 	       font-size: 15px;
     }
@@ -45,14 +42,21 @@
     }
 }
 
-#arkeo-icon-circle {
+#arkeo-marker-circle {
     fill: #17aaf0;
     stroke: #fff;
     stroke-width: 8px;
 }
 
-#arkeo-icon-letter {
-    color: #000;
+#arkeo-marker-drop {
+    fill: #17aaf0;
+    stroke: #fff;
+    stroke-width: 8px;
+}
+
+#arkeo-marker-letter {
+    fill: #000;
+    stroke: none;
     font-weight: bold;
     font-size: 70px;
 }

@@ -20,7 +20,7 @@
  */
 
 (function() {
-  ArkeoGIS.service('arkeoImport', ['Upload', '$resource', 'login', function(Upload, $resource, login) {
+  ArkeoGIS.service('arkeoImport', ['Upload', 'login', function(Upload, login) {
 
     var self = this;
 
@@ -28,10 +28,10 @@
       selectedIndex: 0,
       enabled: {
         1: true,
-        2: false,
-        3: false,
-        4: false,
-        5: false
+        2: true,
+        3: true,
+        4: true,
+        5: true
       }
     };
 
@@ -62,6 +62,7 @@
     this.uploadCSV = function(file, choices, datas) {
 
       var values = angular.extend(choices, datas);
+      console.log(values);
       return Upload.upload({
         url: 'api/import/step1',
         data: {

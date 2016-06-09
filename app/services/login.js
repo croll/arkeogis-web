@@ -49,6 +49,20 @@
             return promise;
         };
 
+        this.relogin = function() {
+            var promise = $q(function(resolve, reject) {
+                $http.get('/api/relogin').then(function(ret) {
+                    self.user = new User(ret.data.User);
+                    arkeoLang.setUserLang(1, ret.data.lang1.iso_code)
+                    arkeoLang.setUserLang(2, ret.data.lang2.iso_code)
+                    self.permissions = ret.data.permissions;
+                    resolve(self.user);
+                }, function(err) {
+                    reject(err);
+                });
+            });
+            return promise;
+        };
 
         /*
          * check if the user has the permission "permname"
@@ -62,7 +76,7 @@
             if (!angular.isDefined(self.user.id) || self.user.id == 0) {
                 // user is not logged, so try to login first
                 if (redirectTo)
-                    $state.go('login', { redirectTo: redirectTo});
+                    $state.go('arkeogis.login', { redirectTo: redirectTo});
                 return false;
             } else {
                 // user is logged, check permissions
@@ -78,7 +92,7 @@
                 } else {
                     // user is logged but didn't have the permission
                     if (redirectTo)
-                        $state.go('map');
+                        $state.go('arkeogis.map');
                     return false;
                 }
             }

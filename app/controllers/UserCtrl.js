@@ -23,7 +23,7 @@
 	'use strict';
 	ArkeoGIS.controller('UserCtrl', ['$scope', 'user', 'login', 'arkeoLang', '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", function ($scope, User, Login, arkeoLangs, $mdDialog, $http, $q, arkeoService, $mdToast) {
 
-		if (!Login.requirePermission('adminusers', 'user'))
+		if (!Login.requirePermission('adminusers', 'arkeogis.user'))
             return;
 
 		$scope.users_query = {

@@ -29,10 +29,10 @@
               <ark-lang-selector ng-model="myTransLang1" ark-set-as-translation-lang="1" ng-disabled="false" ark-translation-langs-disabled="['es']" ark-hide="['de']" ark-flags="true"></ark-lang-selector>
           </md-input-container>
           <md-input-container>
-              <textarea ng-model="trans1" ark-translations="database.translations.description" ark-translate ark-translate-bind-lang="1" aria-label="-"></textarea>
+              <textarea ark-translations="database.translations.description" ark-translate ark-translate-bind-lang="1" aria-label="-"></textarea>
           </md-input-container>
           <md-input-container>
-              <input ng-model="trans2" ark-translations="database.translations.bibliography" ark-translate ark-translate-bind-lang="1" aria-label="-"></input>
+              <input ark-translations="database.translations.bibliography" ark-translate ark-translate-bind-lang="1" aria-label="-"></input>
           </md-input-container>
       </ark-form-block>
       <!-- Database name -->
@@ -124,7 +124,7 @@
       </ark-form-block>
       <!-- Upload -->
       <div layout layout-sm="column">
-        <md-button class="md-primary md-raised" ng-disabled="!importForm.$valid" ngf-select="uploadCSV(file)" ng-model="file" name="file" ngf-pattern="'.csv,.txt'" accept=".csv,.txt" ngf-max-size="100MB"><span translate>IMPORT_STEP1.FORM.T_SUBMIT</span></md-button>
+        <md-button class="md-primary md-raised" ng-disabled2=!importForm.$valid" ngf-select="uploadCSV(file)" ng-model="file" name="file" ngf-pattern="'.csv,.txt'" accept=".csv,.txt" ngf-max-size="100MB"><span translate>IMPORT_STEP1.FORM.T_SUBMIT</span></md-button>
         <md-button class="md-raised md-hue-1" ng-click="reset()"><span translate>IMPORT_STEP1.FORM.T_RESET</span></md-button>
       </div>
       <md-progress-linear md-mode="determinate" value="{{uploadProgress}}" md-buffer-value="100" ng-hide="!file"></md-progress-linear>

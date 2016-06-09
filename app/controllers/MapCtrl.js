@@ -32,7 +32,7 @@
 
 		var urlParams = $location.search();
 
-		var dbToGet =  (angular.isDefined(urlParams.id) && urlParams.id) ? urlParams.id : 15;
+		var dbToGet =  (angular.isDefined(urlParams.id) && urlParams.id) ? urlParams.id : 12;
 
 		// Leaflet init
 
@@ -107,8 +107,8 @@
 				}
 
 				return L.divIcon({
-					className: 'arkeo-icon-container',
-					html: '<svg class="arkeo-icon arkeo-icon-site '+iconClasses+'"><use xlink:href="#arkeo-icon-site"></use></svg><span class="mls"></span>',
+					className: 'arkeo-marker-container',
+					html: '<svg class="arkeo-marker arkeo-marker-drop'+iconClasses+'"><use xlink:href="#arkeo-marker-drop"></use></svg><span class="mls"></span>',
 	    			iconAnchor: [12, 0]
 				});
 			}

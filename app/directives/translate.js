@@ -27,7 +27,7 @@
 			restrict: 'A',
 			template: '',
             scope: {
-                ngModel: '=',
+                ngModel: '=?',
                 arkTranslations: '=',
                 arkTranslateBindLang: '='
             },
@@ -41,6 +41,7 @@
                 scope.translationLangs = arkeoLang.translationLangs;
 
                 scope.$watchCollection('translationLangs', function(newLangs, oldLangs) {
+
                     switchModel(newLangs[scope.arkTranslateBindLang], oldLangs[scope.arkTranslateBindLang]);
                 });
 
@@ -55,7 +56,7 @@
 
                 function switchModel(newIsoCode, oldIsoCode) {
                     if (!angular.isObject(scope.arkTranslations)) {
-                        //console.log("Param passed to ark-translate is invalid");
+                        console.log("params passed to ark-translations is not an object");
                         return;
                     }
                     //scope.arkTranslations[oldIsoCode] = scope.ngModel;

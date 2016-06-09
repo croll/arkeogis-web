@@ -24,18 +24,17 @@
     ArkeoGIS.controller('ImportMainCtrl', ['$scope', '$location', '$rootScope', '$state', 'arkeoImport', 'login', 'arkeoDatabase', 'database',
         function($scope, $location, $rootScope, $state, arkeoImport, login, arkeoDatabase, database) {
 
-            // Debug
-            // arkeoImport.tabs.selectedIndex = 3;
-            // Fin Debug
-
-            if (!login.requirePermission('import', 'import.step1'))
+            if (!login.requirePermission('import', 'arkeogis.import.step1'))
                 return;
 
             $scope.user = login.user;
 
-            if (typeof(database.id) == undefined || !database.id) {
-                database.default_language = login.user.first_lang_id;
+            //arkeoImport.tabs.selectedIndex = 3;
+
+            if (!angular.isDefined(database.infos.id) || !database.infos.id) {
+                database.infos.default_language = login.user.first_lang_id;
             }
+
             $scope.database = database;
 
             $scope.definitions = arkeoDatabase.definitions;
@@ -55,7 +54,7 @@
                 while (tabNum > 0) {
                     if (arkeoImport.tabs.enabled[tabNum] === true) {
                         arkeoImport.tabs.selectedIndex = tabNum;
-                        $state.go('import.step' + arkeoImport.tabs.selectedIndex);
+                        $state.go('arkeogis.import.step' + arkeoImport.tabs.selectedIndex);
                         return;
                     }
                     tabNum--;
@@ -66,13 +65,13 @@
                 arkeoImport.uploadCSV(file, $scope.importChoices, $scope.database).then(function(resp) {
                     arkeoImport.data = resp.data;
                     if (angular.isDefined(resp.data.database_id) && resp.data.database_id) {
-                        database.id = resp.data.database_id;
+                        database.infos.id = resp.data.database_id;
                     }
                     database.authors = [{id: login.user.id, fullname: login.user.firstname+' '+login.user.lastname}];
                     if ($location.path().split("/").pop() === "step2") {
                         $state.go($state.current, {database_id: -1}, {reload: true});
                     } else {
-                        $state.go('import.step2');
+                        $state.go('arkeogis.import.step2');
                     }
                 }, function(resp) {
                     console.log('Import Error. Status: ' + resp.status);
@@ -95,7 +94,7 @@
     ArkeoGIS.controller('ImportStep1Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoDatabase', 'arkeoImport', 'login', 'arkeoLang', 'database',
         function($scope, $state, arkeoService, arkeoDatabase, arkeoImport, login, arkeoLang, database) {
 
-            if (!login.requirePermission('import', 'import.step1'))
+            if (!login.requirePermission('import', 'arkeogis.import.step1'))
                 return;
 
             $scope.reset = function() {
@@ -111,11 +110,11 @@
                 return arkeoService.autocompleteContinent(txt);
             };
 
-            $scope.loadLangs = function() {
-                arkeoLang.getActiveLangs().then(function(langs) {
-                    $scope.langs = langs;
-                });
-            };
+            // $scope.loadLangs = function() {
+            //     arkeoLang.getActiveLangs().then(function(langs) {
+            //         $scope.langs = langs;
+            //     });
+            // };
 
             $scope.myTransLang1 = angular.copy(arkeoLang.default_language);
 
@@ -129,7 +128,7 @@
     ArkeoGIS.controller('ImportStep2Ctrl', ['$scope', 'arkeoImport', 'login',
         function($scope, arkeoImport, login) {
 
-            if (!login.requirePermission('import', 'import.step1'))
+            if (!login.requirePermission('import', 'arkeogis.import.step1'))
                 return;
 
             if (!angular.isDefined(arkeoImport.data)) {
@@ -249,7 +248,7 @@
     ArkeoGIS.controller('ImportStep3Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoImport', 'arkeoLang', 'arkeoDatabase', 'database', 'login', '$translate', '$q', '$http',
         function($scope, $state, arkeoService, arkeoImport, arkeoLang, arkeoDatabase, database, login, $translate, $q, $http) {
 
-            if (!login.requirePermission('import', 'import.step1'))
+            if (!login.requirePermission('import', 'arkeogis.import.step1'))
                 return;
 
             arkeoImport.selectTab(3)
@@ -314,7 +313,7 @@
             $scope.submit = function(form) {
                 // Copy database object to be a little bit modified for request
                 var dbObj = angular.copy(database.infos);
-                if (form.$valid) {
+                if (true || form.$valid) {
                     dbObj.authors = [];
                     angular.forEach(database.authors, function(author) {
                         dbObj.authors.push(author.id);
@@ -326,12 +325,14 @@
                     dbObj.description = [];
                     for (var key in database.translations.description) {
                         if (database.translations.description.hasOwnProperty(key)) {
+                            console.log(key);
+                            console.log(arkeoLang.getIdFromIsoCode(key));
+                            console.log('----');
                             dbObj.description.push({id: arkeoLang.getIdFromIsoCode(key), text: database.translations.description[key]});
                         }
                     }
                     console.log(dbObj);
                     $http.post("/api/import/step3", dbObj).then(function(result) {
-                        console.log("post ok");
                         console.log(result);
                     }, function(error) {
                         console.log("Error sending step3");
@@ -349,7 +350,7 @@
     ArkeoGIS.controller('ImportStep4Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoImport', 'login',
         function($scope, $state, arkeoService, arkeoImport, login) {
 
-            if (!login.requirePermission('import', 'import.step1'))
+            if (!login.requirePermission('import', 'arkeogis.import.step1'))
                 return;
 
             arkeoImport.selectTab(4)
@@ -363,7 +364,7 @@
     ArkeoGIS.controller('ImportStep5Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoImport', 'login',
         function($scope, $state, arkeoService, arkeoImport, login) {
 
-            if (!login.requirePermission('import', 'import.step1'))
+            if (!login.requirePermission('import', 'arkeogis.import.step1'))
                 return;
 
             arkeoImport.selectTab(5)

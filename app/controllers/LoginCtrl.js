@@ -32,7 +32,7 @@
                   $state.go($stateParams.redirectTo);
                   $stateParams.redirectTo = "";
                 } else {
-                  $state.go("map");
+                  $state.go("arkeogis.map");
                 }
             }, function(err) {
                 console.log("err ! ", err);
