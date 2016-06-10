@@ -27,12 +27,13 @@
 
         if ($state.current.data.logout) {
             login.logout();
+            $state.go("arkeogis.map");            
         }
 
 		$scope.loginSubmit = function () {
             login.login($scope.user).then(function(ret) {
                 $scope.user = ret;
-                if ($stateParams.redirectTo != "") {
+                if (($stateParams.redirectTo != "") && ($stateParams.redirectTo != "arkeogis.login")) {
                   $state.go($stateParams.redirectTo);
                   $stateParams.redirectTo = "";
                 } else {

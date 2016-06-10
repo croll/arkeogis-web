@@ -186,7 +186,10 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 controller: "LoginCtrl",
                 data: {
                     logout: false,
-                }
+                },
+                params: {
+                    redirectTo: '',
+                },
             })
             .state('arkeogis.logout', {
                 url: "/logout",
@@ -194,7 +197,10 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 controller: "LoginCtrl",
                 data: {
                     logout: true,
-                }
+                },
+                params: {
+                    redirectTo: '',
+                },
             });
         /**********/
 
