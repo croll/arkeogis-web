@@ -45,7 +45,7 @@
                 <td class="arbo-content">
 
                     <table class="arbo-content arbo-content-n2">
-                        <tr ng-repeat="n2 in n1.content">
+                        <tr ng-repeat="(idx2, n2) in n1.content">
                             <td class="arbo-title" style="background-color: {{n2.color}}">
                                 <md-input-container class='title'>
                                     <label>title</label>
@@ -71,7 +71,7 @@
                             <td class="arbo-content">
 
                                 <table class="arbo-content arbo-content-n3">
-                                    <tr ng-repeat="n3 in n2.content">
+                                    <tr ng-repeat="(idx3, n3) in n2.content">
                                         <td class="arbo-title" style="background-color: {{n3.color}}">
                                             <md-input-container class='title'>
                                                 <label>title</label>
@@ -97,7 +97,7 @@
                                         <td class="arbo-content">
 
                                             <table class="arbo-content arbo-content-n4">
-                                                <tr ng-repeat="n4 in n3.content">
+                                                <tr ng-repeat="(idx4, n4) in n3.content">
                                                     <td class="arbo-title" style="background-color: {{n4.color}}">
                                                         <md-input-container class='title'>
                                                             <label>title</label>
