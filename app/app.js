@@ -96,25 +96,26 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                                 id: parseInt(id)
                             }, function(db) {
                                 // debug
-                                db.infos = {};
-                                db.infos.name = 'pouet';
-                                db.infos.geographical_extent = 'world';
-                                db.contexts = ["academic_work"];
-                                db.infos.license_id = 2;
-                                db.infos.scale_resolution = "object";
-                                db.infos.state = "in-progress";
-                                db.infos.subject = "Le sujet et les mots clés";
-                                db.infos.source_creation_date = new Date();
-                                db.infos.type = "inventory";
+                                db = {};
+                                db.name = 'pouet';
+                                db.geographical_extent = 'world';
+                                db.contexts = ["academic-work"];
+                                db.license_id = 2;
+                                db.scale_resolution = "object";
+                                db.state = "in-progress";
+                                db.subject = "Le sujet et les mots clés";
+                                db.declared_creation_date = new Date();
+                                db.type = "inventory";
                                 console.log(db);
                                 arkeoImport.currentDb = db;
-                                if (!db.infos.id && login.user.firstname) {
-                                    db.infos.default_language = login.user.first_lang_id;
+                                if (typeof(db.id) == undefined && login.user.firstname) {
+                                    db.default_language = login.user.first_lang_id;
                                 }
                                 if (!angular.isDefined(db.translations)) {
                                     db.translations = {
-                                        description: {fr: 'description fr', en: 'description en'},
-                                        bibliography: {fr: 'bibliographie fr', en: 'bibliograhie en'}
+                                        description: {fr: 'description fr', en: 'description en', es: 'description es'},
+                                        bibliography: {fr: 'bibliographie fr', en: 'bibliograhie en', es: 'bibliographie es'}
+                                        geographical_limit : {fr: 'geo limit fr', en: 'geo limit en', es: 'geo limie es'}
                                     };
                                 }
                                 deferred.resolve(db);
