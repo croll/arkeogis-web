@@ -21,6 +21,11 @@
 
 (function () {
 	'use strict';
+
+	/*
+	 * ChronoEditorListCtrl Chrono Editor List Controller
+	 */
+
 	ArkeoGIS.controller('ChronoEditorListCtrl', ['$scope', '$q', 'arkeoLang', 'login', function ($scope, $q, arkeoLang, Login) {
 
 		//if (!Login.requirePermission('langeditor', 'langeditor'))
@@ -83,5 +88,151 @@
 		];
 
 
-    }]);
-})();
+    }]);  // controller ChronoEditorListCtrl
+
+
+
+	/*
+	 * ChronoEditorCtrl Chrono Editor Controller
+	 */
+
+	ArkeoGIS.controller('ChronoEditorCtrl', ['$scope', '$q', 'arkeoLang', 'login', function ($scope, $q, arkeoLang, Login) {
+
+		//if (!Login.requirePermission('langeditor', 'langeditor'))
+        //    return;
+
+        var self=this;
+
+		$scope.arbo = {
+			title: "Ma chrono",
+			begin: -1200,
+			end: -800,
+			content: [
+				{
+					title: "Chrono 1",
+					begin: -1200,
+					end: -800,
+					content: [
+						{
+							title: "Chrono 1.1",
+							begin: -1200,
+							end: -800,
+							content: [
+								{
+									title: "Chrono 1.1.1",
+									begin: -1200,
+									end: -800,
+									content: [
+										{
+											title: "Chrono 1.1.1.1",
+											begin: -1200,
+											end: -800,
+										},
+									],
+								},
+							],
+						},
+					],
+				},
+				{
+					title: "Chrono 2",
+					begin: -800,
+					end: 200,
+					content: [
+						{
+							title: "Chrono 2.1",
+							begin: -800,
+							end: 200,
+							content: [
+								{
+									title: "Chrono 2.1.1",
+									begin: -800,
+									end: 0,
+									content: [
+										{
+											title: "Chrono 2.1.1.1",
+										},
+									],
+								},
+								{
+									title: "Chrono 2.1.2",
+									begin: 0,
+									end: 200,
+									content: [
+										{
+											title: "Chrono 2.1.2.1",
+											begin: 0,
+											end: 99,
+											content: [],
+										},
+										{
+											title: "Chrono 2.1.2.2",
+											begin: 100,
+											end: 200,
+											content: [],
+										},
+									],
+								},
+							],
+						},
+					],
+				},
+			],
+		};
+
+		var colors= [
+			[ 0.0, 0.0, 0.0], [ 0.0, 0.0, 0.5], [ 0.0, 0.5, 0.0], [ 0.0, 0.5, 0.5 ],
+			[ 0.5, 0.0, 0.0], [ 0.5, 0.0, 0.5], [ 0.5, 0.5, 0.0], [ 0.5, 0.5, 0.5 ],
+			[ 1.0, 0.0, 0.0], [ 1.0, 0.0, 0.5], [ 1.0, 0.5, 0.0], [ 1.0, 0.5, 0.5 ],
+		];
+
+		function colortohex(color, fadasse) {
+			var color0=1 - ((1-color[0]) / fadasse);
+			var color1=1 - ((1-color[1]) / fadasse);
+			var color2=1 - ((1-color[2]) / fadasse);
+			console.log("color: ", color, 65+(15.0*color0), 65+(15.0*color1), 65+(15.0*color2));
+			var c = 'rgb('+parseInt(color0*255)+','+parseInt(color1*255)+','+parseInt(color2*255)+')';
+			return c;
+		}
+
+		function buildcolor(idx, level) {
+			var color = colors[idx+1];
+			return colortohex(color, level*0.5 + 1.5);
+		}
+
+		function colorize_all() {
+			$scope.arbo.content.forEach(function(n1, idx1) {
+				n1.color = buildcolor(idx1, 1);
+				n1.content.forEach(function(n2, idx2) {
+					n2.color = buildcolor(idx1, 2);
+					n2.content.forEach(function(n3, idx3) {
+						n3.color = buildcolor(idx1, 3);
+						n3.content.forEach(function(n4, idx4) {
+							n4.color = buildcolor(idx1, 4);
+						});
+					});
+				});
+			});
+		}
+
+		$scope.add_arbo = function(elem, parent, idx1, idx, level) {
+			elem.content.push({
+				title: "",
+				begin: 0,
+				end: 0,
+				//color: buildcolor(idx1, level+1),
+				content: [],
+			});
+			colorize_all();
+		};
+
+		$scope.remove_arbo = function(elem, parent, idx1, idx, level) {
+			parent.content.splice(idx, 1);
+			colorize_all();
+		};
+
+
+		colorize_all();
+    }]); // controller ChronoEditorCtrl
+
+})(); // all

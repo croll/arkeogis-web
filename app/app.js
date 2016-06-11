@@ -178,7 +178,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
             .state('arkeogis.chronoditor', {
                 url: "/chronoditor",
                 templateUrl: "partials/chronoditor.html",
-                //controller: "LangEditorCtrl",
+                controller: "ChronoEditorCtrl",
                 resolve: {}
             })
             .state('arkeogis.login', {
