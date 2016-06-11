@@ -53,4 +53,11 @@
             },
         };
     });
+
+    ArkeoGIS.filter('arkYear', function () {
+        return function(val) {
+            var v = parseInt(val);
+            return isNaN(v) ? val : (v > 0 ? '+'+v : v);
+        }
+    });
 })();
