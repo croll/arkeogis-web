@@ -50,7 +50,7 @@
                         <input type="text" ng-model="chrono.credits" placeholder="crédits"></input>
                     </td>
                     <td md-cell>
-                        <md-datepicker ng-model="chrono.created_at" md-placeholder="Date création"></md-datepicker>
+                        {{ chrono.created_at | date : 'mediumDate' }}
                     </td>
                     <td md-cell>
                         <md-switch ng-model="chrono.active" aria-label="Publié"></md-switch>
