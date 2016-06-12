@@ -66,6 +66,7 @@
                     arkeoImport.data = resp.data;
                     if (angular.isDefined(resp.data.database_id) && resp.data.database_id) {
                         database.id = resp.data.database_id;
+                        database.import_id = resp.data.import_id;
                     }
                     database.authors = [{id: login.user.id, fullname: login.user.firstname+' '+login.user.lastname}];
                     if ($location.path().split("/").pop() === "step2") {
