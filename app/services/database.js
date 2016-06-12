@@ -20,7 +20,7 @@
  */
 
 (function() {
-    ArkeoGIS.service('arkeoDatabase', ['$http', '$q', '$resource', function($http, $q, $resource) {
+    ArkeoGIS.service('arkeoDatabase', ['$http', '$q', '$resource', '$translate', function($http, $q, $resource, $translate) {
 
         var self = this;
 
@@ -166,7 +166,7 @@
         }];
 
         this.definitions.occupations = [{
-            tr: 'DATABASE.SITE_OCCUPATION_NOTDOCUMENTED',
+            tr: 'DATABASE.SITE_OCCUPATION_NOT_DOCUMENTED.T_TITLE',
             id: 'not_documented'
         }, {
             tr: 'DATABASE.SITE_OCCUPATION_SINGLE.T_TITLE',
@@ -198,6 +198,26 @@
             tr: 'DATABASE.KNOWLEDGE_TYPE_DIG.T_TITLE',
             id: 'dig'
         }];
+
+        this.translateDefinitions = function() {
+            var deferred = $q.defer();
+            var promises = [];
+            var definitionTranslations = {};
+            for (var type in self.definitions) {
+                if(!self.definitions.hasOwnProperty(type)) continue;
+                angular.forEach(self.definitions[type], function(item) {
+                     promises.push($translate(item.tr).then(function(tr) {
+                         definitionTranslations[item.id] = tr;
+                     }));
+                });
+            }
+            $q.all(promises).then(function(h) {
+                deferred.resolve(definitionTranslations);
+            }, function(err) {
+                deferred.resolve(definitionTranslations);
+            });
+            return deferred.promise;
+        };
 
     }]);
 })()
