@@ -97,7 +97,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                             }, function(db) {
                                 // debug
                                 db = {};
-                                db.name = 'pouet';
+                                db.name = 'pouet le nom de la base';
                                 db.geographical_extent = 'world';
                                 db.contexts = ["academic-work"];
                                 db.license_id = 2;
@@ -106,7 +106,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                                 db.subject = "Le sujet et les mots clés";
                                 db.declared_creation_date = new Date();
                                 db.type = "inventory";
-                                db.structure = "la structure";
+                                db.editor = "la structure";
                                 db.contributor = "la structure contridu";
                                 db.source_identifier = "UEA-#@@)#";
                                 db.source_url = 'http://www.croll.fr'
@@ -165,7 +165,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                             }, function(db) {
                                 // debug
                                 db = {};
-                                db.name = 'pouet';
+                                db.name = 'pouet le nom de la base';
                                 db.geographical_extent = 'world';
                                 db.contexts = ["academic-work"];
                                 db.license_id = 2;
@@ -174,7 +174,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                                 db.subject = "Le sujet et les mots clés";
                                 db.declared_creation_date = new Date();
                                 db.type = "inventory";
-                                db.structure = "la structure";
+                                db.editor = "la structure";
                                 db.contributor = "la structure contridu";
                                 db.source_identifier = "UEA-#@@)#";
                                 db.source_url = 'http://www.croll.fr'

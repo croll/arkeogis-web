@@ -37,7 +37,7 @@
             identifier: "",
             source: "",
             source_url: "",
-            publisher: "",
+            editor : "",
             contributor: "",
             default_language: null,
             relation: "",
