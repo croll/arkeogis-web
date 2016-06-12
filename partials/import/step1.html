@@ -124,7 +124,7 @@
       </ark-form-block>
       <!-- Upload -->
       <div layout layout-sm="column">
-        <md-button class="md-primary md-raised" ng-disabled2=!importForm.$valid" ngf-select="uploadCSV(file)" ng-model="file" name="file" ngf-pattern="'.csv,.txt'" accept=".csv,.txt" ngf-max-size="100MB"><span translate>IMPORT_STEP1.FORM.T_SUBMIT</span></md-button>
+        <md-button class="md-primary md-raised" ng-disabled="!importForm.$valid" ngf-select="uploadCSV(file)" ng-model="file" name="file" ngf-pattern="'.csv,.txt'" accept=".csv,.txt" ngf-max-size="100MB"><span translate>IMPORT_STEP1.FORM.T_SUBMIT</span></md-button>
         <md-button class="md-raised md-hue-1" ng-click="reset()"><span translate>IMPORT_STEP1.FORM.T_RESET</span></md-button>
       </div>
       <md-progress-linear md-mode="determinate" value="{{uploadProgress}}" md-buffer-value="100" ng-hide="!file"></md-progress-linear>

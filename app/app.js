@@ -95,8 +95,9 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                             arkeoDatabase.Database.get({
                                 id: parseInt(id)
                             }, function(db) {
-                                // debug
+                                /*
                                 db = {};
+                                // debug
                                 db.name = 'pouet le nom de la base';
                                 db.geographical_extent = 'world';
                                 db.contexts = ["academic-work"];
@@ -114,10 +115,6 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                                 db.source_description = 'pouet pouet galinette';
                                 db.context_description = 'context description pouet';
                                 db.source_relation = 'pouet pouet';
-                                arkeoImport.currentDb = db;
-                                if (typeof(db.id) == undefined && login.user.firstname) {
-                                    db.default_language = login.user.first_lang_id;
-                                }
                                 if (!angular.isDefined(db.translations)) {
                                     db.translations = {
                                         description: {fr: 'description fr', en: 'description en', es: 'description es'},
@@ -125,6 +122,13 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                                         geographical_limit : {fr: 'geo limit fr', en: 'geo limit en', es: 'geo limie es'}
                                     };
                                 }
+                                */
+                                arkeoImport.currentDb = db;
+                                /*
+                                if (typeof(db.id) == undefined && login.user.firstname) {
+                                    db.default_language = login.user.first_lang_id;
+                                }
+                                */
                                 deferred.resolve(db);
                             });
                         }
@@ -163,6 +167,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                             arkeoDatabase.Database.get({
                                 id: parseInt(id)
                             }, function(db) {
+                                /*
                                 // debug
                                 db = {};
                                 db.name = 'pouet le nom de la base';
@@ -189,6 +194,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                                         geographical_limit : {fr: 'geo limit fr', en: 'geo limit en', es: 'geo limie es'}
                                     };
                                 }
+                                */
                                 deferred.resolve(db);
                             });
                         return deferred.promise;

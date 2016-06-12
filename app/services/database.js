@@ -20,7 +20,7 @@
  */
 
 (function() {
-    ArkeoGIS.service('arkeoDatabase', ['$http', '$q', '$resource', '$translate', function($http, $q, $resource, $translate) {
+    ArkeoGIS.service('arkeoDatabase', ['$http', '$q', '$resource', '$translate', 'login', function($http, $q, $resource, $translate, login) {
 
         var self = this;
 
@@ -33,7 +33,7 @@
             type: "undefined",
             owner: null,
             declared_creation_date: "",
-            data_set: "",
+            data_set: "",/lo
             identifier: "",
             source: "",
             source_url: "",
@@ -67,7 +67,15 @@
                 method: 'GET',
                 isArray: false,
                 transformResponse: function(data, headers) {
-                    var dbInfos = angular.fromJson(data);
+                    if (data == 'null' || data == null) {
+                        var dbInfos = {default_language: login.user.first_lang_id, contexts: [], translations: {
+                            description: {},
+                            bibliography: {},
+                            geographical_limit: {}
+                        }}
+                    } else {
+                        var dbInfos = angular.fromJson(data);
+                    }
                     if (dbInfos && typeof(dbInfos.infos) != undefined) {
                         angular.extend(dbInfos, dbInfos.infos);
                         delete dbInfos.infos;

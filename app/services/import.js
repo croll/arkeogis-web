@@ -62,7 +62,6 @@
     this.uploadCSV = function(file, choices, datas) {
 
       var values = angular.extend(choices, datas);
-      console.log(values);
       return Upload.upload({
         url: 'api/import/step1',
         data: {
