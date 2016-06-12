@@ -31,8 +31,8 @@
 
             //arkeoImport.tabs.selectedIndex = 3;
 
-            if (!angular.isDefined(database.infos.id) || !database.infos.id) {
-                database.infos.default_language = login.user.first_lang_id;
+            if (!angular.isDefined(database.id) || !database.id) {
+                database.default_language = login.user.first_lang_id;
             }
 
             $scope.database = database;
@@ -65,7 +65,7 @@
                 arkeoImport.uploadCSV(file, $scope.importChoices, $scope.database).then(function(resp) {
                     arkeoImport.data = resp.data;
                     if (angular.isDefined(resp.data.database_id) && resp.data.database_id) {
-                        database.infos.id = resp.data.database_id;
+                        database.id = resp.data.database_id;
                     }
                     database.authors = [{id: login.user.id, fullname: login.user.firstname+' '+login.user.lastname}];
                     if ($location.path().split("/").pop() === "step2") {
@@ -312,28 +312,26 @@
 
             $scope.submit = function(form) {
                 // Copy database object to be a little bit modified for request
-                var dbObj = angular.copy(database.infos);
+                var dbObj = angular.copy(database);
                 if (true || form.$valid) {
                     dbObj.authors = [];
                     angular.forEach(database.authors, function(author) {
                         dbObj.authors.push(author.id);
                     });
-                    dbObj.contexts = [];
-                    angular.forEach(database.contexts, function(context) {
-                        dbObj.contexts.push(context.id);
-                    });
                     dbObj.description = [];
-                    for (var key in database.translations.description) {
-                        if (database.translations.description.hasOwnProperty(key)) {
-                            console.log(key);
-                            console.log(arkeoLang.getIdFromIsoCode(key));
-                            console.log('----');
-                            dbObj.description.push({id: arkeoLang.getIdFromIsoCode(key), text: database.translations.description[key]});
+                    for (var iso_code in database.translations.description) {
+                        if (database.translations.description.hasOwnProperty(iso_code)) {
+                            dbObj.description.push({lang_id: arkeoLang.getIdFromIsoCode(iso_code), text: database.translations.description[iso_code]});
                         }
                     }
                     console.log(dbObj);
                     $http.post("/api/import/step3", dbObj).then(function(result) {
-                        console.log(result);
+                        if (result.status == 200) {
+                            $state.go('arkeogis.import.step4')
+                            // arkeoService.showMessage("IMPORT_STEP3.MESSAGES.T_PUBLICATION_INFORMATIONS_SAVED")
+                        } else {
+                            console.log("Error sending step3");
+                        }
                     }, function(error) {
                         console.log("Error sending step3");
                         console.log(error);
@@ -354,6 +352,33 @@
                 return;
 
             arkeoImport.selectTab(4)
+
+                var dbObj = angular.copy(database);
+                if (true || form.$valid) {
+                    dbObj.bibliography= [];
+                    for (var iso_code in database.translations.bibliography) {
+                        if (database.translations.bibliography.hasOwnProperty(iso_code)) {
+                            dbObj.bibliography.push({lang_id: arkeoLang.getIdFromIsoCode(iso_code), text: database.translations.bibliography[iso_code]});
+                        }
+                    }
+                    dbObj.geographical_limit= [];
+                    for (var iso_code in database.translations.geographical_limit) {
+                        if (database.translations.geographical_limit.hasOwnProperty(iso_code)) {
+                            dbObj.geographical_limit.push({lang_id: arkeoLang.getIdFromIsoCode(iso_code), text: database.translations.geographical_limit[iso_code]});
+                        }
+                    }
+                    $http.post("/api/import/step4", dbObj).then(function(result) {
+                        if (result.status == 200) {
+                            $state.go('arkeogis.import.step5')
+                            // arkeoService.showMessage("IMPORT_STEP4.MESSAGES.T_MORE_INFORMATIONS_SAVED")
+                        } else {
+                            console.log("Error sending step4");
+                        }
+                    }, function(error) {
+                        console.log("Error sending step4");
+                        console.log(error);
+                    });
+                }
 
         }
     ]);

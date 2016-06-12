@@ -114,7 +114,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                                 if (!angular.isDefined(db.translations)) {
                                     db.translations = {
                                         description: {fr: 'description fr', en: 'description en', es: 'description es'},
-                                        bibliography: {fr: 'bibliographie fr', en: 'bibliograhie en', es: 'bibliographie es'}
+                                        bibliography: {fr: 'bibliographie fr', en: 'bibliograhie en', es: 'bibliographie es'},
                                         geographical_limit : {fr: 'geo limit fr', en: 'geo limit en', es: 'geo limie es'}
                                     };
                                 }

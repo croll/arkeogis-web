@@ -9,7 +9,7 @@
         </md-card-content>
     </md-card>
     <div class="layout-padding">
-		<h1 class="md-display-1"><span translate>IMPORT_STEP3.FORM.T_TITLE</span> "{{database.infos.name}}" <span translate>IMPORT_STEP1.TITLE.T_BY</span> {{user.firstname}} {{user.lastname}}</h1>
+		<h1 class="md-display-1"><span translate>IMPORT_STEP3.FORM.T_TITLE</span> "{{database.name}}" <span translate>IMPORT_STEP1.TITLE.T_BY</span> {{user.firstname}} {{user.lastname}}</h1>
         <form name="publicationForm" class="md-padding" ng-submit="submit(this.publicationForm)" novalidate>
             <md-content layout="column" layout-gt-sm="row">
                 <!-- left block -->
@@ -30,16 +30,16 @@
                     </ark-form-block>
                     <!-- Creation date -->
                     <ark-form-block>
-                        <md-datepicker name="source_creation_date" ng-model="database.infos.source_creation_date" md-placeholder="* {{ 'IMPORT_STEP3.FIELD_CREATION_DATE.T_LABEL' | translate}}" ng-required flex></md-datepicker>
+                        <md-datepicker name="declared_creation_date" ng-model="database.declared_creation_date" md-placeholder="* {{ 'IMPORT_STEP3.FIELD_CREATION_DATE.T_LABEL' | translate}}" ng-required flex></md-datepicker>
                         <ark-help translate>IMPORT_STEP3.FIELD_CREATION_DATE.T_HELP</ark-help>
-                        <div ng-messages="publicationForm.source_creation_date.$error">
+                        <div ng-messages="publicationForm.declared_creation_date.$error">
                             <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
                         </div>
                     </ark-form-block>
                     <!-- License -->
                     <ark-form-block>
                         <md-input-container>
-                            <md-select name="license_id" ng-model="database.infos.license_id" ng-init="loadLicenses()" placeholder="* {{'IMPORT_STEP3.FIELD_LICENSE.T_LABEL' || translate}}" required = "true">
+                            <md-select name="license_id" ng-model="database.license_id" ng-init="loadLicenses()" placeholder="* {{'IMPORT_STEP3.FIELD_LICENSE.T_LABEL' || translate}}" required = "true">
                                 <md-option ng-value="license.id" ng-repeat="license in licenses">{{license.name}}</md-option>
                             </md-select>
                             <div ng-messages="publicationForm.license_id.$error">
@@ -52,7 +52,7 @@
                         <!-- Subject / Keywords -->
                         <md-input-container>
                             <label>* <span translate>IMPORT_STEP3.FIELD_SUBJECT.T_LABEL</span></label>
-                            <input name="subject" ng-model="database.infos.subject" required>
+                            <input name="subject" ng-model="database.subject" required>
                             <div ng-messages="publicationForm.subject.$error">
                                 <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
                             </div>
@@ -65,7 +65,7 @@
                     <!-- Type -->
                     <ark-form-block>
                         <md-input-container>
-                            <md-select name="type" ng-model="database.infos.type" placeholder="* {{'IMPORT_STEP3.FIELD_TYPE.T_LABEL' | translate}}"
+                            <md-select name="type" ng-model="database.type" placeholder="* {{'IMPORT_STEP3.FIELD_TYPE.T_LABEL' | translate}}"
                                 required>
                                 <md-option ng-value="type.id" ng-repeat="type in definitions.types">{{type.tr | translate}}</md-option>
                             </md-select>
@@ -92,7 +92,7 @@
                     <!-- Scale resolution -->
                     <ark-form-block>
                         <md-input-container>
-                            <md-select name="scale_resolution" ng-model="database.infos.scale_resolution" placeholder="* {{'IMPORT_STEP3.FIELD_SCALE_RESOLUTION.T_LABEL' | translate}}"
+                            <md-select name="scale_resolution" ng-model="database.scale_resolution" placeholder="* {{'IMPORT_STEP3.FIELD_SCALE_RESOLUTION.T_LABEL' | translate}}"
                             required>
                                 <md-option ng-value="scaleResolution.id" ng-repeat="scaleResolution in definitions.scaleResolutions">{{scaleResolution.tr | translate}}</md-option>
                             </md-select>
@@ -105,7 +105,7 @@
                     <!-- State -->
                     <ark-form-block>
                         <md-input-container>
-                            <md-select name="state" ng-model="database.infos.state" placeholder="* {{'IMPORT_STEP3.FIELD_STATE.T_LABEL' | translate}}"
+                            <md-select name="state" ng-model="database.state" placeholder="* {{'IMPORT_STEP3.FIELD_STATE.T_LABEL' | translate}}"
                             required>
                                 <md-option ng-value="state.id" ng-repeat="state in definitions.states">{{state.tr | translate}}</md-option>
                             </md-select>
@@ -149,7 +149,7 @@
 			<!-- Actions -->
 			<md-content layout layout-sm="column" layout-padding layout-align="center center">
 					<md-button type="submit" class="md-primary md-raised" ng-disabled2="publicationForm.$invalid"><span translate>IMPORT_STEP3.FORM.T_BUTTON_SUBMIT</span></md-button>
-					<md-button class="md-raised md-hue-1" ui-sref="import.step2"><span translate>IMPORT_STEP3.FORM.T_BUTTON_BACK</span></md-button>
+					<md-button class="md-raised md-hue-1" ui-sref="arkeogis.import.step2"><span translate>IMPORT_STEP3.FORM.T_BUTTON_BACK</span></md-button>
 			<md-content>
         </form>
     </div>

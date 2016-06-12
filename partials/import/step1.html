@@ -39,7 +39,7 @@
       <ark-form-block>
         <md-input-container>
           <label translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_LABEL</label>
-          <input name="databaseName" md-minlength="3" md-maxlength="30" ng-model="database.infos.name" required=""></input>
+          <input name="databaseName" md-minlength="3" md-maxlength="30" ng-model="database.name" required=""></input>
           <div ng-messages="importForm.databaseName.$error">
             <div ng-message="md-maxlength" translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_ERROR_MAX_LEN</div>
             <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
@@ -49,7 +49,7 @@
       <ark-form-block>
         <md-input-container>
           <label translate>IMPORT_STEP1.FIELD_LANG.T_LABEL</label>
-          <ark-lang-selector ng-model="database.infos.default_language" ark-flags="true"></ark-lang-selector>
+          <ark-lang-selector ng-model="database.default_language" ark-flags="true"></ark-lang-selector>
         </md-input-container>
         <ark-help flex translate>IMPORT_STEP1.FIELD_LANG.T_HELP</ark-help>
       </ark-form-block>
@@ -58,12 +58,12 @@
         <!-- <div layout="column" layout-gt-xs="row"> -->
           <!-- Geographical extent -->
           <md-input-container>
-            <md-select name="geographical_extent" ng-model="database.infos.geographical_extent" ng-change="database.countries = [];database.continents = []" placeholder="{{'IMPORT_STEP1.FIELD_GEO_EXTENT.T_LABEL' | translate}}" required >
+            <md-select name="geographical_extent" ng-model="database.geographical_extent" ng-change="database.countries = [];database.continents = []" placeholder="{{'IMPORT_STEP1.FIELD_GEO_EXTENT.T_LABEL' | translate}}" required >
               <md-option value="{{geoex.id}}" ng-repeat="geoex in definitions.geographicalExtents" translate>{{geoex.tr}}</md-option>
             </md-select>
           </md-input-container>
           <!-- Country -->
-          <div ng-hide="database.infos.geographical_extent != 'country'" flex>
+          <div ng-hide="database.geographical_extent != 'country'" flex>
             <md-chips name="extent_country" ng-model="database.countries" md-autocomplete-snap md-require-match="true" md-allow-repeats="false">
               <md-autocomplete md-search-text="searchText" md-items="item in countrySearch(searchText)" md-item-text="item.name" placeholder="* Enter country name">
                 <span md-highlight-text="searchText">{{item.name}}</span>
@@ -81,7 +81,7 @@
             </md-input-container>
           </div>
           <!-- Continent -->
-          <div ng-hide="database.infos.geographical_extent != 'continent'" flex>
+          <div ng-hide="database.geographical_extent != 'continent'" flex>
             <md-chips ng-model="database.continents" md-autocomplete-snap md-require-match="true" md-allow-repeats="false">
               <md-autocomplete md-search-text="searchText" md-items="item in continentSearch(searchText)" md-item-text="item.name" placeholder="* Enter continent name">
                 <span md-highlight-text="searchText">{{item.name}}</span>

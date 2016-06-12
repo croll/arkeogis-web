@@ -22,100 +22,182 @@
 (function() {
     ArkeoGIS.service('arkeoDatabase', ['$http', '$q', '$resource', function($http, $q, $resource) {
 
-    var self = this;
+        var self = this;
 
-    /*
-    this.defaultValues = {
-        id: null,
-        name: "",
-        scale_resolution: "",
-        geographical_extent: "world",
-        type: "undefined",
-        owner: null,
-        source_creation_date: "",
-        data_set: "",
-        identifier: "",
-        source: "",
-        source_url: "",
-        publisher: "",
-        contributor: "",
-        default_language: null,
-        relation: "",
-        coverage: "",
-        copyright: "",
-        state: "undefined",
-        license_id: 0,
-        context: "undefined",
-        context_description: "",
-        subject: "",
-        published: false,
-        soft_deleted: false,
-        created_at: null,
-        updated_at: null,
-        geographical_limit: "",
-        bibliography: "",
-        countries: [],
-        continents: [],
-        handles: [],
-        number_of_sites: [],
-        owner_name: ""
-    }
-    */
+        /*
+        this.defaultValues = {
+            id: null,
+            name: "",
+            scale_resolution: "",
+            geographical_extent: "world",
+            type: "undefined",
+            owner: null,
+            declared_creation_date: "",
+            data_set: "",
+            identifier: "",
+            source: "",
+            source_url: "",
+            publisher: "",
+            contributor: "",
+            default_language: null,
+            relation: "",
+            coverage: "",
+            copyright: "",
+            state: "undefined",
+            license_id: 0,
+            context: "undefined",
+            context_description: "",
+            subject: "",
+            published: false,
+            soft_deleted: false,
+            created_at: null,
+            updated_at: null,
+            geographical_limit: "",
+            bibliography: "",
+            countries: [],
+            continents: [],
+            handles: [],
+            number_of_sites: [],
+            owner_name: ""
+        }
+        */
 
-    this.Database = $resource('/api/database/:id', {}, {'query' : {method: 'GET', isArray: true}});
+        this.Database = $resource('/api/database/:id', {}, {
+            'get': {
+                method: 'GET',
+                isArray: false,
+                transformResponse: function(data, headers) {
+                    var dbInfos = angular.fromJson(data);
+                    if (dbInfos && typeof(dbInfos.infos) != undefined) {
+                        angular.extend(dbInfos, dbInfos.infos);
+                        delete dbInfos.infos;
+                    }
+                    return dbInfos;
+                }
+            },
+            'query': {
+                method: 'GET',
+                isArray: true,
+                transformResponse: function(data, headers) {
+                    var dbInfos = angular.fromJson(data);
+                    var ret = [];
+                    angular.forEach(dbInfos, function(dbi) {
+                        if (dbi.infos) {
+                            angular.extend(dbi, dbi.infos);
+                            delete dbi.infos;
+                        }
+                        ret.push(dbi);
+                    })
+                    return ret;
+                }
+            }
+        });
 
-    this.definitions = {};
+        this.definitions = {};
 
-  	this.definitions.scaleResolutions = [
-  		{ tr: 'DATABASE.SCALE_RESOLUTION_OBJECT.T_TITLE', id: 'object'},
-  		{ tr: 'DATABASE.SCALE_RESOLUTION_SITE.T_TITLE', id: 'site'},
-  		{ tr: 'DATABASE.SCALE_RESOLUTION_WATERSHED.T_TITLE', id: 'watershed'},
-  		{ tr: 'DATABASE.SCALE_RESOLUTION_MICROREGION.T_TITLE', id: 'micro-region'},
-  		{ tr: 'DATABASE.SCALE_RESOLUTION_REGION.T_TITLE', id: 'region'},
-  		{ tr: 'DATABASE.SCALE_RESOLUTION_COUNTRY.T_TITLE', id: 'country'},
-  		{ tr: 'DATABASE.SCALE_RESOLUTION_EUROPA.T_TITLE', id: 'europa'}
-  	];
+        this.definitions.scaleResolutions = [{
+            tr: 'DATABASE.SCALE_RESOLUTION_OBJECT.T_TITLE',
+            id: 'object'
+        }, {
+            tr: 'DATABASE.SCALE_RESOLUTION_SITE.T_TITLE',
+            id: 'site'
+        }, {
+            tr: 'DATABASE.SCALE_RESOLUTION_WATERSHED.T_TITLE',
+            id: 'watershed'
+        }, {
+            tr: 'DATABASE.SCALE_RESOLUTION_MICROREGION.T_TITLE',
+            id: 'micro-region'
+        }, {
+            tr: 'DATABASE.SCALE_RESOLUTION_REGION.T_TITLE',
+            id: 'region'
+        }, {
+            tr: 'DATABASE.SCALE_RESOLUTION_COUNTRY.T_TITLE',
+            id: 'country'
+        }, {
+            tr: 'DATABASE.SCALE_RESOLUTION_EUROPA.T_TITLE',
+            id: 'europa'
+        }];
 
-    this.definitions.geographicalExtents = [
-      {tr : 'DATABASE.GEOGRAPHICAL_EXTENT_WORLD.T_TITLE', id: 'world'},
-      {tr : 'DATABASE.GEOGRAPHICAL_EXTENT_INTERNATIONAL_WATERS.T_TITLE', id: 'international_waters'},
-      {tr : 'DATABASE.GEOGRAPHICAL_EXTENT_CONTINENT.T_TITLE', id: 'continent'},
-      {tr : 'DATABASE.GEOGRAPHICAL_EXTENT_COUNTRY.T_TITLE', id: 'country'}
-    ];
+        this.definitions.geographicalExtents = [{
+            tr: 'DATABASE.GEOGRAPHICAL_EXTENT_WORLD.T_TITLE',
+            id: 'world'
+        }, {
+            tr: 'DATABASE.GEOGRAPHICAL_EXTENT_INTERNATIONAL_WATERS.T_TITLE',
+            id: 'international_waters'
+        }, {
+            tr: 'DATABASE.GEOGRAPHICAL_EXTENT_CONTINENT.T_TITLE',
+            id: 'continent'
+        }, {
+            tr: 'DATABASE.GEOGRAPHICAL_EXTENT_COUNTRY.T_TITLE',
+            id: 'country'
+        }];
 
-    this.definitions.types = [
-      {tr : 'DATABASE.TYPE_INVENTORY.T_TITLE', id: 'inventory'},
-      {tr : 'DATABASE.TYPE_RESEARCH.T_TITLE', id: 'research'},
-      {tr : 'DATABASE.TYPE_LITERARYWORK.T_TITLE', id: 'literary-work'}
-    ];
+        this.definitions.types = [{
+            tr: 'DATABASE.TYPE_INVENTORY.T_TITLE',
+            id: 'inventory'
+        }, {
+            tr: 'DATABASE.TYPE_RESEARCH.T_TITLE',
+            id: 'research'
+        }, {
+            tr: 'DATABASE.TYPE_LITERARYWORK.T_TITLE',
+            id: 'literary-work'
+        }];
 
-    this.definitions.states = [
-      {tr : 'DATABASE.STATE_INPROGRESS.T_TITLE', id: 'in-progress'},
-      {tr : 'DATABASE.STATE_FINISHED.T_TITLE', id: 'finished'}
-    ];
+        this.definitions.states = [{
+            tr: 'DATABASE.STATE_INPROGRESS.T_TITLE',
+            id: 'in-progress'
+        }, {
+            tr: 'DATABASE.STATE_FINISHED.T_TITLE',
+            id: 'finished'
+        }];
 
-    this.definitions.contexts = [
-      {tr : 'DATABASE.CONTEXT_ACADEMIC_WORK.T_TITLE', id: 'academic_work'},
-      {tr : 'DATABASE.CONTEXT_CONTRACT.T_TITLE', id: 'contract'},
-      {tr : 'DATABASE.CONTEXT_RESEARCH_TEAM.T_TITLE', id: 'research_team'},
-      {tr : 'DATABASE.CONTEXT_OTHER.T_TITLE', id: 'other'}
-    ];
+        this.definitions.contexts = [{
+            tr: 'DATABASE.CONTEXT_ACADEMIC_WORK.T_TITLE',
+            id: 'academic-work'
+        }, {
+            tr: 'DATABASE.CONTEXT_CONTRACT.T_TITLE',
+            id: 'contract'
+        }, {
+            tr: 'DATABASE.CONTEXT_RESEARCH_TEAM.T_TITLE',
+            id: 'research_team'
+        }, {
+            tr: 'DATABASE.CONTEXT_OTHER.T_TITLE',
+            id: 'other'
+        }];
 
-    this.definitions.occupations = [
-      {tr : 'DATABASE.SITE_OCCUPATION_NOTDOCUMENTED', id: 'not_documented'},
-      {tr : 'DATABASE.SITE_OCCUPATION_SINGLE.T_TITLE', id: 'single'},
-      {tr : 'DATABASE.SITE_OCCUPATION_CONTINUOUS.T_TITLE', id: 'continuous'},
-      {tr : 'DATABASE.SITE_OCCUPATION_MULTIPLE.T_TITLE', id: 'multiple'}
-    ];
+        this.definitions.occupations = [{
+            tr: 'DATABASE.SITE_OCCUPATION_NOTDOCUMENTED',
+            id: 'not_documented'
+        }, {
+            tr: 'DATABASE.SITE_OCCUPATION_SINGLE.T_TITLE',
+            id: 'single'
+        }, {
+            tr: 'DATABASE.SITE_OCCUPATION_CONTINUOUS.T_TITLE',
+            id: 'continuous'
+        }, {
+            tr: 'DATABASE.SITE_OCCUPATION_MULTIPLE.T_TITLE',
+            id: 'multiple'
+        }];
 
-    this.definitions.knowledgeTypes = [
-      {tr : 'DATABASE.KNOWLEDGE_TYPE_NOTDOCUMENTED.T_TITLE', id: 'not_documented'},
-      {tr : 'DATABASE.KNOWLEDGE_TYPE_LITERATURE.T_TITLE', id: 'literature'},
-      {tr : 'DATABASE.KNOWLEDGE_TYPE_PROSPECTED_AERIAL.T_TITLE', id: 'prospected_aerial'},
-      {tr : 'DATABASE.KNOWLEDGE_TYPE_PROSPECTED_PEDESTRIAN.T_TITLE', id: 'prospected_pedestrian'},
-      {tr : 'DATABASE.KNOWLEDGE_TYPE_SURVEYED.T_TITLE', id: 'surveyed'},
-      {tr : 'DATABASE.KNOWLEDGE_TYPE_DIG.T_TITLE', id: 'dig'}
-    ];
+        this.definitions.knowledgeTypes = [{
+            tr: 'DATABASE.KNOWLEDGE_TYPE_NOTDOCUMENTED.T_TITLE',
+            id: 'not_documented'
+        }, {
+            tr: 'DATABASE.KNOWLEDGE_TYPE_LITERATURE.T_TITLE',
+            id: 'literature'
+        }, {
+            tr: 'DATABASE.KNOWLEDGE_TYPE_PROSPECTED_AERIAL.T_TITLE',
+            id: 'prospected_aerial'
+        }, {
+            tr: 'DATABASE.KNOWLEDGE_TYPE_PROSPECTED_PEDESTRIAN.T_TITLE',
+            id: 'prospected_pedestrian'
+        }, {
+            tr: 'DATABASE.KNOWLEDGE_TYPE_SURVEYED.T_TITLE',
+            id: 'surveyed'
+        }, {
+            tr: 'DATABASE.KNOWLEDGE_TYPE_DIG.T_TITLE',
+            id: 'dig'
+        }];
 
-  }]);
+    }]);
 })()
