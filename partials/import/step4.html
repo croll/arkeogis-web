@@ -9,21 +9,21 @@
     <h1 class="md-display-1">
       <span translate>IMPORT_STEP4.FORM.T_TITLE</span>
       "{{importFields.DatabaseName}}"</h1>
-    <form name="publicationForm" class="md-padding">
+    <form name="moreInfosForm" class="md-padding" ng-submit="submit(this.moreInfosForm)">
       <md-content layout="column" layout-gt-sm="row">
         <!-- left block -->
         <div class="md-padding" flex="50">
           <ark-form-block>
             <md-input-container>
               <label translate>IMPORT_STEP4.FIELD_STRUCTURE.T_LABEL</label>
-              <input name="structure" ng-model="moreInfosFields.structure">
+              <input name="structure" ng-model="database.structure">
             </md-input-container>
             <ark-help translate>IMPORT_STEP4.FIELD_STRUCTURE.T_HELP</ark-help>
           </ark-form-block>
           <ark-form-block>
             <md-input-container>
               <label translate>IMPORT_STEP4.FIELD_CONTRIBUTOR.T_LABEL</label>
-              <input name="contributor" ng-model="moreInfosFields.contributor">
+              <input name="contributor" ng-model="database.contributor">
             </md-input-container>
             <ark-help translate>IMPORT_STEP4.FIELD_CONTRIBUTOR.T_HELP</ark-help>
           </ark-form-block>
@@ -31,19 +31,19 @@
             <md-input-container>
               <label></label>
               <label translate>IMPORT_STEP4.FIELD_RESOURCE_ID.T_LABEL</label>
-              <input name="source_identifier" ng-model="moreInfosFields.source_identifier">
+              <input name="source_identifier" ng-model="database.source_identifier">
             </md-input-container>
             <ark-help translate>IMPORT_STEP4.FIELD_RESOURCE_ID.T_HELP</ark-help>
           </ark-form-block>
           <ark-form-block>
             <md-input-container>
               <label translate>IMPORT_STEP4.FIELD_URL.T_LABEL</label>
-              <input name="source_url" ng-model="moreInfosFields.source_url">
+              <input name="source_url" ng-model="database.source_url">
             </md-input-container>
             <ark-help translate>IMPORT_STEP4.FIELD_URL.T_HELP</ark-help>
           </ark-form-block>
           <ark-form-block>
-            <md-datepicker ng-model="moreInfosFields.source_declared_creation_date" md-placeholder="{{ 'IMPORT_STEP4.FIELD_DATE_IUR.T_LABEL' | translate }}"></md-datepicker>
+            <md-datepicker ng-model="database.source_declared_creation_date" md-placeholder="{{ 'IMPORT_STEP4.FIELD_DATE_IUR.T_LABEL' | translate }}"></md-datepicker>
             <ark-help translate>IMPORT_STEP4.FIELD_DATE_IUR.T_HELP</ark-help>
           </ark-form-block>
         </div>
@@ -51,19 +51,19 @@
         <div class="md-padding" flex-offset-gt-md="5" flex="50">
           <ark-form-block>
             <md-input-container>
-              <textarea ng-model="moreInfosFields.source_description" placeholder="{{ 'IMPORT_STEP4.FIELD_RESOURCE.T_LABEL' | translate }}
+              <textarea ng-model="database.source_description" placeholder="{{ 'IMPORT_STEP4.FIELD_RESOURCE.T_LABEL' | translate }}
 								" md-no-autogrow="true" style="height: 120px"></textarea>
             </md-input-container>
             <ark-help translate>IMPORT_STEP4.FIELD_RESOURCE.T_HELP</ark-help>
           </ark-form-block>
           <ark-form-block>
             <md-input-container>
-              <textarea ng-model="moreInfosFields.relation" placeholder="{{ 'IMPORT_STEP4.FIELD_RELATIONS.T_LABEL' | translate }}" md-no-autogrow="true" style="height: 120px"></textarea>
+              <textarea ng-model="database.source_relation" placeholder="{{ 'IMPORT_STEP4.FIELD_RELATIONS.T_LABEL' | translate }}" md-no-autogrow="true" style="height: 120px"></textarea>
             </md-input-container>
           </ark-form-block>
           <ark-form-block>
             <md-input-container>
-              <textarea ng-model="moreInfosFields.coverage" placeholder="{{ 'IMPORT_STEP4.FIELD_CONTEXT_DESCRIPTION.T_LABEL' | translate }}" md-no-autogrow="true" style="height: 120px"></textarea>
+              <textarea ng-model="database.context_description" placeholder="{{ 'IMPORT_STEP4.FIELD_CONTEXT_DESCRIPTION.T_LABEL' | translate }}" md-no-autogrow="true" style="height: 120px"></textarea>
             </md-input-container>
           </ark-form-block>
         </div>
@@ -91,19 +91,13 @@
                     <ark-form-block>
                         <md-input-container style="margin-top: 25px">
                             <textarea name="geographicallimit1" ng-model="desc_lang1" ark-translations="database.translations.geographical_limit" ark-translate ark-translate-bind-lang="1" aria-label="-" placeholder="{{ 'IMPORT_STEP4.FIELD_GEOGRAPHICAL_LIMIT_LANG1.T_LABEL' | translate}}" required></textarea>
-                            <div ng-messages="moreInfosFields.geographical_limit.$error">
-                                <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
-                            </div>
                         </md-input-container>
                     </ark-form-block>
                 </div>
                 <div class="md-padding" flex-offset-gt-md="5" flex>
                     <ark-form-block>
                         <md-input-container style="margin-top: 25px">
-                            <textarea name="geographicallimit2" ng-model="desc_lang2" ark-translations="database.translations.geographical_limit" ark-translate ark-translate-bind-lang="2" aria-label="-" placeholder="{{ 'IMPORT_STEP4.FIELD_GEOGRAPHICAL_LIMIT_LANG2.T_LABEL' | translate}}" required></textarea>
-                            <div ng-messages="moreInfosFields.geographical_limit.$error">
-                                <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
-                            </div>
+                            <textarea name="geographicallimit2" ng-model="geo_lang2" ark-translations="database.translations.geographical_limit" ark-translate ark-translate-bind-lang="2" aria-label="-" placeholder="{{ 'IMPORT_STEP4.FIELD_GEOGRAPHICAL_LIMIT_LANG2.T_LABEL' | translate}}" required></textarea>
                         </md-input-container>
                     </ark-form-block>
                 </div>
@@ -113,28 +107,22 @@
                 <div class="md-padding" flex>
                     <ark-form-block>
                         <md-input-container style="margin-top: 25px">
-                            <textarea name="bibliography1" ng-model="desc_lang1" ark-translations="database.translations.bibliography" ark-translate ark-translate-bind-lang="1" aria-label="-" placeholder="{{ 'IMPORT_STEP4.BIBLIOGRAPHY_LANG1.T_LABEL' | translate}}" required></textarea>
-                            <div ng-messages="moreInfosFields.bibliography.$error">
-                                <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
-                            </div>
+                            <textarea name="bibliography1" ng-model="biblio_lang1" ark-translations="database.translations.bibliography" ark-translate ark-translate-bind-lang="1" aria-label="-" placeholder="{{ 'IMPORT_STEP4.BIBLIOGRAPHY_LANG1.T_LABEL' | translate}}" required></textarea>
                         </md-input-container>
                     </ark-form-block>
                 </div>
                 <div class="md-padding" flex-offset-gt-md="5" flex>
                     <ark-form-block>
                         <md-input-container style="margin-top: 25px">
-                            <textarea name="bibliography2" ng-model="desc_lang2" ark-translations="database.translations.bibliography" ark-translate ark-translate-bind-lang="2" aria-label="-" placeholder="{{ 'IMPORT_STEP4.BIBLIOGRAPHY_LANG2.T_LABEL' | translate}}" required></textarea>
-                            <div ng-messages="moreInfosFields.bibliography.$error">
-                                <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
-                            </div>
+                            <textarea name="bibliography2" ng-model="biblio_lang2" ark-translations="database.translations.bibliography" ark-translate ark-translate-bind-lang="2" aria-label="-" placeholder="{{ 'IMPORT_STEP4.BIBLIOGRAPHY_LANG2.T_LABEL' | translate}}" required></textarea>
                         </md-input-container>
                     </ark-form-block>
                 </div>
             </md-content>
       <!-- Actions -->
       <md-content layout layout-sm="column" layout-padding layout-align="center center">
-        <md-button class="md-primary md-raised" ng-disabled="!publicationForm.$valid"><span translate>IMPORT_STEP4.FORM.T_BUTTON_SUBMIT</span></md-button>
-        <md-button class="md-raised md-hue-1" ui-sref="import.step3"><span translate>IMPORT_STEP4.FORM.T_BUTTON_BACK</span></md-button>
+        <md-button type="submit" class="md-primary md-raised" ng-disabled="!moreInfosForm.$valid"><span translate>IMPORT_STEP4.FORM.T_BUTTON_SUBMIT</span></md-button>
+        <md-button class="md-raised md-hue-1" ui-sref="arkeogis.import.step3"><span translate>IMPORT_STEP4.FORM.T_BUTTON_BACK</span></md-button>
         <md-content></form>
       </div>
 <div style="margin: 20px 10px">

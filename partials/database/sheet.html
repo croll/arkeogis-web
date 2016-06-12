@@ -1,0 +1,65 @@
+<md-content>
+    <section>
+        <md-subheader><span translate>DATABASE.INFORMATIONS.T_TITLE</span></md-subheader>
+        <div layout="row">
+            <div translate>DATABASE.INFORMATIONS.T_NAME</div>
+            <div>{{database.name}}</div>
+        </div>
+        <md-divider></md-divider>
+        <div layout="row">
+            <div translate>DATABASE.INFORMATIONS.T_AUTHOR_AND_CO_AUTHORS</div>
+            <div>{{database.author_and_co_authors}}</div>
+        </div>
+        <md-divider></md-divider>
+        <div layout="row">
+            <div translate>DATABASE.INFORMATIONS.T_SUBJECT_AND_KEYWORDS</div>
+            <div>{{database.subject}}</div>
+        </div>
+        <md-divider></md-divider>
+        <div layout="row">
+            <div translate>DATABASE.INFORMATIONS.T_TYPE</div>
+            <div>{{databaseDefinitions[database.type]}}</div>
+        </div>
+        <md-divider></md-divider>
+        <div layout="row">
+            <div translate>DATABASE.INFORMATIONS.T_NUMBER_OF_LINES</div>
+            <div>{{database.number_of_lines}}</div>
+        </div>
+        <md-divider></md-divider>
+        <div layout="row">
+            <div translate>DATABASE.INFORMATIONS.T_NUMBER_OF_SITES</div>
+            <div>{{database.number_of_sites}}</div>
+        </div>
+        <md-divider></md-divider>
+        <div layout="row">
+            <div translate>DATABASE.INFORMATIONS.T_GEOGRAPHICAL_EXTENT</div>
+            <div>{{databaseDefinitions[database.geographical_extent]}}</div>
+        </div>
+        <md-divider></md-divider>
+        <div layout="row">
+            <div translate>DATABASE.INFORMATIONS.T_STARTING_PERIOD</div>
+            <div>{{database.startDate1}} - {{database.startDate2}}</div>
+        </div>
+        <md-divider></md-divider>
+        <div layout="row">
+            <div translate>DATABASE.INFORMATIONS.T_ENDING_PERIOD</div>
+            <div>{{database.endDate1}} - {{database.endDate2}}</div>
+        </div>
+        <md-divider></md-divider>
+        <div layout="row">
+            <div translate>DATABASE.INFORMATIONS.T_CONTEXT</div>
+            <div>{{database.context}}</div>
+        </div>
+        <md-divider></md-divider>
+        <div layout="row">
+            <div translate>DATABASE.INFORMATIONS.T_LICENSE</div>
+            <div>{{database.license}}</div>
+        </div>
+        <md-divider></md-divider>
+        <div layout="row">
+            <div translate>DATABASE.INFORMATIONS.T_DESCRIPTION</div>
+            <div ark-get-translation ark-translations="database.translations.description"</div>
+        </div>
+        <md-divider></md-divider>
+    </section>
+</md-content>
