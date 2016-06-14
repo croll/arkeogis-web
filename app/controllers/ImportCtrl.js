@@ -31,8 +31,8 @@
 
             //arkeoImport.tabs.selectedIndex = 3;
 
-            if (!angular.isDefined(database.id) || !database.id) {
-                database.default_language = login.user.first_lang_id;
+            if (typeof(database.id) == undefined || !database.id) {
+                database.default_language = login.user.first_lang_isocode;
             }
 
             $scope.database = database;
@@ -314,7 +314,7 @@
                     dbObj.description = [];
                     for (var iso_code in database.translations.description) {
                         if (database.translations.description.hasOwnProperty(iso_code)) {
-                            dbObj.description.push({lang_id: arkeoLang.getIdFromIsoCode(iso_code), text: database.translations.description[iso_code]});
+                            dbObj.description.push({lang_isocode: iso_code, text: database.translations.description[iso_code]});
                         }
                     }
                     dbObj.contexts = [];
@@ -356,13 +356,13 @@
                     dbObj.bibliography= [];
                     for (var iso_code in database.translations.bibliography) {
                         if (database.translations.bibliography.hasOwnProperty(iso_code)) {
-                            dbObj.bibliography.push({lang_id: arkeoLang.getIdFromIsoCode(iso_code), text: database.translations.bibliography[iso_code]});
+                            dbObj.bibliography.push({lang_isocode: iso_code, text: database.translations.bibliography[iso_code]});
                         }
                     }
                     dbObj.geographical_limit= [];
                     for (var iso_code in database.translations.geographical_limit) {
                         if (database.translations.geographical_limit.hasOwnProperty(iso_code)) {
-                            dbObj.geographical_limit.push({lang_id: arkeoLang.getIdFromIsoCode(iso_code), text: database.translations.geographical_limit[iso_code]});
+                            dbObj.geographical_limit.push({lang_isocode: iso_code, text: database.translations.geographical_limit[iso_code]});
                         }
                     }
                     $http.post("/api/import/step4", dbObj).then(function(result) {

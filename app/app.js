@@ -126,7 +126,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                                 arkeoImport.currentDb = db;
                                 /*
                                 if (typeof(db.id) == undefined && login.user.firstname) {
-                                    db.default_language = login.user.first_lang_id;
+                                    db.default_language = login.user.first_lang_isocode;
                                 }
                                 */
                                 deferred.resolve(db);
@@ -210,6 +210,12 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 controller: "UserCtrl",
                 resolve: {}
             })
+            .state('arkeogis.preferences', {
+                url: "/user/preferences",
+                templateUrl: "partials/user/preferences.html",
+                controller: "UserPreferencesCtrl",
+                resolve: {}
+            })
             .state('arkeogis.group', {
                 url: "/group",
                 templateUrl: "partials/user/groups.html",
@@ -222,7 +228,6 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 controller: "LangEditorCtrl",
                 resolve: {}
             })
-
             .state('arkeogis.chronoditor-list', {
                 url: "/chronoditor-list",
                 templateUrl: "partials/chronoditor-list.html",

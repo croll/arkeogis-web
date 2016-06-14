@@ -68,7 +68,7 @@
                 isArray: false,
                 transformResponse: function(data, headers) {
                     if (data == 'null' || data == null) {
-                        var dbInfos = {default_language: login.user.first_lang_id, contexts: [], translations: {
+                        var dbInfos = {default_language: login.user.first_lang_isocode, contexts: [], translations: {
                             description: {},
                             bibliography: {},
                             geographical_limit: {}
