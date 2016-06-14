@@ -38,8 +38,8 @@
                     $cookies.put('arkeogis_session_token', ret.data.Token);
                     //ArkeoGIS.token=ret.data.Token;
                     self.user = new User(ret.data.User);
-                    arkeoLang.setUserLang(1, ret.data.lang1.iso_code)
-                    arkeoLang.setUserLang(2, ret.data.lang2.iso_code)
+                    arkeoLang.setUserLang(1, ret.data.lang1.isocode)
+                    arkeoLang.setUserLang(2, ret.data.lang2.isocode)
                     self.permissions = ret.data.permissions;
                     resolve(self.user);
                 }, function(err) {
@@ -53,8 +53,8 @@
             var promise = $q(function(resolve, reject) {
                 $http.get('/api/relogin').then(function(ret) {
                     self.user = new User(ret.data.User);
-                    arkeoLang.setUserLang(1, ret.data.lang1.iso_code)
-                    arkeoLang.setUserLang(2, ret.data.lang2.iso_code)
+                    arkeoLang.setUserLang(1, ret.data.lang1.isocode)
+                    arkeoLang.setUserLang(2, ret.data.lang2.isocode)
                     self.permissions = ret.data.permissions;
                     resolve(self.user);
                 }, function(err) {
@@ -68,8 +68,8 @@
             var promise = $q(function(resolve, reject) {
                 $http.get('/api/logout').then(function(ret) {
                     self.user = new User(ret.data.User);
-                    arkeoLang.setUserLang(1, ret.data.lang1.iso_code)
-                    arkeoLang.setUserLang(2, ret.data.lang2.iso_code)
+                    arkeoLang.setUserLang(1, ret.data.lang1.isocode)
+                    arkeoLang.setUserLang(2, ret.data.lang2.isocode)
                     self.permissions = ret.data.permissions;
                     resolve(self.user);
                 }, function(err) {
