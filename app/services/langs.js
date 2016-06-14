@@ -74,13 +74,11 @@
         return self.userLangs[num];
     };
 
-    this.setUserLang = function(num, idOrIsoCode) {
+    this.setUserLang = function(num, iso_code) {
         if ([1,2].indexOf(num) == -1) {
             console.log("Error with setUserLang(): Wrong value lang num. Should be 1 or 2");
             return false;
         }
-        var iso_code = self.getIsoCode(idOrIsoCode);
-        if (!iso_code) return false;
         self.userLangs[num] = iso_code;
         $cookies.put('arkeogis_user_lang_'+num, iso_code);
         if (num == 1) {
@@ -89,28 +87,11 @@
         return true;
     };
 
-    self.getIsoCode = function(idOrIsoCode) {
-        var iso_code = null;
-        if (idOrIsoCode == parseInt(idOrIsoCode)) {
-            angular.forEach(self.langs, function(l) {
-                if (parseInt(l.id) == parseInt(idOrIsoCode)) {
-                    iso_code =  l.iso_code;
-                }
-            });
-        } else if (idOrIsoCode.match(/^[a-z]{2}$/)) {
-            iso_code = idOrIsoCode;
-        } else {
-            console.log("Wrong parameter passed to getIsoCode()");
-        }
-        return iso_code;
-    }
-
-    this.setTranslationLang = function(num, idOrIsoCode, englishTranslationDone, silent) {
+    this.setTranslationLang = function(num, iso_code, englishTranslationDone, silent) {
         if ([1,2].indexOf(num) == -1) {
             console.log("Error with setTranslationLang(): Wrong value lang num. Should be 1 or 2");
             return false;
         }
-        var iso_code = self.getIsoCode(idOrIsoCode);
         if (!iso_code) {
             console.log('Unable to set translation lang');
             return false;
