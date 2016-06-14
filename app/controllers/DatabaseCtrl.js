@@ -21,8 +21,10 @@
 
 (function() {
   'use strict';
-  ArkeoGIS.controller('ArkeoDatabaseCtrl', ['$scope',
-    function($scope) {
+  ArkeoGIS.controller('DatabaseCtrl', ['$scope', 'database', 'databaseDefinitions',
+    function($scope, database, databaseDefinitions) {
+        $scope.database = database;
+        $scope.databaseDefinitions = databaseDefinitions;
     }
   ]);
 })();
