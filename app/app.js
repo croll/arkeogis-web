@@ -212,8 +212,20 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
             })
             .state('arkeogis.preferences', {
                 url: "/user/preferences",
-                templateUrl: "partials/user/preferences.html",
+                templateUrl: "partials/user/preferences/index.html",
                 controller: "UserPreferencesCtrl",
+                resolve: {}
+            })
+            .state('arkeogis.preferences.general', {
+                url: "/user/preferences",
+                templateUrl: "partials/user/preferences/general.html",
+                controller: "UserPreferencesCtrl",
+                resolve: {}
+            })
+            .state('arkeogis.mapeditor', {
+                url: "/mapeditor",
+                templateUrl: "partials/mapeditor.html",
+                controller: "MapEditorCtrl",
                 resolve: {}
             })
             .state('arkeogis.group', {
