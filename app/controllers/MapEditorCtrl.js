@@ -19,11 +19,42 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-(function () {
+(function() {
     'use strict';
-	ArkeoGIS.controller('MapEditorCtrl', ['$scope', function ($scope) {
+    ArkeoGIS.controller('MapEditorCtrl', ['$scope', 'mapService', 'login', '$http', function($scope, mapService, login, $http) {
 
-		angular.extend($scope, mapService.config);
+        angular.extend($scope, mapService.config);
 
-	}]);
+        $scope.infos = {};
+
+        $scope.removeAuthor = function(user) {
+            if (user.id == login.user.id) {
+                arkeoService.showMessage('IMPORT_STEP3.AUTHORS.T_UNABLE_TO_REMOVE_MAIN_AUTHOR');
+                database.authors.unshift(user);
+            }
+        }
+
+        $scope.searchUser = function(txt) {
+            return $http.get('/api/users/'+txt).then(function(result) {
+                return result.data;
+            });
+        }
+
+
+        $http.get('http://wxs.ign.fr/6cwsohzr2zx1asify37rppfv/autoconf/?keys=6cwsohzr2zx1asify37rppfv').then(function(res) {
+            console.log("REQUETE 1");
+            console.log(res);
+        });
+
+
+        $http.get('http://wxs.ign.fr/mdqr7be8bit9apu0oogndt3in/autoconf/?keys=mdqr7be8bit9apu0oogndt3in').then(function(res) {
+            console.log("REQUETE 2");
+            console.log(res);
+        });
+
+// curl -X GET http://wxs.ign.fr/mdqr7be8bit9apu0oogndt3in/autoconf/?keys=mdqr7be8bit9apu0oogndt3in
+
+// "http://wxs.ign.fr/6cwsohzr2zx1asify37rppfv/autoconf/?keys=6cwsohzr2zx1asify37rppfv"
+
+    }]);
 })();
