@@ -1,24 +1,21 @@
 <div layout>
+    ohoh
     <md-content flex="50">
         <form>
             <!-- Select WMS or Shapefile -->
             <ark-form-block>
                 <md-input-container>
                     <md-select name="type" ng-model="infos.type" placeholder="{{'MAPEDITOR.SELECT_SHP_OR_WMS.T_LABEL' | translate}}" required>
-                        <md-option value="wms">
-                            <span translate>MAPEDITOR.SELECT_SHP_OR_WMS.T_OPTION_WMS</span>
-                        </md-option>
                         <md-option value="shp">
-                            <span translate>MAPEDITOR.SELECT_SHP_OR_WMS.T_OPTION_SHP</span>
+                            <span translate>MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_SHP</span>
+                        </md-option>
+                        <md-option value="wms">
+                            <span translate>MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_WMS</span>
+                        </md-option>
+                        <md-option value="wmts">
+                            <span translate>MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_WMTS</span>
                         </md-option>
                     </md-select>
-                </md-input-container>
-            </ark-form-block>
-            <!-- SHP URL -->
-            <ark-form-block ng-hide="infos.type != 'shp'">
-                <md-input-container style="width:98%">
-                    <label>MAPEDITOR.FIELD_SHP_URL.T_LABEL</label>
-                    <input type="text" ng-model="infos.shp_url" flex>
                 </md-input-container>
             </ark-form-block>
             <!-- SHP FILE -->
@@ -28,16 +25,42 @@
                 </md-button>
                 <md-progress-linear md-mode="determinate" value="{{uploadProgress}}" md-buffer-value="100" ng-hide="!file"></md-progress-linear>
             </ark-form-block>
-            <!-- WMS URL -->
-            <ark-form-block ng-hide="infos.type != 'wms'">
-                <md-input-container style="width:98%">
-                    <label>MAPEDITOR.FIELD_WMS_URL.T_LABEL</label>
-                    <input type="text" ng-model="infos.shp_wms" flex>
+            <!-- SHP URL -->
+            <ark-form-block ng-hide="infos.type != 'shp'">
+                <md-input-container style="width:75%">
+                    <label><span translate>MAPEDITOR.FIELD_SHP_URL.T_LABEL</span></label>
+                    <input type="text" ng-model="infos.shp_url" flex>
                 </md-input-container>
                 <md-input-container>
-                    <input type="button" ng-click="getCapabilities()" />
+                    <md-button type="button" class="md-icon-button" ng-click="downloadShp()" >
+                        <md-icon>get_app</md-icon>
+                    </md-button>
                 </md-input-container>
             </ark-form-block>
+            <!-- WMS URL -->
+            <ark-form-block ng-hide="infos.type != 'wmts' && infos.type != 'wms'">
+                <md-input-container style="width:75%">
+                    <label><span translate>MAPEDITOR.FIELD_WMS_URL.T_LABEL</span></label>
+                    <input type="text" ng-model="infos.wms_url" flex>
+                </md-input-container>
+                <md-input-container>
+                    <md-button type="button" class="md-icon-button" ng-click="getLayers()" >
+                        <md-icon>get_app</md-icon>
+                    </md-button>
+                </md-input-container>
+            </ark-form-block>
+            <div ng-hide="getCapabilities != false" translate>
+                MAPEDITOR.MESSAGE_GET_LAYER_LIST.T_ERROR
+            </div>
+            <div ng-hide="getCapabilities != true" translate>
+                MAPEDITOR.MESSAGE_GET_LAYER_LIST.T_SUCCESS
+            </div>
+            <!-- WMS and WMTS layers list -->
+          <md-input-container ng-hide="getCapabilities != true">
+            <md-select name="selectedLayer" ng-model="selectedLayer" placeholder="{{'MAPEDITOR.FIELD_SELECT_LAYER.T_LABEL' | translate}}" required >
+              <md-option value="{{layer.identifier}}" ng-repeat="layer in wmsLayers" >{{layer.title}}</md-option>
+            </md-select>
+          </md-input-container>
             <!-- Dates -->
             <ark-form-block ng-hide="!isValid">
                 <md-input-container flex="50">
@@ -68,3 +91,5 @@
     </md-content>
 </div>
 {{infos}}
+<div>----</div>
+{{getCapabilities}}
