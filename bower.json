@@ -20,6 +20,7 @@
     "angular-nvd3": "latest",
     "angular-i18n": "latest",
     "ui-leaflet": "^1.0.0",
-    "leaflet-plugins": "^1.6.1"
+    "leaflet-plugins": "^1.6.1",
+    "angular-xml": "^2.2.1"
   }
 }

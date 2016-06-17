@@ -21,8 +21,8 @@
 
 (function() {
 	'use strict';
-	ArkeoGIS.controller('MapCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', 'arkeoService', 'leafletData',
-	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, arkeoService, leafletData) {
+	ArkeoGIS.controller('MapCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', 'arkeoService', 'leafletData', 'mapService',
+	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, arkeoService, leafletData, mapService) {
 		// Get map area to fit full screen
 		var resize = function() {
 			$scope.mapHeight = $(window).height() - $(".md-default-theme .md-toolbar-tools").height() - 65 +"px";
@@ -36,55 +36,7 @@
 
 		// Leaflet init
 
-		angular.extend($scope, {
-			defaults: {
-				zoomControlPosition: 'topright'
-			},
-			center: {
-				lat: 48.58476,
-				lng: 7.750576,
-				zoom: 8
-			},
-		    layers: {
-                baselayers: {
-                    osm: {
-	                    name: 'OpenStreetMap',
-	                    url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-	                    type: 'xyz'
-                    },
-					mapquest: {
-						name: 'MapQuest',
-						url: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png',
-						type: 'xyz'
-					},
-					googleTerrain: {
-                        name: 'Google Terrain',
-                        layerType: 'TERRAIN',
-                        type: 'google'
-                    },
-                    googleHybrid: {
-	                    name: 'Google Hybrid',
-	                    layerType: 'HYBRID',
-	                    type: 'google'
-	                },
-                    googleRoadmap: {
-                        name: 'Google Streets',
-                        layerType: 'ROADMAP',
-                        type: 'google'
-                    }
-                },
-                overlays:{}
-            },
-			controls: {
-				scale: {
-					imperial: false,
-					position: 'bottomright'
-				},
-				fullscreen: {
-					position: 'topright'
-				}
-			}
-	});
+		angular.extend($scope, mapService.config);
 	// Get the countries geojson data from a JSON
         $http.get("/api/search/sites/"+dbToGet).success(function(data, status) {
 

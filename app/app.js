@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-var ArkeoGIS = angular.module('ArkeoGIS', ['md.data.table', 'ngMaterial', 'ngMessages', 'ui.router', 'ngResource', 'nemLogging', 'ui-leaflet', 'pascalprecht.translate', 'ngFileUpload', 'nvd3', 'ngCookies']);
+var ArkeoGIS = angular.module('ArkeoGIS', ['md.data.table', 'ngMaterial', 'ngMessages', 'ui.router', 'ngResource', 'nemLogging', 'ui-leaflet', 'pascalprecht.translate', 'ngFileUpload', 'nvd3', 'ngCookies', 'xml']);
 
 ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$translateProvider', '$httpProvider',
     function($mdThemingProvider, $stateProvider, $urlRouterProvider, $locationProvider, $translateProvider, $httpProvider) {
@@ -212,8 +212,20 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
             })
             .state('arkeogis.preferences', {
                 url: "/user/preferences",
-                templateUrl: "partials/user/preferences.html",
+                templateUrl: "partials/user/preferences/index.html",
                 controller: "UserPreferencesCtrl",
+                resolve: {}
+            })
+            .state('arkeogis.preferences.general', {
+                url: "/user/preferences",
+                templateUrl: "partials/user/preferences/general.html",
+                controller: "UserPreferencesCtrl",
+                resolve: {}
+            })
+            .state('arkeogis.mapeditor', {
+                url: "/mapeditor",
+                templateUrl: "partials/mapeditor.html",
+                controller: "MapEditorCtrl",
                 resolve: {}
             })
             .state('arkeogis.group', {

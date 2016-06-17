@@ -39,6 +39,8 @@
 	<!-- shim is needed to support non-HTML5 FormData browsers (IE8-9)-->
 	<script src="bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
 	<script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+	<script src="bower_components/x2js/xml2json.min.js"></script>
+	<script src="bower_components/angular-xml/angular-xml.js"></script>
 	<!-- <script src="bower_components/ng-confirm/dist/ng-confirm.min.js"></script>  niclone: faut en trouver un qui marche -->
 	<!-- <script src="bower_components/ng-table/dist/ng-table.min.js"></script> -->
 	<script type="text/javascript" src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
@@ -49,6 +51,7 @@
 	<!--<script src="bower_components/angular-translate-loader-url/angular-translate-loader-url.min.js"></script>-->
 	<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
 	<script src="ext/feb-stepper/stepper.js"></script>
+	<script src="ext/leaflet.TileLayer.WMTS/leaflet-tilelayer-wmts.js"></script>
 	<script src="app/app.js"></script>
 	<script src="app/filters.js"></script>
 	<script src="app/directives/help.js"></script>
@@ -62,6 +65,7 @@
 	<script src="app/controllers/GroupCtrl.js"></script>
 	<script src="app/controllers/LoginCtrl.js"></script>
 	<script src="app/controllers/LangEditorCtrl.js"></script>
+	<script src="app/controllers/MapEditorCtrl.js"></script>
 	<script src="app/controllers/MapCtrl.js"></script>
 	<script src="app/controllers/ArkeoCtrl.js"></script>
 	<script src="app/controllers/ImportCtrl.js"></script>
@@ -75,6 +79,7 @@
 	<script src="app/services/import.js"></script>
 	<script src="app/services/langs.js"></script>
 	<script src="app/services/database.js"></script>
+	<script src="app/services/map.js"></script>
 </head>
 
 <body ng-app="ArkeoGIS" ng-controller="ArkeoCtrl as arkeo" layout="row" ng-cloak translate-namespace="MAIN">
@@ -130,7 +135,7 @@
 						<md-menu-item>
 							<md-button ui-sref="arkeogis.import.step1">
 								<p flex translate>.FIELD_MAINMENU.T_ITEM_IMPORT</p>
-								<md-icon md-svg-icon="img/icons/import.svg" md-menu-align-target></md-icon>
+								<md-icon>input</md-icon>
 							</md-button>
 						</md-menu-item>
 						<md-menu-item>
@@ -140,9 +145,21 @@
 							</md-button>
 						</md-menu-item>
 						<md-menu-item>
+							<md-button ui-sref="arkeogis.preferences">
+								<p flex translate>.FIELD_MAINMENU.T_ITEM_PREFERENCES</p>
+								<md-icon>build</md-icon>
+							</md-button>
+						</md-menu-item>
+						<md-menu-item>
+							<md-button ui-sref="arkeogis.mapeditor">
+								<p flex translate>.FIELD_MAINMENU.T_ITEM_MAPEDITOR</p>
+								<md-icon>isok</md-icon>
+							</md-button>
+						</md-menu-item>
+						<md-menu-item>
 							<md-button ui-sref="arkeogis.chronoditor-list">
 								<p flex translate>Éditeur de chronologies</p>
-								<md-icon>build</md-icon>
+								<md-icon>schedule</md-icon>
 							</md-button>
 						</md-menu-item>
 						<md-menu-item>
