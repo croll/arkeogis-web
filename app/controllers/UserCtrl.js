@@ -39,9 +39,27 @@
 		}
 		var users_bookmark_page=1;
 
+		function translate_groups(a) {
+			var res=[];
+			if (!a) return res;
+			a.forEach(function(el) {
+				res.push({
+					group_id: el[0].group_id,
+					tr: arkeoService.mapSqlTranslations(el, "name"),
+				});
+			});
+			return res;
+		}
+
 		function getUsers(query) {
  			$scope.users = User.get(query || $scope.users_query).$promise.then(function(users) {
-//				console.log("updated ! ", users);
+				// update groups translations...
+				users.data.forEach(function(row) {
+					row.groups_user = translate_groups(row.groups_user);
+					row.groups_charac = translate_groups(row.groups_charac);
+					row.groups_chronology = translate_groups(row.groups_chronology);
+				});
+				console.log("updated ! ", users);
 				$scope.users = users;
 			}, function(err) {
 				$mdToast.show($mdToast.simple().textContent("Something bas appened ! can't load users...").position('bottom left'));
