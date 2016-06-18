@@ -198,19 +198,5 @@
             });
         }
 
-        // map an sql translation object to a js translation object
-        // exemple, input is :
-        // [ {group_id: 1, name: "Administrator", isocode: "en"}, {group_id: 1, name: "Administrateur", isocode: "fr"} ]
-        // become :
-        // { 'en': {group_id: 1, name: "Administrator", isocode: "en"}, 'fr': {group_id: 1, name: "Administrateur", isocode: "fr"}}
-        this.mapSqlTranslations = function(a, fieldname) {
-            b={};
-            a.forEach(function(el) {
-                if ('lang_isocode' in el)
-                    el.isocode = el.lang_isocode;
-                b[el.isocode] = el[fieldname];
-            });
-            return b;
-        }
     }]);
 })();

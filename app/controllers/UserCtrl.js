@@ -21,7 +21,7 @@
 
 (function () {
 	'use strict';
-	ArkeoGIS.controller('UserCtrl', ['$scope', 'user', 'login', 'arkeoLang', '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", function ($scope, User, Login, arkeoLangs, $mdDialog, $http, $q, arkeoService, $mdToast) {
+	ArkeoGIS.controller('UserCtrl', ['$scope', 'user', 'login', 'arkeoLang', '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", function ($scope, User, Login, arkeoLang, $mdDialog, $http, $q, arkeoService, $mdToast) {
 
 		if (!Login.requirePermission('adminusers', 'arkeogis.user'))
             return;
@@ -45,7 +45,7 @@
 			a.forEach(function(el) {
 				res.push({
 					group_id: el[0].group_id,
-					tr: arkeoService.mapSqlTranslations(el, "name"),
+					tr: arkeoLang.mapSqlTranslations(el, "name"),
 				});
 			});
 			return res;
@@ -200,9 +200,17 @@
 				};
 			}
 
+			if (user.city_and_country.country.tr) {
+				user.city_and_country.country.name = arkeoLang.getMappedTranslation(user.city_and_country.country.tr);
+			}
+
 			if (user.city_and_country.country && user.city_and_country.country.name == "") {
 				user.city_and_country.country=null;
 				$scope.searchTextCountry = "";
+			}
+
+			if (user.city_and_country.city.tr) {
+				user.city_and_country.city.name = arkeoLang.getMappedTranslation(user.city_and_country.city.tr);
 			}
 
 			if (user.city_and_country.city && user.city_and_country.city.name == "") {
@@ -266,7 +274,7 @@
 		}
 
 		function getUserSuccess(user) {
-//			console.log("user loaded before hack: ", user);
+			console.log("user loaded before hack: ", user);
 			hackAutocompletes(user);
 			//$scope.user=user;
 //			console.log("user loaded after hack: ", user);
