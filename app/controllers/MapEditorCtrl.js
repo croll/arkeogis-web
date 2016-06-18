@@ -21,7 +21,7 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('MapEditorCtrl', ['$scope', 'arkeoService', 'mapService', 'login', '$http', 'X2JS', '$q', 'leafletData', function($scope, arkeoService, mapService, login, $http, X2JS, $q, leafletData) {
+    ArkeoGIS.controller('MapEditorCtrl', ['$scope', 'arkeoService', 'mapService', 'login', '$http', 'X2JS', '$q', 'leafletData', 'Upload', function($scope, arkeoService, mapService, login, $http, X2JS, $q, leafletData, Upload) {
 
         angular.extend($scope, mapService.config);
 
@@ -45,10 +45,12 @@
         // $scope.infos.type = 'wmts';
         // $scope.infos.wms_url = 'http://wxs.ign.fr/6cwsohzr2zx1asify37rppfv/geoportail/wmts';
 
-        $scope.reset = function() {
-            $scope.infos = angular.copy(defaultInfos);
+        $scope.reset = function(type) {
+            $scope.infos = angular.copy($scope.infos);
+            console.log($scope.infos);
             $scope.layers.overlays = [];
             $scope.wmsLayers = [];
+            console.log(type);
             $scope.hideFields = true;
             $scope.getCapabilities = null;
         }
@@ -223,6 +225,16 @@
                 });
                 $scope.licenses = licenses;
             });
+        };
+
+        $scope.uploadSHP = function(file) {
+          return Upload.upload({
+            url: 'api/shapefile/togeojson',
+            data: {
+              shp: file,
+              infos: Upload.json(infos)
+            }
+          });
         };
 
     }]);
