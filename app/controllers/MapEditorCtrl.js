@@ -47,10 +47,8 @@
 
         $scope.reset = function(type) {
             $scope.infos = angular.copy($scope.infos);
-            console.log($scope.infos);
             $scope.layers.overlays = [];
             $scope.wmsLayers = [];
-            console.log(type);
             $scope.hideFields = true;
             $scope.getCapabilities = null;
         }
@@ -228,13 +226,33 @@
         };
 
         $scope.uploadSHP = function(file) {
+            $scope.uploadProgress = 0;
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                shp(e.target.result).then(function(geojson){
+                    $scope.geojson = geojson;
+                    leafletData.getMap().then(function(map) {
+                        var myLayer = L.geoJson().addTo(map);
+                        myLayer.addData(geojson);
+                        console.log(geojson);
+                        map.fitBounds(myLayer.getBounds());
+                    });
+                }, function(err){
+                    console.log(err);
+                });
+            }
+            reader.onprogress = function(e) {
+                $scope.uploadProgress = parseInt(100.0 * e.loaded / e.total);
+            }
+            reader.readAsArrayBuffer(file);
+            /*
           return Upload.upload({
             url: 'api/shapefile/togeojson',
             data: {
-              shp: file,
-              infos: Upload.json(infos)
+              shp: file
             }
           });
+          */
         };
 
     }]);

@@ -19,7 +19,7 @@
             </ark-form-block>
             <!-- SHP FILE -->
             <ark-form-block ng-hide="type != 'shp'" style="margin-top: 30px">
-                <md-button class="md-raised" ngf-select="uploadSHP(file)" ng-model="infos.shp_file" name="file" ngf-pattern="'.shp'" accept=".shp" ngf-max-size="10MB">
+                <md-button class="md-raised" ngf-select="uploadSHP(file)" ng-model="file" name="file" ngf-pattern="'.shp,.zip'" accept=".shp,.zip" ngf-max-size="100MB">
                     <span translate>MAPEDITOR.BUTTON_SHP_FILE.T_LABEL</span>
                 </md-button>
                 <md-progress-linear md-mode="determinate" value="{{uploadProgress}}" md-buffer-value="100" ng-hide="!file"></md-progress-linear>
