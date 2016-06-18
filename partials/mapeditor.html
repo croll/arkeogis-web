@@ -26,7 +26,7 @@
             </ark-form-block>
         </ark-form-block>
         <!-- WMS URL -->
-        <ark-form-block ng-hide="!type || type.indexOf('wm') == -1" style="margin-top: 30px">
+        <ark-form-block ng-hide="!type || type == 'shp'" style="margin-top: 30px">
             <md-input-container style="width:75%">
                 <label>
                     <span translate>MAPEDITOR.FIELD_WMS_URL.T_LABEL</span>
@@ -44,7 +44,7 @@
             </md-input-container>
         </ark-form-block>
         <!-- Set zoom -->
-        <ark-form-block ng-hide="hideFields" style="margin-top: 30px;">
+        <ark-form-block ng-hide="hideFields || type == 'shp'" style="margin-top: 30px;">
             <div layout="row">
                 <div>
                     <md-input-container style="width:150px">
