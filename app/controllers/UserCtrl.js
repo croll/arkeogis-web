@@ -257,11 +257,19 @@
 					};
 				}
 
+				if (company.city_and_country && company.city_and_country.country && company.city_and_country.country.tr) {
+					company.city_and_country.country.name = arkeoLang.getMappedTranslation(company.city_and_country.country.tr);
+				}
+
 				if (company.city_and_country && company.city_and_country.country && company.city_and_country.country.name && company.city_and_country.country.name.length > 0) {
 					$scope.companies_country[index]={
 						name: company.city_and_country.country.name,
 						geonameid: company.city_and_country.country.geonameid,
 					};
+				}
+
+				if (company.city_and_country && company.city_and_country.city && company.city_and_country.city.tr) {
+					company.city_and_country.city.name = arkeoLang.getMappedTranslation(company.city_and_country.city.tr);
 				}
 
 				if (company.city_and_country && company.city_and_country.city && company.city_and_country.city.name && company.city_and_country.city.name.length > 0) {
