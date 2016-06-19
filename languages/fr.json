@@ -24,6 +24,21 @@
 		"GEOGRAPHICAL_EXTENT_WORLD": {
 			"T_TITLE": "Monde"
 		},
+		"INFORMATIONS": {
+			"T_AUTHOR_AND_CO_AUTHORS": "#!#DATABASE.INFORMATIONS.T_AUTHOR_AND_CO_AUTHORS",
+			"T_CONTEXT": "#!#DATABASE.INFORMATIONS.T_CONTEXT",
+			"T_DESCRIPTION": "#!#DATABASE.INFORMATIONS.T_DESCRIPTION",
+			"T_ENDING_PERIOD": "#!#DATABASE.INFORMATIONS.T_ENDING_PERIOD",
+			"T_GEOGRAPHICAL_EXTENT": "#!#DATABASE.INFORMATIONS.T_GEOGRAPHICAL_EXTENT",
+			"T_LICENSE": "#!#DATABASE.INFORMATIONS.T_LICENSE",
+			"T_NAME": "#!#DATABASE.INFORMATIONS.T_NAME",
+			"T_NUMBER_OF_LINES": "#!#DATABASE.INFORMATIONS.T_NUMBER_OF_LINES",
+			"T_NUMBER_OF_SITES": "#!#DATABASE.INFORMATIONS.T_NUMBER_OF_SITES",
+			"T_STARTING_PERIOD": "#!#DATABASE.INFORMATIONS.T_STARTING_PERIOD",
+			"T_SUBJECT_AND_KEYWORDS": "#!#DATABASE.INFORMATIONS.T_SUBJECT_AND_KEYWORDS",
+			"T_TITLE": "#!#DATABASE.INFORMATIONS.T_TITLE",
+			"T_TYPE": "#!#DATABASE.INFORMATIONS.T_TYPE"
+		},
 		"KNOWLEDGE_TYPE_DIG": {
 			"T_TITLE": "Fouillé"
 		},
@@ -68,6 +83,9 @@
 		},
 		"SITE_OCCUPATION_MULTIPLE": {
 			"T_TITLE": "Multiple"
+		},
+		"SITE_OCCUPATION_NOT_DOCUMENTED": {
+			"T_TITLE": "#!#DATABASE.SITE_OCCUPATION_NOT_DOCUMENTED.T_TITLE"
 		},
 		"SITE_OCCUPATION_SINGLE": {
 			"T_TITLE": "Unique"
@@ -272,15 +290,17 @@
 			"T_LINE1": "Suite à votre importation de la base de données : “nom de la base importée” , merci de bien vouloir renseigner les champs suivants de présentation de votre travail pour pouvoir publier votre base de données sur la plate-forme ArkeoGIS.",
 			"T_LINE2": "Par publier on entend de pouvoir interroger la base de données sur l’interface cartographique et la proposer à l’usage des autres utilisateurs d’ArkeoGIS.",
 			"T_LINE3": "Ces informations ne sont demandées qu’une fois avant publication, lors de réimportation possibles de “nom de la base de données” ces informations ne vous seront pas redemandées. Il vous sera possible par la suite de modifier ces informations et de renseigner d'autres champs complémentaires non obligatoires relatifs à la présentation de votre travail dans votre interface personnelle de gestion des informations relatives à la base de données. Cette interface de gestion est accessible depuis l’index des bases de donnée."
+		},
+		"MESSAGES": {
+			"T_PUBLICATION_INFORMATIONS_SAVED": "#!#IMPORT_STEP3.MESSAGES.T_PUBLICATION_INFORMATIONS_SAVED"
 		}
 	},
 	"IMPORT_STEP4": {
-		"FIELD_BIBLIOGRAPHY1": {
-			"T_HELP": "Merci de rédiger la citation qui doit être reprise à l’identique pour présenter ce travail.",
-			"T_LABEL": "Bibliographie langue principale"
+		"BIBLIOGRAPHY_LANG1": {
+			"T_LABEL": "#!#IMPORT_STEP4.BIBLIOGRAPHY_LANG1.T_LABEL"
 		},
-		"FIELD_BIBLIOGRAPHY2": {
-			"T_LABEL": "Bibliographie langue secondaire"
+		"BIBLIOGRAPHY_LANG2": {
+			"T_LABEL": "#!#IMPORT_STEP4.BIBLIOGRAPHY_LANG2.T_LABEL"
 		},
 		"FIELD_CONTEXT_DESCRIPTION": {
 			"T_LABEL": "Précision du cadre de réalisation"
@@ -293,12 +313,14 @@
 			"T_HELP": "Date de dépôt de la ressource de référence.",
 			"T_LABEL": "Date IUR"
 		},
-		"FIELD_GEOGRAPHICAL_EXTENT1": {
-			"T_HELP": "Suite aux informations nationales demandées dans le formulaire d’importation, vous pouvez ajouter des précisions de localisations libres.",
-			"T_LABEL": "Précision sur l'emprise géographique Langue principale:"
+		"FIELD_EDITOR": {
+			"T_LABEL": "#!#IMPORT_STEP4.FIELD_EDITOR.T_LABEL"
 		},
-		"FIELD_GEOGRAPHICAL_EXTENT2": {
-			"T_LABEL": "Précision sur l'emprise géographique Langue secondaire:"
+		"FIELD_GEOGRAPHICAL_LIMIT_LANG1": {
+			"T_LABEL": "#!#IMPORT_STEP4.FIELD_GEOGRAPHICAL_LIMIT_LANG1.T_LABEL"
+		},
+		"FIELD_GEOGRAPHICAL_LIMIT_LANG2": {
+			"T_LABEL": "#!#IMPORT_STEP4.FIELD_GEOGRAPHICAL_LIMIT_LANG2.T_LABEL"
 		},
 		"FIELD_RELATIONS": {
 			"T_LABEL": "Lien avec d'autres ressources."
@@ -310,10 +332,6 @@
 		"FIELD_RESOURCE_ID": {
 			"T_HELP": "Identifiant unique de la ressource",
 			"T_LABEL": "Identifiant uniforme de la ressource"
-		},
-		"FIELD_STRUCTURE": {
-			"T_HELP": "Nom de l'organisation ou du service à l'origine de la publication du document.",
-			"T_LABEL": "Structure éditrice"
 		},
 		"FIELD_URL": {
 			"T_HELP": "Adresse de la ressource",
@@ -327,6 +345,9 @@
 		"INFOS": {
 			"T_LINE1": "Merci de bien vouloir renseigner les champs suivants de complément de présentation de votre travail pour les autres utilisateurs de la plate-forme d’ArkeoGIS.",
 			"T_LINE2": ""
+		},
+		"MESSAGES": {
+			"T_MORE_INFORMATIONS_SAVED": "#!#IMPORT_STEP4.MESSAGES.T_MORE_INFORMATIONS_SAVED"
 		}
 	},
 	"LANGEDITOR": {
@@ -368,6 +389,8 @@
 			"T_ITEM_LOGIN": "S'identifier",
 			"T_ITEM_LOGOUT": "Déconnecter",
 			"T_ITEM_MAP": "Carte",
+			"T_ITEM_MAPEDITOR": "#!#MAIN.FIELD_MAINMENU.T_ITEM_MAPEDITOR",
+			"T_ITEM_PREFERENCES": "#!#MAIN.FIELD_MAINMENU.T_ITEM_PREFERENCES",
 			"T_ITEM_USERSMANAGER": "Éditeur d'utilisateurs"
 		},
 		"LOADING": {
@@ -417,6 +440,69 @@
 			"T_POLYGON": "Libre...",
 			"T_RECT": "Rectangle...",
 			"T_TITLE": "Zone géographique"
+		}
+	},
+	"MAPEDITOR": {
+		"BUTTON_SHP_FILE": {
+			"T_LABEL": "#!#MAPEDITOR.BUTTON_SHP_FILE.T_LABEL"
+		},
+		"FIELD_ALL": {
+			"T_ERROR_REQUIRED": "#!#MAPEDITOR.FIELD_ALL.T_ERROR_REQUIRED"
+		},
+		"FIELD_ATTRIBUTION": {
+			"T_LABEL": "#!#MAPEDITOR.FIELD_ATTRIBUTION.T_LABEL"
+		},
+		"FIELD_AUTHOR": {
+			"T_HELP": "#!#MAPEDITOR.FIELD_AUTHOR.T_HELP",
+			"T_LABEL": "#!#MAPEDITOR.FIELD_AUTHOR.T_LABEL"
+		},
+		"FIELD_COPYRIGHT": {
+			"T_LABEL": "#!#MAPEDITOR.FIELD_COPYRIGHT.T_LABEL"
+		},
+		"FIELD_CREATION_DATE": {
+			"T_HELP": "#!#MAPEDITOR.FIELD_CREATION_DATE.T_HELP",
+			"T_LABEL": "#!#MAPEDITOR.FIELD_CREATION_DATE.T_LABEL"
+		},
+		"FIELD_DESCRIPTION_LANG2": {
+			"T_LABEL": "#!#MAPEDITOR.FIELD_DESCRIPTION_LANG2.T_LABEL"
+		},
+		"FIELD_END_DATE": {
+			"T_LABEL": "#!#MAPEDITOR.FIELD_END_DATE.T_LABEL"
+		},
+		"FIELD_LICENSE": {
+			"T_HELP": "#!#MAPEDITOR.FIELD_LICENSE.T_HELP",
+			"T_LABEL": "#!#MAPEDITOR.FIELD_LICENSE.T_LABEL"
+		},
+		"FIELD_MAX_USAGE_DATE": {
+			"T_HELP": "#!#MAPEDITOR.FIELD_MAX_USAGE_DATE.T_HELP",
+			"T_LABEL": "#!#MAPEDITOR.FIELD_MAX_USAGE_DATE.T_LABEL"
+		},
+		"FIELD_MIN_SCALE": {
+			"T_LABEL": "#!#MAPEDITOR.FIELD_MIN_SCALE.T_LABEL"
+		},
+		"FIELD_NAME": {
+			"T_LABEL": "#!#MAPEDITOR.FIELD_NAME.T_LABEL"
+		},
+		"FIELD_SELECT_LAYER": {
+			"T_LABEL": "#!#MAPEDITOR.FIELD_SELECT_LAYER.T_LABEL"
+		},
+		"FIELD_START_DATE": {
+			"T_LABEL": "#!#MAPEDITOR.FIELD_START_DATE.T_LABEL"
+		},
+		"FIELD_WMS_URL": {
+			"T_LABEL": "#!#MAPEDITOR.FIELD_WMS_URL.T_LABEL"
+		},
+		"MESSAGE_GET_LAYER_LIST": {
+			"T_ERROR": "#!#MAPEDITOR.MESSAGE_GET_LAYER_LIST.T_ERROR",
+			"T_SUCCESS": "#!#MAPEDITOR.MESSAGE_GET_LAYER_LIST.T_SUCCESS"
+		},
+		"SELECT_SHP_OR_WMS": {
+			"T_LABEL": "#!#MAPEDITOR.SELECT_SHP_OR_WMS.T_LABEL"
+		},
+		"SELECT_SHP_WMS_WMTS": {
+			"T_OPTION_SHP": "#!#MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_SHP",
+			"T_OPTION_WMS": "#!#MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_WMS",
+			"T_OPTION_WMTS": "#!#MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_WMTS"
 		}
 	},
 	"USER": {
@@ -550,6 +636,38 @@
 		"USERSLIST_ACTIVE": {
 			"T_FALSE": "non",
 			"T_TRUE": "oui"
+		}
+	},
+	"USER_PREFERENCES": {
+		"BUTTON_SUBMIT": {
+			"T_LABEL": "#!#USER_PREFERENCES.BUTTON_SUBMIT.T_LABEL"
+		},
+		"FIELD_END_DATE": {
+			"T_LABEL": "#!#USER_PREFERENCES.FIELD_END_DATE.T_LABEL"
+		},
+		"FIELD_START_DATE": {
+			"T_LABEL": "#!#USER_PREFERENCES.FIELD_START_DATE.T_LABEL"
+		},
+		"INFORMATIONS": {
+			"T_TILE": "#!#USER_PREFERENCES.INFORMATIONS.T_TILE"
+		},
+		"INFORMATIONS_PERIOD_SELECTION": {
+			"T_LABEL": "#!#USER_PREFERENCES.INFORMATIONS_PERIOD_SELECTION.T_LABEL"
+		},
+		"INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA": {
+			"T_LABEL": "#!#USER_PREFERENCES.INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA.T_LABEL"
+		},
+		"INTERFACE_INFOS_USAGE": {
+			"T_LABEL": "#!#USER_PREFERENCES.INTERFACE_INFOS_USAGE.T_LABEL"
+		},
+		"TAB_CHRONOLOGIES": {
+			"T_LABEL": "#!#USER_PREFERENCES.TAB_CHRONOLOGIES.T_LABEL"
+		},
+		"TAB_DATABASES": {
+			"T_LABEL": "#!#USER_PREFERENCES.TAB_DATABASES.T_LABEL"
+		},
+		"TAB_MAPS": {
+			"T_LABEL": "#!#USER_PREFERENCES.TAB_MAPS.T_LABEL"
 		}
 	}
 }

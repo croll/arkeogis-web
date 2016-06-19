@@ -27,8 +27,8 @@
     var self = this;
 
     self.langs = [];
-    self.userLangs = {};
-    self.translationLangs = {};
+    self.userLangs = [];
+    self.translationLangs = [];
 
     this.init = function() {
         self.setTranslationLang(1, self.getUserLang(1));
@@ -128,7 +128,47 @@
         var iso_code2 = $cookies.get('arkeogis_translation_lang_2');
         if (!iso_code2) iso_code2 = self.getUserLang(2);
         return [iso_code1, iso_code2];
-    }
+    };
+
+    // map an sql translation object to a js translation object
+    // exemple, input is :
+    // [ {group_id: 1, name: "Administrator", isocode: "en"}, {group_id: 1, name: "Administrateur", isocode: "fr"} ]
+    // become :
+    // { 'en': {group_id: 1, name: "Administrator", isocode: "en"}, 'fr': {group_id: 1, name: "Administrateur", isocode: "fr"}}
+    this.mapSqlTranslations = function(a, fieldname) {
+        var b={};
+        a.forEach(function(el) {
+            if ('lang_isocode' in el)
+                el.isocode = el.lang_isocode;
+            b[el.isocode] = el[fieldname];
+        });
+        return b;
+    };
+
+    // return the translation using current lang of a mapped translation object like :
+    // { fr: 'Traduction', en: 'Translation', ... }
+    this.getMappedTranslation = function(translations) {
+        var latestisocode='';
+        for (var k in self.userLangs) {
+            var isocode = self.userLangs[k];
+            if (isocode in translations)
+                return translations[isocode];
+            latestisocode=isocode;
+        }
+
+        if ('D' in translations)
+            return translations['D'];
+
+        if ('D ' in translations)
+            return translations['D '];
+
+        if (lastestisocode) // no translation found... return any translation !
+            return translations[lastestisocode];
+
+        console.error("no translation found !", translations);
+        return "[error: no translation]";
+    };
+
 
 }]);
 })();
