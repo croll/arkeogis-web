@@ -103,6 +103,8 @@
 
         var self=this;
 
+		$scope.chronolang="fr";
+
 		$scope.chrono = {
 			author: 'Bernard Loup',
 			name: 'Âge du Bronze Vallée du Rhin',
