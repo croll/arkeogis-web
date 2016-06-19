@@ -96,35 +96,54 @@
 	 * ChronoEditorCtrl Chrono Editor Controller
 	 */
 
-	ArkeoGIS.controller('ChronoEditorCtrl', ['$scope', '$q', 'arkeoLang', 'login', function ($scope, $q, arkeoLang, Login) {
+	ArkeoGIS.controller('ChronoEditorCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', function ($scope, $q, $mdSidenav, arkeoLang, Login) {
 
 		//if (!Login.requirePermission('langeditor', 'langeditor'))
         //    return;
 
         var self=this;
 
+		$scope.chrono = {
+			author: 'Bernard Loup',
+			name: 'Âge du Bronze Vallée du Rhin',
+			description: 'La chrono du loup est la meilleur de tout ArkeoGIS, et c\'est tout à fait objectif !',
+			active: true,
+			created_at: new Date('2015-11-23T22:00:00.000Z'),
+			date_begin: -1800,
+			date_end: -801,
+			users: [
+				{
+					name: 'Loup Bernard'
+				},
+				{
+					name: 'Plop Plip'
+				}
+			],
+		};
+
 		$scope.arbo = {
-			title: "Ma chrono",
+			root: true,
+			title: { fr: "Ma chrono", 'en': "My chrono" },
 			begin: -1200,
 			end: -800,
 			content: [
 				{
-					title: "Chrono 1",
+					title: { fr: "Chrono 1", en: "Crono 1" },
 					begin: -1200,
 					end: -800,
 					content: [
 						{
-							title: "Chrono 1.1",
+							title: { fr: "Chrono 1.1", en: "Crono 1.1" },
 							begin: -1200,
 							end: -800,
 							content: [
 								{
-									title: "Chrono 1.1.1",
+									title: { fr: "Chrono 1.1.1", en: "Crono 1.1.1" },
 									begin: -1200,
 									end: -800,
 									content: [
 										{
-											title: "Chrono 1.1.1.1",
+											title: { fr: "Chrono 1.1.1.1", en: "Crono 1.1.1.1" },
 											begin: -1200,
 											end: -800,
 										},
@@ -135,38 +154,38 @@
 					],
 				},
 				{
-					title: "Chrono 2",
+					title: { fr: "Chrono 2", en: "Crono 2" },
 					begin: -800,
 					end: 200,
 					content: [
 						{
-							title: "Chrono 2.1",
+							title: { fr: "Chrono 2.1", en: "Crono 2.1" },
 							begin: -800,
 							end: 200,
 							content: [
 								{
-									title: "Chrono 2.1.1",
+									title: { fr: "Chrono 2.1.1", en: "Crono 2.1.1" },
 									begin: -800,
 									end: 0,
 									content: [
 										{
-											title: "Chrono 2.1.1.1",
+											title: { fr: "Chrono 2.1.1.1", en: "Crono 2.1.1.1" },
 										},
 									],
 								},
 								{
-									title: "Chrono 2.1.2",
+									title: { fr: "Chrono 2.1.2", en: "Crono 2.1.2" },
 									begin: 0,
 									end: 200,
 									content: [
 										{
-											title: "Chrono 2.1.2.1",
+											title: { fr: "Chrono 2.1.2.1", en: "Crono 2.1.2.1" },
 											begin: 0,
 											end: 99,
 											content: [],
 										},
 										{
-											title: "Chrono 2.1.2.2",
+											title: { fr: "Chrono 2.1.2.2", en: "Crono 2.1.2.2" },
 											begin: 100,
 											end: 200,
 											content: [],
@@ -215,6 +234,70 @@
 			});
 		}
 
+		function check_elem(elem, previous, next, parent) {
+			var errcount=0;
+
+			// vérifie que les dates se suivent
+			if (next) {
+				if ((elem.end+1) != next.begin) {
+					elem.end_err = true;
+					next.begin_err = true;
+					errcount++;
+				}
+			}
+
+			// vérifie que les dates du parent collent avec debut et fin du premier et dernier element
+			if (parent && !parent.root) {
+				if (!previous) {
+					if (elem.begin != parent.begin) {
+						elem.begin_err = true;
+						parent.begin_err = true;
+						errcount++;
+					}
+				}
+				if (!next) {
+					if (elem.end != parent.end) {
+						elem.end_err = true;
+						parent.end_err = true;
+						errcount++;
+						console.log("aie", elem.end, parent.end);
+					}
+				}
+			}
+
+			// vérifie que 'end' est bien > a 'begin'
+			if (!(elem.end > elem.begin)) {
+				elem.begin_err = true;
+				elem.end_err = true;
+			}
+
+			if ('content' in elem) {
+				for (var i=0; i<elem.content.length; i++) {
+					var sub_elem = elem.content[i];
+					var sub_previous = i > 0 ? elem.content[i-1] : null;
+					var sub_next = i < (elem.content.length-1) ? elem.content[i+1] : null;
+					errcount += check_elem(sub_elem, sub_previous, sub_next, elem);
+				}
+			}
+			return errcount;
+		}
+
+		function clear_elem_err(elem) {
+			delete elem.begin_err;
+			delete elem.end_err;
+			if ('content' in elem) {
+				for (var i=0; i<elem.content.length; i++) {
+					clear_elem_err(elem.content[i]);
+				}
+			}
+		}
+
+		$scope.check_all = function() {
+			clear_elem_err($scope.arbo);
+			var errcount = check_elem($scope.arbo, null, null, null);
+			console.log("errcount: ", errcount);
+		}
+
 		$scope.add_arbo = function(elem, parent, idx1, idx, level) {
 			elem.content.push({
 				title: "",
@@ -233,6 +316,13 @@
 
 
 		colorize_all();
+
+
+		$scope.openLeftMenu = function() {
+		    $mdSidenav('left').toggle();
+		};
+
+
     }]); // controller ChronoEditorCtrl
 
 })(); // all
