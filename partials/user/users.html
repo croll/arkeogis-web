@@ -70,8 +70,8 @@
                     <td md-cell>{{user.lastname}} {{user.firstname}}</td>
                     <td md-cell>{{user.email}}</td>
                     <td md-cell><span ng-repeat="group in user.groups_user"><span ark-get-translation ark-translations="group.tr"></span>{{$last ? '' : ', '}}</span></td>
-                    <td md-cell><span ng-repeat="group in user.groups_chronology">{{group.name}}{{$last ? '' : ', '}}</span></td>
-                    <td md-cell><span ng-repeat="group in user.groups_charac">{{group.name}}{{$last ? '' : ', '}}</span></td>
+                    <td md-cell><span ng-repeat="group in user.groups_chronology"><span ark-get-translation ark-translations="group.tr"></span>{{$last ? '' : ', '}}</span></td>
+                    <td md-cell><span ng-repeat="group in user.groups_charac"><span ark-get-translation ark-translations="group.tr"></span>{{$last ? '' : ', '}}</span></td>
                     <td md-cell>{{(user.active ? 'USER.USERSLIST_ACTIVE.T_TRUE' : 'USER.USERSLIST_ACTIVE.T_FALSE') | translate}}</td>
                     <td md-cell>{{user.country_and_city.country_name}}</td>
                     <td md-cell><span ng-repeat="company in user.companies">{{company.name}}{{$last ? '' : ', '}}</span></td>
