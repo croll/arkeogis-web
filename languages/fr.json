@@ -1,49 +1,49 @@
 {
 	"CHRONODITOR": {
 		"BUTTON_AREA": {
-			"T_TITLE": "#!#CHRONODITOR.BUTTON_AREA.T_TITLE"
+			"T_TITLE": "Emprise..."
 		},
 		"BUTTON_CLOSEMAP": {
-			"T_TITLE": "#!#CHRONODITOR.BUTTON_CLOSEMAP.T_TITLE"
+			"T_TITLE": "Fermer la carte"
 		},
 		"BUTTON_DELETE": {
-			"T_TITLE": "#!#CHRONODITOR.BUTTON_DELETE.T_TITLE"
+			"T_TITLE": "Supprimer"
 		},
 		"BUTTON_SAVE": {
-			"T_TITLE": "#!#CHRONODITOR.BUTTON_SAVE.T_TITLE"
+			"T_TITLE": "Enregistrer"
 		},
 		"HEADER_CHRONODITOR": {
-			"T_TITLE": "#!#CHRONODITOR.HEADER_CHRONODITOR.T_TITLE"
+			"T_TITLE": "Éditeur de chronologie"
 		},
 		"INFO_MEMBERS": {
-			"T_TITLE": "#!#CHRONODITOR.INFO_MEMBERS.T_TITLE"
+			"T_TITLE": "Membres du groupe de travail"
 		},
 		"INPUT_AUTHOR": {
-			"T_TITLE": "#!#CHRONODITOR.INPUT_AUTHOR.T_TITLE"
+			"T_TITLE": "Auteur"
 		},
 		"INPUT_CREDITS": {
-			"T_TITLE": "#!#CHRONODITOR.INPUT_CREDITS.T_TITLE"
+			"T_TITLE": "Crédits"
 		},
 		"INPUT_DESCRIPTION": {
-			"T_TITLE": "#!#CHRONODITOR.INPUT_DESCRIPTION.T_TITLE"
+			"T_TITLE": "Description"
 		},
 		"INPUT_ELEM_BEGIN": {
-			"T_TITLE": "#!#CHRONODITOR.INPUT_ELEM_BEGIN.T_TITLE"
+			"T_TITLE": "Début"
 		},
 		"INPUT_ELEM_END": {
-			"T_TITLE": "#!#CHRONODITOR.INPUT_ELEM_END.T_TITLE"
+			"T_TITLE": "Fin"
 		},
 		"INPUT_ELEM_TITLE": {
-			"T_TITLE": "#!#CHRONODITOR.INPUT_ELEM_TITLE.T_TITLE"
+			"T_TITLE": "Nom"
 		},
 		"INPUT_NAME": {
-			"T_TITLE": "#!#CHRONODITOR.INPUT_NAME.T_TITLE"
+			"T_TITLE": "Nom"
 		},
 		"SIDENAV": {
-			"T_TITLE": "#!#CHRONODITOR.SIDENAV.T_TITLE"
+			"T_TITLE": "Paramètres"
 		},
 		"SWITCH_PUBLISHED": {
-			"T_TITLE": "#!#CHRONODITOR.SWITCH_PUBLISHED.T_TITLE"
+			"T_TITLE": "Publié"
 		}
 	},
 	"DATABASE": {
