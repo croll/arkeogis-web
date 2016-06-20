@@ -35,12 +35,15 @@
                     <label>Crédits</label>
                     <input ng-model="arbo.credits"></input>
                 </md-input-container>
-                <md-input-container flex>
+                <div flex>
                     <label>Membres du groupe de travail</label>
-                    <md-contact-chips flex name="truit" ng-model="arbo.users" md-contacts="arbo.users" md-contact-name="name" md-contact-image="image" md-contact-email="email" md-require-match="true" md-highlight-flags="i" placeholder=""></md-contact-chips>
-                </md-input-container>
+                    <div>
+                        <span ng-repeat="user in arbo.users_in_group">{{$first ? '' : ', '}}{{user.firstname}} {{user.lastname}}</span>
+                    </div>
+                </div>
                 <md-input-container>
-                    <md-switch ng-model="arbo.active" aria-label="Publié"><span translate>Published</span></md-switch>
+                    <md-switch ng-model="arbo.active" ng-disabled="!publishable" aria-label="Publié"><span translate>Published</span></md-switch>
+                    <div>Publishable : {{publishable}}</div>
                 </md-input-container>
                 <md-toolbar class="md-theme-indigo">
                 <md-button class="md-raised" aria-label="Emprise" ng-click="chooseemprise=true">Emprise...</md-button>
@@ -182,7 +185,8 @@
         </md-content>
     </div>
 
-    <div id="chrono-emprise" ng-show="chooseemprise" ng-controller="ChronoEditorMapCtrl" style="width: 100%; height: 100%">
+    <div id="chrono-emprise" ng-show="chooseemprise" ng-controller="ChronoEditorMapCtrl" style="position: relative; width: 100%; height: 100%">
         <leaflet controls="controls" defaults="defaults" layers="layers" flex height="{{mapHeight}}" lf-center="center" width="100%"></leaflet>
+        <md-button style="position: absolute; left: 5px; top: 75px;" class="md-raised" ng-click="close()">Fermer la carte</md-button>
     </div>
 </div>
