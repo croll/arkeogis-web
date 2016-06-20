@@ -25,22 +25,22 @@
                 </md-input-container>
                 <md-input-container flex>
                     <label>Description</label>
-                    <textarea  ng-model="arbo.description_cur" ark-translate ark-translate-bind-lang="1" ark-translations="arbo.description"></textarea>
+                    <textarea ng-model="arbo.description_cur" ark-translate ark-translate-bind-lang="1" ark-translations="arbo.description"></textarea>
                 </md-input-container>
                 <md-input-container flex>
                     <label>Auteur</label>
-                    <input ng-model="chrono.author"></input>
+                    <input ng-model="arbo.author"></input>
                 </md-input-container>
                 <md-input-container flex>
                     <label>Crédits</label>
-                    <input ng-model="chrono.credits"></input>
+                    <input ng-model="arbo.credits"></input>
                 </md-input-container>
                 <md-input-container flex>
                     <label>Membres du groupe de travail</label>
-                    <md-contact-chips flex name="truit" ng-model="chrono.users" md-contacts="chrono.users" md-contact-name="name" md-contact-image="image" md-contact-email="email" md-require-match="true" md-highlight-flags="i" placeholder=""></md-contact-chips>
+                    <md-contact-chips flex name="truit" ng-model="arbo.users" md-contacts="arbo.users" md-contact-name="name" md-contact-image="image" md-contact-email="email" md-require-match="true" md-highlight-flags="i" placeholder=""></md-contact-chips>
                 </md-input-container>
                 <md-input-container>
-                    <md-switch ng-model="chrono.active" aria-label="Publié"><span translate>Published</span></md-switch>
+                    <md-switch ng-model="arbo.active" aria-label="Publié"><span translate>Published</span></md-switch>
                 </md-input-container>
                 <md-toolbar class="md-theme-indigo">
                 <md-button class="md-raised" aria-label="Emprise" ng-click="chooseemprise=true">Emprise...</md-button>
