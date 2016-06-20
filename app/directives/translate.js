@@ -42,7 +42,7 @@
 
                 scope.$watchCollection('translationLangs', function(newLangs, oldLangs) {
 
-                    switchModel(newLangs[scope.arkTranslateBindLang], oldLangs[scope.arkTranslateBindLang]);
+                    switchModel(newLangs[scope.arkTranslateBindLang]);
                 });
 
                 scope.$watch('ngModel', function(newTranslation) {
@@ -54,7 +54,11 @@
                     }
                 });
 
-                function switchModel(newIsoCode, oldIsoCode) {
+                scope.$watch('arkTranslations', function(newTranslations) {
+                    switchModel(scope.translationLangs[scope.arkTranslateBindLang]);
+                });
+
+                function switchModel(newIsoCode) {
                     if (!angular.isObject(scope.arkTranslations)) {
                         console.log("params passed to ark-translations is not an object : ", scope.arkTranslations);
                         return;
