@@ -96,7 +96,7 @@
 	 * ChronoEditorCtrl Chrono Editor Controller
 	 */
 
-	ArkeoGIS.controller('ChronoEditorCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', function ($scope, $q, $mdSidenav, arkeoLang, Login) {
+	ArkeoGIS.controller('ChronoEditorCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', '$http', 'arkeoService', function ($scope, $q, $mdSidenav, arkeoLang, Login, $http, arkeoService) {
 
 		//if (!Login.requirePermission('langeditor', 'langeditor'))
         //    return;
@@ -125,29 +125,30 @@
 
 		$scope.arbo = {
 			root: true,
-			title: { fr: "Ma chrono", 'en': "My chrono" },
-			begin: -1200,
-			end: -800,
+			name: { fr: "Ma chrono", 'en': "My chrono" },
+			description: {},
+			start_date: -1200,
+			end_date: -800,
 			content: [
 				{
-					title: { fr: "Chrono 1", en: "Crono 1" },
-					begin: -1200,
-					end: -800,
+					name: { fr: "Chrono 1", en: "Crono 1" },
+					start_date: -1200,
+					end_date: -800,
 					content: [
 						{
-							title: { fr: "Chrono 1.1", en: "Crono 1.1" },
-							begin: -1200,
-							end: -800,
+							name: { fr: "Chrono 1.1", en: "Crono 1.1" },
+							start_date: -1200,
+							end_date: -800,
 							content: [
 								{
-									title: { fr: "Chrono 1.1.1", en: "Crono 1.1.1" },
-									begin: -1200,
-									end: -800,
+									name: { fr: "Chrono 1.1.1", en: "Crono 1.1.1" },
+									start_date: -1200,
+									end_date: -800,
 									content: [
 										{
-											title: { fr: "Chrono 1.1.1.1", en: "Crono 1.1.1.1" },
-											begin: -1200,
-											end: -800,
+											name: { fr: "Chrono 1.1.1.1", en: "Crono 1.1.1.1" },
+											start_date: -1200,
+											end_date: -800,
 										},
 									],
 								},
@@ -156,40 +157,40 @@
 					],
 				},
 				{
-					title: { fr: "Chrono 2", en: "Crono 2" },
-					begin: -800,
-					end: 200,
+					name: { fr: "Chrono 2", en: "Crono 2" },
+					start_date: -800,
+					end_date: 200,
 					content: [
 						{
-							title: { fr: "Chrono 2.1", en: "Crono 2.1" },
-							begin: -800,
-							end: 200,
+							name: { fr: "Chrono 2.1", en: "Crono 2.1" },
+							start_date: -800,
+							end_date: 200,
 							content: [
 								{
-									title: { fr: "Chrono 2.1.1", en: "Crono 2.1.1" },
-									begin: -800,
-									end: 0,
+									name: { fr: "Chrono 2.1.1", en: "Crono 2.1.1" },
+									start_date: -800,
+									end_date: 0,
 									content: [
 										{
-											title: { fr: "Chrono 2.1.1.1", en: "Crono 2.1.1.1" },
+											name: { fr: "Chrono 2.1.1.1", en: "Crono 2.1.1.1" },
 										},
 									],
 								},
 								{
-									title: { fr: "Chrono 2.1.2", en: "Crono 2.1.2" },
-									begin: 0,
-									end: 200,
+									name: { fr: "Chrono 2.1.2", en: "Crono 2.1.2" },
+									start_date: 0,
+									end_date: 200,
 									content: [
 										{
-											title: { fr: "Chrono 2.1.2.1", en: "Crono 2.1.2.1" },
-											begin: 0,
-											end: 99,
+											name: { fr: "Chrono 2.1.2.1", en: "Crono 2.1.2.1" },
+											start_date: 0,
+											end_date: 99,
 											content: [],
 										},
 										{
-											title: { fr: "Chrono 2.1.2.2", en: "Crono 2.1.2.2" },
-											begin: 100,
-											end: 200,
+											name: { fr: "Chrono 2.1.2.2", en: "Crono 2.1.2.2" },
+											start_date: 100,
+											end_date: 200,
 											content: [],
 										},
 									],
@@ -218,7 +219,11 @@
 		function buildcolor(idx, level) {
 			idx=idx+1;
 			level=level-1;
-			return 'rgb('+colors[idx][level][0]+','+colors[idx][level][1]+','+colors[idx][level][2]+')';
+			//return 'rgb('+colors[idx][level][0]+','+colors[idx][level][1]+','+colors[idx][level][2]+')';
+			function toHex(d) {
+    			return ("0"+(Number(d).toString(16))).slice(-2);
+			}
+			return toHex(colors[idx][level][0])+toHex(colors[idx][level][1])+toHex(colors[idx][level][2]);
 		}
 
 		function colorize_all() {
@@ -241,9 +246,9 @@
 
 			// vérifie que les dates se suivent
 			if (next) {
-				if ((elem.end+1) != next.begin) {
-					elem.end_err = true;
-					next.begin_err = true;
+				if ((elem.end_date+1) != next.start_date) {
+					elem.end_date_err = true;
+					next.start_date_err = true;
 					errcount++;
 				}
 			}
@@ -251,26 +256,26 @@
 			// vérifie que les dates du parent collent avec debut et fin du premier et dernier element
 			if (parent && !parent.root) {
 				if (!previous) {
-					if (elem.begin != parent.begin) {
-						elem.begin_err = true;
-						parent.begin_err = true;
+					if (elem.start_date != parent.start_date) {
+						elem.start_date_err = true;
+						parent.start_date_err = true;
 						errcount++;
 					}
 				}
 				if (!next) {
-					if (elem.end != parent.end) {
-						elem.end_err = true;
-						parent.end_err = true;
+					if (elem.end_date != parent.end_date) {
+						elem.end_date_err = true;
+						parent.end_date_err = true;
 						errcount++;
-						console.log("aie", elem.end, parent.end);
+						console.log("aie", elem.end_date, parent.end_date);
 					}
 				}
 			}
 
-			// vérifie que 'end' est bien > a 'begin'
-			if (!(elem.end > elem.begin)) {
-				elem.begin_err = true;
-				elem.end_err = true;
+			// vérifie que 'end_date' est bien > a 'start_date'
+			if (!(elem.end_date > elem.start_date)) {
+				elem.start_date_err = true;
+				elem.end_date_err = true;
 			}
 
 			if ('content' in elem) {
@@ -285,8 +290,8 @@
 		}
 
 		function clear_elem_err(elem) {
-			delete elem.begin_err;
-			delete elem.end_err;
+			delete elem.start_date_err;
+			delete elem.end_date_err;
 			if ('content' in elem) {
 				for (var i=0; i<elem.content.length; i++) {
 					clear_elem_err(elem.content[i]);
@@ -302,9 +307,9 @@
 
 		$scope.add_arbo = function(elem, parent, idx1, idx, level) {
 			elem.content.push({
-				title: "",
-				begin: 0,
-				end: 0,
+				name: "",
+				start_date: 0,
+				end_date: 0,
 				//color: buildcolor(idx1, level+1),
 				content: [],
 			});
@@ -322,6 +327,22 @@
 
 		$scope.openLeftMenu = function() {
 		    $mdSidenav('left').toggle();
+		};
+
+		$scope.save = function() {
+			var url = '/api/chronologies';
+			/*
+			var config = {
+				responseType: "json",
+				data: $scope.arbo,
+			};*/
+			$http.post(url, $scope.arbo).then(function(data) {
+				console.log("saved ", data);
+			}, function(err) {
+				arkeoService.showMessage("save failed : "+err.status+", "+err.statusText);
+				console.error("saved", err);
+			});
+
 		};
 
 
