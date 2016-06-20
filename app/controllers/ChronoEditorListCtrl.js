@@ -257,7 +257,7 @@
 				data: $scope.arbo,
 			};*/
 			$http.post(url, $scope.arbo).then(function(data) {
-				console.log("saved ", data);
+				arkeoService.showMessage("ok !");
 				$scope.arbo = data.data;
 				colorize_all();
 			}, function(err) {
@@ -270,7 +270,6 @@
 		$scope.load = function() {
 			var url = '/api/chronologies/'+217;
 			$http.get(url).then(function(data) {
-				console.log("loaded ", data);
 				$scope.arbo = data.data;
 				colorize_all();
 			}, function(err) {
