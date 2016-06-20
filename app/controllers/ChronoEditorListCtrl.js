@@ -298,6 +298,13 @@
 
 	ArkeoGIS.controller('ChronoEditorMapCtrl', ['$scope', 'mapService', 'leafletData', '$rootScope', function ($scope, mapService, leafletData, $rootScope) {
 
+		var resize = function() {
+			$scope.mapHeight = ($(window).height() - $("#arkeo-main-toolbar").height() - $("#arkeo-chronoditor-toolbar").height())+"px";
+		};
+
+		$(window).on('resize', resize);
+		resize();
+
 		angular.extend($scope, mapService.config);
 
 		angular.merge($scope, {
