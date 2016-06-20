@@ -25,7 +25,7 @@
 	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, arkeoService, leafletData, mapService) {
 		// Get map area to fit full screen
 		var resize = function() {
-			$scope.mapHeight = $(window).height() - $(".md-default-theme .md-toolbar-tools").height() - 65 +"px";
+			$scope.mapHeight = $(window).height() - $("#arkeo-main-toolbar").height() +"px";
 		};
 
 		$(window).on('resize', resize);

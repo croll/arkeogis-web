@@ -1,140 +1,184 @@
-<div class="arkeo-chronoditor">
-    <md-content layout="row" layout-padding>
-        <md-input-container flex>
-            <label>Nom</label>
-            <input ng-model="chrono.name"></input>
-        </md-input-container>
-        <md-input-container flex>
-            <label>Description</label>
-            <input ng-model="chrono.description"></input>
-        </md-input-container>
-        <md-input-container flex="11">
-            <ark-lang-selector ng-model="myTransLang1" ark-set-as-translation-lang="1" ng-disabled="false" ark-translation-langs-disabled="['es']" ark-hide="['de']" ark-flags="true"></ark-lang-selector>
-        </md-input-container>
-    </md-content>
+<div class="arkeo-chronoditor" layout="column">
 
-    <md-content>
+    <md-toolbar class="md-primary md-hue-3">
+        <div class="md-toolbar-tools">
+            <h3>
+                <md-button ng-click="openLeftMenu()"><md-icon>menu</md-icon></md-button>
+                <span translate>CHRONODITOR.HEADER_CHRONODITOR.T_TITLE</span>
+            </h3>
+        </div>
+    </md-toolbar>
 
-        <div ng-show="false">arbo:
-            {{arbo}}</div>
+    <div layout="row">
 
-        <table class="arbo-content arbo-content-n1">
-            <tr ng-repeat="(idx1, n1) in arbo.content">
-                <td class="arbo-title" style="background-color: {{n1.color}}">
-                    <md-input-container class='title'>
-                        <label>title</label>
-                        <input name="" ng-model="n1.title" placeholder="" required maxlength="255" minlength="1"/>
-                    </md-input-container>
-                    <md-input-container class='date-begin'>
-                        <label>begin</label>
-                        <input name="" ark-year ng-model="n1.begin" placeholder="" required maxlength="10" minlength="1"/>
-                    </md-input-container>
-                    <md-input-container class='date-end'>
-                        <label>end</label>
-                        <input name="" ark-year ng-model="n1.end" placeholder="" required maxlength="10" minlength="1"/>
-                    </md-input-container>
-                    <div layout="column" class="arbo-buttons">
-                        <md-button flex class="md-mini" aria-label="add" md-ripple-size="full" ng-click="add_arbo(n1, arbo, idx1, idx1, 1)">
+        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-open="true">
+            <md-toolbar class="md-theme-indigo">
+                <h1 class="md-toolbar-tools" translate>CHRONODITOR.SIDENAV.T_TITLE</h1>
+            </md-toolbar>
+            <md-content layout="column">
+                <md-input-container flex>
+                    <ark-lang-selector ng-model="myTransLang1" ark-set-as-translation-lang="1" ng-disabled="false" ark-flags="true"></ark-lang-selector>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Nom</label>
+                    <input ng-model="chrono.name"></input>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Description</label>
+                    <textarea ng-model="chrono.description"></textarea>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Auteur</label>
+                    <input ng-model="chrono.author"></input>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Crédits</label>
+                    <input ng-model="chrono.credits"></input>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Membres du groupe de travail</label>
+                    <md-contact-chips flex name="truit" ng-model="chrono.users" md-contacts="chrono.users" md-contact-name="name" md-contact-image="image" md-contact-email="email" md-require-match="true" md-highlight-flags="i" placeholder=""></md-contact-chips>
+                </md-input-container>
+                <md-input-container>
+                    <md-switch ng-model="chrono.active" aria-label="Publié"><span translate>Published</span></md-switch>
+                </md-input-container>
+                <md-toolbar class="md-theme-indigo">
+                <md-button class="md-raised" aria-label="Emprise">Emprise...</md-button>
+                <md-button class="md-raised" aria-label="Supprimer">Supprimer</md-button>
+                <md-button class="md-raised" aria-label="Save">Sauver</md-button>
+            </md-toolbar>
+
+            </md-content>
+        </md-sidenav>
+
+        <md-content>
+
+            <div ng-show="false">arbo:
+                {{arbo}}</div>
+
+            <table class="arbo-content arbo-content-n1">
+                <tr ng-repeat="(idx1, n1) in arbo.content">
+                    <td class="arbo-title" style="background-color: {{n1.color}}">
+                        <md-input-container class='title'>
+                            <label>title</label>
+                            <input name="" ark-translate ark-translate-bind-lang="1" ark-translations="n1.title" placeholder="" required maxlength="255" minlength="1"/>
+                        </md-input-container>
+                        <md-input-container class='date-begin'>
+                            <label>begin</label>
+                            <input name="" ark-year ng-model="n1.begin" placeholder="" required maxlength="10" minlength="1" ng-change="check_all()" ng-class="n1.begin_err ? 'date_err' : ''"/>
+                        </md-input-container>
+                        <md-input-container class='date-end'>
+                            <label>end</label>
+                            <input name="" ark-year ng-model="n1.end" placeholder="" required maxlength="10" minlength="1" ng-change="check_all()" ng-class="n1.end_err ? 'date_err' : ''"/>
+                        </md-input-container>
+                        <div layout="column" class="arbo-buttons">
+                            <md-button flex class="md-mini" aria-label="add" md-ripple-size="full" ng-click="add_arbo(n1, arbo, idx1, idx1, 1)">
+                                <md-icon>add</md-icon>
+                            </md-button>
+                            <md-button flex class="md-mini" aria-label="remove" md-ripple-size="full" ng-click="remove_arbo(n1, arbo, idx1, idx1, 1)">
+                                <md-icon>remove</md-icon>
+                            </md-button>
+                        </div>
+                        <!--
+                        <md-button flex class="md-mini button-add-element" aria-label="add" md-ripple-size="full" ng-click="add_arbo(n1, arbo, idx1, idx1, 1)">
                             <md-icon>add</md-icon>
                         </md-button>
-                        <md-button flex class="md-mini" aria-label="remove" md-ripple-size="full" ng-click="remove_arbo(n1, arbo, idx1, idx1, 1)">
-                            <md-icon>remove</md-icon>
-                        </md-button>
-                    </div>
-                </td>
-                <td class="arbo-content">
+                        -->
+                    </td>
+                    <td class="arbo-content">
 
-                    <table class="arbo-content arbo-content-n2">
-                        <tr ng-repeat="(idx2, n2) in n1.content">
-                            <td class="arbo-title" style="background-color: {{n2.color}}">
-                                <md-input-container class='title'>
-                                    <label>title</label>
-                                    <input name="" ng-model="n2.title" placeholder="" required maxlength="255" minlength="1"/>
-                                </md-input-container>
-                                <md-input-container class='date-begin'>
-                                    <label>begin</label>
-                                    <input name="" ng-model="n2.begin" placeholder="" required maxlength="10" minlength="1"/>
-                                </md-input-container>
-                                <md-input-container class='date-end'>
-                                    <label>end</label>
-                                    <input name="" ng-model="n2.end" placeholder="" required maxlength="10" minlength="1"/>
-                                </md-input-container>
-                                <div layout="column" class="arbo-buttons">
-                                    <md-button flex class="md-mini" aria-label="add" md-ripple-size="full" ng-click="add_arbo(n2, n1, idx1, idx2, 2)">
-                                        <md-icon>add</md-icon>
-                                    </md-button>
-                                    <md-button flex class="md-mini" aria-label="remove" md-ripple-size="full" ng-click="remove_arbo(n2, n1, idx1, idx2, 2)">
-                                        <md-icon>remove</md-icon>
-                                    </md-button>
-                                </div>
-                            </td>
-                            <td class="arbo-content">
+                        <table class="arbo-content arbo-content-n2">
+                            <tr ng-repeat="(idx2, n2) in n1.content">
+                                <td class="arbo-title" style="background-color: {{n2.color}}">
+                                    <md-input-container class='title'>
+                                        <label>title</label>
+                                        <input name="" ark-translate ark-translate-bind-lang="1" ark-translations="n2.title" placeholder="" required maxlength="255" minlength="1"/>
+                                    </md-input-container>
+                                    <md-input-container class='date-begin'>
+                                        <label>begin</label>
+                                        <input name="" ark-year ng-model="n2.begin" placeholder="" required maxlength="10" minlength="1" ng-change="check_all()" ng-class="n2.begin_err ? 'date_err' : ''"/>
+                                    </md-input-container>
+                                    <md-input-container class='date-end'>
+                                        <label>end</label>
+                                        <input name="" ark-year ng-model="n2.end" placeholder="" required maxlength="10" minlength="1" ng-change="check_all()" ng-class="n2.end_err ? 'date_err' : ''"/>
+                                    </md-input-container>
+                                    <div layout="column" class="arbo-buttons">
+                                        <md-button flex class="md-mini" aria-label="add" md-ripple-size="full" ng-click="add_arbo(n2, n1, idx1, idx2, 2)">
+                                            <md-icon>add</md-icon>
+                                        </md-button>
+                                        <md-button flex class="md-mini" aria-label="remove" md-ripple-size="full" ng-click="remove_arbo(n2, n1, idx1, idx2, 2)">
+                                            <md-icon>remove</md-icon>
+                                        </md-button>
+                                    </div>
+                                </td>
+                                <td class="arbo-content">
 
-                                <table class="arbo-content arbo-content-n3">
-                                    <tr ng-repeat="(idx3, n3) in n2.content">
-                                        <td class="arbo-title" style="background-color: {{n3.color}}">
-                                            <md-input-container class='title'>
-                                                <label>title</label>
-                                                <input name="" ng-model="n3.title" placeholder="" required maxlength="255" minlength="1"/>
-                                            </md-input-container>
-                                            <md-input-container class='date-begin'>
-                                                <label>begin</label>
-                                                <input name="" ng-model="n3.begin" placeholder="" required maxlength="10" minlength="1"/>
-                                            </md-input-container>
-                                            <md-input-container class='date-end'>
-                                                <label>end</label>
-                                                <input name="" ng-model="n3.end" placeholder="" required maxlength="10" minlength="1"/>
-                                            </md-input-container>
-                                            <div layout="column" class="arbo-buttons">
-                                                <md-button flex class="md-mini" aria-label="add" md-ripple-size="full" ng-click="add_arbo(n3, n2, idx1, idx3, 3)">
-                                                    <md-icon>add</md-icon>
-                                                </md-button>
-                                                <md-button flex class="md-mini" aria-label="remove" md-ripple-size="full" ng-click="remove_arbo(n3, n2, idx1, idx3, 3)">
-                                                    <md-icon>remove</md-icon>
-                                                </md-button>
-                                            </div>
-                                        </td>
-                                        <td class="arbo-content">
+                                    <table class="arbo-content arbo-content-n3">
+                                        <tr ng-repeat="(idx3, n3) in n2.content">
+                                            <td class="arbo-title" style="background-color: {{n3.color}}">
+                                                <md-input-container class='title'>
+                                                    <label>title</label>
+                                                    <input name="" ark-translate ark-translate-bind-lang="1" ark-translations="n3.title" placeholder="" required maxlength="255" minlength="1"/>
+                                                </md-input-container>
+                                                <md-input-container class='date-begin'>
+                                                    <label>begin</label>
+                                                    <input name="" ark-year ng-model="n3.begin" placeholder="" required maxlength="10" minlength="1" ng-change="check_all()" ng-class="n3.begin_err ? 'date_err' : ''"/>
+                                                </md-input-container>
+                                                <md-input-container class='date-end'>
+                                                    <label>end</label>
+                                                    <input name="" ark-year ng-model="n3.end" placeholder="" required maxlength="10" minlength="1" ng-change="check_all()" ng-class="n3.end_err ? 'date_err' : ''"/>
+                                                </md-input-container>
+                                                <div layout="column" class="arbo-buttons">
+                                                    <md-button flex class="md-mini" aria-label="add" md-ripple-size="full" ng-click="add_arbo(n3, n2, idx1, idx3, 3)">
+                                                        <md-icon>add</md-icon>
+                                                    </md-button>
+                                                    <md-button flex class="md-mini" aria-label="remove" md-ripple-size="full" ng-click="remove_arbo(n3, n2, idx1, idx3, 3)">
+                                                        <md-icon>remove</md-icon>
+                                                    </md-button>
+                                                </div>
+                                            </td>
+                                            <td class="arbo-content">
 
-                                            <table class="arbo-content arbo-content-n4">
-                                                <tr ng-repeat="(idx4, n4) in n3.content">
-                                                    <td class="arbo-title" style="background-color: {{n4.color}}">
-                                                        <md-input-container class='title'>
-                                                            <label>title</label>
-                                                            <input name="" ng-model="n4.title" placeholder="" required maxlength="255" minlength="1"/>
-                                                        </md-input-container>
-                                                        <md-input-container class='date-begin'>
-                                                            <label>begin</label>
-                                                            <input name="" ng-model="n4.begin" placeholder="" required maxlength="10" minlength="1"/>
-                                                        </md-input-container>
-                                                        <md-input-container class='date-end'>
-                                                            <label>end</label>
-                                                            <input name="" ng-model="n4.end" placeholder="" required maxlength="10" minlength="1"/>
-                                                        </md-input-container>
-                                                        <div layout="column" class="arbo-buttons">
-                                                            <md-button flex class="md-mini" aria-label="remove" md-ripple-size="full" ng-click="remove_arbo(n4, n3, idx1, idx4, 4)">
-                                                                <md-icon>remove</md-icon>
-                                                            </md-button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </table>
+                                                <table class="arbo-content arbo-content-n4">
+                                                    <tr ng-repeat="(idx4, n4) in n3.content">
+                                                        <td class="arbo-title" style="background-color: {{n4.color}}">
+                                                            <md-input-container class='title'>
+                                                                <label>title</label>
+                                                                <input name="" ark-translate ark-translate-bind-lang="1" ark-translations="n4.title" placeholder="" required maxlength="255" minlength="1"/>
+                                                            </md-input-container>
+                                                            <md-input-container class='date-begin'>
+                                                                <label>begin</label>
+                                                                <input ark-year name="" ng-model="n4.begin" placeholder="" required maxlength="10" minlength="1" ng-change="check_all()" ng-class="n4.begin_err ? 'date_err' : ''"/>
+                                                            </md-input-container>
+                                                            <md-input-container class='date-end'>
+                                                                <label>end</label>
+                                                                <input ark-year name="" ng-model="n4.end" placeholder="" required maxlength="10" minlength="1" ng-change="check_all()" ng-class="n4.end_err ? 'date_err' : ''"/>
+                                                            </md-input-container>
+                                                            <div layout="column" class="arbo-buttons">
+                                                                <md-button flex class="md-mini" aria-label="remove" md-ripple-size="full" ng-click="remove_arbo(n4, n3, idx1, idx4, 4)">
+                                                                    <md-icon>remove</md-icon>
+                                                                </md-button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
 
-                                        </td>
-                                    </tr>
-                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
 
-                            </td>
-                        </tr>
-                    </table>
+                                </td>
+                            </tr>
+                        </table>
 
-                </td>
-            </tr>
-        </table>
+                    </td>
+                </tr>
+            </table>
 
-        <md-button flex class="md-mini" aria-label="add" md-ripple-size="full" ng-click="add_arbo(arbo, null, arbo.content.length, 0, 0)">
-            <md-icon>add</md-icon>
-        </md-button>
+            <md-button flex class="md-mini" aria-label="add" md-ripple-size="full" ng-click="add_arbo(arbo, null, arbo.content.length, 0, 0)">
+                <md-icon>add</md-icon>
+            </md-button>
 
-    </md-content>
+        </md-content>
+    </div>
 </div>

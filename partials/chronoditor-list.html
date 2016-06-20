@@ -24,10 +24,12 @@
                     <th md-column md-order-by="calories.value">
                         <span>Date création</span>
                     </th>
-                    <th md-column>Publié</th>
-                    <th md-column>Date début/fin</th>
-                    <th md-column>Membres du groupe de travail</th>
-                    <th md-column>Action</th>
+                    <th md-column md-order-by="chrono.date_begin">Date début/fin</th>
+                    <th md-column md-order-by="chrono.fulltranslations.es">ES</th>
+                    <th md-column md-order-by="chrono.fulltranslations.de">DE</th>
+                    <th md-column md-order-by="chrono.fulltranslations.fr">FR</th>
+                    <th md-column md-order-by="chrono.fulltranslations.uk">UK</th>
+                    <th md-column md-order-by="chrono.active">Publié</th>
                 </tr>
             </thead>
             <tbody md-body>
@@ -45,27 +47,30 @@
                         <div style="font-size: 0.8em; color: #555">{{chrono.description}}</div>
                     </td>
                     <td md-cell>
-                        <input type="text" ng-model="chrono.author" placeholder="author"></input>
-                        <br/><br/>
-                        <input type="text" ng-model="chrono.credits" placeholder="crédits"></input>
+                        <div>{{chrono.author}}</div>
+                        <div>{{chrono.credits}}</div>
                     </td>
                     <td md-cell>
                         {{ chrono.created_at | date : 'mediumDate' }}
                     </td>
-                    <td md-cell>
-                        <md-switch ng-model="chrono.active" aria-label="Publié"></md-switch>
-                    </td>
                     <td md-cell>{{chrono.date_begin}}
                         à
-                        {{chrono.date_end}}</td>
-                    <td md-cell>
-                        <md-contact-chips name="truit" ng-model="chrono.users" md-contacts="chrono.users" md-contact-name="name" md-contact-image="image" md-contact-email="email" md-require-match="true" md-highlight-flags="i" placeholder=""></md-contact-chips>
-
+                        {{chrono.date_end}}
                     </td>
                     <td md-cell>
-                        <md-button class="md-raised" aria-label="Emprise">Emprise...</md-button>
-                        <md-button class="md-raised" aria-label="Supprimer">Supprimer</md-button>
-                        <md-button class="md-raised" aria-label="Save">Sauver</md-button>
+                        {{chrono.fulltranslations.es ? 'Yes' : 'No' }}
+                    </td>
+                    <td md-cell>
+                        {{chrono.fulltranslations.de ? 'Yes' : 'No' }}
+                    </td>
+                    <td md-cell>
+                        {{chrono.fulltranslations.fr ? 'Yes' : 'No' }}
+                    </td>
+                    <td md-cell>
+                        {{chrono.fulltranslations.uk ? 'Yes' : 'No' }}
+                    </td>
+                    <td md-cell>
+                        {{chrono.active ? 'Yes': 'No'}}
                     </td>
                 </tr>
             </tbody>

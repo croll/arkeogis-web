@@ -21,7 +21,7 @@
 
 (function () {
 	'use strict';
-	ArkeoGIS.controller('UserCtrl', ['$scope', 'user', 'login', 'arkeoLang', '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", function ($scope, User, Login, arkeoLangs, $mdDialog, $http, $q, arkeoService, $mdToast) {
+	ArkeoGIS.controller('UserCtrl', ['$scope', 'user', 'login', 'arkeoLang', '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", function ($scope, User, Login, arkeoLang, $mdDialog, $http, $q, arkeoService, $mdToast) {
 
 		if (!Login.requirePermission('adminusers', 'arkeogis.user'))
             return;
@@ -39,9 +39,27 @@
 		}
 		var users_bookmark_page=1;
 
+		function translate_groups(a) {
+			var res=[];
+			if (!a) return res;
+			a.forEach(function(el) {
+				res.push({
+					group_id: el[0].group_id,
+					tr: arkeoLang.mapSqlTranslations(el, "name"),
+				});
+			});
+			return res;
+		}
+
 		function getUsers(query) {
  			$scope.users = User.get(query || $scope.users_query).$promise.then(function(users) {
-//				console.log("updated ! ", users);
+				// update groups translations...
+				users.data.forEach(function(row) {
+					row.groups_user = translate_groups(row.groups_user);
+					row.groups_charac = translate_groups(row.groups_charac);
+					row.groups_chronology = translate_groups(row.groups_chronology);
+				});
+				console.log("updated ! ", users);
 				$scope.users = users;
 			}, function(err) {
 				$mdToast.show($mdToast.simple().textContent("Something bas appened ! can't load users...").position('bottom left'));
@@ -182,9 +200,17 @@
 				};
 			}
 
+			if (user.city_and_country.country.tr) {
+				user.city_and_country.country.name = arkeoLang.getMappedTranslation(user.city_and_country.country.tr);
+			}
+
 			if (user.city_and_country.country && user.city_and_country.country.name == "") {
 				user.city_and_country.country=null;
 				$scope.searchTextCountry = "";
+			}
+
+			if (user.city_and_country.city.tr) {
+				user.city_and_country.city.name = arkeoLang.getMappedTranslation(user.city_and_country.city.tr);
 			}
 
 			if (user.city_and_country.city && user.city_and_country.city.name == "") {
@@ -231,11 +257,19 @@
 					};
 				}
 
+				if (company.city_and_country && company.city_and_country.country && company.city_and_country.country.tr) {
+					company.city_and_country.country.name = arkeoLang.getMappedTranslation(company.city_and_country.country.tr);
+				}
+
 				if (company.city_and_country && company.city_and_country.country && company.city_and_country.country.name && company.city_and_country.country.name.length > 0) {
 					$scope.companies_country[index]={
 						name: company.city_and_country.country.name,
 						geonameid: company.city_and_country.country.geonameid,
 					};
+				}
+
+				if (company.city_and_country && company.city_and_country.city && company.city_and_country.city.tr) {
+					company.city_and_country.city.name = arkeoLang.getMappedTranslation(company.city_and_country.city.tr);
 				}
 
 				if (company.city_and_country && company.city_and_country.city && company.city_and_country.city.name && company.city_and_country.city.name.length > 0) {
@@ -248,7 +282,7 @@
 		}
 
 		function getUserSuccess(user) {
-//			console.log("user loaded before hack: ", user);
+			console.log("user loaded before hack: ", user);
 			hackAutocompletes(user);
 			//$scope.user=user;
 //			console.log("user loaded after hack: ", user);

@@ -37,6 +37,20 @@ div.arkeo-chronoditor {
             md-input-container.date-begin, md-input-container.date-end {
                 width: 40%;
             }
+
+/*
+            button.button-add-element {
+                min-width: 24px;
+                width: 24px;
+                min-height: 28px;
+                height: 24px;
+                padding: 0;
+                margin: 0;
+                position: absolute;
+                left: 0;
+                bottom: 0;
+            }
+            */
         }
 
         div.arbo-buttons {
@@ -83,5 +97,8 @@ div.arkeo-chronoditor {
         td.arbo-content {
             width: 0%;
         }
+    }
+    .date_err {
+        border: solid 1px red;
     }
 }

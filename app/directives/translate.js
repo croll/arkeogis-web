@@ -56,7 +56,7 @@
 
                 function switchModel(newIsoCode, oldIsoCode) {
                     if (!angular.isObject(scope.arkTranslations)) {
-                        console.log("params passed to ark-translations is not an object");
+                        console.log("params passed to ark-translations is not an object : ", scope.arkTranslations);
                         return;
                     }
                     //scope.arkTranslations[oldIsoCode] = scope.ngModel;

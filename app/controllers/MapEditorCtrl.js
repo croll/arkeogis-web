@@ -21,7 +21,7 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('MapEditorCtrl', ['$scope', 'arkeoService', 'mapService', 'login', '$http', 'X2JS', '$q', 'leafletData', function($scope, arkeoService, mapService, login, $http, X2JS, $q, leafletData) {
+    ArkeoGIS.controller('MapEditorCtrl', ['$scope', 'arkeoService', 'mapService', 'login', '$http', 'X2JS', '$q', 'leafletData', 'Upload', function($scope, arkeoService, mapService, login, $http, X2JS, $q, leafletData, Upload) {
 
         angular.extend($scope, mapService.config);
 
@@ -45,12 +45,15 @@
         // $scope.infos.type = 'wmts';
         // $scope.infos.wms_url = 'http://wxs.ign.fr/6cwsohzr2zx1asify37rppfv/geoportail/wmts';
 
-        $scope.reset = function() {
-            $scope.infos = angular.copy(defaultInfos);
+        $scope.reset = function(type) {
+            $scope.infos = angular.copy($scope.infos);
             $scope.layers.overlays = [];
             $scope.wmsLayers = [];
             $scope.hideFields = true;
             $scope.getCapabilities = null;
+            if ($scope.geojsonLayer) {
+                map.removeLayer($scope.geojsonLayer);
+            }
         }
 
         $scope.getLayers = function(url) {
@@ -223,6 +226,49 @@
                 });
                 $scope.licenses = licenses;
             });
+        };
+
+        $scope.uploadSHP = function(file) {
+            $scope.uploadProgress = 0;
+            if (!file) {
+                return;
+            }
+            if (!file.type.indexOf('zip') == -1) {
+                arkeoService.showMessage('MAPEDITOR.MESSAGE_NOT_ZIP_FILE.T_ERROR', 'error');
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                shp(e.target.result).then(function(geojson){
+                    $scope.geojson = geojson;
+                    leafletData.getMap().then(function(map) {
+                        if ($scope.geojsonLayer) {
+                            map.removeLayer($scope.geojsonLayer);
+                        }
+                        $scope.geojsonLayer = L.geoJson().addTo(map)
+                        $scope.geojsonLayer.addData(geojson);
+                        map.fitBounds($scope.geojsonLayer.getBounds());
+                        $scope.hideFields = false;
+                    }, function(err) {
+                        console.log("err");
+                        arkeoService.showMessage('MAPEDITOR.MESSAGE_SHP_LOADING.T_ERROR', 'error')
+                    });
+                }, function(err){
+                    arkeoService.showMessage('MAPEDITOR.MESSAGE_SHP_LOADING.T_ERROR', 'error')
+                });
+            }
+            reader.onprogress = function(e) {
+                $scope.uploadProgress = parseInt(100.0 * e.loaded / e.total);
+            }
+            reader.readAsArrayBuffer(file);
+            /*
+          return Upload.upload({
+            url: 'api/shapefile/togeojson',
+            data: {
+              shp: file
+            }
+          });
+          */
         };
 
     }]);

@@ -1,0 +1,33 @@
+{
+  "name": "feb-stepper",
+  "version": "1.0.1",
+  "description": "Angular directive to visually show steps in a wizards etc.",
+  "main": "stepper.js",
+  "scripts": {
+    "test": "./node_modules/karma/bin/karma start --browsers Firefox --single-run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/FlemmingBehrend/feb-stepper.git"
+  },
+  "keywords": [
+    "angular",
+    "angularjs",
+    "wizard",
+    "steps",
+    "progress"
+  ],
+  "author": "Flemming Behrend",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FlemmingBehrend/feb-stepper/issues"
+  },
+  "homepage": "https://github.com/FlemmingBehrend/feb-stepper",
+  "devDependencies": {
+    "jasmine-core": "^2.4.1",
+    "karma": "0.12.31",
+    "karma-firefox-launcher": "^0.1.3",
+    "karma-phantomjs-launcher-nonet": "^0.1.3",
+    "karma-jasmine": "^0.3.6"
+  }
+}
