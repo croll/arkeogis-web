@@ -103,6 +103,7 @@
 
         var self=this;
 
+		$scope.chooseemprise = true;
 		$scope.chronolang="fr";
 
 		$scope.chrono = {
@@ -321,10 +322,6 @@
 			colorize_all();
 		};
 
-
-		colorize_all();
-
-
 		$scope.openLeftMenu = function() {
 		    $mdSidenav('left').toggle();
 		};
@@ -346,6 +343,74 @@
 		};
 
 
+		function init() {
+			colorize_all();
+		}
+		init();
+
     }]); // controller ChronoEditorCtrl
+
+
+	/*
+	 * ChronoEditorMapCtrl Chrono Editor Map Controller (choix de l'emprise)
+	 */
+
+	ArkeoGIS.controller('ChronoEditorMapCtrl', ['$scope', 'mapService', 'leafletData', function ($scope, mapService, leafletData) {
+
+		angular.extend($scope, mapService.config);
+
+		angular.merge($scope, {
+			controls: {
+				draw: {
+					draw: {
+						polyline: false,
+						circle: false,
+						marker: false,
+						polygon: {
+							showArea: true,
+						},
+					}
+				}
+			},
+			layers: {
+				overlays: {
+					draw: {
+						name: 'draw',
+						type: 'group',
+						visible: true,
+						layerParams: {
+							showOnSelector: false
+						}
+					}
+				}
+			}
+		});
+
+
+		leafletData.getMap().then(function(map) {
+			leafletData.getLayers().then(function(baselayers) {
+			   var drawnItems = baselayers.overlays.draw;
+
+			   map.on('draw:created', function (e) {
+				 var layer = e.layer;
+				 drawnItems.addLayer(layer);
+				 console.log(JSON.stringify(layer.toGeoJSON()));
+			   });
+
+			   var polygon = new L.Polygon([
+				   [[4.85595703125,48.17341248658084],
+					[4.85595703125,48.96218736991556],
+					[7.196044921875,48.96218736991556],
+					[7.196044921875,48.17341248658084],
+					[4.85595703125,48.17341248658084]]
+			   ]);
+			   polygon.editing.enable();
+
+			   drawnItems.addLayer(polygon);
+			});
+		});
+
+
+	}]); // controller ChronoEditorMapCtrl
 
 })(); // all

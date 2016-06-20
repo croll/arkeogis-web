@@ -9,7 +9,7 @@
         </div>
     </md-toolbar>
 
-    <div layout="row">
+    <div layout="row" ng-hide="chooseemprise">
 
         <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-open="true">
             <md-toolbar class="md-theme-indigo">
@@ -180,5 +180,10 @@
             </md-button>
 
         </md-content>
+    </div>
+
+    <div id="chrono-emprise" ng-show="chooseemprise" ng-controller="ChronoEditorMapCtrl">
+        <leaflet controls="controls" defaults="defaults" layers="layers" flex height="400px" lf-center="center" width="100%"></leaflet>
+        {{layers}}
     </div>
 </div>
