@@ -103,7 +103,7 @@
 
         var self=this;
 
-		$scope.chooseemprise = true;
+		$scope.chooseemprise = false;
 		$scope.chronolang="fr";
 
 		$scope.chrono = {
@@ -124,84 +124,7 @@
 			],
 		};
 
-		$scope.arbo = {
-			root: true,
-			name: { fr: "Ma chrono", 'en': "My chrono" },
-			description: {},
-			start_date: -1200,
-			end_date: -800,
-			content: [
-				{
-					name: { fr: "Chrono 1", en: "Crono 1" },
-					start_date: -1200,
-					end_date: -800,
-					content: [
-						{
-							name: { fr: "Chrono 1.1", en: "Crono 1.1" },
-							start_date: -1200,
-							end_date: -800,
-							content: [
-								{
-									name: { fr: "Chrono 1.1.1", en: "Crono 1.1.1" },
-									start_date: -1200,
-									end_date: -800,
-									content: [
-										{
-											name: { fr: "Chrono 1.1.1.1", en: "Crono 1.1.1.1" },
-											start_date: -1200,
-											end_date: -800,
-										},
-									],
-								},
-							],
-						},
-					],
-				},
-				{
-					name: { fr: "Chrono 2", en: "Crono 2" },
-					start_date: -800,
-					end_date: 200,
-					content: [
-						{
-							name: { fr: "Chrono 2.1", en: "Crono 2.1" },
-							start_date: -800,
-							end_date: 200,
-							content: [
-								{
-									name: { fr: "Chrono 2.1.1", en: "Crono 2.1.1" },
-									start_date: -800,
-									end_date: 0,
-									content: [
-										{
-											name: { fr: "Chrono 2.1.1.1", en: "Crono 2.1.1.1" },
-										},
-									],
-								},
-								{
-									name: { fr: "Chrono 2.1.2", en: "Crono 2.1.2" },
-									start_date: 0,
-									end_date: 200,
-									content: [
-										{
-											name: { fr: "Chrono 2.1.2.1", en: "Crono 2.1.2.1" },
-											start_date: 0,
-											end_date: 99,
-											content: [],
-										},
-										{
-											name: { fr: "Chrono 2.1.2.2", en: "Crono 2.1.2.2" },
-											start_date: 100,
-											end_date: 200,
-											content: [],
-										},
-									],
-								},
-							],
-						},
-					],
-				},
-			],
-		};
+		$scope.arbo = {};
 
 		var colors= [
 			[[ 171, 171, 171], [ 171, 171, 171], [ 171, 171, 171], [ 171, 171, 171] ],
@@ -308,9 +231,9 @@
 
 		$scope.add_arbo = function(elem, parent, idx1, idx, level) {
 			elem.content.push({
-				name: "",
-				start_date: 0,
-				end_date: 0,
+				name: {},
+				start_date: -1,
+				end_date: +1,
 				//color: buildcolor(idx1, level+1),
 				content: [],
 			});
@@ -335,6 +258,8 @@
 			};*/
 			$http.post(url, $scope.arbo).then(function(data) {
 				console.log("saved ", data);
+				$scope.arbo = data.data;
+				colorize_all();
 			}, function(err) {
 				arkeoService.showMessage("save failed : "+err.status+", "+err.statusText);
 				console.error("saved", err);
@@ -342,9 +267,25 @@
 
 		};
 
+		$scope.load = function() {
+			var url = '/api/chronologies/'+217;
+			$http.get(url).then(function(data) {
+				console.log("loaded ", data);
+				$scope.arbo = data.data;
+				colorize_all();
+			}, function(err) {
+				arkeoService.showMessage("load failed : "+err.status+", "+err.statusText);
+				console.error("loaded", err);
+			})
+		};
+
+		$scope.$on('EmpriseMapChoosen', function(event, geojson) {
+			$scope.arbo.geom = JSON.stringify(geojson.geometry);
+			$scope.chooseemprise = false;
+		});
 
 		function init() {
-			colorize_all();
+			$scope.load();
 		}
 		init();
 
@@ -355,7 +296,7 @@
 	 * ChronoEditorMapCtrl Chrono Editor Map Controller (choix de l'emprise)
 	 */
 
-	ArkeoGIS.controller('ChronoEditorMapCtrl', ['$scope', 'mapService', 'leafletData', function ($scope, mapService, leafletData) {
+	ArkeoGIS.controller('ChronoEditorMapCtrl', ['$scope', 'mapService', 'leafletData', '$rootScope', function ($scope, mapService, leafletData, $rootScope) {
 
 		angular.extend($scope, mapService.config);
 
@@ -386,7 +327,6 @@
 			}
 		});
 
-
 		leafletData.getMap().then(function(map) {
 			leafletData.getLayers().then(function(baselayers) {
 			   var drawnItems = baselayers.overlays.draw;
@@ -394,19 +334,11 @@
 			   map.on('draw:created', function (e) {
 				 var layer = e.layer;
 				 drawnItems.addLayer(layer);
+				 layer.editing.enable();
 				 console.log(JSON.stringify(layer.toGeoJSON()));
+  		 		 $rootScope.$broadcast('EmpriseMapChoosen', layer.toGeoJSON());
 			   });
 
-			   var polygon = new L.Polygon([
-				   [[4.85595703125,48.17341248658084],
-					[4.85595703125,48.96218736991556],
-					[7.196044921875,48.96218736991556],
-					[7.196044921875,48.17341248658084],
-					[4.85595703125,48.17341248658084]]
-			   ]);
-			   polygon.editing.enable();
-
-			   drawnItems.addLayer(polygon);
 			});
 		});
 
