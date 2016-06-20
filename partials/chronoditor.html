@@ -20,23 +20,23 @@
                     <ark-lang-selector ng-model="myTransLang1" ark-set-as-translation-lang="1" ng-disabled="false" ark-flags="true"></ark-lang-selector>
                 </md-input-container>
                 <md-input-container flex>
-                    <label>CHRONODITOR.INPUT_NAME.T_TITLE</label>
+                    <label translate>CHRONODITOR.INPUT_NAME.T_TITLE</label>
                     <input ng-model="arbo.name_cur" ark-translate ark-translate-bind-lang="1" ark-translations="arbo.name"></input>
                 </md-input-container>
                 <md-input-container flex>
-                    <label>CHRONODITOR.INPUT_DESCRIPTION.T_TITLE</label>
+                    <label translate>CHRONODITOR.INPUT_DESCRIPTION.T_TITLE</label>
                     <textarea ng-model="arbo.description_cur" ark-translate ark-translate-bind-lang="1" ark-translations="arbo.description"></textarea>
                 </md-input-container>
                 <md-input-container flex>
-                    <label>CHRONODITOR.INPUT_AUTHOR.T_TITLE</label>
+                    <label translate>CHRONODITOR.INPUT_AUTHOR.T_TITLE</label>
                     <input ng-model="arbo.author"></input>
                 </md-input-container>
                 <md-input-container flex>
-                    <label>CHRONODITOR.INPUT_CREDITS.T_TITLE</label>
+                    <label translate>CHRONODITOR.INPUT_CREDITS.T_TITLE</label>
                     <input ng-model="arbo.credits"></input>
                 </md-input-container>
                 <div flex>
-                    <label>CHRONODITOR.INFO_MEMBERS.T_TITLE</label>
+                    <label translate>CHRONODITOR.INFO_MEMBERS.T_TITLE</label>
                     <div>
                         <span ng-repeat="user in arbo.users_in_group">{{$first ? '' : ', '}}{{user.firstname}} {{user.lastname}}</span>
                     </div>
@@ -63,15 +63,15 @@
                 <tr ng-repeat="(idx1, n1) in arbo.content">
                     <td class="arbo-title" style="background-color: #{{n1.color}}">
                         <md-input-container class='title'>
-                            <label>CHRONODITOR.INPUT_ELEM_TITLE.T_TITLE</label>
+                            <label translate>CHRONODITOR.INPUT_ELEM_TITLE.T_TITLE</label>
                             <input name="" ng-model="n1.name_cur" ark-translate ark-translate-bind-lang="1" ark-translations="n1.name" ng-change="check_all()" placeholder="" required maxlength="255" minlength="1"/>
                         </md-input-container>
                         <md-input-container class='date-begin'>
-                            <label>CHRONODITOR.INPUT_ELEM_BEGIN.T_TITLE</label>
+                            <label translate>CHRONODITOR.INPUT_ELEM_BEGIN.T_TITLE</label>
                             <input name="" ark-year ng-model="n1.start_date" placeholder="" required maxlength="10" minlength="1" ng-change="check_all()" ng-class="n1.start_date_err ? 'date_err' : ''"/>
                         </md-input-container>
                         <md-input-container class='date-end'>
-                            <label>CHRONODITOR.INPUT_ELEM_END.T_TITLE</label>
+                            <label translate>CHRONODITOR.INPUT_ELEM_END.T_TITLE</label>
                             <input name="" ark-year ng-model="n1.end_date" placeholder="" required maxlength="10" minlength="1" ng-change="check_all()" ng-class="n1.end_date_err ? 'date_err' : ''"/>
                         </md-input-container>
                         <div layout="column" class="arbo-buttons">
@@ -94,15 +94,15 @@
                             <tr ng-repeat="(idx2, n2) in n1.content">
                                 <td class="arbo-title" style="background-color: #{{n2.color}}">
                                     <md-input-container class='title'>
-                                        <label>CHRONODITOR.INPUT_ELEM_TITLE.T_TITLE</label>
+                                        <label translate>CHRONODITOR.INPUT_ELEM_TITLE.T_TITLE</label>
                                         <input name="" ng-model="n2.name_cur" ark-translate ark-translate-bind-lang="1" ark-translations="n2.name" ng-change="check_all()" placeholder="" required maxlength="255" minlength="1"/>
                                     </md-input-container>
                                     <md-input-container class='date-begin'>
-                                        <label>CHRONODITOR.INPUT_ELEM_BEGIN.T_TITLE</label>
+                                        <label translate>CHRONODITOR.INPUT_ELEM_BEGIN.T_TITLE</label>
                                         <input name="" ark-year ng-model="n2.start_date" placeholder="" required maxlength="10" minlength="1" ng-change="check_all()" ng-class="n2.start_date_err ? 'date_err' : ''"/>
                                     </md-input-container>
                                     <md-input-container class='date-end'>
-                                        <label>CHRONODITOR.INPUT_ELEM_END.T_TITLE</label>
+                                        <label translate>CHRONODITOR.INPUT_ELEM_END.T_TITLE</label>
                                         <input name="" ark-year ng-model="n2.end_date" placeholder="" required maxlength="10" minlength="1" ng-change="check_all()" ng-class="n2.end_date_err ? 'date_err' : ''"/>
                                     </md-input-container>
                                     <div layout="column" class="arbo-buttons">
@@ -120,15 +120,15 @@
                                         <tr ng-repeat="(idx3, n3) in n2.content">
                                             <td class="arbo-title" style="background-color: #{{n3.color}}">
                                                 <md-input-container class='title'>
-                                                    <label>CHRONODITOR.INPUT_ELEM_TITLE.T_TITLE</label>
+                                                    <label translate>CHRONODITOR.INPUT_ELEM_TITLE.T_TITLE</label>
                                                     <input name="" ng-model="n3.name_cur" ark-translate ark-translate-bind-lang="1" ark-translations="n3.name" ng-change="check_all()" placeholder="" required maxlength="255" minlength="1"/>
                                                 </md-input-container>
                                                 <md-input-container class='date-begin'>
-                                                    <label>CHRONODITOR.INPUT_ELEM_BEGIN.T_TITLE</label>
+                                                    <label translate>CHRONODITOR.INPUT_ELEM_BEGIN.T_TITLE</label>
                                                     <input name="" ark-year ng-model="n3.start_date" placeholder="" required maxlength="10" minlength="1" ng-change="check_all()" ng-class="n3.start_date_err ? 'date_err' : ''"/>
                                                 </md-input-container>
                                                 <md-input-container class='date-end'>
-                                                    <label>CHRONODITOR.INPUT_ELEM_END.T_TITLE</label>
+                                                    <label translate>CHRONODITOR.INPUT_ELEM_END.T_TITLE</label>
                                                     <input name="" ark-year ng-model="n3.end_date" placeholder="" required maxlength="10" minlength="1" ng-change="check_all()" ng-class="n3.end_date_err ? 'date_err' : ''"/>
                                                 </md-input-container>
                                                 <div layout="column" class="arbo-buttons">
@@ -146,15 +146,15 @@
                                                     <tr ng-repeat="(idx4, n4) in n3.content">
                                                         <td class="arbo-title" style="background-color: #{{n4.color}}">
                                                             <md-input-container class='title'>
-                                                                <label>CHRONODITOR.INPUT_ELEM_TITLE.T_TITLE</label>
+                                                                <label translate>CHRONODITOR.INPUT_ELEM_TITLE.T_TITLE</label>
                                                                 <input name="" ng-model="n4.name_cur" ark-translate ark-translate-bind-lang="1" ark-translations="n4.name" ng-change="check_all()" placeholder="" required maxlength="255" minlength="1"/>
                                                             </md-input-container>
                                                             <md-input-container class='date-begin'>
-                                                                <label>CHRONODITOR.INPUT_ELEM_BEGIN.T_TITLE</label>
+                                                                <label translate>CHRONODITOR.INPUT_ELEM_BEGIN.T_TITLE</label>
                                                                 <input ark-year name="" ng-model="n4.start_date" placeholder="" required maxlength="10" minlength="1" ng-change="check_all()" ng-class="n4.start_date_err ? 'date_err' : ''"/>
                                                             </md-input-container>
                                                             <md-input-container class='date-end'>
-                                                                <label>CHRONODITOR.INPUT_ELEM_END.T_TITLE</label>
+                                                                <label translate>CHRONODITOR.INPUT_ELEM_END.T_TITLE</label>
                                                                 <input ark-year name="" ng-model="n4.end_date" placeholder="" required maxlength="10" minlength="1" ng-change="check_all()" ng-class="n4.end_date_err ? 'date_err' : ''"/>
                                                             </md-input-container>
                                                             <div layout="column" class="arbo-buttons">
@@ -187,6 +187,6 @@
 
     <div id="chrono-emprise" ng-show="chooseemprise" ng-controller="ChronoEditorMapCtrl" style="position: relative; width: 100%; height: 100%">
         <leaflet controls="controls" defaults="defaults" layers="layers" flex height="{{mapHeight}}" lf-center="center" width="100%"></leaflet>
-        <md-button style="position: absolute; left: 5px; top: 75px;" class="md-raised" ng-click="close()">CHRONODITOR.BUTTON_CLOSEMAP.T_TITLE</md-button>
+        <md-button style="position: absolute; left: 5px; top: 75px;" class="md-raised" ng-click="close()"><span translate>CHRONODITOR.BUTTON_CLOSEMAP.T_TITLE</span></md-button>
     </div>
 </div>
