@@ -4,7 +4,7 @@
             <!-- Select WMS or Shapefile -->
             <ark-form-block>
                 <md-input-container>
-                    <md-select name="type" ng-model="type" style="min-width:350px" placeholder="{{'MAPEDITOR.SELECT_SHP_OR_WMS.T_LABEL' | translate}}" md-on-close="reset(type)">
+                    <md-select name="type" ng-model="type" style="min-width:250px" placeholder="{{'MAPEDITOR.SELECT_SHP_OR_WMS.T_LABEL' | translate}}" md-on-close="reset(type)">
                         <md-option value="shp">
                             <span translate>MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_SHP</span>
                         </md-option>
@@ -18,7 +18,7 @@
                 </md-input-container>
             </ark-form-block>
             <!-- SHP FILE -->
-            <ark-form-block ng-hide="type != 'shp'" style="margin-top: 30px">
+            <ark-form-block ng-hide="type != 'shp' || infos.id" style="margin-top: 30px">
                 <md-button class="md-raised" ngf-select="processSHP(file)" ng-model="file" name="file" ngf-pattern="'.zip'" accept=".zip" ngf-max-size="100MB">
                     <span translate>MAPEDITOR.BUTTON_SHP_FILE.T_LABEL</span>
                 </md-button>
@@ -31,16 +31,23 @@
                 <label>
                     <span translate>MAPEDITOR.FIELD_WMS_URL.T_LABEL</span>
                 </label>
-                <input type="text" ng-model="infos.wms_url" flex>
+                <input type="text" ng-model="infos.url" flex>
             </md-input-container>
             <md-button type="button" class="md-icon-button" ng-click="getLayers()">
                 <md-icon>search</md-icon>
             </md-button>
             <!-- WMS and WMTS layers list -->
             <md-input-container ng-hide="getCapabilities != true">
-                <md-select name="selectedLayerId" ng-model="selectedLayerId" placeholder="{{'MAPEDITOR.FIELD_SELECT_LAYER.T_LABEL' | translate}}" md-on-close="onLayerSelected()">
+                <md-select name="identifier" ng-model="infos.identifier" placeholder="{{'MAPEDITOR.FIELD_SELECT_LAYER.T_LABEL' | translate}}" md-on-close="onLayerSelected();hideIdentifier = true">
                     <md-option value="{{layer.identifier}}" ng-repeat="layer in wmsLayers">{{layer.title}}</md-option>
                 </md-select>
+            </md-input-container>
+            <!-- Identifier -->
+            <md-input-container ng-show="getCapabilities == true || infos.id" style="margin: 15px 0 -10px 0" ng-hide = "wmsLayers.length || hideIdentifier || hideFields">
+                    <label>
+                        <span translate>MAPEDITOR.FIELD_IDENTIFIER.T_LABEL</span>
+                    </label>
+                    <input type="text" ng-model="infos.identifier" flex>
             </md-input-container>
         </ark-form-block>
         <!-- Set zoom -->
@@ -51,7 +58,7 @@
                         <label>
                             <span translate>MAPEDITOR.FIELD_MIN_SCALE.T_LABEL</span>
                         </label>
-                        <input type="text" ng-model="infos.min_scale" flex >
+                        <input type="text" ng-model="infos.min_scale">
                     </md-input-container>
                     <md-button type="button" class="md-icon-button" ng-click="setScale('min')">
                         <md-icon>gps_fixed</md-icon>
@@ -62,7 +69,7 @@
                         <label>
                             <span translate>MAPEDITOR.FIELD_MIN_SCALE.T_LABEL</span>
                         </label>
-                        <input type="text" ng-model="infos.max_scale" flex>
+                        <input type="text" ng-model="infos.max_scale">
                     </md-input-container>
                     <md-button type="button" class="md-icon-button" ng-click="setScale('max')">
                         <md-icon>gps_fixed</md-icon>
@@ -72,12 +79,12 @@
         </ark-form-block>
         <!-- SHP creation date -->
         <div ng-hide="type != 'shp' || hideFields">
-            <md-datepicker name="declared_creation_date" ng-model="infos.declared_creation_date" md-placeholder="* {{ 'MAPEDITOR.FIELD_CREATION_DATE.T_LABEL' | translate}}" ng-required flex></md-datepicker>
+            <md-datepicker name="declared_creation_date" ng-model="infos.declared_creation_date" md-placeholder="* {{ 'MAPEDITOR.FIELD_CREATION_DATE.T_LABEL' | translate}}" flex></md-datepicker>
             <ark-help translate>MAPEDITOR.FIELD_CREATION_DATE.T_HELP</ark-help>
         </div>
         <!-- WMS usage limit date -->
         <div ng-hide="hideFields || type.indexOf('wm') == -1">
-            <md-datepicker name="max_usage_date" ng-model="infos.max_usage_date" md-placeholder="* {{ 'MAPEDITOR.FIELD_MAX_USAGE_DATE.T_LABEL' | translate}}" ng-required flex></md-datepicker>
+            <md-datepicker name="max_usage_date" ng-model="infos.max_usage_date" md-placeholder="* {{ 'MAPEDITOR.FIELD_MAX_USAGE_DATE.T_LABEL' | translate}}" flex></md-datepicker>
             <ark-help translate>MAPEDITOR.FIELD_MAX_USAGE_DATE.T_HELP</ark-help>
         </div>
     </md-content>
@@ -128,7 +135,7 @@
     <ark-form-block layout="row">
         <div>
             <md-input-container>
-                <md-select name="license_id" ng-model="infos.license_id" ng-init="loadLicenses()" placeholder="* {{'MAPEDITOR.FIELD_LICENSE.T_LABEL' || translate}}">
+                <md-select name="license_id" ng-model="infos.license_id" ng-init="loadLicenses()" placeholder="* {{'MAPEDITOR.FIELD_LICENSE.T_LABEL' | translate}}">
                     <md-option ng-value="license.id" ng-repeat="license in licenses">{{license.name}}</md-option>
                 </md-select>
             </md-input-container>
@@ -152,15 +159,16 @@
             </ark-form-block flex>
             <ark-form-block flex>
                 <md-input-container style="width: 400px">
-                    <label translate>MAPEDITOR.FIELD_NAME.T_LABEL</label>
+                    <label translate>MAPEDITOR.FIELD_NAME_LANG1.T_LABEL</label>
                     <input name="name" ng-model="name_lang1" ark-translations="infos.translations.name" ark-translate ark-translate-bind-lang="1" aria-label="-" required></input>
                 </md-input-container>
             </ark-form-block>
             <ark-form-block flex>
                 <md-input-container style="margin-top: 25px">
-                    <label translate>IMPORT_STEP3.FIELD_DESCRIPTION_LANG1.T_LABEL
+                    <label translate>
+                        MAPEDITOR.FIELD_DESCRIPTION_LANG1.T_LABEL
                     </label>
-                    <textarea name="description" ng-model="desc_lang1" ark-translations="infos.translations.description" ark-translate ark-translate-bind-lang="1" aria-label="-" required flex></textarea>
+                    <textarea name="description" ng-model="desc_lang1" ark-translations="infos.translations.description" ark-translate ark-translate-bind-lang="1" aria-label="-" required style="min-width: 500px; min-height:30px" flex></textarea>
                     <div ng-messages="mapEditorForm.description.$error">
                         <div ng-message="required" translate>MAPEDITOR.FIELD_ALL.T_ERROR_REQUIRED</div>
                     </div>
@@ -175,13 +183,16 @@
             </ark-form-block>
             <ark-form-block flex>
                 <md-input-container style="width: 400px">
-                    <label translate>MAPEDITOR.FIELD_NAME.T_LABEL</label>
+                    <label translate>MAPEDITOR.FIELD_NAME_LANG2.T_LABEL</label>
                     <input name="name2" ng-model="name_lang2" ark-translations="infos.translations.name" ark-translate ark-translate-bind-lang="2" aria-label="-" required></input>
                 </md-input-container>
             </ark-form-block>
             <ark-form-block flex>
                 <md-input-container style="margin-top: 25px">
-                    <textarea name="description2" ng-model="desc_lang2" ark-translations="infos.translations.description" ark-translate ark-translate-bind-lang="2" aria-label="-" placeholder="{{ 'MAPEDITOR.FIELD_DESCRIPTION_LANG2.T_LABEL' | translate}}" required></textarea>
+                    <label translate>
+                        MAPEDITOR.FIELD_DESCRIPTION_LANG2.T_LABEL
+                    </label>
+                    <textarea name="description2" ng-model="desc_lang2" ark-translations="infos.translations.description" ark-translate ark-translate-bind-lang="2" aria-label="-" required style="min-width: 500px; min-height:30px"></textarea>
                     <div ng-messages="mapEditorForm.description2.$error">
                         <div ng-message="required" translate>MAPEDITOR.FIELD_ALL.T_ERROR_REQUIRED</div>
                     </div>
@@ -203,10 +214,10 @@
     <md-button type="submit" class="md-primary md-raised" ng-disabled2="!mapEditorForm.$valid">
         <span translate>MAPEDITOR.INTERFACE_BUTTON.T_SUBMIT</span>
     </md-button>
-    <md-button class="md-raised md-hue-1" ng-click="reset()">
+    <md-button class="md-raised md-hue-1" ng-click="reset()" ng-hide="infos.id">
         <span translate>MAPEDITOR.INTERFACE_BUTTON.T_RESET</span>
     </md-button>
-    <md-button class="md-raised md-hue-1" ng-click="delete()" ng-hide="!infos.id">
+    <md-button class="md-raised md-hue-1" ng-click="delete()" ng-show="infos.id">
         <span translate>MAPEDITOR.INTERFACE_BUTTON.T_DELETE</span>
     </md-button>
 </md-content>

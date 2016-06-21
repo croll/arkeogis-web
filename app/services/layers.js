@@ -26,7 +26,10 @@
 
         this.getLayers = function(params) {
             d = $q.defer();
-            p = params || {author: 0, type: ''}
+            p = params || {
+                author: 0,
+                type: ''
+            }
             $http({
                 url: '/api/layers',
                 method: 'GET',
@@ -38,7 +41,7 @@
                             d.min_scale = '';
                             d.max_scale = '';
                         } else {
-                            d.zoom_level = d.min_scale+' / '+d.max_scale;
+                            d.zoom_level = d.min_scale + ' / ' + d.max_scale;
                         }
                         if (d.description == "") {
                             d.description = d.description_en;
@@ -56,7 +59,7 @@
             return d.promise
         };
 
-    this.getLayer = function(id, type) {
+        this.getLayer = function(id, type) {
             d = $q.defer();
             $http({
                 url: '/api/layer',
@@ -66,11 +69,7 @@
                     id: id
                 },
                 transformResponse: function(data) {
-                    data = angular.fromJson(data);
-                    console.log(data);
-                    angular.forEach(data, function(d) {
-                    })
-                    return data;
+                    return processLayerInfos(angular.fromJson(data));
                 }
             }).then(function(res) {
                 d.resolve(res.data);
@@ -79,8 +78,39 @@
                 d.reject(err);
             });
             return d.promise
+        }
 
-    }
+        var processLayerInfos = function(data) {
+            angular.extend(data, data.infos);
+            data.created_at = new Date(data.created_at);
+            data.geographical_extent_geom = angular.fromJson(data.geographical_extent_geom);
+            if (data.type == 'shp') {
+                data.declared_creation_date = new Date(data.declared_creation_date);
+                data.geojson = angular.fromJson(data.geojson);
+            } else {
+                data.max_usage_date = new Date(data.max_usage_date);
+            }
+            angular.forEach(data.authors, function(author) {
+                author.fullname = author.firstname + ' ' + author.lastname;
+            });
+
+            for (var k in data.translations.attribution) {
+                if (!data.translations.attribution.hasOwnProperty(k)) continue;
+                if (data.translations.attribution[k]) {
+                    data.attribution= data.translations.attribution[k];
+                }
+            }
+
+            for (var k in data.translations.copyright) {
+                if (!data.translations.copyright.hasOwnProperty(k)) continue;
+                if (data.translations.copyright[k]) {
+                    data.copyright = data.translations.copyright[k];
+                }
+            }
+
+            delete data.infos;
+            return data;
+        }
 
     }]);
 })();
