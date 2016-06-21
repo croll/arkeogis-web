@@ -224,9 +224,9 @@
         var setWMTSPreview = function() {
             var layer = new L.TileLayer.WMTS($scope.infos.wms_url, {
                 layer: $scope.selectedLayer.identifier
-                //    style: "normal",
-                //    tilematrixSet: "PM",
-                //    format: "image/jpeg",
+                    //    style: "normal",
+                    //    tilematrixSet: "PM",
+                    //    format: "image/jpeg",
             });
             leafletData.getMap().then(function(map) {
                 map.addLayer(layer);
@@ -309,19 +309,18 @@
             if (!dbObj.license_id) {
                 dbObj.license_id = 0;
             }
+            dbObj.authors = [];
+            angular.forEach($scope.infos.authors, function(author) {
+                dbObj.authors.push(author.id);
+            });
             if ($scope.type == 'shp') {
-            // Authors
-                dbObj.authors = [];
-                angular.forEach($scope.infos.authors, function(author) {
-                    dbObj.authors.push(author.id);
-                });
-            // geojson
-            dbObj.geojson_with_data = JSON.stringify($scope.infos.geojson);
-            dbObj.geojson = JSON.stringify(removeGeoJSONDatas($scope.infos.geojson));
+                // Authors
+                // geojson
+                dbObj.geojson_with_data = JSON.stringify($scope.infos.geojson);
+                dbObj.geojson = JSON.stringify(removeGeoJSONDatas($scope.infos.geojson));
                 // Type of wm(t)s layer
             } else {
                 dbObj.type = $scope.type;
-                dbObj.author_id = login.user.id;
                 dbObj.identifier = $scope.selectedLayer.identifier;
                 // TODO: remove this field is unused
                 dbObj.image_format = '';
@@ -371,6 +370,49 @@
                 }
             }
             return outp;
+        }
+
+    }]);
+})();
+
+(function() {
+    'use strict';
+    ArkeoGIS.controller('MapEditorListCtrl', ['$scope', 'layerService', 'mapService', 'login', '$http', '$state', function($scope, layerService, mapService, login, $http, $state) {
+
+        var self = this;
+
+        $scope.filter = {
+            show: false,
+            options: {}
+        };
+
+        $scope.query = {
+            filter: '',
+            order: 'line',
+            limit: 20,
+            page: 1,
+            numRows: ['All', 10, 20, 30]
+        };
+
+        $scope.onOrderChange = function(order) {
+            $scope.order = order;
+        };
+
+        $scope.removeFilter = function() {
+            $scope.filter.show = false;
+            $scope.query.filter = '';
+
+            if ($scope.filter.form.$dirty) {
+                $scope.filter.form.$setPristine();
+            }
+        };
+
+        layerService.getLayers().then(function(layers) {
+            $scope.mapLayers =  layers;
+        })
+
+        $scope.edit = function(type, id) {
+            $state.go('arkeogis.mapeditor', {type: type, id: id});
         }
 
     }]);
