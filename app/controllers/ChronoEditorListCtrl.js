@@ -96,7 +96,7 @@
 	 * ChronoEditorCtrl Chrono Editor Controller
 	 */
 
-	ArkeoGIS.controller('ChronoEditorCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', '$http', 'arkeoService', '$stateParams', '$rootScope', function ($scope, $q, $mdSidenav, arkeoLang, Login, $http, arkeoService, $stateParams, $rootScope) {
+	ArkeoGIS.controller('ChronoEditorCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', '$http', 'arkeoService', '$stateParams', '$rootScope', '$state', function ($scope, $q, $mdSidenav, arkeoLang, Login, $http, arkeoService, $stateParams, $rootScope, $state) {
 
 		//if (!Login.requirePermission('langeditor', 'langeditor'))
         //    return;
@@ -105,7 +105,12 @@
 
 		$scope.chooseemprise = false;
 		$scope.publishable = false;
-		$scope.arbo = {};
+		$scope.arbo = {
+			name: {},
+			start_date: 0,
+			end_date: 0,
+			content: [],
+		};
 
 		var colors= [
 			[[ 171, 171, 171], [ 171, 171, 171], [ 171, 171, 171], [ 171, 171, 171] ],
@@ -227,8 +232,10 @@
 		$scope.check_all = function() {
 
 			// hack root element (not visible) to have start_date / end_date of extremities
-			$scope.arbo.start_date = $scope.arbo.content[0].start_date;
-			$scope.arbo.end_date = $scope.arbo.content[$scope.arbo.content.length-1].end_date;
+			if ($scope.arbo.content.length >= 1) {
+				$scope.arbo.start_date = $scope.arbo.content[0].start_date;
+				$scope.arbo.end_date = $scope.arbo.content[$scope.arbo.content.length-1].end_date;
+			}
 
 			// clear errors
 			clear_elem_err($scope.arbo);
@@ -324,6 +331,25 @@
 		$scope.showemprise = function() {
 			$scope.chooseemprise = true;
 			$rootScope.$broadcast('EmpriseMapShow');
+		};
+
+		$scope.delete_chrono = function() {
+			var url = '/api/chronologies/'+$scope.arbo.id;
+			$http.delete(url).then(function(data) {
+				arkeoService.showMessage("deleted !");
+				$scope.arbo = {
+					name: {},
+					start_date: 0,
+					end_date: 0,
+					content: [],
+				};
+				colorize_all();
+				$scope.check_all();
+				$state.go('arkeogis.chronoditor-list');
+			}, function(err) {
+				arkeoService.showMessage("delete failed : "+err.status+", "+err.statusText);
+				console.error("delete", err);
+			});
 		};
 
 		function init() {
@@ -452,7 +478,6 @@
 			$rootScope.$broadcast('EmpriseMapChoosen', curlayer.toGeoJSON());
 			$rootScope.$broadcast('EmpriseMapClose');
 		};
-
 
 	}]); // controller ChronoEditorMapCtrl
 
