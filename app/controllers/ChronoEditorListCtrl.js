@@ -254,7 +254,8 @@
 			};*/
 
 			// copie author user id from the autocomplete input
-			$scope.arbo.author_user_id = $scope.arbo.author.id;
+			if (('author' in $scope.arbo) && ($scope.arbo.author != null) && ('id' in $scope.arbo.author))
+				$scope.arbo.author_user_id = $scope.arbo.author.id;
 
 			$http.post(url, $scope.arbo).then(function(data) {
 				arkeoService.showMessage("ok !");
