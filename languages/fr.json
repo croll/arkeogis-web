@@ -471,8 +471,8 @@
 			"T_ITEM_LOGIN": "S'identifier",
 			"T_ITEM_LOGOUT": "Déconnecter",
 			"T_ITEM_MAP": "Carte",
-			"T_ITEM_MAPEDITOR": "#!#MAIN.FIELD_MAINMENU.T_ITEM_MAPEDITOR",
-			"T_ITEM_PREFERENCES": "#!#MAIN.FIELD_MAINMENU.T_ITEM_PREFERENCES",
+			"T_ITEM_MAPEDITOR": "Éditeur de cartes",
+			"T_ITEM_PREFERENCES": "Préférences utilisateur",
 			"T_ITEM_USERSMANAGER": "Éditeur d'utilisateurs"
 		},
 		"LOADING": {
@@ -526,80 +526,93 @@
 	},
 	"MAPEDITOR": {
 		"BUTTON_SHP_FILE": {
-			"T_LABEL": "#!#MAPEDITOR.BUTTON_SHP_FILE.T_LABEL"
+			"T_LABEL": "Envoyer le fichier zip"
 		},
 		"FIELD_ALL": {
-			"T_ERROR_REQUIRED": "#!#MAPEDITOR.FIELD_ALL.T_ERROR_REQUIRED"
+			"T_ERROR_REQUIRED": "Ce champs est requis"
 		},
 		"FIELD_ATTRIBUTION": {
-			"T_LABEL": "#!#MAPEDITOR.FIELD_ATTRIBUTION.T_LABEL"
+			"T_LABEL": "Attribution"
 		},
 		"FIELD_AUTHOR": {
-			"T_HELP": "#!#MAPEDITOR.FIELD_AUTHOR.T_HELP",
-			"T_LABEL": "#!#MAPEDITOR.FIELD_AUTHOR.T_LABEL"
+			"T_HELP": "Personnes qui sont à l'origine du shapefile",
+			"T_LABEL": "Auteurs et co-auteurs"
 		},
 		"FIELD_COPYRIGHT": {
-			"T_LABEL": "#!#MAPEDITOR.FIELD_COPYRIGHT.T_LABEL"
+			"T_LABEL": "Copyright"
 		},
 		"FIELD_CREATION_DATE": {
-			"T_HELP": "#!#MAPEDITOR.FIELD_CREATION_DATE.T_HELP",
-			"T_LABEL": "#!#MAPEDITOR.FIELD_CREATION_DATE.T_LABEL"
+			"T_HELP": "Date de création du fichier",
+			"T_LABEL": "Date de création"
 		},
 		"FIELD_DESCRIPTION_LANG2": {
-			"T_LABEL": "#!#MAPEDITOR.FIELD_DESCRIPTION_LANG2.T_LABEL"
+			"T_LABEL": "Traductions de la description"
 		},
 		"FIELD_END_DATE": {
-			"T_LABEL": "#!#MAPEDITOR.FIELD_END_DATE.T_LABEL"
+			"T_LABEL": "Date de fin"
 		},
 		"FIELD_LICENSE": {
-			"T_HELP": "#!#MAPEDITOR.FIELD_LICENSE.T_HELP",
-			"T_LABEL": "#!#MAPEDITOR.FIELD_LICENSE.T_LABEL"
+			"T_HELP": "License associée",
+			"T_LABEL": "Nom de la license"
 		},
 		"FIELD_MAX_USAGE_DATE": {
-			"T_HELP": "#!#MAPEDITOR.FIELD_MAX_USAGE_DATE.T_HELP",
-			"T_LABEL": "#!#MAPEDITOR.FIELD_MAX_USAGE_DATE.T_LABEL"
+			"T_HELP": "Date limite d’utilisation du calque",
+			"T_LABEL": "Date limite d’utilisation"
 		},
 		"FIELD_MIN_SCALE": {
-			"T_LABEL": "#!#MAPEDITOR.FIELD_MIN_SCALE.T_LABEL"
+			"T_LABEL": "Échelle minimale"
 		},
 		"FIELD_NAME": {
-			"T_LABEL": "#!#MAPEDITOR.FIELD_NAME.T_LABEL"
+			"T_LABEL": "Échelle maximale"
 		},
 		"FIELD_PUBLISHED": {
-			"T_HELP": "#!#MAPEDITOR.FIELD_PUBLISHED.T_HELP",
-			"T_LABEL": "#!#MAPEDITOR.FIELD_PUBLISHED.T_LABEL"
+			"T_HELP": "Rendre le calque accessible des autres utilisateurs",
+			"T_LABEL": "Publié"
 		},
 		"FIELD_SELECT_LAYER": {
-			"T_LABEL": "#!#MAPEDITOR.FIELD_SELECT_LAYER.T_LABEL"
+			"T_LABEL": "Choix du calque"
 		},
 		"FIELD_START_DATE": {
-			"T_LABEL": "#!#MAPEDITOR.FIELD_START_DATE.T_LABEL"
+			"T_LABEL": "Date de début"
 		},
 		"FIELD_WMS_URL": {
-			"T_LABEL": "#!#MAPEDITOR.FIELD_WMS_URL.T_LABEL"
+			"T_LABEL": "Url du calque WMS"
 		},
 		"INTERFACE_BUTTON": {
-			"T_DELETE": "#!#MAPEDITOR.INTERFACE_BUTTON.T_DELETE",
-			"T_RESET": "#!#MAPEDITOR.INTERFACE_BUTTON.T_RESET",
-			"T_SUBMIT": "#!#MAPEDITOR.INTERFACE_BUTTON.T_SUBMIT"
+			"T_DELETE": "Effacer",
+			"T_RESET": "Remise à zero",
+			"T_SUBMIT": "Envoyer"
 		},
 		"MESSAGE_GET_LAYER_LIST": {
-			"T_ERROR": "#!#MAPEDITOR.MESSAGE_GET_LAYER_LIST.T_ERROR",
-			"T_SUCCESS": "#!#MAPEDITOR.MESSAGE_GET_LAYER_LIST.T_SUCCESS"
+			"T_ERROR": "Récupération de la liste des calques",
+			"T_SUCCESS": "Liste des calques récupérée avec succès."
 		},
 		"MESSAGE_NOT_ZIP_FILE": {
-			"T_ERROR": "#!#MAPEDITOR.MESSAGE_NOT_ZIP_FILE.T_ERROR"
+			"T_ERROR": "Le fichier envoyé n'est pas valide."
 		},
 		"MESSAGE_SHP_LOADING": {
-			"T_ERROR": "#!#MAPEDITOR.MESSAGE_SHP_LOADING.T_ERROR"
+			"T_ERROR": "Traitement des fichiers"
 		},
 		"SELECT_SHP_OR_WMS": {
-			"T_LABEL": "#!#MAPEDITOR.SELECT_SHP_OR_WMS.T_LABEL"
+			"T_LABEL": "Choix du type de calque"
 		},
 		"SELECT_SHP_WMS_WMTS": {
-			"T_OPTION_SHP": "#!#MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_SHP",
-			"T_OPTION_WMS": "#!#MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_WMS",
-			"T_OPTION_WMTS": "#!#MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_WMTS"
+			"T_OPTION_SHP": "Shapefile",
+			"T_OPTION_WMS": "Calque WMS",
+			"T_OPTION_WMTS": "Calque WMTS"
+		},
+		"TABLE_LIST": {
+			"T_FILTER_RESULTS_LABEL": "Filtrer",
+			"T_HELP_FILTER_RESULTS": "Filtrer la liste des résultats",
+			"T_LABEL_AUTHOR": "Auteur",
+			"T_LABEL_CREATION_DATE": "Date de création",
+			"T_LABEL_DESCRIPTION": "Description",
+			"T_LABEL_END_DATE": "Date de fin",
+			"T_LABEL_PUBLISHED": "Publié",
+			"T_LABEL_START_DATE": "Date de début",
+			"T_LABEL_TYPE": "Type",
+			"T_LABEL_ZOOM_LEVEL": "Niveaux de zoom",
+			"T_TITLE": "Liste des calques disponibles"
 		}
 	},
 	"USER": {
@@ -737,34 +750,34 @@
 	},
 	"USER_PREFERENCES": {
 		"BUTTON_SUBMIT": {
-			"T_LABEL": "#!#USER_PREFERENCES.BUTTON_SUBMIT.T_LABEL"
+			"T_LABEL": "Envoyer"
 		},
 		"FIELD_END_DATE": {
-			"T_LABEL": "#!#USER_PREFERENCES.FIELD_END_DATE.T_LABEL"
+			"T_LABEL": "Date de fin"
 		},
 		"FIELD_START_DATE": {
-			"T_LABEL": "#!#USER_PREFERENCES.FIELD_START_DATE.T_LABEL"
+			"T_LABEL": "Date de début"
 		},
 		"INFORMATIONS": {
-			"T_TILE": "#!#USER_PREFERENCES.INFORMATIONS.T_TILE"
+			"T_TILE": "Informations"
 		},
 		"INFORMATIONS_PERIOD_SELECTION": {
-			"T_LABEL": "#!#USER_PREFERENCES.INFORMATIONS_PERIOD_SELECTION.T_LABEL"
+			"T_LABEL": "Choix de la période"
 		},
 		"INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA": {
-			"T_LABEL": "#!#USER_PREFERENCES.INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA.T_LABEL"
+			"T_LABEL": "Choix de la zone géographique"
 		},
 		"INTERFACE_INFOS_USAGE": {
-			"T_LABEL": "#!#USER_PREFERENCES.INTERFACE_INFOS_USAGE.T_LABEL"
+			"T_LABEL": "Utilisation"
 		},
 		"TAB_CHRONOLOGIES": {
-			"T_LABEL": "#!#USER_PREFERENCES.TAB_CHRONOLOGIES.T_LABEL"
+			"T_LABEL": "Chronologies"
 		},
 		"TAB_DATABASES": {
-			"T_LABEL": "#!#USER_PREFERENCES.TAB_DATABASES.T_LABEL"
+			"T_LABEL": "Bases de données"
 		},
 		"TAB_MAPS": {
-			"T_LABEL": "#!#USER_PREFERENCES.TAB_MAPS.T_LABEL"
+			"T_LABEL": "Cartes"
 		}
 	}
 }
