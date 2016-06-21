@@ -47,6 +47,20 @@
                     var bounds = $scope.geojsonLayer.getBounds();
                     map.fitBounds(bounds);
                 });
+            } else if (layer.type == 'wms') {
+                $scope.layers.overlays.preview = {
+                    name: 'WMS',
+                    type: 'wms',
+                    url: layer.url,
+                    visible: true,
+                    layerOptions: {
+                        layers: layer.identifier,
+                        opacity: 0.70
+                    }
+                };
+                leafletData.getMap().then(function(map) {
+                    map.fitBounds(layer.geographical_extent_geom);
+                });
             }
         } else {
             $scope.infos = angular.copy(this.defaultInfos);
@@ -198,7 +212,7 @@
 
         $scope.onLayerSelected = function() {
             angular.forEach($scope.wmsLayers, function(wl) {
-                if ($scope.selectedLayerId == wl.identifier) {
+                if ($scope.infos.identifier == wl.identifier) {
                     $scope.selectedLayer = wl;
                 }
             });
@@ -226,12 +240,12 @@
                     url: $scope.infos.url,
                     visible: true,
                     layerOptions: {
-                        layers: $scope.selectedLayer.identifier,
+                        layers: $scope.infos.identifier,
                         opacity: 0.70
                     }
                 };
                 leafletData.getMap().then(function(map) {
-                    $scope.infos.geographical_extent_geom = JSON.stringify(L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON().geometry);
+                    $scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON().geometry;
                     map.fitBounds($scope.selectedLayer.boundingBox);
                 });
             }, 0);
@@ -239,14 +253,14 @@
 
         var setWMTSPreview = function() {
             var layer = new L.TileLayer.WMTS($scope.infos.url, {
-                layer: $scope.selectedLayer.identifier
+                layer: $scope.infos.identifier
                     //    style: "normal",
                     //    tilematrixSet: "PM",
                     //    format: "image/jpeg",
             });
             leafletData.getMap().then(function(map) {
                 map.addLayer(layer);
-                $scope.infos.geographical_extent_geom = JSON.stringify(L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON().geometry);
+                $scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON().geometry;
                 map.fitBounds($scope.selectedLayer.boundingBox);
             });
         }
@@ -272,7 +286,7 @@
                         $scope.geojsonLayer.addData($scope.infos.geojson);
                         var bounds = $scope.geojsonLayer.getBounds();
                         map.fitBounds(bounds);
-                        $scope.infos.geographical_extent_geom = JSON.stringify(L.rectangle(bounds).toGeoJSON().geometry);
+                        $scope.infos.geographical_extent_geom = L.rectangle(bounds).toGeoJSON().geometry;
                         $scope.hideFields = false;
                     }, function(err) {
                         console.log("err");
@@ -329,6 +343,7 @@
             angular.forEach($scope.infos.authors, function(author) {
                 dbObj.authors.push(author.id);
             });
+            dbObj.geographical_extent_geom = JSON.stringify($scope.infos.geographical_extent_geom);
             if ($scope.type == 'shp') {
                 // Authors
                 // geojson
@@ -337,7 +352,7 @@
                 // Type of wm(t)s layer
             } else {
                 dbObj.type = $scope.type;
-                dbObj.identifier = $scope.selectedLayer.identifier;
+                dbObj.identifier = $scope.infos.identifier;
                 dbObj.url = $scope.infos.url;
                 // TODO: remove this field is unused
                 dbObj.image_format = '';
@@ -349,20 +364,36 @@
             var url = ($scope.type == 'shp') ? '/api/shpLayer' : '/api/wmLayer';
             console.log(dbObj);
             if (form.$valid) {
-                Upload.upload({
-                    url: url,
-                    data: {
-                        csv: $scope.file,
-                        infos: Upload.json(dbObj)
-                    }
-                }).then(function() {
-                    arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE_SUCCESS')
-                    $state.go('arkeogis.mapeditor-list');
-                }, function(resp) {
-                    arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE_FAILED')
-                }, function(evt) {
-                    $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total);
-                });
+                if ($scope.file) {
+                    Upload.upload({
+                        url: url,
+                        data: {
+                            csv: $scope.file,
+                            infos: Upload.json(dbObj)
+                        }
+                    }).then(function() {
+                        arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE_SUCCESS')
+                        $state.go('arkeogis.mapeditor-list');
+                    }, function(err) {
+                        arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE_FAILED')
+                        console.log(err);
+                    }, function(evt) {
+                        $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total);
+                    });
+                } else {
+                    $http({
+                        url: url,
+                        method: 'POST',
+                        data: dbObj
+                    }).then(function() {
+                        arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE_SUCCESS')
+                        $state.go('arkeogis.mapeditor-list');
+                    }, function(err) {
+                        arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE_FAILED')
+                        console.log(err);
+                    })
+
+                }
             }
         };
 

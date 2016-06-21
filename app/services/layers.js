@@ -83,9 +83,9 @@
         var processLayerInfos = function(data) {
             angular.extend(data, data.infos);
             data.created_at = new Date(data.created_at);
+            data.geographical_extent_geom = angular.fromJson(data.geographical_extent_geom);
             if (data.type == 'shp') {
                 data.declared_creation_date = new Date(data.declared_creation_date);
-                data.geographical_extent_geom = angular.fromJson(data.geographical_extent_geom);
                 data.geojson = angular.fromJson(data.geojson);
             } else {
                 data.max_usage_date = new Date(data.max_usage_date);

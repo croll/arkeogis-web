@@ -18,7 +18,7 @@
                 </md-input-container>
             </ark-form-block>
             <!-- SHP FILE -->
-            <ark-form-block ng-hide="type != 'shp'" style="margin-top: 30px" ng-show="infos.id">
+            <ark-form-block ng-hide="type != 'shp' || infos.id" style="margin-top: 30px">
                 <md-button class="md-raised" ngf-select="processSHP(file)" ng-model="file" name="file" ngf-pattern="'.zip'" accept=".zip" ngf-max-size="100MB">
                     <span translate>MAPEDITOR.BUTTON_SHP_FILE.T_LABEL</span>
                 </md-button>
@@ -38,12 +38,12 @@
             </md-button>
             <!-- WMS and WMTS layers list -->
             <md-input-container ng-hide="getCapabilities != true">
-                <md-select name="selectedLayerId" ng-model="selectedLayerId" placeholder="{{'MAPEDITOR.FIELD_SELECT_LAYER.T_LABEL' | translate}}" md-on-close="onLayerSelected();hideIdentifier = true">
+                <md-select name="identifier" ng-model="infos.identifier" placeholder="{{'MAPEDITOR.FIELD_SELECT_LAYER.T_LABEL' | translate}}" md-on-close="onLayerSelected();hideIdentifier = true">
                     <md-option value="{{layer.identifier}}" ng-repeat="layer in wmsLayers">{{layer.title}}</md-option>
                 </md-select>
             </md-input-container>
             <!-- Identifier -->
-            <md-input-container ng-show="getCapabilities == true || infos.id" style="margin: 15px 0 -10px 0" ng-hide = "wmsLayers.length || hideIdentifier">
+            <md-input-container ng-show="getCapabilities == true || infos.id" style="margin: 15px 0 -10px 0" ng-hide = "wmsLayers.length || hideIdentifier || hideFields">
                     <label>
                         <span translate>MAPEDITOR.FIELD_IDENTIFIER.T_LABEL</span>
                     </label>
