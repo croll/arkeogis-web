@@ -304,6 +304,7 @@
 					$scope.arbo = data.data;
 					colorize_all();
 					$scope.check_all();
+					$rootScope.$broadcast('EmpriseMapLayer', $scope.arbo.geom);
 				}, function(err) {
 					arkeoService.showMessage("load failed : "+err.status+", "+err.statusText);
 					console.error("loaded", err);
@@ -366,15 +367,15 @@
 							allowIntersection: false, // Restricts shapes to simple polygons
 							showArea: true,
 							shapeOptions: {
-				                color: '#bada55',
-								weight: 10,
+				                color: '#33f',
+								weight: 5,
 				            }
 						},
 						rectangle: {
 							showArea: true,
 							shapeOptions: {
-				                color: '#bada55',
-								weight: 10,
+				                color: '#33f',
+								weight: 5,
 				            }
 						}
 					}
@@ -397,8 +398,8 @@
 		var curlayer = null;
 
 		leafletData.getMap().then(function(map) {
-			leafletData.getLayers().then(function(baselayers) {
-			   var drawnItems = baselayers.overlays.draw;
+			leafletData.getLayers().then(function(layers) {
+			   var drawnItems = layers.overlays.draw;
 
 			   map.on('draw:created', function (e) {
 				   if (curlayer) {
@@ -408,6 +409,7 @@
 				 	curlayer = e.layer;
 				 	drawnItems.addLayer(curlayer);
 				 	curlayer.editing.enable();
+					console.log("curlayer", curlayer);
 
 				 	console.log(JSON.stringify(curlayer.toGeoJSON()));
   		 		 	$rootScope.$broadcast('EmpriseMapChoosen', curlayer.toGeoJSON());
@@ -422,6 +424,27 @@
 				 	//$rootScope.$broadcast('EmpriseMapClose');
 			   });
 
+			});
+		});
+
+		$scope.$on('EmpriseMapLayer', function(event, geom) {
+			leafletData.getMap().then(function(map) {
+				leafletData.getLayers().then(function(layers) {
+					var drawnItems = layers.overlays.draw;
+
+					if (curlayer) {
+ 					   drawnItems.removeLayer(curlayer);
+ 					   curlayer = null;
+ 				   }
+
+				   geom = angular.fromJson(geom);
+				   console.log("a...", geom);
+			   		curlayer = L.geoJson(geom).addTo(drawnItems);
+					console.log("curlayer", curlayer);
+					//curlayer.editing.enable();
+					console.log("b...", geom);
+
+				});
 			});
 		});
 
