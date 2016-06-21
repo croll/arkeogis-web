@@ -96,7 +96,7 @@
 	 * ChronoEditorCtrl Chrono Editor Controller
 	 */
 
-	ArkeoGIS.controller('ChronoEditorCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', '$http', 'arkeoService', function ($scope, $q, $mdSidenav, arkeoLang, Login, $http, arkeoService) {
+	ArkeoGIS.controller('ChronoEditorCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', '$http', 'arkeoService', '$stateParams', function ($scope, $q, $mdSidenav, arkeoLang, Login, $http, arkeoService, $stateParams) {
 
 		//if (!Login.requirePermission('langeditor', 'langeditor'))
         //    return;
@@ -297,15 +297,20 @@
 		};
 
 		$scope.load = function() {
-			var url = '/api/chronologies/'+217;
-			$http.get(url).then(function(data) {
-				$scope.arbo = data.data;
-				colorize_all();
-				$scope.check_all();
-			}, function(err) {
-				arkeoService.showMessage("load failed : "+err.status+", "+err.statusText);
-				console.error("loaded", err);
-			})
+			var id = $stateParams.chronology_id || 0;
+			if (id > 0) {
+				var url = '/api/chronologies/'+id;
+				$http.get(url).then(function(data) {
+					$scope.arbo = data.data;
+					colorize_all();
+					$scope.check_all();
+				}, function(err) {
+					arkeoService.showMessage("load failed : "+err.status+", "+err.statusText);
+					console.error("loaded", err);
+				})
+			} else {
+				console.log("starting with a new empty chrono...");
+			}
 		};
 
 		$scope.$on('EmpriseMapChoosen', function(event, geojson) {
