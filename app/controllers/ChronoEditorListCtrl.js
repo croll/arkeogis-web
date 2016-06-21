@@ -96,7 +96,7 @@
 	 * ChronoEditorCtrl Chrono Editor Controller
 	 */
 
-	ArkeoGIS.controller('ChronoEditorCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', '$http', 'arkeoService', '$stateParams', function ($scope, $q, $mdSidenav, arkeoLang, Login, $http, arkeoService, $stateParams) {
+	ArkeoGIS.controller('ChronoEditorCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', '$http', 'arkeoService', '$stateParams', '$rootScope', function ($scope, $q, $mdSidenav, arkeoLang, Login, $http, arkeoService, $stateParams, $rootScope) {
 
 		//if (!Login.requirePermission('langeditor', 'langeditor'))
         //    return;
@@ -320,6 +320,11 @@
 			$scope.chooseemprise = false;
 		});
 
+		$scope.showemprise = function() {
+			$scope.chooseemprise = true;
+			$rootScope.$broadcast('EmpriseMapShow');
+		};
+
 		function init() {
 			$scope.load();
 		}
@@ -332,13 +337,20 @@
 	 * ChronoEditorMapCtrl Chrono Editor Map Controller (choix de l'emprise)
 	 */
 
-	ArkeoGIS.controller('ChronoEditorMapCtrl', ['$scope', 'mapService', 'leafletData', '$rootScope', function ($scope, mapService, leafletData, $rootScope) {
+	ArkeoGIS.controller('ChronoEditorMapCtrl', ['$scope', 'mapService', 'leafletData', '$rootScope', '$timeout', function ($scope, mapService, leafletData, $rootScope, $timeout) {
 
 		var resize = function() {
 			$scope.mapHeight = ($(window).height() - $("#arkeo-main-toolbar").height() - $("#arkeo-chronoditor-toolbar").height())+"px";
 		};
 
 		$(window).on('resize', resize);
+		$scope.$on('EmpriseMapShow', function(event) {
+			$timeout(function() {
+				leafletData.getMap().then(function(map) {
+					map.invalidateSize();
+				});
+			}, 0);
+		});
 		resize();
 
 		angular.extend($scope, mapService.config);
