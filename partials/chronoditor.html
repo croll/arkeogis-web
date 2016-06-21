@@ -29,7 +29,9 @@
                 </md-input-container>
                 <md-input-container flex>
                     <label translate>CHRONODITOR.INPUT_AUTHOR.T_TITLE</label>
-                    <input ng-model="arbo.author"></input>
+                    <md-autocomplete md-selected-item="arbo.author" md-search-text="arbo.author_searchText" md-items="item in querySearchUsers(arbo.author_searchText)" md-item-text="item.firstname + ' ' + item.lastname">
+                      <span md-highlight-text="arbo.author_searchText">{{item.firstname}} {{item.lastname}}</span>
+                    </md-autocomplete>
                 </md-input-container>
                 <md-input-container flex>
                     <label translate>CHRONODITOR.INPUT_CREDITS.T_TITLE</label>
