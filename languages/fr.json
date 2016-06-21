@@ -15,8 +15,16 @@
 		"HEADER_CHRONODITOR": {
 			"T_TITLE": "Éditeur de chronologie"
 		},
+		"INFO_DATEERRORS": {
+			"T_TITLE": "Erreurs de date"
+		},
 		"INFO_MEMBERS": {
 			"T_TITLE": "Membres du groupe de travail"
+		},
+		"INFO_PUBLISHABLE": {
+			"T_NO": "Non",
+			"T_TITLE": "Publiable",
+			"T_YES": "Oui"
 		},
 		"INPUT_AUTHOR": {
 			"T_TITLE": "Auteur"

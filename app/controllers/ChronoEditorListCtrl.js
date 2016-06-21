@@ -45,61 +45,6 @@
 		}
 		init();
 
-/*
-			{
-				author: 'Bernard Loup',
-				name: 'Âge du Bronze Vallée du Rhin',
-				description: 'La chrono du loup est la meilleur de tout ArkeoGIS, et c\'est tout à fait objectif !',
-				active: true,
-				created_at: new Date('2015-11-23T22:00:00.000Z'),
-				date_begin: -1800,
-				date_end: -801,
-				users: [
-					{
-						name: 'Loup Bernard'
-					},
-					{
-						name: 'Plop Plip'
-					}
-				],
-			},
-			{
-				author: 'Gérard Lambert',
-				name: 'Banlieu rouge',
-				description: 'La chrono de Gérard Lambert, même la mobylette du copain de renaud marche bien mieux qu\'une renault',
-				active: true,
-				created_at: new Date('1977-04-11T22:00:00.000Z'),
-				date_begin: 1977,
-				date_end: 2016,
-				users: [
-					{
-						name: 'Gérard Lambert'
-					},
-					{
-						name: 'Quelqu\'un d\'autre'
-					}
-				],
-			},
-			{
-				author: 'Georges Brassens',
-				name: 'Les copains d\'abord',
-				description: "Il naviguait en pèr' peinard, Sur la grand-mare des canards, Et s'app'lait les Copains d'abord, Les Copains d'abord.",
-				active: true,
-				created_at: new Date('1921-09-22T22:00:00.000Z'),
-				date_begin: 1921,
-				date_end: 1981,
-				users: [
-					{
-						name: 'Georges Brassens'
-					},
-					{
-						name: 'Personne d\'autre'
-					}
-				],
-			}
-		];
-*/
-
     }]);  // controller ChronoEditorListCtrl
 
 
@@ -108,7 +53,7 @@
 	 * ChronoEditorCtrl Chrono Editor Controller
 	 */
 
-	ArkeoGIS.controller('ChronoEditorCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', '$http', 'arkeoService', '$stateParams', '$rootScope', '$state', function ($scope, $q, $mdSidenav, arkeoLang, Login, $http, arkeoService, $stateParams, $rootScope, $state) {
+	ArkeoGIS.controller('ChronoEditorCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', '$http', 'arkeoService', '$stateParams', '$rootScope', '$state', 'user', function ($scope, $q, $mdSidenav, arkeoLang, Login, $http, arkeoService, $stateParams, $rootScope, $state, User) {
 
 		//if (!Login.requirePermission('langeditor', 'langeditor'))
         //    return;
@@ -307,6 +252,10 @@
 				responseType: "json",
 				data: $scope.arbo,
 			};*/
+
+			// copie author user id from the autocomplete input
+			$scope.arbo.author_user_id = $scope.arbo.author.id;
+
 			$http.post(url, $scope.arbo).then(function(data) {
 				arkeoService.showMessage("ok !");
 				$scope.arbo = data.data;
@@ -367,6 +316,22 @@
 				console.error("delete", err);
 			});
 		};
+
+		$scope.querySearchUsers = function(query) {
+			return User.get({
+				order: 'u.firstname',
+				page: 1,
+				limit: 10,
+				filter: query,
+			}).$promise.then(function(data) {
+				if (data.data) {
+					data.data.forEach(function(elem) {
+						elem.name=elem.firstname+" "+elem.lastname;
+					});
+				} else data.data=[];
+				return data.data;
+			});
+		}
 
 		function init() {
 			$scope.load();
