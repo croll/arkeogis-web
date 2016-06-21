@@ -39,6 +39,33 @@
 		"INPUT_NAME": {
 			"T_TITLE": "Nom"
 		},
+		"LIST": {
+			"T_TITLE": "Liste des chronologies"
+		},
+		"LIST_AUTHOR": {
+			"T_TITLE": "Auteur"
+		},
+		"LIST_CREDITS": {
+			"T_TITLE": "Crédits"
+		},
+		"LIST_DATECREATED": {
+			"T_TITLE": "Date de création"
+		},
+		"LIST_DESCRIPTION": {
+			"T_TITLE": "Description"
+		},
+		"LIST_NAME": {
+			"T_TITLE": "Nom"
+		},
+		"LIST_PERIOD": {
+			"T_TITLE": "Période",
+			"T_TO": "à"
+		},
+		"LIST_PUBLISHED": {
+			"T_NO": "Non",
+			"T_TITLE": "Publié",
+			"T_YES": "Oui"
+		},
 		"SIDENAV": {
 			"T_TITLE": "Paramètres"
 		},
