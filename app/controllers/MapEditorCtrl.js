@@ -378,7 +378,7 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('MapEditorListCtrl', ['$scope', 'arkeoService', 'mapService', 'login', '$http', function($scope, arkeoService, mapService, login, $http) {
+    ArkeoGIS.controller('MapEditorListCtrl', ['$scope', 'layerService', 'mapService', 'login', '$http', function($scope, layerService, mapService, login, $http) {
 
         var self = this;
 
@@ -407,6 +407,10 @@
                 $scope.filter.form.$setPristine();
             }
         };
+
+        layerService.getLayers().then(function(layers) {
+            $scope.mapLayers =  layers;
+        })
 
     }]);
 })();

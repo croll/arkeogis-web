@@ -28,15 +28,14 @@
                 </md-button>
             </div>
         </md-toolbar>
-
         <md-table-container>
             <table md-table>
                 <thead md-head md-order="query.order" md-trigger="onOrderChange">
                     <tr md-row>
-                        <th md-column md-numeric md-order-by="line"><span translate>MAPEDITOR.TABLE_LIST.T_LABEL_CREATION_DATE</span></th>
-                        <th md-column md-order-by="creation_date"><span translate>MAPEDITOR.TABLE_LIST.T_LABEL_AUTHOR</span></th>
-                        <th md-column md-order-by="start_date"><span translate>MAPEDITOR.TABLE_LIST.T_LABEL_START_DATE</span></th>
-                        <th md-column md-order-by="end_date"><span translate>MAPEDITOR.TABLE_LIST.T_LABEL_END_DATE</span></th>
+                        <th md-column md-order-by="line"><span translate>MAPEDITOR.TABLE_LIST.T_LABEL_CREATION_DATE</span></th>
+                        <th md-column md-order-by="created_at"><span translate>MAPEDITOR.TABLE_LIST.T_LABEL_AUTHOR</span></th>
+                        <th md-column md-numeric md-order-by="start_date"><span translate>MAPEDITOR.TABLE_LIST.T_LABEL_START_DATE</span></th>
+                        <th md-column md-numeric md-order-by="end_date"><span translate>MAPEDITOR.TABLE_LIST.T_LABEL_END_DATE</span></th>
                         <th md-column md-order-by="zoom_level"><span translate>MAPEDITOR.TABLE_LIST.T_LABEL_ZOOM_LEVEL</span></th>
                         <th md-column md-order-by="type"><span translate>MAPEDITOR.TABLE_LIST.T_LABEL_TYPE</span></th>
                         <th md-column md-order-by="description"><span translate>MAPEDITOR.TABLE_LIST.T_LABEL_DESCRIPTION</span></th>
@@ -44,20 +43,19 @@
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row md-auto-select ng-repeat="map in mapList | filter:query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
-                        <td md-cell>{{map.creation_date}}</td>
-                        <td md-cell>{{map.author}}</td>
-                        <td md-cell>{{map.start_date}}</td>
-                        <td md-cell>{{map.end_date}}</td>
-                        <td md-cell>{{map.zoom_level}}</td>
-                        <td md-cell>{{map.type}}</td>
-                        <td md-cell>{{map.description}}</td>
-                        <td md-cell>{{map.published}}</td>
+                    <tr md-row md-auto-select ng-repeat="layer in mapLayers | filter:query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
+                        <td md-cell>{{layer.created_at | date:'short'}}</td>
+                        <td md-cell>{{layer.author}}</td>
+                        <td md-cell>{{layer.start_date}}</td>
+                        <td md-cell>{{layer.end_date}}</td>
+                        <td md-cell>{{layer.zoom_level}}</td>
+                        <td md-cell>{{layer.type}}</td>
+                        <td md-cell>{{layer.description}}</td>
+                        <td md-cell>{{layer.published}}</td>
                     </tr>
                 </tbody>
             </table>
         </md-table-container>
-
-        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{importErrors.total}}"
+        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{mapLayers.length}}"
         md-row-select="query.numRows" md-page-select></md-table-pagination>
     </md-content>
