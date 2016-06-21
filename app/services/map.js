@@ -25,54 +25,77 @@
         var self = this;
 
         this.config = {
-			defaults: {
-				zoomControlPosition: 'topright'
-			},
-			center: {
-				lat: 48.58476,
-				lng: 7.750576,
-				zoom: 8
-			},
-		    layers: {
+            defaults: {
+                zoomControlPosition: 'topright'
+            },
+            center: {
+                lat: 48.58476,
+                lng: 7.750576,
+                zoom: 8
+            },
+            layers: {
                 baselayers: {
                     osm: {
-	                    name: 'OpenStreetMap',
-	                    url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-	                    type: 'xyz'
+                        name: 'OpenStreetMap',
+                        url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                        type: 'xyz'
                     },
-					mapquest: {
-						name: 'MapQuest',
-						url: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png',
-						type: 'xyz'
-					},
-					googleTerrain: {
+                    mapquest: {
+                        name: 'MapQuest',
+                        url: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png',
+                        type: 'xyz'
+                    },
+                    googleTerrain: {
                         name: 'Google Terrain',
                         layerType: 'TERRAIN',
                         type: 'google'
                     },
                     googleHybrid: {
-	                    name: 'Google Hybrid',
-	                    layerType: 'HYBRID',
-	                    type: 'google'
-	                },
+                        name: 'Google Hybrid',
+                        layerType: 'HYBRID',
+                        type: 'google'
+                    },
                     googleRoadmap: {
                         name: 'Google Streets',
                         layerType: 'ROADMAP',
                         type: 'google'
                     }
                 },
-                overlays:{}
+                overlays: {}
             },
-			controls: {
-				scale: {
-					imperial: false,
-					position: 'bottomright'
-				},
-				fullscreen: {
-					position: 'topright'
-				}
-			}
-	}
+            controls: {
+                scale: {
+                    imperial: false,
+                    position: 'bottomright'
+                },
+                fullscreen: {
+                    position: 'topright'
+                }
+            }
+        }
+
+        this.getValidBoundingBox = function(minx, miny, maxx, maxy) {
+            minx = parseFloat(minx);
+            miny = parseFloat(miny);
+            maxx = parseFloat(maxx);
+            maxy = parseFloat(maxy);
+            if (minx <= -90) {
+                minx = -90;
+            }
+            if (maxx >= 90) {
+                maxx = 89.999999;
+            }
+            if (miny <= -180) {
+                miny = -180;
+            }
+            if (maxy >= 180) {
+                maxy = 179.999999;
+            }
+            return [
+                [minx, miny],
+                [maxx, maxy]
+            ]
+        }
 
     }]);
 })();
