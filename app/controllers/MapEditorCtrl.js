@@ -30,11 +30,43 @@
                 fullname: login.user.firstname + ' ' + login.user.lastname,
                 id: login.user.id
             }],
-            translations: [],
-            wms_url: 'http://demo.opengeo.org/geoserver/wms'
+            translations: {}
         }
 
         $scope.infos = angular.copy(defaultInfos);
+
+        // Debug
+
+        $scope.infos = angular.copy({
+                authors: [{
+                    fullname: login.user.firstname + ' ' + login.user.lastname,
+                    id: login.user.id
+                }],
+                translations: [],
+                wms_url: 'http://demo.opengeo.org/geoserver/wms',
+                min_scale: 2,
+                max_scale: 10,
+                declared_creation_date: new Date(),
+                max_usage_date: new Date(),
+                start_date: -1200,
+                end_date: 300,
+                license: 'pouet license',
+                attribution: 'atribution pouet',
+                copyright: 'copyright pouet',
+                translations: {
+                    description: {
+                        fr: 'desc fr',
+                        en: 'desc en',
+                        es: 'desc es'
+                    },
+                    name: {
+                        fr: 'name fr',
+                        en: 'name en',
+                        es: 'name es'
+                    }
+                }
+            },
+            $scope.infos);
 
         $scope.wmsLayers = [];
 
@@ -178,6 +210,7 @@
                     }
                 };
                 leafletData.getMap().then(function(map) {
+                    $scope.infos.geographical_extent_geom = JSON.stringify(L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON());
                     map.fitBounds($scope.selectedLayer.boundingBox);
                 });
             }, 0);
@@ -192,6 +225,7 @@
             });
             leafletData.getMap().then(function(map) {
                 map.addLayer(layer);
+                $scope.infos.geographical_extent_geom = JSON.stringify(L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON());
                 map.fitBounds($scope.selectedLayer.boundingBox);
             });
         }
@@ -217,19 +251,85 @@
         }
 
         $scope.loadLicenses = function() {
-            arkeoService.loadLicenses().then(function(l) {
+            arkeoService.loadLicenses(true).then(function(l) {
                 var licenses = [];
                 angular.forEach(l, function(license) {
-                    if (license.name !== '-') {
-                        licenses.push(license)
-                    }
+                    licenses.push(license)
                 });
                 $scope.licenses = licenses;
             });
         };
 
-        $scope.uploadSHP = function(file) {
+        $scope.submit = function(form) {
             $scope.uploadProgress = 0;
+            var dbObj = angular.copy($scope.infos);
+            // License id
+            if (!dbObj.license_id) {
+                dbObj.license_id = 0;
+            }
+            // Authors
+            if ($scope.type == 'shp') {
+                dbObj.authors = [];
+                angular.forEach($scope.infos.authors, function(author) {
+                    dbObj.authors.push(author.id);
+                });
+            // Type of wm(t)s layer
+            } else {
+                dbObj.type = $scope.type;
+                dbObj.author_id = login.user.id;
+            }
+            // translations
+            delete dbObj.translations;
+            angular.extend(dbObj, formatTranslation('description', $scope.infos.translations.description));
+            angular.extend(dbObj, formatTranslation('name', $scope.infos.translations.name));
+            // geojson
+            dbObj.geojson_with_data = JSON.stringify($scope.infos.geojson);
+            dbObj.geojson = JSON.stringify(removeGeoJSONDatas($scope.infos.geojson));
+            console.log(dbObj);
+            var url = ($scope.type == 'shp') ? '/api/shpLayer' : '/api/wmLayer';
+            if (form.$valid) {
+                Upload.upload({
+                    url: url,
+                    data: {
+                        csv: $scope.file,
+                        infos: Upload.json(dbObj)
+                    }
+                }).then(function() {
+                    arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE_SUCCESS')
+                    $state.go('arkeogis.mapeditor');
+                }, function(resp) {
+                    arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE_FAILED')
+                }, function(evt) {
+                    $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total);
+                });
+            }
+        };
+
+        function removeGeoJSONDatas(geojson) {
+            if (typeof(geojson) == null || !angular.isDefined(geojson.features)) {
+                return null;
+            }
+            for(var i = 0;i < geojson.features.length; i++) {
+                delete geojson.features[i].properties
+            }
+            return geojson;
+        }
+
+        function formatTranslation(property, container) {
+            var outp = {};
+            outp[property] = [];
+            for (var iso_code in container) {
+                        if (container.hasOwnProperty(iso_code)) {
+                            if (iso_code && container[iso_code]) {
+                                outp[property].push({lang_isocode: iso_code, text: container[iso_code]});
+                            }
+                        }
+                    }
+                    return outp;
+        }
+
+        $scope.processSHP = function(file) {
+            $scope.shpProcessingProgress = 0;
             if (!file) {
                 return;
             }
@@ -239,26 +339,29 @@
             }
             var reader = new FileReader();
             reader.onload = function(e) {
-                shp(e.target.result).then(function(geojson){
-                    $scope.geojson = geojson;
+                shp(e.target.result).then(function(geojson) {
+                    $scope.infos.geojson = geojson;
                     leafletData.getMap().then(function(map) {
                         if ($scope.geojsonLayer) {
                             map.removeLayer($scope.geojsonLayer);
                         }
                         $scope.geojsonLayer = L.geoJson().addTo(map)
                         $scope.geojsonLayer.addData(geojson);
-                        map.fitBounds($scope.geojsonLayer.getBounds());
+                        var bounds = $scope.geojsonLayer.getBounds();
+                        map.fitBounds(bounds);
+                        $scope.infos.geographical_extent_geom = JSON.stringify(L.rectangle(bounds).toGeoJSON().geometry);
                         $scope.hideFields = false;
+                        console.log(L.rectangle(bounds).toGeoJSON().geometry);
                     }, function(err) {
                         console.log("err");
                         arkeoService.showMessage('MAPEDITOR.MESSAGE_SHP_LOADING.T_ERROR', 'error')
                     });
-                }, function(err){
+                }, function(err) {
                     arkeoService.showMessage('MAPEDITOR.MESSAGE_SHP_LOADING.T_ERROR', 'error')
                 });
             }
             reader.onprogress = function(e) {
-                $scope.uploadProgress = parseInt(100.0 * e.loaded / e.total);
+                $scope.shpProcessingProgress = parseInt(100.0 * e.loaded / e.total);
             }
             reader.readAsArrayBuffer(file);
             /*

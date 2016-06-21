@@ -1,4 +1,4 @@
-<form>
+<form name="mapEditorForm" ng-submit="submit(this.mapEditorForm)" novalidate>
     <div layout>
         <md-content flex="50" layout-padding>
             <!-- Select WMS or Shapefile -->
@@ -19,10 +19,10 @@
             </ark-form-block>
             <!-- SHP FILE -->
             <ark-form-block ng-hide="type != 'shp'" style="margin-top: 30px">
-                <md-button class="md-raised" ngf-select="uploadSHP(file)" ng-model="file" name="file" ngf-pattern="'.shp,.zip'" accept=".shp,.zip" ngf-max-size="100MB">
+                <md-button class="md-raised" ngf-select="processSHP(file)" ng-model="file" name="file" ngf-pattern="'.zip'" accept=".zip" ngf-max-size="100MB">
                     <span translate>MAPEDITOR.BUTTON_SHP_FILE.T_LABEL</span>
                 </md-button>
-                <md-progress-linear md-mode="determinate" value="{{uploadProgress}}" md-buffer-value="100" ng-hide="!file"></md-progress-linear>
+                <md-progress-linear md-mode="determinate" value="{{shpProcessingProgress}}" md-buffer-value="100" ng-hide="!file"></md-progress-linear>
             </ark-form-block>
         </ark-form-block>
         <!-- WMS URL -->
@@ -91,15 +91,15 @@
     <ark-form-block>
         <md-input-container flex="50">
             <label translate>MAPEDITOR.FIELD_START_DATE.T_LABEL</label>
-            <input name="startDate" ng-model="infos.startDate" ark-year required="true">
+            <input name="end_date" ng-model="infos.start_date" ark-year required="true">
         </md-input-container>
         <md-input-container flex="50">
             <label translate>MAPEDITOR.FIELD_END_DATE.T_LABEL</label>
-            <input name="endDate" ng-model="infos.endDate" ark-year required="true"/>
+            <input name="start_date" ng-model="infos.end_date" ark-year required="true"/>
         </md-input-container>
     </ark-form-block>
     <!-- Authors -->
-    <ark-form-block>
+    <ark-form-block ng-hide="type != 'shp'">
         <md-chips ng-model="infos.authors" md-autocomplete-snap md-require-match="true" md-allow-repeats="false" md-on-remove="removeAuthor($chip)">
             <md-autocomplete md-search-text="userName" md-items="user in searchUser(userName)" md-item-text="user.fullname" placeholder="* {{ 'MAPEDITOR.FIELD_AUTHOR.T_LABEL' | translate}}">
                 <span md-highlight-text="userName">{{user.fullname}}</span>
@@ -114,14 +114,14 @@
     <ark-form-block>
         <md-input-container style="width: 100%">
             <label translate>MAPEDITOR.FIELD_ATTRIBUTION.T_LABEL</label>
-            <input name="startDate" ng-model="infos.attribution" required="true">
+            <input name="attribution" ng-model="infos.attribution" required="true">
         </md-input-container>
     </ark-form-block>
     <!-- Copyright -->
     <ark-form-block>
         <md-input-container style="width: 100%">
             <label translate>MAPEDITOR.FIELD_COPYRIGHT.T_LABEL</label>
-            <textarea name="startDate" ng-model="infos.copyright" required="true"></textarea>
+            <textarea name="copyright" ng-model="infos.copyright" required="true"></textarea>
         </md-input-container>
     </ark-form-block>
     <!-- License -->
@@ -142,7 +142,6 @@
         </div>
     </ark-form-block>
 
-
     <!-- Description blocks -->
     <div layout="column" layout-gt-sm="row" class="description-blocks" flex>
         <div class="md-padding" flex="50">
@@ -159,7 +158,8 @@
             </ark-form-block>
             <ark-form-block flex>
                 <md-input-container style="margin-top: 25px">
-                    <label translate>IMPORT_STEP3.FIELD_DESCRIPTION_LANG1.T_LABEL </label>
+                    <label translate>IMPORT_STEP3.FIELD_DESCRIPTION_LANG1.T_LABEL
+                    </label>
                     <textarea name="description" ng-model="desc_lang1" ark-translations="infos.translations.description" ark-translate ark-translate-bind-lang="1" aria-label="-" required flex></textarea>
                     <div ng-messages="mapEditorForm.description.$error">
                         <div ng-message="required" translate>MAPEDITOR.FIELD_ALL.T_ERROR_REQUIRED</div>
@@ -183,12 +183,34 @@
                 <md-input-container style="margin-top: 25px">
                     <textarea name="description2" ng-model="desc_lang2" ark-translations="infos.translations.description" ark-translate ark-translate-bind-lang="2" aria-label="-" placeholder="{{ 'MAPEDITOR.FIELD_DESCRIPTION_LANG2.T_LABEL' | translate}}" required></textarea>
                     <div ng-messages="mapEditorForm.description2.$error">
-                        <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
+                        <div ng-message="required" translate>MAPEDITOR.FIELD_ALL.T_ERROR_REQUIRED</div>
                     </div>
                 </md-input-container>
             </ark-form-block>
         </div>
     </div>
+    <!-- Published -->
+    <ark-form-block style="padding-left: 30px">
+        <md-switch aria-label="{{'MAPEDITOR.FIELD_PUBLISHED.T_LABEL' | translate}}" ng-model="infos.published">
+            <span translate>MAPEDITOR.FIELD_PUBLISHED.T_LABEL</span>
+        </md-switch>
+        <ark-help flex translate>MAPEDITOR.FIELD_PUBLISHED.T_HELP</ark-help>
+    </ark-form-block>
+</md-content>
 
+<!-- Buttons -->
+<md-content layout layout-sm="column" layout-padding layout-align="center center" ng-hide="hideFields" style="margin-top: 10px">
+    <md-button type="submit" class="md-primary md-raised" ng-disabled2="!mapEditorForm.$valid">
+        <span translate>MAPEDITOR.INTERFACE_BUTTON.T_SUBMIT</span>
+    </md-button>
+    <md-button class="md-raised md-hue-1" ng-click="reset()">
+        <span translate>MAPEDITOR.INTERFACE_BUTTON.T_RESET</span>
+    </md-button>
+    <md-button class="md-raised md-hue-1" ng-click="delete()" ng-hide="!infos.id">
+        <span translate>MAPEDITOR.INTERFACE_BUTTON.T_DELETE</span>
+    </md-button>
+</md-content>
+<md-content>
+    <md-progress-linear md-mode="determinate" value="{{uploadProgress}}" md-buffer-value="100" ng-hide="!uploadProgress"></md-progress-linear>
 </md-content>
 </form>

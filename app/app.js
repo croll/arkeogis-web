@@ -247,7 +247,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 resolve: {}
             })
             .state('arkeogis.chronoditor', {
-                url: "/chronoditor",
+                url: "/chronoditor/:chronology_id",
                 templateUrl: "partials/chronoditor.html",
                 controller: "ChronoEditorCtrl",
                 resolve: {}

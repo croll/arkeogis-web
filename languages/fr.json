@@ -1,4 +1,51 @@
 {
+	"CHRONODITOR": {
+		"BUTTON_AREA": {
+			"T_TITLE": "Emprise..."
+		},
+		"BUTTON_CLOSEMAP": {
+			"T_TITLE": "Fermer la carte"
+		},
+		"BUTTON_DELETE": {
+			"T_TITLE": "Supprimer"
+		},
+		"BUTTON_SAVE": {
+			"T_TITLE": "Enregistrer"
+		},
+		"HEADER_CHRONODITOR": {
+			"T_TITLE": "Éditeur de chronologie"
+		},
+		"INFO_MEMBERS": {
+			"T_TITLE": "Membres du groupe de travail"
+		},
+		"INPUT_AUTHOR": {
+			"T_TITLE": "Auteur"
+		},
+		"INPUT_CREDITS": {
+			"T_TITLE": "Crédits"
+		},
+		"INPUT_DESCRIPTION": {
+			"T_TITLE": "Description"
+		},
+		"INPUT_ELEM_BEGIN": {
+			"T_TITLE": "Début"
+		},
+		"INPUT_ELEM_END": {
+			"T_TITLE": "Fin"
+		},
+		"INPUT_ELEM_TITLE": {
+			"T_TITLE": "Nom"
+		},
+		"INPUT_NAME": {
+			"T_TITLE": "Nom"
+		},
+		"SIDENAV": {
+			"T_TITLE": "Paramètres"
+		},
+		"SWITCH_PUBLISHED": {
+			"T_TITLE": "Publié"
+		}
+	},
 	"DATABASE": {
 		"CONTEXT_ACADEMIC_WORK": {
 			"T_TITLE": "Travail universitaire"
@@ -483,6 +530,10 @@
 		"FIELD_NAME": {
 			"T_LABEL": "#!#MAPEDITOR.FIELD_NAME.T_LABEL"
 		},
+		"FIELD_PUBLISHED": {
+			"T_HELP": "#!#MAPEDITOR.FIELD_PUBLISHED.T_HELP",
+			"T_LABEL": "#!#MAPEDITOR.FIELD_PUBLISHED.T_LABEL"
+		},
 		"FIELD_SELECT_LAYER": {
 			"T_LABEL": "#!#MAPEDITOR.FIELD_SELECT_LAYER.T_LABEL"
 		},
@@ -492,9 +543,20 @@
 		"FIELD_WMS_URL": {
 			"T_LABEL": "#!#MAPEDITOR.FIELD_WMS_URL.T_LABEL"
 		},
+		"INTERFACE_BUTTON": {
+			"T_DELETE": "#!#MAPEDITOR.INTERFACE_BUTTON.T_DELETE",
+			"T_RESET": "#!#MAPEDITOR.INTERFACE_BUTTON.T_RESET",
+			"T_SUBMIT": "#!#MAPEDITOR.INTERFACE_BUTTON.T_SUBMIT"
+		},
 		"MESSAGE_GET_LAYER_LIST": {
 			"T_ERROR": "#!#MAPEDITOR.MESSAGE_GET_LAYER_LIST.T_ERROR",
 			"T_SUCCESS": "#!#MAPEDITOR.MESSAGE_GET_LAYER_LIST.T_SUCCESS"
+		},
+		"MESSAGE_NOT_ZIP_FILE": {
+			"T_ERROR": "#!#MAPEDITOR.MESSAGE_NOT_ZIP_FILE.T_ERROR"
+		},
+		"MESSAGE_SHP_LOADING": {
+			"T_ERROR": "#!#MAPEDITOR.MESSAGE_SHP_LOADING.T_ERROR"
 		},
 		"SELECT_SHP_OR_WMS": {
 			"T_LABEL": "#!#MAPEDITOR.SELECT_SHP_OR_WMS.T_LABEL"

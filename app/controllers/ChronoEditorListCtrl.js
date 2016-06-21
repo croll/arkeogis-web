@@ -96,110 +96,20 @@
 	 * ChronoEditorCtrl Chrono Editor Controller
 	 */
 
-	ArkeoGIS.controller('ChronoEditorCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', '$http', 'arkeoService', function ($scope, $q, $mdSidenav, arkeoLang, Login, $http, arkeoService) {
+	ArkeoGIS.controller('ChronoEditorCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', '$http', 'arkeoService', '$stateParams', '$rootScope', '$state', function ($scope, $q, $mdSidenav, arkeoLang, Login, $http, arkeoService, $stateParams, $rootScope, $state) {
 
 		//if (!Login.requirePermission('langeditor', 'langeditor'))
         //    return;
 
         var self=this;
 
-		$scope.chronolang="fr";
-
-		$scope.chrono = {
-			author: 'Bernard Loup',
-			name: 'Âge du Bronze Vallée du Rhin',
-			description: 'La chrono du loup est la meilleur de tout ArkeoGIS, et c\'est tout à fait objectif !',
-			active: true,
-			created_at: new Date('2015-11-23T22:00:00.000Z'),
-			date_begin: -1800,
-			date_end: -801,
-			users: [
-				{
-					name: 'Loup Bernard'
-				},
-				{
-					name: 'Plop Plip'
-				}
-			],
-		};
-
+		$scope.chooseemprise = false;
+		$scope.publishable = false;
 		$scope.arbo = {
-			root: true,
-			name: { fr: "Ma chrono", 'en': "My chrono" },
-			description: {},
-			start_date: -1200,
-			end_date: -800,
-			content: [
-				{
-					name: { fr: "Chrono 1", en: "Crono 1" },
-					start_date: -1200,
-					end_date: -800,
-					content: [
-						{
-							name: { fr: "Chrono 1.1", en: "Crono 1.1" },
-							start_date: -1200,
-							end_date: -800,
-							content: [
-								{
-									name: { fr: "Chrono 1.1.1", en: "Crono 1.1.1" },
-									start_date: -1200,
-									end_date: -800,
-									content: [
-										{
-											name: { fr: "Chrono 1.1.1.1", en: "Crono 1.1.1.1" },
-											start_date: -1200,
-											end_date: -800,
-										},
-									],
-								},
-							],
-						},
-					],
-				},
-				{
-					name: { fr: "Chrono 2", en: "Crono 2" },
-					start_date: -800,
-					end_date: 200,
-					content: [
-						{
-							name: { fr: "Chrono 2.1", en: "Crono 2.1" },
-							start_date: -800,
-							end_date: 200,
-							content: [
-								{
-									name: { fr: "Chrono 2.1.1", en: "Crono 2.1.1" },
-									start_date: -800,
-									end_date: 0,
-									content: [
-										{
-											name: { fr: "Chrono 2.1.1.1", en: "Crono 2.1.1.1" },
-										},
-									],
-								},
-								{
-									name: { fr: "Chrono 2.1.2", en: "Crono 2.1.2" },
-									start_date: 0,
-									end_date: 200,
-									content: [
-										{
-											name: { fr: "Chrono 2.1.2.1", en: "Crono 2.1.2.1" },
-											start_date: 0,
-											end_date: 99,
-											content: [],
-										},
-										{
-											name: { fr: "Chrono 2.1.2.2", en: "Crono 2.1.2.2" },
-											start_date: 100,
-											end_date: 200,
-											content: [],
-										},
-									],
-								},
-							],
-						},
-					],
-				},
-			],
+			name: {},
+			start_date: 0,
+			end_date: 0,
+			content: [],
 		};
 
 		var colors= [
@@ -242,14 +152,26 @@
 		}
 
 		function check_elem(elem, previous, next, parent) {
-			var errcount=0;
+			var ret={
+				errcount: 0,
+				elemcount: 1,
+				tradscount: {},
+			}
+
+			// compte les traductions
+			if ('name' in elem) {
+				for (var isocode in elem.name) {
+					if (elem.name[isocode].length > 0)
+						ret.tradscount[isocode]=1;
+				}
+			}
 
 			// vérifie que les dates se suivent
 			if (next) {
 				if ((elem.end_date+1) != next.start_date) {
 					elem.end_date_err = true;
 					next.start_date_err = true;
-					errcount++;
+					ret.errcount++;
 				}
 			}
 
@@ -259,14 +181,14 @@
 					if (elem.start_date != parent.start_date) {
 						elem.start_date_err = true;
 						parent.start_date_err = true;
-						errcount++;
+						ret.errcount++;
 					}
 				}
 				if (!next) {
 					if (elem.end_date != parent.end_date) {
 						elem.end_date_err = true;
 						parent.end_date_err = true;
-						errcount++;
+						ret.errcount++;
 						console.log("aie", elem.end_date, parent.end_date);
 					}
 				}
@@ -283,10 +205,18 @@
 					var sub_elem = elem.content[i];
 					var sub_previous = i > 0 ? elem.content[i-1] : null;
 					var sub_next = i < (elem.content.length-1) ? elem.content[i+1] : null;
-					errcount += check_elem(sub_elem, sub_previous, sub_next, elem);
+					var res = check_elem(sub_elem, sub_previous, sub_next, elem);
+					ret.errcount += res.errcount;
+					ret.elemcount += res.elemcount;
+					for (var isocode in res.tradscount) {
+						if (isocode in ret.tradscount)
+							ret.tradscount[isocode] += res.tradscount[isocode];
+						else
+							ret.tradscount[isocode] = res.tradscount[isocode];
+					}
 				}
 			}
-			return errcount;
+			return ret;
 		}
 
 		function clear_elem_err(elem) {
@@ -300,30 +230,55 @@
 		}
 
 		$scope.check_all = function() {
+
+			// hack root element (not visible) to have start_date / end_date of extremities
+			if ($scope.arbo.content.length >= 1) {
+				$scope.arbo.start_date = $scope.arbo.content[0].start_date;
+				$scope.arbo.end_date = $scope.arbo.content[$scope.arbo.content.length-1].end_date;
+			}
+
+			// clear errors
 			clear_elem_err($scope.arbo);
-			var errcount = check_elem($scope.arbo, null, null, null);
-			console.log("errcount: ", errcount);
+
+			// recursively check all elements
+			var ret = check_elem($scope.arbo, null, null, null);
+			console.log("ret: ", ret);
+
+			// check if publishable
+			var publishable = false;
+			if (ret.errcount == 0) {
+				var fulltrads=[];
+				for (var isocode in ret.tradscount) {
+					console.log("isocode: ", isocode, ret.tradscount[isocode]);
+					if (ret.tradscount[isocode] == ret.elemcount)
+						fulltrads.push(isocode);
+				}
+				if ((fulltrads.length >= 2) && (fulltrads.indexOf('en') != -1)) {
+					publishable = true;
+				}
+				console.log("fulltrads", fulltrads, publishable);
+			}
+			if (!publishable)
+				$scope.arbo.active = false;
+			$scope.publishable = publishable;
 		}
 
 		$scope.add_arbo = function(elem, parent, idx1, idx, level) {
 			elem.content.push({
-				name: "",
-				start_date: 0,
-				end_date: 0,
+				name: {},
+				start_date: -1,
+				end_date: +1,
 				//color: buildcolor(idx1, level+1),
 				content: [],
 			});
 			colorize_all();
+			$scope.check_all();
 		};
 
 		$scope.remove_arbo = function(elem, parent, idx1, idx, level) {
 			parent.content.splice(idx, 1);
 			colorize_all();
 		};
-
-
-		colorize_all();
-
 
 		$scope.openLeftMenu = function() {
 		    $mdSidenav('left').toggle();
@@ -337,7 +292,10 @@
 				data: $scope.arbo,
 			};*/
 			$http.post(url, $scope.arbo).then(function(data) {
-				console.log("saved ", data);
+				arkeoService.showMessage("ok !");
+				$scope.arbo = data.data;
+				colorize_all();
+				$scope.check_all();
 			}, function(err) {
 				arkeoService.showMessage("save failed : "+err.status+", "+err.statusText);
 				console.error("saved", err);
@@ -345,7 +303,182 @@
 
 		};
 
+		$scope.load = function() {
+			var id = $stateParams.chronology_id || 0;
+			if (id > 0) {
+				var url = '/api/chronologies/'+id;
+				$http.get(url).then(function(data) {
+					$scope.arbo = data.data;
+					colorize_all();
+					$scope.check_all();
+					$rootScope.$broadcast('EmpriseMapLayer', $scope.arbo.geom);
+				}, function(err) {
+					arkeoService.showMessage("load failed : "+err.status+", "+err.statusText);
+					console.error("loaded", err);
+				})
+			} else {
+				console.log("starting with a new empty chrono...");
+			}
+		};
+
+		$scope.$on('EmpriseMapChoosen', function(event, geojson) {
+			$scope.arbo.geom = JSON.stringify(geojson.geometry);
+		});
+		$scope.$on('EmpriseMapClose', function(event) {
+			$scope.chooseemprise = false;
+		});
+
+		$scope.showemprise = function() {
+			$scope.chooseemprise = true;
+			$rootScope.$broadcast('EmpriseMapShow');
+		};
+
+		$scope.delete_chrono = function() {
+			var url = '/api/chronologies/'+$scope.arbo.id;
+			$http.delete(url).then(function(data) {
+				arkeoService.showMessage("deleted !");
+				$scope.arbo = {
+					name: {},
+					start_date: 0,
+					end_date: 0,
+					content: [],
+				};
+				colorize_all();
+				$scope.check_all();
+				$state.go('arkeogis.chronoditor-list');
+			}, function(err) {
+				arkeoService.showMessage("delete failed : "+err.status+", "+err.statusText);
+				console.error("delete", err);
+			});
+		};
+
+		function init() {
+			$scope.load();
+		}
+		init();
 
     }]); // controller ChronoEditorCtrl
+
+
+	/*
+	 * ChronoEditorMapCtrl Chrono Editor Map Controller (choix de l'emprise)
+	 */
+
+	ArkeoGIS.controller('ChronoEditorMapCtrl', ['$scope', 'mapService', 'leafletData', '$rootScope', '$timeout', function ($scope, mapService, leafletData, $rootScope, $timeout) {
+
+		var resize = function() {
+			$scope.mapHeight = ($(window).height() - $("#arkeo-main-toolbar").height() - $("#arkeo-chronoditor-toolbar").height())+"px";
+		};
+
+		$(window).on('resize', resize);
+		$scope.$on('EmpriseMapShow', function(event) {
+			$timeout(function() {
+				leafletData.getMap().then(function(map) {
+					map.invalidateSize();
+				});
+			}, 0);
+		});
+		resize();
+
+		angular.extend($scope, mapService.config);
+
+		angular.merge($scope, {
+			controls: {
+				draw: {
+					draw: {
+						polyline: false,
+						circle: false,
+						marker: false,
+						polygon: {
+							allowIntersection: false, // Restricts shapes to simple polygons
+							showArea: true,
+							shapeOptions: {
+				                color: '#33f',
+								weight: 5,
+				            }
+						},
+						rectangle: {
+							showArea: true,
+							shapeOptions: {
+				                color: '#33f',
+								weight: 5,
+				            }
+						}
+					}
+				}
+			},
+			layers: {
+				overlays: {
+					draw: {
+						name: 'draw',
+						type: 'group',
+						visible: true,
+						layerParams: {
+							showOnSelector: false
+						}
+					}
+				}
+			}
+		});
+
+		var curlayer = null;
+
+		leafletData.getMap().then(function(map) {
+			leafletData.getLayers().then(function(layers) {
+			   var drawnItems = layers.overlays.draw;
+
+			   map.on('draw:created', function (e) {
+				   if (curlayer) {
+					   drawnItems.removeLayer(curlayer);
+					   curlayer = null;
+				   }
+				 	curlayer = e.layer;
+				 	drawnItems.addLayer(curlayer);
+				 	curlayer.editing.enable();
+					console.log("curlayer", curlayer);
+
+				 	console.log(JSON.stringify(curlayer.toGeoJSON()));
+  		 		 	$rootScope.$broadcast('EmpriseMapChoosen', curlayer.toGeoJSON());
+				 	//$rootScope.$broadcast('EmpriseMapClose');
+			   });
+
+			   map.on('draw:edited', function (e) {
+				 	var layer = e.layer;
+
+				 	console.log(JSON.stringify(layer.toGeoJSON()));
+  		 		 	$rootScope.$broadcast('EmpriseMapChoosen', layer.toGeoJSON());
+				 	//$rootScope.$broadcast('EmpriseMapClose');
+			   });
+
+			});
+		});
+
+		$scope.$on('EmpriseMapLayer', function(event, geom) {
+			leafletData.getMap().then(function(map) {
+				leafletData.getLayers().then(function(layers) {
+					var drawnItems = layers.overlays.draw;
+
+					if (curlayer) {
+ 					   drawnItems.removeLayer(curlayer);
+ 					   curlayer = null;
+ 				   }
+
+				   geom = angular.fromJson(geom);
+				   console.log("a...", geom);
+			   		curlayer = L.geoJson(geom).addTo(drawnItems);
+					console.log("curlayer", curlayer);
+					//curlayer.editing.enable();
+					console.log("b...", geom);
+
+				});
+			});
+		});
+
+		$scope.close = function() {
+			$rootScope.$broadcast('EmpriseMapChoosen', curlayer.toGeoJSON());
+			$rootScope.$broadcast('EmpriseMapClose');
+		};
+
+	}]); // controller ChronoEditorMapCtrl
 
 })(); // all

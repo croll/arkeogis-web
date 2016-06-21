@@ -33,6 +33,11 @@
             },
 			link: function(scope, element, attrs) {
 
+                // preliminary checks
+
+                if (!angular.isObject(scope.arkTranslations))
+                    scope.arkTranslations={};
+
                 var iso_code = arkeoLang.getTranslationLang(scope.arkTranslateBindLang);
                 if (iso_code) {
                     switchModel(iso_code);
@@ -41,20 +46,24 @@
                 scope.translationLangs = arkeoLang.translationLangs;
 
                 scope.$watchCollection('translationLangs', function(newLangs, oldLangs) {
-
-                    switchModel(newLangs[scope.arkTranslateBindLang], oldLangs[scope.arkTranslateBindLang]);
+                    switchModel(newLangs[scope.arkTranslateBindLang]);
                 });
 
                 scope.$watch('ngModel', function(newTranslation) {
+                    if (newTranslation === undefined) return;
                     if (!angular.isObject(scope.arkTranslations)) {
-                        return;
+                        scope.arkTranslations={};
                     }
                     if (scope.translationLangs[scope.arkTranslateBindLang]) {
                         scope.arkTranslations[scope.translationLangs[scope.arkTranslateBindLang]] = scope.ngModel;
                     }
                 });
 
-                function switchModel(newIsoCode, oldIsoCode) {
+                scope.$watch('arkTranslations', function(newTranslations) {
+                    switchModel(scope.translationLangs[scope.arkTranslateBindLang]);
+                });
+
+                function switchModel(newIsoCode) {
                     if (!angular.isObject(scope.arkTranslations)) {
                         console.log("params passed to ark-translations is not an object : ", scope.arkTranslations);
                         return;
