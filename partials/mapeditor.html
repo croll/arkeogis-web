@@ -4,7 +4,7 @@
             <!-- Select WMS or Shapefile -->
             <ark-form-block>
                 <md-input-container>
-                    <md-select name="type" ng-model="type" style="width:85%" placeholder="{{'MAPEDITOR.SELECT_SHP_OR_WMS.T_LABEL' | translate}}" md-on-change="reset()">
+                    <md-select name="type" ng-model="type" style="width:85%" placeholder="{{'MAPEDITOR.SELECT_SHP_OR_WMS.T_LABEL' | translate}}" md-on-close="reset()">
                         <md-option value="shp">
                             <span translate>MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_SHP</span>
                         </md-option>
@@ -22,7 +22,7 @@
                 <md-button class="md-raised" ngf-select="processSHP(file)" ng-model="file" name="file" ngf-pattern="'.zip'" accept=".zip" ngf-max-size="100MB">
                     <span translate>MAPEDITOR.BUTTON_SHP_FILE.T_LABEL</span>
                 </md-button>
-                <md-progress-linear md-mode="determinate" value="{{shpProcessingProgress}}" md-buffer-value="100" ng-hide="!file"></md-progress-linear>
+                <md-progress-linear md-mode="determinate" value="{{shpProcessingProgress}}" md-buffer-value="100" ng-hide="!file || shpProcessingProgress == 100"></md-progress-linear>
             </ark-form-block>
         </ark-form-block>
         <!-- WMS URL -->

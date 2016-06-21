@@ -23,9 +23,11 @@
     'use strict';
     ArkeoGIS.controller('MapEditorCtrl', ['$scope', 'arkeoService', 'mapService', 'login', '$http', 'X2JS', '$q', 'leafletData', 'Upload', function($scope, arkeoService, mapService, login, $http, X2JS, $q, leafletData, Upload) {
 
+        var self = this;
+
         angular.extend($scope, mapService.config);
 
-        var defaultInfos = {
+        this.defaultInfos = {
             authors: [{
                 fullname: login.user.firstname + ' ' + login.user.lastname,
                 id: login.user.id
@@ -33,7 +35,7 @@
             translations: {}
         }
 
-        $scope.infos = angular.copy(defaultInfos);
+        $scope.infos = angular.copy(this.defaultInfos);
 
         // Debug
 
@@ -42,7 +44,6 @@
                     fullname: login.user.firstname + ' ' + login.user.lastname,
                     id: login.user.id
                 }],
-                translations: [],
                 wms_url: 'http://demo.opengeo.org/geoserver/wms',
                 min_scale: 2,
                 max_scale: 10,
@@ -78,13 +79,16 @@
         // $scope.infos.wms_url = 'http://wxs.ign.fr/6cwsohzr2zx1asify37rppfv/geoportail/wmts';
 
         $scope.reset = function(type) {
-            $scope.infos = angular.copy($scope.infos);
+            //$scope.infos = angular.copy(this.defaultInfos);
             $scope.layers.overlays = [];
             $scope.wmsLayers = [];
             $scope.hideFields = true;
             $scope.getCapabilities = null;
+            $scope.file = null;
             if ($scope.geojsonLayer) {
-                map.removeLayer($scope.geojsonLayer);
+                leafletData.getMap().then(function(map) {
+                    map.removeLayer($scope.geojsonLayer);
+                });
             }
         }
 
@@ -230,6 +234,44 @@
             });
         }
 
+        $scope.processSHP = function(file) {
+            $scope.shpProcessingProgress = 0;
+            if (!file) {
+                return;
+            }
+            if (!file.type.indexOf('zip') == -1) {
+                arkeoService.showMessage('MAPEDITOR.MESSAGE_NOT_ZIP_FILE.T_ERROR', 'error');
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                shp(e.target.result).then(function(geojson) {
+                    $scope.infos.geojson = geojson;
+                    leafletData.getMap().then(function(map) {
+                        if ($scope.geojsonLayer) {
+                            map.removeLayer($scope.geojsonLayer);
+                        }
+                        $scope.geojsonLayer = L.geoJson().addTo(map)
+                        $scope.geojsonLayer.addData(geojson);
+                        var bounds = $scope.geojsonLayer.getBounds();
+                        map.fitBounds(bounds);
+                        $scope.infos.geographical_extent_geom = JSON.stringify(L.rectangle(bounds).toGeoJSON().geometry);
+                        $scope.hideFields = false;
+                        console.log(L.rectangle(bounds).toGeoJSON().geometry);
+                    }, function(err) {
+                        console.log("err");
+                        arkeoService.showMessage('MAPEDITOR.MESSAGE_SHP_LOADING.T_ERROR', 'error')
+                    });
+                }, function(err) {
+                    arkeoService.showMessage('MAPEDITOR.MESSAGE_SHP_LOADING.T_ERROR', 'error')
+                });
+            }
+            reader.onprogress = function(e) {
+                $scope.shpProcessingProgress = parseInt(100.0 * e.loaded / e.total);
+            }
+            reader.readAsArrayBuffer(file);
+        };
+
         $scope.setScale = function(lvl) {
             var level = lvl || 'min';
             leafletData.getMap().then(function(map) {
@@ -273,7 +315,7 @@
                 angular.forEach($scope.infos.authors, function(author) {
                     dbObj.authors.push(author.id);
                 });
-            // Type of wm(t)s layer
+                // Type of wm(t)s layer
             } else {
                 dbObj.type = $scope.type;
                 dbObj.author_id = login.user.id;
@@ -309,7 +351,7 @@
             if (typeof(geojson) == null || !angular.isDefined(geojson.features)) {
                 return null;
             }
-            for(var i = 0;i < geojson.features.length; i++) {
+            for (var i = 0; i < geojson.features.length; i++) {
                 delete geojson.features[i].properties
             }
             return geojson;
@@ -319,60 +361,17 @@
             var outp = {};
             outp[property] = [];
             for (var iso_code in container) {
-                        if (container.hasOwnProperty(iso_code)) {
-                            if (iso_code && container[iso_code]) {
-                                outp[property].push({lang_isocode: iso_code, text: container[iso_code]});
-                            }
-                        }
+                if (container.hasOwnProperty(iso_code)) {
+                    if (iso_code && container[iso_code]) {
+                        outp[property].push({
+                            lang_isocode: iso_code,
+                            text: container[iso_code]
+                        });
                     }
-                    return outp;
+                }
+            }
+            return outp;
         }
-
-        $scope.processSHP = function(file) {
-            $scope.shpProcessingProgress = 0;
-            if (!file) {
-                return;
-            }
-            if (!file.type.indexOf('zip') == -1) {
-                arkeoService.showMessage('MAPEDITOR.MESSAGE_NOT_ZIP_FILE.T_ERROR', 'error');
-                return;
-            }
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                shp(e.target.result).then(function(geojson) {
-                    $scope.infos.geojson = geojson;
-                    leafletData.getMap().then(function(map) {
-                        if ($scope.geojsonLayer) {
-                            map.removeLayer($scope.geojsonLayer);
-                        }
-                        $scope.geojsonLayer = L.geoJson().addTo(map)
-                        $scope.geojsonLayer.addData(geojson);
-                        var bounds = $scope.geojsonLayer.getBounds();
-                        map.fitBounds(bounds);
-                        $scope.infos.geographical_extent_geom = JSON.stringify(L.rectangle(bounds).toGeoJSON().geometry);
-                        $scope.hideFields = false;
-                        console.log(L.rectangle(bounds).toGeoJSON().geometry);
-                    }, function(err) {
-                        console.log("err");
-                        arkeoService.showMessage('MAPEDITOR.MESSAGE_SHP_LOADING.T_ERROR', 'error')
-                    });
-                }, function(err) {
-                    arkeoService.showMessage('MAPEDITOR.MESSAGE_SHP_LOADING.T_ERROR', 'error')
-                });
-            }
-            reader.onprogress = function(e) {
-                $scope.shpProcessingProgress = parseInt(100.0 * e.loaded / e.total);
-            }
-            reader.readAsArrayBuffer(file);
-            /*
-          return Upload.upload({
-            url: 'api/shapefile/togeojson',
-            data: {
-              shp: file
-            }
-          });
-          */
-        };
 
     }]);
 })();
