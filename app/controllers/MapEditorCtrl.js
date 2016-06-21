@@ -112,7 +112,7 @@
         $scope.getCapabilities = null;
 
         // $scope.type = 'wmts';
-        // $scope.infos.url = 'http://wxs.ign.fr/6cwsohzr2zx1asify37rppfv/geoportail/wmts';
+        // $scope.infos.url = 'http://wxs.ign.fr/bfmer9u7qh0mmhdyqj2z0wst/geoportail/wmts';
 
         $scope.reset = function(type) {
             //gt$scope.infos = angular.copy(this.defaultInfos);

@@ -26,7 +26,7 @@
             </ark-form-block>
         </ark-form-block>
         <!-- WMS URL -->
-        <ark-form-block ng-hide="!type || type == 'shp'" style="margin-top: 30px">
+        <ark-form-block layout="row" ng-hide="!type || type == 'shp'" style="margin-top: 30px">
             <md-input-container style="width:75%">
                 <label>
                     <span translate>MAPEDITOR.FIELD_WMS_URL.T_LABEL</span>
@@ -42,6 +42,8 @@
                     <md-option value="{{layer.identifier}}" ng-repeat="layer in wmsLayers">{{layer.title}}</md-option>
                 </md-select>
             </md-input-container>
+        </ark-form-block>
+        <ark-form-block ng-hide="!type || type == 'shp'" style="margin-top: -10px">
             <!-- Identifier -->
             <md-input-container ng-show="getCapabilities == true || infos.id" style="margin: 15px 0 -10px 0" ng-hide = "wmsLayers.length || hideIdentifier || hideFields">
                     <label>
@@ -165,9 +167,7 @@
             </ark-form-block>
             <ark-form-block flex>
                 <md-input-container style="margin-top: 25px">
-                    <label translate>
-                        MAPEDITOR.FIELD_DESCRIPTION_LANG1.T_LABEL
-                    </label>
+                    <label translate>MAPEDITOR.FIELD_DESCRIPTION_LANG1.T_LABEL</label>
                     <textarea name="description" ng-model="desc_lang1" ark-translations="infos.translations.description" ark-translate ark-translate-bind-lang="1" aria-label="-" required style="min-width: 500px; min-height:30px" flex></textarea>
                     <div ng-messages="mapEditorForm.description.$error">
                         <div ng-message="required" translate>MAPEDITOR.FIELD_ALL.T_ERROR_REQUIRED</div>
@@ -189,9 +189,7 @@
             </ark-form-block>
             <ark-form-block flex>
                 <md-input-container style="margin-top: 25px">
-                    <label translate>
-                        MAPEDITOR.FIELD_DESCRIPTION_LANG2.T_LABEL
-                    </label>
+                    <label translate>MAPEDITOR.FIELD_DESCRIPTION_LANG2.T_LABEL</label>
                     <textarea name="description2" ng-model="desc_lang2" ark-translations="infos.translations.description" ark-translate ark-translate-bind-lang="2" aria-label="-" required style="min-width: 500px; min-height:30px"></textarea>
                     <div ng-messages="mapEditorForm.description2.$error">
                         <div ng-message="required" translate>MAPEDITOR.FIELD_ALL.T_ERROR_REQUIRED</div>
