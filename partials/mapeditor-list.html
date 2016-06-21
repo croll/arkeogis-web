@@ -43,7 +43,7 @@
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row md-auto-select ng-repeat="layer in mapLayers | filter:query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
+                    <tr md-row md-auto-select ng-click="edit(layer.type, layer.id)" ng-repeat="layer in mapLayers | filter:query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit" style="cursor: pointer">
                         <td md-cell>{{layer.created_at | date:'short'}}</td>
                         <td md-cell>{{layer.author}}</td>
                         <td md-cell>{{layer.start_date}}</td>
@@ -51,7 +51,10 @@
                         <td md-cell>{{layer.zoom_level}}</td>
                         <td md-cell>{{layer.type}}</td>
                         <td md-cell>{{layer.description}}</td>
-                        <td md-cell>{{layer.published}}</td>
+                        <td md-cell>
+                            <md-icon ng-show="{{layer.published}}">done</md-icon>
+                            <md-icon ng-hide="{{layer.published}}">clear</md-icon>
+                        </td>
                     </tr>
                 </tbody>
             </table>
