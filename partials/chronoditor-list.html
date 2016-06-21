@@ -1,7 +1,7 @@
 <div class="arkeo-chronoditor-list">
     <md-toolbar class="md-table-toolbar md-default">
         <div class="md-toolbar-tools">
-            <span>Chronologies</span>
+            <span translate>CHRONODITOR.LIST.T_TITLE</span>
             <span flex></span>
             <md-button class="md-icon-button" aria-label="Ajouter une nouvelle chronologie...">
                 <md-icon size="32">add_circle_outline</md-icon>
@@ -16,16 +16,16 @@
             <thead md-head md-order="query.order" md-on-reorder="getDesserts">
                 <tr md-row>
                     <th md-column md-order-by="nameToLower">
-                        <span>Nom / Description</span>
+                        <span translate>CHRONODITOR.LIST_NAME.T_TITLE</span> / <span translate>CHRONODITOR.LIST_DESCRIPTION.T_TITLE</span>
                     </th>
                     <th md-column md-order-by="nameToLower">
-                        <span>Auteur / Crédits</span>
+                        <span translate>CHRONODITOR.LIST_AUTHOR.T_TITLE</span> / <span translate>CHRONODITOR.LIST_CREDITS.T_TITLE</span>
                     </th>
                     <th md-column md-order-by="calories.value">
-                        <span>Date création</span>
+                        <span translate>CHRONODITOR.LIST_DATECREATED.T_TITLE</span>
                     </th>
-                    <th md-column md-order-by="chrono.date_begin">Date début/fin</th>
-                    <th md-column md-order-by="chrono.active">Publié</th>
+                    <th md-column md-order-by="chrono.date_begin">CHRONODITOR.LIST_PERIOD.T_TITLE</th>
+                    <th md-column md-order-by="chrono.active">CHRONODITOR.LIST_PUBLISHED.T_TITLE</th>
                 </tr>
             </thead>
             <tbody md-body>
@@ -49,9 +49,9 @@
                     <td md-cell>
                         {{ chrono.created_at | date : 'mediumDate' }}
                     </td>
-                    <td md-cell>{{chrono.start_date | arkYear}} <span translate>à</span> {{chrono.end_date | arkYear}}</td>
+                    <td md-cell>{{chrono.start_date | arkYear}} <span translate>CHRONODITOR.LIST_PERIOD.T_TO</span> {{chrono.end_date | arkYear}}</td>
                     <td md-cell>
-                        {{chrono.active ? 'Yes': 'No'}}
+                        <span translate>{{chrono.active ? 'CHRONODITOR.LIST_PUBLISHED.T_YES': 'CHRONODITOR.LIST_PUBLISHED.T_NO'}}</span>
                     </td>
                 </tr>
             </tbody>
