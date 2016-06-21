@@ -1,0 +1,63 @@
+    <md-content layout-padding>
+        <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length || filter.show">
+            <div class="md-toolbar-tools">
+                <h2 class="md-title" translate>MAPEDITOR.TABLE_LIST.T_TITLE</h2>
+                <div flex></div>
+                <md-button class="md-icon-button" ng-click="filter.show = true">
+                    <md-tooltip md-direction="left">
+                      <div translate>MAPEDITOR.TABLE_LIST.T_FILTER_RESULTS_LABEL</div>
+                    </md-tooltip>
+                    <i class="material-icons md-dark">filter_list</i>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-toolbar class="md-table-toolbar md-default" ng-show="filter.show && !selected.length">
+            <div class="md-toolbar-tools">
+                <i class="material-icons md-dark">search</i>
+                <form flex name="filter.form" style="margin: 39px 0 0 15px;">
+                    <ark-form-block>
+                        <md-input-container>
+                            <input type="text" ng-model="query.filter" ng-model-options="filter.options" placeholder="search">
+                        </md-input-container>
+                        <ark-help translate>MAPEDITOR.TABLE_LIST.T_HELP_FILTER_RESULTS</ark-help>
+                    </ark-form-block>
+                </form>
+                <md-button class="md-icon-button" ng-click="removeFilter()">
+                    <i class="material-icons md-dark">close</i>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-table-container>
+            <table md-table>
+                <thead md-head md-order="query.order" md-trigger="onOrderChange">
+                    <tr md-row>
+                        <th md-column md-numeric md-order-by="line"><span translate>MAPEDITOR.TABLE_LIST.T_LABEL_CREATION_DATE</span></th>
+                        <th md-column md-order-by="creation_date"><span translate>MAPEDITOR.TABLE_LIST.T_LABEL_AUTHOR</span></th>
+                        <th md-column md-order-by="start_date"><span translate>MAPEDITOR.TABLE_LIST.T_LABEL_START_DATE</span></th>
+                        <th md-column md-order-by="end_date"><span translate>MAPEDITOR.TABLE_LIST.T_LABEL_END_DATE</span></th>
+                        <th md-column md-order-by="zoom_level"><span translate>MAPEDITOR.TABLE_LIST.T_LABEL_ZOOM_LEVEL</span></th>
+                        <th md-column md-order-by="type"><span translate>MAPEDITOR.TABLE_LIST.T_LABEL_TYPE</span></th>
+                        <th md-column md-order-by="description"><span translate>MAPEDITOR.TABLE_LIST.T_LABEL_DESCRIPTION</span></th>
+                        <th md-column md-order-by="published"><span translate>MAPEDITOR.TABLE_LIST.T_LABEL_PUBLISHED</span></th>
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row md-auto-select ng-repeat="map in mapList | filter:query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
+                        <td md-cell>{{map.creation_date}}</td>
+                        <td md-cell>{{map.author}}</td>
+                        <td md-cell>{{map.start_date}}</td>
+                        <td md-cell>{{map.end_date}}</td>
+                        <td md-cell>{{map.zoom_level}}</td>
+                        <td md-cell>{{map.type}}</td>
+                        <td md-cell>{{map.description}}</td>
+                        <td md-cell>{{map.published}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+
+        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{importErrors.total}}"
+        md-row-select="query.numRows" md-page-select></md-table-pagination>
+    </md-content>

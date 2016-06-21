@@ -224,9 +224,9 @@
         var setWMTSPreview = function() {
             var layer = new L.TileLayer.WMTS($scope.infos.wms_url, {
                 layer: $scope.selectedLayer.identifier
-                //    style: "normal",
-                //    tilematrixSet: "PM",
-                //    format: "image/jpeg",
+                    //    style: "normal",
+                    //    tilematrixSet: "PM",
+                    //    format: "image/jpeg",
             });
             leafletData.getMap().then(function(map) {
                 map.addLayer(layer);
@@ -310,14 +310,14 @@
                 dbObj.license_id = 0;
             }
             if ($scope.type == 'shp') {
-            // Authors
+                // Authors
                 dbObj.authors = [];
                 angular.forEach($scope.infos.authors, function(author) {
                     dbObj.authors.push(author.id);
                 });
-            // geojson
-            dbObj.geojson_with_data = JSON.stringify($scope.infos.geojson);
-            dbObj.geojson = JSON.stringify(removeGeoJSONDatas($scope.infos.geojson));
+                // geojson
+                dbObj.geojson_with_data = JSON.stringify($scope.infos.geojson);
+                dbObj.geojson = JSON.stringify(removeGeoJSONDatas($scope.infos.geojson));
                 // Type of wm(t)s layer
             } else {
                 dbObj.type = $scope.type;
@@ -372,6 +372,41 @@
             }
             return outp;
         }
+
+    }]);
+})();
+
+(function() {
+    'use strict';
+    ArkeoGIS.controller('MapEditorListCtrl', ['$scope', 'arkeoService', 'mapService', 'login', '$http', function($scope, arkeoService, mapService, login, $http) {
+
+        var self = this;
+
+        $scope.filter = {
+            show: false,
+            options: {}
+        };
+
+        $scope.query = {
+            filter: '',
+            order: 'line',
+            limit: 20,
+            page: 1,
+            numRows: ['All', 10, 20, 30]
+        };
+
+        $scope.onOrderChange = function(order) {
+            $scope.order = order;
+        };
+
+        $scope.removeFilter = function() {
+            $scope.filter.show = false;
+            $scope.query.filter = '';
+
+            if ($scope.filter.form.$dirty) {
+                $scope.filter.form.$setPristine();
+            }
+        };
 
     }]);
 })();
