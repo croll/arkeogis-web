@@ -545,11 +545,17 @@
 			"T_HELP": "Date de création du fichier",
 			"T_LABEL": "Date de création"
 		},
+		"FIELD_DESCRIPTION_LANG1": {
+			"T_LABEL": "Description (langue principale)"
+		},
 		"FIELD_DESCRIPTION_LANG2": {
-			"T_LABEL": "Traductions de la description"
+			"T_LABEL": "Description (traductions)"
 		},
 		"FIELD_END_DATE": {
 			"T_LABEL": "Date de fin"
+		},
+		"FIELD_IDENTIFIER": {
+			"T_LABEL": "Identifiant du calque"
 		},
 		"FIELD_LICENSE": {
 			"T_HELP": "License associée",
@@ -562,8 +568,11 @@
 		"FIELD_MIN_SCALE": {
 			"T_LABEL": "Échelle minimale"
 		},
-		"FIELD_NAME": {
-			"T_LABEL": "Échelle maximale"
+		"FIELD_NAME_LANG1": {
+			"T_LABEL": "Nom (langue principale)"
+		},
+		"FIELD_NAME_LANG2": {
+			"T_LABEL": "Nom (traductions)"
 		},
 		"FIELD_PUBLISHED": {
 			"T_HELP": "Rendre le calque accessible des autres utilisateurs",
