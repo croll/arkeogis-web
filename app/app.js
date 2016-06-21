@@ -226,7 +226,21 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 url: "/mapeditor/:type/:id",
                 templateUrl: "partials/mapeditor.html",
                 controller: "MapEditorCtrl",
-                resolve: {}
+                resolve: {
+                    layer: function($stateParams, $q, layerService) {
+                        var deferred = $q.defer();
+                        if (!$stateParams.id) {
+                            deferred.resolve();
+                        } else {
+                            layerService.getLayer(parseInt($stateParams.id), $stateParams.type).then(function(layer) {
+                                deferred.resolve(layer);
+                            }, function(err) {
+                                deferred.reject(err);
+                            });
+                        }
+                        return deferred.promise;
+                    }
+                }
             })
             .state('arkeogis.mapeditor-list', {
                 url: "/mapeditor-list",
