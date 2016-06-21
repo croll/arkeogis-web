@@ -25,16 +25,14 @@
         var self = this;
 
         this.getLayers = function(params) {
-
             d = $q.defer();
             p = params || {author: 0, type: ''}
             $http({
                 url: '/api/layers',
                 method: 'GET',
-                data: p,
+                params: p,
                 transformResponse: function(data) {
                     data = angular.fromJson(data);
-                    console.log(data);
                     angular.forEach(data, function(d) {
                         if (d.type == 'shp') {
                             d.min_scale = '';
@@ -56,7 +54,33 @@
                 d.reject(err);
             });
             return d.promise
-        }
+        };
+
+    this.getLayer = function(id, type) {
+            d = $q.defer();
+            $http({
+                url: '/api/layer',
+                method: 'GET',
+                params: {
+                    type: type,
+                    id: id
+                },
+                transformResponse: function(data) {
+                    data = angular.fromJson(data);
+                    console.log(data);
+                    angular.forEach(data, function(d) {
+                    })
+                    return data;
+                }
+            }).then(function(res) {
+                d.resolve(res.data);
+            }, function(err) {
+                console.log(err);
+                d.reject(err);
+            });
+            return d.promise
+
+    }
 
     }]);
 })();
