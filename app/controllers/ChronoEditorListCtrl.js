@@ -26,14 +26,26 @@
 	 * ChronoEditorListCtrl Chrono Editor List Controller
 	 */
 
-	ArkeoGIS.controller('ChronoEditorListCtrl', ['$scope', '$q', 'arkeoLang', 'login', function ($scope, $q, arkeoLang, Login) {
+	ArkeoGIS.controller('ChronoEditorListCtrl', ['$scope', '$q', '$http', 'arkeoLang', 'login', function ($scope, $q, $http, arkeoLang, Login) {
 
 		//if (!Login.requirePermission('langeditor', 'langeditor'))
         //    return;
 
         var self=this;
 
-		$scope.chronolist = [
+		$scope.chronolist = [];
+
+		function init() {
+			$http.get('/api/chronologies').then(function(data) {
+				$scope.chronolist = data.data;
+			}, function(err) {
+				arkeoService.showMessage("load failed : "+err.status+", "+err.statusText);
+				console.error("loaded", err);
+			})
+		}
+		init();
+
+/*
 			{
 				author: 'Bernard Loup',
 				name: 'Âge du Bronze Vallée du Rhin',
@@ -86,7 +98,7 @@
 				],
 			}
 		];
-
+*/
 
     }]);  // controller ChronoEditorListCtrl
 
@@ -105,6 +117,7 @@
 
 		$scope.chooseemprise = false;
 		$scope.publishable = false;
+		$scope.errstatus = {};
 		$scope.arbo = {
 			name: {},
 			start_date: 0,
@@ -245,6 +258,8 @@
 			console.log("ret: ", ret);
 
 			// check if publishable
+			$scope.errstatus = ret;
+
 			var publishable = false;
 			if (ret.errcount == 0) {
 				var fulltrads=[];
@@ -256,6 +271,7 @@
 				if ((fulltrads.length >= 2) && (fulltrads.indexOf('en') != -1)) {
 					publishable = true;
 				}
+				$scope.errstatus.fulltrads = fulltrads;
 				console.log("fulltrads", fulltrads, publishable);
 			}
 			if (!publishable)
