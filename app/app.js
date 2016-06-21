@@ -223,9 +223,15 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 resolve: {}
             })
             .state('arkeogis.mapeditor', {
-                url: "/mapeditor",
+                url: "/mapeditor/:type/:id",
                 templateUrl: "partials/mapeditor.html",
                 controller: "MapEditorCtrl",
+                resolve: {}
+            })
+            .state('arkeogis.mapeditor-list', {
+                url: "/mapeditor-list",
+                templateUrl: "partials/mapeditor-list.html",
+                controller: "MapEditorListCtrl",
                 resolve: {}
             })
             .state('arkeogis.group', {
