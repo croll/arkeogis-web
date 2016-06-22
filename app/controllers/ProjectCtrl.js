@@ -21,9 +21,32 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('ProjectCtrl', ['$scope',
-        function($scope) {
+
+    ArkeoGIS.controller('UserPreferencesCtrl', ['$scope', 'mapService', 'leafletData',
+        function($scope, mapService, leafletData) {
         var self = this;
+//        console.log(mapService.config);
+        angular.extend($scope, angular.extend(mapService.config, {center: {}}));
+
     }]);
 
+    ArkeoGIS.controller('ProjectMapsCtrl', ['$scope',
+        function($scope) {
+
+    }]);
+
+    ArkeoGIS.controller('ProjectChronosCtrl', ['$scope',
+        function($scope) {
+
+    }]);
+
+    ArkeoGIS.controller('ProjectDatabasesCtrl', ['$scope',
+        function($scope) {
+
+    }]);
+
+    ArkeoGIS.controller('ProjectCharacsCtrl', ['$scope',
+        function($scope) {
+
+    }]);
 })();

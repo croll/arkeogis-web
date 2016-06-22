@@ -211,15 +211,15 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 resolve: {}
             })
             .state('arkeogis.preferences', {
-                url: "/user/preferences",
-                templateUrl: "partials/user/preferences/index.html",
+                url: "",
+                templateUrl: "partials/user/preferences.html",
                 controller: "UserPreferencesCtrl",
                 resolve: {}
             })
-            .state('arkeogis.preferences.general', {
-                url: "/user/preferences",
-                templateUrl: "partials/user/preferences/general.html",
-                controller: "UserPreferencesCtrl",
+            .state('arkeogis.preferences.project', {
+                url: "/project",
+                templateUrl: "partials/project/project.html",
+                controller: "ProjectCtrl",
                 resolve: {}
             })
             .state('arkeogis.mapeditor', {

@@ -630,6 +630,42 @@
 			"T_TITLE": "Liste des calques disponibles"
 		}
 	},
+	"PROJECT": {
+		"BUTTON_SUBMIT": {
+			"T_LABEL": "Enregistrer vos préférences"
+		},
+		"FIELD_END_DATE": {
+			"T_LABEL": "Date de fin"
+		},
+		"FIELD_START_DATE": {
+			"T_LABEL": "Date de début"
+		},
+		"INFORMATIONS_PERIOD_SELECTION": {
+			"T_HELP": "Le choix de la période de travail impacte la liste des bases de données, calques, caractéristiques et chronologies qui vous seront proposés.",
+			"T_LABEL": "Choix de la période"
+		},
+		"INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA": {
+			"T_LABEL": "Recentrez / zoomer la carte pour définir votre zone de travail."
+		},
+		"INTERFACE_INFOS_USAGE": {
+			"T_LABEL": "Définition de la zone de travail"
+		},
+		"INTERFACE_RECENTER_THE_MAP_ON_YOUR_WORKING_AREA": {
+			"T_LABEL": "Recentrez la carte sur votre zone de travail"
+		},
+		"TAB_CHARACTERISTICS": {
+			"T_LABEL": "Caractéristiques"
+		},
+		"TAB_CHRONOLOGIES": {
+			"T_LABEL": "Chronologies"
+		},
+		"TAB_DATABASES": {
+			"T_LABEL": "Bases de données"
+		},
+		"TAB_MAPS": {
+			"T_LABEL": "Cartes"
+		}
+	},
 	"USER": {
 		"BUTTON_CANCEL": {
 			"T_TITLE": "Annuler"
@@ -764,35 +800,8 @@
 		}
 	},
 	"USER_PREFERENCES": {
-		"BUTTON_SUBMIT": {
-			"T_LABEL": "Envoyer"
-		},
-		"FIELD_END_DATE": {
-			"T_LABEL": "Date de fin"
-		},
-		"FIELD_START_DATE": {
-			"T_LABEL": "Date de début"
-		},
 		"INFORMATIONS": {
 			"T_TILE": "Informations"
-		},
-		"INFORMATIONS_PERIOD_SELECTION": {
-			"T_LABEL": "Choix de la période"
-		},
-		"INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA": {
-			"T_LABEL": "Choix de la zone géographique"
-		},
-		"INTERFACE_INFOS_USAGE": {
-			"T_LABEL": "Utilisation"
-		},
-		"TAB_CHRONOLOGIES": {
-			"T_LABEL": "Chronologies"
-		},
-		"TAB_DATABASES": {
-			"T_LABEL": "Bases de données"
-		},
-		"TAB_MAPS": {
-			"T_LABEL": "Cartes"
 		}
 	}
 }
