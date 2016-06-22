@@ -65,6 +65,7 @@
 	<script src="app/directives/year.js"></script>
 	<script src="app/controllers/UserCtrl.js"></script>
 	<script src="app/controllers/UserPreferencesCtrl.js"></script>
+	<script src="app/controllers/ProjectCtrl.js"></script>
 	<script src="app/controllers/GroupCtrl.js"></script>
 	<script src="app/controllers/LoginCtrl.js"></script>
 	<script src="app/controllers/LangEditorCtrl.js"></script>
@@ -148,8 +149,8 @@
 								<md-icon>translate</md-icon>
 							</md-button>
 						</md-menu-item>
-						<md-menu-item ng-hide="true">
-							<md-button ui-sref="arkeogis.preferences">
+						<md-menu-item>
+							<md-button ui-sref="arkeogis.preferences.project">
 								<p flex translate>.FIELD_MAINMENU.T_ITEM_PREFERENCES</p>
 								<md-icon>build</md-icon>
 							</md-button>
