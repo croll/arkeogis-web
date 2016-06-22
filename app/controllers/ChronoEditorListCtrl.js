@@ -261,6 +261,7 @@
 
 		$scope.openLeftMenu = function() {
 		    $mdSidenav('left').toggle();
+			 $scope.check_all()
 		};
 
 		$scope.save = function() {
