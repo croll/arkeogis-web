@@ -189,6 +189,12 @@
 		}
 	},
 	"GENERAL": {
+		"CONFIRM_DIALOG": {
+			"T_CANCEL": "Annuler",
+			"T_CONTENT": "Si vous êtes sûr de vous",
+			"T_OK": "Ok",
+			"T_TITLE": "Veuillez confirmer votre demande"
+		},
 		"INVALIDE_CHOICE": {
 			"T_CAN_T_SET_OTHER_TRANSLATION_LANG_IF_NO_ENGLISH_TRANSLATION_DONE": "#!#GENERAL.INVALIDE_CHOICE.T_CAN_T_SET_OTHER_TRANSLATION_LANG_IF_NO_ENGLISH_TRANSLATION_DONE"
 		}
