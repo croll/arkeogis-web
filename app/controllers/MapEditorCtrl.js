@@ -21,7 +21,7 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('MapEditorCtrl', ['$scope', 'arkeoService', 'mapService', 'login', '$http', 'X2JS', '$q', 'leafletData', 'Upload', function($scope, arkeoService, mapService, login, $http, X2JS, $q, leafletData, Upload) {
+    ArkeoGIS.controller('MapEditorCtrl', ['$scope', '$state', 'arkeoService', 'mapService', 'login', '$http', 'X2JS', '$q', 'leafletData', 'Upload', 'layer', function($scope, $state, arkeoService, mapService, login, $http, X2JS, $q, leafletData, Upload, layer) {
 
         var self = this;
 
@@ -35,16 +35,48 @@
             translations: {}
         }
 
-        $scope.infos = angular.copy(this.defaultInfos);
+        if (angular.isDefined(layer)) {
+            console.log(layer);
+            $scope.infos = angular.copy(layer)
+            $scope.hideFields = false;
+            $scope.type = layer.type;
+            if (layer.type == 'shp') {
+                leafletData.getMap().then(function(map) {
+                    $scope.geojsonLayer = L.geoJson().addTo(map)
+                    $scope.geojsonLayer.addData($scope.infos.geojson);
+                    var bounds = $scope.geojsonLayer.getBounds();
+                    map.fitBounds(bounds);
+                });
+            } else if (layer.type == 'wms') {
+                $scope.layers.overlays.preview = {
+                    name: 'WMS',
+                    type: 'wms',
+                    url: layer.url,
+                    visible: true,
+                    layerOptions: {
+                        layers: layer.identifier,
+                        opacity: 0.70
+                    }
+                };
+                leafletData.getMap().then(function(map) {
+                    map.fitBounds(layer.geographical_extent_geom);
+                });
+            }
+        } else {
+            $scope.infos = angular.copy(this.defaultInfos);
+            $scope.infos.url = 'http://demo.opengeo.org/geoserver/wms';
+            $scope.hideFields = true;
+        }
 
         // Debug
 
+        /*
         $scope.infos = angular.copy({
                 authors: [{
                     fullname: login.user.firstname + ' ' + login.user.lastname,
                     id: login.user.id
                 }],
-                wms_url: 'http://demo.opengeo.org/geoserver/wms',
+                url: 'http://demo.opengeo.org/geoserver/wms',
                 min_scale: 0,
                 max_scale: 14,
                 declared_creation_date: new Date(),
@@ -71,16 +103,16 @@
 
         $scope.type = 'wms';
 
+        */
+
         // Fin debug
 
         $scope.wmsLayers = [];
 
         $scope.getCapabilities = null;
 
-        $scope.hideFields = true;
-
         // $scope.type = 'wmts';
-        // $scope.infos.wms_url = 'http://wxs.ign.fr/6cwsohzr2zx1asify37rppfv/geoportail/wmts';
+        // $scope.infos.url = 'http://wxs.ign.fr/bfmer9u7qh0mmhdyqj2z0wst/geoportail/wmts';
 
         $scope.reset = function(type) {
             //gt$scope.infos = angular.copy(this.defaultInfos);
@@ -100,14 +132,14 @@
             $scope.wmsLayers = [];
 
             $scope.getCapabilities = false;
-            if ($scope.infos.wms_url.indexOf('?') == -1) {
+            if ($scope.infos.url.indexOf('?') == -1) {
                 if ($scope.type == 'wmts') {
-                    url = $scope.infos.wms_url + "?request=GetCapabilities&SERVICE=WMTS&version=1.0.0";
+                    url = $scope.infos.url + "?request=GetCapabilities&SERVICE=WMTS&version=1.0.0";
                 } else {
-                    url = $scope.infos.wms_url + "?request=GetCapabilities&service=WMS&version=1.3.0";
+                    url = $scope.infos.url + "?request=GetCapabilities&service=WMS&version=1.3.0";
                 }
             } else {
-                url = $scope.infos.wms_url
+                url = $scope.infos.url
             }
             var d = $q.defer();
             $http.get(url).then(function(res) {
@@ -132,10 +164,8 @@
                                         [179.999999, 89.99999]
                                     ];
                                 } else {
-                                    console.log(layer.BoundingBox);
                                     l.boundingBox = mapService.getValidBoundingBox(layer.BoundingBox._minx, layer.BoundingBox._miny, layer.BoundingBox._maxx, layer.BoundingBox._maxy);
                                 }
-                                console.log(l.boundingBox);
                                 $scope.wmsLayers.push(l);
                             });
                         } else {
@@ -182,7 +212,7 @@
 
         $scope.onLayerSelected = function() {
             angular.forEach($scope.wmsLayers, function(wl) {
-                if ($scope.selectedLayerId == wl.identifier) {
+                if ($scope.infos.identifier == wl.identifier) {
                     $scope.selectedLayer = wl;
                 }
             });
@@ -207,30 +237,30 @@
                 $scope.layers.overlays.preview = {
                     name: $scope.selectedLayer.title,
                     type: 'wms',
-                    url: $scope.infos.wms_url,
+                    url: $scope.infos.url,
                     visible: true,
                     layerOptions: {
-                        layers: $scope.selectedLayer.identifier,
+                        layers: $scope.infos.identifier,
                         opacity: 0.70
                     }
                 };
                 leafletData.getMap().then(function(map) {
-                    $scope.infos.geographical_extent_geom = JSON.stringify(L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON().geometry);
+                    $scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON().geometry;
                     map.fitBounds($scope.selectedLayer.boundingBox);
                 });
             }, 0);
         }
 
         var setWMTSPreview = function() {
-            var layer = new L.TileLayer.WMTS($scope.infos.wms_url, {
-                layer: $scope.selectedLayer.identifier
-                //    style: "normal",
-                //    tilematrixSet: "PM",
-                //    format: "image/jpeg",
+            var layer = new L.TileLayer.WMTS($scope.infos.url, {
+                layer: $scope.infos.identifier
+                    //    style: "normal",
+                    //    tilematrixSet: "PM",
+                    //    format: "image/jpeg",
             });
             leafletData.getMap().then(function(map) {
                 map.addLayer(layer);
-                $scope.infos.geographical_extent_geom = JSON.stringify(L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON().geometry);
+                $scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON().geometry;
                 map.fitBounds($scope.selectedLayer.boundingBox);
             });
         }
@@ -253,10 +283,10 @@
                             map.removeLayer($scope.geojsonLayer);
                         }
                         $scope.geojsonLayer = L.geoJson().addTo(map)
-                        $scope.geojsonLayer.addData(geojson);
+                        $scope.geojsonLayer.addData($scope.infos.geojson);
                         var bounds = $scope.geojsonLayer.getBounds();
                         map.fitBounds(bounds);
-                        $scope.infos.geographical_extent_geom = JSON.stringify(L.rectangle(bounds).toGeoJSON().geometry);
+                        $scope.infos.geographical_extent_geom = L.rectangle(bounds).toGeoJSON().geometry;
                         $scope.hideFields = false;
                     }, function(err) {
                         console.log("err");
@@ -309,20 +339,21 @@
             if (!dbObj.license_id) {
                 dbObj.license_id = 0;
             }
+            dbObj.authors = [];
+            angular.forEach($scope.infos.authors, function(author) {
+                dbObj.authors.push(author.id);
+            });
+            dbObj.geographical_extent_geom = JSON.stringify($scope.infos.geographical_extent_geom);
             if ($scope.type == 'shp') {
-            // Authors
-                dbObj.authors = [];
-                angular.forEach($scope.infos.authors, function(author) {
-                    dbObj.authors.push(author.id);
-                });
-            // geojson
-            dbObj.geojson_with_data = JSON.stringify($scope.infos.geojson);
-            dbObj.geojson = JSON.stringify(removeGeoJSONDatas($scope.infos.geojson));
+                // Authors
+                // geojson
+                dbObj.geojson_with_data = JSON.stringify($scope.infos.geojson);
+                dbObj.geojson = JSON.stringify(removeGeoJSONDatas($scope.infos.geojson));
                 // Type of wm(t)s layer
             } else {
                 dbObj.type = $scope.type;
-                dbObj.author_id = login.user.id;
-                dbObj.identifier = $scope.selectedLayer.identifier;
+                dbObj.identifier = $scope.infos.identifier;
+                dbObj.url = $scope.infos.url;
                 // TODO: remove this field is unused
                 dbObj.image_format = '';
             }
@@ -333,20 +364,36 @@
             var url = ($scope.type == 'shp') ? '/api/shpLayer' : '/api/wmLayer';
             console.log(dbObj);
             if (form.$valid) {
-                Upload.upload({
-                    url: url,
-                    data: {
-                        csv: $scope.file,
-                        infos: Upload.json(dbObj)
-                    }
-                }).then(function() {
-                    arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE_SUCCESS')
-                    $state.go('arkeogis.mapeditor');
-                }, function(resp) {
-                    arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE_FAILED')
-                }, function(evt) {
-                    $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total);
-                });
+                if ($scope.file) {
+                    Upload.upload({
+                        url: url,
+                        data: {
+                            csv: $scope.file,
+                            infos: Upload.json(dbObj)
+                        }
+                    }).then(function() {
+                        arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE_SUCCESS')
+                        $state.go('arkeogis.mapeditor-list');
+                    }, function(err) {
+                        arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE_FAILED')
+                        console.log(err);
+                    }, function(evt) {
+                        $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total);
+                    });
+                } else {
+                    $http({
+                        url: url,
+                        method: 'POST',
+                        data: dbObj
+                    }).then(function() {
+                        arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE_SUCCESS')
+                        $state.go('arkeogis.mapeditor-list');
+                    }, function(err) {
+                        arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE_FAILED')
+                        console.log(err);
+                    })
+
+                }
             }
         };
 
@@ -371,6 +418,52 @@
                 }
             }
             return outp;
+        }
+
+    }]);
+})();
+
+(function() {
+    'use strict';
+    ArkeoGIS.controller('MapEditorListCtrl', ['$scope', 'layerService', 'mapService', 'login', '$http', '$state', function($scope, layerService, mapService, login, $http, $state) {
+
+        var self = this;
+
+        $scope.filter = {
+            show: false,
+            options: {}
+        };
+
+        $scope.query = {
+            filter: '',
+            order: 'line',
+            limit: 20,
+            page: 1,
+            numRows: ['All', 10, 20, 30]
+        };
+
+        $scope.onOrderChange = function(order) {
+            $scope.order = order;
+        };
+
+        $scope.removeFilter = function() {
+            $scope.filter.show = false;
+            $scope.query.filter = '';
+
+            if ($scope.filter.form.$dirty) {
+                $scope.filter.form.$setPristine();
+            }
+        };
+
+        layerService.getLayers().then(function(layers) {
+            $scope.mapLayers = layers;
+        })
+
+        $scope.edit = function(type, id) {
+            $state.go('arkeogis.mapeditor', {
+                type: type,
+                id: id
+            });
         }
 
     }]);

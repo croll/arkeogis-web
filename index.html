@@ -83,6 +83,7 @@
 	<script src="app/services/langs.js"></script>
 	<script src="app/services/database.js"></script>
 	<script src="app/services/map.js"></script>
+	<script src="app/services/layers.js"></script>
 </head>
 
 <body ng-app="ArkeoGIS" ng-controller="ArkeoCtrl as arkeo" layout="row" ng-cloak translate-namespace="MAIN">
@@ -112,7 +113,7 @@
 				</md-menu>
 
 				<!-- Main Menu -->
-				<md-menu md-position-mode="target-right target" id="mainMenu">
+				<md-menu md-position-mode="target-right target" id="mainMenu" style="z-index:10000">
 					<md-button class="md-icon-button" aria-label="Toggle Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
 						<md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
 					</md-button>
@@ -147,14 +148,14 @@
 								<md-icon>translate</md-icon>
 							</md-button>
 						</md-menu-item>
-						<md-menu-item>
+						<md-menu-item ng-hide="true">
 							<md-button ui-sref="arkeogis.preferences">
 								<p flex translate>.FIELD_MAINMENU.T_ITEM_PREFERENCES</p>
 								<md-icon>build</md-icon>
 							</md-button>
 						</md-menu-item>
-						<md-menu-item>
-							<md-button ui-sref="arkeogis.mapeditor">
+						<md-menu-item ng-hide="true">
+							<md-button ui-sref="arkeogis.mapeditor-list">
 								<p flex translate>.FIELD_MAINMENU.T_ITEM_MAPEDITOR</p>
 								<md-icon>isok</md-icon>
 							</md-button>

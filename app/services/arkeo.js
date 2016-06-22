@@ -193,7 +193,7 @@
             }
             $translate(str).then(function(translations) {
                 for (var k in translations) {
-                    $mdToast.show($mdToast.simple().textContent(translations[k]).position('bottom left'));
+                    $mdToast.show($mdToast.simple().textContent(translations[k]).position('top right'));
                 }
             });
         }
