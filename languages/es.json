@@ -451,16 +451,16 @@
 	},
 	"LOGIN": {
 		"BUTTON_OK": {
-			"T_TITLE": "#!#LOGIN.BUTTON_OK.T_TITLE"
+			"T_TITLE": "OK"
 		},
 		"FIELD_PASSWORD": {
-			"T_TITLE": "#!#LOGIN.FIELD_PASSWORD.T_TITLE"
+			"T_TITLE": "Contraseña"
 		},
 		"FIELD_USERNAME": {
-			"T_TITLE": "Appelido"
+			"T_TITLE": "Nombre de usuario"
 		},
 		"HEADER_LOGIN": {
-			"T_TITLE": "#!#LOGIN.HEADER_LOGIN.T_TITLE"
+			"T_TITLE": "Definición"
 		}
 	},
 	"MAIN": {
