@@ -21,23 +21,9 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('UserPreferencesCtrl', ['$scope',
+    ArkeoGIS.controller('ProjectCtrl', ['$scope',
         function($scope) {
-
+        var self = this;
     }]);
 
-    ArkeoGIS.controller('UserPreferencesMapsCtrl', ['$scope',
-        function($scope) {
-
-    }]);
-
-    ArkeoGIS.controller('UserPreferencesChronosCtrl', ['$scope',
-        function($scope) {
-
-    }]);
-
-    ArkeoGIS.controller('UserPreferencesDatabasesCtrl', ['$scope',
-        function($scope) {
-
-    }]);
 })();
