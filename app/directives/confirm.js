@@ -31,44 +31,54 @@
             restrict: 'A',
             template: '',
             scope: {
-                arkTitle: '=?',
-                arkConfirm: '=?',
-                arkConfirmOk: '=?',
-                arkConfirmCancel: '=?',
+                arkConfirm: '@',
+                arkConfirmTitle: '@',
+                arkConfirmOk: '@',
+                arkConfirmCancel: '@',
                 ngClick: '&',
             },
             link: function(scope, element, attrs) {
 
-                function showConfirm(ev) {
-                    $q.all([
-                        $translate('GENERAL.CONFIRM_DIALOG.T_CONTENT'),
-                        $translate('GENERAL.CONFIRM_DIALOG.T_TITLE'),
-                        $translate('GENERAL.CONFIRM_DIALOG.T_OK'),
-                        $translate('GENERAL.CONFIRM_DIALOG.T_CANCEL'),
-                    ]).then(function(trads) {
-                        scope.arkConfirm = trads[0];
-                        scope.arkTitle = trads[1];
-                        scope.arkConfirmOk = trads[2];
-                        scope.arkConfirmCancel = trads[3];
-                    }, function(err1, err2, err3) {
-                        scope.arkConfirm = 'GENERAL.CONFIRM_DIALOG.T_CONTENT';
-                        scope.arkTitle = 'GENERAL.CONFIRM_DIALOG.T_TITLE';
-                        scope.arkConfirmOk = 'GENERAL.CONFIRM_DIALOG.T_OK';
-                        scope.arkConfirmCancel = 'GENERAL.CONFIRM_DIALOG.T_CANCEL';
-                    }).finally(function() {
-                        // Appending dialog to document.body to cover sidenav in docs app
-                        var confirm = $mdDialog.confirm()
-                            .title(scope.arkTitle)
-                            .textContent(scope.arkConfirm)
-                            .targetEvent(ev)
-                            .ok(scope.arkConfirmOk)
-                            .cancel(scope.arkConfirmCancel);
-                        $mdDialog.show(confirm).then(function() {
-                            scope.ngClick();
-                        }, function() {
-                            // cancel
-                        });
+                var t_translate_done = false;
+                var t_confirm = 'GENERAL.CONFIRM_DIALOG.T_CONTENT';
+                var t_title = 'GENERAL.CONFIRM_DIALOG.T_TITLE';
+                var t_ok = 'GENERAL.CONFIRM_DIALOG.T_OK';
+                var t_cancel = 'GENERAL.CONFIRM_DIALOG.T_CANCEL';
+
+                function showConfirmDialog(ev) {
+                    // Appending dialog to document.body to cover sidenav in docs app
+                    var confirm = $mdDialog.confirm()
+                        .title(scope.arkConfirmTitle)
+                        .textContent(scope.arkConfirm)
+                        .targetEvent(ev)
+                        .ok(scope.arkConfirmOk)
+                        .cancel(scope.arkConfirmCancel);
+                    $mdDialog.show(confirm).then(function() {
+                        scope.ngClick();
+                    }, function() {
+                        // cancel
                     });
+                }
+
+                function showConfirm(ev) {
+                    if (t_translate_done) {
+                        showConfirmDialog(ev);
+                    } else {
+                        console.log("scope ", scope)
+                        $q.allSettled([
+                            $translate(scope.arkConfirm !== undefined ? scope.arkConfirm : t_confirm),
+                            $translate(scope.arkConfirmTitle !== undefined ? scope.arkConfirmTitle : t_title),
+                            $translate(scope.arkConfirmOk !== undefined ? scope.arkConfirmOk : t_ok),
+                            $translate(scope.arkConfirmCancel !== undefined ? scope.arkConfirmCancel : t_cancel),
+                        ]).then(function(trads) {
+                            scope.arkConfirm=trads[0].state == 'fulfilled' ? trads[0].value : t_confirm;
+                            scope.arkConfirmTitle=trads[1].state == 'fulfilled' ? trads[1].value : t_title;
+                            scope.arkConfirmOk=trads[2].state == 'fulfilled' ? trads[2].value : t_ok;
+                            scope.arkConfirmCancel=trads[3].state == 'fulfilled' ? trads[3].value : t_cancel;
+                        }).finally(function() {
+                            showConfirmDialog(ev);
+                        });
+                    }
                 }
 
 
