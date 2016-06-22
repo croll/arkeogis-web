@@ -7,6 +7,8 @@
 			"T_TITLE": "Fermer la carte"
 		},
 		"BUTTON_DELETE": {
+			"T_CONFIRM": "Souhaitez-vous vraiment effacer cette chronologie ?",
+			"T_OK": "Oui, efface !",
 			"T_TITLE": "Supprimer"
 		},
 		"BUTTON_SAVE": {
