@@ -15,17 +15,13 @@
         <table class="characlist" md-table md-row-select multiple ng-model="selected" md-progress="promise">
             <thead md-head md-order="query.order" md-on-reorder="getDesserts">
                 <tr md-row>
+                    <th md-column md-order-by="charac.order"><span translate>CHARACEDITOR.LIST_ORDER.T_TITLE</span></th>
                     <th md-column md-order-by="nameToLower">
                         <span translate>CHARACEDITOR.LIST_NAME.T_TITLE</span> / <span translate>CHARACEDITOR.LIST_DESCRIPTION.T_TITLE</span>
-                    </th>
-                    <th md-column md-order-by="nameToLower">
-                        <span translate>CHARACEDITOR.LIST_AUTHOR.T_TITLE</span> / <span translate>CHARACEDITOR.LIST_CREDITS.T_TITLE</span>
                     </th>
                     <th md-column md-order-by="calories.value">
                         <span translate>CHARACEDITOR.LIST_DATECREATED.T_TITLE</span>
                     </th>
-                    <th md-column md-order-by="charac.date_begin"><span translate>CHARACEDITOR.LIST_PERIOD.T_TITLE</span></th>
-                    <th md-column md-order-by="charac.active"><span translate>CHARACEDITOR.LIST_PUBLISHED.T_TITLE</span></th>
                 </tr>
             </thead>
             <tbody md-body>
@@ -35,6 +31,7 @@
                     md-select-id="name"
                     md-auto-select
                     ng-repeat="charac in characlist">
+                    <td md-cell>{{charac.order}}</td>
                     <td md-cell>
                         <div style="white-space: nowrap;">
                             <a href="#/characeditor/{{charac.id}}" ark-get-translation ark-translations="charac.name"></a>
@@ -43,15 +40,7 @@
                         <div style="font-size: 0.8em; color: #555" ark-get-translation ark-translations="charac.description"></div>
                     </td>
                     <td md-cell>
-                        <div>{{charac.author.firstname}} {{charac.author.lastname}}</div>
-                        <div>{{charac.credits}}</div>
-                    </td>
-                    <td md-cell>
                         {{ charac.created_at | date : 'mediumDate' }}
-                    </td>
-                    <td md-cell>{{charac.start_date | arkYear}} <span translate>CHARACEDITOR.LIST_PERIOD.T_TO</span> {{charac.end_date | arkYear}}</td>
-                    <td md-cell>
-                        <span translate>{{charac.active ? 'CHARACEDITOR.LIST_PUBLISHED.T_YES': 'CHARACEDITOR.LIST_PUBLISHED.T_NO'}}</span>
                     </td>
                 </tr>
             </tbody>
