@@ -62,6 +62,10 @@
                             <label translate>CHARACEDITOR.INPUT_ELEM_TITLE.T_TITLE</label>
                             <input name="" ng-model="n1.name_cur" ark-translate ark-translate-bind-lang="1" ark-translations="n1.name" ng-change="check_all()" placeholder="" required maxlength="255" minlength="1"/>
                         </md-input-container>
+                        <md-input-container class='order'>
+                            <label translate>CHARACEDITOR.INPUT_ELEM_ORDER.T_TITLE</label>
+                            <input name="" ng-model="n1.order" ng-change="check_all()" placeholder="" required maxlength="4" minlength="1"/>
+                        </md-input-container>
                         <div layout="column" class="arbo-buttons">
                             <md-button flex class="md-mini" aria-label="add" md-ripple-size="full" ng-click="add_arbo(n1, arbo, idx1, idx1, 1)">
                                 <md-icon>add</md-icon>
@@ -85,6 +89,10 @@
                                         <label translate>CHARACEDITOR.INPUT_ELEM_TITLE.T_TITLE</label>
                                         <input name="" ng-model="n2.name_cur" ark-translate ark-translate-bind-lang="1" ark-translations="n2.name" ng-change="check_all()" placeholder="" required maxlength="255" minlength="1"/>
                                     </md-input-container>
+                                    <md-input-container class='order'>
+                                        <label translate>CHARACEDITOR.INPUT_ELEM_ORDER.T_TITLE</label>
+                                        <input name="" ng-model="n2.order" ng-change="check_all()" placeholder="" required maxlength="4" minlength="1"/>
+                                    </md-input-container>
                                     <div layout="column" class="arbo-buttons">
                                         <md-button flex class="md-mini" aria-label="add" md-ripple-size="full" ng-click="add_arbo(n2, n1, idx1, idx2, 2)">
                                             <md-icon>add</md-icon>
@@ -103,6 +111,10 @@
                                                     <label translate>CHARACEDITOR.INPUT_ELEM_TITLE.T_TITLE</label>
                                                     <input name="" ng-model="n3.name_cur" ark-translate ark-translate-bind-lang="1" ark-translations="n3.name" ng-change="check_all()" placeholder="" required maxlength="255" minlength="1"/>
                                                 </md-input-container>
+                                                <md-input-container class='order'>
+                                                    <label translate>CHARACEDITOR.INPUT_ELEM_ORDER.T_TITLE</label>
+                                                    <input name="" ng-model="n3.order" ng-change="check_all()" placeholder="" required maxlength="4" minlength="1"/>
+                                                </md-input-container>
                                                 <div layout="column" class="arbo-buttons">
                                                     <md-button flex class="md-mini" aria-label="add" md-ripple-size="full" ng-click="add_arbo(n3, n2, idx1, idx3, 3)">
                                                         <md-icon>add</md-icon>
@@ -120,6 +132,10 @@
                                                             <md-input-container class='title'>
                                                                 <label translate>CHARACEDITOR.INPUT_ELEM_TITLE.T_TITLE</label>
                                                                 <input name="" ng-model="n4.name_cur" ark-translate ark-translate-bind-lang="1" ark-translations="n4.name" ng-change="check_all()" placeholder="" required maxlength="255" minlength="1"/>
+                                                            </md-input-container>
+                                                            <md-input-container class='order'>
+                                                                <label translate>CHARACEDITOR.INPUT_ELEM_ORDER.T_TITLE</label>
+                                                                <input name="" ng-model="n4.order" ng-change="check_all()" placeholder="" required maxlength="4" minlength="1"/>
                                                             </md-input-container>
                                                             <div layout="column" class="arbo-buttons">
                                                                 <md-button flex class="md-mini" aria-label="remove" md-ripple-size="full" ng-click="remove_arbo(n4, n3, idx1, idx4, 4)">

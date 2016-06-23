@@ -74,6 +74,12 @@
 				tradscount: {},
 			}
 
+			if ('order' in elem) {
+				elem.order=parseInt(elem.order);
+			} else {
+				elem.order=0;
+			}
+
 			// compte les traductions
 			if ('name' in elem) {
 				for (var isocode in elem.name) {
