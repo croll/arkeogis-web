@@ -178,7 +178,7 @@
 			"T_TYPE": "#!#DATABASE.INFORMATIONS.T_TYPE"
 		},
 		"KNOWLEDGE_TYPE_DIG": {
-			"T_TITLE": "Dig"
+			"T_TITLE": "Excavated"
 		},
 		"KNOWLEDGE_TYPE_LITERATURE": {
 			"T_TITLE": "Literature"
@@ -187,13 +187,13 @@
 			"T_TITLE": "Not documented"
 		},
 		"KNOWLEDGE_TYPE_PROSPECTED_AERIAL": {
-			"T_TITLE": "Prospected aerial"
+			"T_TITLE": "Airborne survey"
 		},
 		"KNOWLEDGE_TYPE_PROSPECTED_PEDESTRIAN": {
-			"T_TITLE": "Prospected pedestrian"
+			"T_TITLE": "Foot survey"
 		},
 		"KNOWLEDGE_TYPE_SURVEYED": {
-			"T_TITLE": "Surveyed"
+			"T_TITLE": "Probed"
 		},
 		"SCALE_RESOLUTION_COUNTRY": {
 			"T_TITLE": "Country"
