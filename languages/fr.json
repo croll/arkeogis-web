@@ -26,7 +26,7 @@
 			"T_TITLE": "Description"
 		},
 		"INPUT_ELEM_ORDER": {
-			"T_TITLE": "#!#CHARACEDITOR.INPUT_ELEM_ORDER.T_TITLE"
+			"T_TITLE": "Ordre"
 		},
 		"INPUT_ELEM_TITLE": {
 			"T_TITLE": "Nom"
@@ -527,8 +527,8 @@
 	},
 	"MAIN": {
 		"FIELD_MAINMENU": {
-			"T_ITEM_CHARACEDITOR": "#!#MAIN.FIELD_MAINMENU.T_ITEM_CHARACEDITOR",
-			"T_ITEM_CHRONODITOR": "#!#MAIN.FIELD_MAINMENU.T_ITEM_CHRONODITOR",
+			"T_ITEM_CHARACEDITOR": "Éditeur de caractéristiques",
+			"T_ITEM_CHRONODITOR": "Éditeurs de chronologies",
 			"T_ITEM_GROUPSMANAGER": "Administration des groupes",
 			"T_ITEM_IMPORT": "Import",
 			"T_ITEM_LANGEDITOR": "Éditeur de langues",
