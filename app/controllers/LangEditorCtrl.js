@@ -23,7 +23,7 @@
 	'use strict';
 	ArkeoGIS.controller('LangEditorCtrl', ['$scope', '$q', 'arkeoLang', 'Translates', 'login', '$timeout', function ($scope, $q, arkeoLang, Translates, Login, $timeout) {
 
-		if (!Login.requirePermission('langeditor', 'arkeogis.langeditor'))
+		if (!Login.requirePermission('user can use langeditor', 'arkeogis.langeditor'))
             return;
 
         var self=this;
