@@ -1,4 +1,58 @@
 {
+	"CHARACEDITOR": {
+		"BUTTON_DELETE": {
+			"T_CONFIRM": "Souhaitez vous vraiment supprimer cette catégorie ?",
+			"T_OK": "Oui",
+			"T_TITLE": "Supprimer"
+		},
+		"BUTTON_SAVE": {
+			"T_TITLE": "Enregistrer"
+		},
+		"HEADER_CHARACEDITOR": {
+			"T_TITLE": "Éditeur de caractéristiques"
+		},
+		"INFO_DATEERRORS": {
+			"T_TITLE": "Erreur de date"
+		},
+		"INFO_MEMBERS": {
+			"T_TITLE": "Membre du groupe d'édition"
+		},
+		"INFO_PUBLISHABLE": {
+			"T_NO": "Non",
+			"T_TITLE": "Peut être enregistré ?",
+			"T_YES": "Oui"
+		},
+		"INPUT_DESCRIPTION": {
+			"T_TITLE": "Description"
+		},
+		"INPUT_ELEM_ORDER": {
+			"T_TITLE": "Ordre"
+		},
+		"INPUT_ELEM_TITLE": {
+			"T_TITLE": "Nom"
+		},
+		"INPUT_NAME": {
+			"T_TITLE": "Nom"
+		},
+		"LIST": {
+			"T_TITLE": "Nom"
+		},
+		"LIST_DATECREATED": {
+			"T_TITLE": "Date de création"
+		},
+		"LIST_DESCRIPTION": {
+			"T_TITLE": "Description"
+		},
+		"LIST_NAME": {
+			"T_TITLE": "Nom"
+		},
+		"LIST_ORDER": {
+			"T_TITLE": "Ordre"
+		},
+		"SIDENAV": {
+			"T_TITLE": "Catégorie"
+		}
+	},
 	"CHRONODITOR": {
 		"BUTTON_AREA": {
 			"T_TITLE": "Emprise..."
@@ -7,6 +61,8 @@
 			"T_TITLE": "Fermer la carte"
 		},
 		"BUTTON_DELETE": {
+			"T_CONFIRM": "Souhaitez-vous vraiment effacer cette chronologie ?",
+			"T_OK": "Oui, efface !",
 			"T_TITLE": "Supprimer"
 		},
 		"BUTTON_SAVE": {
@@ -189,6 +245,12 @@
 		}
 	},
 	"GENERAL": {
+		"CONFIRM_DIALOG": {
+			"T_CANCEL": "Annuler",
+			"T_CONTENT": "Si vous êtes sûr de vous",
+			"T_OK": "Ok",
+			"T_TITLE": "Veuillez confirmer votre demande"
+		},
 		"INVALIDE_CHOICE": {
 			"T_CAN_T_SET_OTHER_TRANSLATION_LANG_IF_NO_ENGLISH_TRANSLATION_DONE": "#!#GENERAL.INVALIDE_CHOICE.T_CAN_T_SET_OTHER_TRANSLATION_LANG_IF_NO_ENGLISH_TRANSLATION_DONE"
 		}
@@ -465,6 +527,8 @@
 	},
 	"MAIN": {
 		"FIELD_MAINMENU": {
+			"T_ITEM_CHARACEDITOR": "Éditeur de caractéristiques",
+			"T_ITEM_CHRONODITOR": "Éditeurs de chronologies",
 			"T_ITEM_GROUPSMANAGER": "Administration des groupes",
 			"T_ITEM_IMPORT": "Import",
 			"T_ITEM_LANGEDITOR": "Éditeur de langues",

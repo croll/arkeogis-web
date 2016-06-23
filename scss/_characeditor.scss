@@ -1,13 +1,13 @@
 /* ******************************** */
-/* Chronoditor ******************** */
+/* Characditor ******************** */
 /* ******************************** */
 
-div.arkeo-chronoditor-list {
-    table.chronolist {
+div.arkeo-characeditor-list {
+    table.characlist {
     }
 }
 
-div.arkeo-chronoditor {
+div.arkeo-characeditor {
     table.arbo-content {
         width: 100%;
         vertical-align: top;
@@ -17,19 +17,24 @@ div.arkeo-chronoditor {
             padding: 0;
         }
 
+        td.arbo-title:hover {
+            background: #ddd;
+        }
         td.arbo-title {
             position: relative;
             vertical-align: top;
+            background: #eee;
 
             md-input-container {
                 margin: 0;
             }
             md-input-container.title {
                 margin-top: 14px;
-                width: 82%;
+                width: 73%;
             }
-            md-input-container.date-begin, md-input-container.date-end {
-                width: 40%;
+            md-input-container.order {
+                margin-top: 14px;
+                width: 10%;
             }
 
 /*
@@ -91,8 +96,5 @@ div.arkeo-chronoditor {
         td.arbo-content {
             width: 0%;
         }
-    }
-    .date_err {
-        border: solid 1px red;
     }
 }

@@ -158,6 +158,7 @@
 			$q.all($scope.available_groups_user.$promise, $scope.available_groups_charac.$promise, $scope.companies_country_search.$promise).then(function() {
 				console.log("all loaded !");
 				$scope.user = id_user != undefined ? User.get({id: id_user}, getUserSuccess) : hackAutocompletes(new User());
+				console.log("user to edit is : ", $scope.user);
 			}, function(error) {
 				$mdToast.show($mdToast.simple().textContent("Something bas appened ! can't load some datas...").position('bottom left'));
 				console.error("all not loaded !", error);
@@ -200,7 +201,7 @@
 				};
 			}
 
-			if (user.city_and_country.country.tr) {
+			if (user.city_and_country.country && user.city_and_country.country.tr) {
 				user.city_and_country.country.name = arkeoLang.getMappedTranslation(user.city_and_country.country.tr);
 			}
 
@@ -209,7 +210,7 @@
 				$scope.searchTextCountry = "";
 			}
 
-			if (user.city_and_country.city.tr) {
+			if (user.city_and_country.city && user.city_and_country.city.tr) {
 				user.city_and_country.city.name = arkeoLang.getMappedTranslation(user.city_and_country.city.tr);
 			}
 

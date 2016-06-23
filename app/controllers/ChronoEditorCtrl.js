@@ -28,8 +28,8 @@
 
 	ArkeoGIS.controller('ChronoEditorListCtrl', ['$scope', '$q', '$http', 'arkeoLang', 'login', function ($scope, $q, $http, arkeoLang, Login) {
 
-		//if (!Login.requirePermission('langeditor', 'langeditor'))
-        //    return;
+		if (!Login.requirePermission('user can edit some chronology', 'arkeogis.chronoditor'))
+            return;
 
         var self=this;
 
@@ -53,10 +53,10 @@
 	 * ChronoEditorCtrl Chrono Editor Controller
 	 */
 
-	ArkeoGIS.controller('ChronoEditorCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', '$http', 'arkeoService', '$stateParams', '$rootScope', '$state', 'user', function ($scope, $q, $mdSidenav, arkeoLang, Login, $http, arkeoService, $stateParams, $rootScope, $state, User) {
+	ArkeoGIS.controller('ChronoEditorCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', '$http', 'arkeoService', '$stateParams', '$rootScope', '$state', 'user', '$mdDialog', function ($scope, $q, $mdSidenav, arkeoLang, Login, $http, arkeoService, $stateParams, $rootScope, $state, User, $mdDialog) {
 
-		//if (!Login.requirePermission('langeditor', 'langeditor'))
-        //    return;
+		if (!Login.requirePermission('user can edit some chronology', 'arkeogis.chronoditor'))
+            return;
 
         var self=this;
 
@@ -262,6 +262,24 @@
 		$scope.openLeftMenu = function() {
 		    $mdSidenav('left').toggle();
 			 $scope.check_all()
+		};
+
+		$scope.delete_button = function() {
+			$scope.showConfirm = function(ev) {
+			   // Appending dialog to document.body to cover sidenav in docs app
+			   var confirm = $mdDialog.confirm()
+			         .title('Would you like to delete your debt?')
+			         .textContent('All of the banks have agreed to forgive you your debts.')
+			         .ariaLabel('Lucky day')
+			         .targetEvent(ev)
+			         .ok('Please do it!')
+			         .cancel('Sounds like a scam');
+			   $mdDialog.show(confirm).then(function() {
+			     $scope.status = 'You decided to get rid of your debt.';
+			   }, function() {
+			     $scope.status = 'You decided to keep your debt.';
+			   });
+			 };
 		};
 
 		$scope.save = function() {
