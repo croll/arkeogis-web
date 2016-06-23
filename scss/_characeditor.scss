@@ -17,9 +17,13 @@ div.arkeo-characeditor {
             padding: 0;
         }
 
+        td.arbo-title:hover {
+            background: #ddd;
+        }
         td.arbo-title {
             position: relative;
             vertical-align: top;
+            background: #eee;
 
             md-input-container {
                 margin: 0;
