@@ -1,9 +1,9 @@
-<div class="arkeo-chronoditor-list">
+<div class="arkeo-characeditor-list">
     <md-toolbar class="md-table-toolbar md-default">
         <div class="md-toolbar-tools">
-            <span translate>CHRONODITOR.LIST.T_TITLE</span>
+            <span translate>CHARACEDITOR.LIST.T_TITLE</span>
             <span flex></span>
-            <md-button class="md-icon-button" aria-label="Ajouter une nouvelle chronologie..." href="#/chronoditor/">
+            <md-button class="md-icon-button" aria-label="Ajouter une nouvelle caractéristique..." href="#/characeditor/">
                 <md-icon size="32">add_circle_outline</md-icon>
             </md-button>
 
@@ -12,46 +12,46 @@
 
     <!-- exact table from live demo -->
     <md-table-container>
-        <table class="chronolist" md-table md-row-select multiple ng-model="selected" md-progress="promise">
+        <table class="characlist" md-table md-row-select multiple ng-model="selected" md-progress="promise">
             <thead md-head md-order="query.order" md-on-reorder="getDesserts">
                 <tr md-row>
                     <th md-column md-order-by="nameToLower">
-                        <span translate>CHRONODITOR.LIST_NAME.T_TITLE</span> / <span translate>CHRONODITOR.LIST_DESCRIPTION.T_TITLE</span>
+                        <span translate>CHARACEDITOR.LIST_NAME.T_TITLE</span> / <span translate>CHARACEDITOR.LIST_DESCRIPTION.T_TITLE</span>
                     </th>
                     <th md-column md-order-by="nameToLower">
-                        <span translate>CHRONODITOR.LIST_AUTHOR.T_TITLE</span> / <span translate>CHRONODITOR.LIST_CREDITS.T_TITLE</span>
+                        <span translate>CHARACEDITOR.LIST_AUTHOR.T_TITLE</span> / <span translate>CHARACEDITOR.LIST_CREDITS.T_TITLE</span>
                     </th>
                     <th md-column md-order-by="calories.value">
-                        <span translate>CHRONODITOR.LIST_DATECREATED.T_TITLE</span>
+                        <span translate>CHARACEDITOR.LIST_DATECREATED.T_TITLE</span>
                     </th>
-                    <th md-column md-order-by="chrono.date_begin"><span translate>CHRONODITOR.LIST_PERIOD.T_TITLE</span></th>
-                    <th md-column md-order-by="chrono.active"><span translate>CHRONODITOR.LIST_PUBLISHED.T_TITLE</span></th>
+                    <th md-column md-order-by="charac.date_begin"><span translate>CHARACEDITOR.LIST_PERIOD.T_TITLE</span></th>
+                    <th md-column md-order-by="charac.active"><span translate>CHARACEDITOR.LIST_PUBLISHED.T_TITLE</span></th>
                 </tr>
             </thead>
             <tbody md-body>
                 <tr
                     md-row
-                    md-select="chrono"
+                    md-select="charac"
                     md-select-id="name"
                     md-auto-select
-                    ng-repeat="chrono in chronolist">
+                    ng-repeat="charac in characlist">
                     <td md-cell>
                         <div style="white-space: nowrap;">
-                            <a href="#/chronoditor/{{chrono.id}}" ark-get-translation ark-translations="chrono.name"></a>
+                            <a href="#/characeditor/{{charac.id}}" ark-get-translation ark-translations="charac.name"></a>
                         </div>
                         <br/>
-                        <div style="font-size: 0.8em; color: #555" ark-get-translation ark-translations="chrono.description"></div>
+                        <div style="font-size: 0.8em; color: #555" ark-get-translation ark-translations="charac.description"></div>
                     </td>
                     <td md-cell>
-                        <div>{{chrono.author.firstname}} {{chrono.author.lastname}}</div>
-                        <div>{{chrono.credits}}</div>
+                        <div>{{charac.author.firstname}} {{charac.author.lastname}}</div>
+                        <div>{{charac.credits}}</div>
                     </td>
                     <td md-cell>
-                        {{ chrono.created_at | date : 'mediumDate' }}
+                        {{ charac.created_at | date : 'mediumDate' }}
                     </td>
-                    <td md-cell>{{chrono.start_date | arkYear}} <span translate>CHRONODITOR.LIST_PERIOD.T_TO</span> {{chrono.end_date | arkYear}}</td>
+                    <td md-cell>{{charac.start_date | arkYear}} <span translate>CHARACEDITOR.LIST_PERIOD.T_TO</span> {{charac.end_date | arkYear}}</td>
                     <td md-cell>
-                        <span translate>{{chrono.active ? 'CHRONODITOR.LIST_PUBLISHED.T_YES': 'CHRONODITOR.LIST_PUBLISHED.T_NO'}}</span>
+                        <span translate>{{charac.active ? 'CHARACEDITOR.LIST_PUBLISHED.T_YES': 'CHARACEDITOR.LIST_PUBLISHED.T_NO'}}</span>
                     </td>
                 </tr>
             </tbody>
