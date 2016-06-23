@@ -76,6 +76,7 @@
 	<script src="app/controllers/ImportCtrl.js"></script>
 	<script src="app/controllers/DatabaseCtrl.js"></script>
 	<script src="app/controllers/ChronoEditorCtrl.js"></script>
+	<script src="app/controllers/CharacEditorCtrl.js"></script>
 	<script src="app/services/arkeo.js"></script>
 	<script src="app/services/user.js"></script>
 	<script src="app/services/group.js"></script>
@@ -164,8 +165,14 @@
 						</md-menu-item>
 						<md-menu-item>
 							<md-button ui-sref="arkeogis.chronoditor-list">
-								<p flex translate>Éditeur de chronologies</p>
+								<p flex translate>.FIELD_MAINMENU.T_ITEM_CHRONODITOR</p>
 								<md-icon>schedule</md-icon>
+							</md-button>
+						</md-menu-item>
+						<md-menu-item>
+							<md-button ui-sref="arkeogis.characeditor-list">
+								<p flex translate>.FIELD_MAINMENU.T_ITEM_CHARACEDITOR</p>
+								<md-icon>label</md-icon>
 							</md-button>
 						</md-menu-item>
 						<md-menu-item>

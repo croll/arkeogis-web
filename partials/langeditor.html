@@ -38,7 +38,8 @@
                         <md-card class="row row-right" flex>
                             <md-input-container style="width: 300px">
                                 <label translate>.SELECT_DSTLANG.T_TITLE</label>
-                                <md-select ng-change="setDstLang(this.dst_lang)" ng-model="dst_lang" ng-disabled="forms.langeditorForm.$dirty">
+<!--                            <md-select ng-change="setDstLang(this.dst_lang)" ng-model="dst_lang" ng-disabled="forms.langeditorForm.$dirty">-->
+                                <md-select ng-change="setDstLang(this.dst_lang)" ng-model="dst_lang">
                                     <md-option ng-repeat="lang in langs" ng-value="lang.iso_code">{{lang.iso_code}}</md-option>
                                 </md-select>
                             </md-input-container>
