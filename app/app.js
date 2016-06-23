@@ -272,6 +272,18 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 controller: "ChronoEditorCtrl",
                 resolve: {}
             })
+            .state('arkeogis.characeditor-list', {
+                url: "/characeditor-list",
+                templateUrl: "partials/characeditor-list.html",
+                controller: "CharacEditorListCtrl",
+                resolve: {}
+            })
+            .state('arkeogis.characeditor', {
+                url: "/characeditor/:charac_id",
+                templateUrl: "partials/characeditor.html",
+                controller: "CharacEditorCtrl",
+                resolve: {}
+            })
             .state('arkeogis.login', {
                 url: "/login",
                 templateUrl: "partials/login.html",
