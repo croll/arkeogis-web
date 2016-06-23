@@ -1,0 +1,104 @@
+/* ******************************** */
+/* Characditor ******************** */
+/* ******************************** */
+
+div.arkeo-characeditor-list {
+    table.characlist {
+        .md-datepicker-button {
+            display: none;
+        }
+        .md-datepicker-input-container {
+            margin-left: 0;
+        }
+    }
+}
+
+div.arkeo-characeditor {
+    table.arbo-content {
+        width: 100%;
+        vertical-align: top;
+        border-collapse: collapse;
+
+        td, th {
+            padding: 0;
+        }
+
+        td.arbo-title {
+            position: relative;
+            vertical-align: top;
+
+            md-input-container {
+                margin: 0;
+            }
+            md-input-container.title {
+                margin-top: 14px;
+                width: 82%;
+            }
+            md-input-container.date-begin, md-input-container.date-end {
+                width: 40%;
+            }
+
+/*
+            button.button-add-element {
+                min-width: 24px;
+                width: 24px;
+                min-height: 28px;
+                height: 24px;
+                padding: 0;
+                margin: 0;
+                position: absolute;
+                left: 0;
+                bottom: 0;
+            }
+            */
+        }
+
+        div.arbo-buttons {
+            position: absolute;
+            top: 0;
+            right: 0;
+
+            button {
+                min-width: 48px;
+                width: 48px;
+                padding: 0;
+                margin: 0;
+            }
+        }
+    }
+    .arbo-content-n1 {
+        td.arbo-title {
+            width: 25%;
+        }
+        td.arbo-content {
+            width: 75%;
+        }
+    }
+    .arbo-content-n2 {
+        td.arbo-title {
+            width: 33%;
+        }
+        td.arbo-content {
+            width: 66%;
+        }
+    }
+    .arbo-content-n3 {
+        td.arbo-title {
+            width: 50%;
+        }
+        td.arbo-content {
+            width: 50%;
+        }
+    }
+    .arbo-content-n4 {
+        td.arbo-title {
+            width: 100%;
+        }
+        td.arbo-content {
+            width: 0%;
+        }
+    }
+    .date_err {
+        border: solid 1px red;
+    }
+}
