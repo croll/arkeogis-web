@@ -53,79 +53,19 @@
 	 * CharacEditorCtrl Charac Editor Controller
 	 */
 
-	ArkeoGIS.controller('CharacEditorCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', '$http', 'arkeoService', '$stateParams', '$rootScope', '$state', 'user', '$mdDialog', function ($scope, $q, $mdSidenav, arkeoLang, Login, $http, arkeoService, $stateParams, $rootScope, $state, User, $mdDialog) {
+	ArkeoGIS.controller('CharacEditorCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', '$http', 'arkeoService', '$stateParams', '$state', 'user', '$mdDialog', function ($scope, $q, $mdSidenav, arkeoLang, Login, $http, arkeoService, $stateParams, $state, User, $mdDialog) {
 
 		if (!Login.requirePermission('user can edit some charac', 'arkeogis.characeditor'))
             return;
 
         var self=this;
 
-		$scope.chooseemprise = false;
 		$scope.publishable = false;
 		$scope.errstatus = {};
 		$scope.arbo = {
 			name: {},
-			start_date: 0,
-			end_date: 0,
 			content: [],
 		};
-
-		var colors= [
-			[[ 171, 171, 171], [ 171, 171, 171], [ 171, 171, 171], [ 171, 171, 171] ],
-			[[ 88, 130, 255], [ 114, 148, 246], [ 133, 160, 245], [ 162, 182, 239] ],
-			[[ 22, 170, 239], [ 79, 188, 243], [ 111, 201, 246], [ 138, 214, 252] ],
-			[[ 1, 181, 181], [ 24, 213, 210], [ 58, 231, 230], [ 149, 237, 237] ],
-			[[ 50, 173, 93], [ 77, 194, 118], [ 110, 219, 148], [ 138, 237, 174] ],
-			[[ 140, 176, 66], [ 160, 198, 76], [ 165, 215, 62], [ 180, 234, 59] ],
-			[[ 243, 147, 6], [ 241, 172, 6], [ 255, 190, 37], [ 254, 208, 71] ],
-			[[ 248, 76, 72], [ 248, 101, 96], [ 238, 125, 122], [ 249, 153, 151] ],
-			[[ 129, 90, 78], [ 147, 110, 98], [ 159, 131, 122], [ 178, 161, 155] ],
-			[[ 167, 111, 189], [ 187, 126, 217], [ 202, 139, 235], [ 219, 156, 250] ],
-			[[ 212, 93, 183], [ 236, 111, 206], [ 245, 139, 218], [ 238, 165, 220] ],
-		];
-
-		/* original version
-		var colors= [
-			[[ 171, 171, 171], [ 171, 171, 171], [ 171, 171, 171], [ 171, 171, 171] ],
-
-			[[ 22, 170, 239], [ 79, 188, 243], [ 111, 201, 246], [ 138, 214, 252] ],
-			[[ 243, 147, 6], [ 241, 172, 6], [ 255, 190, 37], [ 254, 208, 71] ],
-			[[ 167, 111, 189], [ 187, 126, 217], [ 202, 139, 235], [ 219, 156, 250] ],
-			[[ 140, 176, 66], [ 160, 198, 76], [ 165, 215, 62], [ 180, 234, 59] ],
-			[[ 248, 76, 72], [ 248, 101, 96], [ 238, 125, 122], [ 249, 153, 151] ],
-
-			[[ 1, 181, 181], [ 24, 213, 210], [ 58, 231, 230], [ 149, 237, 237] ],
-			[[ 212, 93, 183], [ 236, 111, 206], [ 245, 139, 218], [ 238, 165, 220] ],
-			[[ 88, 130, 255], [ 114, 148, 246], [ 133, 160, 245], [ 162, 182, 239] ],
-			[[ 129, 90, 78], [ 147, 110, 98], [ 159, 131, 122], [ 178, 161, 155] ],
-			[[ 50, 173, 93], [ 77, 194, 118], [ 110, 219, 148], [ 138, 237, 174] ],
-		];
-		*/
-
-		function buildcolor(idx, level) {
-			idx=idx+1;
-			level=level-1;
-			//return 'rgb('+colors[idx][level][0]+','+colors[idx][level][1]+','+colors[idx][level][2]+')';
-			function toHex(d) {
-    			return ("0"+(Number(d).toString(16))).slice(-2);
-			}
-			return toHex(colors[idx][level][0])+toHex(colors[idx][level][1])+toHex(colors[idx][level][2]);
-		}
-
-		function colorize_all() {
-			$scope.arbo.content.forEach(function(n1, idx1) {
-				n1.color = buildcolor(idx1, 1);
-				n1.content.forEach(function(n2, idx2) {
-					n2.color = buildcolor(idx1, 2);
-					n2.content.forEach(function(n3, idx3) {
-						n3.color = buildcolor(idx1, 3);
-						n3.content.forEach(function(n4, idx4) {
-							n4.color = buildcolor(idx1, 4);
-						});
-					});
-				});
-			});
-		}
 
 		function check_elem(elem, previous, next, parent) {
 			var ret={
@@ -140,40 +80,6 @@
 					if (elem.name[isocode].length > 0)
 						ret.tradscount[isocode]=1;
 				}
-			}
-
-			// vérifie que les dates se suivent
-			if (next) {
-				if ((elem.end_date+1) != next.start_date) {
-					elem.end_date_err = true;
-					next.start_date_err = true;
-					ret.errcount++;
-				}
-			}
-
-			// vérifie que les dates du parent collent avec debut et fin du premier et dernier element
-			if (parent && !parent.root) {
-				if (!previous) {
-					if (elem.start_date != parent.start_date) {
-						elem.start_date_err = true;
-						parent.start_date_err = true;
-						ret.errcount++;
-					}
-				}
-				if (!next) {
-					if (elem.end_date != parent.end_date) {
-						elem.end_date_err = true;
-						parent.end_date_err = true;
-						ret.errcount++;
-						console.log("aie", elem.end_date, parent.end_date);
-					}
-				}
-			}
-
-			// vérifie que 'end_date' est bien > a 'start_date'
-			if (!(elem.end_date > elem.start_date)) {
-				elem.start_date_err = true;
-				elem.end_date_err = true;
 			}
 
 			if ('content' in elem) {
@@ -195,16 +101,6 @@
 			return ret;
 		}
 
-		function clear_elem_err(elem) {
-			delete elem.start_date_err;
-			delete elem.end_date_err;
-			if ('content' in elem) {
-				for (var i=0; i<elem.content.length; i++) {
-					clear_elem_err(elem.content[i]);
-				}
-			}
-		}
-
 		$scope.check_all = function() {
 
 			// hack root element (not visible) to have start_date / end_date of extremities
@@ -212,9 +108,6 @@
 				$scope.arbo.start_date = $scope.arbo.content[0].start_date;
 				$scope.arbo.end_date = $scope.arbo.content[$scope.arbo.content.length-1].end_date;
 			}
-
-			// clear errors
-			clear_elem_err($scope.arbo);
 
 			// recursively check all elements
 			var ret = check_elem($scope.arbo, null, null, null);
@@ -237,26 +130,20 @@
 				$scope.errstatus.fulltrads = fulltrads;
 				console.log("fulltrads", fulltrads, publishable);
 			}
-			if (!publishable)
-				$scope.arbo.active = false;
+
 			$scope.publishable = publishable;
 		}
 
 		$scope.add_arbo = function(elem, parent, idx1, idx, level) {
 			elem.content.push({
 				name: {},
-				start_date: -1,
-				end_date: +1,
-				//color: buildcolor(idx1, level+1),
 				content: [],
 			});
-			colorize_all();
 			$scope.check_all();
 		};
 
 		$scope.remove_arbo = function(elem, parent, idx1, idx, level) {
 			parent.content.splice(idx, 1);
-			colorize_all();
 		};
 
 		$scope.openLeftMenu = function() {
@@ -297,7 +184,6 @@
 			$http.post(url, $scope.arbo).then(function(data) {
 				arkeoService.showMessage("ok !");
 				$scope.arbo = data.data;
-				colorize_all();
 				$scope.check_all();
 			}, function(err) {
 				arkeoService.showMessage("save failed : "+err.status+", "+err.statusText);
@@ -312,9 +198,7 @@
 				var url = '/api/characs/'+id;
 				$http.get(url).then(function(data) {
 					$scope.arbo = data.data;
-					colorize_all();
 					$scope.check_all();
-					$rootScope.$broadcast('EmpriseMapLayer', $scope.arbo.geom);
 				}, function(err) {
 					arkeoService.showMessage("load failed : "+err.status+", "+err.statusText);
 					console.error("loaded", err);
@@ -322,18 +206,6 @@
 			} else {
 				console.log("starting with a new empty charac...");
 			}
-		};
-
-		$scope.$on('EmpriseMapChoosen', function(event, geojson) {
-			$scope.arbo.geom = JSON.stringify(geojson.geometry);
-		});
-		$scope.$on('EmpriseMapClose', function(event) {
-			$scope.chooseemprise = false;
-		});
-
-		$scope.showemprise = function() {
-			$scope.chooseemprise = true;
-			$rootScope.$broadcast('EmpriseMapShow');
 		};
 
 		$scope.delete_charac = function() {
@@ -346,7 +218,6 @@
 					end_date: 0,
 					content: [],
 				};
-				colorize_all();
 				$scope.check_all();
 				$state.go('arkeogis.characeditor-list');
 			}, function(err) {
