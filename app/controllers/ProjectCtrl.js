@@ -28,11 +28,26 @@
 //        console.log(mapService.config);
         angular.extend($scope, angular.extend(mapService.config, {center: {}}));
 
+        leafletData.getMap().then(function(map) {
+            map.on('moveend', function() {
+                $scope.bounds = L.rectangle(map.getBounds()).toGeoJSON().geometry;
+                self.refreshLists();
+            });
+        });
+
+        self.refreshLists = function(map) {
+            console.log($scope.bounds);
+        }
+
+
     }]);
 
-    ArkeoGIS.controller('ProjectMapsCtrl', ['$scope',
-        function($scope) {
+    ArkeoGIS.controller('ProjectLayersCtrl', ['$scope', 'layerService', 'leafletData',
+        function($scope, layerService, leafletData) {
 
+            layerService.getLayers().then(function(layers) {
+                $scope.layerList = layers;
+            });
     }]);
 
     ArkeoGIS.controller('ProjectChronosCtrl', ['$scope',
