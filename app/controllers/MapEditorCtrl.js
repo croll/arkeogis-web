@@ -59,9 +59,7 @@
                     }
                 };
                 leafletData.getMap().then(function(map) {
-                    console.log(layer.geographical_extent_geom.coordinates);
-                    console.log(L.rectangle(layer.geographical_extent_geom.coordinates).getBounds());
-                    map.fitBounds(L.rectangle(layer.geographical_extent_geom.coordinates).getBounds());
+                    map.fitBounds(L.geoJson(layer.geographical_extent_geom).getBounds());
                 });
             }
         } else {
