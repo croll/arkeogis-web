@@ -60,6 +60,7 @@
 
         var self=this;
 
+		$scope.mdsidenav_opened = !($stateParams.charac_id > 0);
 		$scope.publishable = false;
 		$scope.errstatus = {};
 		$scope.arbo = {
