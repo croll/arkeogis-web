@@ -11,7 +11,7 @@
 
     <div layout="row" ng-hide="chooseemprise">
 
-        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-open="false">
+        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-open="!arbo.id">
             <md-toolbar class="md-theme-indigo">
                 <h1 class="md-toolbar-tools" translate>CHRONODITOR.SIDENAV.T_TITLE</h1>
             </md-toolbar>
@@ -21,7 +21,7 @@
                 </md-input-container>
                 <md-input-container flex>
                     <label translate>CHRONODITOR.INPUT_NAME.T_TITLE</label>
-                    <input ng-model="arbo.name_cur" ng-change="check_all()" ark-translate ark-translate-bind-lang="1" ark-translations="arbo.name"></input>
+                    <input ng-model="arbo.name_cur" maxlength="50" ng-change="check_all()" ark-translate ark-translate-bind-lang="1" ark-translations="arbo.name"></input>
                 </md-input-container>
                 <md-input-container flex>
                     <label translate>CHRONODITOR.INPUT_DESCRIPTION.T_TITLE</label>
