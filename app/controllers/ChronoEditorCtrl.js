@@ -60,6 +60,7 @@
 
         var self=this;
 
+		$scope.mdsidenav_opened = !($stateParams.chronology_id > 0);
 		$scope.chooseemprise = false;
 		$scope.publishable = false;
 		$scope.errstatus = {};

@@ -8,6 +8,12 @@ div.arkeo-chronoditor-list {
 }
 
 div.arkeo-chronoditor {
+    md-sidenav {
+        width: 400px;
+        md-content {
+            overflow-x: hidden;
+        }
+    }
     table.arbo-content {
         width: 100%;
         vertical-align: top;

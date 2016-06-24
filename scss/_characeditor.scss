@@ -8,6 +8,12 @@ div.arkeo-characeditor-list {
 }
 
 div.arkeo-characeditor {
+    md-sidenav {
+        width: 400px;
+        md-content {
+            overflow-x: hidden;
+        }
+    }
     table.arbo-content {
         width: 100%;
         vertical-align: top;
