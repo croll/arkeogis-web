@@ -26,6 +26,8 @@
         function($scope, $http, mapService, layerService, arkeoDatabase, leafletData) {
             var self = this;
             //        console.log(mapService.config);
+
+
             angular.extend($scope, angular.extend(mapService.config, {
                 center: {
                     zoom: 8
@@ -93,10 +95,30 @@
             }
 
             this.refresh = function() {
+                self.params = {
+                    bounding_box: $scope.bounds
+                }
+                if ($scope.start_date) {
+                    self.params.start_date = parseInt($scope.start_date)
+                }
+                if ($scope.end_date) {
+                    self.params.end_date = parseInt($scope.end_date)
+                }
                 self.httpGetFuncs[self.activeTab]();
+                self.compare();
             }
 
             this.refreshAll = function() {
+                self.params = {
+                    bounding_box: $scope.bounds
+                }
+                if ($scope.start_date) {
+                    self.params.start_date = parseInt($scope.start_date)
+                }
+                if ($scope.end_date) {
+                    self.params.end_date = parseInt($scope.end_date)
+                }
+                console.log(self.params);
                 angular.forEach(self.httpGetFuncs, function(f) {
                     f();
                 });
@@ -107,24 +129,23 @@
                 chronologies: function() {
                     $http.get('/api/chronologies', {
                         silent: true,
-                        params: {
-                            bounding_box: $scope.bounds
-                        }
+                        params: self.params
                     }).then(function(response) {
                         $scope.chronologies = response.data;
                     });
                 },
                 layers: function() {
-                    layerService.getLayers({silent: true, params: {bounding_box: $scope.bounds}}).then(function(layers) {
+                    layerService.getLayers({
+                        silent: true,
+                        params: self.params
+                    }).then(function(layers) {
                         $scope.layerList = layers;
                     });
                 },
                 databases: function() {
                     $http.get('/api/database', {
                         silent: true,
-                        params: {
-                            bounding_box: $scope.bounds
-                        }
+                        params: self.params
                     }).then(function(response) {
                         $scope.databases = response.data;
                     });
@@ -149,6 +170,28 @@
                     $scope.project[type].splice(i, 1);
                 } else {
                     $scope.project[type].push(item);
+                }
+            }
+
+            $scope.preview = function(geojson) {
+                console.log(geojson);
+                if (geojson == '') {
+                    return;
+                }
+                if (geojson == null) {
+                    console.log('delete');
+                    $scope.geojson = {};
+                }
+                $scope.geojson = {
+                    data: angular.fromJson(geojson),
+                    style: {
+                        fillColor: '#ff00ff',
+                        weight: 2,
+                        opacity: 1,
+                        color: 'white',
+                        dashArray: '3',
+                        fillOpacity: 0.3
+                    }
                 }
             }
 
