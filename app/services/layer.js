@@ -24,16 +24,22 @@
 
         var self = this;
 
-        this.getLayers = function(params) {
+        this.getLayers = function(config) {
             d = $q.defer();
-            p = params || {
+            var silent = false;
+            params = {
                 author: 0,
                 type: ''
+            };
+            if (angular.isDefined(config) && angular.isDefined(config.params)) {
+                params = angular.merge(params, config.params);
+                silent = config.silent || false;
             }
             $http({
                 url: '/api/layers',
                 method: 'GET',
-                params: p,
+                params: params,
+                silent: silent,
                 transformResponse: function(data) {
                     data = angular.fromJson(data);
                     angular.forEach(data, function(d) {
