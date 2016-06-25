@@ -22,46 +22,95 @@
 (function() {
     'use strict';
 
-    ArkeoGIS.controller('UserPreferencesCtrl', ['$scope', 'mapService', 'leafletData',
-        function($scope, mapService, leafletData) {
-        var self = this;
-//        console.log(mapService.config);
-        angular.extend($scope, angular.extend(mapService.config, {center: {}}));
+    ArkeoGIS.controller('UserPreferencesCtrl', ['$scope', '$http', 'mapService', 'layerService', 'leafletData',
+        function($scope, $http, mapService, layerService, leafletData) {
+            var self = this;
+            //        console.log(mapService.config);
+            angular.extend($scope, angular.extend(mapService.config, {
+                center: {
+                    zoom: 8
+                }
+            }));
 
-        leafletData.getMap().then(function(map) {
-            map.on('moveend', function() {
-                $scope.bounds = L.rectangle(map.getBounds()).toGeoJSON().geometry;
-                self.refreshLists();
+            $scope.geojson = {};
+
+            leafletData.getMap().then(function(map) {
+                map.on('moveend', function() {
+                    var bbox = map.getBounds();
+                    var boundingBox = mapService.getValidBoundingBox(bbox._northEast.lat, bbox._northEast.lng, bbox._southWest.lat, bbox._southWest.lng);
+                    $scope.bounds = mapService.getBoundsAsGeoJSON(boundingBox);
+                    if (map.getZoom() < 2) {
+                        $scope.geojson = {
+                            data: L.rectangle(boundingBox).toGeoJSON(),
+                            style: {
+                                fillColor: '#ff00ff',
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.3
+                            }
+                        }
+                    } else {
+                        $scope.geojson = {};
+                    }
+                    self.refresh();
+                });
             });
-        });
 
-        self.refreshLists = function(map) {
-            console.log($scope.bounds);
+            this.activeTab = 'chronologies';
+
+            this.refresh = function() {
+                self.httpGetFuncs[self.activeTab]();
+            }
+
+            this.httpGetFuncs = {
+                chronologies: function() {
+                    $http.get('/api/chronologies', {
+                        silent: true,
+                        params: {
+                            bounding_box: $scope.bounds
+                        }
+                    }).then(function(response) {
+                        $scope.chronologies = response.data;
+                    });
+                },
+                layers: function() {
+                    layerService.getLayers({silent: true, params: {bounding_box: $scope.bounds}}).then(function(layers) {
+                        $scope.layerList = layers;
+                        console.log(layers);
+                    });
+                }
+            }
+
+            $scope.refreshTab = function(tabName) {
+                self.activeTab = tabName;
+                self.refresh();
+            }
+
         }
-
-
-    }]);
+    ]);
 
     ArkeoGIS.controller('ProjectLayersCtrl', ['$scope', 'layerService', 'leafletData',
         function($scope, layerService, leafletData) {
-
-            layerService.getLayers().then(function(layers) {
-                $scope.layerList = layers;
-            });
-    }]);
+        }
+    ]);
 
     ArkeoGIS.controller('ProjectChronosCtrl', ['$scope',
         function($scope) {
 
-    }]);
+        }
+    ]);
 
     ArkeoGIS.controller('ProjectDatabasesCtrl', ['$scope',
         function($scope) {
 
-    }]);
+        }
+    ]);
 
     ArkeoGIS.controller('ProjectCharacsCtrl', ['$scope',
         function($scope) {
 
-    }]);
+        }
+    ]);
 })();

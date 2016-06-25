@@ -13,11 +13,11 @@
     <tbody md-body>
       <tr md-row md-select="chronology" md-select-id="name" md-auto-select ng-repeat="chronology in chronologies">
         <td md-cell>{{chronology.lang}}</td>
-        <td md-cell>{{chronology.name}}</td>
+        <td md-cell ark-get-translation ark-translations="chronology.name"></td>
         <td md-cell>{{chronology.startDate}}</td>
         <td md-cell>{{chronology.endDate}}</td>
-        <td md-cell>{{chronology.description}}</td>
-        <td md-cell>{{chronology.author}}</td>
+        <td md-cell ark-get-translation ark-translations="chronology.description"></td>
+        <td md-cell>{{chronology.author.firstname}} {{chronology.author.lastname}}</td>
       </tr>
     </tbody>
   </table>
