@@ -21,8 +21,8 @@
 
 (function() {
 	'use strict';
-	ArkeoGIS.controller('MapCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', 'arkeoService', 'leafletData', 'mapService',
-	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, arkeoService, leafletData, mapService) {
+	ArkeoGIS.controller('MapCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', 'arkeoService', 'leafletData', 'mapService',
+	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, arkeoService, leafletData, mapService) {
 		// Get map area to fit full screen
 		var resize = function() {
 			$scope.mapHeight = $(window).height() - $("#arkeo-main-toolbar").height() +"px";
@@ -126,7 +126,12 @@
 			});
 		});
 
-		// sideNav
+
+
+
+		/*
+		 * sideNav
+		 */
 
 		$scope.sideNavLeftisOpen = function() { return false };
 		$scope.sideNavRightisOpen = function() { return false };
@@ -165,7 +170,7 @@
 		};
 
 		/*
-		 * characs init
+		 * menus init : buttons styles
 		 */
 
 		var _tributtons = {
@@ -205,6 +210,38 @@
 			]
 		}
 
+		/*
+		 * menus init : characs
+		 */
+
+		function characElementToMenuElement(charac) {
+			charac.value = charac.id;
+			charac.text = charac.name;
+			charac.buttons = _tributtons;
+
+			if (charac.content && charac.content.length > 0) {
+				charac.menu = charac.content;
+				charac.menu.forEach(characElementToMenuElement);
+			}
+		}
+
+		$http.get('/api/characs', {
+
+		}).then(function(data) {
+			var roots = data.data;
+			var promises=[];
+			roots.forEach(function(root) {
+				promises.push($http.get('/api/characs/'+root.id, {}).then(function(data) {
+					root.content = data.data.content;
+					characElementToMenuElement(root)
+				}));
+			})
+			$q.all(promises).then(function(res) {
+				$scope.characs = roots;
+			})
+		});
+
+/*
 		arkeoService.loadCharacsAll().then(function(characs) {
 			// construct a tree with characs
 			var main={ value: 0, menu:[]};
@@ -229,6 +266,9 @@
 			addsub(main);
 			$scope.characs = main;
 		});
+*/
+
+
 
 		$scope.menuCentroid = {
 			text: 'MAP.MENU_CENTROID.T_TITLE',
