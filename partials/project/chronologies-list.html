@@ -1,26 +1,57 @@
+<md-button class="md-icon-button" ng-click="filter.show = true" style="position: absolute; top: -10px; right: 5px">
+    <i class="material-icons md-dark">filter_list</i>
+</md-button>
+
+<md-toolbar class="md-table-toolbar md-default" ng-show="filter.show && !selected.length" style="position: absolute; left: -5px; top: -13px">
+    <div class="md-toolbar-tools">
+        <i class="material-icons md-dark">search</i>
+        <form flex name="filter.form" style="margin: 39px 0 0 15px;">
+            <md-input-container>
+                <input type="text" ng-model="query.filter" ng-model-options="filter.options" placeholder="{{'PROJECT_EDITOR.LIST_SEARCH_INPUT.T_LABEL'}}">
+            </md-input-container>
+        </form>
+        <md-button class="md-icon-button" ng-click="removeFilter()">
+            <i class="material-icons md-dark">close</i>
+        </md-button>
+    </div>
+</md-toolbar>
+
 <md-table-container>
-  <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
-    <thead md-head md-order="query.order" md-on-reorder="getChronologies">
-      <tr md-row>
-        <th md-column md-order-by="nameToLower"><span>Langue</span></th>
-        <th md-column md-order-by="calories.value"><span>Nom</span></th>
-        <th md-column md-numeric>Date début</th>
-        <th md-column md-numeric>Date fin</th>
-        <th md-column md-numeric>Description</th>
-        <th md-column>Auteur</th>
-      </tr>
-    </thead>
-    <tbody md-body>
-      <tr md-row md-select="chronology" md-select-id="name" md-auto-select ng-repeat="chronology in chronologies">
-        <td md-cell>{{chronology.lang}}</td>
-        <td md-cell ark-get-translation ark-translations="chronology.name"></td>
-        <td md-cell>{{chronology.startDate}}</td>
-        <td md-cell>{{chronology.endDate}}</td>
-        <td md-cell ark-get-translation ark-translations="chronology.description"></td>
-        <td md-cell>{{chronology.author.firstname}} {{chronology.author.lastname}}</td>
-      </tr>
-    </tbody>
-  </table>
+    <table md-table md-row-select multiple ng-model="project.chronologies">
+        <thead md-head md-order="query.order" md-trigger="onOrderChange">
+            <tr>
+                <th md-column md-numeric md-order-by="lang_isocode">
+                    <span translate>PROJECT_EDITOR.LIST_LANG.T_LABEL</span>
+                </th>
+                <th md-column md-order-by="name">
+                    <span translate>PROJECT_EDITOR.LIST_NAME.T_LABEL</span>
+                </th>
+                <th md-column numeric>
+                    <span translate>PROJECT_EDITOR.LIST_START_DATE.T_LABEL</span>
+                </th>
+                <th md-column numeric>
+                    <span translate>PROJECT_EDITOR.LIST_END_DATE.T_LABEL</span>
+                </th>
+                <th md-column md-order-by="description">
+                    <span translate>PROJECT_EDITOR.LIST_DESCRIPTION.T_LABEL</span>
+                </th>
+                <th md-column md-order-by="author">
+                    <span translate>PROJECT_EDITOR.LIST_AUTHOR.T_LABEL</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody md-body>
+            <tr md-row md-auto-select md-select="item" ng-repeat="item in chronologies | filter:query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
+                <td md-cell>{{item.lang}}</td>
+                <td md-cell ark-get-translation ark-translations="item.name"></td>
+                <td md-cell>{{item.start_date}}</td>
+                <td md-cell>{{item.end_date}}</td>
+                <td md-cell ark-get-translation ark-translations="item.description"></td>
+                <td md-cell>{{item.author.firstname}}
+                    {{item.author.firstname}}</td>
+            </tr>
+        </tbody>
+    </table>
 </md-table-container>
 
-<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{chronologys.count}}" md-on-paginate="getchronologys" md-page-select></md-table-pagination>
+<md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{chronologies.length}}" md-row-select="query.numRows" md-page-select></md-table-pagination>

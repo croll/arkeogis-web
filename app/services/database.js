@@ -88,15 +88,12 @@
                 isArray: true,
                 transformResponse: function(data, headers) {
                     var dbInfos = angular.fromJson(data);
-                    var ret = [];
                     angular.forEach(dbInfos, function(dbi) {
                         if (dbi.infos) {
                             angular.extend(dbi, dbi.infos);
                             delete dbi.infos;
                         }
-                        ret.push(dbi);
                     })
-                    return ret;
                 }
             }
         });
