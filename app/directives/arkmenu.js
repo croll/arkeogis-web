@@ -97,8 +97,13 @@
                 if (typeof scope.ngModel !== 'object')
                     scope.ngModel={};
 
+                if (!('arkItem' in scope) || scope.arkItem === undefined) {
+                    console.error("ark-item must be defined in a <ark-menu-item />!")
+                    return;
+                }
 
-                if (scope.arkItem.value !== undefined) {
+
+                if (('value' in scope.arkItem) && scope.arkItem.value !== undefined) {
 
                     if (!(scope.arkItem.value in scope.ngModel))
                         scope.ngModel[scope.arkItem.value]={};
