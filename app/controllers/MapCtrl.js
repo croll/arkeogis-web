@@ -241,6 +241,38 @@
 			})
 		});
 
+		/*
+		 * menus init : chronos
+		 */
+
+		function chronoElementToMenuElement(chrono) {
+			chrono.value = chrono.id;
+			chrono.text = chrono.name;
+			chrono.buttons = _tributtons;
+
+			if (chrono.content && chrono.content.length > 0) {
+				chrono.menu = chrono.content;
+				chrono.menu.forEach(chronoElementToMenuElement);
+			}
+		}
+
+		$http.get('/api/chronologies', {
+
+		}).then(function(data) {
+			var roots = data.data;
+			var promises=[];
+			roots.forEach(function(root) {
+				promises.push($http.get('/api/chronologies/'+root.id, {}).then(function(data) {
+					root.content = data.data.content;
+					chronoElementToMenuElement(root)
+				}));
+			})
+			$q.all(promises).then(function(res) {
+				$scope.chronos = roots;
+			})
+		});
+
+
 /*
 		arkeoService.loadCharacsAll().then(function(characs) {
 			// construct a tree with characs
