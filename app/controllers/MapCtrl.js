@@ -23,6 +23,13 @@
 	'use strict';
 	ArkeoGIS.controller('MapCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', 'arkeoService', 'leafletData', 'mapService',
 	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, arkeoService, leafletData, mapService) {
+
+		var PROJECT = {
+			id_project: 0,
+			id_chronology: 217,
+		}
+
+
 		// Get map area to fit full screen
 		var resize = function() {
 			$scope.mapHeight = $(window).height() - $("#arkeo-main-toolbar").height() +"px";
@@ -245,6 +252,8 @@
 		 * menus init : chronos
 		 */
 
+		$scope.menuChronos={};
+
 		function chronoElementToMenuElement(chrono) {
 			chrono.value = chrono.id;
 			chrono.text = chrono.name;
@@ -268,7 +277,26 @@
 				}));
 			})
 			$q.all(promises).then(function(res) {
-				$scope.chronos = roots;
+				$scope.menuChronos = {
+					text: "MAP.MENU_CHRONOLOGIES.T_TITLE",
+					buttons: [],
+					value: 0,
+					menu: [
+						{
+							text: "MAP.MENU_CHRONOLOGIES.T_BOUNDS",
+							buttons: _checkbox_buttons,
+							menu: [],
+							value: 0,
+						},
+						{
+							text: "MAP.MENU_CHRONOLOGIES.T_PERIODS",
+							buttons: _checkbox_buttons,
+							menu: roots,
+							value: 0,
+						}
+
+					]
+				};
 			})
 		});
 
