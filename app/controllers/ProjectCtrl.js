@@ -39,6 +39,14 @@
                 characs: []
             }
 
+            $scope.outOfBounds = {
+                chronologies: [],
+                layers: [],
+                databases: [],
+            }
+
+            this.activeTab = 'chronologies';
+
             $scope.geojson = {};
 
             leafletData.getMap().then(function(map) {
@@ -61,14 +69,38 @@
                     } else {
                         $scope.geojson = {};
                     }
-                    self.refresh();
+                    self.refreshAll();
                 });
             });
 
-            this.activeTab = 'chronologies';
+            this.compare = function() {
+                var isOut = false;
+                $scope.outOfBounds.chronologies = _.differenceBy($scope.project.chronologies, $scope.chronologies, '$$hashKey');
+                if ($scope.outOfBounds.chronologies.length) {
+                    isOut = true;
+                }
+                $scope.outOfBounds.layers = _.differenceBy($scope.project.layers, $scope.layerList, '$$hashKey');
+                if ($scope.outOfBounds.layers.length) {
+                    isOut = true;
+                }
+                $scope.outOfBounds.databases = _.differenceBy($scope.project.databases, $scope.databases, '$$hashKey');
+                if ($scope.outOfBounds.databases.length) {
+                    isOut = true;
+                }
+                if (isOut) {
+                    console.log($scope.outOfBounds);
+                }
+            }
 
             this.refresh = function() {
                 self.httpGetFuncs[self.activeTab]();
+            }
+
+            this.refreshAll = function() {
+                angular.forEach(self.httpGetFuncs, function(f) {
+                    f();
+                });
+                self.compare();
             }
 
             this.httpGetFuncs = {
@@ -109,6 +141,15 @@
             $scope.refreshTab = function(tabName) {
                 self.activeTab = tabName;
                 self.refresh();
+            }
+
+            $scope.toggleItem = function(item, type) {
+                var i = $scope.project[type].indexOf(item);
+                if (i != -1) {
+                    $scope.project[type].splice(i, 1);
+                } else {
+                    $scope.project[type].push(item);
+                }
             }
 
         }

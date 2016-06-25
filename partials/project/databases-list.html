@@ -1,28 +1,3 @@
-<md-table-container>
-  <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
-    <thead md-head md-order="query.order" md-on-reorder="getChronologies">
-      <tr md-row>
-        <th md-column md-order-by="nameToLower"><span>Langue</span></th>
-        <th md-column md-order-by="calories.value"><span>Nom</span></th>
-        <th md-column md-numeric>Date début</th>
-        <th md-column md-numeric>Date fin</th>
-        <th md-column md-numeric>Description</th>
-        <th md-column>Auteur</th>
-      </tr>
-    </thead>
-    <tbody md-body>
-      <tr md-row md-select="database" md-select-id="name" md-auto-select ng-repeat="database in databases">
-        <td md-cell>{{database.lang}}</td>
-        <td md-cell>{{database.name}}</td>
-        <td md-cell>{{database.startDate}}</td>
-        <td md-cell>{{database.endDate}}</td>
-        <td md-cell>{{database.description}}</td>
-      </tr>
-    </tbody>
-  </table>
-</md-table-container>
-
-Status API Training Shop Blog About
 <md-button class="md-icon-button" ng-click="filter.show = true" style="position: absolute; top: -10px; right: 5px">
     <i class="material-icons md-dark">filter_list</i>
 </md-button>
@@ -41,7 +16,6 @@ Status API Training Shop Blog About
     </div>
 </md-toolbar>
 
-{{databases}}
 <md-table-container>
     <table md-table md-row-select multiple ng-model="project.databases">
         <thead md-head md-order="query.order" md-trigger="onOrderChange">
@@ -58,9 +32,6 @@ Status API Training Shop Blog About
                 <th md-column numeric>
                     <span translate>PROJECT_EDITOR.LIST_END_DATE.T_LABEL</span>
                 </th>
-                <th md-column md-order-by="name">
-                    <span translate>PROJECT_EDITOR.LIST_NAME.T_LABEL</span>
-                </th>
                 <th md-column md-order-by="description">
                     <span translate>PROJECT_EDITOR.LIST_DESCRIPTION.T_LABEL</span>
                 </th>
@@ -70,7 +41,7 @@ Status API Training Shop Blog About
             </tr>
         </thead>
         <tbody md-body>
-            <tr md-row md-auto-select md-select="item" ng-repeat="item in databases| filter:query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
+            <tr md-row md-select="item" md-select-id="id" ng-click="toggleItem(item, 'databases')" ng-repeat="item in databases | filter:query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
                 <td md-cell>{{item.lang}}</td>
                 <td md-cell ark-get-translation ark-translations="item.name"></td>
                 <td md-cell>{{item.start_date}}</td>

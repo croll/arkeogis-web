@@ -15,8 +15,6 @@
         </md-button>
     </div>
 </md-toolbar>
-
-{{layerList}}
 <md-table-container>
     <table md-table md-row-select multiple ng-model="project.layers">
         <thead md-head md-order="query.order" md-trigger="onOrderChange">
@@ -45,7 +43,7 @@
             </tr>
         </thead>
         <tbody md-body>
-            <tr md-row md-auto-select md-select="item" ng-repeat="item in layerList| filter:query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
+            <tr md-row md-select="item" md-select-id="uniq_code" ng-click="toggleItem(item, 'layers')" ng-repeat="item in layerList | filter:query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
                 <td md-cell ark-get-translation ark-translations="item.name"></td>
                 <td md-cell>{{item.start_date}}</td>
                 <td md-cell>{{item.end_date}}</td>
