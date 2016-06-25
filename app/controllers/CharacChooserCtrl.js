@@ -23,12 +23,12 @@
 	'use strict';
 
 	/*
-	 * CharacEditorListCtrl Charac Editor List Controller
+	 * CharacChooserListCtrl Charac Chooser List Controller
 	 */
 
-	ArkeoGIS.controller('CharacEditorListCtrl', ['$scope', '$q', '$http', 'arkeoLang', 'login', function ($scope, $q, $http, arkeoLang, Login) {
+	ArkeoGIS.controller('CharacChooserListCtrl', ['$scope', '$q', '$http', 'arkeoLang', 'login', function ($scope, $q, $http, arkeoLang, Login) {
 
-		if (!Login.requirePermission('user can edit some charac', 'arkeogis.characeditor'))
+		if (!Login.requirePermission('user can edit some charac', 'arkeogis.characchooser'))
             return;
 
         var self=this;
@@ -45,17 +45,17 @@
 		}
 		init();
 
-    }]);  // controller CharacEditorListCtrl
+    }]);  // controller CharacChooserListCtrl
 
 
 
 	/*
-	 * CharacEditorCtrl Charac Editor Controller
+	 * CharacChooserCtrl Charac Chooser Controller
 	 */
 
-	ArkeoGIS.controller('CharacEditorCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', '$http', 'arkeoService', '$stateParams', '$state', 'user', '$mdDialog', function ($scope, $q, $mdSidenav, arkeoLang, Login, $http, arkeoService, $stateParams, $state, User, $mdDialog) {
+	ArkeoGIS.controller('CharacChooserCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', '$http', 'arkeoService', '$stateParams', '$state', 'user', '$mdDialog', function ($scope, $q, $mdSidenav, arkeoLang, Login, $http, arkeoService, $stateParams, $state, User, $mdDialog) {
 
-		if (!Login.requirePermission('user can edit some charac', 'arkeogis.characeditor'))
+		if (!Login.requirePermission('user can edit some charac', 'arkeogis.characchooser'))
             return;
 
         var self=this;
@@ -226,7 +226,7 @@
 					content: [],
 				};
 				$scope.check_all();
-				$state.go('arkeogis.characeditor-list');
+				$state.go('arkeogis.characchooser-list');
 			}, function(err) {
 				arkeoService.showMessage("delete failed : "+err.status+", "+err.statusText);
 				console.error("delete", err);
@@ -254,6 +254,6 @@
 		}
 		init();
 
-    }]); // controller CharacEditorCtrl
+    }]); // controller CharacChooserCtrl
 
 })(); // all
