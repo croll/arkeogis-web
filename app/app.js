@@ -334,7 +334,9 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
         $httpProvider.interceptors.push(function($q) {
             return {
                 'request': function(config) {
-                    $('div#arkeo_loading').show();
+                    if (!config.silent) {
+                        $('div#arkeo_loading').show();
+                    }
                     return config;
                 },
 

@@ -59,7 +59,7 @@
                     }
                 };
                 leafletData.getMap().then(function(map) {
-                    map.fitBounds(layer.geographical_extent_geom);
+                    map.fitBounds(L.geoJson(layer.geographical_extent_geom).getBounds());
                 });
             }
         } else {
@@ -157,16 +157,11 @@
                                 var l = {
                                     title: layer.Title.toString(),
                                     identifier: layer.Name.toString(),
+                                    boundingBox: processBoundingBox(layer.BoundingBox)
                                 }
-                                if (!layer.BoundingBox._minx || !layer.BoundingBox._miny || !layer.BoundingBox._maxx || !layer.BoundingBox._maxy) {
-                                    l.boundingBox = [
-                                        [-180, -90],
-                                        [179.999999, 89.99999]
-                                    ];
-                                } else {
-                                    l.boundingBox = mapService.getValidBoundingBox(layer.BoundingBox._minx, layer.BoundingBox._miny, layer.BoundingBox._maxx, layer.BoundingBox._maxy);
+                                if (l.boundingBox) {
+                                    $scope.wmsLayers.push(l);
                                 }
-                                $scope.wmsLayers.push(l);
                             });
                         } else {
                             d.reject();
@@ -182,14 +177,7 @@
                                     identifier: layer.Identifier.toString(),
                                     format: layer.Format.toString(),
                                 }
-                                if (angular.isDefined(layer.WGS84BoundingBox)) {
-                                    var upper = layer.WGS84BoundingBox.UpperCorner.toString().split(' ');
-                                    var lower = layer.WGS84BoundingBox.LowerCorner.toString().split(' ');
-                                    l.boundingBox = [
-                                        [upper[1], upper[0]],
-                                        [lower[1], lower[0]]
-                                    ];
-                                }
+                                l.boundingBox = processBoundingBox(layer.WGS84BoundingBox);
                                 $scope.wmsLayers.push(l);
                             });
                         } else {
@@ -418,6 +406,49 @@
                 }
             }
             return outp;
+        }
+
+        function processBoundingBox(boundingBox, type) {
+
+            var result = null;
+
+            var processFuncs = {
+                wms: function(bbox) {
+                    if (bbox._CRS != '' && bbox._CRS.indexOf("EPSG:4326") == -1 && bbox._CRS.indexOf("CRS:84")) {
+                        return false;
+                    }
+                    if (!bbox._minx || !bbox._miny || !bbox._maxx || !bbox._maxy) {
+                        return [
+                            [-90,- 180],
+                            [89.99999, 179.999999]
+                        ];
+                    } else {
+                        return mapService.getValidBoundingBox(bbox._minx, bbox._maxy, bbox._maxx, bbox._miny);
+                    }
+                },
+                wmts: function(bbox) {
+                    if (!bbox) {
+                        return false;
+                    }
+                    var upper = bbox.UpperCorner.toString().split(' ');
+                    var lower = bbox.LowerCorner.toString().split(' ');
+                    return mapService.getValidBoundingBox(upper[0], lower[1], upper[1], lower[0]);
+                }
+            }
+
+            if (angular.isArray(boundingBox)) {
+                angular.forEach(boundingBox, function(bbox) {
+                    result = processFuncs[type](bbox);
+                    if (result) {
+                            return;
+                    }
+                });
+            } else {
+                result = processFuncs[type](boundingBox);
+            }
+
+
+            return result;
         }
 
     }]);

@@ -3,7 +3,7 @@
         <div flex="66" layout-align="center start" layout-padding>
             <h2 class="md-headline" style="margin: 0; padding: 0" translate>PROJECT.INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA.T_LABEL</h2>
             <div style="margin: 5px 0px 30px 0; padding: 0; color: #555" translate>PROJECT.INTERFACE_RECENTER_THE_MAP_ON_YOUR_WORKING_AREA.T_LABEL</div>
-            <leaflet lf-center="center" tiles="openstreetmap" layers="layers" width="95%" height="400px"></leaflet>
+            <leaflet lf-center="center" layers="layers" geojson="geojson" height="400px"></leaflet>
         </div>
         <div flex="33" layout-align="center start">
             <h2 class="md-headline" style="margin: 10px 0 5px 0px" translate>PROJECT.INFORMATIONS_PERIOD_SELECTION.T_LABEL</h2>
@@ -24,16 +24,16 @@
     <div style="color: #555; padding: 15px 0px; text-align: center;" translate>PROJECT.INTERFACE_INFOS_USAGE.T_LABEL</div>
 </md-card>
 <md-tabs class="md-hue-2" layout-fill style="min-height: 470px!important">
-    <md-tab label="{{'PROJECT.TAB_CHRONOLOGIES.T_LABEL' | translate}}">
-        <p style="margin: 20px" ng-include="'partials/project/chronologies-list.html'" ng-controller="ProjectChronosCtrl"></p>
+    <md-tab label="{{'PROJECT.TAB_CHRONOLOGIES.T_LABEL' | translate}}" md-on-select="refreshTab('chronologies')">
+        <p style="margin: 20px"  ng-include="'partials/project/chronologies-list.html'" ng-controller="ProjectChronosCtrl"></p>
     </md-tab>
-    <md-tab label="{{'PROJECT.TAB_MAPS.T_LABEL' | translate}}">
-        <p ng-include="'partials/project/maps-list.html'" ng-controller="ProjectMapsCtrl"></p>
+    <md-tab label="{{'PROJECT.TAB_MAPS.T_LABEL' | translate}}" md-on-select="refreshTab('layers')">
+        <p ng-include="'partials/project/layers-list.html'" ng-controller="ProjectLayersCtrl"></p>
     </md-tab>
-    <md-tab label="{{'PROJECT.TAB_DATABASES.T_LABEL' | translate}}">
+    <md-tab label="{{'PROJECT.TAB_DATABASES.T_LABEL' | translate}}" md-on-select="refreshTab('databases')">
         <p ng-include="'partials/project/databases-list.html'" ng-controller="ProjectDatabasesCtrl"></p>
     </md-tab>
-    <md-tab label="{{'PROJECT.TAB_CHARACTERISTICS.T_LABEL' | translate}}">
+    <md-tab label="{{'PROJECT.TAB_CHARACTERISTICS.T_LABEL' | translate}}" md-on-select="refreshTab('characs')">
         <p ng-include="'partials/project/characs-list.html'" ng-controller="ProjectCharacsCtrl"></p>
     </md-tab>
 </md-tabs>

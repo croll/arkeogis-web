@@ -1,28 +1,3 @@
-<md-table-container>
-  <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
-    <thead md-head md-order="query.order" md-on-reorder="getChronologies">
-      <tr md-row>
-        <th md-column md-order-by="nameToLower"><span>Langue</span></th>
-        <th md-column md-order-by="calories.value"><span>Nom</span></th>
-        <th md-column md-numeric>Date début</th>
-        <th md-column md-numeric>Date fin</th>
-        <th md-column md-numeric>Description</th>
-        <th md-column>Auteur</th>
-      </tr>
-    </thead>
-    <tbody md-body>
-      <tr md-row md-select="database" md-select-id="name" md-auto-select ng-repeat="database in databases">
-        <td md-cell>{{database.lang}}</td>
-        <td md-cell>{{database.name}}</td>
-        <td md-cell>{{database.startDate}}</td>
-        <td md-cell>{{database.endDate}}</td>
-        <td md-cell>{{database.description}}</td>
-      </tr>
-    </tbody>
-  </table>
-</md-table-container>
-
-Status API Training Shop Blog About
 <md-button class="md-icon-button" ng-click="filter.show = true" style="position: absolute; top: -10px; right: 5px">
     <i class="material-icons md-dark">filter_list</i>
 </md-button>
@@ -41,14 +16,11 @@ Status API Training Shop Blog About
     </div>
 </md-toolbar>
 
-{{databases}}
+{{layerList}}
 <md-table-container>
-    <table md-table md-row-select multiple ng-model="project.databases">
+    <table md-table md-row-select multiple ng-model="project.layers">
         <thead md-head md-order="query.order" md-trigger="onOrderChange">
             <tr>
-                <th md-column md-numeric md-order-by="lang_isocode">
-                    <span translate>PROJECT_EDITOR.LIST_LANG.T_LABEL</span>
-                </th>
                 <th md-column md-numeric md-order-by="name">
                     <span translate>PROJECT_EDITOR.LIST_NAME.T_LABEL</span>
                 </th>
@@ -59,27 +31,31 @@ Status API Training Shop Blog About
                     <span translate>PROJECT_EDITOR.LIST_END_DATE.T_LABEL</span>
                 </th>
                 <th md-column md-order-by="name">
-                    <span translate>PROJECT_EDITOR.LIST_NAME.T_LABEL</span>
-                </th>
-                <th md-column md-order-by="description">
-                    <span translate>PROJECT_EDITOR.LIST_DESCRIPTION.T_LABEL</span>
+                    <span translate>PROJECT_EDITOR.LIST_ZOOM_LEVEL.T_LABEL</span>
                 </th>
                 <th md-column md-order-by="author">
                     <span translate>PROJECT_EDITOR.LIST_AUTHOR.T_LABEL</span>
                 </th>
+                <th md-column md-order-by="description">
+                    <span translate>PROJECT_EDITOR.LIST_DESCRIPTION.T_LABEL</span>
+                </th>
+                <th md-column md-order-by="type">
+                    <span translate>PROJECT_EDITOR.LIST_TYPE.T_LABEL</span>
+                </th>
             </tr>
         </thead>
         <tbody md-body>
-            <tr md-row md-auto-select md-select="item" ng-repeat="item in databases| filter:query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
-                <td md-cell>{{item.lang}}</td>
+            <tr md-row md-auto-select md-select="item" ng-repeat="item in layerList| filter:query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
                 <td md-cell ark-get-translation ark-translations="item.name"></td>
                 <td md-cell>{{item.start_date}}</td>
                 <td md-cell>{{item.end_date}}</td>
-                <td md-cell ark-get-translation ark-translations="item.description"></td>
+                <td md-cell>{{item.zoom_level}}</td>
                 <td md-cell>{{item.author}}</td>
+                <td md-cell ark-get-translation ark-translations="item.description"></td>
+                <td md-cell>{{item.type}}</td>
             </tr>
         </tbody>
     </table>
 </md-table-container>
 
-<md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{databases.length}}" md-row-select="query.numRows" md-page-select></md-table-pagination>
+<md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{layerList.length}}" md-row-select="query.numRows" md-page-select></md-table-pagination>

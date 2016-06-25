@@ -74,28 +74,33 @@
             }
         }
 
-        this.getValidBoundingBox = function(minx, miny, maxx, maxy) {
-            minx = parseFloat(minx);
-            miny = parseFloat(miny);
-            maxx = parseFloat(maxx);
-            maxy = parseFloat(maxy);
-            if (minx <= -90) {
-                minx = -90;
+        this.getValidBoundingBox = function(north, east, south, west) {
+            north = parseFloat(north);
+            east = parseFloat(east);
+            south = parseFloat(south);
+            west = parseFloat(west);
+            if (north > 90) {
+                north = 89.999999;
             }
-            if (maxx >= 90) {
-                maxx = 89.999999;
+            if (south < -90) {
+                south = -89.999999;
             }
-            if (miny <= -180) {
-                miny = -180;
+            if (west < -180) {
+                west = -179.999999;
             }
-            if (maxy >= 180) {
-                maxy = 179.999999;
+            if (east >= 180) {
+                east = 179.999999;
             }
             return [
-                [minx, miny],
-                [maxx, maxy]
+                [north, east],
+                [south, west]
             ]
         }
 
+        this.getBoundsAsGeoJSON = function(bbox) {
+            var bounds = angular.fromJson(L.rectangle(bbox).toGeoJSON().geometry);
+            bounds.crs = {type: "name", properties: {name: "EPSG:4326"}}
+            return JSON.stringify(bounds);
+        }
     }]);
 })();
