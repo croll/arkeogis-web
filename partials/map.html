@@ -16,22 +16,22 @@
                     <ark-menu-item ng-model="query.zone" ark-item="menuZone"></ark-menu-item>
                 </div>
 
-                <div>
+                <div ng-repeat="menuDatabase in menuDatabases">
                     <ark-menu-item ng-model="query.database" ark-item="menuDatabase"></ark-menu-item>
                 </div>
 
-                <div ng-repeat="chrono in menuChronos">
-                    <ark-menu-item ng-model="query.chrono" ark-item="chrono"></ark-menu-item>
+                <div ng-repeat="menuChronology in menuChronologies">
+                    <ark-menu-item ng-model="query.chronology" ark-item="menuChronology"></ark-menu-item>
                 </div>
 
-                <div ng-repeat="charac in menuCharacs">
-                    <ark-menu-item ng-model="query.characs" ark-item="charac"></ark-menu-item>
+                <div ng-repeat="characMenu in menuCharacs">
+                    <ark-menu-item ng-model="query.charac" ark-item="characMenu"></ark-menu-item>
                 </div>
 
             </div> <!-- latest div for menus -->
 
             <div>
-                <md-button><span translate>MAP.BUTTON_DISPLAYMAP.T_TITLE</span></md-button>
+                <md-button ng-click="showMap()"><span translate>MAP.BUTTON_DISPLAYMAP.T_TITLE</span></md-button>
             </div>
         </md-content>
     </md-sidenav>
@@ -47,8 +47,9 @@
         <md-content layout-padding>
             <div class="query">
                 <div>{{query.centroid}}</div>
-                <div>{{query.characs}}</div>
-                <div>{{query.chrono}}</div>
+                <div>{{query.database}}</div>
+                <div>{{query.charac}}</div>
+                <div>{{query.chronology}}</div>
                 <div>{{query.knowledge}}</div>
                 <div ng-hide="isEmptyObject(query.centroid)">
                     <span translate>Centroïde</span> :
@@ -83,6 +84,10 @@
                         {{ o.text }}</span>
                 </div>
             </div>
+
+            <hr />
+
+            <div>{{query}}</div>
         </md-content>
     </md-sidenav>
 

@@ -34,6 +34,7 @@
 		var resize = function() {
 			$scope.mapHeight = $(window).height() - $("#arkeo-main-toolbar").height() +"px";
 		};
+		resize();
 
 		$(window).on('resize', resize);
 
@@ -45,6 +46,8 @@
 
 		angular.extend($scope, mapService.config);
 	// Get the countries geojson data from a JSON
+
+		if (0) {
         $http.get("/api/search/sites/"+dbToGet).success(function(data, status) {
 
 			resize();
@@ -132,7 +135,7 @@
 				latlngs.push([parseFloat(feature.geometry.coordinates[0]), parseFloat(feature.geometry.coordinates[1])]);
 			});
 		});
-
+	    } // 0
 
 
 
@@ -180,27 +183,43 @@
 		 * menus init : buttons styles
 		 */
 
+		 var _characbuttons = {
+ 			inclorexcl: [
+ 				{
+ 					icon: 'brightness_1'
+ 				},
+ 				{
+ 					value: true,
+ 					icon: 'add_circle'
+ 				},
+ 				{
+ 					value: false,
+ 					icon: 'remove_circle'
+ 				},
+ 			],
+ 			exceptional: [
+ 				{
+ 					icon: 'check_box_outline_blank'
+ 				},
+ 				{
+ 					value: true,
+ 					icon: 'new_releases'
+ 				},
+ 			],
+ 		};
+
 		var _tributtons = {
 			inclorexcl: [
 				{
 					icon: 'brightness_1'
 				},
 				{
-					value: '+',
+					value: true,
 					icon: 'add_circle'
 				},
 				{
-					value: '-',
+					value: false,
 					icon: 'remove_circle'
-				},
-			],
-			exceptional: [
-				{
-					icon: 'check_box_outline_blank'
-				},
-				{
-					value: true,
-					icon: 'new_releases'
 				},
 			],
 		};
@@ -224,7 +243,7 @@
 		function characElementToMenuElement(charac) {
 			charac.value = charac.id;
 			charac.text = charac.name;
-			charac.buttons = _tributtons;
+			charac.buttons = _characbuttons;
 
 			if (charac.content && charac.content.length > 0) {
 				charac.menu = charac.content;
@@ -253,10 +272,10 @@
 		});
 
 		/*
-		 * menus init : chronos
+		 * menus init : chronologies
 		 */
 
-		$scope.menuChronos=[];
+		$scope.menuChronologies=[];
 
 		function chronoElementToMenuElement(chrono) {
 			chrono.value = chrono.id;
@@ -277,7 +296,7 @@
 			var root = data.data;
 			chronoElementToMenuElement(root)
 
-			$scope.menuChronos = [{
+			$scope.menuChronologies = [{
 				text: "MAP.MENU_CHRONO.T_TITLE",
 				buttons: [],
 				value: 42,
@@ -285,51 +304,21 @@
 					{
 						text: "MAP.MENU_CHRONO.T_MANUAL",
 						buttons: _checkbox_buttons,
-						value: 44,
 					},
 					{
 						text: "MAP.MENU_CHRONO.T_CHRONOLOGY",
 						buttons: _checkbox_buttons,
 						menu: root.menu,
-						value: 43,
 					},
 				]
 			}];
 
-			console.log("menu: ", $scope.menuChronos );
+			console.log("menu: ", $scope.menuChronologies );
 
 		}, function(err) {
 			arkeoService.fieldErrorDisplay(err)
 			console.error(err);
 		});
-
-
-/*
-		arkeoService.loadCharacsAll().then(function(characs) {
-			// construct a tree with characs
-			var main={ value: 0, menu:[]};
-
-			function addsub(c) {
-				characs.forEach(function(sub) {
-					if (sub.parent_id == c.value) {
-						if (!('menu' in c)) c.menu=[];
-						var item={
-							value: sub.id,
-							//text: sub.tr[0].name,
-							text: sub.tr.name,
-						};
-						if (sub.parent_id != 0)
-							item.buttons = _tributtons;
-						c.menu.push(item);
-						addsub(item); // recurse
-					}
-				})
-			}
-
-			addsub(main);
-			$scope.characs = main;
-		});
-*/
 
 
 
@@ -442,26 +431,72 @@
 			],
 		};
 
-		$scope.menuDatabase = {
-			text: 'MAP.MENU_DATABASE.T_TITLE',
-			menu: [
-				{
-					value: 'inventory',
-					text: 'MAP.MENU_DATABASE.T_INVENTORY',
-					menu: [],
-				},
-				{
-					value: 'research',
-					text: 'MAP.MENU_DATABASE.T_RESEARCH',
-					menu: [],
-				},
-				{
-					value: 'literary-work',
-					text: 'MAP.MENU_DATABASE.T_LITERARYWORK',
-					menu: [],
-				},
-			],
-		};
+		/*
+		 * menus init : databases
+		 */
+
+		function databaseElementToMenuElement(database) {
+			database.value = database.id;
+			database.text = database.name;
+			database.buttons = _tributtons;
+		}
+
+		$http.get('/api/database', {
+			active: true,
+		}).then(function(data) {
+			console.log("databases", data.data);
+
+			var roots = data.data;
+
+			var menu = [{
+				text: "MAP.MENU_DATABASE.T_INVENTORY",
+				menu: [],
+				buttons: _tributtons,
+				value: 'type:inventory',
+			},{
+				text: "MAP.MENU_DATABASE.T_RESEARCH",
+				menu: [],
+				buttons: _tributtons,
+				value: 'type:research',
+			},{
+				text: "MAP.MENU_DATABASE.T_LITERARYWORK",
+				menu: [],
+				buttons: _tributtons,
+				value: 'type:literary-work',
+			},{
+				text: "MAP.MENU_DATABASE.T_UNDEFINED",
+				menu: [],
+				buttons: _tributtons,
+				value: 'type:undefined',
+			}];
+
+			roots.forEach(function(root) {
+				databaseElementToMenuElement(root);
+				switch(root.type) {
+					case 'inventory':
+						menu[0].menu.push(root);
+					break;
+					case 'research':
+						menu[1].menu.push(root);
+					break;
+					case 'literary-work':
+						menu[2].menu.push(root);
+					break;
+					default:
+						menu[3].menu.push(root);
+					break;
+				}
+			});
+
+			$scope.menuDatabases = [{
+				text: "MAP.MENU_DATABASE.T_TITLE",
+				buttons: [],
+				value: 0,
+				menu: menu,
+			}];
+
+			console.log("menu database : ", $scope.menuDatabases);
+		});
 
 /*
 		$scope.menuPeriod = {
@@ -525,6 +560,16 @@
 				});
 			});
 			return res;
+		};
+
+		$scope.showMap = function() {
+			var params = $scope.query;
+			$http.post("/api/map/search", params).then(function(data) {
+				console.log("data", data);
+			}, function(err) {
+				arkeoService.fieldErrorDisplay(err)
+				console.error(err);
+			});
 		};
 
 	}]);
