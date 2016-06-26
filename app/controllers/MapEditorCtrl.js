@@ -157,7 +157,7 @@
                                 var l = {
                                     title: layer.Title.toString(),
                                     identifier: layer.Name.toString(),
-                                    boundingBox: processBoundingBox(layer.BoundingBox)
+                                    boundingBox: processBoundingBox(layer.BoundingBox, 'wms')
                                 }
                                 if (l.boundingBox) {
                                     $scope.wmsLayers.push(l);
@@ -177,7 +177,7 @@
                                     identifier: layer.Identifier.toString(),
                                     format: layer.Format.toString(),
                                 }
-                                l.boundingBox = processBoundingBox(layer.WGS84BoundingBox);
+                                l.boundingBox = processBoundingBox(layer.WGS84BoundingBox, 'wmts');
                                 $scope.wmsLayers.push(l);
                             });
                         } else {

@@ -16,7 +16,7 @@
     "angular-translate-loader-url": "latest",
     "angular-translate-loader-static-files": "latest",
     "ng-file-upload": "latest",
-    "angular-material-data-table": "latest",
+    "angular-material-data-table": "master",
     "angular-nvd3": "latest",
     "angular-i18n": "latest",
     "ui-leaflet": "^1.0.0",
@@ -24,6 +24,7 @@
     "leaflet-draw": "^0.3.0",
     "angular-xml": "^2.2.1",
     "shp": "^3.3.2",
-    "angular-promise-extras": "~0.1.6"
+    "angular-promise-extras": "~0.1.6",
+    "lodash": "^4.13.1"
   }
 }
