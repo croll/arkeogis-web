@@ -26,7 +26,7 @@
 
 		$scope.PROJECT = {
 			project_id: 0,
-			chronology_id: 217,
+			chronology_id: 37,
 		}
 
 
