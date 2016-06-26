@@ -24,9 +24,9 @@
 	ArkeoGIS.controller('MapCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', 'arkeoService', 'leafletData', 'mapService',
 	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, arkeoService, leafletData, mapService) {
 
-		var PROJECT = {
-			id_project: 0,
-			id_chronology: 217,
+		$scope.PROJECT = {
+			project_id: 0,
+			chronology_id: 217,
 		}
 
 
@@ -233,7 +233,6 @@
 		}
 
 		$http.get('/api/characs', {
-
 		}).then(function(data) {
 			var roots = data.data;
 			var promises=[];
@@ -244,7 +243,12 @@
 				}));
 			})
 			$q.all(promises).then(function(res) {
-				$scope.characs = roots;
+				$scope.menuCharacs = [{
+					text: "MAP.MENU_CHARACS.T_TITLE",
+					buttons: [],
+					value: 0,
+					menu: roots
+				}];
 			})
 		});
 
@@ -252,7 +256,7 @@
 		 * menus init : chronos
 		 */
 
-		$scope.menuChronos={};
+		$scope.menuChronos=[];
 
 		function chronoElementToMenuElement(chrono) {
 			chrono.value = chrono.id;
@@ -265,39 +269,38 @@
 			}
 		}
 
-		$http.get('/api/chronologies', {
+		$http.get('/api/chronologies/'+$scope.PROJECT.chronology_id, {
+				params: {
+					active: 1,
+				},
+			}).then(function(data) {
+			var root = data.data;
+			chronoElementToMenuElement(root)
 
-		}).then(function(data) {
-			var roots = data.data;
-			var promises=[];
-			roots.forEach(function(root) {
-				promises.push($http.get('/api/chronologies/'+root.id, {}).then(function(data) {
-					root.content = data.data.content;
-					chronoElementToMenuElement(root)
-				}));
-			})
-			$q.all(promises).then(function(res) {
-				$scope.menuChronos = {
-					text: "MAP.MENU_CHRONOLOGIES.T_TITLE",
-					buttons: [],
-					value: 0,
-					menu: [
-						{
-							text: "MAP.MENU_CHRONOLOGIES.T_BOUNDS",
-							buttons: _checkbox_buttons,
-							menu: [],
-							value: 0,
-						},
-						{
-							text: "MAP.MENU_CHRONOLOGIES.T_PERIODS",
-							buttons: _checkbox_buttons,
-							menu: roots,
-							value: 0,
-						}
+			$scope.menuChronos = [{
+				text: "MAP.MENU_CHRONO.T_TITLE",
+				buttons: [],
+				value: 42,
+				menu: [
+					{
+						text: "MAP.MENU_CHRONO.T_MANUAL",
+						buttons: _checkbox_buttons,
+						value: 44,
+					},
+					{
+						text: "MAP.MENU_CHRONO.T_CHRONOLOGY",
+						buttons: _checkbox_buttons,
+						menu: root.menu,
+						value: 43,
+					},
+				]
+			}];
 
-					]
-				};
-			})
+			console.log("menu: ", $scope.menuChronos );
+
+		}, function(err) {
+			arkeoService.fieldErrorDisplay(err)
+			console.error(err);
 		});
 
 
@@ -460,6 +463,7 @@
 			],
 		};
 
+/*
 		$scope.menuPeriod = {
 			text: 'MAP.MENU_PERIOD.T_TITLE',
 			menu: [
@@ -476,7 +480,7 @@
 				},
 			],
 		};
-
+*/
 		// the Query
 		$scope.query = {
 		};
