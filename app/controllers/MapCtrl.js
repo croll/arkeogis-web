@@ -283,7 +283,8 @@
 		$scope.menuChronologies=[];
 
 		function chronoElementToMenuElement(chrono) {
-			chrono.value = chrono.id;
+			//chrono.value = chrono.id;
+			chrono.value = chrono.id+'#'+chrono.start_date+':'+chrono.end_date;
 			chrono.text = chrono.name;
 			chrono.buttons = _tributtons;
 
@@ -313,7 +314,7 @@
 					{
 						text: "MAP.MENU_CHRONO.T_CHRONOLOGY",
 						buttons: _tributtons,
-						value: $scope.PROJECT.chronology_id,
+						value: root.value,
 						menu: root.menu,
 					},
 				]
