@@ -22,7 +22,7 @@
 (function() {
     'use strict';
 
-    ArkeoGIS.controller('UserPreferencesCtrl', ['$scope', '$http', 'mapService', 'layerService', 'arkeoDatabase', 'leafletData',
+    ArkeoGIS.controller('ProjectCtrl', ['$scope', '$http', 'mapService', 'layerService', 'arkeoDatabase', 'leafletData',
         function($scope, $http, mapService, layerService, arkeoDatabase, leafletData) {
             var self = this;
             //        console.log(mapService.config);
@@ -174,12 +174,10 @@
             }
 
             $scope.preview = function(geojson) {
-                console.log(geojson);
                 if (geojson == '') {
                     return;
                 }
                 if (geojson == null) {
-                    console.log('delete');
                     $scope.geojson = {};
                 }
                 $scope.geojson = {
