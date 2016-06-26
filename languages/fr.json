@@ -56,7 +56,6 @@
 			"T_TITLE": "Catégorie"
 		}
 	},
-	"CHRONO": {},
 	"CHRONODITOR": {
 		"BUTTON_AREA": {
 			"T_TITLE": "Emprise..."
@@ -569,7 +568,8 @@
 			"T_INVENTORY": "Inventaire",
 			"T_LITERARYWORK": "Ouvrage",
 			"T_RESEARCH": "Recherche",
-			"T_TITLE": "Bases de données"
+			"T_TITLE": "Bases de données",
+			"T_UNDEFINED": "Non défini"
 		},
 		"MENU_KNOWLEDGE": {
 			"T_DIG": "Fouillé",
