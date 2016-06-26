@@ -20,15 +20,14 @@
                     <ark-menu-item ng-model="query.database" ark-item="menuDatabase"></ark-menu-item>
                 </div>
 
-                <div>
-                    <ark-menu-item ng-model="query.period" ark-item="menuPeriod"></ark-menu-item>
+                <div ng-repeat="chrono in menuChronos">
+                    <ark-menu-item ng-model="query.chrono" ark-item="chrono"></ark-menu-item>
                 </div>
 
-                <div ng-repeat="item in characs">
-                    <ark-menu-item ng-model="query.characs[item.text]" ark-item="item"></ark-menu-item>
+                <div ng-repeat="charac in menuCharacs">
+                    <ark-menu-item ng-model="query.characs" ark-item="charac"></ark-menu-item>
                 </div>
 
-                <ark-menu-item ng-model="query.chronos" ark-item="menuChronos"></ark-menu-item>
             </div> <!-- latest div for menus -->
 
             <div>
@@ -49,6 +48,7 @@
             <div class="query">
                 <div>{{query.centroid}}</div>
                 <div>{{query.characs}}</div>
+                <div>{{query.chrono}}</div>
                 <div>{{query.knowledge}}</div>
                 <div ng-hide="isEmptyObject(query.centroid)">
                     <span translate>Centroïde</span> :
