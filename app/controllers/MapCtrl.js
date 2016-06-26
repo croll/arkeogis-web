@@ -265,7 +265,7 @@
 				$scope.menuCharacs = [{
 					text: "MAP.MENU_CHARACS.T_TITLE",
 					buttons: [],
-					value: 0,
+					value: 0, // value never used, there is no buttons
 					menu: roots
 				}];
 			})
@@ -299,7 +299,7 @@
 			$scope.menuChronologies = [{
 				text: "MAP.MENU_CHRONO.T_TITLE",
 				buttons: [],
-				value: 42,
+				value: 0, // value never used, there is no buttons
 				menu: [
 					{
 						text: "MAP.MENU_CHRONO.T_MANUAL",
@@ -307,7 +307,8 @@
 					},
 					{
 						text: "MAP.MENU_CHRONO.T_CHRONOLOGY",
-						buttons: _checkbox_buttons,
+						buttons: _tributtons,
+						value: $scope.PROJECT.chronology_id,
 						menu: root.menu,
 					},
 				]
