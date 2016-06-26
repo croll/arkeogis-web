@@ -22,8 +22,8 @@
 (function() {
     'use strict';
 
-    ArkeoGIS.controller('ProjectCtrl', ['$scope', '$http', 'mapService', 'layerService', 'arkeoDatabase', 'leafletData',
-        function($scope, $http, mapService, layerService, arkeoDatabase, leafletData) {
+    ArkeoGIS.controller('ProjectCtrl', ['$scope', '$q', '$http', '$timeout', 'arkeoService', 'mapService', 'layerService', 'arkeoDatabase', 'leafletData',
+        function($scope, $q, $http, $timeout, arkeoService, mapService, layerService, arkeoDatabase, leafletData) {
             var self = this;
             //        console.log(mapService.config);
 
@@ -39,13 +39,18 @@
                 layers: [],
                 databases: [],
                 characs: []
-            }
+            };
 
             $scope.outOfBounds = {
                 chronologies: [],
                 layers: [],
                 databases: [],
-            }
+            };
+
+            var promises = [];
+
+            $scope.$watch('start_date', _.debounce(function() {self.refreshAll();}, 200));
+            $scope.$watch('end_date', _.debounce(function() {self.refreshAll();}, 200));
 
             this.activeTab = 'chronologies';
 
@@ -63,8 +68,8 @@
                                 fillColor: '#ff00ff',
                                 weight: 2,
                                 opacity: 1,
-                                color: 'white',
-                                dashArray: '3',
+                                color: '#777',
+                                dashArray: '5',
                                 fillOpacity: 0.3
                             }
                         }
@@ -75,87 +80,109 @@
                 });
             });
 
-            this.compare = function() {
-                var isOut = false;
+            this._compare = function() {
+                $scope.outOfBounds = {
+                    hasError: false
+                };
                 $scope.outOfBounds.chronologies = _.differenceBy($scope.project.chronologies, $scope.chronologies, '$$hashKey');
                 if ($scope.outOfBounds.chronologies.length) {
-                    isOut = true;
+                    $scope.outOfBounds.hasError = true;
                 }
                 $scope.outOfBounds.layers = _.differenceBy($scope.project.layers, $scope.layerList, '$$hashKey');
                 if ($scope.outOfBounds.layers.length) {
-                    isOut = true;
+                    $scope.outOfBounds.hasError = true;
                 }
                 $scope.outOfBounds.databases = _.differenceBy($scope.project.databases, $scope.databases, '$$hashKey');
                 if ($scope.outOfBounds.databases.length) {
-                    isOut = true;
+                    $scope.outOfBounds.hasError = true;
                 }
-                if (isOut) {
-                    console.log($scope.outOfBounds);
+            }
+
+            $scope.checkItem = function(item, type) {
+                return _.includes($scope.outOfBounds[type], item);
+            }
+
+            this._filterParams = function() {
+                self.params = {
+                    bounding_box: $scope.bounds
+                }
+                if (angular.isDefined($scope.start_date)) {
+                    if (!angular.isDefined($scope.end_date)) {
+                        arkeoService.showMessage('PROJECT.FIELD_START_DATE.END_DATE_NOT_DEFINED_BUT_END_DATE_IS', 'error');
+                        return
+                    }
+                    self.params.start_date = parseInt($scope.start_date)
+                } else {
+                    self.params.start_date = null;
+                }
+                if (angular.isDefined($scope.end_date)) {
+                    if (!angular.isDefined($scope.start_date)) {
+                        arkeoService.showMessage('PROJECT.FIELD_END_DATE.START_DATE_NOT_DEFINED_BUT_END_DATE_IS', 'error');
+                        return
+                    }
+                    self.params.end_date = parseInt($scope.end_date)
+                } else {
+                    self.params.end_date = null;
+                }
+                if (self.params.start_date) {
+                    self.params.check_dates = true;
+                } else {
+                    self.params.check_dates = false;
                 }
             }
 
             this.refresh = function() {
-                self.params = {
-                    bounding_box: $scope.bounds
-                }
-                if ($scope.start_date) {
-                    self.params.start_date = parseInt($scope.start_date)
-                }
-                if ($scope.end_date) {
-                    self.params.end_date = parseInt($scope.end_date)
-                }
+                promises = [];
+                self._filterParams();
                 self.httpGetFuncs[self.activeTab]();
-                self.compare();
+                self._compare();
+                $q.all(promises).then(function() {
+                    self._compare();
+                });
             }
 
             this.refreshAll = function() {
-                self.params = {
-                    bounding_box: $scope.bounds
-                }
-                if ($scope.start_date) {
-                    self.params.start_date = parseInt($scope.start_date)
-                }
-                if ($scope.end_date) {
-                    self.params.end_date = parseInt($scope.end_date)
-                }
-                console.log(self.params);
+                promises = [];
+                self._filterParams();
                 angular.forEach(self.httpGetFuncs, function(f) {
                     f();
                 });
-                self.compare();
+                $q.all(promises).then(function() {
+                    self._compare();
+                });
             }
 
             this.httpGetFuncs = {
                 chronologies: function() {
-                    $http.get('/api/chronologies', {
+                    promises.push($http.get('/api/chronologies', {
                         silent: true,
                         params: self.params
                     }).then(function(response) {
                         $scope.chronologies = response.data;
-                    });
+                    }));
                 },
                 layers: function() {
-                    layerService.getLayers({
+                    promises.push(layerService.getLayers({
                         silent: true,
                         params: self.params
                     }).then(function(layers) {
                         $scope.layerList = layers;
-                    });
+                    }));
                 },
                 databases: function() {
-                    $http.get('/api/database', {
+                    promises.push($http.get('/api/database', {
                         silent: true,
                         params: self.params
                     }).then(function(response) {
                         $scope.databases = response.data;
-                    });
+                    }));
                 },
                 characs: function() {
-                    $http.get('/api/characs', {
+                    promises.push($http.get('/api/characs', {
                         silent: true,
                     }).then(function(response) {
                         $scope.characs = response.data;
-                    });
+                    }));
                 },
             }
 
@@ -186,8 +213,8 @@
                         fillColor: '#ff00ff',
                         weight: 2,
                         opacity: 1,
-                        color: 'white',
-                        dashArray: '3',
+                        color: '#777',
+                        dashArray: '5',
                         fillOpacity: 0.3
                     }
                 }
