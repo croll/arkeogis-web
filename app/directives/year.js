@@ -21,6 +21,18 @@
 
 (function() {
     'use strict';
+
+    function toHuman(val) {
+        var v = parseInt(val);
+        return isNaN(v) ? val : (v > 0 ? '+'+v : (v-1));
+    }
+
+    function toMachine(val) {
+        var v = parseInt(val);
+        if (v <= 0) v = v + 1;
+        return v;
+    }
+
     ArkeoGIS.directive('arkYear', function() {
 
 		return {
@@ -30,34 +42,30 @@
             link: function(scope, element, attrs, ngModel) {
                 if(!ngModel) return; // Don't do anything unless we have a model
 
+
                 element.bind('blur keyup change', function() {
-                    var re = ''+reformat(ngModel.$viewValue);
+                    var ma = toMachine(ngModel.$viewValue);
+                    if (isNaN(ma)) return;
+                    var re = ''+toHuman(ma);
                     if (re != ''+ngModel.$viewValue) {
                         ngModel.$setViewValue(re);
                         ngModel.$render();
                     }
                 });
 
-                function reformat(val) {
-                    var v = parseInt(val);
-                    return isNaN(v) ? val : (v > 0 ? '+'+v : v);
-                }
-
                 ngModel.$parsers.push(function (val) {
-                    return parseInt(val);
+                    return toMachine(val)
                 });
 
                 ngModel.$formatters.push(function (val) {
-                    return reformat(val);
+                    return toHuman(val);
                 });
+
             },
         };
     });
 
     ArkeoGIS.filter('arkYear', function () {
-        return function(val) {
-            var v = parseInt(val);
-            return isNaN(v) ? val : (v > 0 ? '+'+v : v);
-        }
+        return toHuman;
     });
 })();

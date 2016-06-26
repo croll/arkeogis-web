@@ -34,6 +34,9 @@
 		"INPUT_NAME": {
 			"T_TITLE": "Nom"
 		},
+		"INPUT_ORDER": {
+			"T_TITLE": "#!#CHARACEDITOR.INPUT_ORDER.T_TITLE"
+		},
 		"LIST": {
 			"T_TITLE": "Nom"
 		},
@@ -376,6 +379,7 @@
 			"T_HELP_FILTER_RESULTS": "Filtrer les résultats",
 			"T_LABEL_COLUMN": "Colonne",
 			"T_LABEL_ERROR_MESSAGE": "Message d'erreur",
+			"T_LABEL_FILTER_RESULTS": "#!#IMPORT_STEP2.REPORT_TABLE.T_LABEL_FILTER_RESULTS",
 			"T_LABEL_LINE": "Ligne",
 			"T_LABEL_NO_ERROR": "Aucune erreur",
 			"T_LABEL_REPORT": "Report",
@@ -552,11 +556,20 @@
 			"T_TITLE": "Centroïd",
 			"T_YES": "Oui"
 		},
+		"MENU_CHARACS": {
+			"T_TITLE": "Caractéristiques"
+		},
+		"MENU_CHRONO": {
+			"T_CHRONOLOGY": "Période",
+			"T_MANUAL": "Définition des bornes...",
+			"T_TITLE": "Choix par période(s)"
+		},
 		"MENU_DATABASE": {
 			"T_INVENTORY": "Inventaire",
 			"T_LITERARYWORK": "Ouvrage",
 			"T_RESEARCH": "Recherche",
-			"T_TITLE": "Bases de données"
+			"T_TITLE": "Bases de données",
+			"T_UNDEFINED": "Non défini"
 		},
 		"MENU_KNOWLEDGE": {
 			"T_DIG": "Fouillé",
@@ -722,6 +735,35 @@
 		},
 		"TAB_MAPS": {
 			"T_LABEL": "Cartes"
+		}
+	},
+	"PROJECT_EDITOR": {
+		"LIST_AUTHOR": {
+			"T_LABEL": "#!#PROJECT_EDITOR.LIST_AUTHOR.T_LABEL"
+		},
+		"LIST_DESCRIPTION": {
+			"T_LABEL": "#!#PROJECT_EDITOR.LIST_DESCRIPTION.T_LABEL"
+		},
+		"LIST_END_DATE": {
+			"T_LABEL": "#!#PROJECT_EDITOR.LIST_END_DATE.T_LABEL"
+		},
+		"LIST_LANG": {
+			"T_LABEL": "#!#PROJECT_EDITOR.LIST_LANG.T_LABEL"
+		},
+		"LIST_NAME": {
+			"T_LABEL": "#!#PROJECT_EDITOR.LIST_NAME.T_LABEL"
+		},
+		"LIST_SEARCH_INPUT": {
+			"T_LABEL": "#!#PROJECT_EDITOR.LIST_SEARCH_INPUT.T_LABEL"
+		},
+		"LIST_START_DATE": {
+			"T_LABEL": "#!#PROJECT_EDITOR.LIST_START_DATE.T_LABEL"
+		},
+		"LIST_TYPE": {
+			"T_LABEL": "#!#PROJECT_EDITOR.LIST_TYPE.T_LABEL"
+		},
+		"LIST_ZOOM_LEVEL": {
+			"T_LABEL": "#!#PROJECT_EDITOR.LIST_ZOOM_LEVEL.T_LABEL"
 		}
 	},
 	"USER": {
