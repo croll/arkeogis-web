@@ -98,10 +98,10 @@
 			"T_TITLE": "Fin"
 		},
 		"INPUT_ELEM_TITLE": {
-			"T_TITLE": "Nom"
+			"T_TITLE": "Nom de la période"
 		},
 		"INPUT_NAME": {
-			"T_TITLE": "Nom"
+			"T_TITLE": "Nom de la chronologie"
 		},
 		"LIST": {
 			"T_TITLE": "Liste des chronologies"
@@ -163,19 +163,19 @@
 			"T_TITLE": "Monde"
 		},
 		"INFORMATIONS": {
-			"T_AUTHOR_AND_CO_AUTHORS": "#!#DATABASE.INFORMATIONS.T_AUTHOR_AND_CO_AUTHORS",
-			"T_CONTEXT": "#!#DATABASE.INFORMATIONS.T_CONTEXT",
-			"T_DESCRIPTION": "#!#DATABASE.INFORMATIONS.T_DESCRIPTION",
-			"T_ENDING_PERIOD": "#!#DATABASE.INFORMATIONS.T_ENDING_PERIOD",
-			"T_GEOGRAPHICAL_EXTENT": "#!#DATABASE.INFORMATIONS.T_GEOGRAPHICAL_EXTENT",
-			"T_LICENSE": "#!#DATABASE.INFORMATIONS.T_LICENSE",
-			"T_NAME": "#!#DATABASE.INFORMATIONS.T_NAME",
-			"T_NUMBER_OF_LINES": "#!#DATABASE.INFORMATIONS.T_NUMBER_OF_LINES",
-			"T_NUMBER_OF_SITES": "#!#DATABASE.INFORMATIONS.T_NUMBER_OF_SITES",
-			"T_STARTING_PERIOD": "#!#DATABASE.INFORMATIONS.T_STARTING_PERIOD",
-			"T_SUBJECT_AND_KEYWORDS": "#!#DATABASE.INFORMATIONS.T_SUBJECT_AND_KEYWORDS",
+			"T_AUTHOR_AND_CO_AUTHORS": "Auteur et co-auteur(s)",
+			"T_CONTEXT": "Cadre de réalisation",
+			"T_DESCRIPTION": "Description",
+			"T_ENDING_PERIOD": "Fin",
+			"T_GEOGRAPHICAL_EXTENT": "Etendue géographique",
+			"T_LICENSE": "License",
+			"T_NAME": "Nom",
+			"T_NUMBER_OF_LINES": "Nombre de lignes",
+			"T_NUMBER_OF_SITES": "Nombre de sites",
+			"T_STARTING_PERIOD": "Début",
+			"T_SUBJECT_AND_KEYWORDS": "Sujet(s) / Mots-clés",
 			"T_TITLE": "#!#DATABASE.INFORMATIONS.T_TITLE",
-			"T_TYPE": "#!#DATABASE.INFORMATIONS.T_TYPE"
+			"T_TYPE": "Type"
 		},
 		"KNOWLEDGE_TYPE_DIG": {
 			"T_TITLE": "Fouillé"
@@ -223,7 +223,7 @@
 			"T_TITLE": "Multiple"
 		},
 		"SITE_OCCUPATION_NOT_DOCUMENTED": {
-			"T_TITLE": "#!#DATABASE.SITE_OCCUPATION_NOT_DOCUMENTED.T_TITLE"
+			"T_TITLE": "Merci de renseigner le champs occupation."
 		},
 		"SITE_OCCUPATION_SINGLE": {
 			"T_TITLE": "Unique"
@@ -252,7 +252,7 @@
 			"T_TITLE": "Veuillez confirmer votre demande"
 		},
 		"INVALIDE_CHOICE": {
-			"T_CAN_T_SET_OTHER_TRANSLATION_LANG_IF_NO_ENGLISH_TRANSLATION_DONE": "#!#GENERAL.INVALIDE_CHOICE.T_CAN_T_SET_OTHER_TRANSLATION_LANG_IF_NO_ENGLISH_TRANSLATION_DONE"
+			"T_CAN_T_SET_OTHER_TRANSLATION_LANG_IF_NO_ENGLISH_TRANSLATION_DONE": "Merci de renseigner la langue anglaise avant tout autre langue."
 		}
 	},
 	"GROUP": {
@@ -265,7 +265,7 @@
 			"T_ROWSPERPAGE_OF": "de"
 		},
 		"GROUPTYPE_CHARAC": {
-			"T_TITLE": "Groupe de characteristiques"
+			"T_TITLE": "Groupe de catégories"
 		},
 		"GROUPTYPE_CHRONOLOGY": {
 			"T_TITLE": "Groupe de chronologies"
@@ -282,7 +282,7 @@
 		"HEADER_GROUPSLIST": {
 			"T_ACTION": "Action",
 			"T_GROUPNAME": "Nom du groupe",
-			"T_USERS": "Utilisateurs"
+			"T_USERS": "Membres du groupe"
 		}
 	},
 	"IMPORT": {
@@ -316,7 +316,7 @@
 			"T_LABEL": "* Nom de la base"
 		},
 		"FIELD_ECHAP_CHARACTER": {
-			"T_ERROR_LEN": "#!#IMPORT_STEP1.FIELD_ECHAP_CHARACTER.T_ERROR_LEN",
+			"T_ERROR_LEN": "Erreur de caractère d'échappement.",
 			"T_LABEL": "* Caractère d'échappement"
 		},
 		"FIELD_GEONAMES": {
@@ -327,7 +327,7 @@
 			"T_LABEL": "* Étendue géographique de la base de données."
 		},
 		"FIELD_LANG": {
-			"T_HELP": "Langue utilisée dans la base de données pour décrire les caractérisations Mobilier / Immobilier / Production / Paysage / Texte - Iconographie.",
+			"T_HELP": "Langue utilisée dans la base de données pour décrire les caractérisations Mobilier / Immobilier / Production / Paysage / Médias",
 			"T_LABEL": "* Langue de la base"
 		},
 		"FIELD_SEPARATOR": {
@@ -392,33 +392,33 @@
 			"T_LABEL": "Attribuée à"
 		},
 		"FIELD_CONTEXT": {
-			"T_HELP": "Travail réalisé dans le ou les cadre (s) de :",
+			"T_HELP": "Travail réalisé dans le ou les cadre (s) de : Travail universitaire / Contrat / Équipe de recherche / Autres",
 			"T_LABEL": "Cadre de réalisation"
 		},
 		"FIELD_CREATION_DATE": {
-			"T_HELP": "",
+			"T_HELP": "De la base de données, non la date de l’importation.",
 			"T_LABEL": "Date de création"
 		},
 		"FIELD_DESCRIPTION_LANG1": {
-			"T_LABEL": "Description langue principale"
+			"T_LABEL": "Description (langue principale)"
 		},
 		"FIELD_DESCRIPTION_LANG2": {
-			"T_LABEL": "Description langue secondaire"
+			"T_LABEL": "Description (traduction)"
 		},
 		"FIELD_LICENSE": {
 			"T_HELP": "Merci de choisir une des licences Creative Commons compatibles avec la plate-forme ArkeoGIS pour protéger votre travail.",
 			"T_LABEL": "License"
 		},
 		"FIELD_SCALE_RESOLUTION": {
-			"T_HELP": "Cette base de données concerne des objets, ou des sites ou des bassins versants etc …",
+			"T_HELP": "Cette base de données concerne des objets, ou des sites ou des bassins versants etc.",
 			"T_LABEL": "Echelle des points"
 		},
 		"FIELD_STATE": {
-			"T_HELP": "Cette base de données concerne des objets, ou des sites ou des bassins versants, etc",
+			"T_HELP": "Merci de préciser l’état du travail sur cette base de données au moment de votre importation.",
 			"T_LABEL": "État"
 		},
 		"FIELD_SUBJECT": {
-			"T_HELP": "Résumé, texte de présentation, mots-clés complémentaires table des matières.",
+			"T_HELP": "Résumé, texte de présentation, mots-clés complémentaires table des matières etc.",
 			"T_LABEL": "Sujet(s) / Mots clés"
 		},
 		"FIELD_TYPE": {
@@ -436,15 +436,15 @@
 			"T_LINE3": "Ces informations ne sont demandées qu’une fois avant publication, lors de réimportation possibles de “nom de la base de données” ces informations ne vous seront pas redemandées. Il vous sera possible par la suite de modifier ces informations et de renseigner d'autres champs complémentaires non obligatoires relatifs à la présentation de votre travail dans votre interface personnelle de gestion des informations relatives à la base de données. Cette interface de gestion est accessible depuis l’index des bases de donnée."
 		},
 		"MESSAGES": {
-			"T_PUBLICATION_INFORMATIONS_SAVED": "#!#IMPORT_STEP3.MESSAGES.T_PUBLICATION_INFORMATIONS_SAVED"
+			"T_PUBLICATION_INFORMATIONS_SAVED": "Les informations obligatoires sont enregistrées."
 		}
 	},
 	"IMPORT_STEP4": {
 		"BIBLIOGRAPHY_LANG1": {
-			"T_LABEL": "#!#IMPORT_STEP4.BIBLIOGRAPHY_LANG1.T_LABEL"
+			"T_LABEL": "Bibliographie (langue principale)"
 		},
 		"BIBLIOGRAPHY_LANG2": {
-			"T_LABEL": "#!#IMPORT_STEP4.BIBLIOGRAPHY_LANG2.T_LABEL"
+			"T_LABEL": "Bibliographie (traduction)"
 		},
 		"FIELD_CONTEXT_DESCRIPTION": {
 			"T_LABEL": "Précision du cadre de réalisation"
@@ -458,13 +458,13 @@
 			"T_LABEL": "Date IUR"
 		},
 		"FIELD_EDITOR": {
-			"T_LABEL": "#!#IMPORT_STEP4.FIELD_EDITOR.T_LABEL"
+			"T_LABEL": "Structure Éditrice"
 		},
 		"FIELD_GEOGRAPHICAL_LIMIT_LANG1": {
-			"T_LABEL": "#!#IMPORT_STEP4.FIELD_GEOGRAPHICAL_LIMIT_LANG1.T_LABEL"
+			"T_LABEL": "Précision sur l'emprise géographique (langue principale)"
 		},
 		"FIELD_GEOGRAPHICAL_LIMIT_LANG2": {
-			"T_LABEL": "#!#IMPORT_STEP4.FIELD_GEOGRAPHICAL_LIMIT_LANG2.T_LABEL"
+			"T_LABEL": "Précision sur l'emprise géographique (traduction)"
 		},
 		"FIELD_RELATIONS": {
 			"T_LABEL": "Lien avec d'autres ressources."
@@ -491,7 +491,7 @@
 			"T_LINE2": ""
 		},
 		"MESSAGES": {
-			"T_MORE_INFORMATIONS_SAVED": "#!#IMPORT_STEP4.MESSAGES.T_MORE_INFORMATIONS_SAVED"
+			"T_MORE_INFORMATIONS_SAVED": "Les informations complémentaires sont enregistrées."
 		}
 	},
 	"LANGEDITOR": {
@@ -540,7 +540,7 @@
 			"T_ITEM_USERSMANAGER": "Éditeur d'utilisateurs"
 		},
 		"LOADING": {
-			"T_TITLE": "Chargement..."
+			"T_TITLE": "Traitement en cours merci de patienter..."
 		}
 	},
 	"MAP": {
