@@ -45,73 +45,77 @@
 		// Leaflet init
 
 		angular.extend($scope, mapService.config);
-	// Get the countries geojson data from a JSON
 
-		if (0) {
-        $http.get("/api/search/sites/"+dbToGet).success(function(data, status) {
+		// function to display a map
 
-			resize();
+		var generateIcon = function(feature) {
+			var iconClasses = "icon icon-site";
+			if (feature.centroid) {
+				iconClasses += " centroid";
+			}
 
+			var characInfos = analyzeCharacs(feature);
+
+			iconClasses += " "+characInfos.iconSize;
+
+			if (characInfos.exceptional) {
+				iconClasses += " exceptional"
+			}
+
+			/*
+			return L.divIcon({
+				className: 'arkeo-marker-container',
+				html: '<svg class="arkeo-marker arkeo-marker-drop'+iconClasses+'"><use xlink:href="#arkeo-marker-drop"></use></svg><span class="mls"></span>',
+				iconAnchor: [12, 0]
+			});
+			*/
+			return L.divIcon({
+				className: 'arkeo-marker-container',
+				html: '<div>PLOP</div>',
+				iconAnchor: [12, 0]
+			});
+		}
+
+		var analyzeCharacs = function(feature) {
+			var ret = {exceptional: false, iconSize: 0};
+			angular.forEach(feature.properties.site_ranges, function(site_range) {
+				angular.forEach(site_range.characs, function(c) {
+					if (c.exceptional) {
+						ret.exceptional = true;
+					}
+					var memorized = 0;
+					var current = 0;
+					switch (c.knowledge_type) {
+						case 'not_documented':
+							current = 1;
+							break;
+						case 'literature':
+							current = 2;
+							break;
+						case 'prospected_aerial':
+							current = 3;
+							break;
+						case 'prospected_pedestrian':
+							current = 4;
+							break;
+						case 'surveyed':
+							current = 5;
+							break;
+						case 'dig':
+							current = 6;
+							break;
+					}
+					if (memorized < current) {
+						memorized = current;
+						ret.iconSize = 'size'+current;
+					}
+				});
+			});
+			return ret;
+		}
+
+		function displayMapResults(data) {
 			var latlngs = [];
-
-			var generateIcon = function(feature) {
-				var iconClasses = "icon icon-site";
-				if (feature.centroid) {
-					iconClasses += " centroid";
-				}
-
-				var characInfos = analyzeCharacs(feature);
-
-				iconClasses += " "+characInfos.iconSize;
-
-				if (characInfos.exceptional) {
-					iconClasses += " exceptional"
-				}
-
-				return L.divIcon({
-					className: 'arkeo-marker-container',
-					html: '<svg class="arkeo-marker arkeo-marker-drop'+iconClasses+'"><use xlink:href="#arkeo-marker-drop"></use></svg><span class="mls"></span>',
-	    			iconAnchor: [12, 0]
-				});
-			}
-
-			var analyzeCharacs = function(feature) {
-				var ret = {exceptional: false, iconSize: 0};
-				angular.forEach(feature.properties.site_ranges, function(site_range) {
-					angular.forEach(site_range.characs, function(c) {
-						if (c.exceptional) {
-							ret.exceptional = true;
-						}
-						var memorized = 0;
-						var current = 0;
-						switch (c.knowledge_type) {
-							case 'not_documented':
-								current = 1;
-								break;
-							case 'literature':
-								current = 2;
-								break;
-							case 'prospected_aerial':
-								current = 3;
-								break;
-							case 'prospected_pedestrian':
-								current = 4;
-								break;
-							case 'surveyed':
-								current = 5;
-								break;
-							case 'dig':
-								current = 6;
-								break;
-						}
-						if (memorized < current) {
-							memorized = current;
-							ret.iconSize = 'size'+current;
-						}
-					});
-				});
-				return ret;
-			}
 
 	        angular.extend($scope.layers.overlays, {
                 sites: {
@@ -134,8 +138,9 @@
 			angular.forEach(data.features, function(feature) {
 				latlngs.push([parseFloat(feature.geometry.coordinates[0]), parseFloat(feature.geometry.coordinates[1])]);
 			});
-		});
-	    } // 0
+
+			resize();
+		}
 
 
 
@@ -567,6 +572,7 @@
 			var params = $scope.query;
 			$http.post("/api/map/search", params).then(function(data) {
 				console.log("data", data);
+				displayMapResults(data.data);
 			}, function(err) {
 				arkeoService.fieldErrorDisplay(err)
 				console.error(err);
