@@ -198,5 +198,14 @@
             });
         }
 
+        this.fieldErrorDisplay = function(err) {
+            var self = this;
+            if (('data' in err) && ('errors' in err.data) && angular.isArray(err.data.errors)) {
+                err.data.errors.forEach(function(str) {
+                    self.showMessage(str.error_string);
+                });
+            }
+        }
+
     }]);
 })();

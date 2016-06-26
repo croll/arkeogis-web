@@ -79,7 +79,7 @@
 
 		return {
 			restrict: 'E',
-			template: '<div class="ark-menu-item" ng-click="click($event)" ng-mouseover="hover($event)">'
+			template: '<div class="ark-menu-item noselect" ng-click="click($event)" ng-mouseover="hover($event)">'
             +          '<span class="tributtons">'
             +           '<ark-tri-button ng-repeat="(name, tribut) in arkItem.buttons" states="tribut" ng-model="buttons[name]"></ark-tri-button>'
             +          '</span> <span ark-get-translation ark-translations="arkItem.text"></span>'
