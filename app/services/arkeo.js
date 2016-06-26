@@ -26,14 +26,14 @@
 
         this.theme = 'grey';
 
-		// automatically set message error from server on form fields
-		// - form is the $scope.form of the form :)
-		// - error is the error object that come from the server
-		// - startswith is the starting path (it must starts with it, and will be removed)
-		// to work, you must have something like this in your html form for each fields :
-		//  <div ng-messages="myform.myfieldname.$error" role="alert">
-		//   <div ng-if="myform.myfieldname.$error.server">{{ myform.myfieldname.$error.server | translate }}</div>
-		//  </div>
+        // automatically set message error from server on form fields
+        // - form is the $scope.form of the form :)
+        // - error is the error object that come from the server
+        // - startswith is the starting path (it must starts with it, and will be removed)
+        // to work, you must have something like this in your html form for each fields :
+        //  <div ng-messages="myform.myfieldname.$error" role="alert">
+        //   <div ng-if="myform.myfieldname.$error.server">{{ myform.myfieldname.$error.server | translate }}</div>
+        //  </div>
         // You also must name the input field with name="myfieldname"
         // And probably want to add in it something like this : ng-change="myform.myfieldname.$setValidity('server', true)"
         this.setFormErrorFromServer = function(form, error, startswith) {
@@ -48,7 +48,7 @@
                 var obj = form;
                 for (var i = 0; i < elems.length; i++) {
                     if (!(elems[i] in obj)) {
-                        console.error("there is no form path : "+path+" (no '"+elems[i]+"' field)");
+                        console.error("there is no form path : " + path + " (no '" + elems[i] + "' field)");
                         return;
                     }
                     obj = obj[elems[i]];
@@ -59,21 +59,21 @@
             }
         };
 
-		// automatically set message errorS from server on form fields
-		// - form is the $scope.form of the form :)
-		// - error is the error object that come from the server
-		// - startswith is the starting path (it must starts with it, and will be removed)
-		// to work, you must have something like this in your html form for each fields :
-		//  <div ng-messages="myform.myfieldname.$error" role="alert">
-		//   <div ng-if="myform.myfieldname.$error.server">{{ myform.myfieldname.$error.server | translate }}</div>
-		//  </div>
+        // automatically set message errorS from server on form fields
+        // - form is the $scope.form of the form :)
+        // - error is the error object that come from the server
+        // - startswith is the starting path (it must starts with it, and will be removed)
+        // to work, you must have something like this in your html form for each fields :
+        //  <div ng-messages="myform.myfieldname.$error" role="alert">
+        //   <div ng-if="myform.myfieldname.$error.server">{{ myform.myfieldname.$error.server | translate }}</div>
+        //  </div>
         // You also must name the input field with name="myfieldname"
         // And probably want to add in it something like this : ng-change="myform.myfieldname.$setValidity('server', true)"
         this.setFormErrorsFromServer = function(form, errors, startswith) {
-			errors.forEach(function(error) {
-				self.setFormErrorFromServer(form, error, startswith);
-			})
-		};
+            errors.forEach(function(error) {
+                self.setFormErrorFromServer(form, error, startswith);
+            })
+        };
 
         this.loadContinents = function(lang) {
             return self.wrapCall('/api/continents');
@@ -87,11 +87,13 @@
                 search: searchTextCountry,
                 limit: 25
             };
-            return self.wrapCall('/api/countries', params/*, {
-                geonameid: 'value',
-                name: 'display',
-                name_ascii: 'name_ascii' // not sure this is used somewhere
-            }*/);
+            return self.wrapCall('/api/countries', params
+                /*, {
+                                geonameid: 'value',
+                                name: 'display',
+                                name_ascii: 'name_ascii' // not sure this is used somewhere
+                            }*/
+            );
         };
 
         this.autocompleteContinent = function(searchTextContinent, lang) {
@@ -102,11 +104,13 @@
                 search: searchTextContinent,
                 limit: 25
             };
-            return self.wrapCall('/api/continents', params/*, {
-                geonameid: 'value',
-                name: 'display',
-                name_ascii: 'name_ascii' // not sure this is used somewhere
-            }*/);
+            return self.wrapCall('/api/continents', params
+                /*, {
+                                geonameid: 'value',
+                                name: 'display',
+                                name_ascii: 'name_ascii' // not sure this is used somewhere
+                            }*/
+            );
         };
 
         this.autocompleteCity = function(selectedCountry, searchTextCity, lang) {
@@ -120,10 +124,12 @@
             if (selectedCountry) {
                 params.id_country = selectedCountry;
             }
-            return self.wrapCall('/api/cities', params/*, {
-                geonameid: 'value',
-                name: 'display'
-            }*/);
+            return self.wrapCall('/api/cities', params
+                /*, {
+                                geonameid: 'value',
+                                name: 'display'
+                            }*/
+            );
         };
 
         this.autocompleteCompany = function(searchTextCompany, lang) {
@@ -137,11 +143,11 @@
         };
 
         this.getCity = function(id_city, lang) {
-            return self.wrapCall('/api/cities/'+id_city)
+            return self.wrapCall('/api/cities/' + id_city)
         };
 
         this.getCompany = function(id, lang) {
-            return self.wrapCall('/api/companies/'+id)
+            return self.wrapCall('/api/companies/' + id)
         };
 
         this.loadLicenses = function(id, lang) {
@@ -192,10 +198,16 @@
                 str = [str]
             }
             $translate(str).then(function(translations) {
-                for (var k in translations) {
-                    $mdToast.show($mdToast.simple().textContent(translations[k]).position('top right'));
-                }
-            });
+                    for (var k in translations) {
+                        if (translations.hasOwnProperty(k)) {
+                            $mdToast.show($mdToast.simple().textContent(translations[k]).position('top right'));
+                        }
+                    }
+                },
+                function(err) {
+                    console.log('arkeoService.showMessage: translation not found');
+                    $mdToast.show($mdToast.simple().textContent('GLOBAL.TOASTER.T_OK').position('top right'));
+                });
         }
 
         this.fieldErrorDisplay = function(err) {

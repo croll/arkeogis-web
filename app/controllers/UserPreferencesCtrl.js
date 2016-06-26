@@ -21,7 +21,7 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('ProjectCtrl', ['$scope',
+    ArkeoGIS.controller('UserPreferencesCtrl', ['$scope',
         function($scope) {
         var self = this;
     }]);
