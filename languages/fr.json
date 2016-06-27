@@ -724,7 +724,7 @@
 			"T_LABEL": "Choix de la zone de travail"
 		},
 		"INTERFACE_INFOS_USAGE": {
-			"T_LABEL": "Info usage"
+			"T_LABEL": "Les listes ci dessous sont actualisées en temps réel en fonction de vos choix de zonage et de période de travail."
 		},
 		"INTERFACE_RECENTER_THE_MAP_ON_YOUR_WORKING_AREA": {
 			"T_LABEL": "Centrez la carte sur votre zone de travail. Vous pouvez la déplacer et éffecturer un zoom. Ce choix a une incidence sur la liste des chronologies, bases de données et cartes disponibles."
@@ -773,25 +773,25 @@
 			"T_LABEL": "Cartes"
 		},
 		"USER_SELECTION_CHARACS": {
-			"T_TITLE": "Caractéristiques"
+			"T_TITLE": "Caractéristiques sélectionnées"
 		},
 		"USER_SELECTION_CHARACS_NONE": {
 			"T_TITLE": "Aucune caractéristique."
 		},
 		"USER_SELECTION_CHRONOLOGIES": {
-			"T_TITLE": "Chronologies"
+			"T_TITLE": "Chronologie sélectionnée"
 		},
 		"USER_SELECTION_CHRONOLOGIES_NONE": {
 			"T_TITLE": "Aucune chronologie."
 		},
 		"USER_SELECTION_DATABASES": {
-			"T_TITLE": "Bases de données"
+			"T_TITLE": "Bases de données sélectionnées"
 		},
 		"USER_SELECTION_DATABASES_NONE": {
 			"T_TITLE": "Aucune base de donnée."
 		},
 		"USER_SELECTION_LAYERS": {
-			"T_TITLE": "Cartes"
+			"T_TITLE": "Cartes sélectionnées"
 		},
 		"USER_SELECTION_LAYERS_NONE": {
 			"T_TITLE": "Aucune carte."
