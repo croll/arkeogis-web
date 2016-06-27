@@ -258,6 +258,11 @@
 			"T_CAN_T_SET_OTHER_TRANSLATION_LANG_IF_NO_ENGLISH_TRANSLATION_DONE": "Merci de renseigner la langue anglaise avant tout autre langue."
 		}
 	},
+	"GLOBAL": {
+		"TOASTER": {
+			"T_OK": "#!#GLOBAL.TOASTER.T_OK"
+		}
+	},
 	"GROUP": {
 		"BUTTON_GROUPSAVE": {
 			"T_TITLE": "Enregistrer"
@@ -475,7 +480,7 @@
 		},
 		"FIELD_RESOURCE": {
 			"T_HELP": "Ressource dont dérive la base de données.",
-			"T_LABEL": "Resource"
+			"T_LABEL": "Ressource"
 		},
 		"FIELD_RESOURCE_ID": {
 			"T_HELP": "Identifiant unique de la ressource",
@@ -701,9 +706,9 @@
 			"T_TITLE": "Liste des calques disponibles"
 		}
 	},
-	"PROJECT": {
+	"PROJECT_EDITOR": {
 		"BUTTON_SUBMIT": {
-			"T_LABEL": "Enregistrer vos préférences"
+			"T_LABEL": "Sauvegarder vos préférences"
 		},
 		"FIELD_END_DATE": {
 			"T_LABEL": "Date de fin"
@@ -712,17 +717,48 @@
 			"T_LABEL": "Date de début"
 		},
 		"INFORMATIONS_PERIOD_SELECTION": {
-			"T_HELP": "Le choix de la période de travail impacte la liste des bases de données, calques, caractéristiques et chronologies qui vous seront proposés.",
+			"T_HELP": "Le choix de la période a une incidence sur la liste des chronologies, bases de données et cartes disponibles",
 			"T_LABEL": "Choix de la période"
 		},
 		"INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA": {
-			"T_LABEL": "Recentrez / zoomer la carte pour définir votre zone de travail."
+			"T_LABEL": "Choix de la zone de travail"
 		},
 		"INTERFACE_INFOS_USAGE": {
-			"T_LABEL": "Définition de la zone de travail"
+			"T_LABEL": "Info usage"
 		},
 		"INTERFACE_RECENTER_THE_MAP_ON_YOUR_WORKING_AREA": {
-			"T_LABEL": "Recentrez la carte sur votre zone de travail"
+			"T_LABEL": "Centrez la carte sur votre zone de travail. Vous pouvez la déplacer et éffecturer un zoom. Ce choix a une incidence sur la liste des chronologies, bases de données et cartes disponibles."
+		},
+		"LIST_AUTHOR": {
+			"T_LABEL": "Auteur"
+		},
+		"LIST_DESCRIPTION": {
+			"T_LABEL": "Description"
+		},
+		"LIST_END_DATE": {
+			"T_LABEL": "Date de fin"
+		},
+		"LIST_LANG": {
+			"T_LABEL": "Langue"
+		},
+		"LIST_NAME": {
+			"T_LABEL": "Nom"
+		},
+		"LIST_SEARCH_INPUT": {
+			"T_LABEL": "Recherche"
+		},
+		"LIST_START_DATE": {
+			"T_LABEL": "Date de début"
+		},
+		"LIST_TYPE": {
+			"T_LABEL": "Type"
+		},
+		"LIST_ZOOM_LEVEL": {
+			"T_LABEL": "Niveau de zoom"
+		},
+		"MESSAGE_SAVE": {
+			"T_ERROR": "Une erreur s'est produite pendant l'enregistrement.",
+			"T_OK": "Enregistrement effectué avec succès."
 		},
 		"TAB_CHARACTERISTICS": {
 			"T_LABEL": "Caractéristiques"
@@ -735,35 +771,30 @@
 		},
 		"TAB_MAPS": {
 			"T_LABEL": "Cartes"
-		}
-	},
-	"PROJECT_EDITOR": {
-		"LIST_AUTHOR": {
-			"T_LABEL": "#!#PROJECT_EDITOR.LIST_AUTHOR.T_LABEL"
 		},
-		"LIST_DESCRIPTION": {
-			"T_LABEL": "#!#PROJECT_EDITOR.LIST_DESCRIPTION.T_LABEL"
+		"USER_SELECTION_CHARACS": {
+			"T_TITLE": "Caractéristiques"
 		},
-		"LIST_END_DATE": {
-			"T_LABEL": "#!#PROJECT_EDITOR.LIST_END_DATE.T_LABEL"
+		"USER_SELECTION_CHARACS_NONE": {
+			"T_TITLE": "Aucune caractéristique."
 		},
-		"LIST_LANG": {
-			"T_LABEL": "#!#PROJECT_EDITOR.LIST_LANG.T_LABEL"
+		"USER_SELECTION_CHRONOLOGIES": {
+			"T_TITLE": "Chronologies"
 		},
-		"LIST_NAME": {
-			"T_LABEL": "#!#PROJECT_EDITOR.LIST_NAME.T_LABEL"
+		"USER_SELECTION_CHRONOLOGIES_NONE": {
+			"T_TITLE": "Aucune chronologie."
 		},
-		"LIST_SEARCH_INPUT": {
-			"T_LABEL": "#!#PROJECT_EDITOR.LIST_SEARCH_INPUT.T_LABEL"
+		"USER_SELECTION_DATABASES": {
+			"T_TITLE": "Bases de données"
 		},
-		"LIST_START_DATE": {
-			"T_LABEL": "#!#PROJECT_EDITOR.LIST_START_DATE.T_LABEL"
+		"USER_SELECTION_DATABASES_NONE": {
+			"T_TITLE": "Aucune base de donnée."
 		},
-		"LIST_TYPE": {
-			"T_LABEL": "#!#PROJECT_EDITOR.LIST_TYPE.T_LABEL"
+		"USER_SELECTION_LAYERS": {
+			"T_TITLE": "Cartes"
 		},
-		"LIST_ZOOM_LEVEL": {
-			"T_LABEL": "#!#PROJECT_EDITOR.LIST_ZOOM_LEVEL.T_LABEL"
+		"USER_SELECTION_LAYERS_NONE": {
+			"T_TITLE": "Aucune carte."
 		}
 	},
 	"USER": {
