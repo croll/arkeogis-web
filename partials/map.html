@@ -4,7 +4,7 @@
         <md-toolbar class="md-theme-indigo">
             <h1 class="md-toolbar-tools">Recherche :</h1>
         </md-toolbar>
-        <md-content layout-padding>
+        <md-content layout-padding ng-controller="MapQueryCtrl">
             <div>
                 <div>
                     <ark-menu-item ng-model="query.centroid" ark-item="menuCentroid"></ark-menu-item>
@@ -36,7 +36,7 @@
         </md-content>
     </md-sidenav>
 
-    <md-content class="content-map" flex layout-padding>
+    <md-content class="content-map" flex layout-padding ng-controller="MapLeafletCtrl">
         <leaflet controls="controls" defaults="defaults" layers="layers" flex height="{{mapHeight}}" lf-center="center" width="100%"></leaflet>
     </md-content>
 
@@ -44,7 +44,7 @@
         <md-toolbar class="md-theme-light">
             <h1 class="md-toolbar-tools">Récapitulatif :</h1>
         </md-toolbar>
-        <md-content layout-padding>
+        <md-content layout-padding ng-controller="MapQueryCtrl">
             <div class="query">
                 <div>{{query.centroid}}</div>
                 <div>{{query.database}}</div>
