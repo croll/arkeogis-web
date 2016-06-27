@@ -22,7 +22,7 @@
             <!-- Out of bounds items -->
             <md-content style="height: 320px" flex>
                 <section>
-                    <md-subheader class="md-primary">PROJECT_EDITOR.USER_SELECTION_CHRONOLOGIES.T_TITLE</md-subheader>
+                    <md-subheader class="md-primary" translate>PROJECT_EDITOR.USER_SELECTION_CHRONOLOGIES.T_TITLE</md-subheader>
                     <md-list layout-padding>
                         <md-list-item ng-repeat="item in project.chronologies" ng-show="project.chronologies.length" style="padding: 0 8px" ng-class="{'cell-warning': checkItem(item, 'chronologies')}">
                             <div class="md-list-item-text" ark-get-translation ark-translations="item.name" flex></div>
@@ -36,7 +36,7 @@
                     </md-list>
                 </section>
                 <section>
-                    <md-subheader class="md-primary">PROJECT_EDITOR.USER_SELECTION_LAYERS.T_TITLE</md-subheader>
+                    <md-subheader class="md-primary" translate>PROJECT_EDITOR.USER_SELECTION_LAYERS.T_TITLE</md-subheader>
                     <md-list layout-padding>
                         <md-list-item ng-repeat="item in project.layers" ng-show="project.layers.length" style="padding: 0 8px" ng-class="{'cell-warning': checkItem(item, 'layers')}">
                             <div class="md-list-item-text" ark-get-translation ark-translations="item.name" flex></div>
@@ -50,7 +50,7 @@
                     </md-list>
                 </section>
                 <section>
-                    <md-subheader class="md-primary">PROJECT_EDITOR.USER_SELECTION_DATABASES.T_TITLE</md-subheader>
+                    <md-subheader class="md-primary" translate>PROJECT_EDITOR.USER_SELECTION_DATABASES.T_TITLE</md-subheader>
                     <md-list layout-padding>
                         <md-list-item ng-repeat="item in project.databases" ng-show="project.databases.length" style="padding: 0 8px" ng-class="{'cell-warning': checkItem(item, 'databases')}">
                             <div class="md-list-item-text" ark-get-translation ark-translations="item.name" flex></div>
@@ -64,7 +64,7 @@
                     </md-list>
                 </section>
                 <section>
-                    <md-subheader class="md-primary">PROJECT_EDITOR.USER_SELECTION_CHARACS.T_TITLE</md-subheader>
+                    <md-subheader class="md-primary" translate>PROJECT_EDITOR.USER_SELECTION_CHARACS.T_TITLE</md-subheader>
                     <md-list layout-padding>
                         <md-list-item ng-repeat="item in project.characs" ng-show="project.characs.length" style="padding: 0 8px">
                             <div class="md-list-item-text" ark-get-translation ark-translations="item.name" flex></div>
