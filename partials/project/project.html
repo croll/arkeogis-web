@@ -1,28 +1,28 @@
 <md-card md-padding="false">
     <md-card-content style="padding-bottom: 0" layout="row" layout-align="center start">
         <div flex="66" layout-align="center start" layout-padding>
-            <h2 class="md-headline" style="margin: 0; padding: 0" translate>PROJECT.INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA.T_LABEL</h2>
-            <div style="margin: 5px 0px 30px 0; padding: 0; color: #555" translate>PROJECT.INTERFACE_RECENTER_THE_MAP_ON_YOUR_WORKING_AREA.T_LABEL</div>
+            <h2 class="md-headline" style="margin: 0; padding: 0" translate>PROJECT_EDITOR.INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA.T_LABEL</h2>
+            <div style="margin: 5px 0px 30px 0; padding: 0; color: #555" translate>PROJECT_EDITOR.INTERFACE_RECENTER_THE_MAP_ON_YOUR_WORKING_AREA.T_LABEL</div>
             <leaflet lf-center="center" layers="layers" geojson="geojson" height="400px"></leaflet>
         </div>
         <div flex="33" layout-align="center start">
-            <h2 class="md-headline" style="margin: 10px 0 5px 0px" translate>PROJECT.INFORMATIONS_PERIOD_SELECTION.T_LABEL</h2>
-            <div style="margin: 5px 0px 10px 0; padding: 0;color: #555" translate>PROJECT.INFORMATIONS_PERIOD_SELECTION.T_HELP</div>
+            <h2 class="md-headline" style="margin: 10px 0 5px 0px" translate>PROJECT_EDITOR.INFORMATIONS_PERIOD_SELECTION.T_LABEL</h2>
+            <div style="margin: 5px 0px 10px 0; padding: 0;color: #555" translate>PROJECT_EDITOR.INFORMATIONS_PERIOD_SELECTION.T_HELP</div>
             <div layout="row">
                 <md-input-container style="margin-bottom: 0">
-                    <label translate>PROJECT.FIELD_START_DATE.T_LABEL</label>
+                    <label translate>PROJECT_EDITOR.FIELD_START_DATE.T_LABEL</label>
                     <input type="text" ng-model="start_date" ark-year>
                 </md-input-container>
                 <div style="width:30px"></div>
                 <md-input-container style="margin-bottom: 0">
-                    <label translate>PROJECT.FIELD_END_DATE.T_LABEL</label>
+                    <label translate>PROJECT_EDITOR.FIELD_END_DATE.T_LABEL</label>
                     <input type="text" ng-model="end_date" ark-year>
                 </md-input-container>
             </div>
             <!-- Out of bounds items -->
             <md-content style="height: 320px" flex>
                 <section>
-                    <md-subheader class="md-primary">PROJECT.USER_SELECTION_CHRONOLOGIES.T_TITLE</md-subheader>
+                    <md-subheader class="md-primary"><span translate>PROJECT_EDITOR.USER_SELECTION_CHRONOLOGIES.T_TITLE</span></md-subheader>
                     <md-list layout-padding>
                         <md-list-item ng-repeat="item in project.chronologies" ng-show="project.chronologies.length" style="padding: 0 8px" ng-class="{'cell-warning': checkItem(item, 'chronologies')}">
                             <div class="md-list-item-text" ark-get-translation ark-translations="item.name" flex></div>
@@ -31,12 +31,12 @@
                             </md-button>
                         </md-list-item>
                         <md-list-item ng-hide="project.chronologies.length">
-                            <span translate>PROJECT.USER_SELECTION_CHRONOLOGIES_NONE.T_TITLE</span>
+                            <span translate>PROJECT_EDITOR.USER_SELECTION_CHRONOLOGIES_NONE.T_TITLE</span>
                         </md-list-item>
                     </md-list>
                 </section>
                 <section>
-                    <md-subheader class="md-primary">PROJECT.USER_SELECTION_LAYERS.T_TITLE</md-subheader>
+                    <md-subheader class="md-primary"><span translate>PROJECT_EDITOR.USER_SELECTION_LAYERS.T_TITLE</span></md-subheader>
                     <md-list layout-padding>
                         <md-list-item ng-repeat="item in project.layers" ng-show="project.layers.length" style="padding: 0 8px" ng-class="{'cell-warning': checkItem(item, 'layers')}">
                             <div class="md-list-item-text" ark-get-translation ark-translations="item.name" flex></div>
@@ -45,12 +45,12 @@
                             </md-button>
                         </md-list-item>
                         <md-list-item ng-hide="project.layers.length">
-                            <span translate>PROJECT.USER_SELECTION_LAYERS_NONE.T_TITLE</span>
+                            <span translate>PROJECT_EDITOR.USER_SELECTION_LAYERS_NONE.T_TITLE</span>
                         </md-list-item>
                     </md-list>
                 </section>
                 <section>
-                    <md-subheader class="md-primary">PROJECT.USER_SELECTION_DATABASES.T_TITLE</md-subheader>
+                    <md-subheader class="md-primary"><span translate>PROJECT_EDITOR.USER_SELECTION_DATABASES.T_TITLE</span></md-subheader>
                     <md-list layout-padding>
                         <md-list-item ng-repeat="item in project.databases" ng-show="project.databases.length" style="padding: 0 8px" ng-class="{'cell-warning': checkItem(item, 'databases')}">
                             <div class="md-list-item-text" ark-get-translation ark-translations="item.name" flex></div>
@@ -59,45 +59,45 @@
                             </md-button>
                         </md-list-item>
                         <md-list-item ng-hide="project.databases.length">
-                            <span translate>PROJECT.USER_SELECTION_DATABASES_NONE.T_TITLE</span>
+                            <span translate>PROJECT_EDITOR.USER_SELECTION_DATABASES_NONE.T_TITLE</span>
                         </md-list-item>
                     </md-list>
                 </section>
                 <section>
-                    <md-subheader class="md-primary">PROJECT.USER_SELECTION_CHARACS.T_TITLE</md-subheader>
+                    <md-subheader class="md-primary"><span translate>PROJECT_EDITOR.USER_SELECTION_CHARACS.T_TITLE</span></md-subheader>
                     <md-list layout-padding>
-                        <md-list-item ng-repeat="item in project.characs" ng-show="project.characs.length" style="padding: 0 8px" ng-class="{'cell-warning': checkItem(item, 'characs')}">
+                        <md-list-item ng-repeat="item in project.characs" ng-show="project.characs.length" style="padding: 0 8px">
                             <div class="md-list-item-text" ark-get-translation ark-translations="item.name" flex></div>
-                            <md-button ng-click="removeFromSelection(item, 'characs')">
+                            <md-button ng-click="toggleItem(item, 'characs')">
                                 <md-icon>delete</md-icon>
                             </md-button>
                         </md-list-item>
                         <md-list-item ng-hide="project.characs.length">
-                            <span translate>PROJECT.USER_SELECTION_CHARACS_NONE.T_TITLE</span>
+                            <span translate>PROJECT_EDITOR.USER_SELECTION_CHARACS_NONE.T_TITLE</span>
                         </md-list-item>
                     </md-list>
                 </section>
             </md-content>
         </div>
     </md-card-content>
-    <div style="color: #555; padding: 15px 0px; text-align: center;" translate>PROJECT.INTERFACE_INFOS_USAGE.T_LABEL</div>
+    <div style="color: #555; padding: 15px 0px; text-align: center;" translate>PROJECT_EDITOR.INTERFACE_INFOS_USAGE.T_LABEL</div>
 </md-card>
 <md-tabs class="md-hue-2" layout-fill style="min-height: 470px!important">
-    <md-tab label="{{'PROJECT.TAB_CHRONOLOGIES.T_LABEL' | translate}}" md-on-select="refreshTab('chronologies')">
+    <md-tab label="{{'PROJECT_EDITOR.TAB_CHRONOLOGIES.T_LABEL' | translate}}" md-on-select="refreshTab('chronologies')">
         <p style="margin: 20px" ng-include="'partials/project/chronologies-list.html'" ng-controller="ProjectChronosCtrl"></p>
     </md-tab>
-    <md-tab label="{{'PROJECT.TAB_MAPS.T_LABEL' | translate}}" md-on-select="refreshTab('layers')">
+    <md-tab label="{{'PROJECT_EDITOR.TAB_MAPS.T_LABEL' | translate}}" md-on-select="refreshTab('layers')">
         <p ng-include="'partials/project/layers-list.html'" ng-controller="ProjectLayersCtrl"></p>
     </md-tab>
-    <md-tab label="{{'PROJECT.TAB_DATABASES.T_LABEL' | translate}}" md-on-select="refreshTab('databases')">
+    <md-tab label="{{'PROJECT_EDITOR.TAB_DATABASES.T_LABEL' | translate}}" md-on-select="refreshTab('databases')">
         <p ng-include="'partials/project/databases-list.html'" ng-controller="ProjectDatabasesCtrl"></p>
     </md-tab>
-    <md-tab label="{{'PROJECT.TAB_CHARACTERISTICS.T_LABEL' | translate}}" md-on-select="refreshTab('characs')">
+    <md-tab label="{{'PROJECT_EDITOR.TAB_CHARACTERISTICS.T_LABEL' | translate}}" md-on-select="refreshTab('characs')">
         <p ng-include="'partials/project/characs-list.html'" ng-controller="ProjectCharacsCtrl"></p>
     </md-tab>
 </md-tabs>
 <div style="text-align: center; margin: -20px 0 50px 0">
-    <md-button class="md-primary md-raised" aria-label="{{'PROJECT.BUTTON_SUBMIT.T_LABEL' | translate}}" md-ripple-size="full" ng-disabled="outOfBounds.hasError">
-        <span translate>PROJECT.BUTTON_SUBMIT.T_LABEL</span>
+    <md-button class="md-primary md-raised" aria-label="{{'PROJECT_EDITOR.BUTTON_SUBMIT.T_LABEL' | translate}}" md-ripple-size="full" ng-disabled="outOfBounds.hasError" ng-click="savePreferences()">
+        <span translate>PROJECT_EDITOR.BUTTON_SUBMIT.T_LABEL</span>
     </md-button>
 </div>
