@@ -22,11 +22,9 @@
 (function() {
     'use strict';
 
-    ArkeoGIS.controller('ProjectCtrl', ['$scope', '$q', '$http', '$timeout', 'arkeoService', 'mapService', 'layerService', 'arkeoDatabase', 'leafletData',
-        function($scope, $q, $http, $timeout, arkeoService, mapService, layerService, arkeoDatabase, leafletData) {
+    ArkeoGIS.controller('ProjectCtrl', ['$scope', '$q', '$http', '$timeout', 'arkeoService', 'mapService', 'layerService', 'arkeoDatabase', 'login', 'leafletData',
+        function($scope, $q, $http, $timeout, arkeoService, mapService, layerService, arkeoDatabase, login, leafletData) {
             var self = this;
-            //        console.log(mapService.config);
-
 
             angular.extend($scope, angular.extend(mapService.config, {
                 center: {
@@ -49,8 +47,12 @@
 
             var promises = [];
 
-            $scope.$watch('start_date', _.debounce(function() {self.refreshAll();}, 200));
-            $scope.$watch('end_date', _.debounce(function() {self.refreshAll();}, 200));
+            $scope.$watch('start_date', _.debounce(function() {
+                self.refreshAll();
+            }, 200));
+            $scope.$watch('end_date', _.debounce(function() {
+                self.refreshAll();
+            }, 200));
 
             this.activeTab = 'chronologies';
 
@@ -220,6 +222,52 @@
                 }
             }
 
+            $scope.savePreferences = function() {
+                leafletData.getMap().then(function(map) {
+                    var bbox = map.getBounds();
+                    var boundingBox = mapService.getValidBoundingBox(bbox._northEast.lat, bbox._northEast.lng, bbox._southWest.lat, bbox._southWest.lng);
+                    var b = mapService.getBoundsAsGeoJSON(boundingBox);
+                    var prefs = {
+                        name: "PROJ -- " + login.user.firstname + ' ' + login.user.lastname,
+                        end_date: $scope.end_date,
+                        geom: b,
+                        chronologies: [],
+                        layers: [],
+                        databases: [],
+                        characs: []
+                    }
+                    if (angular.isDefined($scope.start_date)) {
+                        prefs.start_date = $scope.start_date;
+                    }
+                    if (angular.isDefined($scope.end_date)) {
+                        prefs.end_date = $scope.end_date;
+                    }
+                    angular.forEach($scope.project.chronologies, function(chrono) {
+                        prefs.chronologies.push(chrono.root_chronology_id);
+                    });
+                    angular.forEach($scope.project.layers, function(layer) {
+                        prefs.layers.push({
+                            id: layer.id,
+                            type: layer.type
+                        });
+                    });
+                    angular.forEach($scope.project.databases, function(database) {
+                        prefs.databases.push(database.id);
+                    });
+                    angular.forEach($scope.project.characs, function(charac) {
+                        prefs.characs.push(charac.id);
+                    });
+                    console.log(prefs);
+                    $http.post('/api/project', {
+                        data: prefs
+                    }).then(function() {
+                        arkeoService.showMessage('PROJECT_EDITOR.MESSAGE_SAVE.T_OK');
+                    }, function(err) {
+                        arkeoService.showMessage('PROJECT_EDITOR.MESSAGE_SAVE.T_ERROR');
+                        console.log(err);
+                    })
+                });
+            }
         }
     ]);
 
