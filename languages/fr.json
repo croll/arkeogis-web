@@ -475,7 +475,7 @@
 		},
 		"FIELD_RESOURCE": {
 			"T_HELP": "Ressource dont dérive la base de données.",
-			"T_LABEL": "Resource"
+			"T_LABEL": "Ressource"
 		},
 		"FIELD_RESOURCE_ID": {
 			"T_HELP": "Identifiant unique de la ressource",
