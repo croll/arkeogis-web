@@ -21,7 +21,7 @@
 
 (function () {
     'use strict';
-    ArkeoGIS.service('login', ['$http', 'user', '$q', '$cookies', 'arkeoLang', '$state', function ($http, User, $q, $cookies, arkeoLang, $state) {
+    ArkeoGIS.service('login', ['$http', 'user', '$q', '$cookies', 'arkeoLang', 'arkeoProject', '$state', function ($http, User, $q, $cookies, arkeoLang, arkeoProject, $state) {
 
         var self=this;
 
@@ -40,6 +40,8 @@
                     self.user = new User(ret.data.User);
                     arkeoLang.setUserLang(1, ret.data.lang1.isocode)
                     arkeoLang.setUserLang(2, ret.data.lang2.isocode)
+                    arkeoProject.set(ret.data.project);
+                    $cookies.put('project_id', ret.data.project.id);
                     self.permissions = ret.data.permissions;
                     resolve(self.user);
                 }, function(err) {
@@ -55,6 +57,8 @@
                     self.user = new User(ret.data.User);
                     arkeoLang.setUserLang(1, ret.data.lang1.isocode)
                     arkeoLang.setUserLang(2, ret.data.lang2.isocode)
+                    arkeoProject.set(ret.data.project);
+                    $cookies.put('project_id', ret.data.project.id);
                     self.permissions = ret.data.permissions;
                     resolve(self.user);
                 }, function(err) {
@@ -70,6 +74,7 @@
                     self.user = new User(ret.data.User);
                     arkeoLang.setUserLang(1, ret.data.lang1.isocode)
                     arkeoLang.setUserLang(2, ret.data.lang2.isocode)
+                    $cookies.remove('project_id');
                     self.permissions = ret.data.permissions;
                     resolve(self.user);
                 }, function(err) {
