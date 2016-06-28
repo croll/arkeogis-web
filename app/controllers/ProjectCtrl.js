@@ -22,8 +22,8 @@
 (function() {
     'use strict';
 
-    ArkeoGIS.controller('ProjectCtrl', ['$scope', '$q', '$http', '$timeout', 'arkeoService', 'mapService', 'layerService', 'arkeoDatabase', 'login', 'leafletData',
-        function($scope, $q, $http, $timeout, arkeoService, mapService, layerService, arkeoDatabase, login, leafletData) {
+    ArkeoGIS.controller('ProjectCtrl', ['$scope', '$q', '$http', '$timeout', '$cookies', 'arkeoService', 'mapService', 'layerService', 'arkeoProject', 'arkeoDatabase', 'login', 'leafletData',
+        function($scope, $q, $http, $timeout, $cookies, arkeoService, mapService, layerService, arkeoProject, arkeoDatabase, login, leafletData) {
             var self = this;
 
             angular.extend($scope, angular.extend(mapService.config, {
@@ -32,12 +32,10 @@
                 }
             }));
 
-            $scope.project = {
-                chronologies: [],
-                layers: [],
-                databases: [],
-                characs: []
-            };
+            $scope.project = arkeoProject.get();
+
+            console.log("PROJECT:");
+            console.log($scope.project);
 
             $scope.outOfBounds = {
                 chronologies: [],
@@ -236,11 +234,18 @@
                         databases: [],
                         characs: []
                     }
-                    if (angular.isDefined($scope.start_date)) {
-                        prefs.start_date = $scope.start_date;
+                    if ($scope.project.id && $scope.project.id > 0) {
+                        prefs.id = $scope.project.id;
                     }
-                    if (angular.isDefined($scope.end_date)) {
+                    if (angular.isDefined($scope.start_date) && $scope.start_date != '') {
+                        prefs.start_date = $scope.start_date;
+                    } else {
+                        prefs.start_date = 0;
+                    }
+                    if (angular.isDefined($scope.end_date) && $scope.end_date != '') {
                         prefs.end_date = $scope.end_date;
+                    } else {
+                        prefs.end_date = 0;
                     }
                     angular.forEach($scope.project.chronologies, function(chrono) {
                         prefs.chronologies.push(chrono.root_chronology_id);
@@ -258,10 +263,16 @@
                         prefs.characs.push(charac.id);
                     });
                     console.log(prefs);
-                    $http.post('/api/project', {
+                    $http({
+                        method: 'POST',
+                        url: '/api/project',
                         data: prefs
-                    }).then(function() {
+                    }).then(function(result) {
                         arkeoService.showMessage('PROJECT_EDITOR.MESSAGE_SAVE.T_OK');
+                        if ($scope.project.id == null || $scope.project.id == 0) {
+                            $scope.project.id = result.data.project_id;
+                            arkeoProject.set($scope.project);
+                        }
                     }, function(err) {
                         arkeoService.showMessage('PROJECT_EDITOR.MESSAGE_SAVE.T_ERROR');
                         console.log(err);
