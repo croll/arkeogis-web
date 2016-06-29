@@ -34,9 +34,6 @@
 
             $scope.project = arkeoProject.get();
 
-            console.log("PROJECT:");
-            console.log(arkeoProject.get());
-
             $scope.outOfBounds = {
                 chronologies: [],
                 layers: [],
@@ -55,11 +52,10 @@
             this.activeTab = 'chronologies';
 
             $scope.geojson = {};
+            $scope.isValid = false;
 
             leafletData.getMap().then(function(map) {
-                map.on('moveend', function() {
-                    var bbox = map.getBounds();
-                    var boundingBox = mapService.getValidBoundingBox(bbox._northEast.lat, bbox._northEast.lng, bbox._southWest.lat, bbox._southWest.lng);
+                map.on('moveend', function() { var bbox = map.getBounds(); var boundingBox = mapService.getValidBoundingBox(bbox._northEast.lat, bbox._northEast.lng, bbox._southWest.lat, bbox._southWest.lng);
                     $scope.bounds = mapService.getBoundsAsGeoJSON(boundingBox);
                     if (map.getZoom() < 2) {
                         $scope.geojson = {
@@ -85,21 +81,13 @@
                     hasError: false
                 };
                 $scope.outOfBounds.chronologies = _.differenceBy($scope.project.chronologies, $scope.chronologies, '$$hashKey');
-                if ($scope.outOfBounds.chronologies.length) {
-                    $scope.outOfBounds.hasError = true;
-                }
                 $scope.outOfBounds.layers = _.differenceBy($scope.project.layers, $scope.layerList, '$$hashKey');
-                if ($scope.outOfBounds.layers.length) {
-                    $scope.outOfBounds.hasError = true;
-                }
                 $scope.outOfBounds.databases = _.differenceBy($scope.project.databases, $scope.databases, '$$hashKey');
-                if ($scope.outOfBounds.databases.length) {
-                    $scope.outOfBounds.hasError = true;
-                }
             }
 
             $scope.checkItem = function(item, type) {
-                return _.includes($scope.outOfBounds[type], item);
+                $scope.isInvalid = _.includes($scope.outOfBounds[type], item);
+                return $scope.isInvalid;
             }
 
             this._filterParams = function() {
@@ -135,7 +123,6 @@
                 promises = [];
                 self._filterParams();
                 self.httpGetFuncs[self.activeTab]();
-                self._compare();
                 $q.all(promises).then(function() {
                     self._compare();
                 });
@@ -228,6 +215,18 @@
             }
 
             $scope.savePreferences = function() {
+                if ($scope.outOfBounds.hasError) {
+                    arkeoService.showMessage('PROJECT_EDITOR.FORM_ERROR_OUT_OF_BOUNDS.T_LABEL')
+                    return;
+                }
+                if ($scope.project.chronologies.lengh < 1) {
+                    arkeoService.showMessage('PROJECT_EDITOR.FORM_ERROR_NO_CHRONOLOGY_SELECTED.T_LABEL')
+                    return false;
+                }
+                if ($scope.project.databases.lengh < 1) {
+                    arkeoService.showMessage('PROJECT_EDITOR.FORM_ERROR_NO_DATABASE_SELECTED.T_LABEL')
+                    return false;
+                }
                 leafletData.getMap().then(function(map) {
                     var bbox = map.getBounds();
                     var boundingBox = mapService.getValidBoundingBox(bbox._northEast.lat, bbox._northEast.lng, bbox._southWest.lat, bbox._southWest.lng);
@@ -268,7 +267,7 @@
                     angular.forEach($scope.project.characs, function(charac) {
                         prefs.characs.push(charac.id);
                     });
-                    console.log(prefs);
+                    // console.log(prefs);
                     $http({
                         method: 'POST',
                         url: '/api/project',

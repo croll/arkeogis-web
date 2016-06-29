@@ -83,21 +83,21 @@
     <div style="color: #555; padding: 15px 0px; text-align: center;" translate>PROJECT_EDITOR.INTERFACE_INFOS_USAGE.T_LABEL</div>
 </md-card>
 <md-tabs class="md-hue-2" layout-fill style="min-height: 470px!important">
-    <md-tab label="{{'PROJECT_EDITOR.TAB_CHRONOLOGIES.T_LABEL' | translate}}" md-on-select="refreshTab('chronologies')">
+    <md-tab label="{{'PROJECT_EDITOR.TAB_CHRONOLOGIES.T_LABEL' | translate}}">
         <p style="margin: 20px" ng-include="'partials/project/chronologies-list.html'" ng-controller="ProjectChronosCtrl"></p>
     </md-tab>
-    <md-tab label="{{'PROJECT_EDITOR.TAB_MAPS.T_LABEL' | translate}}" md-on-select="refreshTab('layers')">
+    <md-tab label="{{'PROJECT_EDITOR.TAB_MAPS.T_LABEL' | translate}}">
         <p ng-include="'partials/project/layers-list.html'" ng-controller="ProjectLayersCtrl"></p>
     </md-tab>
-    <md-tab label="{{'PROJECT_EDITOR.TAB_DATABASES.T_LABEL' | translate}}" md-on-select="refreshTab('databases')">
+    <md-tab label="{{'PROJECT_EDITOR.TAB_DATABASES.T_LABEL' | translate}}">
         <p ng-include="'partials/project/databases-list.html'" ng-controller="ProjectDatabasesCtrl"></p>
     </md-tab>
-    <md-tab label="{{'PROJECT_EDITOR.TAB_CHARACTERISTICS.T_LABEL' | translate}}" md-on-select="refreshTab('characs')">
+    <md-tab label="{{'PROJECT_EDITOR.TAB_CHARACTERISTICS.T_LABEL' | translate}}">
         <p ng-include="'partials/project/characs-list.html'" ng-controller="ProjectCharacsCtrl"></p>
     </md-tab>
 </md-tabs>
 <div style="text-align: center; margin: -20px 0 50px 0">
-    <md-button class="md-primary md-raised" aria-label="{{'PROJECT_EDITOR.BUTTON_SUBMIT.T_LABEL' | translate}}" md-ripple-size="full" ng-disabled2="outOfBounds.hasError" ng-click="savePreferences()">
+    <md-button class="md-primary md-raised" aria-label="{{'PROJECT_EDITOR.BUTTON_SUBMIT.T_LABEL' | translate}}" md-ripple-size="full" ng-disabled="isInvalid" ng-click="savePreferences()">
         <span translate>PROJECT_EDITOR.BUTTON_SUBMIT.T_LABEL</span>
     </md-button>
 </div>
