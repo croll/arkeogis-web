@@ -192,6 +192,13 @@
             }
 
             $scope.toggleItem = function(item, type) {
+                // Specific case for chronoly (not multiple)
+                if (type == 'chronologies') {
+                    $scope.project.chronologies = [
+                        item
+                    ]
+                    return;
+                }
                 var i = $scope.project[type].indexOf(item);
                 if (i != -1) {
                     $scope.project[type].splice(i, 1);
