@@ -35,20 +35,20 @@
             $scope.project = arkeoProject.get();
 
             console.log("PROJECT:");
-            console.log($scope.project);
+            console.log(arkeoProject.get());
 
             $scope.outOfBounds = {
                 chronologies: [],
                 layers: [],
-                databases: [],
+                databases: []
             };
 
             var promises = [];
 
-            $scope.$watch('start_date', _.debounce(function() {
+            $scope.$watch('project.start_date', _.debounce(function() {
                 self.refreshAll();
             }, 200));
-            $scope.$watch('end_date', _.debounce(function() {
+            $scope.$watch('project.end_date', _.debounce(function() {
                 self.refreshAll();
             }, 200));
 
@@ -106,21 +106,21 @@
                 self.params = {
                     bounding_box: $scope.bounds
                 }
-                if (angular.isDefined($scope.start_date)) {
-                    if (!angular.isDefined($scope.end_date)) {
+                if (angular.isDefined($scope.project.start_date)) {
+                    if (!angular.isDefined($scope.project.end_date)) {
                         arkeoService.showMessage('PROJECT.FIELD_START_DATE.END_DATE_NOT_DEFINED_BUT_END_DATE_IS', 'error');
                         return
                     }
-                    self.params.start_date = parseInt($scope.start_date)
+                    self.params.start_date = parseInt($scope.project.start_date)
                 } else {
                     self.params.start_date = null;
                 }
-                if (angular.isDefined($scope.end_date)) {
-                    if (!angular.isDefined($scope.start_date)) {
+                if (angular.isDefined($scope.project.end_date)) {
+                    if (!angular.isDefined($scope.project.start_date)) {
                         arkeoService.showMessage('PROJECT.FIELD_END_DATE.START_DATE_NOT_DEFINED_BUT_END_DATE_IS', 'error');
                         return
                     }
-                    self.params.end_date = parseInt($scope.end_date)
+                    self.params.end_date = parseInt($scope.project.end_date)
                 } else {
                     self.params.end_date = null;
                 }
@@ -227,7 +227,6 @@
                     var b = mapService.getBoundsAsGeoJSON(boundingBox);
                     var prefs = {
                         name: "PROJ -- " + login.user.firstname + ' ' + login.user.lastname,
-                        end_date: $scope.end_date,
                         geom: b,
                         chronologies: [],
                         layers: [],
@@ -237,13 +236,13 @@
                     if ($scope.project.id && $scope.project.id > 0) {
                         prefs.id = $scope.project.id;
                     }
-                    if (angular.isDefined($scope.start_date) && $scope.start_date != '') {
-                        prefs.start_date = $scope.start_date;
+                    if (angular.isDefined($scope.project.start_date) && $scope.project.start_date != '') {
+                        prefs.start_date = $scope.project.start_date;
                     } else {
                         prefs.start_date = 0;
                     }
-                    if (angular.isDefined($scope.end_date) && $scope.end_date != '') {
-                        prefs.end_date = $scope.end_date;
+                    if (angular.isDefined($scope.project.end_date) && $scope.project.end_date != '') {
+                        prefs.end_date = $scope.project.end_date;
                     } else {
                         prefs.end_date = 0;
                     }
