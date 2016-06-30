@@ -32,6 +32,7 @@
                 <th md-column md-order-by="author">
                     <span translate>PROJECT_EDITOR.LIST_AUTHOR.T_LABEL</span>
                 </th>
+                <th></th>
             </tr>
         </thead>
         <tbody md-body>
@@ -40,7 +41,11 @@
                 <td md-cell ark-get-translation ark-translations="item.name"></td>
                 <td md-cell ark-get-translation ark-translations="item.description"></td>
                 <td md-cell>{{item.author.firstname}} {{item.author.lastname}}</td>
-
+                <td md-cell>
+                    <md-button ng-click="">
+                        <md-icon>mode_edit</md-icon>
+                    </md-button>
+                </td>
             </tr>
         </tbody>
     </table>

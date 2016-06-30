@@ -34,6 +34,8 @@
 
             $scope.project = arkeoProject.get();
 
+            console.log($scope.project);
+
             $scope.outOfBounds = {
                 chronologies: [],
                 layers: [],
@@ -212,6 +214,10 @@
                         fillOpacity: 0.3
                     }
                 }
+            }
+
+            $scope.editChracacVisibility = function(id) {
+                alert('En cours.');
             }
 
             $scope.savePreferences = function() {
