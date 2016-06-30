@@ -23,18 +23,6 @@
   <md-content class="main-md-content md-padding">
     <h1 class="md-display-1"><span translate>IMPORT_STEP1.TITLE.T_IMPORT_YOUR_DB</span> <span translate>IMPORT_STEP1.TITLE.T_BY</span> {{user.firstname}} {{user.lastname}}</h1>
     <form name="importForm" class="md-padding" layout="column" novalidate>
-      <!-- test beve -->
-      <ark-form-block ng-hide="true">
-          <md-input-container>
-              <ark-lang-selector ng-model="myTransLang1" ark-set-as-translation-lang="1" ng-disabled="false" ark-translation-langs-disabled="['es']" ark-hide="['de']" ark-flags="true"></ark-lang-selector>
-          </md-input-container>
-          <md-input-container>
-              <textarea ark-translations="database.translations.description" ark-translate ark-translate-bind-lang="1" aria-label="-"></textarea>
-          </md-input-container>
-          <md-input-container>
-              <input ark-translations="database.translations.bibliography" ark-translate ark-translate-bind-lang="1" aria-label="-"></input>
-          </md-input-container>
-      </ark-form-block>
       <!-- Database name -->
       <ark-form-block>
         <md-input-container>
