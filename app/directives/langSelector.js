@@ -25,7 +25,7 @@
 
 		return {
 			restrict: 'E',
-			template: '<div class="ark-lang-selector"><md-select ng-model="arkTranslationLangSelected" ng-change="changedValue()" ng-attr-ng-disabled="ngDisabled" aria-label="Lang switcher"><md-option ng-hide="arkHide.indexOf(lang.iso_code) != -1" ng-disabled="{{lang.disabled}}" ng-value="lang.iso_code" ng-repeat="lang in langs" arial-label="lang.name"><img ng-hide="!arkFlags" src="/img/blank.gif" class="flag flag-{{lang.iso_code}}" alt="{{lang.name}}"><span  ng-class="{caption: true, \'ark-flags-spacer\': arkFlags}">{{lang.name}}</span></md-option></md-select></div>',
+			template: '<div class="ark-lang-selector"><md-select ng-model="arkTranslationLangSelected" ng-change="changedValue(this)" ng-attr-ng-disabled="ngDisabled" aria-label="Lang switcher"><md-option ng-hide="arkHide.indexOf(lang.iso_code) != -1" ng-disabled="{{lang.disabled}}" ng-value="lang.iso_code" ng-repeat="lang in langs" arial-label="lang.name"><img ng-hide="!arkFlags" src="/img/blank.gif" class="flag flag-{{lang.iso_code}}" alt="{{lang.name}}"><span  ng-class="{caption: true, \'ark-flags-spacer\': arkFlags}">{{lang.name}}</span></md-option></md-select></div>',
             replace: true,
             scope: {
                 ngModel: '=',
@@ -60,8 +60,9 @@
                     }
                     scope.langs.push(lang);
                 });
-                scope.changedValue = function() {
+                scope.changedValue = function(el) {
                     if (!scope.arkSetAsTranslationLang) {
+                        el.ngModel = el.arkTranslationLangSelected;
                         return;
                     }
                     var val = parseInt(scope.arkSetAsTranslationLang);
