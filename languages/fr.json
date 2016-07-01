@@ -19,7 +19,7 @@
 		},
 		"INFO_PUBLISHABLE": {
 			"T_NO": "Non",
-			"T_TITLE": "Peut être enregistré ?",
+			"T_TITLE": "Prêt à être enregistré ?",
 			"T_YES": "Oui"
 		},
 		"INPUT_DESCRIPTION": {
@@ -65,7 +65,7 @@
 		},
 		"BUTTON_DELETE": {
 			"T_CONFIRM": "Souhaitez-vous vraiment effacer cette chronologie ?",
-			"T_OK": "Oui, efface !",
+			"T_OK": "Oui, effacer",
 			"T_TITLE": "Supprimer"
 		},
 		"BUTTON_SAVE": {
@@ -130,14 +130,14 @@
 		},
 		"LIST_PUBLISHED": {
 			"T_NO": "Non",
-			"T_TITLE": "Publié",
+			"T_TITLE": "Publiée",
 			"T_YES": "Oui"
 		},
 		"SIDENAV": {
 			"T_TITLE": "Paramètres"
 		},
 		"SWITCH_PUBLISHED": {
-			"T_TITLE": "Publié"
+			"T_TITLE": "Publiée"
 		}
 	},
 	"DATABASE": {
@@ -166,12 +166,12 @@
 			"T_TITLE": "Monde"
 		},
 		"INFORMATIONS": {
-			"T_AUTHOR_AND_CO_AUTHORS": "Auteur et co-auteur(s)",
+			"T_AUTHOR_AND_CO_AUTHORS": "Auteur (e-s) et co-auteur(e-s)",
 			"T_CONTEXT": "Cadre de réalisation",
 			"T_DESCRIPTION": "Description",
 			"T_ENDING_PERIOD": "Fin",
 			"T_GEOGRAPHICAL_EXTENT": "Etendue géographique",
-			"T_LICENSE": "License",
+			"T_LICENSE": "Licence",
 			"T_NAME": "Nom",
 			"T_NUMBER_OF_LINES": "Nombre de lignes",
 			"T_NUMBER_OF_SITES": "Nombre de sites",
@@ -217,7 +217,7 @@
 			"T_TITLE": "Site"
 		},
 		"SCALE_RESOLUTION_WATERSHED": {
-			"T_TITLE": "Watershed"
+			"T_TITLE": "Bassin versant"
 		},
 		"SITE_OCCUPATION_CONTINUOUS": {
 			"T_TITLE": "Continue"
@@ -250,7 +250,7 @@
 	"GENERAL": {
 		"CONFIRM_DIALOG": {
 			"T_CANCEL": "Annuler",
-			"T_CONTENT": "Si vous êtes sûr de vous",
+			"T_CONTENT": "Etes-vous sûr(e) ?",
 			"T_OK": "Ok",
 			"T_TITLE": "Veuillez confirmer votre demande"
 		},
@@ -295,7 +295,7 @@
 	},
 	"IMPORT": {
 		"FIELD_ALL": {
-			"T_ERROR_REQUIRED": "Ce champs est requis."
+			"T_ERROR_REQUIRED": "Ce champs est requis"
 		},
 		"HEADER_IMPORT_RESUME": {
 			"T_LABEL": "Reprise des informations"
@@ -317,7 +317,7 @@
 		"CONDITIONS": {
 			"T_BUTTON_SAVE_CHOICES": "J'accepte les conditions",
 			"T_LINE1": "Les données de la base importée dans le service ArkeoGIS sont librement consultables par des personnes identifiées par le service ArkeoGIS",
-			"T_LINE2": "Ces données sont exportables à des fins de recherche (selon la licence retenue) par des personnes identifiées par le service ArkeoGIS comme étudiants, technicien, chercheurs ou administrateur du service ArkeoGIS."
+			"T_LINE2": "Ces données sont exportables à des fins de recherche (selon la licence retenue) par des personnes identifiées par le service ArkeoGIS comme étudiant(e)s, technicien(ne)s, chercheur(e)s ou administrateur(e)s du service ArkeoGIS."
 		},
 		"FIELD_DATABASE_NAME": {
 			"T_ERROR_MAX_LEN": "Le nom de la base de donnée ne peut dépasser les 50 caractères.",
@@ -329,7 +329,7 @@
 		},
 		"FIELD_GEONAMES": {
 			"T_HELP": " Utiliser les codes communes fournies par Geonames pour géolocaliser les sites.",
-			"T_LABEL": "Utilisation des Geoname."
+			"T_LABEL": "Utilisation des Geonames"
 		},
 		"FIELD_GEO_EXTENT": {
 			"T_LABEL": "* Étendue géographique de la base de données."
@@ -351,7 +351,7 @@
 		"INFOS": {
 			"T_LINE1": "Afin d’importer votre base de données sur la plate-forme ArkeoGIS, merci de bien vouloir renseigner les champs suivants pour pouvoir importer.",
 			"T_LINE2": "Ces informations ne sont demandées qu’une fois avant importation, lors de ré-importation possibles de la base de données ces informations ne vous seront pas redemandées.",
-			"T_LINE3": "Il vous sera possible par la suite de modifier ces informations et ne renseigner d'autres champs relatifs à la présentation de votre travail dans votre interface personnelle de gestion des informations relatives à la base de données."
+			"T_LINE3": "Il vous sera possible par la suite de modifier ces informations et de renseigner d'autres champs relatifs à la présentation de votre travail dans votre interface personnelle de gestion des informations relatives à la base de données."
 		},
 		"TITLE": {
 			"T_BY": "par",
@@ -387,17 +387,17 @@
 			"T_LABEL_FILTER_RESULTS": "#!#IMPORT_STEP2.REPORT_TABLE.T_LABEL_FILTER_RESULTS",
 			"T_LABEL_LINE": "Ligne",
 			"T_LABEL_NO_ERROR": "Aucune erreur",
-			"T_LABEL_REPORT": "Report",
+			"T_LABEL_REPORT": "Rapport",
 			"T_LABEL_SITE_CODE": "Identifiant du site",
 			"T_LABEL_VALUE": "Valeur"
 		}
 	},
 	"IMPORT_STEP3": {
 		"AUTHORS": {
-			"T_UNABLE_TO_REMOVE_MAIN_AUTHOR": "Il est impossible de modifier l'auteur de l'importation."
+			"T_UNABLE_TO_REMOVE_MAIN_AUTHOR": "Il est impossible de modifier l'auteur(e) de l'importation."
 		},
 		"FIELD_AUTHOR": {
-			"T_HELP": "Prénom et nom d l'auteur de l’importation. Il n’y a pas de nombre maximum de co-auteurs.",
+			"T_HELP": "Prénom et nom d l'auteur(e) de l’importation. Il n’y a pas de nombre maximum de co-auteur(e)s.",
 			"T_LABEL": "Attribuée à"
 		},
 		"FIELD_CONTEXT": {
@@ -416,7 +416,7 @@
 		},
 		"FIELD_LICENSE": {
 			"T_HELP": "Merci de choisir une des licences Creative Commons compatibles avec la plate-forme ArkeoGIS pour protéger votre travail.",
-			"T_LABEL": "License"
+			"T_LABEL": "Licence"
 		},
 		"FIELD_SCALE_RESOLUTION": {
 			"T_HELP": "Cette base de données concerne des objets, ou des sites ou des bassins versants etc.",
@@ -431,7 +431,7 @@
 			"T_LABEL": "Sujet(s) / Mots clés"
 		},
 		"FIELD_TYPE": {
-			"T_HELP": "Travail issu d’un Inventaire, d’une Recherche ou de la transcription d’un Ouvrage.",
+			"T_HELP": "Travail issu d’un inventaire, d’une recherche ou de la transcription d’un ouvrage.",
 			"T_LABEL": "Type"
 		},
 		"FORM": {
@@ -467,7 +467,7 @@
 			"T_LABEL": "Date IUR"
 		},
 		"FIELD_EDITOR": {
-			"T_LABEL": "Structure Éditrice"
+			"T_LABEL": "Structure éditrice"
 		},
 		"FIELD_GEOGRAPHICAL_LIMIT_LANG1": {
 			"T_LABEL": "Précision sur l'emprise géographique (langue principale)"
@@ -492,11 +492,11 @@
 		},
 		"FORM": {
 			"T_BUTTON_BACK": "Retour vers le formulaire de publication",
-			"T_BUTTON_SUBMIT": "Valider les informations complémentaire",
+			"T_BUTTON_SUBMIT": "Valider les informations complémentaires",
 			"T_TITLE": "Complément d'information pour publication"
 		},
 		"INFOS": {
-			"T_LINE1": "Merci de bien vouloir renseigner les champs suivants de complément de présentation de votre travail pour les autres utilisateurs de la plate-forme d’ArkeoGIS.",
+			"T_LINE1": "Merci de bien vouloir renseigner les champs suivants de complément de présentation de votre travail pour les autres utilisateurs de la plate-forme ArkeoGIS.",
 			"T_LINE2": ""
 		},
 		"MESSAGES": {
@@ -511,7 +511,7 @@
 			"T_TITLE": "Enregistrer"
 		},
 		"HEADER_LANGEDITOR": {
-			"T_TITLE": "Éditeur des traductions"
+			"T_TITLE": "Éditeur de traductions"
 		},
 		"SELECT_DSTLANG": {
 			"T_TITLE": "Langue à traduire"
@@ -558,7 +558,7 @@
 		},
 		"MENU_CENTROID": {
 			"T_NO": "Non",
-			"T_TITLE": "Centroïd",
+			"T_TITLE": "Centroïde",
 			"T_YES": "Oui"
 		},
 		"MENU_CHARACS": {
@@ -566,7 +566,7 @@
 		},
 		"MENU_CHRONO": {
 			"T_CHRONOLOGY": "Période",
-			"T_MANUAL": "Définition des bornes...",
+			"T_MANUAL": "Définition des bornes",
 			"T_TITLE": "Choix par période(s)"
 		},
 		"MENU_DATABASE": {
@@ -586,7 +586,7 @@
 			"T_TITLE": "Connaissance"
 		},
 		"MENU_OCCUPATION": {
-			"T_CONTINUOUS": "Continue (plusieurs périodes continue)",
+			"T_CONTINUOUS": "Continue (plusieurs périodes continues)",
 			"T_MULTIPLE": "Multiple (plusieurs périodes indépendantes)",
 			"T_NOTDOCUMENTED": "Non renseigné",
 			"T_SINGLE": "Unique",
@@ -611,7 +611,7 @@
 			"T_LABEL": "Envoyer le fichier zip"
 		},
 		"FIELD_ALL": {
-			"T_ERROR_REQUIRED": "Ce champs est requis"
+			"T_ERROR_REQUIRED": "Ce champ est requis"
 		},
 		"FIELD_ATTRIBUTION": {
 			"T_LABEL": "Attribution"
@@ -640,8 +640,8 @@
 			"T_LABEL": "Identifiant du calque"
 		},
 		"FIELD_LICENSE": {
-			"T_HELP": "License associée",
-			"T_LABEL": "Nom de la license"
+			"T_HELP": "Licence associée",
+			"T_LABEL": "Nom de la licence"
 		},
 		"FIELD_MAX_USAGE_DATE": {
 			"T_HELP": "Date limite d’utilisation du calque",
@@ -657,7 +657,7 @@
 			"T_LABEL": "Nom (traductions)"
 		},
 		"FIELD_PUBLISHED": {
-			"T_HELP": "Rendre le calque accessible des autres utilisateurs",
+			"T_HELP": "Rendre le calque accessible aux autres utilisateurs",
 			"T_LABEL": "Publié"
 		},
 		"FIELD_SELECT_LAYER": {
@@ -708,7 +708,7 @@
 	},
 	"PROJECT_EDITOR": {
 		"BUTTON_SUBMIT": {
-			"T_LABEL": "Sauvegarder vos préférences"
+			"T_LABEL": "Sauvegarder les préférences de votre projet"
 		},
 		"FIELD_END_DATE": {
 			"T_LABEL": "Date de fin"
@@ -717,17 +717,17 @@
 			"T_LABEL": "Date de début"
 		},
 		"INFORMATIONS_PERIOD_SELECTION": {
-			"T_HELP": "Le choix de la période a une incidence sur la liste des chronologies, bases de données et cartes disponibles",
+			"T_HELP": "Indiquez les bornes de début et de fin de votre projet. Le choix de la période a une incidence sur les listes de chronologies, de cartes et sur les bases de données disponibles.",
 			"T_LABEL": "Choix de la période"
 		},
 		"INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA": {
 			"T_LABEL": "Choix de la zone de travail"
 		},
 		"INTERFACE_INFOS_USAGE": {
-			"T_LABEL": "Les listes ci dessous sont actualisées en temps réel en fonction de vos choix de zonage et de période de travail."
+			"T_LABEL": "Les listes ci dessous sont actualisées en temps réel en fonction de vos choix de zone de travail et de période de travail. Merci de sélectionner les éléments de votre projet."
 		},
 		"INTERFACE_RECENTER_THE_MAP_ON_YOUR_WORKING_AREA": {
-			"T_LABEL": "Centrez la carte sur votre zone de travail. Vous pouvez la déplacer et éffecturer un zoom. Ce choix a une incidence sur la liste des chronologies, bases de données et cartes disponibles."
+			"T_LABEL": "Centrez la carte sur votre zone de travail. Vous pouvez la déplacer et effectuer un zoom. Ce choix a une incidence sur les listes de chronologies, de cartes et les bases de données disponibles. Le survol des éléments de ces listes permet de faire apparaître leur emprise sur cette carte."
 		},
 		"LIST_AUTHOR": {
 			"T_LABEL": "Auteur"
@@ -739,7 +739,7 @@
 			"T_LABEL": "Date de fin"
 		},
 		"LIST_LANG": {
-			"T_LABEL": "Langue"
+			"T_LABEL": "Langues"
 		},
 		"LIST_NAME": {
 			"T_LABEL": "Nom"
@@ -757,7 +757,7 @@
 			"T_LABEL": "Niveau de zoom"
 		},
 		"MESSAGE_SAVE": {
-			"T_ERROR": "Une erreur s'est produite pendant l'enregistrement.",
+			"T_ERROR": "Désolé, une erreur s'est produite pendant l'enregistrement.",
 			"T_OK": "Enregistrement effectué avec succès."
 		},
 		"TAB_CHARACTERISTICS": {
@@ -773,25 +773,25 @@
 			"T_LABEL": "Cartes"
 		},
 		"USER_SELECTION_CHARACS": {
-			"T_TITLE": "Caractéristiques sélectionnées"
+			"T_TITLE": "Les caractéristiques sélectionnées:"
 		},
 		"USER_SELECTION_CHARACS_NONE": {
 			"T_TITLE": "Aucune caractéristique."
 		},
 		"USER_SELECTION_CHRONOLOGIES": {
-			"T_TITLE": "Chronologie sélectionnée"
+			"T_TITLE": "La chronologie sélectionnée :"
 		},
 		"USER_SELECTION_CHRONOLOGIES_NONE": {
 			"T_TITLE": "Aucune chronologie."
 		},
 		"USER_SELECTION_DATABASES": {
-			"T_TITLE": "Bases de données sélectionnées"
+			"T_TITLE": "Les bases de données sélectionnées :"
 		},
 		"USER_SELECTION_DATABASES_NONE": {
-			"T_TITLE": "Aucune base de donnée."
+			"T_TITLE": "Aucune base de données."
 		},
 		"USER_SELECTION_LAYERS": {
-			"T_TITLE": "Cartes sélectionnées"
+			"T_TITLE": "Les cartes sélectionnées :"
 		},
 		"USER_SELECTION_LAYERS_NONE": {
 			"T_TITLE": "Aucune carte."
@@ -814,12 +814,13 @@
 			"T_TITLE": "Actif"
 		},
 		"FIELD_CARACSGROUP": {
-			"T_TITLE": "Groupes Caracterisation"
+			"T_TITLE": "Groupes Caractérisation"
 		},
 		"FIELD_CHRONOGROUP": {
 			"T_TITLE": "Groupes Chronologie"
 		},
 		"FIELD_CITY": {
+			"T_CHECK_MANDATORY": "La ville est obligatoire.",
 			"T_CHECK_NOMATCH": "Ville introuvable...",
 			"T_TITLE": "Ville"
 		},
@@ -827,28 +828,28 @@
 			"T_CHECK_NOMATCH": "Structure introuvable..."
 		},
 		"FIELD_COMPANY1": {
-			"T_TITLE": "Structure 1"
+			"T_TITLE": "Structure principale"
 		},
 		"FIELD_COMPANY1_CITY": {
-			"T_TITLE": "Ville 1"
+			"T_TITLE": "Ville structure principale"
 		},
 		"FIELD_COMPANY1_COUNTRY": {
-			"T_TITLE": "Pays 1"
+			"T_TITLE": "Pays structure principale"
 		},
 		"FIELD_COMPANY2": {
-			"T_TITLE": "Structure 2"
+			"T_TITLE": "Structure secondaire"
 		},
 		"FIELD_COMPANY2_CITY": {
-			"T_TITLE": "Ville 2"
+			"T_TITLE": "Ville structure secondaire"
 		},
 		"FIELD_COMPANY2_COUNTRY": {
-			"T_TITLE": "Pays 2"
+			"T_TITLE": "Pays structure secondaire"
 		},
 		"FIELD_COMPANY_CITY": {
-			"T_CHECK_NOMATCH": "Ville introuvable..."
+			"T_CHECK_NOMATCH": "Ville de la structure introuvable..."
 		},
 		"FIELD_COMPANY_COUNTRY": {
-			"T_CHECK_NOMATCH": "Pays introuvable..."
+			"T_CHECK_NOMATCH": "Pays de la structure introuvable..."
 		},
 		"FIELD_COUNTRY": {
 			"T_CHECK_NOMATCH": "Pays introuvable...",
@@ -858,12 +859,13 @@
 			"T_TITLE": "Base de données"
 		},
 		"FIELD_DESCRIPTION": {
+			"T_CHECK_MANDATORY": "La description est obligatoire.",
 			"T_TITLE": "Description"
 		},
 		"FIELD_EMAIL": {
-			"T_CHECK_INCORRECT": "Cet e-mail est incorrect",
-			"T_CHECK_MANDATORY": "L'e-mail est obligatoire",
-			"T_TITLE": "E-mail"
+			"T_CHECK_INCORRECT": "Cet adresse e-mail est incorrecte",
+			"T_CHECK_MANDATORY": "L'adresse e-mail est obligatoire.",
+			"T_TITLE": "Adresse e-mail"
 		},
 		"FIELD_FIRST_NAME": {
 			"T_TITLE": "Prénom"
@@ -872,16 +874,17 @@
 			"T_TITLE": "Groupes"
 		},
 		"FIELD_LANG1": {
-			"T_TITLE": "Langue préférée 1"
+			"T_TITLE": "Langue préférée principale"
 		},
 		"FIELD_LANG2": {
-			"T_TITLE": "Langue préférée 2"
+			"T_TITLE": "Langue préférée secondaire"
 		},
 		"FIELD_LAST_NAME": {
 			"T_TITLE": "Nom"
 		},
 		"FIELD_PASSWORD": {
-			"T_CHECK_NOTSAME": "Les deux mots de passe doivent correspondre",
+			"T_CHECK_INCORRECT": "Le mot de passe est incorrect",
+			"T_CHECK_NOTSAME": "Les deux mots de passe doivent correspondre, merci.",
 			"T_TITLE": "Mot de passe"
 		},
 		"FIELD_PASSWORD2": {
@@ -892,6 +895,7 @@
 		},
 		"FIELD_USERNAME": {
 			"T_CHECK_ALREADYEXISTS": "Cet utilisateur existe déjà",
+			"T_CHECK_INCORRECT": "Le nom d'utlilsateur est incorrect",
 			"T_CHECK_MANDATORY": "Ce champ est obligatoire",
 			"T_TITLE": "Identifiant"
 		},
@@ -911,18 +915,18 @@
 		},
 		"HEADER_USERSLIST": {
 			"T_ACTIVE": "Actif",
-			"T_COMPANY1": "Companie",
+			"T_COMPANY1": "Structure",
 			"T_COUNTRY": "Pays",
-			"T_CREATEDAT": "Creation",
+			"T_CREATEDAT": "Création",
 			"T_DATABASES": "Bases",
-			"T_EMAIL": "Email",
+			"T_EMAIL": "Adresse e-mail",
 			"T_GROUPS": "Groupes",
-			"T_GROUPS_CARACS": "Groupes Caracs",
-			"T_GROUPS_CHRONO": "Groupes Chrono",
+			"T_GROUPS_CARACS": "Groupes Caractéristiques",
+			"T_GROUPS_CHRONO": "Groupes Chronologie",
 			"T_NAME": "Nom Prénom",
 			"T_PHOTO": "Photo",
 			"T_SEARCH": "chercher...",
-			"T_UPDATEDAT": "Dernière Modif.",
+			"T_UPDATEDAT": "Dernière Modification",
 			"T_USERNAME": "Identifiant"
 		},
 		"USERSLIST_ACTIVE": {
@@ -932,7 +936,7 @@
 	},
 	"USER_PREFERENCES": {
 		"INFORMATIONS": {
-			"T_TILE": "Informations"
+			"T_TILE": "Projet de recherche"
 		}
 	}
 }
