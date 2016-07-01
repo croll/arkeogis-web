@@ -505,6 +505,7 @@
 	},
 	"LANGEDITOR": {
 		"BUTTON_CANCEL": {
+			"T_CONFIRM": "#!#LANGEDITOR.BUTTON_CANCEL.T_CONFIRM",
 			"T_TITLE": "Annuler"
 		},
 		"BUTTON_SAVE": {
@@ -715,6 +716,15 @@
 		},
 		"FIELD_START_DATE": {
 			"T_LABEL": "Date de début"
+		},
+		"FORM_ERROR_NO_CHRONOLOGY_SELECTED": {
+			"T_LABEL": "#!#PROJECT_EDITOR.FORM_ERROR_NO_CHRONOLOGY_SELECTED.T_LABEL"
+		},
+		"FORM_ERROR_NO_DATABASE_SELECTED": {
+			"T_LABEL": "#!#PROJECT_EDITOR.FORM_ERROR_NO_DATABASE_SELECTED.T_LABEL"
+		},
+		"FORM_ERROR_OUT_OF_BOUNDS": {
+			"T_LABEL": "#!#PROJECT_EDITOR.FORM_ERROR_OUT_OF_BOUNDS.T_LABEL"
 		},
 		"INFORMATIONS_PERIOD_SELECTION": {
 			"T_HELP": "Le choix de la période a une incidence sur la liste des chronologies, bases de données et cartes disponibles",
