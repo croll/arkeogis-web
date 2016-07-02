@@ -177,7 +177,7 @@
 			"T_NUMBER_OF_SITES": "Nombre de sites",
 			"T_STARTING_PERIOD": "Début",
 			"T_SUBJECT_AND_KEYWORDS": "Sujet(s) / Mots-clés",
-			"T_TITLE": "#!#DATABASE.INFORMATIONS.T_TITLE",
+			"T_TITLE": "Informations",
 			"T_TYPE": "Type"
 		},
 		"KNOWLEDGE_TYPE_DIG": {
@@ -245,6 +245,56 @@
 		},
 		"TYPE_RESEARCH": {
 			"T_TITLE": "Recherche"
+		},
+		"UNDEFINED": {
+			"T_TITLE": "Indéfini"
+		}
+	},
+	"DATABASE_LIST": {
+		"LIST_AUTHOR": {
+			"T_LABEL": "Auteurs et co-auteurs"
+		},
+		"LIST_CONTEXT": {
+			"T_LABEL": "Couverture"
+		},
+		"LIST_DESCRIPTION": {
+			"T_LABEL": "Description"
+		},
+		"LIST_END_DATE": {
+			"T_LABEL": "Date de fin"
+		},
+		"LIST_LANG": {
+			"T_LABEL": "Langue"
+		},
+		"LIST_LICENSE": {
+			"T_LABEL": "License"
+		},
+		"LIST_NAME": {
+			"T_LABEL": "Nom"
+		},
+		"LIST_NUMBER_OF_LINES": {
+			"T_LABEL": "Nombre de lignes"
+		},
+		"LIST_NUMBER_OF_SITES": {
+			"T_LABEL": "Nombre de sites"
+		},
+		"LIST_SCALE_RESOLUTION": {
+			"T_LABEL": "Echelle des points"
+		},
+		"LIST_SEARCH_INPUT": {
+			"T_LABEL": "Filtrer"
+		},
+		"LIST_START_DATE": {
+			"T_LABEL": "Date de début"
+		},
+		"LIST_STATE": {
+			"T_LABEL": "État"
+		},
+		"LIST_SUBJECT": {
+			"T_LABEL": "Sujet / Mots clés"
+		},
+		"LIST_TYPE": {
+			"T_LABEL": "Type"
 		}
 	},
 	"GENERAL": {
@@ -260,7 +310,7 @@
 	},
 	"GLOBAL": {
 		"TOASTER": {
-			"T_OK": "#!#GLOBAL.TOASTER.T_OK"
+			"T_OK": "Ok"
 		}
 	},
 	"GROUP": {
@@ -538,6 +588,7 @@
 		"FIELD_MAINMENU": {
 			"T_ITEM_CHARACEDITOR": "Éditeur de caractéristiques",
 			"T_ITEM_CHRONODITOR": "Éditeurs de chronologies",
+			"T_ITEM_DATABASE_LIST": "Liste des bases",
 			"T_ITEM_GROUPSMANAGER": "Administration des groupes",
 			"T_ITEM_IMPORT": "Import",
 			"T_ITEM_LANGEDITOR": "Éditeur de langues",
@@ -715,6 +766,15 @@
 		},
 		"FIELD_START_DATE": {
 			"T_LABEL": "Date de début"
+		},
+		"FORM_ERROR_NO_CHRONOLOGY_SELECTED": {
+			"T_LABEL": "#!#PROJECT_EDITOR.FORM_ERROR_NO_CHRONOLOGY_SELECTED.T_LABEL"
+		},
+		"FORM_ERROR_NO_DATABASE_SELECTED": {
+			"T_LABEL": "#!#PROJECT_EDITOR.FORM_ERROR_NO_DATABASE_SELECTED.T_LABEL"
+		},
+		"FORM_ERROR_OUT_OF_BOUNDS": {
+			"T_LABEL": "#!#PROJECT_EDITOR.FORM_ERROR_OUT_OF_BOUNDS.T_LABEL"
 		},
 		"INFORMATIONS_PERIOD_SELECTION": {
 			"T_HELP": "Le choix de la période a une incidence sur la liste des chronologies, bases de données et cartes disponibles",
