@@ -202,6 +202,16 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                     }
                 }
             })
+            .state('arkeogis.database-list', {
+                url: "/database-list",
+                templateUrl: "partials/database/listing.html",
+                controller: "DatabaseListCtrl",
+                resolve: {
+                    databaseDefinitions: function(arkeoDatabase) {
+                        return arkeoDatabase.translateDefinitions();
+                    }
+                }
+            })
             .state('arkeogis.user', {
                 url: "/user",
                 templateUrl: "partials/user/users.html",

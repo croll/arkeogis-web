@@ -68,11 +68,15 @@
                 isArray: false,
                 transformResponse: function(data, headers) {
                     if (data == 'null' || data == null) {
-                        var dbInfos = {default_language: login.user.first_lang_isocode, contexts: [], translations: {
-                            description: {},
-                            bibliography: {},
-                            geographical_limit: {}
-                        }}
+                        var dbInfos = {
+                            default_language: login.user.first_lang_isocode,
+                            contexts: [],
+                            translations: {
+                                description: {},
+                                bibliography: {},
+                                geographical_limit: {}
+                            }
+                        }
                     } else {
                         var dbInfos = angular.fromJson(data);
                     }
@@ -98,7 +102,10 @@
             }
         });
 
-        this.definitions = {};
+        this.definitions = {undef: [{
+            tr: 'DATABASE.UNDEFINED.T_TITLE',
+            id: 'undefined'
+        }]};
 
         this.definitions.scaleResolutions = [{
             tr: 'DATABASE.SCALE_RESOLUTION_OBJECT.T_TITLE',
@@ -209,11 +216,11 @@
             var promises = [];
             var definitionTranslations = {};
             for (var type in self.definitions) {
-                if(!self.definitions.hasOwnProperty(type)) continue;
+                if (!self.definitions.hasOwnProperty(type)) continue;
                 angular.forEach(self.definitions[type], function(item) {
-                     promises.push($translate(item.tr).then(function(tr) {
-                         definitionTranslations[item.id] = tr;
-                     }));
+                    promises.push($translate(item.tr).then(function(tr) {
+                        definitionTranslations[item.id] = tr;
+                    }));
                 });
             }
             $q.all(promises).then(function(h) {

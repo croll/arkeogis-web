@@ -28,3 +28,53 @@
     }
   ]);
 })();
+
+(function() {
+  'use strict';
+  ArkeoGIS.controller('DatabaseListCtrl', ['$scope', '$http', 'databaseDefinitions',
+    function($scope, $http, databaseDefinitions) {
+
+        $http.get('/api/database', {
+        }).then(function(response) {
+            $scope.databaseDefinitions = databaseDefinitions;
+            var databases = response.data;
+            angular.forEach(databases, function(db) {
+                var co = (db.authors) ? db.authors.join(',') : '';
+                if (co != '') {
+                    db.authors = db.author + ' ' + co;
+                } else {
+                    db.authors = db.author;
+                }
+            });
+            $scope.databases = response.data;
+        });
+
+            $scope.filter = {
+                show: false,
+                options: {}
+            };
+
+            $scope.query = {
+                filter: '',
+                order: 'line',
+                limit: 20,
+                page: 1,
+                numRows: ['All', 10, 20, 30]
+            };
+
+            $scope.onOrderChange = function(order) {
+                $scope.order = order;
+            };
+
+            $scope.removeFilter = function() {
+                $scope.filter.show = false;
+                $scope.query.filter = '';
+
+                if ($scope.filter.form.$dirty) {
+                    $scope.filter.form.$setPristine();
+                }
+            };
+
+    }
+  ]);
+})();

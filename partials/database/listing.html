@@ -1,0 +1,88 @@
+<md-button class="md-icon-button" ng-click="filter.show = true" style="position: absolute; top: -10px; right: 5px">
+    <i class="material-icons md-dark">filter_list</i>
+</md-button>
+
+<md-toolbar class="md-table-toolbar md-default" ng-show="filter.show && !selected.length" style="position: absolute; left: -5px; top: -13px">
+    <div class="md-toolbar-tools">
+        <i class="material-icons md-dark">search</i>
+        <form flex name="filter.form" style="margin: 39px 0 0 15px;">
+            <md-input-container>
+                <input type="text" ng-model="query.filter" ng-model-options="filter.options" placeholder="{{'DATABASE_LIST.LIST_SEARCH_INPUT.T_LABEL'}}">
+            </md-input-container>
+        </form>
+        <md-button class="md-icon-button" ng-click="removeFilter()">
+            <i class="material-icons md-dark">close</i>
+        </md-button>
+    </div>
+</md-toolbar>
+
+<md-table-container>
+    <table md-table>
+        <thead md-head md-order="query.order" md-trigger="onOrderChange">
+            <tr>
+                <th md-column md-numeric md-order-by="default_language">
+                    <span translate>DATABASE_LIST.LIST_LANG.T_LABEL</span>
+                </th>
+                <th md-column md-numeric md-order-by="name">
+                    <span translate>DATABASE_LIST.LIST_NAME.T_LABEL</span>
+                </th>
+                <th md-column md-order-by="authors">
+                    <span translate>DATABASE_LIST.LIST_AUTHOR.T_LABEL</span>
+                </th>
+                <th md-column md-order-by="subject">
+                    <span translate>DATABASE_LIST.LIST_SUBJECT.T_LABEL</span>
+                </th>
+                <th md-column md-order-by="type">
+                    <span translate>DATABASE_LIST.LIST_TYPE.T_LABEL</span>
+                </th>
+                <th md-column md-order-by="number_of_lines">
+                    <span translate>DATABASE_LIST.LIST_NUMBER_OF_LINES.T_LABEL</span>
+                </th>
+                <th md-column md-order-by="number_of_sites">
+                    <span translate>DATABASE_LIST.LIST_NUMBER_OF_SITES.T_LABEL</span>
+                </th>
+                <th md-column md-order-by="scale_resolution">
+                    <span translate>DATABASE_LIST.LIST_SCALE_RESOLUTION.T_LABEL</span>
+                </th>
+                <th md-column numeric>
+                    <span translate>DATABASE_LIST.LIST_START_DATE.T_LABEL</span>
+                </th>
+                <th md-column numeric>
+                    <span translate>DATABASE_LIST.LIST_END_DATE.T_LABEL</span>
+                </th>
+                <th md-column md-order-by="state">
+                    <span translate>DATABASE_LIST.LIST_STATE.T_LABEL</span>
+                </th>
+                <th md-column md-order-by="context">
+                    <span translate>DATABASE_LIST.LIST_CONTEXT.T_LABEL</span>
+                </th>
+                <th md-column md-order-by="license">
+                    <span translate>DATABASE_LIST.LIST_LICENSE.T_LABEL</span>
+                </th>
+                <th md-column md-order-by="description">
+                    <span translate>DATABASE_LIST.LIST_DESCRIPTION.T_LABEL</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody md-body>
+            <tr md-row md-select="item" md-select-id="id" ng-mouseover="preview(item.geographical_extent_geom)" ng-mouseleave="preview(null)" ng-click="toggleItem(item, 'databases')" ng-repeat="item in databases | filter:query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
+                <td md-cell>{{item.default_language | uppercase }}</td>
+                <td md-cell ark-get-translation ark-translations="item.name"></td>
+                <td md-cell>{{item.authors}}</td>
+                <td md-cell>{{item.subject}}</td>
+                <td md-cell>{{databaseDefinitions[item.type]}}</td>
+                <td md-cell>{{item.number_of_lines}}</td>
+                <td md-cell>{{item.number_of_sites}}</td>
+                <td md-cell>{{databaseDefinitions[item.scale_resolution]}}</td>
+                <td md-cell>{{item.start_date}}</td>
+                <td md-cell>{{item.end_date}}</td>
+                <td md-cell>{{databaseDefinitions[item.state]}}</td>
+                <td md-cell>{{databaseDefinitions[item.context]}}</td>
+                <td md-cell>{{item.license}}</td>
+                <td md-cell ark-get-translation ark-translations="item.description"></td>
+            </tr>
+        </tbody>
+    </table>
+</md-table-container>
+
+<md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{databases.length}}" md-row-select="query.numRows" md-page-select></md-table-pagination>
