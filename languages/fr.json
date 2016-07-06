@@ -168,17 +168,24 @@
 		"INFORMATIONS": {
 			"T_AUTHOR_AND_CO_AUTHORS": "Auteur (e-s) et co-auteur(e-s)",
 			"T_CONTEXT": "Cadre de réalisation",
+			"T_CONTINENTS": "Continents",
+			"T_COUNTRIES": "Pays",
+			"T_CREATION_DATE": "Date de création",
 			"T_DESCRIPTION": "Description",
 			"T_ENDING_PERIOD": "Fin",
 			"T_GEOGRAPHICAL_EXTENT": "Etendue géographique",
+			"T_IMPORT_AUTHOR": "Auteur",
 			"T_LICENSE": "Licence",
-			"T_NAME": "Nom",
+			"T_MODIFICATION_DATE": "Date de dernière modification",
 			"T_NUMBER_OF_LINES": "Nombre de lignes",
 			"T_NUMBER_OF_SITES": "Nombre de sites",
+			"T_PUBLICATION_STATUS": "Statut de publication",
+			"T_PUBLISHED": "Publiée",
 			"T_STARTING_PERIOD": "Début",
+			"T_STATUS": "Avancement",
 			"T_SUBJECT_AND_KEYWORDS": "Sujet(s) / Mots-clés",
-			"T_TITLE": "Informations",
-			"T_TYPE": "Type"
+			"T_TYPE": "Type",
+			"T_UNPUBLISHED": "Non publiée"
 		},
 		"KNOWLEDGE_TYPE_DIG": {
 			"T_TITLE": "Fouillé"
