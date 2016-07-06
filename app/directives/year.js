@@ -24,6 +24,8 @@
 
     function toHuman(val) {
         var v = parseInt(val);
+        if ((v == 2147483647) || (v == -2147483648))
+            return "indéterminé"; // @TODO: translate this...
         return isNaN(v) ? val : (v > 0 ? '+'+v : (v-1));
     }
 
