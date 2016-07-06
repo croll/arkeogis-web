@@ -84,6 +84,10 @@
                         angular.extend(dbInfos, dbInfos.infos);
                         delete dbInfos.infos;
                     }
+                    if (dbInfos && typeof(dbInfos.translations) != undefined) {
+                        angular.extend(dbInfos, dbInfos.translations);
+                        delete dbInfos.translations;
+                    }
                     return dbInfos;
                 }
             },

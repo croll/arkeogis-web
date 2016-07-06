@@ -21,10 +21,18 @@
 
 (function() {
   'use strict';
-  ArkeoGIS.controller('DatabaseCtrl', ['$scope', 'database', 'databaseDefinitions',
-    function($scope, database, databaseDefinitions) {
+  ArkeoGIS.controller('DatabaseCtrl', ['$scope', 'database', 'databaseDefinitions', 'mapService',
+    function($scope, database, databaseDefinitions, mapService) {
+        console.log(database);
         $scope.database = database;
         $scope.databaseDefinitions = databaseDefinitions;
+
+        angular.extend($scope, angular.extend(mapService.config, {
+            center: {
+                zoom: 8
+            }
+        }));
+
     }
   ]);
 })();

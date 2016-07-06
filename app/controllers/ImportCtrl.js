@@ -312,9 +312,9 @@
                         dbObj.authors.push(author.id);
                     });
                     dbObj.description = [];
-                    for (var iso_code in database.translations.description) {
-                        if (database.translations.description.hasOwnProperty(iso_code)) {
-                            dbObj.description.push({lang_isocode: iso_code, text: database.translations.description[iso_code]});
+                    for (var iso_code in database.description) {
+                        if (database.description.hasOwnProperty(iso_code)) {
+                            dbObj.description.push({lang_isocode: iso_code, text: database.description[iso_code]});
                         }
                     }
                     dbObj.contexts = [];
@@ -354,15 +354,15 @@
 
                 if (form.$valid) {
                     dbObj.bibliography= [];
-                    for (var iso_code in database.translations.bibliography) {
-                        if (database.translations.bibliography.hasOwnProperty(iso_code)) {
-                            dbObj.bibliography.push({lang_isocode: iso_code, text: database.translations.bibliography[iso_code]});
+                    for (var iso_code in database.bibliography) {
+                        if (database.bibliography.hasOwnProperty(iso_code)) {
+                            dbObj.bibliography.push({lang_isocode: iso_code, text: database.bibliography[iso_code]});
                         }
                     }
                     dbObj.geographical_limit= [];
-                    for (var iso_code in database.translations.geographical_limit) {
-                        if (database.translations.geographical_limit.hasOwnProperty(iso_code)) {
-                            dbObj.geographical_limit.push({lang_isocode: iso_code, text: database.translations.geographical_limit[iso_code]});
+                    for (var iso_code in database.geographical_limit) {
+                        if (database.geographical_limit.hasOwnProperty(iso_code)) {
+                            dbObj.geographical_limit.push({lang_isocode: iso_code, text: database.geographical_limit[iso_code]});
                         }
                     }
                     $http.post("/api/import/step4", dbObj).then(function(result) {
