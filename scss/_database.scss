@@ -1,0 +1,12 @@
+.database-sheet {
+    section div {
+        height: 30px;
+        div {
+            &:first-child {
+                color: rgba(0,0,0,0.60);
+                vertical-align: bottom;
+            }
+            margin-left: 5px
+        }
+    }
+}
