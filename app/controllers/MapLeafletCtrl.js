@@ -113,32 +113,42 @@
 			return ret;
 		}
 
+        $scope.letter = 0;
+
 		function displayMapResults(data) {
 			var latlngs = [];
 
-	        angular.extend($scope.layers.overlays, {
-                sites: {
-                    name:'ArkeoGIS (A)',
-                    type: 'geoJSONShape',
-                    data: data,
-                    visible: true,
-					icon: generateIcon,
-					layerOptions: {
-						pointToLayer: function(feature, latlng) {
-							return L.marker(latlng, { icon: generateIcon(feature) });
-						},
-						onEachFeature: function(feature, layer) {
-							layer.bindPopup(feature.properties.infos.name+" ("+feature.properties.infos.code+")");
-						}
-					}
-                }
+            leafletData.getMap().then(function(map) {
+				leafletData.getLayers().then(function(layers) {
+                    if ('sites' in layers.overlays)
+                        map.removeLayer(layers.overlays.sites);
+                });
             });
 
-			angular.forEach(data.features, function(feature) {
-				latlngs.push([parseFloat(feature.geometry.coordinates[0]), parseFloat(feature.geometry.coordinates[1])]);
-			});
 
-			resize();
+                                angular.extend($scope.layers.overlays, {
+                                    sites: {
+                                        name:'ArkeoGIS ('+(++$scope.letter)+')',
+                                        type: 'geoJSONShape',
+                                        data: data,
+                                        visible: true,
+                                        icon: generateIcon,
+                                        layerOptions: {
+                                            pointToLayer: function(feature, latlng) {
+                                                return L.marker(latlng, { icon: generateIcon(feature) });
+                                            },
+                                            onEachFeature: function(feature, layer) {
+                                                layer.bindPopup(feature.properties.infos.name+" ("+feature.properties.infos.code+")");
+                                            }
+                                        }
+                                    }
+                                });
+
+                                angular.forEach(data.features, function(feature) {
+                                    latlngs.push([parseFloat(feature.geometry.coordinates[0]), parseFloat(feature.geometry.coordinates[1])]);
+                                });
+
+                                resize();
 		}
 
         /*
