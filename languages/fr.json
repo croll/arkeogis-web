@@ -261,7 +261,7 @@
 			"T_LABEL": "Description"
 		},
 		"LIST_END_DATE": {
-			"T_LABEL": "Date de fin"
+			"T_LABEL": "Fin"
 		},
 		"LIST_LANG": {
 			"T_LABEL": "Langue"
@@ -273,19 +273,19 @@
 			"T_LABEL": "Nom"
 		},
 		"LIST_NUMBER_OF_LINES": {
-			"T_LABEL": "Nombre de lignes"
+			"T_LABEL": "Lignes"
 		},
 		"LIST_NUMBER_OF_SITES": {
-			"T_LABEL": "Nombre de sites"
+			"T_LABEL": "Sites"
 		},
 		"LIST_SCALE_RESOLUTION": {
-			"T_LABEL": "Echelle des points"
+			"T_LABEL": "Échelle"
 		},
 		"LIST_SEARCH_INPUT": {
 			"T_LABEL": "Filtrer"
 		},
 		"LIST_START_DATE": {
-			"T_LABEL": "Date de début"
+			"T_LABEL": "Début"
 		},
 		"LIST_STATE": {
 			"T_LABEL": "État"
@@ -592,7 +592,7 @@
 		"FIELD_MAINMENU": {
 			"T_ITEM_CHARACEDITOR": "Éditeur de caractéristiques",
 			"T_ITEM_CHRONODITOR": "Éditeurs de chronologies",
-			"T_ITEM_DATABASE_LIST": "Liste des bases",
+			"T_ITEM_DATABASE_LIST": "Index",
 			"T_ITEM_GROUPSMANAGER": "Administration des groupes",
 			"T_ITEM_IMPORT": "Import",
 			"T_ITEM_LANGEDITOR": "Éditeur de langues",

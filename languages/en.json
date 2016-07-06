@@ -591,8 +591,8 @@
 	"MAIN": {
 		"FIELD_MAINMENU": {
 			"T_ITEM_CHARACEDITOR": "Characteristics' editor",
-			"T_ITEM_CHRONODITOR": "Chronologies' editor",
-			"T_ITEM_DATABASE_LIST": "#!#MAIN.FIELD_MAINMENU.T_ITEM_DATABASE_LIST",
+			"T_ITEM_CHRONODITOR": "Chronology' editor",
+			"T_ITEM_DATABASE_LIST": "Index",
 			"T_ITEM_GROUPSMANAGER": "Groups admin",
 			"T_ITEM_IMPORT": "Import",
 			"T_ITEM_LANGEDITOR": "Lang Editor",
