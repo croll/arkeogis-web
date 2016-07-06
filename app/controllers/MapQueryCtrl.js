@@ -134,11 +134,12 @@
 			}
 		}
 
-		$http.get('/api/chronologies/'+$scope.PROJECT.chronology_id, {
-				params: {
-					active: 1,
-				},
-			}).then(function(data) {
+		$http.get('/api/chronologies/'+$scope.project.chronologies[0].id, {
+			params: {
+				active: 1,
+			},
+		}).then(function(data) {
+			console.log("chronologies: ", data.data);
 			var root = data.data;
 			chronoElementToMenuElement(root)
 

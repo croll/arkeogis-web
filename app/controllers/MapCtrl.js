@@ -21,13 +21,11 @@
 
 (function() {
 	'use strict';
-	ArkeoGIS.controller('MapCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', 'arkeoService', 'leafletData', 'mapService',
-	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, arkeoService, leafletData, mapService) {
+	ArkeoGIS.controller('MapCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', 'arkeoService', 'leafletData', 'mapService', 'arkeoProject',
+	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, arkeoService, leafletData, mapService, arkeoProject) {
 
-		$scope.PROJECT = {
-			project_id: 0,
-			chronology_id: 37,
-		}
+		$scope.project = arkeoProject.get();
+		console.log("project: ", $scope.project);
 
 
 		// the Query
