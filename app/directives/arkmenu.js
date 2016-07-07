@@ -81,7 +81,7 @@
 			restrict: 'E',
 			template: '<div class="ark-menu-item noselect" ng-click="click($event)" ng-mouseover="hover($event)">'
             +          '<span class="tributtons">'
-            +           '<ark-tri-button ng-repeat="(name, tribut) in arkItem.buttons" states="tribut" ng-model="buttons[name]"></ark-tri-button>'
+            +           '<ark-tri-button ng-repeat="(name, tribut) in arkItem.buttons" ark-menu-item-model="arkItem" states="tribut" ng-model="buttons[name]"></ark-tri-button>'
             +          '</span> <span ark-get-translation ark-translations="arkItem.text"></span>'
             +          '<md-icon ng-show="arkItem.menu != undefined" class="ark-menu-have-submenu">chevron_right</md-icon>'
             +         '</div>',
@@ -132,6 +132,12 @@
                             delete scope.ngModel[scope.arkItem.value];
                         else
                             scope.ngModel[scope.arkItem.value] = val;
+
+                        if (subopened) {
+                            subopened.remove();
+                            subopened = false;
+                            renderSubMenu();
+                        }
 
                     });
                 }

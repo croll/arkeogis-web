@@ -21,8 +21,8 @@
 
 (function() {
 	'use strict';
-	ArkeoGIS.controller('MapQueryCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', 'arkeoService', 'leafletData', 'mapService',
-	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, arkeoService, leafletData, mapService) {
+	ArkeoGIS.controller('MapQueryCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', 'arkeoService', 'leafletData', 'mapService', '$timeout',
+	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, arkeoService, leafletData, mapService, $timeout) {
 
 		/*
 		 * menus init : buttons styles
@@ -120,6 +120,36 @@
 		 * menus init : chronologies
 		 */
 
+		 var chronoSubSelect = function(menuitem, states, inclorexcl) {
+			 //console.log("plif", menuitem, states, inclorexcl);
+ 			if (!menuitem) menuitem = $scope.menuChronologies[0];
+			if (!('menu' in menuitem)) return;
+
+ 			menuitem.menu.forEach(function(menuItem) {
+ //				console.log("z menu: ", menuItem);
+ 				chronoSubSelect(menuItem, states, inclorexcl);
+ 				if ('buttons' in menuItem && 'inclorexcl' in menuItem.buttons) {
+ 					//console.log("paf : ", menuItem.value);
+ 					$scope.query.chronology[menuItem.value] = { inclorexcl: inclorexcl };
+ 				}
+ 			});
+ 		}
+
+ 		var characSubSelect = function(menu, inclorexcl) {
+ 			$timeout(function() {
+ 				if (!menu) menu = $scope.menuCharacs[0].menu;
+ 				menu.forEach(function(menuItem) {
+ 	//				console.log("z menu: ", menuItem);
+ 					if ('menu' in menuItem)
+ 						$scope.zpouitz2(menuItem.menu)
+ 					if ('buttons' in menuItem && 'inclorexcl' in menuItem.buttons) {
+ 						//console.log("paf : ", menuItem.value);
+ 						$scope.query.charac[menuItem.value] = { inclorexcl: inclorexcl };
+ 					}
+ 				});
+ 			}, 2000);
+ 		}
+
 		$scope.menuChronologies=[];
 
 		function chronoElementToMenuElement(chrono) {
@@ -131,6 +161,7 @@
 			if (chrono.content && chrono.content.length > 0) {
 				chrono.menu = chrono.content;
 				chrono.menu.forEach(chronoElementToMenuElement);
+				chrono.onchange = chronoSubSelect;
 			}
 		}
 
@@ -167,7 +198,6 @@
 			arkeoService.fieldErrorDisplay(err)
 			console.error(err);
 		});
-
 
 
 		$scope.menuCentroid = {
@@ -289,13 +319,7 @@
 			database.buttons = _tributtons;
 		}
 
-		$http.get('/api/database', {
-			active: true,
-		}).then(function(data) {
-			console.log("databases", data.data);
-
-			var roots = data.data;
-
+		function populateDatabasesMenu() {
 			var menu = [{
 				text: "MAP.MENU_DATABASE.T_INVENTORY",
 				menu: [],
@@ -318,33 +342,43 @@
 				value: 'type:undefined',
 			}];
 
-			roots.forEach(function(root) {
-				databaseElementToMenuElement(root);
-				switch(root.type) {
-					case 'inventory':
-						menu[0].menu.push(root);
-					break;
-					case 'research':
-						menu[1].menu.push(root);
-					break;
-					case 'literary-work':
-						menu[2].menu.push(root);
-					break;
-					default:
-						menu[3].menu.push(root);
-					break;
-				}
+			var promises=[];
+			$scope.project.databases.forEach(function(database) {
+				promises.push($http.get('/api/database/'+database.id).then(function(data) {
+
+					var root = data.data.infos;
+
+					databaseElementToMenuElement(root);
+
+					switch(root.type) {
+						case 'inventory':
+							menu[0].menu.push(root);
+						break;
+						case 'research':
+							menu[1].menu.push(root);
+						break;
+						case 'literary-work':
+							menu[2].menu.push(root);
+						break;
+						default:
+							menu[3].menu.push(root);
+						break;
+					}
+
+				}));
 			});
 
-			$scope.menuDatabases = [{
-				text: "MAP.MENU_DATABASE.T_TITLE",
-				buttons: [],
-				value: 0,
-				menu: menu,
-			}];
+			$q.all(promises).then(function() {
+				$scope.menuDatabases = [{
+					text: "MAP.MENU_DATABASE.T_TITLE",
+					buttons: [],
+					value: 0,
+					menu: menu,
+				}];
+			});
 
-			console.log("menu database : ", $scope.menuDatabases);
-		});
+		}
+		populateDatabasesMenu();
 
 /*
 		$scope.menuPeriod = {

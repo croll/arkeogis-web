@@ -25,10 +25,11 @@
 
 		return {
 			restrict: 'E',
-			template: '<md-icon class="ark-tri-button" ng-click="click($event)">{{state.icon}}</md-icon>',
+			template: '<md-icon class="ark-tri-button" ng-click="click($event)">{{_state.icon}}</md-icon>',
             replace: true,
             scope: {
                 states: '=?',
+                arkMenuItemModel: '=?',
                 ngModel: '=?',
             },
 
@@ -50,28 +51,42 @@
                     ];
                 }
 
-                scope.state=scope.states[0]; // init
+                scope._state=scope.states[0]; // init
                 scope.states.forEach(function(state) {
                     if (state.value == scope.ngModel)
-                        scope.state = state;
+                        scope._state = state;
                 });
-                scope.ngModel = scope.state.value;
+                scope.ngModel = scope._state.value;
 
                 scope.click = function(event) {
                     event.preventDefault();
 
                     for (var i=0; i<scope.states.length; i++) {
                         var state=scope.states[i];
-                        if (state.value == scope.state.value) {
+                        if (state.value == scope._state.value) {
                             if (++i == scope.states.length) i=0;
-                            scope.state = scope.states[i];
+                            scope._state = scope.states[i];
+
+                            if (scope.arkMenuItemModel && 'onchange' in scope.arkMenuItemModel) {
+                                scope.arkMenuItemModel.onchange(scope.arkMenuItemModel, scope.states, scope._state.value);
+                            }
+
                             break;
                         }
                     }
 
-                    element.html(scope.state.icon);
-                    scope.ngModel = scope.state.value;
+                    //element.html(scope._state.icon);
+                    scope.ngModel = scope._state.value;
                 }
+
+                scope.$watch('ngModel', function(newval, oldval) {
+                    console.log("yes !", newval, scope.arkMenuItemModel.name);
+                    scope.states.forEach(function(state) {
+                        if (state.value == scope.ngModel)
+                            scope._state = state;
+                    });
+                    element.html(scope._state.icon);
+                });
             },
         };
 
