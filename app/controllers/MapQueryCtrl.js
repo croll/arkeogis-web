@@ -188,6 +188,7 @@
 						buttons: _tributtons,
 						value: root.value,
 						menu: root.menu,
+						onchange: chronoSubSelect,
 					},
 				]
 			}];
