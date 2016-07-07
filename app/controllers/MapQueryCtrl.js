@@ -89,6 +89,7 @@
 			charac.value = charac.id;
 			charac.text = charac.name;
 			charac.buttons = _characbuttons;
+			charac.onchange = characSubSelect;
 
 			if (charac.content && charac.content.length > 0) {
 				charac.menu = charac.content;
@@ -111,7 +112,8 @@
 					text: "MAP.MENU_CHARACS.T_TITLE",
 					buttons: [],
 					value: 0, // value never used, there is no buttons
-					menu: roots
+					menu: roots,
+					onchange: characSubSelect,
 				}];
 			})
 		});
@@ -130,25 +132,49 @@
  				chronoSubSelect(menuItem, states, inclorexcl);
  				if ('buttons' in menuItem && 'inclorexcl' in menuItem.buttons) {
  					//console.log("paf : ", menuItem.value);
- 					$scope.query.chronology[menuItem.value] = { inclorexcl: inclorexcl };
+					if (inclorexcl === undefined) {
+						if (menuItem.value in $scope.query.chronology) {
+							delete $scope.query.chronology[menuItem.value];
+							if (_.isEmpty($scope.query.chronology[menuItem.value]))
+								delete $scope.query.chronology[menuItem.value];
+						}
+					} else {
+						if (menuItem.value in $scope.query.chronology) {
+							$scope.query.chronology[menuItem.value].inclorexcl = inclorexcl;
+						} else {
+ 							$scope.query.chronology[menuItem.value] = { inclorexcl: inclorexcl };
+						}
+					}
  				}
  			});
- 		}
+ 		};
 
- 		var characSubSelect = function(menu, inclorexcl) {
- 			$timeout(function() {
- 				if (!menu) menu = $scope.menuCharacs[0].menu;
- 				menu.forEach(function(menuItem) {
- 	//				console.log("z menu: ", menuItem);
- 					if ('menu' in menuItem)
- 						$scope.zpouitz2(menuItem.menu)
- 					if ('buttons' in menuItem && 'inclorexcl' in menuItem.buttons) {
- 						//console.log("paf : ", menuItem.value);
- 						$scope.query.charac[menuItem.value] = { inclorexcl: inclorexcl };
- 					}
- 				});
- 			}, 2000);
- 		}
+		var characSubSelect = function(menuitem, states, inclorexcl) {
+			if (states !== _characbuttons.inclorexcl) return;
+		   if (!menuitem) menuitem = $scope.menuChronologies[0];
+		   if (!('menu' in menuitem)) return;
+
+		   menuitem.menu.forEach(function(menuItem) {
+//				console.log("z menu: ", menuItem);
+			   characSubSelect(menuItem, states, inclorexcl);
+			   if ('buttons' in menuItem && 'inclorexcl' in menuItem.buttons) {
+				   //console.log("paf : ", menuItem.value);
+				   if (inclorexcl === undefined) {
+					   if (menuItem.value in $scope.query.charac) {
+						   delete $scope.query.charac[menuItem.value];
+						   if (_.isEmpty($scope.query.charac[menuItem.value]))
+							   delete $scope.query.charac[menuItem.value];
+					   }
+				   } else {
+					   if (menuItem.value in $scope.query.charac) {
+						   $scope.query.charac[menuItem.value].inclorexcl = inclorexcl;
+					   } else {
+						   $scope.query.charac[menuItem.value] = { inclorexcl: inclorexcl };
+					   }
+				   }
+			   }
+		   });
+	   };
 
 		$scope.menuChronologies=[];
 
