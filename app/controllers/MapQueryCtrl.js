@@ -85,6 +85,34 @@
 		 * menus init : characs
 		 */
 
+		 // this function is called when cliking on buttons to recursively select childrens
+		 var characSubSelect = function(menuitem, states, inclorexcl) {
+ 			if (states !== _characbuttons.inclorexcl) return;
+ 		   if (!menuitem) menuitem = $scope.menuChronologies[0];
+ 		   if (!('menu' in menuitem)) return;
+
+ 		   menuitem.menu.forEach(function(menuItem) {
+ //				console.log("z menu: ", menuItem);
+ 			   characSubSelect(menuItem, states, inclorexcl);
+ 			   if ('buttons' in menuItem && 'inclorexcl' in menuItem.buttons) {
+ 				   //console.log("paf : ", menuItem.value);
+ 				   if (inclorexcl === undefined) {
+ 					   if (menuItem.value in $scope.query.charac) {
+ 						   delete $scope.query.charac[menuItem.value];
+ 						   if (_.isEmpty($scope.query.charac[menuItem.value]))
+ 							   delete $scope.query.charac[menuItem.value];
+ 					   }
+ 				   } else {
+ 					   if (menuItem.value in $scope.query.charac) {
+ 						   $scope.query.charac[menuItem.value].inclorexcl = inclorexcl;
+ 					   } else {
+ 						   $scope.query.charac[menuItem.value] = { inclorexcl: inclorexcl };
+ 					   }
+ 				   }
+ 			   }
+ 		   });
+ 	   };
+
 		function characElementToMenuElement(charac) {
 			charac.value = charac.id;
 			charac.text = charac.name;
@@ -122,6 +150,7 @@
 		 * menus init : chronologies
 		 */
 
+		 // this function is called when cliking on buttons to recursively select childrens
 		 var chronoSubSelect = function(menuitem, states, inclorexcl) {
 			 //console.log("plif", menuitem, states, inclorexcl);
  			if (!menuitem) menuitem = $scope.menuChronologies[0];
@@ -148,33 +177,6 @@
  				}
  			});
  		};
-
-		var characSubSelect = function(menuitem, states, inclorexcl) {
-			if (states !== _characbuttons.inclorexcl) return;
-		   if (!menuitem) menuitem = $scope.menuChronologies[0];
-		   if (!('menu' in menuitem)) return;
-
-		   menuitem.menu.forEach(function(menuItem) {
-//				console.log("z menu: ", menuItem);
-			   characSubSelect(menuItem, states, inclorexcl);
-			   if ('buttons' in menuItem && 'inclorexcl' in menuItem.buttons) {
-				   //console.log("paf : ", menuItem.value);
-				   if (inclorexcl === undefined) {
-					   if (menuItem.value in $scope.query.charac) {
-						   delete $scope.query.charac[menuItem.value];
-						   if (_.isEmpty($scope.query.charac[menuItem.value]))
-							   delete $scope.query.charac[menuItem.value];
-					   }
-				   } else {
-					   if (menuItem.value in $scope.query.charac) {
-						   $scope.query.charac[menuItem.value].inclorexcl = inclorexcl;
-					   } else {
-						   $scope.query.charac[menuItem.value] = { inclorexcl: inclorexcl };
-					   }
-				   }
-			   }
-		   });
-	   };
 
 		$scope.menuChronologies=[];
 
