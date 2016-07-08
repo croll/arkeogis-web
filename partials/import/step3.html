@@ -39,7 +39,7 @@
                     <!-- License -->
                     <ark-form-block>
                         <md-input-container>
-                            <md-select name="license_id" ng-model="database.license_id" ng-init="loadLicenses()" placeholder="* {{'IMPORT_STEP3.FIELD_LICENSE.T_LABEL' || translate}}" required = "true">
+                            <md-select name="license_id" ng-model="database.license_id" ng-init="loadLicenses()" placeholder="* {{'IMPORT_STEP3.FIELD_LICENSE.T_LABEL' | translate}}" required = "true">
                                 <md-option ng-value="license.id" ng-repeat="license in licenses">{{license.name}}</md-option>
                             </md-select>
                             <div ng-messages="publicationForm.license_id.$error">
@@ -125,7 +125,7 @@
                           <ark-lang-selector ng-model="myTransLang1" ark-set-as-translation-lang="1" ng-disabled="true" ark-flags="true"></ark-lang-selector>
                         </md-input-container>
                         <md-input-container style="margin-top: 25px">
-                            <textarea name="description" ng-model="desc_lang1" ark-translations="database.translations.description" ark-translate ark-translate-bind-lang="1" aria-label="-" placeholder="{{ 'IMPORT_STEP3.FIELD_DESCRIPTION_LANG1.T_LABEL' | translate}}" required></textarea>
+                            <textarea name="description" ng-model="desc_lang1" ark-translations="database.description" ark-translate ark-translate-bind-lang="1" aria-label="-" placeholder="{{ 'IMPORT_STEP3.FIELD_DESCRIPTION_LANG1.T_LABEL' | translate}}" required></textarea>
                             <div ng-messages="publicationForm.description.$error">
                                 <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
                             </div>
@@ -138,7 +138,7 @@
                           <ark-lang-selector ng-model="myTransLang2" ark-set-as-translation-lang="2" ng-disabled="false" ark-flags="true"></ark-lang-selector>
                         </md-input-container>
                         <md-input-container style="margin-top: 25px">
-                            <textarea name="description2" ng-model="desc_lang2" ark-translations="database.translations.description" ark-translate ark-translate-bind-lang="2" aria-label="-" placeholder="{{ 'IMPORT_STEP3.FIELD_DESCRIPTION_LANG2.T_LABEL' | translate}}" required></textarea>
+                            <textarea name="description2" ng-model="desc_lang2" ark-translations="database.description" ark-translate ark-translate-bind-lang="2" aria-label="-" placeholder="{{ 'IMPORT_STEP3.FIELD_DESCRIPTION_LANG2.T_LABEL' | translate}}" required></textarea>
                             <div ng-messages="publicationForm.description2.$error">
                                 <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
                             </div>

@@ -7,8 +7,7 @@
   </md-card>
   <div class="layout-padding">
     <h1 class="md-display-1">
-      <span translate>IMPORT_STEP4.FORM.T_TITLE</span>
-      "{{importFields.DatabaseName}}"</h1>
+		<h1 class="md-display-1"><span translate>IMPORT_STEP4.FORM.T_TITLE</span> "{{database.name}}" <span translate>IMPORT_STEP1.TITLE.T_BY</span> {{user.firstname}} {{user.lastname}}</h1>
     <form name="moreInfosForm" class="md-padding" ng-submit="submit(this.moreInfosForm)">
       <md-content layout="column" layout-gt-sm="row">
         <!-- left block -->
@@ -90,14 +89,14 @@
                 <div class="md-padding" flex>
                     <ark-form-block>
                         <md-input-container style="margin-top: 25px">
-                            <textarea name="geographicallimit1" ng-model="desc_lang1" ark-translations="database.translations.geographical_limit" ark-translate ark-translate-bind-lang="1" aria-label="-" placeholder="{{ 'IMPORT_STEP4.FIELD_GEOGRAPHICAL_LIMIT_LANG1.T_LABEL' | translate}}" required></textarea>
+                            <textarea name="geographicallimit1" ng-model="desc_lang1" ark-translations="database.geographical_limit" ark-translate ark-translate-bind-lang="1" aria-label="-" placeholder="{{ 'IMPORT_STEP4.FIELD_GEOGRAPHICAL_LIMIT_LANG1.T_LABEL' | translate}}" required></textarea>
                         </md-input-container>
                     </ark-form-block>
                 </div>
                 <div class="md-padding" flex-offset-gt-md="5" flex>
                     <ark-form-block>
                         <md-input-container style="margin-top: 25px">
-                            <textarea name="geographicallimit2" ng-model="geo_lang2" ark-translations="database.translations.geographical_limit" ark-translate ark-translate-bind-lang="2" aria-label="-" placeholder="{{ 'IMPORT_STEP4.FIELD_GEOGRAPHICAL_LIMIT_LANG2.T_LABEL' | translate}}" required></textarea>
+                            <textarea name="geographicallimit2" ng-model="geo_lang2" ark-translations="database.geographical_limit" ark-translate ark-translate-bind-lang="2" aria-label="-" placeholder="{{ 'IMPORT_STEP4.FIELD_GEOGRAPHICAL_LIMIT_LANG2.T_LABEL' | translate}}" required></textarea>
                         </md-input-container>
                     </ark-form-block>
                 </div>
@@ -107,14 +106,14 @@
                 <div class="md-padding" flex>
                     <ark-form-block>
                         <md-input-container style="margin-top: 25px">
-                            <textarea name="bibliography1" ng-model="biblio_lang1" ark-translations="database.translations.bibliography" ark-translate ark-translate-bind-lang="1" aria-label="-" placeholder="{{ 'IMPORT_STEP4.BIBLIOGRAPHY_LANG1.T_LABEL' | translate}}" required></textarea>
+                            <textarea name="bibliography1" ng-model="biblio_lang1" ark-translations="database.bibliography" ark-translate ark-translate-bind-lang="1" aria-label="-" placeholder="{{ 'IMPORT_STEP4.BIBLIOGRAPHY_LANG1.T_LABEL' | translate}}" required></textarea>
                         </md-input-container>
                     </ark-form-block>
                 </div>
                 <div class="md-padding" flex-offset-gt-md="5" flex>
                     <ark-form-block>
                         <md-input-container style="margin-top: 25px">
-                            <textarea name="bibliography2" ng-model="biblio_lang2" ark-translations="database.translations.bibliography" ark-translate ark-translate-bind-lang="2" aria-label="-" placeholder="{{ 'IMPORT_STEP4.BIBLIOGRAPHY_LANG2.T_LABEL' | translate}}" required></textarea>
+                            <textarea name="bibliography2" ng-model="biblio_lang2" ark-translations="database.bibliography" ark-translate ark-translate-bind-lang="2" aria-label="-" placeholder="{{ 'IMPORT_STEP4.BIBLIOGRAPHY_LANG2.T_LABEL' | translate}}" required></textarea>
                         </md-input-container>
                     </ark-form-block>
                 </div>

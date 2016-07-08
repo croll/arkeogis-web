@@ -67,6 +67,7 @@
                 method: 'GET',
                 isArray: false,
                 transformResponse: function(data, headers) {
+                    /*
                     if (data == 'null' || data == null) {
                         var dbInfos = {
                             default_language: login.user.first_lang_isocode,
@@ -78,12 +79,41 @@
                             }
                         }
                     } else {
-                        var dbInfos = angular.fromJson(data);
+                    */
+                    var dbInfos = angular.fromJson(data);
+                    if (dbInfos.id > 0) {
+                        dbInfos.created_at = new Date(dbInfos.created_at);
+                        dbInfos.updated_at = new Date(dbInfos.updated_at);
+                        dbInfos.declared_creation_date  = new Date(dbInfos.declared_creation_date);
+                        dbInfos.geographical_extent_geom = angular.fromJson(dbInfos.geographical_extent_geom);
+                        dbInfos.subject = dbInfos.subject[dbInfos.default_language];
+                        dbInfos.source_relation = dbInfos.source_relation[dbInfos.default_language];
+                        dbInfos.source_description = dbInfos.source_description[dbInfos.default_language];
+                        dbInfos.context_description = dbInfos.context_description[dbInfos.default_language];
+                        if (angular.isDefined(dbInfos.handles) && angular.isArray(dbInfos.handles) && angular.isDefined(dbInfos.handles[0])) {
+                            dbInfos.source_url = dbInfos.handles[0].url;
+                            dbInfos.source_identifier = dbInfos.handles[0].identifier;
+                            dbInfos.source_declared_creation_date = new Date(dbInfos.handles[0].declared_creation_date);
+                        }
+                    } else {
+                        dbInfos.created_at = new Date();
+                        dbInfos.updated_at = new Date();
+                        dbInfos.declared_creation_date  = new Date();
                     }
+                    if (!dbInfos.contexts) {
+                        dbInfos.contexts = [];
+                    }
+                    /*
                     if (dbInfos && typeof(dbInfos.infos) != undefined) {
                         angular.extend(dbInfos, dbInfos.infos);
                         delete dbInfos.infos;
                     }
+                    if (dbInfos && typeof(dbInfos.translations) != undefined) {
+                        angular.extend(dbInfos, dbInfos.translations);
+                        delete dbInfos.translations;
+                    }
+                    */
+                    console.log(dbInfos);
                     return dbInfos;
                 }
             },

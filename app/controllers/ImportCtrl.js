@@ -29,21 +29,32 @@
 
             $scope.user = login.user;
 
-            //arkeoImport.tabs.selectedIndex = 3;
-
-            if (typeof(database.id) == undefined || !database.id) {
+            if (angular.isDefined(database.id) == undefined || !database.id) {
                 database.default_language = login.user.first_lang_isocode;
             }
 
-            $scope.database = database;
-
             $scope.definitions = arkeoDatabase.definitions;
+
+            arkeoDatabase.translateDefinitions().then(function(databaseDefinitions) {
+                $scope.databaseDefintions = databaseDefinitions;
+
+                // contexts
+                if (database.id > 0) {
+                    arkeoImport.enableAllTabs();
+                    angular.forEach(database.contexts, function(ctx) {
+                        ctx.label = databaseDefinitions[ctx.context];
+                    });
+                    database.editMode = true;
+                }
+
+                $scope.database = database;
+                $scope.tabs = arkeoImport.tabs; //jshint ignore: line
+            });
 
             $scope.importChoices = arkeoImport.importChoicesDefaultValues;
 
             $scope.userPreferences = arkeoImport.userPreferences;
 
-            $scope.tabs = arkeoImport.tabs; //jshint ignore: line
 
             var checkPath = function(p) {
                 var tabNum = p.split('step')[1];
@@ -80,7 +91,7 @@
                     $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total);
                     if ($scope.uploadProgress === 100) {
                         if ($location.path().split("/").pop() !== "step2") {
-                            arkeoImport.selectTab(2)
+                            arkeoImport.selectTab(2, $scope.database.editMode)
                         }
                     }
                 });
@@ -92,8 +103,8 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('ImportStep1Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoDatabase', 'arkeoImport', 'login', 'arkeoLang', 'database',
-        function($scope, $state, arkeoService, arkeoDatabase, arkeoImport, login, arkeoLang, database) {
+    ArkeoGIS.controller('ImportStep1Ctrl', ['$scope', '$state', '$http', 'arkeoService', 'arkeoDatabase', 'arkeoImport', 'login', 'arkeoLang', 'database',
+        function($scope, $state, $http, arkeoService, arkeoDatabase, arkeoImport, login, arkeoLang, database) {
 
             if (!login.requirePermission('import', 'arkeogis.import.step1'))
                 return;
@@ -120,6 +131,21 @@
             $scope.myTransLang1 = angular.copy(arkeoLang.default_language);
 
             $scope.myTransLang2 = angular.copy(arkeoLang.default_language);
+
+            $scope.modifyDatabase = function() {
+                console.log(database);
+                $http({
+                    url: '/api/import/update-step1',
+                    method:'POST',
+                    data: database
+                }).then(function() {
+                    $state.go('arkeogis.import.step3');
+                    arkeoService.showMessage('IMPORT_STEP1.MESSAGE.T_INFORMATIONS_UPDATED');
+                }, function(err) {
+                    console.log(err);
+                    arkeoService.showMessage('IMPORT_STEP1.MESSAGE.T_UNABLE_TO_UPDATE_DATABASE_INFORMATIONS', 'error');
+                })
+            };
         }
     ]);
 })();
@@ -252,7 +278,7 @@
             if (!login.requirePermission('import', 'arkeogis.import.step1'))
                 return;
 
-            arkeoImport.selectTab(3)
+            arkeoImport.selectTab(3, database.editMode)
 
             $scope.loadLicenses = function() {
                 arkeoService.loadLicenses().then(function(l) {
@@ -283,7 +309,7 @@
                 return $translate(ctxKeys).then(function(translations) {
                     for (var k in translations) {
                         if (translations[k].toLowerCase().indexOf(txt.toLowerCase()) !== -1) {
-                                contexts.push({id: ctxByKey[k], label: translations[k]});
+                                contexts.push({context: ctxByKey[k], label: translations[k]});
                         }
                     }
                     return contexts;
@@ -309,18 +335,19 @@
                 if (form.$valid) {
                     dbObj.authors = [];
                     angular.forEach(database.authors, function(author) {
-                        dbObj.authors.push(author.id);
+                        dbObj.authors.push(parseInt(author.id));
                     });
                     dbObj.description = [];
-                    for (var iso_code in database.translations.description) {
-                        if (database.translations.description.hasOwnProperty(iso_code)) {
-                            dbObj.description.push({lang_isocode: iso_code, text: database.translations.description[iso_code]});
+                    for (var iso_code in database.description) {
+                        if (database.description.hasOwnProperty(iso_code)) {
+                            dbObj.description.push({lang_isocode: iso_code, text: database.description[iso_code]});
                         }
                     }
                     dbObj.contexts = [];
                     angular.forEach(database.contexts, function(ctx) {
-                        dbObj.contexts.push(ctx.id);
+                        dbObj.contexts.push(ctx.context);
                     });
+                    console.log(dbObj)
                     $http.post("/api/import/step3", dbObj).then(function(result) {
                         if (result.status == 200) {
                             $state.go('arkeogis.import.step4')
@@ -347,29 +374,32 @@
             if (!login.requirePermission('import', 'arkeogis.import.step1'))
                 return;
 
-            arkeoImport.selectTab(4)
+            arkeoImport.selectTab(4, database.editMode)
 
             $scope.submit = function(form) {
                 var dbObj = angular.copy(database);
 
                 if (form.$valid) {
                     dbObj.bibliography= [];
-                    for (var iso_code in database.translations.bibliography) {
-                        if (database.translations.bibliography.hasOwnProperty(iso_code)) {
-                            dbObj.bibliography.push({lang_isocode: iso_code, text: database.translations.bibliography[iso_code]});
+                    for (var iso_code in database.bibliography) {
+                        if (database.bibliography.hasOwnProperty(iso_code)) {
+                            dbObj.bibliography.push({lang_isocode: iso_code, text: database.bibliography[iso_code]});
                         }
                     }
                     dbObj.geographical_limit= [];
-                    for (var iso_code in database.translations.geographical_limit) {
-                        if (database.translations.geographical_limit.hasOwnProperty(iso_code)) {
-                            dbObj.geographical_limit.push({lang_isocode: iso_code, text: database.translations.geographical_limit[iso_code]});
+                    for (var iso_code in database.geographical_limit) {
+                        if (database.geographical_limit.hasOwnProperty(iso_code)) {
+                            dbObj.geographical_limit.push({lang_isocode: iso_code, text: database.geographical_limit[iso_code]});
                         }
+                    }
+                    console.log(dbObj);
+                    if (database.editMode == true && !angular.isDefined(dbObj.import_id)) {
+                        dbObj.import_id = dbObj.imports[0].id;
                     }
                     $http.post("/api/import/step4", dbObj).then(function(result) {
                         if (result.status == 200) {
                             $stateParams.database_id = database.id;
-                            $state.go('arkeogis.database')
-                            // arkeoService.showMessage("IMPORT_STEP4.MESSAGES.T_MORE_INFORMATIONS_SAVED")
+                            $state.go('arkeogis.database', {database_id: dbObj.id})
                         } else {
                             console.log("Error sending step4");
                         }
@@ -379,20 +409,6 @@
                     });
                 }
             };
-
-        }
-    ]);
-})();
-
-(function() {
-    'use strict';
-    ArkeoGIS.controller('ImportStep5Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoImport', 'login',
-        function($scope, $state, arkeoService, arkeoImport, login) {
-
-            if (!login.requirePermission('import', 'arkeogis.import.step1'))
-                return;
-
-            arkeoImport.selectTab(5)
 
         }
     ]);
