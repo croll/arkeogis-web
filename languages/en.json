@@ -546,6 +546,7 @@
 			"T_LABEL": "IUR date"
 		},
 		"FIELD_EDITOR": {
+			"T_HELP": "#!#IMPORT_STEP4.FIELD_EDITOR.T_HELP",
 			"T_LABEL": "Editorial structure"
 		},
 		"FIELD_GEOGRAPHICAL_LIMIT_LANG1": {

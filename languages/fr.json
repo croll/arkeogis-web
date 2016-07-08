@@ -546,6 +546,7 @@
 			"T_LABEL": "Date IUR"
 		},
 		"FIELD_EDITOR": {
+			"T_HELP": "Nom de la structure éditrice",
 			"T_LABEL": "Structure éditrice"
 		},
 		"FIELD_GEOGRAPHICAL_LIMIT_LANG1": {
