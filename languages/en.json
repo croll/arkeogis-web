@@ -374,9 +374,6 @@
 		"FIELD_ALL": {
 			"T_ERROR_REQUIRED": "This field is mandatory"
 		},
-		"HEADER_IMPORT_RESUME": {
-			"T_LABEL": "Summary of the information"
-		},
 		"HEADER_TAB_CSV_IMPORT_REPORT": {
 			"T_LABEL": "Report"
 		},
@@ -423,12 +420,17 @@
 		"FORM": {
 			"T_HELP": "Please use a .CSV file encoded with the UTF-8 system for your upload.",
 			"T_RESET": "Reset",
-			"T_SUBMIT": "Submit and go to the next step"
+			"T_SUBMIT": "Submit and go to the next step",
+			"T_UPDATE": "Mettre à jour les informations"
 		},
 		"INFOS": {
 			"T_LINE1": "To upload your database on the ArkeoGIS' plateform, please fill out the following fields.",
 			"T_LINE2": "These information are only required once before the importation. If you chose to re-upload your database, they won't be required again.",
 			"T_LINE3": "These information could be modified later. You will also be able to add information about your work in your personal database' management interface."
+		},
+		"MESSAGE": {
+			"T_INFORMATIONS_UPDATED": "Informations mises à jour",
+			"T_UNABLE_TO_UPDATE_DATABASE_INFORMATIONS": "Erreur lors de la mise à jour des informations"
 		},
 		"TITLE": {
 			"T_BY": "by",
@@ -575,9 +577,6 @@
 		"INFOS": {
 			"T_LINE1": "Please, fill the following fields about the details of your work for the other users of ArkeoGIS.",
 			"T_LINE2": "#!#IMPORT_STEP4.INFOS.T_LINE2"
-		},
-		"MESSAGES": {
-			"T_MORE_INFORMATIONS_SAVED": "The additional details are saved."
 		}
 	},
 	"LANGEDITOR": {

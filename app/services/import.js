@@ -52,7 +52,6 @@
 
         this.enableAllTabs = function() {
             self.tabs = {
-                selectedIndex: 0,
                 enabled: {
                     1: true,
                     2: false,
@@ -64,12 +63,14 @@
         }
 
         this.selectTab = function(num, editMode) {
-            self.tabs.selectedIndex = num;
             if (!editMode) {
+                self.tabs.selectedIndex = num;
                 self.tabs.enabled[num] = true;
                 for (var i = num + 1; i < 5; i++) {
                     self.tabs.enabled[i] = false;
                 }
+            } else {
+                self.tabs.selectedIndex = num -1;
             }
         }
 
