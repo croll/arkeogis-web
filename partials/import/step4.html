@@ -7,8 +7,7 @@
   </md-card>
   <div class="layout-padding">
     <h1 class="md-display-1">
-      <span translate>IMPORT_STEP4.FORM.T_TITLE</span>
-      "{{importFields.DatabaseName}}"</h1>
+		<h1 class="md-display-1"><span translate>IMPORT_STEP4.FORM.T_TITLE</span> "{{database.name}}" <span translate>IMPORT_STEP1.TITLE.T_BY</span> {{user.firstname}} {{user.lastname}}</h1>
     <form name="moreInfosForm" class="md-padding" ng-submit="submit(this.moreInfosForm)">
       <md-content layout="column" layout-gt-sm="row">
         <!-- left block -->
@@ -18,7 +17,7 @@
               <label translate>IMPORT_STEP4.FIELD_EDITOR.T_LABEL</label>
               <input name="publisher" ng-model="database.editor">
             </md-input-container>
-            <ark-help translate>IMPORT_STEP4.FIELD_EDITOR_T_HELP</ark-help>
+            <ark-help translate>IMPORT_STEP4.FIELD_EDITOR.T_HELP</ark-help>
           </ark-form-block>
           <ark-form-block>
             <md-input-container>

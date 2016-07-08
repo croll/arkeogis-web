@@ -12,13 +12,13 @@
             <div><span translate>DATABASE.INFORMATIONS.T_AUTHOR_AND_CO_AUTHORS</span>:</div>
             <div>{{database.author_and_co_authors}}</div>
             <span ng-repeat="a in database.authors">
-                <span>{{a.firstname}} {{a.lastname}}</span>
+                <span>&nbsp;{{a.firstname}} {{a.lastname}}</span>
                 <span ng-if="!$last"> - </span>
             </span>
         </div>
         <div layout="row">
             <div><span translate>DATABASE.INFORMATIONS.T_SUBJECT_AND_KEYWORDS</span>:</div>
-            <div>{{database.subject}}</div>
+            <div ark-get-translation ark-force-lang="database.default_language" ark-translations="database.subject"></div>
         </div>
         <div layout="row">
             <div><span translate>DATABASE.INFORMATIONS.T_TYPE</span>:</div>
@@ -36,17 +36,17 @@
             <div><span translate>DATABASE.INFORMATIONS.T_GEOGRAPHICAL_EXTENT</span>:</div>
             <div>{{databaseDefinitions[database.geographical_extent]}}</div>
         </div>
-        <div layout="row" ng-show="database.countries">
+        <div layout="row" ng-show="database.countries && database.countries.length">
             <div><span translate>DATABASE.INFORMATIONS.T_COUNTRIES</span>:</div>
             <span ng-repeat="c in database.countries">
-                <span>{{c}}</span>
+                <span>&nbsp;{{c.name}}</span>
                 <span ng-if="!$last"> - </span>
             </span>
         </div>
-        <div layout="row" ng-show="database.continents">
+        <div layout="row" ng-show="database.continents && database.continents.length">
             <div><span translate>DATABASE.INFORMATIONS.T_CONTINENTS</span>:</div>
             <span ng-repeat="c in database.continents">
-                <span>{{c}}</span>
+                <span>&nbsp;{{c.name}}</span>
                 <span ng-if="!$last"> - </span>
             </span>
         </div>
@@ -78,7 +78,7 @@
         <div layout="row">
             <div><span translate>DATABASE.INFORMATIONS.T_CONTEXT</span>:</div>
             <span ng-repeat="c in database.contexts">
-                <span>{{databaseInfos[c.context]}}</span>
+                <span>&nbsp;{{databaseInfos[c.context]}}</span>
                 <span ng-if="!$last"> - </span>
             </span>
         </div>
@@ -88,24 +88,24 @@
         </div>
         <div layout="row">
             <div><span translate>DATABASE.INFORMATIONS.T_IMPORTED_CSV</span>:</div>
-            <div><a aria-label="{{'DATABASE.INFORMATIONS.T_IMPORTED_CSV' | translate}}" ng-click="downloadCSV()">{{database.import[0].filename}}</a></div>
+            <div><a aria-label="{{'DATABASE.INFORMATIONS.T_IMPORTED_CSV' | translate}}" ng-click="downloadCSV()">{{database.imports[0].filename}}</a></div>
         </div>
     </section>
     <section flex="50" style="padding-bottom: 0">
-        <leaflet lf-center="center" layers="layers" geojson="geojson" height="400px"></leaflet>
+        <leaflet lf-center="center" geojson="geojson" height="400px"></leaflet>
     </section>
 </md-content>
 <md-content>
     <section layout-padding style="margin-top: -15px">
     <div layout="row">
         <div><span translate>DATABASE.INFORMATIONS.T_DESCRIPTION</span>:</div>
-        <div ark-get-translation ark-translations="database.description"</div>
+        <div ark-force-lang="database.default_language" ark-get-translation ark-translations="database.description"></div>
     </div>
 </section>
 </md-content>
 <md-content layout="row" layout-padding layout-align="center center" style="padding-top: 50px; padding-bottom: 20px">
-        <md-button class="md-primary md-raised" ui-sref="arkeogis.import.step1({database_id: database.id})"><span translate>DATABASE.FORM.T_EDIT</span></md-button>
-        <md-button class="md-raised md-hue-1" ng-click="downloadExport()"><span translate>DATABASE.FORM.T_DOWNLOAD</span></md-button>
-        <md-button class="md-raised md-warn" ng-click="delete()"><span translate>DATABASE.FORM.T_DELETE</span></md-button>
+        <md-button class="md-primary md-raised" ui-sref="arkeogis.import.step1({database_id: database.id})"><span translate>DATABASE.BUTTON_EDIT.T_LABEL</span></md-button>
+        <md-button class="md-raised md-hue-1" ng-click="downloadExport()"><span translate>DATABASE.BUTTON_DOWNLOAD.T_TITLE</span></md-button>
+        <md-button class="md-raised md-warn" ng-click="delete()"  ark-confirm="DATABASE.BUTTON_DELETE.T_CONFIRM"><span translate>DATABASE.BUTON_DELETE.T_LABEL</span></md-button>
 </md-content
 </div>

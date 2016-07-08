@@ -141,6 +141,18 @@
 		}
 	},
 	"DATABASE": {
+		"BUTON_DELETE": {
+			"T_LABEL": "Supprimer la base"
+		},
+		"BUTTON_DELETE": {
+			"T_CONFIRM": "Attention, la base de donnée et toutes les informations qui lui sont rattachées seront supprimées."
+		},
+		"BUTTON_DOWNLOAD": {
+			"T_TITLE": "Télécharger un export"
+		},
+		"BUTTON_EDIT": {
+			"T_LABEL": "Modifier la base"
+		},
 		"CONTEXT_ACADEMIC_WORK": {
 			"T_TITLE": "Travail universitaire"
 		},
@@ -174,7 +186,8 @@
 			"T_DESCRIPTION": "Description",
 			"T_ENDING_PERIOD": "Fin",
 			"T_GEOGRAPHICAL_EXTENT": "Etendue géographique",
-			"T_IMPORT_AUTHOR": "Auteur",
+			"T_IMPORTED_CSV": "Fichier CSV importé",
+			"T_IMPORT_INITIATOR": "Initiateur",
 			"T_LICENSE": "Licence",
 			"T_MODIFICATION_DATE": "Date de dernière modification",
 			"T_NUMBER_OF_LINES": "Nombre de lignes",
@@ -204,6 +217,10 @@
 		},
 		"KNOWLEDGE_TYPE_SURVEYED": {
 			"T_TITLE": "Sondé"
+		},
+		"MESSAGE": {
+			"T_DELETE_FAILED": "La suppression a échoué",
+			"T_DELETE_OK": "La base de donnée a été supprimée avec succès"
 		},
 		"SCALE_RESOLUTION_COUNTRY": {
 			"T_TITLE": "Pays"
@@ -357,9 +374,6 @@
 		"FIELD_ALL": {
 			"T_ERROR_REQUIRED": "Ce champs est requis"
 		},
-		"HEADER_IMPORT_RESUME": {
-			"T_LABEL": "Reprise des informations"
-		},
 		"HEADER_TAB_CSV_IMPORT_REPORT": {
 			"T_LABEL": "Rapport"
 		},
@@ -406,12 +420,17 @@
 		"FORM": {
 			"T_HELP": "Utilisez un fichier de type csv au format d’encodage UTF8 pour votre importation.",
 			"T_RESET": "Réinitialiser",
-			"T_SUBMIT": "Envoyer le fichier et passer à l'étape suivante"
+			"T_SUBMIT": "Envoyer le fichier et passer à l'étape suivante",
+			"T_UPDATE": "Mettre à jour les informations"
 		},
 		"INFOS": {
 			"T_LINE1": "Afin d’importer votre base de données sur la plate-forme ArkeoGIS, merci de bien vouloir renseigner les champs suivants pour pouvoir importer.",
 			"T_LINE2": "Ces informations ne sont demandées qu’une fois avant importation, lors de ré-importation possibles de la base de données ces informations ne vous seront pas redemandées.",
 			"T_LINE3": "Il vous sera possible par la suite de modifier ces informations et de renseigner d'autres champs relatifs à la présentation de votre travail dans votre interface personnelle de gestion des informations relatives à la base de données."
+		},
+		"MESSAGE": {
+			"T_INFORMATIONS_UPDATED": "Informations mises à jour",
+			"T_UNABLE_TO_UPDATE_DATABASE_INFORMATIONS": "Erreur lors de la mise à jour des informations"
 		},
 		"TITLE": {
 			"T_BY": "par",
@@ -527,6 +546,7 @@
 			"T_LABEL": "Date IUR"
 		},
 		"FIELD_EDITOR": {
+			"T_HELP": "Nom de la structure éditrice",
 			"T_LABEL": "Structure éditrice"
 		},
 		"FIELD_GEOGRAPHICAL_LIMIT_LANG1": {
@@ -558,9 +578,6 @@
 		"INFOS": {
 			"T_LINE1": "Merci de bien vouloir renseigner les champs suivants de complément de présentation de votre travail pour les autres utilisateurs de la plate-forme ArkeoGIS.",
 			"T_LINE2": ""
-		},
-		"MESSAGES": {
-			"T_MORE_INFORMATIONS_SAVED": "Les informations complémentaires sont enregistrées."
 		}
 	},
 	"LANGEDITOR": {
