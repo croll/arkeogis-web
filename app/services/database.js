@@ -90,13 +90,18 @@
                         dbInfos.source_relation = dbInfos.source_relation[dbInfos.default_language];
                         dbInfos.source_description = dbInfos.source_description[dbInfos.default_language];
                         dbInfos.context_description = dbInfos.context_description[dbInfos.default_language];
-                        dbInfos.source_url = dbInfos.handles[0].url;
-                        dbInfos.source_identifier = dbInfos.handles[0].identifier;
-                        dbInfos.date_iur = new Date(dbInfos.handles[0].declared_creation_date);
+                        if (angular.isDefined(dbInfos.handles) && angular.isArray(dbInfos.handles) && angular.isDefined(dbInfos.handles[0])) {
+                            dbInfos.source_url = dbInfos.handles[0].url;
+                            dbInfos.source_identifier = dbInfos.handles[0].identifier;
+                            dbInfos.source_declared_creation_date = new Date(dbInfos.handles[0].declared_creation_date);
+                        }
                     } else {
                         dbInfos.created_at = new Date();
                         dbInfos.updated_at = new Date();
                         dbInfos.declared_creation_date  = new Date();
+                    }
+                    if (!dbInfos.contexts) {
+                        dbInfos.contexts = [];
                     }
                     /*
                     if (dbInfos && typeof(dbInfos.infos) != undefined) {

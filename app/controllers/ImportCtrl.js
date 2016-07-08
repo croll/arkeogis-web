@@ -392,11 +392,14 @@
                             dbObj.geographical_limit.push({lang_isocode: iso_code, text: database.geographical_limit[iso_code]});
                         }
                     }
+                    console.log(dbObj);
+                    if (database.editMode == true && !angular.isDefined(dbObj.import_id)) {
+                        dbObj.import_id = dbObj.imports[0].id;
+                    }
                     $http.post("/api/import/step4", dbObj).then(function(result) {
                         if (result.status == 200) {
                             $stateParams.database_id = database.id;
-                            $state.go('arkeogis.database')
-                            // arkeoService.showMessage("IMPORT_STEP4.MESSAGES.T_MORE_INFORMATIONS_SAVED")
+                            $state.go('arkeogis.database', {database_id: dbObj.id})
                         } else {
                             console.log("Error sending step4");
                         }
