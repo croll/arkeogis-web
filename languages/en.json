@@ -563,8 +563,8 @@
 			"T_LABEL": "Resource"
 		},
 		"FIELD_RESOURCE_ID": {
-			"T_HELP": "Unique ID of the resource",
-			"T_LABEL": "Consistent id of the resource"
+			"T_HELP": "Uniform Resource Identifier",
+			"T_LABEL": "Uniform Resource Identifier"
 		},
 		"FIELD_URL": {
 			"T_HELP": "Resources' URL",
