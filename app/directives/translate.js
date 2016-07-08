@@ -82,13 +82,14 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.directive('arkGetTranslation', function(arkeoLang, $translate) {
+    ArkeoGIS.directive('arkGetTranslation', function(arkeoLang, $translate, $parse) {
 
 		return {
 			restrict: 'A',
 			template: '',
             scope: {
-                arkTranslations: '='
+                arkTranslations: '=',
+                arkForceLang: '=?'
             },
 			link: function(scope, element, attrs) {
 
@@ -99,6 +100,15 @@
                 if (Object.keys(scope.userLangs).length != 0) {
                     mainLanguage = scope.userLangs[1];
                     secondLanguage = scope.userLangs[2];
+                }
+
+                if (scope.arkForceLang) {
+                    mainLanguage = scope.arkForceLang;
+                    if (angular.isDefined(scope.userLangs) && angular.isObject(scope.userLangs) && scope.userLangs[1]) {
+                        secondLanguage = scope.userLangs[1];
+                    } else {
+                        secondLanguage = 'en';
+                    }
                 }
 
                 switchModel({1: mainLanguage, 2: secondLanguage}, {});

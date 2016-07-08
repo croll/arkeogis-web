@@ -39,7 +39,7 @@
                     <!-- License -->
                     <ark-form-block>
                         <md-input-container>
-                            <md-select name="license_id" ng-model="database.license_id" ng-init="loadLicenses()" placeholder="* {{'IMPORT_STEP3.FIELD_LICENSE.T_LABEL' || translate}}" required = "true">
+                            <md-select name="license_id" ng-model="database.license_id" ng-init="loadLicenses()" placeholder="* {{'IMPORT_STEP3.FIELD_LICENSE.T_LABEL' | translate}}" required = "true">
                                 <md-option ng-value="license.id" ng-repeat="license in licenses">{{license.name}}</md-option>
                             </md-select>
                             <div ng-messages="publicationForm.license_id.$error">

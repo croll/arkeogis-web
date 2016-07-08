@@ -141,6 +141,18 @@
 		}
 	},
 	"DATABASE": {
+		"BUTON_DELETE": {
+			"T_LABEL": "Supprimer la base"
+		},
+		"BUTTON_DELETE": {
+			"T_CONFIRM": "Attention, la base de donnée et toutes les informations qui lui sont rattachées seront supprimées."
+		},
+		"BUTTON_DOWNLOAD": {
+			"T_TITLE": "Télécharger un export"
+		},
+		"BUTTON_EDIT": {
+			"T_LABEL": "Modifier la base"
+		},
 		"CONTEXT_ACADEMIC_WORK": {
 			"T_TITLE": "Travail universitaire"
 		},
@@ -174,7 +186,8 @@
 			"T_DESCRIPTION": "Description",
 			"T_ENDING_PERIOD": "Fin",
 			"T_GEOGRAPHICAL_EXTENT": "Etendue géographique",
-			"T_IMPORT_AUTHOR": "Auteur",
+			"T_IMPORTED_CSV": "Fichier CSV importé",
+			"T_IMPORT_INITIATOR": "Initiateur",
 			"T_LICENSE": "Licence",
 			"T_MODIFICATION_DATE": "Date de dernière modification",
 			"T_NUMBER_OF_LINES": "Nombre de lignes",
@@ -204,6 +217,10 @@
 		},
 		"KNOWLEDGE_TYPE_SURVEYED": {
 			"T_TITLE": "Sondé"
+		},
+		"MESSAGE": {
+			"T_DELETE_FAILED": "La suppression a échoué",
+			"T_DELETE_OK": "La base de donnée a été supprimée avec succès"
 		},
 		"SCALE_RESOLUTION_COUNTRY": {
 			"T_TITLE": "Pays"

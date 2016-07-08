@@ -20,56 +20,71 @@
  */
 
 (function() {
-  ArkeoGIS.service('arkeoImport', ['Upload', 'login', function(Upload, login) {
+    ArkeoGIS.service('arkeoImport', ['Upload', 'login', function(Upload, login) {
 
-    var self = this;
+        var self = this;
 
-    this.defaultTabsValues = {
-      selectedIndex: 0,
-      enabled: {
-        1: true,
-        2: false,
-        3: false,
-        4: false,
-        5: false
-      }
-    };
+        this.defaultTabsValues = {
+            selectedIndex: 0,
+            enabled: {
+                1: true,
+                2: false,
+                3: false,
+                4: false,
+                5: false
+            }
+        };
 
-    this.importChoicesDefaultValues = {
-        UseGeonames: false,
-        Separator: ";",
-        EchapCharacter: "\""
-    }
-
-    this.userPreferences = {
-      conditionsAccepted: true,
-      hideIntro: true
-    };
-
-    // Tabs
-    this.tabs = angular.copy(this.defaultTabsValues);
-    this.data = [];
-
-    this.selectTab = function(num) {
-        self.tabs.enabled[num] = true;
-        self.tabs.selectedIndex = num;
-        for(var i = num+1; i < 5; i++) {
-          self.tabs.enabled[i] = false;
+        this.importChoicesDefaultValues = {
+            UseGeonames: false,
+            Separator: ";",
+            EchapCharacter: "\""
         }
-    }
 
-    // CSV upload
-    this.uploadCSV = function(file, choices, datas) {
+        this.userPreferences = {
+            conditionsAccepted: true,
+            hideIntro: true
+        };
 
-      var values = angular.extend(choices, datas);
-      return Upload.upload({
-        url: 'api/import/step1',
-        data: {
-          csv: file,
-          infos: Upload.json(values)
+        // Tabs
+        this.tabs = angular.copy(this.defaultTabsValues);
+        this.data = [];
+
+        this.enableAllTabs = function() {
+            self.tabs = {
+                selectedIndex: 0,
+                enabled: {
+                    1: true,
+                    2: false,
+                    3: true,
+                    4: true,
+                    5: true
+                }
+            }
         }
-      });
-    };
 
-  }]);
+        this.selectTab = function(num, editMode) {
+            self.tabs.selectedIndex = num;
+            if (!editMode) {
+                self.tabs.enabled[num] = true;
+                for (var i = num + 1; i < 5; i++) {
+                    self.tabs.enabled[i] = false;
+                }
+            }
+        }
+
+        // CSV upload
+        this.uploadCSV = function(file, choices, datas) {
+
+            var values = angular.extend(choices, datas);
+            return Upload.upload({
+                url: 'api/import/step1',
+                data: {
+                    csv: file,
+                    infos: Upload.json(values)
+                }
+            });
+        };
+
+    }]);
 })();
