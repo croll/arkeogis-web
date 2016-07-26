@@ -194,6 +194,18 @@ input, .md-option, textarea, md-select {
 	background-color: #cceeff!important;
 }
 
+.error-red {
+	color: rgb(221,44,0);
+    margin-top: 4px;
+	padding-right: 5px;
+    padding-left: 0;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+	font-size: 12px;
+    line-height: 14px;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
 /* loading */
 div#arkeo_loading {
 	position: fixed;

@@ -46,7 +46,7 @@
         <!-- <div layout="column" layout-gt-xs="row"> -->
           <!-- Geographical extent -->
           <md-input-container>
-            <md-select name="geographical_extent" ng-model="database.geographical_extent" ng-change="database.countries = [];database.continents = []" placeholder="{{'IMPORT_STEP1.FIELD_GEO_EXTENT.T_LABEL' | translate}}" required >
+            <md-select name="geographical_extent" ng-model="database.geographical_extent" ng-change="database.countries = [];database.continents = []; check()" placeholder="{{'IMPORT_STEP1.FIELD_GEO_EXTENT.T_LABEL' | translate}}" required >
               <md-option value="{{geoex.id}}" ng-repeat="geoex in definitions.geographicalExtents" translate>{{geoex.tr}}</md-option>
             </md-select>
           </md-input-container>
@@ -61,16 +61,13 @@
                 <em>({{$chip.geonameid}})</em>
               </md-chip-template>
             </md-chips>
-            <md-input-container>
             <div ng-messages="importForm.extent_country.$error">
-                <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
-                <div ng-message="md-minlength" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
+                <div ng-message="required" translate class="error-red">IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
             </div>
-            </md-input-container>
           </div>
           <!-- Continent -->
           <div ng-hide="database.geographical_extent != 'continent'" flex>
-            <md-chips ng-model="database.continents" md-autocomplete-snap md-require-match="true" md-allow-repeats="false">
+            <md-chips name="extent_continent" ng-model="database.continents" md-autocomplete-snap md-require-match="true" md-allow-repeats="false" md-on-add="check()" md-on-remove="check()">
               <md-autocomplete md-search-text="searchText" md-items="item in continentSearch(searchText)" md-item-text="item.name" placeholder="* Enter continent name">
                 <span md-highlight-text="searchText">{{item.name}}</span>
               </md-autocomplete>
@@ -79,8 +76,10 @@
                 <em>({{$chip.geonameid}})</em>
               </md-chip-template>
             </md-chips>
+            <div ng-messages="importForm.extent_continent.$error">
+                <div ng-message="required" translate class="error-red">IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
+            </div>
           </div>
-        <!-- </div> -->
       </ark-form-block>
       <!-- Use Geonames -->
       <ark-form-block>
@@ -112,16 +111,12 @@
       </ark-form-block>
       <!-- Upload -->
       <div layout layout-sm="column">
-        <md-button class="md-primary md-raised" ng-disabled="!importForm.$valid" ngf-select="uploadCSV(file)" ng-model="file" name="file" ngf-pattern="'.csv,.txt'" accept=".csv,.txt" ngf-max-size="100MB"><span translate>IMPORT_STEP1.FORM.T_SUBMIT</span></md-button>
+        <md-button class="md-primary md-raised" ng-disabled="!importForm.$valid" ngf-select="uploadCSVWrapper()" ng-model="file" name="file" ngf-pattern="'.csv,.txt'" accept=".csv,.txt" ngf-max-size="100MB"><span translate>IMPORT_STEP1.FORM.T_SUBMIT</span></md-button>
         <md-button class="md-raised md-hue-1" ng-click="modifyDatabase()" ng-show="database.id"><span translate>IMPORT_STEP1.FORM.T_UPDATE</span></md-button>
         <md-button class="md-raised md-hue-1" ng-click="reset()"><span translate>IMPORT_STEP1.FORM.T_RESET</span></md-button>
       </div>
-      <md-progress-linear md-mode="determinate" value="{{uploadProgress}}" md-buffer-value="100" ng-hide="!file"></md-progress-linear>
+      <md-progress-linear md-mode="determinate" value="{{uploadProgress}}" md-buffer-value="100" ng-hide="!file || !importForm.$valid"></md-progress-linear>
       <ark-help hide-sm translate>IMPORT_STEP1.FORM.T_HELP</ark-help>
     </form>
   </md-content>
-</div>
-
-<div style="margin: 20px 10px" ng-hide="true">
-  {{database}}
 </div>

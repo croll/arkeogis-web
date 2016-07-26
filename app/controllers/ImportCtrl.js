@@ -106,6 +106,8 @@
     ArkeoGIS.controller('ImportStep1Ctrl', ['$scope', '$state', '$http', 'arkeoService', 'arkeoDatabase', 'arkeoImport', 'login', 'arkeoLang', 'database',
         function($scope, $state, $http, arkeoService, arkeoDatabase, arkeoImport, login, arkeoLang, database) {
 
+            var self = this;
+
             if (!login.requirePermission('import', 'arkeogis.import.step1'))
                 return;
 
@@ -122,18 +124,12 @@
                 return arkeoService.autocompleteContinent(txt);
             };
 
-            // $scope.loadLangs = function() {
-            //     arkeoLang.getActiveLangs().then(function(langs) {
-            //         $scope.langs = langs;
-            //     });
-            // };
-
             $scope.myTransLang1 = angular.copy(arkeoLang.default_language);
 
             $scope.myTransLang2 = angular.copy(arkeoLang.default_language);
 
-            $scope.modifyDatabase = function() {
-                console.log(database);
+            $scope.modifyDatabase = function(form) {
+
                 $http({
                     url: '/api/import/update-step1',
                     method:'POST',
@@ -146,6 +142,16 @@
                     arkeoService.showMessage('IMPORT_STEP1.MESSAGE.T_UNABLE_TO_UPDATE_DATABASE_INFORMATIONS', 'error');
                 })
             };
+
+            $scope.uploadCSVWrapper = function() {
+                $scope.uploadCSV($scope.file);
+            }
+
+            $scope.check = function() {
+                $scope.importForm.extent_continent.$setValidity("required", !(database.geographical_extent == 'continent' && database.continents.length == 0));
+                $scope.importForm.extent_country.$setValidity("required", !(database.geographical_extent == 'country' && database.countries.length == 0));
+            }
+
         }
     ]);
 })();
