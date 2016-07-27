@@ -53,7 +53,7 @@
           <!-- Country -->
           <div ng-hide="database.geographical_extent != 'country'" flex>
             <md-chips name="extent_country" ng-model="database.countries" md-autocomplete-snap md-require-match="true" md-allow-repeats="false">
-              <md-autocomplete md-search-text="searchText" md-items="item in countrySearch(searchText)" md-item-text="item.name" placeholder="* Enter country name">
+              <md-autocomplete md-search-text="searchText" md-items="item in countrySearch(searchText)" md-item-text="item.name" placeholder="* {{'IMPORT_STEP1.FIELD_GEO_COUNTRY.T_PLACEHOLDER' | translate}}">
                 <span md-highlight-text="searchText">{{item.name}}</span>
               </md-autocomplete>
               <md-chip-template>
@@ -68,7 +68,7 @@
           <!-- Continent -->
           <div ng-hide="database.geographical_extent != 'continent'" flex>
             <md-chips name="extent_continent" ng-model="database.continents" md-autocomplete-snap md-require-match="true" md-allow-repeats="false" md-on-add="check()" md-on-remove="check()">
-              <md-autocomplete md-search-text="searchText" md-items="item in continentSearch(searchText)" md-item-text="item.name" placeholder="* Enter continent name">
+              <md-autocomplete md-search-text="searchText" md-items="item in continentSearch(searchText)" md-item-text="item.name" placeholder="* {{'IMPORT_STEP1.FIELD_GEO_CONTINENT.T_PLACEHOLDER' | translate}}">
                 <span md-highlight-text="searchText">{{item.name}}</span>
               </md-autocomplete>
               <md-chip-template>
@@ -86,7 +86,7 @@
         <md-switch aria-label="Use geonames" ng-model="importChoices.UseGeonames" style="margin: 15px 0 25px 0"><span translate>IMPORT_STEP1.FIELD_GEONAMES.T_LABEL</span></md-switch>
         <ark-help flex translate>IMPORT_STEP1.FIELD_GEONAMES.T_HELP</ark-help>
       </ark-form-block>
-      <!-- Separator -->
+      <!--
       <ark-form-block>
         <md-input-container>
           <label translate>IMPORT_STEP1.FIELD_SEPARATOR.T_LABEL</label>
@@ -98,7 +98,6 @@
         </md-input-container>
         <ark-help ng-hide="importForm.separator.$error.required" flex translate>IMPORT_STEP1.FIELD_SEPARATOR.T_HELP</ark-help>
       </ark-form-block>
-      <!-- Echap characters -->
       <ark-form-block>
         <md-input-container>
           <label translate>IMPORT_STEP1.FIELD_ECHAP_CHARACTER.T_LABEL</label>
@@ -109,6 +108,7 @@
           </div>
         </md-input-container>
       </ark-form-block>
+     -->
       <!-- Upload -->
       <div layout layout-sm="column">
         <md-button class="md-primary md-raised" ng-disabled="!importForm.$valid" ngf-select="uploadCSVWrapper()" ng-model="file" name="file" ngf-pattern="'.csv,.txt'" accept=".csv,.txt" ngf-max-size="100MB"><span translate>IMPORT_STEP1.FORM.T_SUBMIT</span></md-button>
