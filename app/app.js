@@ -86,17 +86,12 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 resolve: {
                     database: function($stateParams, arkeoDatabase, arkeoImport, login, $q) {
                         var deferred = $q.defer();
-                        if ($stateParams.database_id == -1 && arkeoImport.currentDb !== undefined) {
-                            deferred.resolve(arkeoImport.currentDb);
-                        } else {
-                            var id = ($stateParams.database_id  && $stateParams.database_id != -1) ? $stateParams.database_id : 0;
-                            arkeoDatabase.Database.get({
-                                id: parseInt(id)
-                            }, function(db) {
-                                arkeoImport.currentDb = db;
-                                deferred.resolve(db);
-                            });
-                        }
+                        var id = ($stateParams.database_id) ? $stateParams.database_id : 0;
+                        arkeoDatabase.Database.get({
+                            id: parseInt(id)
+                        }, function(db) {
+                            deferred.resolve(db);
+                        });
                         return deferred.promise;
                     }
                 }

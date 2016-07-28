@@ -26,23 +26,20 @@
 
             var self = this;
 
-            self.reloaded = false;
-
             if (!login.requirePermission('import', 'arkeogis.import.step1'))
                 return;
 
-            $scope.user = login.user;
+            if (database.id > 0) {
+                database.editMode = true;
+            }
 
             $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options) {
                 var num = toState.name.split('.').pop().replace('step', '');
-                if (options.reload === true) {
-                    console.log("RELOEAD");
-                    self.reloaded = true;
-                    return;
-                }
                 arkeoImport.tabs.enabled[num] = true;
                 arkeoImport.tabs.selectedIndex = num - 1;
             });
+
+            $scope.user = login.user;
 
             if (angular.isDefined(database.id) == undefined || !database.id) {
                 database.default_language = login.user.first_lang_isocode;
@@ -55,17 +52,27 @@
 
                 // contexts
                 if (database.id > 0) {
-                    console.log("ICI " + self.reloaded);
                     arkeoImport.enableAllTabs();
                     arkeoImport.disableReportTab();
                     angular.forEach(database.contexts, function(ctx) {
                         ctx.label = databaseDefinitions[ctx.context];
                     });
-                    database.editMode = true;
                 }
 
                 $scope.database = database;
                 $scope.tabs = arkeoImport.tabs; //jshint ignore: line
+
+                var askedStepNum = $state.current.name.split('.').pop().replace('step', '');
+
+                if (askedStepNum > 1) {
+                    if (!database.editMode) {
+                        $state.go('arkeogis.import.step1', {}, {reload: true});
+                        return;
+                    } else {
+                        console.log(askedStepNum);
+                        $scope.tabs.selectedIndex = ($scope.tabs.enabled[2] === true) ? askedStepNum-=1 : askedStepNum-=2;
+                    }
+                }
             });
 
             $scope.importChoices = arkeoImport.importChoicesDefaultValues;
@@ -300,6 +307,10 @@
             if (!login.requirePermission('import', 'arkeogis.import.step1'))
                 return;
 
+            if (!angular.isDefined(arkeoImport.data)) {
+                return;
+            }
+
             //arkeoImport.selectTab(3, database.editMode)
 
             // Force lang to english for translatables fields if necessary
@@ -421,42 +432,46 @@
             if (!login.requirePermission('import', 'arkeogis.import.step1'))
                 return;
 
+            if (!angular.isDefined(arkeoImport.data)) {
+                return;
+            }
+
             //    arkeoImport.selectTab(4, database.editMode)
 
             // Force lang to english for translatables fields if necessary
             arkeoLang.autoSetTranslationLang2FromDatas([database.geographical_limit, database.bibliography]);
 
-            $scope.$watch('database.geographical_limit.en', function(newVal, oldVal) {
-                if (!newVal || (newVal && newVal == '')) {
-                    $scope.lang2SelectDisabled = true;
-                    $scope.moreInfosForm.geographicallimit2.$setValidity('english_required', false)
-                } else {
-                    $scope.lang2SelectDisabled = false;
-                    $scope.moreInfosForm.geographicallimit2.$setValidity('english_required', true)
-                }
-            }, true);
-
-            $scope.$watch('database.bibliography.en', function(newVal, oldVal) {
-                if (!newVal || (newVal && newVal == '')) {
-                    $scope.lang2SelectDisabled = true;
-                    $scope.moreInfosForm.bibliography2.$setValidity('english_required', false)
-                } else {
-                    $scope.lang2SelectDisabled = false;
-                    $scope.moreInfosForm.bibliography2.$setValidity('english_required', true)
-                }
-            }, true);
+            // $scope.$watch('database.geographical_limit.en', function(newVal, oldVal) {
+            //     if (!newVal || (newVal && newVal == '')) {
+            //         $scope.lang2SelectDisabled = true;
+            //         $scope.moreInfosForm.geographicallimit2.$setValidity('english_required', false)
+            //     } else {
+            //         $scope.lang2SelectDisabled = false;
+            //         $scope.moreInfosForm.geographicallimit2.$setValidity('english_required', true)
+            //     }
+            // }, true);
+            //
+            // $scope.$watch('database.bibliography.en', function(newVal, oldVal) {
+            //     if (!newVal || (newVal && newVal == '')) {
+            //         $scope.lang2SelectDisabled = true;
+            //         $scope.moreInfosForm.bibliography2.$setValidity('english_required', false)
+            //     } else {
+            //         $scope.lang2SelectDisabled = false;
+            //         $scope.moreInfosForm.bibliography2.$setValidity('english_required', true)
+            //     }
+            // }, true);
 
             $scope.submit = function(form) {
                 var dbObj = angular.copy(database);
                 if (form.$valid) {
-                    if (!database.geographical_limit.en || (database.geographical_limit.en && database.geographical_limit.en.trim() == '')) {
-                        arkeoService.showMessage('IMPORT_STEP4.MESSAGES.T_ERROR_GEOGRAPHICAL_LIMITS_EN_TRANSLATION_CAN_T_BE_EMPTY', 'error');
-                        return;
-                    }
-                    if (!database.bibliography.en || (database.bibliography.en && database.bibliography.en.trim() == '')) {
-                        arkeoService.showMessage('IMPORT_STEP4.MESSAGES.T_ERROR_BIBLIOGRAPHY_EN_TRANSLATION_CAN_T_BE_EMPTY', 'error');
-                        return;
-                    }
+                    // if (!database.geographical_limit.en || (database.geographical_limit.en && database.geographical_limit.en.trim() == '')) {
+                    //     arkeoService.showMessage('IMPORT_STEP4.MESSAGES.T_ERROR_GEOGRAPHICAL_LIMITS_EN_TRANSLATION_CAN_T_BE_EMPTY', 'error');
+                    //     return;
+                    // }
+                    // if (!database.bibliography.en || (database.bibliography.en && database.bibliography.en.trim() == '')) {
+                    //     arkeoService.showMessage('IMPORT_STEP4.MESSAGES.T_ERROR_BIBLIOGRAPHY_EN_TRANSLATION_CAN_T_BE_EMPTY', 'error');
+                    //     return;
+                    // }
                     dbObj.bibliography = [];
                     for (var iso_code in database.bibliography) {
                         if (database.bibliography.hasOwnProperty(iso_code)) {

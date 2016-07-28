@@ -113,7 +113,7 @@
                         delete dbInfos.translations;
                     }
                     */
-                    console.log(dbInfos);
+                    // console.log(dbInfos);
                     return dbInfos;
                 }
             },
