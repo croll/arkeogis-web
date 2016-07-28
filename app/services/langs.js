@@ -87,7 +87,7 @@
         return true;
     };
 
-    this.setTranslationLang = function(num, iso_code, englishTranslationDone, silent) {
+    this.setTranslationLang = function(num, iso_code) {
         if ([1,2].indexOf(num) == -1) {
             console.log("Error with setTranslationLang(): Wrong value lang num. Should be 1 or 2");
             return false;
@@ -98,12 +98,6 @@
         }
         if (num > 1) {
             var iso_code1 = self.getUserLang(1);
-            if (!englishTranslationDone && iso_code1 != 'en' && iso_code != 'en') {
-                if (!silent) {
-                    arkeoService.showMessage('GENERAL.INVALIDE_CHOICE.T_CAN_T_SET_OTHER_TRANSLATION_LANG_IF_NO_ENGLISH_TRANSLATION_DONE');
-                }
-                iso_code = 'en';
-            }
         }
         self.translationLangs[num] = iso_code;
         $cookies.put('arkeogis_translation_lang_'+num, iso_code);
@@ -129,6 +123,31 @@
         if (!iso_code2) iso_code2 = self.getUserLang(2);
         return [iso_code1, iso_code2];
     };
+
+    this.autoSetTranslationLangFromDatas = function(aDatas) {
+        var ret = false;
+        if (!angular.isArray(aDatas) && !angular.isObject(aDatas)) {
+            console.error("arkeoLang.autoSetTranslationLangFromData: data passed is not valid");
+            return false;
+        }
+        if (angular.isObject(aDatas) && !angular.isArray(aDatas)) {
+            aDatas = [aDatas];
+        }
+        if (this.getTranslationLang(1) == 'en') {
+            return false;
+        }
+        angular.forEach(aDatas, function(d) {
+            if (!angular.isDefined(d.en) || (angular.isDefined(d.en) && d.en.trim() == '')) {
+                self.setTranslationLang(2, 'en');
+                ret = true;
+            }
+        });
+        return ret;
+    };
+
+    this.restoreTranslationLang = function() {
+        self.setTranslationLang(self.getUserLang(2));
+    }
 
     // map an sql translation object to a js translation object
     // exemple, input is :
@@ -168,7 +187,6 @@
         console.error("no translation found !", translations);
         return "[error: no translation]";
     };
-
 
 }]);
 })();
