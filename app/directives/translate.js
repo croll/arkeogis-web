@@ -69,9 +69,9 @@
                         return;
                     }
                     //scope.arkTranslations[oldIsoCode] = scope.ngModel;
-                    if (!angular.isDefined(scope.arkTranslations[newIsoCode])) {
-                        console.log("ark-translate directive: No translation object found for lang "+newIsoCode)
-                    }
+                    // if (!angular.isDefined(scope.arkTranslations[newIsoCode])) {
+                    //     console.log("ark-translate directive: No translation object found for lang "+newIsoCode)
+                    // }
                     scope.ngModel = scope.arkTranslations[newIsoCode];
                 }
 			}
