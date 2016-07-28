@@ -286,6 +286,19 @@
 
             arkeoImport.selectTab(3, database.editMode)
 
+            // Force lang to english for translatables fields if necessary
+            arkeoLang.autoSetTranslationLangFromDatas([database.description]);
+
+            $scope.$watch('database.description.en', function(newVal, oldVal) {
+                if (!newVal || (newVal && newVal == '')) {
+                    $scope.lang2SelectDisabled = true;
+                    $scope.publicationForm.description2.$setValidity('english_required', false)
+                } else {
+                    $scope.lang2SelectDisabled = false;
+                    $scope.publicationForm.description2.$setValidity('english_required', true)
+                }
+            }, true);
+
             $scope.loadLicenses = function() {
                 arkeoService.loadLicenses().then(function(l) {
                     var licenses = [];
@@ -339,6 +352,13 @@
                 // Copy database object to be a little bit modified for request
                 var dbObj = angular.copy(database);
                 if (form.$valid) {
+                    if (!database.description.en || (database.description.en && database.description.en.trim() == '')) {
+                        arkeoService.showMessage('IMPORT_STEP4.MESSAGES.T_ERROR_BIBLIOGRAPHY_EN_TRANSLATION_CAN_T_BE_EMPTY', 'error');
+                        return;
+                    }
+                    console.log("---");
+                    console.log(database.description.en);
+                    return
                     dbObj.authors = [];
                     angular.forEach(database.authors, function(author) {
                         dbObj.authors.push(parseInt(author.id));
@@ -353,11 +373,13 @@
                     angular.forEach(database.contexts, function(ctx) {
                         dbObj.contexts.push(ctx.context);
                     });
-                    console.log(dbObj)
+                    // console.log(dbObj)
                     $http.post("/api/import/step3", dbObj).then(function(result) {
                         if (result.status == 200) {
                             $state.go('arkeogis.import.step4')
-                            // arkeoService.showMessage("IMPORT_STEP3.MESSAGES.T_PUBLICATION_INFORMATIONS_SAVED")
+                            arkeoService.showMessage("IMPORT_STEP3.MESSAGES.T_PUBLICATION_INFORMATIONS_SAVED")
+                            //Restore translation lang 2 to user choice
+                            arkeoLang.restoreTranslationLang();
                         } else {
                             console.log("Error sending step3");
                         }
@@ -382,10 +404,40 @@
 
             arkeoImport.selectTab(4, database.editMode)
 
+            // Force lang to english for translatables fields if necessary
+            arkeoLang.autoSetTranslationLangFromDatas([database.geographical_limit, database.bibliography]);
+
+            $scope.$watch('database.geographical_limit.en', function(newVal, oldVal) {
+                if (!newVal || (newVal && newVal == '')) {
+                    $scope.lang2SelectDisabled = true;
+                    $scope.moreInfosForm.geographicallimit2.$setValidity('english_required', false)
+                } else {
+                    $scope.lang2SelectDisabled = false;
+                    $scope.moreInfosForm.geographicallimit2.$setValidity('english_required', true)
+                }
+            }, true);
+
+            $scope.$watch('database.bibliography.en', function(newVal, oldVal) {
+                if (!newVal || (newVal && newVal == '')) {
+                    $scope.lang2SelectDisabled = true;
+                    $scope.moreInfosForm.bibliography2.$setValidity('english_required', false)
+                } else {
+                    $scope.lang2SelectDisabled = false;
+                    $scope.moreInfosForm.bibliography2.$setValidity('english_required', true)
+                }
+            }, true);
+
             $scope.submit = function(form) {
                 var dbObj = angular.copy(database);
-
                 if (form.$valid) {
+                    if (!database.geographical_limit.en || (database.geographical_limit.en && database.geographical_limit.en.trim() == '')) {
+                        arkeoService.showMessage('IMPORT_STEP4.MESSAGES.T_ERROR_GEOGRAPHICAL_LIMITS_EN_TRANSLATION_CAN_T_BE_EMPTY', 'error');
+                        return;
+                    }
+                    if (!database.bibliography.en || (database.bibliography.en && database.bibliography.en.trim() == '')) {
+                        arkeoService.showMessage('IMPORT_STEP4.MESSAGES.T_ERROR_BIBLIOGRAPHY_EN_TRANSLATION_CAN_T_BE_EMPTY', 'error');
+                        return;
+                    }
                     dbObj.bibliography= [];
                     for (var iso_code in database.bibliography) {
                         if (database.bibliography.hasOwnProperty(iso_code)) {
@@ -406,6 +458,9 @@
                         if (result.status == 200) {
                             $stateParams.database_id = database.id;
                             $state.go('arkeogis.database', {database_id: dbObj.id})
+                            //Restore translation lang 2 to user choice
+                            arkeoService.showMessage("IMPORT_STEP4.MESSAGES.T_PUBLICATION_INFORMATIONS_SAVED")
+                            arkeoLang.restoreTranslationLang();
                         } else {
                             console.log("Error sending step4");
                         }

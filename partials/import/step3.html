@@ -135,12 +135,12 @@
                 <div class="md-padding" flex-offset-gt-md="5" flex>
                     <ark-form-block>
                         <md-input-container>
-                          <ark-lang-selector ng-model="myTransLang2" ark-set-as-translation-lang="2" ng-disabled="false" ark-flags="true"></ark-lang-selector>
+                          <ark-lang-selector ng-model="myTransLang2" ark-set-as-translation-lang="2" ng-disabled="lang2SelectDisabled" ark-flags="true"></ark-lang-selector>
                         </md-input-container>
                         <md-input-container style="margin-top: 25px">
-                            <textarea name="description2" ng-model="desc_lang2" ark-translations="database.description" ark-translate ark-translate-bind-lang="2" aria-label="-" placeholder="{{ 'IMPORT_STEP3.FIELD_DESCRIPTION_LANG2.T_LABEL' | translate}}" required></textarea>
+                            <textarea name="description2" ng-model="desc_lang2" ark-translations="database.description" ark-translate ark-translate-bind-lang="2" aria-label="-" placeholder="{{ 'IMPORT_STEP3.FIELD_DESCRIPTION_LANG2.T_LABEL' | translate}}"></textarea>
                             <div ng-messages="publicationForm.description2.$error">
-                                <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
+                                <div ng-message="english_required" translate>IMPORT.FIELD_ALL.T_ENGLISH_TRANSLATION_REQUIRED</div>
                             </div>
                         </md-input-container>
                     </ark-form-block>
