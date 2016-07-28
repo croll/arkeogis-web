@@ -287,7 +287,7 @@
             arkeoImport.selectTab(3, database.editMode)
 
             // Force lang to english for translatables fields if necessary
-            arkeoLang.autoSetTranslationLangFromDatas([database.description]);
+            arkeoLang.autoSetTranslationLang2FromDatas([database.description]);
 
             $scope.$watch('database.description.en', function(newVal, oldVal) {
                 if (!newVal || (newVal && newVal == '')) {
@@ -356,9 +356,6 @@
                         arkeoService.showMessage('IMPORT_STEP4.MESSAGES.T_ERROR_BIBLIOGRAPHY_EN_TRANSLATION_CAN_T_BE_EMPTY', 'error');
                         return;
                     }
-                    console.log("---");
-                    console.log(database.description.en);
-                    return
                     dbObj.authors = [];
                     angular.forEach(database.authors, function(author) {
                         dbObj.authors.push(parseInt(author.id));
@@ -405,7 +402,7 @@
             arkeoImport.selectTab(4, database.editMode)
 
             // Force lang to english for translatables fields if necessary
-            arkeoLang.autoSetTranslationLangFromDatas([database.geographical_limit, database.bibliography]);
+            arkeoLang.autoSetTranslationLang2FromDatas([database.geographical_limit, database.bibliography]);
 
             $scope.$watch('database.geographical_limit.en', function(newVal, oldVal) {
                 if (!newVal || (newVal && newVal == '')) {

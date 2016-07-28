@@ -37,7 +37,10 @@
           <ark-form-block>
             <md-input-container>
               <label translate>IMPORT_STEP4.FIELD_URL.T_LABEL</label>
-              <input name="source_url" ng-model="database.source_url">
+              <input name="source_url" type="url" ng-model="database.source_url">
+              <div ng-messages="moreInfosForm.source_url.$error">
+                <div ng-message="url" translate>IMPORT.FIELD_ALL.T_ERROR_NOT_VALID_URL</div>
+              </div>
             </md-input-container>
             <ark-help translate>IMPORT_STEP4.FIELD_URL.T_HELP</ark-help>
           </ark-form-block>
