@@ -54,7 +54,7 @@
             self.tabs = {
                 enabled: {
                     1: true,
-                    2: false,
+                    2: true,
                     3: true,
                     4: true,
                     5: true
@@ -62,15 +62,31 @@
             }
         }
 
+        this.disableReportTab = function() {
+            self.tabs.enabled[2] = false;
+        }
+
+        this.enableReportTab = function() {
+            self.tabs.enabled[2] = true;
+        }
+
+        this.nextTab = function() {
+            console.log(self.tabs.selectedIndex);
+            self.tabs.selectedIndex++;
+        }
+
         this.selectTab = function(num, editMode) {
+            console.log("ICI");
             if (!editMode) {
                 self.tabs.selectedIndex = num;
                 self.tabs.enabled[num] = true;
                 for (var i = num + 1; i < 5; i++) {
                     self.tabs.enabled[i] = false;
                 }
+            } else if (self.tabs.enabled[2] == true) {
+                self.tabs.selectedIndex = num - 1;
             } else {
-                self.tabs.selectedIndex = num -1;
+                self.tabs.selectedIndex = num - 1;
             }
         }
 

@@ -24,10 +24,25 @@
     ArkeoGIS.controller('ImportMainCtrl', ['$scope', '$location', '$rootScope', '$state', 'arkeoImport', 'login', 'arkeoDatabase', 'database',
         function($scope, $location, $rootScope, $state, arkeoImport, login, arkeoDatabase, database) {
 
+            var self = this;
+
+            self.reloaded = false;
+
             if (!login.requirePermission('import', 'arkeogis.import.step1'))
                 return;
 
             $scope.user = login.user;
+
+            $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options) {
+                var num = toState.name.split('.').pop().replace('step', '');
+                if (options.reload === true) {
+                    console.log("RELOEAD");
+                    self.reloaded = true;
+                    return;
+                }
+                arkeoImport.tabs.enabled[num] = true;
+                arkeoImport.tabs.selectedIndex = num - 1;
+            });
 
             if (angular.isDefined(database.id) == undefined || !database.id) {
                 database.default_language = login.user.first_lang_isocode;
@@ -40,7 +55,9 @@
 
                 // contexts
                 if (database.id > 0) {
+                    console.log("ICI " + self.reloaded);
                     arkeoImport.enableAllTabs();
+                    arkeoImport.disableReportTab();
                     angular.forEach(database.contexts, function(ctx) {
                         ctx.label = databaseDefinitions[ctx.context];
                     });
@@ -55,48 +72,6 @@
 
             $scope.userPreferences = arkeoImport.userPreferences;
 
-
-            var checkPath = function(p) {
-                var tabNum = p.split('step')[1];
-                arkeoImport.tabs.selectedIndex = tabNum;
-                if (tabNum === 1) {
-                    return;
-                }
-                while (tabNum > 0) {
-                    if (arkeoImport.tabs.enabled[tabNum] === true) {
-                        arkeoImport.tabs.selectedIndex = tabNum;
-                        $state.go('arkeogis.import.step' + arkeoImport.tabs.selectedIndex);
-                        return;
-                    }
-                    tabNum--;
-                }
-            };
-
-            $scope.uploadCSV = function(file) {
-                arkeoImport.uploadCSV(file, $scope.importChoices, $scope.database).then(function(resp) {
-                    arkeoImport.data = resp.data;
-                    if (angular.isDefined(resp.data.database_id) && resp.data.database_id) {
-                        database.id = resp.data.database_id;
-                        database.import_id = resp.data.import_id;
-                    }
-                    database.authors = [{id: login.user.id, fullname: login.user.firstname+' '+login.user.lastname}];
-                    if ($location.path().split("/").pop() === "step2") {
-                        $state.go($state.current, {database_id: -1}, {reload: true});
-                    } else {
-                        $state.go('arkeogis.import.step2');
-                    }
-                }, function(resp) {
-                    console.log('Import Error. Status: ' + resp.status);
-                }, function(evt) {
-                    $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total);
-                    if ($scope.uploadProgress === 100) {
-                        if ($location.path().split("/").pop() !== "step2") {
-                            arkeoImport.selectTab(2, $scope.database.editMode)
-                        }
-                    }
-                });
-            };
-            return checkPath($location.path());
         }
     ]);
 })();
@@ -132,7 +107,7 @@
 
                 $http({
                     url: '/api/import/update-step1',
-                    method:'POST',
+                    method: 'POST',
                     data: database
                 }).then(function() {
                     $state.go('arkeogis.import.step3');
@@ -143,8 +118,26 @@
                 })
             };
 
-            $scope.uploadCSVWrapper = function() {
-                $scope.uploadCSV($scope.file);
+            $scope.uploadCSV = function() {
+                if (database.editMode) {
+                    arkeoImport.enableReportTab();
+                }
+                arkeoImport.uploadCSV($scope.file, $scope.importChoices, $scope.database).then(function(resp) {
+                    arkeoImport.data = resp.data;
+                    if (angular.isDefined(resp.data.database_id) && resp.data.database_id) {
+                        database.id = resp.data.database_id;
+                        database.import_id = resp.data.import_id;
+                    }
+                    database.authors = [{
+                        id: login.user.id,
+                        fullname: login.user.firstname + ' ' + login.user.lastname
+                    }];
+                    $state.go('arkeogis.import.step2');
+                }, function(resp) {
+                    console.log('Import Error. Status: ' + resp.status);
+                }, function(evt) {
+                    $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total);
+                });
             }
 
             $scope.check = function() {
@@ -161,6 +154,8 @@
     ArkeoGIS.controller('ImportStep2Ctrl', ['$scope', 'arkeoImport', 'login',
         function($scope, arkeoImport, login) {
 
+            var self = this;
+
             if (!login.requirePermission('import', 'arkeogis.import.step1'))
                 return;
 
@@ -168,96 +163,115 @@
                 return;
             }
 
-            var sitesWithErrors = [];
-            var nbSitesOK = 0;
-            var nbSitesNOK = 0;
-            var nbSites = arkeoImport.data.nbSites || 0;
-            var nbErrors = 0;
-
-            if (angular.isDefined(arkeoImport.data.errors) && (angular.isObject(arkeoImport.data.errors))) {
-
-                $scope.importErrors = {
-                    total: arkeoImport.data.errors.length,
-                    data: arkeoImport.data.errors
-                };
-
-                arkeoImport.data.errors.forEach(function(e) {
-                    if (sitesWithErrors.indexOf(e.siteCode) === -1) {
-                        sitesWithErrors.push(e.siteCode);
-                    }
+            $scope.uploadCSV = function() {
+                arkeoImport.uploadCSV($scope.file, $scope.importChoices, $scope.database).then(function(resp) {
+                    arkeoImport.data = resp.data;
+                    //$state.go($state.current, {database_id: -1}, {reload: true});
+                    $scope.file = undefined;
+                    $scope.formUpload.$setPristine();
+                    self.refreshDisplay();
+                }, function(resp) {
+                    console.log('Import Error. Status: ' + resp.status);
+                }, function(evt) {
+                    $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total);
                 });
-
-                nbSitesNOK = sitesWithErrors.length;
-                nbSitesOK = nbSites - nbSitesNOK;
-                nbErrors = arkeoImport.data.errors.length;
-            } else {
-                nbSitesOK = nbSites;
             }
 
-            $scope.nbSites = nbSites;
-            $scope.nbSitesOK = nbSitesOK;
-            $scope.nbSitesNOK = nbSitesNOK;
-            $scope.nbErrors = nbErrors;
-            $scope.nbLines = arkeoImport.data.nbLines;
+            this.refreshDisplay = function() {
+                var sitesWithErrors = [];
+                var nbSitesOK = 0;
+                var nbSitesNOK = 0;
+                var nbSites = arkeoImport.data.nbSites || 0;
+                var nbErrors = 0;
+
+                if (angular.isDefined(arkeoImport.data.errors) && (angular.isObject(arkeoImport.data.errors))) {
+
+                    $scope.importErrors = {
+                        total: arkeoImport.data.errors.length,
+                        data: arkeoImport.data.errors
+                    };
+
+                    arkeoImport.data.errors.forEach(function(e) {
+                        if (sitesWithErrors.indexOf(e.siteCode) === -1) {
+                            sitesWithErrors.push(e.siteCode);
+                        }
+                    });
+
+                    nbSitesNOK = sitesWithErrors.length;
+                    nbSitesOK = nbSites - nbSitesNOK;
+                    nbErrors = arkeoImport.data.errors.length;
+                } else {
+                    nbSitesOK = nbSites;
+                }
+
+                $scope.nbSites = nbSites;
+                $scope.nbSitesOK = nbSitesOK;
+                $scope.nbSitesNOK = nbSitesNOK;
+                $scope.nbErrors = nbErrors;
+                $scope.nbLines = arkeoImport.data.nbLines;
+
+                var percent = (nbSites > 0) ? Math.round(nbSitesOK * 100 / nbSites) : 0;
+
+                $scope.nvd3Options = {
+                    chart: {
+                        type: 'pieChart',
+                        height: 280,
+                        width: 280,
+                        arcsRadius: [{
+                            inner: 0.65,
+                            outer: 0.85
+                        }, {
+                            inner: 0.7,
+                            outer: 0.8
+                        }],
+                        x: function(d) {
+                            return d.key;
+                        },
+                        y: function(d) {
+                            return d.value;
+                        },
+                        showLabels: false,
+                        donut: true,
+                        labelType: "percent",
+                        transitionDuration: 500,
+                        title: percent + "%",
+                        color: ["#9ad49a", "#FB7378"],
+                        showLegend: false,
+                        legendPosition: 'right',
+                        valueFormat: function(d) {
+                            return d;
+                        },
+                    }
+                };
+
+
+                $scope.nvd3Datas = [{
+                    key: "Sites valides:",
+                    value: (nbSites > 0) ? nbSites - sitesWithErrors.length : 0
+                }, {
+                    key: "Sites en erreur:",
+                    value: sitesWithErrors.length || nbErrors
+                }];
+
+                $scope.filter = {
+                    show: false,
+                    options: {}
+                };
+
+                $scope.query = {
+                    filter: '',
+                    order: 'line',
+                    limit: 20,
+                    page: 1,
+                    numRows: ['All', 10, 20, 30]
+                };
+
+            }
+
 
             //var tooltip = nv.models.tooltip();
             //tooltip.duration(0);
 
-            var percent = (nbSites > 0) ? Math.round(nbSitesOK * 100 / nbSites) : 0;
-
-            $scope.nvd3Options = {
-                chart: {
-                    type: 'pieChart',
-                    height: 280,
-                    width: 280,
-                    arcsRadius: [{
-                        inner: 0.65,
-                        outer: 0.85
-                    }, {
-                        inner: 0.7,
-                        outer: 0.8
-                    }],
-                    x: function(d) {
-                        return d.key;
-                    },
-                    y: function(d) {
-                        return d.value;
-                    },
-                    showLabels: false,
-                    donut: true,
-                    labelType: "percent",
-                    transitionDuration: 500,
-                    title: percent + "%",
-                    color: ["#9ad49a", "#FB7378"],
-                    showLegend: false,
-                    legendPosition: 'right',
-                    valueFormat: function(d) {
-                        return d;
-                    },
-                }
-            };
-
-
-            $scope.nvd3Datas = [{
-                key: "Sites valides:",
-                value: (nbSites > 0) ? nbSites - sitesWithErrors.length : 0
-            }, {
-                key: "Sites en erreur:",
-                value: sitesWithErrors.length || nbErrors
-            }];
-
-            $scope.filter = {
-                show: false,
-                options: {}
-            };
-
-            $scope.query = {
-                filter: '',
-                order: 'line',
-                limit: 20,
-                page: 1,
-                numRows: ['All', 10, 20, 30]
-            };
 
             $scope.onOrderChange = function(order) {
                 $scope.order = order;
@@ -272,6 +286,8 @@
                 }
             };
 
+            this.refreshDisplay();
+
         }
     ]);
 })();
@@ -284,7 +300,7 @@
             if (!login.requirePermission('import', 'arkeogis.import.step1'))
                 return;
 
-            arkeoImport.selectTab(3, database.editMode)
+            //arkeoImport.selectTab(3, database.editMode)
 
             // Force lang to english for translatables fields if necessary
             arkeoLang.autoSetTranslationLang2FromDatas([database.description]);
@@ -328,7 +344,10 @@
                 return $translate(ctxKeys).then(function(translations) {
                     for (var k in translations) {
                         if (translations[k].toLowerCase().indexOf(txt.toLowerCase()) !== -1) {
-                                contexts.push({context: ctxByKey[k], label: translations[k]});
+                            contexts.push({
+                                context: ctxByKey[k],
+                                label: translations[k]
+                            });
                         }
                     }
                     return contexts;
@@ -336,7 +355,7 @@
             };
 
             $scope.searchUser = function(txt) {
-                return $http.get('/api/users/'+txt).then(function(result) {
+                return $http.get('/api/users/' + txt).then(function(result) {
                     return result.data;
                 });
             }
@@ -363,7 +382,10 @@
                     dbObj.description = [];
                     for (var iso_code in database.description) {
                         if (database.description.hasOwnProperty(iso_code)) {
-                            dbObj.description.push({lang_isocode: iso_code, text: database.description[iso_code]});
+                            dbObj.description.push({
+                                lang_isocode: iso_code,
+                                text: database.description[iso_code]
+                            });
                         }
                     }
                     dbObj.contexts = [];
@@ -375,7 +397,7 @@
                         if (result.status == 200) {
                             $state.go('arkeogis.import.step4')
                             arkeoService.showMessage("IMPORT_STEP3.MESSAGES.T_PUBLICATION_INFORMATIONS_SAVED")
-                            //Restore translation lang 2 to user choice
+                                //Restore translation lang 2 to user choice
                             arkeoLang.restoreTranslationLang();
                         } else {
                             console.log("Error sending step3");
@@ -399,7 +421,7 @@
             if (!login.requirePermission('import', 'arkeogis.import.step1'))
                 return;
 
-            arkeoImport.selectTab(4, database.editMode)
+            //    arkeoImport.selectTab(4, database.editMode)
 
             // Force lang to english for translatables fields if necessary
             arkeoLang.autoSetTranslationLang2FromDatas([database.geographical_limit, database.bibliography]);
@@ -435,16 +457,22 @@
                         arkeoService.showMessage('IMPORT_STEP4.MESSAGES.T_ERROR_BIBLIOGRAPHY_EN_TRANSLATION_CAN_T_BE_EMPTY', 'error');
                         return;
                     }
-                    dbObj.bibliography= [];
+                    dbObj.bibliography = [];
                     for (var iso_code in database.bibliography) {
                         if (database.bibliography.hasOwnProperty(iso_code)) {
-                            dbObj.bibliography.push({lang_isocode: iso_code, text: database.bibliography[iso_code]});
+                            dbObj.bibliography.push({
+                                lang_isocode: iso_code,
+                                text: database.bibliography[iso_code]
+                            });
                         }
                     }
-                    dbObj.geographical_limit= [];
+                    dbObj.geographical_limit = [];
                     for (var iso_code in database.geographical_limit) {
                         if (database.geographical_limit.hasOwnProperty(iso_code)) {
-                            dbObj.geographical_limit.push({lang_isocode: iso_code, text: database.geographical_limit[iso_code]});
+                            dbObj.geographical_limit.push({
+                                lang_isocode: iso_code,
+                                text: database.geographical_limit[iso_code]
+                            });
                         }
                     }
                     console.log(dbObj);
@@ -454,8 +482,10 @@
                     $http.post("/api/import/step4", dbObj).then(function(result) {
                         if (result.status == 200) {
                             $stateParams.database_id = database.id;
-                            $state.go('arkeogis.database', {database_id: dbObj.id})
-                            //Restore translation lang 2 to user choice
+                            $state.go('arkeogis.database', {
+                                    database_id: dbObj.id
+                                })
+                                //Restore translation lang 2 to user choice
                             arkeoService.showMessage("IMPORT_STEP4.MESSAGES.T_PUBLICATION_INFORMATIONS_SAVED")
                             arkeoLang.restoreTranslationLang();
                         } else {
