@@ -2,24 +2,27 @@
     <md-card class="animate-hide" ng-hide="userPreferences.hideIntro" flex>
         <md-card-content>
             <p>
-              <span translate>IMPORT_STEP3.INFOS.T_LINE1</span>
-              <b translate>IMPORT_STEP3.INFOS.T_LINE2</b>
+                <span translate>IMPORT_STEP3.INFOS.T_LINE1</span>
+                <b translate>IMPORT_STEP3.INFOS.T_LINE2</b>
             </p>
             <p translate>IMPORT_STEP3.INFOS.T_LINE3</p>
         </md-card-content>
     </md-card>
     <div class="layout-padding">
-		<h1 class="md-display-1"><span translate>IMPORT_STEP3.FORM.T_TITLE</span> "{{database.name}}" <span translate>IMPORT_STEP1.TITLE.T_BY</span> {{user.firstname}} {{user.lastname}}</h1>
+        <h1 class="md-display-1">
+            <span translate>IMPORT_STEP3.FORM.T_TITLE</span>
+            "{{database.name}}"
+            <span translate>IMPORT_STEP1.TITLE.T_BY</span>
+            {{user.firstname}}
+            {{user.lastname}}</h1>
         <form name="publicationForm" class="md-padding" ng-submit="submit(this.publicationForm)" novalidate>
             <md-content layout="column" layout-gt-sm="row">
                 <!-- left block -->
                 <div class="md-padding" flex>
                     <!-- Authors -->
                     <ark-form-block>
-                        <md-chips ng-model="database.authors" md-autocomplete-snap md-require-match="true"
-                        md-allow-repeats="false" md-on-remove="removeAuthor($chip)">
-                            <md-autocomplete md-search-text="userName" md-items="user in searchUser(userName)"
-                            md-item-text="user.fullname" placeholder="* {{ 'IMPORT_STEP3.FIELD_AUTHOR.T_LABEL' | translate}}">
+                        <md-chips ng-model="database.authors" md-autocomplete-snap md-require-match="true" md-allow-repeats="false" md-on-remove="removeAuthor($chip)">
+                            <md-autocomplete md-search-text="userName" md-items="user in searchUser(userName)" md-item-text="user.fullname" placeholder="* {{ 'IMPORT_STEP3.FIELD_AUTHOR.T_LABEL' | translate}}">
                                 <span md-highlight-text="userName">{{user.fullname}}</span>
                             </md-autocomplete>
                             <md-chip-template>
@@ -39,7 +42,7 @@
                     <!-- License -->
                     <ark-form-block>
                         <md-input-container>
-                            <md-select name="license_id" ng-model="database.license_id" ng-init="loadLicenses()" placeholder="* {{'IMPORT_STEP3.FIELD_LICENSE.T_LABEL' | translate}}" required = "true">
+                            <md-select name="license_id" ng-model="database.license_id" ng-init="loadLicenses()" placeholder="* {{'IMPORT_STEP3.FIELD_LICENSE.T_LABEL' | translate}}" required="true">
                                 <md-option ng-value="license.id" ng-repeat="license in licenses">{{license.name}}</md-option>
                             </md-select>
                             <div ng-messages="publicationForm.license_id.$error">
@@ -51,7 +54,9 @@
                     <ark-form-block>
                         <!-- Subject / Keywords -->
                         <md-input-container>
-                            <label>* <span translate>IMPORT_STEP3.FIELD_SUBJECT.T_LABEL</span></label>
+                            <label>*
+                                <span translate>IMPORT_STEP3.FIELD_SUBJECT.T_LABEL</span>
+                            </label>
                             <input name="subject" ng-model="database.subject" required>
                             <div ng-messages="publicationForm.subject.$error">
                                 <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
@@ -65,8 +70,7 @@
                     <!-- Type -->
                     <ark-form-block>
                         <md-input-container>
-                            <md-select name="type" ng-model="database.type" placeholder="* {{'IMPORT_STEP3.FIELD_TYPE.T_LABEL' | translate}}"
-                                required>
+                            <md-select name="type" ng-model="database.type" placeholder="* {{'IMPORT_STEP3.FIELD_TYPE.T_LABEL' | translate}}" required>
                                 <md-option ng-value="type.id" ng-repeat="type in definitions.types">{{type.tr | translate}}</md-option>
                             </md-select>
                             <div ng-messages="publicationForm.type.$error">
@@ -77,10 +81,8 @@
                     </ark-form-block>
                     <!-- Context -->
                     <ark-form-block>
-                        <md-chips ng-model="database.contexts" md-autocomplete-snap md-require-match="true"
-                        md-allow-repeats="false" required>
-                            <md-autocomplete md-search-text="searchText" md-items="context in searchContext(searchText)"
-                            md-item-text="context.label" placeholder="{{ 'IMPORT_STEP3.FIELD_CONTEXT.T_LABEL' | translate}}">
+                        <md-chips ng-model="database.contexts" md-autocomplete-snap md-require-match="true" md-allow-repeats="false" required>
+                            <md-autocomplete md-search-text="searchText" md-items="context in searchContext(searchText)" md-item-text="context.label" placeholder="{{ 'IMPORT_STEP3.FIELD_CONTEXT.T_LABEL' | translate}}">
                                 <span md-highlight-text="searchText">{{context.label}}</span>
                             </md-autocomplete>
                             <md-chip-template>
@@ -92,8 +94,7 @@
                     <!-- Scale resolution -->
                     <ark-form-block>
                         <md-input-container>
-                            <md-select name="scale_resolution" ng-model="database.scale_resolution" placeholder="* {{'IMPORT_STEP3.FIELD_SCALE_RESOLUTION.T_LABEL' | translate}}"
-                            required>
+                            <md-select name="scale_resolution" ng-model="database.scale_resolution" placeholder="* {{'IMPORT_STEP3.FIELD_SCALE_RESOLUTION.T_LABEL' | translate}}" required>
                                 <md-option ng-value="scaleResolution.id" ng-repeat="scaleResolution in definitions.scaleResolutions">{{scaleResolution.tr | translate}}</md-option>
                             </md-select>
                             <div ng-messages="publicationForm.scale_resolution.$error">
@@ -105,8 +106,7 @@
                     <!-- State -->
                     <ark-form-block>
                         <md-input-container>
-                            <md-select name="state" ng-model="database.state" placeholder="* {{'IMPORT_STEP3.FIELD_STATE.T_LABEL' | translate}}"
-                            required>
+                            <md-select name="state" ng-model="database.state" placeholder="* {{'IMPORT_STEP3.FIELD_STATE.T_LABEL' | translate}}" required>
                                 <md-option ng-value="state.id" ng-repeat="state in definitions.states">{{state.tr | translate}}</md-option>
                             </md-select>
                             <div ng-messages="publicationForm.state.$error">
@@ -122,7 +122,7 @@
                 <div class="md-padding" flex>
                     <ark-form-block>
                         <md-input-container>
-                          <ark-lang-selector ng-model="myTransLang1" ark-set-as-translation-lang="1" ng-disabled="true" ark-flags="true"></ark-lang-selector>
+                            <ark-lang-selector ng-model="myTransLang1" ark-set-as-translation-lang="1" ng-disabled="true" ark-flags="true"></ark-lang-selector>
                         </md-input-container>
                         <md-input-container style="margin-top: 25px">
                             <textarea name="description" ng-model="desc_lang1" ark-translations="database.description" ark-translate ark-translate-bind-lang="1" aria-label="-" placeholder="{{ 'IMPORT_STEP3.FIELD_DESCRIPTION_LANG1.T_LABEL' | translate}}" required></textarea>
@@ -132,10 +132,10 @@
                         </md-input-container>
                     </ark-form-block>
                 </div>
-                <div class="md-padding" flex-offset-gt-md="5" flex>
+                <div class="md-padding" flex>
                     <ark-form-block>
                         <md-input-container>
-                          <ark-lang-selector ng-model="myTransLang2" ark-set-as-translation-lang="2" ng-disabled="lang2SelectDisabled" ark-flags="true"></ark-lang-selector>
+                            <ark-lang-selector ng-model="myTransLang2" ark-set-as-translation-lang="2" ng-disabled="lang2SelectDisabled" ark-flags="true"></ark-lang-selector>
                         </md-input-container>
                         <md-input-container style="margin-top: 25px">
                             <textarea name="description2" ng-model="desc_lang2" ark-translations="database.description" ark-translate ark-translate-bind-lang="2" aria-label="-" placeholder="{{ 'IMPORT_STEP3.FIELD_DESCRIPTION_LANG2.T_LABEL' | translate}}"></textarea>
@@ -146,11 +146,23 @@
                     </ark-form-block>
                 </div>
             </md-content>
-			<!-- Actions -->
-			<md-content layout layout-sm="column" layout-padding layout-align="center center">
-					<md-button type="submit" class="md-primary md-raised" ng-disabled="!publicationForm.$valid"><span translate>IMPORT_STEP3.FORM.T_BUTTON_SUBMIT</span></md-button>
-					<md-button class="md-raised md-hue-1" ui-sref="arkeogis.import.step2"><span translate>IMPORT_STEP3.FORM.T_BUTTON_BACK</span></md-button>
-			<md-content>
-        </form>
-    </div>
-</div>
+            <!-- Database status -->
+            <md-content layout-padding style="margin-top: -60px">
+                <ark-form-block>
+                    <md-switch aria-label="{{'IMPORT_STEP3.FIELD_PUBLISHED.T_LABEL' | translate}}" ng-model="database.published" style="margin: 15px 0 25px 0">
+                        <span translate>IMPORT_STEP3.FIELD_PUBLISHED.T_LABEL</span>
+                    </md-switch>
+                    <ark-help flex translate>IMPORT_STEP1.FIELD_PUBLISHED.T_HELP</ark-help>
+                </ark-form-block>
+            </md-content>
+            <!-- Actions -->
+            <md-content layout layout-sm="column" layout-padding layout-align="center center">
+                <md-button type="submit" class="md-primary md-raised" ng-disabled="!publicationForm.$valid">
+                    <span translate>IMPORT_STEP3.FORM.T_BUTTON_SUBMIT</span>
+                </md-button>
+                <md-button class="md-raised md-hue-1" ui-sref="arkeogis.import.step2">
+                    <span translate>IMPORT_STEP3.FORM.T_BUTTON_BACK</span>
+                </md-button>
+                <md-content></form>
+            </div>
+        </div>
