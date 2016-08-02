@@ -59,6 +59,16 @@
         return self.getLangs(true);
     };
 
+    this.getLangByIsoCode = function(isocode) {
+        var l = null;
+        angular.forEach(self.langs, function(lang) {
+                if (lang.iso_code == isocode) {
+                    l = lang;
+                }
+        });
+        return l;
+    }
+
     this.getUserLang = function(num) {
         var num = num || 1;
         if ([1,2].indexOf(num) == -1) {
