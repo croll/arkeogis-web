@@ -20,88 +20,122 @@
  */
 
 (function() {
-  'use strict';
-  ArkeoGIS.controller('DatabaseCtrl', ['$scope', '$http', '$state', 'database', 'databaseDefinitions', 'mapService', 'arkeoService', 'leafletData',
-    function($scope, $http, $state, database, databaseDefinitions, mapService, arkeoService, leafletData) {
+    'use strict';
+    ArkeoGIS.controller('DatabaseCtrl', ['$scope', '$http', '$state', '$mdDialog', 'database', 'databaseDefinitions', 'mapService', 'arkeoService', 'arkeoLang', 'leafletData',
+        function($scope, $http, $state, $mdDialog, database, databaseDefinitions, mapService, arkeoService, arkeoLang, leafletData) {
 
-        $scope.database = database;
+            $scope.database = database;
 
-        $scope.databaseDefinitions = databaseDefinitions;
+            $scope.databaseDefinitions = databaseDefinitions;
 
-        angular.extend($scope, angular.extend(mapService.config, {
-            center: {
-                zoom: 8
+            database.lang = arkeoLang.getLangByIsoCode(database.default_language)
+
+            angular.extend($scope, angular.extend(mapService.config, {
+                center: {
+                    zoom: 8
+                }
+            }));
+
+            $scope.geojson = {
+                data: angular.fromJson(database.geographical_extent_geom),
+                style: {
+                    fillColor: '#ff00ff',
+                    weight: 2,
+                    opacity: 1,
+                    color: '#777',
+                    dashArray: '5',
+                    fillOpacity: 0.3
+                }
             }
-        }));
 
-        $scope.geojson = {
-            data: angular.fromJson(database.geographical_extent_geom),
-            style: {
-                fillColor: '#ff00ff',
-                weight: 2,
-                opacity: 1,
-                color: '#777',
-                dashArray: '5',
-                fillOpacity: 0.3
+            leafletData.getMap().then(function(map) {
+                map.fitBounds(L.geoJson($scope.geojson.data).getBounds());
+            });
+
+            $scope.delete = function() {
+                if (!database.id) {
+                    console.log("No database id specified, unable to delete");
+                    return false;
+                }
+                $http({
+                    method: 'POST',
+                    url: '/api/database/delete',
+                    data: {
+                        id: database.id
+                    }
+                }).then(function(res) {
+                    arkeoService.showMessage('DATABASE.MESSAGE.T_DELETE_OK')
+                    $state.go('arkeogis.database-list')
+                }, function(err) {
+                    arkeoService.showMessage('DATABASE.MESSAGE.T_DELETE_FAILED', 'error')
+                    console.log(err)
+                })
             }
-        }
 
-        leafletData.getMap().then(function(map) {
-            map.fitBounds(L.geoJson($scope.geojson.data).getBounds());
-        });
-
-        $scope.delete = function() {
-            if (!database.id) {
-                console.log("No database id specified, unable to delete");
-                return false;
+            $scope.downloadCSV = function(id) {
+                if (!database.id) {
+                    console.error("No database id specified, unable to get csv");
+                    return false;
+                }
+                id = id || '';
+                window.open('/api/database/' + database.id + '/csv/' + id);
             }
-            $http({
-                method: 'POST',
-                url: '/api/database/delete',
-                data: {id: database.id}
-            }).then(function(res) {
-                arkeoService.showMessage('DATABASE.MESSAGE.T_DELETE_OK')
-                $state.go('arkeogis.database-list')
-            }, function(err) {
-                arkeoService.showMessage('DATABASE.MESSAGE.T_DELETE_FAILED', 'error')
-                console.log(err)
-            })
-        }
 
-        $scope.downloadCSV = function() {
-            if (!database.id) {
-                console.log("No database id specified, unable to get csv");
-                return false;
+            $scope.downloadExport = function() {
+                window.open('/api/database/' + database.id + '/export');
             }
-            window.open('/api/database/'+database.id+'/csv');
-        }
 
-        $scope.downloadExport = function() {
-            window.open('/api/database/'+database.id+'/export');
+            $scope.showHandleDialog = function(ev) {
+                $mdDialog.show({
+                    controller: DialogController,
+                    contentElement: '#handlesDialog',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose: true
+                });
+            };
+
+            $scope.showImportDialog = function(ev) {
+                $mdDialog.show({
+                    controller: DialogController,
+                    contentElement: '#importDialog',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose: true
+                });
+            };
+
+            function DialogController($scope, $mdDialog) {
+                $scope.hide = function() {
+                    $mdDialog.hide();
+                };
+                $scope.cancel = function() {
+                    $mdDialog.cancel();
+                };
+            }
+
         }
-    }
-  ]);
+    ]);
 })();
 
 (function() {
-  'use strict';
-  ArkeoGIS.controller('DatabaseListCtrl', ['$scope', '$http', 'databaseDefinitions',
-    function($scope, $http, databaseDefinitions) {
+    'use strict';
+    ArkeoGIS.controller('DatabaseListCtrl', ['$scope', '$http', 'databaseDefinitions',
+        function($scope, $http, databaseDefinitions) {
 
-        $http.get('/api/database', {
-        }).then(function(response) {
-            $scope.databaseDefinitions = databaseDefinitions;
-            var databases = response.data;
-            angular.forEach(databases, function(db) {
-                var co = (db.authors) ? db.authors.join(',') : '';
-                if (co != '') {
-                    db.authors = db.author + ' ' + co;
-                } else {
-                    db.authors = db.author;
-                }
+            $http.get('/api/database', {}).then(function(response) {
+                $scope.databaseDefinitions = databaseDefinitions;
+                var databases = response.data;
+                angular.forEach(databases, function(db) {
+                    var co = (db.authors) ? db.authors.join(',') : '';
+                    if (co != '') {
+                        db.authors = db.author + ' ' + co;
+                    } else {
+                        db.authors = db.author;
+                    }
+                });
+                $scope.databases = response.data;
             });
-            $scope.databases = response.data;
-        });
 
             $scope.filter = {
                 show: false,
@@ -129,6 +163,6 @@
                 }
             };
 
-    }
-  ]);
+        }
+    ]);
 })();
