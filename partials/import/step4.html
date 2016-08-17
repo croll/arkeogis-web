@@ -129,7 +129,8 @@
             </md-content>
       <!-- Actions -->
       <md-content layout layout-sm="column" layout-padding layout-align="center center">
-        <md-button type="submit" class="md-primary md-raised" ng-disabled="!moreInfosForm.$valid"><span translate>IMPORT_STEP4.FORM.T_BUTTON_SUBMIT</span></md-button>
-        <md-button class="md-raised md-hue-1" ui-sref="arkeogis.import.step3"><span translate>IMPORT_STEP4.FORM.T_BUTTON_BACK</span></md-button>
+        <md-button type="submit" class="md-primary md-raised md-hue-2" ng-disabled="!moreInfosForm.$valid"><span translate>IMPORT_STEP4.FORM.T_BUTTON_SUBMIT</span></md-button>
+        <md-button class="md-raised" ui-sref="arkeogis.import.step3"><span translate>IMPORT_STEP4.FORM.T_BUTTON_BACK</span></md-button>
+        <md-button class="md-raised" ui-sref="arkeogis.database({database_id: database.id})"><span translate>IMPORT.BUTTON.T_CANCEL_AND_GO_TO_SHEET</span></md-button>
         <md-content></form>
       </div>

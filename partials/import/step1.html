@@ -111,9 +111,10 @@
      -->
       <!-- Upload -->
       <div layout layout-sm="column">
-        <md-button class="md-primary md-raised" ng-disabled="!importForm.$valid" ngf-select="uploadCSV()" ng-model="file" name="file" ngf-pattern="'.csv,.txt'" accept=".csv,.txt" ngf-max-size="100MB"><span translate>IMPORT_STEP1.FORM.T_SUBMIT</span></md-button>
-        <md-button class="md-raised md-hue-1" ng-click="modifyDatabase()" ng-show="database.id && database.editMode"><span translate>IMPORT_STEP1.FORM.T_UPDATE</span></md-button>
-        <md-button class="md-raised md-hue-1" ng-click="reset()"><span translate>IMPORT_STEP1.FORM.T_RESET</span></md-button>
+        <md-button class="md-primary md-raised md-hue-2" ng-disabled="!importForm.$valid" ngf-select="uploadCSV()" ng-model="file" name="file" ngf-pattern="'.csv,.txt'" accept=".csv,.txt" ngf-max-size="100MB"><span translate>IMPORT_STEP1.FORM.T_SUBMIT</span></md-button>
+        <md-button class="md-primary md-raised" ng-click="modifyDatabase()" ng-show="database.id && database.editMode"><span translate>IMPORT_STEP1.FORM.T_UPDATE</span></md-button>
+        <md-button class="md-raised md-warn" ng-click="reset()" ng-hide="database.id && database.editMode"><span translate>IMPORT_STEP1.FORM.T_RESET</span></md-button>
+        <md-button class="md-raised" ui-sref="arkeogis.database({database_id: database.id})" ng-show="database.id && database.editMode"><span translate>IMPORT.BUTTON.T_CANCEL_AND_GO_TO_SHEET</span></md-button>
       </div>
       <md-progress-linear md-mode="determinate" value="{{uploadProgress}}" md-buffer-value="100" ng-hide="!file || !importForm.$valid"></md-progress-linear>
       <ark-help hide-sm translate>IMPORT_STEP1.FORM.T_HELP</ark-help>
