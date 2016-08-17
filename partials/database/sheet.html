@@ -125,11 +125,11 @@
                 <div>
                     <span translate>DATABASE.INFORMATIONS.T_HANDLE</span>:</div>
                 <div>
-                    <a href="{{database.handles[0].url}}" title="{{database.handles[0].identifier}}">{{database.handles[0].identifier}}</a>
+                    <a href="{{database.handles[0].url}}" title="{{database.handles[0].identifier}}" target="_blank">{{database.handles[0].identifier}}</a>
                 </div>
-                <div>(<a ng-click="showHandleDialog($event)" title="{{'DATABASE.INFORMATIONS.T_HANDLE_HISTORY' | translate}}">
-                        <span translate>DATABASE.INFORMATIONS.T_HANDLE_HISTORY</span>
-                    </a>)</div>
+                <div style="margin: -2px 0 0 10px">
+                    <md-icon ng-click="showHandleDialog($event)" aria-label="{{'DATABASE.INFORMATIONS.T_HANDLE_HISTORY' | translate}}" style="cursor:pointer">list</md-icon>
+                </div>
             </div>
             <div layout="row">
                 <div>
@@ -138,13 +138,14 @@
             </div>
             <div layout="row">
                 <div>
-                    <span translate>DATABASE.INFORMATIONS.T_IMPORTED_CSV</span>:</div>
+                    <span translate>DATABASE.INFORMATIONS.T_IMPORTED_CSV</span>:
+                </div>
                 <div>
                     <a aria-label="{{'DATABASE.INFORMATIONS.T_IMPORTED_CSV' | translate}}" ng-click="downloadCSV()">{{database.imports[0].filename}}</a>
                 </div>
-                <div>(<a ng-click="showImportDialog($event)" title="{{'DATABASE.INFORMATIONS.T_IMPORT_HISTORY' | translate}}">
-                        <span translate>DATABASE.INFORMATIONS.T_IMPORT_HISTORY</span>
-                    </a>)</div>
+                <div style="margin: -2px 0 0 10px">
+                    <md-icon ng-click="showImportDialog($event)" aria-label="{{'DATABASE.INFORMATIONS.T_IMPORT_HISTORY' | translate}}" style="cursor:pointer">list</md-icon>
+                </div>
             </div>
         </section>
         <section flex="50" style="padding-bottom: 0">
@@ -181,9 +182,21 @@
                 <md-list>
                     <md-list-item class="md-2-line" ng-repeat="item in database.handles">
                         <div class="md-list-item-text" layout="column">
-                            <h3></h3>
-                            <h4></h4>
-                            <p></p>
+                            <h3>{{item.created_at | date:'short'}}</h3>
+                            <p>
+                                <span translate>DATABASE.INFORMATIONS.T_HANDLE</span>:
+                                {{item.identifier}}
+                            </p>
+                            <p>
+                                <span translate>DATABASE.INFORMATIONS.T_HANDLE_URL</span>:
+                                <span>
+                                    <a href="{{item.url}}" title="{{item.identifier}}" aria-label="{{item.identifier}}" target="_blank">{{item.url | date:'short'}}</a>
+                                </span>
+                            </p>
+                            <p ng-show="item.declared_creation_date != '0001-01-01T00:00:00Z'">
+                                <span translate>DATABASE.INFORMATIONS.T_HANDLE_DECLARED_CREATION_DATE</span>:
+                                <span>{{item.declared_creation_date | date:'short'}}</span>
+                            </p>
                         </div>
 
                     </md-list-item>
@@ -201,17 +214,17 @@
                 <md-list>
                     <md-list-item class="md-2-line" style="min-height: 105px" ng-repeat="item in database.imports">
                         <div class="md-list-item-text" layout="column">
-                            <h3><span translate>DATABASE.INFORMATIONS.T_IMPORTATION_DATE</span>:
-                                {{item.created_at | date:'short'}}</h3>
-                            <h4>
+                            <h3>{{item.created_at | date:'short'}}</h3>
+                            <p>
                                 <span translate>DATABASE.INFORMATIONS.T_NUMBER_OF_LINES</span>:
                                 {{item.number_of_lines}}
-                            </h4>
-                            <h4>
+                            </pkkk>
+                            <p>
                                 <span translate>DATABASE.INFORMATIONS.T_NUMBER_OF_SITES</span>:
                                 {{item.number_of_sites}}
-                            </h4>
+                            </p>
                             <p>
+                                <span translate>DATABASE.INFORMATIONS.T_IMPORTED_CSV</span>:
                                 <a aria-label="{{'DATABASE.INFORMATIONS.T_IMPORTED_CSV' | translate}}" ng-click="downloadCSV(item.id)">{{item.filename}}</a>
                             </p>
                         </div>

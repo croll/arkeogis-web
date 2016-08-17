@@ -88,7 +88,7 @@
             $scope.showHandleDialog = function(ev) {
                 $mdDialog.show({
                     controller: DialogController,
-                    contentElement: '#handlesDialog',
+                    contentElement: '#handleDialog',
                     parent: angular.element(document.body),
                     targetEvent: ev,
                     clickOutsideToClose: true
