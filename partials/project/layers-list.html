@@ -45,8 +45,8 @@
         <tbody md-body>
             <tr md-row md-select="item" md-select-id="uniq_code" ng-mouseover="preview(item.geographical_extent_geom)" ng-mouseleave="preview(null)" ng-click="toggleItem(item, 'layers')" ng-repeat="item in layerList | filter:query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
                 <td md-cell ark-get-translation ark-translations="item.name"></td>
-                <td md-cell>{{item.start_date}}</td>
-                <td md-cell>{{item.end_date}}</td>
+                <td md-cell>{{item.start_date | arkYear}}</td>
+                <td md-cell>{{item.end_date | arkYear}}</td>
                 <td md-cell>{{item.zoom_level}}</td>
                 <td md-cell>{{item.author}}</td>
                 <td md-cell ark-get-translation ark-translations="item.description"></td>
