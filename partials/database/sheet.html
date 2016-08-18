@@ -88,6 +88,11 @@
             </div>
             <div layout="row">
                 <div>
+                    <span translate>DATABASE.INFORMATIONS.T_DATE</span>:</div>
+                <div>{{database.declared_creation_date | date:'short'}}</div>
+            </div>
+            <div layout="row">
+                <div>
                     <span translate>DATABASE.INFORMATIONS.T_IMPORTATION_DATE</span>:</div>
                 <div>{{database.created_at | date:'short'}}</div>
             </div>
@@ -108,33 +113,61 @@
             </div>
             <div layout="row">
                 <div>
-                    <span translate>DATABASE.INFORMATIONS.T_STATUS</span>:</div>
+                    <span translate>DATABASE.INFORMATIONS.T_STATUS</span>:
+                </div>
                 <div>{{databaseDefinitions[database.state]}}</div>
             </div>
             <div layout="row">
                 <div>
-                    <span translate>DATABASE.INFORMATIONS.T_CONTEXT</span>:</div>
+                    <span translate>DATABASE.INFORMATIONS.T_CONTEXT</span>:
+                </div>
                 <span ng-repeat="c in database.contexts">
-                    <span>&nbsp;{{databaseInfos[c.context]}}</span>
+                    <span>&nbsp;{{databaseDefinitions[c.context]}}</span>
                     <span ng-if="!$last">
-                        -
+                        ,
                     </span>
                 </span>
             </div>
-            <div layout="row" ng-show="database.handles.length">
-                <div>
-                    <span translate>DATABASE.INFORMATIONS.T_HANDLE</span>:</div>
-                <div>
-                    <a href="{{database.handles[0].url}}" title="{{database.handles[0].identifier}}" target="_blank">{{database.handles[0].identifier}}</a>
+            <section ng-show="database.handles.length">
+                <div layout="row">
+                    <div>
+                        <span translate>DATABASE.INFORMATIONS.T_HANDLE</span>:
+                    </div>
+                    <div>
+                        {{database.handles[0].identifier}}
+                    </div>
+                    <div style="margin: -2px 0 0 10px">
+                        <md-icon ng-click="showHandleDialog($event)" aria-label="{{'DATABASE.INFORMATIONS.T_HANDLE_HISTORY' | translate}}" style="cursor:pointer">list</md-icon>
+                    </div>
                 </div>
-                <div style="margin: -2px 0 0 10px">
-                    <md-icon ng-click="showHandleDialog($event)" aria-label="{{'DATABASE.INFORMATIONS.T_HANDLE_HISTORY' | translate}}" style="cursor:pointer">list</md-icon>
+                <div layout="row">
+                    <div>
+                        <span translate>DATABASE.INFORMATIONS.T_HANDLE_URI</span>:
+                    </div>
+                    <div>
+                        <a href="{{database.handles[0].url}}" title="{{database.handles[0].url}}" target="_blank">{{database.handles[0].url}}</a>
+                    </div>
                 </div>
+            </section>
+            <div layout="row" ng-show="database.source_relation != ''">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_SOURCE_RELATION</span>:</div>
+                <div>{{database.source_relation}}</div>
             </div>
             <div layout="row">
                 <div>
                     <span translate>DATABASE.INFORMATIONS.T_LICENSE</span>:</div>
                 <div>{{database.license}}</div>
+            </div>
+            <div layout="row" ng-show="database.editor != ''">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_EDITOR</span>:</div>
+                <div>{{database.editor | date:'short'}}</div>
+            </div>
+            <div layout="row" ng-show="database.contributor!= ''">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_CONTRIBUTOR</span>:</div>
+                <div>{{database.contributor | date:'short'}}</div>
             </div>
             <div layout="row">
                 <div>
@@ -159,6 +192,26 @@
                     <span translate>DATABASE.INFORMATIONS.T_DESCRIPTION</span>:</div>
                 <div ark-force-lang="database.default_language" ark-get-translation ark-translations="database.description"></div>
             </div>
+            <div layout="row" ng-show="database.source_description != ''">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_SOURCE_DESCRIPTION</span>:</div>
+                <div>{{database.source_description}}</div>
+            </div>
+            <div layout="row" ng-show="database.context_description != ''">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_CONTEXT_DESCRIPTION</span>:</div>
+                <div>{{database.context_description}}</div>
+            </div>
+            <div layout="row" ng-show="database.geographical_limit.en != ''">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_GEOGRAPHICAL_LIMITS_DESCRIPTION</span>:</div>
+                <div ark-force-lang="database.default_language" ark-get-translation ark-translations="database.geographical_limit"></div>
+            </div>
+            <div layout="row" ng-show="database.bibliography.en != ''">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_BIBLIOGRAPHY</span>:</div>
+                <div ark-force-lang="database.default_language" ark-get-translation ark-translations="database.bibliography"></div>
+            </div>
         </section>
     </md-content>
     <md-content layout="row" layout-padding layout-align="center center" style="padding-top: 50px; padding-bottom: 20px">
@@ -176,7 +229,7 @@
 
 <div style="visibility: hidden">
     <div class="md-dialog-container" id="handleDialog">
-        <md-dialog layout-padding aria-label="{{'handles' | translate}}">
+        <md-dialog layout-padding aria-label="{{'handles' | translate}}" style="min-width:65%">
             <md-dialog-content>
                 <h2 translate>DATABASE.POPUP_HANDLE_HISTORY.T_TITLE</h2>
                 <md-list>
@@ -208,7 +261,7 @@
 
 <div style="visibility: hidden">
     <div class="md-dialog-container" id="importDialog">
-        <md-dialog layout-padding aria-label="{{'imports' | translate}}">
+        <md-dialog layout-padding aria-label="{{'imports' | translate}}" style="min-width:65k%">
             <md-dialog-content>
                 <h2 translate>DATABASE.POPUP_IMPORT_HISTORY.T_TITLE</h2>
                 <md-list>
