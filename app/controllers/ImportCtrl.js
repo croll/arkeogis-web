@@ -69,7 +69,6 @@
                         $state.go('arkeogis.import.step1', {}, {reload: true});
                         return;
                     } else {
-                        console.log(askedStepNum);
                         $scope.tabs.selectedIndex = ($scope.tabs.enabled[2] === true) ? askedStepNum-=1 : askedStepNum-=2;
                     }
                 }
@@ -94,7 +93,7 @@
                 return;
 
             $scope.reset = function() {
-                $scope.tabs.enabled[2] = a.enabled[2];
+                $scope.tabs.enabled[2] = arkeoImport.tabs.enabled[2];
                 $scope.file = undefined;
             };
 
@@ -301,8 +300,8 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('ImportStep3Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoImport', 'arkeoLang', 'arkeoDatabase', 'database', 'login', '$translate', '$q', '$http',
-        function($scope, $state, arkeoService, arkeoImport, arkeoLang, arkeoDatabase, database, login, $translate, $q, $http) {
+    ArkeoGIS.controller('ImportStep3Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoImport', 'arkeoLang', 'arkeoDatabase', 'arkeoProject', 'database', 'login', '$translate', '$q', '$http',
+        function($scope, $state, arkeoService, arkeoImport, arkeoLang, arkeoDatabase, arkeoProject, database, login, $translate, $q, $http) {
 
             if (!login.requirePermission('import', 'arkeogis.import.step1'))
                 return;
@@ -310,6 +309,8 @@
             if (!angular.isDefined(arkeoImport.data)) {
                 return;
             }
+
+            var project = arkeoProject.get();
 
             //arkeoImport.selectTab(3, database.editMode)
 
@@ -387,6 +388,7 @@
                         return;
                     }
                     dbObj.authors = [];
+                    dbObj.project_id = project.id;
                     angular.forEach(database.authors, function(author) {
                         dbObj.authors.push(parseInt(author.id));
                     });
