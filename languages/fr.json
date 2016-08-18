@@ -179,14 +179,27 @@
 		},
 		"INFORMATIONS": {
 			"T_AUTHOR_AND_CO_AUTHORS": "Auteur (e-s) et co-auteur(e-s)",
+			"T_BIBLIOGRAPHY": "Bibliographie",
 			"T_CONTEXT": "Cadre de réalisation",
+			"T_CONTEXT_DESCRIPTION": "Cadre(s) de réalisation",
 			"T_CONTINENTS": "Continents",
+			"T_CONTRIBUTOR": "Contributeur",
 			"T_COUNTRIES": "Pays",
-			"T_CREATION_DATE": "Date de création",
+			"T_DATABASE_LANG": "Langue de la base de données",
+			"T_DATE": "Date de réalisation",
 			"T_DESCRIPTION": "Description",
+			"T_EDITOR": "Structure éditrice",
 			"T_ENDING_PERIOD": "Fin",
 			"T_GEOGRAPHICAL_EXTENT": "Etendue géographique",
+			"T_GEOGRAPHICAL_LIMITS_DESCRIPTION": "Précision sur l'emprise géographique",
+			"T_HANDLE": "Identifiant de la ressource",
+			"T_HANDLE_DECLARED_CREATION_DATE": "Date de dépôt de la ressource de référence",
+			"T_HANDLE_HISTORY": "Historique des ressources",
+			"T_HANDLE_URI": "URI de la ressource",
+			"T_HANDLE_URL": "URL de la ressource",
+			"T_IMPORTATION_DATE": "Date d'importation",
 			"T_IMPORTED_CSV": "Fichier CSV importé",
+			"T_IMPORT_HISTORY": "Historique des imports",
 			"T_IMPORT_INITIATOR": "Initiateur",
 			"T_LICENSE": "Licence",
 			"T_MODIFICATION_DATE": "Date de dernière modification",
@@ -194,6 +207,9 @@
 			"T_NUMBER_OF_SITES": "Nombre de sites",
 			"T_PUBLICATION_STATUS": "Statut de publication",
 			"T_PUBLISHED": "Publiée",
+			"T_SCALE": "Échelle",
+			"T_SOURCE_DESCRIPTION": "Description de la ressource",
+			"T_SOURCE_RELATION": "Lien avec d'autres ressources",
 			"T_STARTING_PERIOD": "Début",
 			"T_STATUS": "Avancement",
 			"T_SUBJECT_AND_KEYWORDS": "Sujet(s) / Mots-clés",
@@ -221,6 +237,12 @@
 		"MESSAGE": {
 			"T_DELETE_FAILED": "La suppression a échoué",
 			"T_DELETE_OK": "La base de donnée a été supprimée avec succès"
+		},
+		"POPUP_HANDLE_HISTORY": {
+			"T_TITLE": "Historique des identifiants crées"
+		},
+		"POPUP_IMPORT_HISTORY": {
+			"T_TITLE": "Historique des imports"
 		},
 		"SCALE_RESOLUTION_COUNTRY": {
 			"T_TITLE": "Pays"
@@ -265,7 +287,7 @@
 			"T_TITLE": "Inventaire"
 		},
 		"TYPE_LITERARYWORK": {
-			"T_TITLE": "Travail littéraire"
+			"T_TITLE": "Ouvrage"
 		},
 		"TYPE_RESEARCH": {
 			"T_TITLE": "Recherche"
@@ -330,9 +352,6 @@
 			"T_CONTENT": "Etes-vous sûr(e) ?",
 			"T_OK": "Ok",
 			"T_TITLE": "Veuillez confirmer votre demande"
-		},
-		"INVALIDE_CHOICE": {
-			"T_CAN_T_SET_OTHER_TRANSLATION_LANG_IF_NO_ENGLISH_TRANSLATION_DONE": "Merci de renseigner la langue anglaise avant tout autre langue."
 		}
 	},
 	"GLOBAL": {
@@ -371,7 +390,12 @@
 		}
 	},
 	"IMPORT": {
+		"BUTTON": {
+			"T_CANCEL_AND_GO_TO_SHEET": "#!#IMPORT.BUTTON.T_CANCEL_AND_GO_TO_SHEET"
+		},
 		"FIELD_ALL": {
+			"T_ENGLISH_TRANSLATION_REQUIRED": "#!#IMPORT.FIELD_ALL.T_ENGLISH_TRANSLATION_REQUIRED",
+			"T_ERROR_NOT_VALID_URL": "#!#IMPORT.FIELD_ALL.T_ERROR_NOT_VALID_URL",
 			"T_ERROR_REQUIRED": "Ce champs est requis"
 		},
 		"HEADER_TAB_CSV_IMPORT_REPORT": {
@@ -402,8 +426,14 @@
 			"T_LABEL": "* Caractère d'échappement"
 		},
 		"FIELD_GEONAMES": {
-			"T_HELP": " Utiliser les codes communes fournies par Geonames pour géolocaliser les sites.",
+			"T_HELP": "Utiliser les codes ville/village (icône P) fournis par Geonames pour géolocaliser les sites.(icône P)",
 			"T_LABEL": "Utilisation des Geonames"
+		},
+		"FIELD_GEO_CONTINENT": {
+			"T_PLACEHOLDER": "#!#IMPORT_STEP1.FIELD_GEO_CONTINENT.T_PLACEHOLDER"
+		},
+		"FIELD_GEO_COUNTRY": {
+			"T_PLACEHOLDER": "#!#IMPORT_STEP1.FIELD_GEO_COUNTRY.T_PLACEHOLDER"
 		},
 		"FIELD_GEO_EXTENT": {
 			"T_LABEL": "* Étendue géographique de la base de données."
@@ -411,6 +441,9 @@
 		"FIELD_LANG": {
 			"T_HELP": "Langue utilisée dans la base de données pour décrire les caractérisations Mobilier / Immobilier / Production / Paysage / Médias",
 			"T_LABEL": "* Langue de la base"
+		},
+		"FIELD_PUBLISHED": {
+			"T_HELP": "#!#IMPORT_STEP1.FIELD_PUBLISHED.T_HELP"
 		},
 		"FIELD_SEPARATOR": {
 			"T_ERROR_LEN": "Ce champ ne peut comporter qu'un caractère maximum.",
@@ -460,10 +493,10 @@
 			"T_LABEL_PREVIOUS_STEP": "Revenir à l'étape précédente"
 		},
 		"REPORT_TABLE": {
-			"T_HELP_FILTER_RESULTS": "Filtrer les résultats",
+			"T_HELP_FILTER_RESULTS": "Recherche dans les résultats du rapport d'erreurs.",
 			"T_LABEL_COLUMN": "Colonne",
 			"T_LABEL_ERROR_MESSAGE": "Message d'erreur",
-			"T_LABEL_FILTER_RESULTS": "#!#IMPORT_STEP2.REPORT_TABLE.T_LABEL_FILTER_RESULTS",
+			"T_LABEL_FILTER_RESULTS": "Rechercher dans les résultats du rapport d'erreurs.",
 			"T_LABEL_LINE": "Ligne",
 			"T_LABEL_NO_ERROR": "Aucune erreur",
 			"T_LABEL_REPORT": "Rapport",
@@ -496,6 +529,9 @@
 		"FIELD_LICENSE": {
 			"T_HELP": "Merci de choisir une des licences Creative Commons compatibles avec la plate-forme ArkeoGIS pour protéger votre travail.",
 			"T_LABEL": "Licence"
+		},
+		"FIELD_PUBLISHED": {
+			"T_LABEL": "#!#IMPORT_STEP3.FIELD_PUBLISHED.T_LABEL"
 		},
 		"FIELD_SCALE_RESOLUTION": {
 			"T_HELP": "Cette base de données concerne des objets, ou des sites ou des bassins versants etc.",
@@ -542,8 +578,8 @@
 			"T_LABEL": "Contributeur"
 		},
 		"FIELD_DATE_IUR": {
-			"T_HELP": "Date de dépôt de la ressource de référence.",
-			"T_LABEL": "Date IUR"
+			"T_HELP": "Date de dépôt de la ressource de référence (URI).",
+			"T_LABEL": "Date de la ressource"
 		},
 		"FIELD_EDITOR": {
 			"T_HELP": "Nom de la structure éditrice",
@@ -563,11 +599,11 @@
 			"T_LABEL": "Ressource"
 		},
 		"FIELD_RESOURCE_ID": {
-			"T_HELP": "Identifiant unique de la ressource",
-			"T_LABEL": "Identifiant uniforme de la ressource"
+			"T_HELP": "Identifiant Uniforme de la Ressource (URI).",
+			"T_LABEL": "Identifiant Uniforme de la Ressource"
 		},
 		"FIELD_URL": {
-			"T_HELP": "Adresse de la ressource",
+			"T_HELP": "Adresse de la ressource (URI).",
 			"T_LABEL": "URL"
 		},
 		"FORM": {
@@ -578,6 +614,11 @@
 		"INFOS": {
 			"T_LINE1": "Merci de bien vouloir renseigner les champs suivants de complément de présentation de votre travail pour les autres utilisateurs de la plate-forme ArkeoGIS.",
 			"T_LINE2": ""
+		},
+		"MESSAGES": {
+			"T_ERROR_BIBLIOGRAPHY_EN_TRANSLATION_CAN_T_BE_EMPTY": "#!#IMPORT_STEP4.MESSAGES.T_ERROR_BIBLIOGRAPHY_EN_TRANSLATION_CAN_T_BE_EMPTY",
+			"T_ERROR_GEOGRAPHICAL_LIMITS_EN_TRANSLATION_CAN_T_BE_EMPTY": "#!#IMPORT_STEP4.MESSAGES.T_ERROR_GEOGRAPHICAL_LIMITS_EN_TRANSLATION_CAN_T_BE_EMPTY",
+			"T_PUBLICATION_INFORMATIONS_SAVED": "#!#IMPORT_STEP4.MESSAGES.T_PUBLICATION_INFORMATIONS_SAVED"
 		}
 	},
 	"LANGEDITOR": {
@@ -616,7 +657,7 @@
 		"FIELD_MAINMENU": {
 			"T_ITEM_CHARACEDITOR": "Éditeur de caractéristiques",
 			"T_ITEM_CHRONODITOR": "Éditeurs de chronologies",
-			"T_ITEM_DATABASE_LIST": "Index",
+			"T_ITEM_DATABASE_LIST": "Index des bases de données",
 			"T_ITEM_GROUPSMANAGER": "Administration des groupes",
 			"T_ITEM_IMPORT": "Import",
 			"T_ITEM_LANGEDITOR": "Éditeur de langues",
