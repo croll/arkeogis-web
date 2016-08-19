@@ -20,166 +20,205 @@
  */
 
 (function() {
-	'use strict';
-	ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', 'arkeoService', 'leafletData', 'mapService',
-	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, arkeoService, leafletData, mapService) {
+    'use strict';
+    ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', 'arkeoService', 'leafletData', 'mapService',
+        function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, arkeoService, leafletData, mapService) {
 
-		/*
-		 * Leaflet Map
-		 */
+            /*
+             * Leaflet Map
+             */
+			 var self = this;
 
+			 this.letter = 'A';
 
-		// Get map area to fit full screen
-		var resize = function() {
-			$scope.mapHeight = $(window).height() - $("#arkeo-main-toolbar").height() +"px";
-		};
-		resize();
+            // Get map area to fit full screen
+            var resize = function() {
+                $scope.mapHeight = $(window).height() - $("#arkeo-main-toolbar").height() + "px";
+            };
+            resize();
 
-		$(window).on('resize', resize);
+            $(window).on('resize', resize);
 
-		var urlParams = $location.search();
+            var urlParams = $location.search();
 
-		var dbToGet =  (angular.isDefined(urlParams.id) && urlParams.id) ? urlParams.id : 12;
+            // Leaflet init
 
-		// Leaflet init
+            angular.extend($scope, mapService.config);
 
-		angular.extend($scope, mapService.config);
+            // function to display a map
 
-		// function to display a map
+            var generateIcon = function(feature) {
 
-		var generateIcon = function(feature) {
-			var iconClasses = "icon icon-site";
-			if (feature.centroid) {
-				iconClasses += " centroid";
-			}
+				// Debug icon position
+                // leafletData.getMap().then(function(map) {
+				// 	L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]).addTo(map);
+				// });
 
-			var characInfos = analyzeCharacs(feature);
+				var iconProperties = {};
 
-			iconClasses += " "+characInfos.iconSize;
+                var iconClasses = "";
 
-			if (characInfos.exceptional) {
-				iconClasses += " exceptional"
-			}
+				var exceptional = "";
 
-			/*
-			return L.divIcon({
-				className: 'arkeo-marker-container',
-				html: '<svg class="arkeo-marker arkeo-marker-drop'+iconClasses+'"><use xlink:href="#arkeo-marker-drop"></use></svg><span class="mls"></span>',
-				iconAnchor: [12, 0]
-			});
-			*/
-			return L.divIcon({
-				className: 'arkeo-marker-container',
-				html: '<div>PLOP</div>',
-				iconAnchor: [12, 0]
-			});
-		}
+                var characInfos = analyzeCharacs(feature);
 
-		var analyzeCharacs = function(feature) {
-			var ret = {exceptional: false, iconSize: 0};
-			angular.forEach(feature.properties.site_ranges, function(site_range) {
-				angular.forEach(site_range.characs, function(c) {
-					if (c.exceptional) {
-						ret.exceptional = true;
+                iconClasses += " size" + characInfos.iconSize;
+
+                if (characInfos.exceptional) {
+                    exceptional += "-exceptional"
+                }
+
+                if (feature.centroid) {
+					angular.extend(iconProperties, {
+						className: 'arkeo-marker-container-drop query'+self.letter,
+						html: '<svg class="arkeo-marker arkeo-marker-drop-svg '+iconClasses+'"><use xlink:href="#arkeo-marker-drop-symbol'+exceptional+'"></use></svg><div class="arkeo-marker-letter size'+characInfos.iconSize+'">'+self.letter+'</div>',
+						iconSize: [55, 60],
+	                	iconAnchor: getIconAnchorPosition(characInfos.iconSize),
+						popupAnchor: [0, 0]
+					});
+                } else {
+					angular.extend(iconProperties, {
+						className: 'arkeo-marker-container-circle query'+self.letter,
+						html: '<svg class="arkeo-marker arkeo-marker-circle-svg '+iconClasses+'"><use xlink:href="#arkeo-marker-circle-symbol'+exceptional+'"></use></svg><div class="arkeo-marker-letter size'+characInfos.iconSize+'">'+self.letter+'</div>',
+						iconSize: [55, 55],
+		            	iconAnchor: [25, 27.5],
+						popupAnchor: [0, 0]
+					});
+				}
+
+				function getIconAnchorPosition(iconSize) {
+					var ret;
+					switch(iconSize) {
+						case 1:
+							ret = [24, 38];
+						break;
+						case 2:
+							ret = [23, 41];
+						break;
+						case 3:
+							ret = [23, 43];
+						break;
+						case 4:
+							ret = [23, 46];
+						break;
+						case 5:
+							ret = [23, 52];
+						break;
+						case 6:
+							ret = [23, 55];
+						break;
 					}
-					var memorized = 0;
-					var current = 0;
-					switch (c.knowledge_type) {
-						case 'not_documented':
-							current = 1;
-							break;
-						case 'literature':
-							current = 2;
-							break;
-						case 'prospected_aerial':
-							current = 3;
-							break;
-						case 'prospected_pedestrian':
-							current = 4;
-							break;
-						case 'surveyed':
-							current = 5;
-							break;
-						case 'dig':
-							current = 6;
-							break;
-					}
-					if (memorized < current) {
-						memorized = current;
-						ret.iconSize = 'size'+current;
-					}
-				});
-			});
-			return ret;
-		}
+					return ret;
+				};
 
-        $scope.letter = 0;
+                return L.divIcon(iconProperties);
 
-		function displayMapResults(data) {
-			var latlngs = [];
+            }
 
-            leafletData.getMap().then(function(map) {
-				leafletData.getLayers().then(function(layers) {
-                    if ('sites' in layers.overlays)
-                        map.removeLayer(layers.overlays.sites);
+            var analyzeCharacs = function(feature) {
+                var current = 0;
+                var memorized = 0;
+                var ret = {
+                    exceptional: false,
+                    iconSize: 0
+                };
+                angular.forEach(feature.properties.site_ranges, function(site_range) {
+                    angular.forEach(site_range.characs, function(c) {
+                        if (c.exceptional) {
+                            ret.exceptional = true;
+                        }
+                        switch (c.knowledge_type) {
+                            case 'not_documented':
+                                current = 1;
+                                break;
+                            case 'literature':
+                                current = 2;
+                                break;
+                            case 'prospected_aerial':
+                                current = 3;
+                                break;
+                            case 'prospected_pedestrian':
+                                current = 4;
+                                break;
+                            case 'surveyed':
+                                current = 5;
+                                break;
+                            case 'dig':
+                                current = 6;
+                                break;
+                        }
+                        if (memorized < current) {
+                            memorized = current;
+                            ret.iconSize = current;
+                        }
+                    });
                 });
+                return ret;
+            }
+
+            function displayMapResults(data) {
+                var latlngs = [];
+
+                leafletData.getMap().then(function(map) {
+                    leafletData.getLayers().then(function(layers) {
+                        if ('sites' in layers.overlays)
+                            map.removeLayer(layers.overlays.sites);
+                    });
+                });
+
+                angular.extend($scope.layers.overlays, {
+                    sites: {
+                        name: 'ArkeoGIS (' + (++$scope.letter) + ')',
+                        type: 'geoJSONShape',
+                        data: data,
+                        visible: true,
+                        icon: generateIcon,
+                        layerOptions: {
+                            pointToLayer: function(feature, latlng) {
+                                return L.marker(latlng, {
+                                    icon: generateIcon(feature)
+                                });
+                            },
+                            onEachFeature: function(feature, layer) {
+                                layer.bindPopup(feature.properties.infos.name + " (" + feature.properties.infos.code + ")");
+                            }
+                        }
+                    }
+                });
+
+                angular.forEach(data.features, function(feature) {
+                    latlngs.push([parseFloat(feature.geometry.coordinates[0]), parseFloat(feature.geometry.coordinates[1])]);
+                });
+
+                resize();
+            }
+
+            /*
+             * watch on results
+             */
+
+            $scope.$parent.$watch("latest_result", function(newval, oldval) {
+                console.log("display new results ...", newval);
+                displayMapResults(newval);
             });
 
+            function drawSearchZoneRect() {
+                leafletData.getMap().then(function(map) {
+                    leafletData.getLayers().then(function(layers) {
+                        var drawnItems = layers.overlays.draw;
 
-                                angular.extend($scope.layers.overlays, {
-                                    sites: {
-                                        name:'ArkeoGIS ('+(++$scope.letter)+')',
-                                        type: 'geoJSONShape',
-                                        data: data,
-                                        visible: true,
-                                        icon: generateIcon,
-                                        layerOptions: {
-                                            pointToLayer: function(feature, latlng) {
-                                                return L.marker(latlng, { icon: generateIcon(feature) });
-                                            },
-                                            onEachFeature: function(feature, layer) {
-                                                layer.bindPopup(feature.properties.infos.name+" ("+feature.properties.infos.code+")");
-                                            }
-                                        }
-                                    }
-                                });
+                        if (curlayer) {
+                            drawnItems.removeLayer(curlayer);
+                            curlayer = null;
+                        }
 
-                                angular.forEach(data.features, function(feature) {
-                                    latlngs.push([parseFloat(feature.geometry.coordinates[0]), parseFloat(feature.geometry.coordinates[1])]);
-                                });
+                        geom = angular.fromJson(geom);
+                        curlayer = L.geoJson(geom).addTo(drawnItems);
+                        curlayer.editing.enable();
+                    });
+                });
+            }
 
-                                resize();
-		}
-
-        /*
-         * watch on results
-         */
-
-         $scope.$parent.$watch("latest_result", function(newval, oldval) {
-             console.log("display new results ...", newval);
-             displayMapResults(newval);
-         });
-
-
-		function drawSearchZoneRect() {
-			leafletData.getMap().then(function(map) {
-				leafletData.getLayers().then(function(layers) {
-					var drawnItems = layers.overlays.draw;
-
-					if (curlayer) {
-					   drawnItems.removeLayer(curlayer);
-					   curlayer = null;
-				   	}
-
-				   	geom = angular.fromJson(geom);
-					curlayer = L.geoJson(geom).addTo(drawnItems);
-					curlayer.editing.enable();
-				});
-			});
-		}
-
-
-
-
-	}]);
+        }
+    ]);
 })();

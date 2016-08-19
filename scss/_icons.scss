@@ -1,62 +1,150 @@
-.svg-marker {
-        cursor:pointer;
-        background:yellow;
-        height:35px;
-        padding:0 8%;
-        white-space: nowrap;
-        color:#fff;
-        font:500 14px/20px Arial;
-        background-size:100%;
-        background-image: url("data:image/svg+xml;utf8,<svg width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><g><rect x='5%' y='0' width='90%' height='20' fill='#f9b000' style='-webkit-svg-shadow: 0 2px 3px rgba(0,0,0,0.6);'></rect></g><svg x='50%' y='20' style='overflow:visible;'><polygon points='-10,0 10,0 0,10' fill='#f9b000' style='-webkit-svg-shadow: 0 2px 3px rgba(0,0,0,0.6);'></polygon></svg></svg>");
-        width: 20px;
-        height: 20px;
-}
-
-.arkeo-marker-container {
-    width: 30px;
-    height: 30px;
-}
-
 .arkeo-marker {
 	display: inline-block;
-	width: 1em;
-	height: 1em;
 	fill: currentColor;
     &.size1 {
-	       font-size: 15px;
+	    font-size: 15px;
+        transform: scale(.25);
     }
     &.size2 {
-	       font-size: 16px;
+	    font-size: 16px;
+        transform: scale(.35);
     }
     &.size3 {
-	       font-size: 19px;
+	    font-size: 19px;
+        transform: scale(.45);
     }
     &.size4 {
-	       font-size: 23px;
+	    font-size: 23px;
+        transform: scale(.55);
     }
     &.size5 {
-	       font-size: 30px;
+	    font-size: 30px;
+        transform: scale(.75);
     }
     &.size6 {
-	       font-size: 37px;
+	    font-size: 37px;
+        transform: scale(.85)
     }
 }
 
-#arkeo-marker-circle {
-    fill: #17aaf0;
-    stroke: #fff;
-    stroke-width: 8px;
+.arkeo-marker-circle-svg {
+    width: 50px;
+    height: 50px;
 }
 
-#arkeo-marker-drop {
+#arkeo-marker-circle-symbol {
     fill: #17aaf0;
     stroke: #fff;
-    stroke-width: 8px;
+    stroke-width: 4px;
 }
 
-#arkeo-marker-letter {
-    fill: #000;
-    stroke: none;
-    font-weight: bold;
-    font-size: 70px;
+#arkeo-marker-circle-symbol-exceptional {
+    fill: #17aaf0;
+    stroke: #000;
+    stroke-width: 4px;
+}
+
+.exceptional #arkeo-marker-circle-symbol {
+    stroke: #000!important;
+}
+
+.arkeo-marker-circle-shape {
+}
+
+.arkeo-marker-container-circle {
+    .arkeo-marker-letter {
+        font-weight: bold;
+        position: absolute;
+        color: #fff;
+        &.size1 {
+            font-size: 8px;
+            top: 18px;
+            left: 22px;
+        }
+        &.size2 {
+            font-size: 10px;
+            top: 17px;
+            left: 21px;
+        }
+        &.size3 {
+            font-size: 13px;
+            top: 15px;
+            left: 20px;
+        }
+        &.size4 {
+            font-size: 15px;
+            top: 14px;
+            left: 19px;
+        }
+        &.size5 {
+            font-size: 20px;
+            top: 10px;
+            left: 18px;
+        }
+        &.size6 {
+            font-size: 24px;
+            top: 8px;
+            left: 16px;
+        }
+    }
+}
+
+.arkeo-marker-drop-svg {
+    width: 50px;
+    height: 60px;
+}
+
+#arkeo-marker-drop-symbol {
+    fill: #17aaf0;
+    stroke: #000;
+    stroke-width: 4px;
+}
+
+#arkeo-marker-drop-symbol-exceptional {
+    fill: #17aaf0;
+    stroke: #000;
+    stroke-width: 4px;
+}
+
+.arkeo-marker-drop-shape {
+    width: 50px;
+    height: 60px;
+}
+
+.arkeo-marker-container-drop {
+    .arkeo-marker-letter {
+        color: #fff;
+        position: absolute;
+        font-weight: bold;
+        &.size1 {
+            font-size: 8px;
+            top: 22px;
+            left: 22px;
+        }
+        &.size2 {
+            font-size: 11px;
+            top: 20px;
+            left: 21px;
+        }
+        &.size3 {
+            font-size: 13px;
+            top: 19px;
+            left: 20px;
+        }
+        &.size4 {
+            font-size: 15px;
+            top: 17px;
+            left: 19px;
+        }
+        &.size5 {
+            font-size: 20px;
+            top: 13px;
+            left: 17px;
+        }
+        &.size6 {
+            font-size: 24px;
+            top: 11px;
+            left: 15px;
+        }
+    }
 }
