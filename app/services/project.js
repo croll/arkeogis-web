@@ -37,7 +37,20 @@
                     databases: [],
                     characs: []
                 };
-            }
+            } else {
+		if (!self.project.chronologies) {
+			self.project.chronologies = [];
+		}
+		if (!self.project.layers) {
+			self.project.layers= [];
+		}
+		if (!self.project.databases) {
+			self.project.databases = [];
+		}
+		if (!self.project.characs) {
+			self.project.characs = [];
+		}
+	    }
             return self.project;
         }
 
