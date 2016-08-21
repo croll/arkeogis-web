@@ -128,8 +128,7 @@
                     exceptional: false,
                     iconSize: 0
                 };
-                angular.forEach(feature.properties.site_ranges, function(site_range) {
-                    angular.forEach(site_range.characs, function(c) {
+                angular.forEach(feature.properties.characs, function(c) {
                         if (c.exceptional) {
                             ret.exceptional = true;
                         }
@@ -157,7 +156,6 @@
                             memorized = current;
                             ret.iconSize = current;
                         }
-                    });
                 });
                 return ret;
             }
@@ -190,10 +188,10 @@
                                 marker.on('click', function(e) {
                                     return false;
                                 });
-                                marker.bindPopup("POUET");
                                 return marker;
                             },
                             onEachFeature: function(feature, layer) {
+                                console.log(feature);
                                 layer.bindPopup(feature.properties.infos.name + " (" + feature.properties.infos.code + ")");
                             }
                         }
