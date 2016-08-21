@@ -34,8 +34,6 @@
 
             $scope.project = arkeoProject.get();
 
-console.log($scope.project);
-
             $scope.outOfBounds = {
                 chronologies: [],
                 layers: [],
@@ -57,6 +55,10 @@ console.log($scope.project);
             $scope.isValid = false;
 
             leafletData.getMap().then(function(map) {
+                if ($scope.project.geom != '') {
+                    map.fitBounds(L.geoJson($scope.project.geom).getBounds());
+                }
+                // Center map on project bounds
                 map.on('moveend', function() { var bbox = map.getBounds(); var boundingBox = arkeoMap.getValidBoundingBox(bbox._northEast.lat, bbox._northEast.lng, bbox._southWest.lat, bbox._southWest.lng);
                     $scope.bounds = arkeoMap.getBoundsAsGeoJSON(boundingBox);
                     if (map.getZoom() < 2) {

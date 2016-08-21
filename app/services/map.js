@@ -20,18 +20,31 @@
  */
 
 (function() {
-    ArkeoGIS.service('mapService', ['$http', '$q', '$translate', '$mdToast', function($http, $q, $translate, $mdToast) {
+    ArkeoGIS.service('arkeoMap', ['$http', '$q', '$translate', '$mdToast', 'arkeoProject', function($http, $q, $translate, $mdToast, arkeoProject) {
 
         var self = this;
+
+        this.project = arkeoProject.get();
+
+        projectCentroid = {
+            lat: 48.58476,
+            lng: 7.750576
+        }
+
+        if (this.project.geom) {
+            var c = L.geoJson(this.project.geom).getBounds().getCenter();
+            projectCentroid.lat = c.lat;
+            projectCentroid.lng = c.lng;
+        }
 
         this.config = {
             defaults: {
                 zoomControlPosition: 'topright'
             },
             center: {
-                lat: 48.58476,
-                lng: 7.750576,
-                zoom: 8
+                lat: projectCentroid.lat,
+                lng: projectCentroid.lng,
+                zoom: 0
             },
             layers: {
                 baselayers: {
@@ -39,16 +52,6 @@
                         name: 'OpenStreetMap',
                         url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                         type: 'xyz'
-                    },
-                    mapquest: {
-                        name: 'MapQuest',
-                        url: 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png',
-                        type: 'xyz'
-                    },
-                    googleTerrain: {
-                        name: 'Google Terrain',
-                        layerType: 'TERRAIN',
-                        type: 'google'
                     },
                     googleHybrid: {
                         name: 'Google Hybrid',
@@ -102,5 +105,6 @@
             bounds.crs = {type: "name", properties: {name: "EPSG:4326"}}
             return JSON.stringify(bounds);
         }
+
     }]);
 })();

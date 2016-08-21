@@ -21,12 +21,11 @@
 
 (function() {
 	'use strict';
-	ArkeoGIS.controller('MapCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', 'arkeoService', 'leafletData', 'arkeoProject',
-	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, arkeoService, leafletData, arkeoProject) {
+	ArkeoGIS.controller('MapCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', 'arkeoService', 'arkeoProject',
+	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, arkeoService, arkeoProject) {
 
 		$scope.project = arkeoProject.get();
 		console.log("project: ", $scope.project);
-
 
 		// the Query
 		$scope.query = {
@@ -34,7 +33,6 @@
 
 		// results
 		$scope.latest_result = 0;
-
 
 		/*
 		 * SideNav

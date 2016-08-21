@@ -21,8 +21,8 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', 'arkeoService', 'arkeoProject', 'leafletData', 'arkeoMap',
-        function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, arkeoService, arkeoProject, leafletData, arkeoMap) {
+    ArkeoGIS.controller('MapLeafletCtrl', ['$scope', 'arkeoService', 'arkeoProject', 'arkeoMap', 'leafletData',
+        function($scope, arkeoService, arkeoProject, arkeoMap, leafletData) {
 
             /*
              * Leaflet Map
@@ -41,13 +41,13 @@
 
             $(window).on('resize', resize);
 
-            var urlParams = $location.search();
-
-            // Leaflet init
-
             angular.extend($scope, arkeoMap.config);
 
-            // function to display a map
+            if (project.geom != '') {
+                leafletData.getMap().then(function(map) {
+                    map.fitBounds(L.geoJson(project.geom).getBounds());
+                });
+            }
 
             var generateIcon = function(feature) {
 
