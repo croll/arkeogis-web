@@ -27,11 +27,11 @@
             /*
              * Leaflet Map
              */
-			 var self = this;
+            var self = this;
 
-			 this.letter = 'A';
+            this.letter = 'A';
 
-             var project = arkeoProject.get();
+            var project = arkeoProject.get();
 
             // Get map area to fit full screen
             var resize = function() {
@@ -51,16 +51,16 @@
 
             var generateIcon = function(feature) {
 
-				// Debug icon position
+                // Debug icon position
                 // leafletData.getMap().then(function(map) {
-				// 	L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]).addTo(map);
-				// });
+                // 	L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]).addTo(map);
+                // });
 
-				var iconProperties = {};
+                var iconProperties = {};
 
                 var iconClasses = "";
 
-				var exceptional = "";
+                var exceptional = "";
 
                 var characInfos = analyzeCharacs(feature);
 
@@ -71,47 +71,51 @@
                 }
 
                 if (!feature.centroid) {
-					angular.extend(iconProperties, {
-						className: 'arkeo-marker-container-drop query'+self.letter,
-						html: '<svg class="arkeo-marker arkeo-marker-drop-svg '+iconClasses+'"><use xlink:href="#arkeo-marker-drop-symbol'+exceptional+'"></use></svg><div class="arkeo-marker-letter size'+characInfos.iconSize+'">'+self.letter+'</div>',
-						iconSize: [55, 60],
-	                	iconAnchor: getIconAnchorPosition(characInfos.iconSize),
-						popupAnchor: [0, 0]
-					});
+                    angular.extend(iconProperties, {
+                        className: 'arkeo-marker-container-drop query' + self.letter,
+                        html: '<svg class="arkeo-marker arkeo-marker-drop-svg ' + iconClasses + '"><use xlink:href="#arkeo-marker-drop-symbol' + exceptional + '"></use></svg><div class="arkeo-marker-letter size' + characInfos.iconSize + '">' + self.letter + '</div>',
+                        iconSize: [55, 60],
+                        iconAnchor: getIconAnchorPosition(characInfos.iconSize),
+                        popupAnchor: [0, 0]
+                    });
                 } else {
-					angular.extend(iconProperties, {
-						className: 'arkeo-marker-container-circle query'+self.letter,
-						html: '<svg class="arkeo-marker arkeo-marker-circle-svg '+iconClasses+'"><use xlink:href="#arkeo-marker-circle-symbol'+exceptional+'"></use></svg><div class="arkeo-marker-letter size'+characInfos.iconSize+'">'+self.letter+'</div>',
-						iconSize: [55, 55],
-		            	iconAnchor: [25, 27.5],
-						popupAnchor: [0, 0]
-					});
-				}
+                    angular.extend(iconProperties, {
+                        className: 'arkeo-marker-container-circle query' + self.letter,
+                        html: '<svg class="arkeo-marker arkeo-marker-circle-svg ' + iconClasses + '"><use xlink:href="#arkeo-marker-circle-symbol' + exceptional + '"></use></svg><div class="arkeo-marker-letter size' + characInfos.iconSize + '">' + self.letter + '</div>',
+                        iconSize: [55, 55],
+                        iconAnchor: [25, 27.5],
+                        popupAnchor: [0, 0]
+                    });
+                }
 
-				function getIconAnchorPosition(iconSize) {
-					var ret;
-					switch(iconSize) {
-						case 1:
-							ret = [24, 38];
-						break;
-						case 2:
-							ret = [23, 41];
-						break;
-						case 3:
-							ret = [23, 43];
-						break;
-						case 4:
-							ret = [23, 46];
-						break;
-						case 5:
-							ret = [23, 52];
-						break;
-						case 6:
-							ret = [23, 55];
-						break;
-					}
-					return ret;
-				};
+                function getIconAnchorPosition(iconSize) {
+                    var ret;
+                    switch (iconSize) {
+                        case 1:
+                            ret = [24, 38];
+                            break;
+                        case 2:
+                            ret = [23, 41];
+                            break;
+                        case 3:
+                            ret = [23, 43];
+                            break;
+                        case 4:
+                            ret = [23, 46];
+                            break;
+                        case 5:
+                            ret = [23, 52];
+                            break;
+                        case 6:
+                            ret = [23, 55];
+                            break;
+                    }
+                    return ret;
+                };
+
+                function buildPopup() {
+                    return 'pouet';
+                }
 
                 return L.divIcon(iconProperties);
 
@@ -177,9 +181,17 @@
                         icon: generateIcon,
                         layerOptions: {
                             pointToLayer: function(feature, latlng) {
-                                return L.marker(latlng, {
+                                var marker = L.marker(latlng, {
                                     icon: generateIcon(feature)
                                 });
+                                marker.on('mouseover', function(e) {
+                                    this.openPopup();
+                                });
+                                marker.on('click', function(e) {
+                                    return false;
+                                });
+                                marker.bindPopup("POUET");
+                                return marker;
                             },
                             onEachFeature: function(feature, layer) {
                                 layer.bindPopup(feature.properties.infos.name + " (" + feature.properties.infos.code + ")");
