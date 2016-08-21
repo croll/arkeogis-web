@@ -35,9 +35,11 @@
                     chronologies: [],
                     layers: [],
                     databases: [],
-                    characs: []
+                    characs: [],
+                    geom: ''
                 };
             } else {
+                self.project.geom = angular.fromJson(self.project.geom);
 		if (!self.project.chronologies) {
 			self.project.chronologies = [];
 		}
