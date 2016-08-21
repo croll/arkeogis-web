@@ -51,12 +51,15 @@
                     osm: {
                         name: 'OpenStreetMap',
                         url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                        type: 'xyz'
+                        type: 'xyz',
+                        minZoom: 1,
                     },
                     googleHybrid: {
                         name: 'Google Hybrid',
                         layerType: 'HYBRID',
-                        type: 'google'
+                        type: 'google',
+                        maxZoom: 1,
+                        showOnSelector: false 
                     },
                     googleRoadmap: {
                         name: 'Google Streets',
@@ -73,6 +76,12 @@
                 },
                 fullscreen: {
                     position: 'topright'
+                }
+            },
+            layercontrol: {
+                icons: {
+                    uncheck: "fa fa-toggle-off",
+                    check: "fa fa-toggle-on"
                 }
             },
             watchOptions: {

@@ -39,6 +39,8 @@
             };
             resize();
 
+            initProjectLayers();
+
             $(window).on('resize', resize);
 
             angular.extend($scope, arkeoMap.config);
@@ -47,6 +49,53 @@
                 leafletData.getMap().then(function(map) {
                     map.fitBounds(L.geoJson(project.geom).getBounds());
                 });
+            }
+
+            leafletData.getMap().then(function(map) {
+                map.on('zoomend', function(e) {
+                    $scope.layers.overlays.sites.layerParams.showOnSelector = false;
+                });
+
+                map.on('layeradd', function(e) {
+                    console.log(e);
+                })
+            });
+
+            function initProjectLayers() {
+                leafletData.getMap().then(function(map) {
+                    if (project.layers.length) {
+                        angular.forEach(project.layers, function(layer) {
+                            addLayer(layer, map);
+                        });
+                    }
+                });
+            }
+
+            function addLayer(layer, map) {
+                if (layer.type == 'shp') {
+                    $scope.geojsonLayer = L.geoJson().addTo(map)
+                    $scope.geojsonLayer.addData($scope.infos.geojson);
+                    var bounds = $scope.geojsonLayer.getBounds();
+                    map.fitBounds(bounds);
+                } else if (layer.type == 'wms') {
+                    $scope.layers.overlays[layer.id] = {
+                        name: layer.translations.name.en,
+                        type: 'wms',
+                        url: layer.url,
+                        visible: false,
+                        layerOptions: {
+                            layers: layer.identifier
+                        }
+                    };
+                } else if (layer.type == 'wmts') {
+                    var layer = new L.TileLayer.WMTS($scope.infos.url, {
+                        layer: $scope.infos.identifier
+                            //    style: "normal",
+                            //    tilematrixSet: "PM",
+                            //    format: "image/jpeg",
+                    });
+                    map.addLayer(layer);
+                }
             }
 
             var generateIcon = function(feature) {
@@ -178,8 +227,14 @@
                         type: 'geoJSONShape',
                         data: data,
                         visible: true,
+                        doRefresh: true,
                         icon: generateIcon,
+                        layerParams: {
+                            showOnSelector: true,
+                            transparent: true
+                        },
                         layerOptions: {
+                            maxZoom: 1,
                             pointToLayer: function(feature, latlng) {
                                 var marker = L.marker(latlng, {
                                     icon: generateIcon(feature)
@@ -193,10 +248,10 @@
                                 return marker;
                             },
                             onEachFeature: function(feature, layer) {
-                                console.log(feature);
+                                // console.log(feature);
                                 var html = "<arkeo-popup>";
-                                html += "<div style='font-weight:bold'>"+feature.properties.infos.name + " (" + feature.properties.infos.code + ")"+"</div>";
-                                html += "<div>"+feature.properties.infos.database_name+"</div>";
+                                html += "<div style='font-weight:bold'>" + feature.properties.infos.name + " (" + feature.properties.infos.code + ")" + "</div>";
+                                html += "<div>" + feature.properties.infos.database_name + "</div>";
                                 html += "</arkeo-popup>";
                                 layer.bindPopup(html);
                             }

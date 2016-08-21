@@ -1,53 +1,86 @@
 .content-map {
     padding: 0;
 }
-
 .arkeomap {
     .md-button {
         font-size: 0.55em;
-        margin: 0 0;
+        margin: 0;
     }
-
     .query {
         .md-button {
-            padding: 0 0;
-            margin: 0 0;
+            padding: 0;
+            margin: 0;
             min-width: 0;
         }
     }
 }
-
 .arkeomap-submenu {
-    padding: 0 0;
+    padding: 0;
     .md-button {
         width: 100%;
         text-align: left;
         margin: 0;
     }
 }
-
 .plusminusitem {
     position: relative;
     padding-left: 48px;
 }
-
 .button_plus {
     position: absolute;
     margin: 0;
     padding: 0;
     border: none;
-    left: 0px;
+    left: 0;
     top: -12px;
     width: 16px;
     height: 16px;
 }
+
 .button_minus {
     position: absolute;
     margin: 0;
     padding: 0;
     border: none;
-    left: 0px;
+    left: 0;
     top: 10px;
     width: 16px;
     height: 16px;
+}
+
+.angular-leaflet-control-layers {
+    position: absolute;
+    background: white;
+    z-index: 100;
+    right: 10px;
+    top: 110px;
+    width: 200px;
+    box-shadow: 1px 1px 5px #333;
+    padding: 5px;
+    .lf-row {
+        display: block;
+        height: 25px;
+        label {
+            cursor: pointer;
+            width: 75%;
+            .lf-text {
+                float: left;
+            }
+        }
+        .lf-icon-ol {
+            padding-left: 8px;
+        }
+        .lf-icon {
+            cursor: pointer;
+            float: left;
+            margin-right: 5px;
+            padding-top: 2px;
+        }
+        .lf-icon-ol-group {
+            color: #00650a;
+        }
+        .lf-icons {
+            float: right;
+        }
+    }
 }
