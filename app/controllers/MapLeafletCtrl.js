@@ -128,7 +128,8 @@
                     exceptional: false,
                     iconSize: 0
                 };
-                angular.forEach(feature.properties.characs, function(c) {
+                angular.forEach(feature.properties.site_ranges, function(site_range) {
+                    angular.forEach(site_range.characs, function(c) {
                         if (c.exceptional) {
                             ret.exceptional = true;
                         }
@@ -156,6 +157,7 @@
                             memorized = current;
                             ret.iconSize = current;
                         }
+                    });
                 });
                 return ret;
             }
@@ -192,7 +194,11 @@
                             },
                             onEachFeature: function(feature, layer) {
                                 console.log(feature);
-                                layer.bindPopup(feature.properties.infos.name + " (" + feature.properties.infos.code + ")");
+                                var html = "<arkeo-popup>";
+                                html += "<div style='font-weight:bold'>"+feature.properties.infos.name + " (" + feature.properties.infos.code + ")"+"</div>";
+                                html += "<div>"+feature.properties.infos.database_name+"</div>";
+                                html += "</arkeo-popup>";
+                                layer.bindPopup(html);
                             }
                         }
                     }
