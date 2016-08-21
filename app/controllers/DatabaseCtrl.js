@@ -21,8 +21,8 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('DatabaseCtrl', ['$scope', '$http', '$state', '$mdDialog', 'database', 'databaseDefinitions', 'mapService', 'arkeoService', 'arkeoLang', 'leafletData',
-        function($scope, $http, $state, $mdDialog, database, databaseDefinitions, mapService, arkeoService, arkeoLang, leafletData) {
+    ArkeoGIS.controller('DatabaseCtrl', ['$scope', '$http', '$state', '$mdDialog', 'database', 'databaseDefinitions', 'arkeoMap', 'arkeoService', 'arkeoLang', 'leafletData',
+        function($scope, $http, $state, $mdDialog, database, databaseDefinitions, arkeoMap, arkeoService, arkeoLang, leafletData) {
 
             $scope.database = database;
 
@@ -30,7 +30,7 @@
 
             database.lang = arkeoLang.getLangByIsoCode(database.default_language)
 
-            angular.extend($scope, angular.extend(mapService.config, {
+            angular.extend($scope, angular.extend(arkeoMap.config, {
                 center: {
                     zoom: 8
                 }

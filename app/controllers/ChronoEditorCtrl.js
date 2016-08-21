@@ -384,7 +384,7 @@
 	 * ChronoEditorMapCtrl Chrono Editor Map Controller (choix de l'emprise)
 	 */
 
-	ArkeoGIS.controller('ChronoEditorMapCtrl', ['$scope', 'mapService', 'leafletData', '$rootScope', '$timeout', function ($scope, mapService, leafletData, $rootScope, $timeout) {
+	ArkeoGIS.controller('ChronoEditorMapCtrl', ['$scope', 'arkeoMap', 'leafletData', '$rootScope', '$timeout', function ($scope, arkeoMap, leafletData, $rootScope, $timeout) {
 
 		var resize = function() {
 			$scope.mapHeight = ($(window).height() - $("#arkeo-main-toolbar").height() - $("#arkeo-chronoditor-toolbar").height())+"px";
@@ -400,7 +400,7 @@
 		});
 		resize();
 
-		angular.extend($scope, mapService.config);
+		angular.extend($scope, arkeoMap.config);
 
 		angular.merge($scope, {
 			controls: {

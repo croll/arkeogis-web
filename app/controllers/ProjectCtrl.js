@@ -22,11 +22,11 @@
 (function() {
     'use strict';
 
-    ArkeoGIS.controller('ProjectCtrl', ['$scope', '$q', '$http', '$timeout', '$cookies', 'arkeoService', 'mapService', 'layerService', 'arkeoProject', 'arkeoDatabase', 'login', 'leafletData',
-        function($scope, $q, $http, $timeout, $cookies, arkeoService, mapService, layerService, arkeoProject, arkeoDatabase, login, leafletData) {
+    ArkeoGIS.controller('ProjectCtrl', ['$scope', '$q', '$http', '$timeout', '$cookies', 'arkeoService', 'arkeoMap', 'layerService', 'arkeoProject', 'arkeoDatabase', 'login', 'leafletData',
+        function($scope, $q, $http, $timeout, $cookies, arkeoService, arkeoMap, layerService, arkeoProject, arkeoDatabase, login, leafletData) {
             var self = this;
 
-            angular.extend($scope, angular.extend(mapService.config, {
+            angular.extend($scope, angular.extend(arkeoMap.config, {
                 center: {
                     zoom: 8
                 }
@@ -57,8 +57,8 @@ console.log($scope.project);
             $scope.isValid = false;
 
             leafletData.getMap().then(function(map) {
-                map.on('moveend', function() { var bbox = map.getBounds(); var boundingBox = mapService.getValidBoundingBox(bbox._northEast.lat, bbox._northEast.lng, bbox._southWest.lat, bbox._southWest.lng);
-                    $scope.bounds = mapService.getBoundsAsGeoJSON(boundingBox);
+                map.on('moveend', function() { var bbox = map.getBounds(); var boundingBox = arkeoMap.getValidBoundingBox(bbox._northEast.lat, bbox._northEast.lng, bbox._southWest.lat, bbox._southWest.lng);
+                    $scope.bounds = arkeoMap.getBoundsAsGeoJSON(boundingBox);
                     if (map.getZoom() < 2) {
                         $scope.geojson = {
                             data: L.rectangle(boundingBox).toGeoJSON(),
@@ -235,8 +235,8 @@ console.log($scope.project);
                 }
                 leafletData.getMap().then(function(map) {
                     var bbox = map.getBounds();
-                    var boundingBox = mapService.getValidBoundingBox(bbox._northEast.lat, bbox._northEast.lng, bbox._southWest.lat, bbox._southWest.lng);
-                    var b = mapService.getBoundsAsGeoJSON(boundingBox);
+                    var boundingBox = arkeoMap.getValidBoundingBox(bbox._northEast.lat, bbox._northEast.lng, bbox._southWest.lat, bbox._southWest.lng);
+                    var b = arkeoMap.getBoundsAsGeoJSON(boundingBox);
                     var prefs = {
                         name: "PROJ -- " + login.user.firstname + ' ' + login.user.lastname,
                         geom: b,

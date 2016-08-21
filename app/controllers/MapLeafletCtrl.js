@@ -21,8 +21,8 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', 'arkeoService', 'leafletData', 'mapService',
-        function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, arkeoService, leafletData, mapService) {
+    ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', 'arkeoService', 'arkeoProject', 'leafletData', 'arkeoMap',
+        function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, arkeoService, arkeoProject, leafletData, arkeoMap) {
 
             /*
              * Leaflet Map
@@ -30,6 +30,8 @@
 			 var self = this;
 
 			 this.letter = 'A';
+
+             var project = arkeoProject.get();
 
             // Get map area to fit full screen
             var resize = function() {
@@ -43,7 +45,7 @@
 
             // Leaflet init
 
-            angular.extend($scope, mapService.config);
+            angular.extend($scope, arkeoMap.config);
 
             // function to display a map
 

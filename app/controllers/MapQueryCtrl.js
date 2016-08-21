@@ -21,8 +21,8 @@
 
 (function() {
 	'use strict';
-	ArkeoGIS.controller('MapQueryCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', 'arkeoService', 'leafletData', 'mapService', '$timeout',
-	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, arkeoService, leafletData, mapService, $timeout) {
+	ArkeoGIS.controller('MapQueryCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', 'arkeoService', '$timeout',
+	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, arkeoService, $timeout) {
 
 		/*
 		 * menus init : buttons styles

@@ -21,11 +21,11 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('MapEditorCtrl', ['$scope', '$state', 'arkeoService', 'mapService', 'login', '$http', 'X2JS', '$q', 'leafletData', 'Upload', 'layer', function($scope, $state, arkeoService, mapService, login, $http, X2JS, $q, leafletData, Upload, layer) {
+    ArkeoGIS.controller('MapEditorCtrl', ['$scope', '$state', 'arkeoService', 'arkeoMap', 'login', '$http', 'X2JS', '$q', 'leafletData', 'Upload', 'layer', function($scope, $state, arkeoService, arkeoMap, login, $http, X2JS, $q, leafletData, Upload, layer) {
 
         var self = this;
 
-        angular.extend($scope, mapService.config);
+        angular.extend($scope, arkeoMap.config);
 
         this.defaultInfos = {
             authors: [{
@@ -423,7 +423,7 @@
                             [89.99999, 179.999999]
                         ];
                     } else {
-                        return mapService.getValidBoundingBox(bbox._minx, bbox._maxy, bbox._maxx, bbox._miny);
+                        return arkeoMap.getValidBoundingBox(bbox._minx, bbox._maxy, bbox._maxx, bbox._miny);
                     }
                 },
                 wmts: function(bbox) {
@@ -432,7 +432,7 @@
                     }
                     var upper = bbox.UpperCorner.toString().split(' ');
                     var lower = bbox.LowerCorner.toString().split(' ');
-                    return mapService.getValidBoundingBox(upper[0], lower[1], upper[1], lower[0]);
+                    return arkeoMap.getValidBoundingBox(upper[0], lower[1], upper[1], lower[0]);
                 }
             }
 
@@ -456,7 +456,7 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('MapEditorListCtrl', ['$scope', 'layerService', 'mapService', 'login', '$http', '$state', function($scope, layerService, mapService, login, $http, $state) {
+    ArkeoGIS.controller('MapEditorListCtrl', ['$scope', 'layerService', 'arkeoMap', 'login', '$http', '$state', function($scope, layerService, arkeoMap, login, $http, $state) {
 
         var self = this;
 
