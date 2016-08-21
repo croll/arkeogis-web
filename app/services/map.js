@@ -74,6 +74,14 @@
                 fullscreen: {
                     position: 'topright'
                 }
+            },
+            watchOptions: {
+                markers: {
+                    type: null,
+                    individual: {
+                        type: null
+                    }
+                }
             }
         }
 
@@ -102,7 +110,12 @@
 
         this.getBoundsAsGeoJSON = function(bbox) {
             var bounds = angular.fromJson(L.rectangle(bbox).toGeoJSON().geometry);
-            bounds.crs = {type: "name", properties: {name: "EPSG:4326"}}
+            bounds.crs = {
+                type: "name",
+                properties: {
+                    name: "EPSG:4326"
+                }
+            }
             return JSON.stringify(bounds);
         }
 
