@@ -20,7 +20,7 @@
  */
 
 (function() {
-    ArkeoGIS.service('arkeoDatabase', ['$http', '$q', '$resource', '$translate', 'login', function($http, $q, $resource, $translate, login) {
+    ArkeoGIS.service('arkeoDatabase', ['$q', '$resource', '$translate', 'login', function($q, $resource, $translate, login) {
 
         var self = this;
 
