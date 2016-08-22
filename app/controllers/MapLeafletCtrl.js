@@ -21,8 +21,8 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('MapLeafletCtrl', ['$scope', 'arkeoService', 'arkeoProject', 'arkeoMap', 'leafletData',
-        function($scope, arkeoService, arkeoProject, arkeoMap, leafletData) {
+    ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', 'arkeoService', 'arkeoProject', 'arkeoMap', 'leafletData',
+        function($scope, $http, arkeoService, arkeoProject, arkeoMap, leafletData) {
 
             /*
              * Leaflet Map
@@ -57,10 +57,26 @@
                 });
 
                 map.on('layeradd', function(e) {
-					if (e.layer.feature && e.layer.feature.geometry.coordinates[0] == 0 && e.layer.feature.geometry.coordinates[1] == 0 && e.layer.feature.properties.init === false) {
-                     // 	console.log(e.layer.feature);
-					}
-                 })
+                    if (e.layer.feature && e.layer.feature.properties && e.layer.feature.properties.init === false) {
+						console.log("LOAD");
+                        $http({
+                            method: 'GET',
+                            url: '/api/layer/' + e.layer.feature.properties.id + '/geojson'
+                        }).then(function(result) {
+							console.log(result.data);
+							$scope.layers.overlays[e.layer.feature.properties.uniq_code] = {
+                                 name: e.layer.feature.properties.name,
+                                 type: 'geoJSONShape',
+                                 data: result.data,
+                                 visible: true,
+								 doRefresh: true
+                            };
+                        }, function(err) {
+                            arkeoService.showMessage('MAPQUERY.MESSAGE.T_GETGEOJSON_ERROR')
+                            console.log(err);
+                        })
+                    }
+                })
             });
 
             function initProjectLayers() {
@@ -74,34 +90,27 @@
             }
 
             function addLayer(layer, map) {
-				leafletData.getDirectiveControls().then(function(d) {
-					console.log(d);
+                leafletData.getDirectiveControls().then(function(d) {
+                    console.log(d);
 
-				});
+                });
                 if (layer.type == 'shp') {
-					console.log(layer)
                     var geojsonFeature = {
                         type: "Feature",
                         properties: {
                             name: layer.translations.name.en,
-							uniq_code: layer.uniq_code,
-							type: layer.type,
-							id: layer.id,
-							init: false
+                            uniq_code: layer.uniq_code,
+                            type: layer.type,
+                            id: layer.id,
+                            init: false
                         },
-                        geometry: {
-                            type: "Point",
-                            coordinates: [0, 0]
-                        }
+                        geometry: angular.fromJson(layer.geom)
                     };
                     $scope.layers.overlays[layer.uniq_code] = {
                         name: layer.translations.name.en,
                         type: 'geoJSONShape',
-						data: geojsonFeature,
-                        visible: false,
-                        layerOptions: {
-                            layers: layer.identifier
-                        }
+                        data: geojsonFeature,
+                        visible: false
                     };
                 } else if (layer.type == 'wms') {
                     $scope.layers.overlays[layer.uniq_code] = {
