@@ -36,14 +36,12 @@
         }
 
         if (angular.isDefined(layer)) {
-            console.log(layer);
             $scope.infos = angular.copy(layer)
             $scope.hideFields = false;
             $scope.type = layer.type;
             if (layer.type == 'shp') {
                 leafletData.getMap().then(function(map) {
-                    $scope.geojsonLayer = L.geoJson().addTo(map)
-                    $scope.geojsonLayer.addData($scope.infos.geojson);
+                    $scope.geojsonLayer = L.geoJson($scope.infos.geojson).addTo(map)
                     var bounds = $scope.geojsonLayer.getBounds();
                     map.fitBounds(bounds);
                 });
@@ -125,6 +123,27 @@
                     map.removeLayer($scope.geojsonLayer);
                 });
             }
+        }
+
+        $scope.delete = function() {
+            if (!layer.id) {
+                console.log("No layer id specified, unable to delete");
+                return false;
+            }
+            $http({
+                    method: 'POST',
+                    url: '/api/layer/delete',
+                    data: {
+                        id: layer.id,
+                        type: layer.type
+                    }
+                }).then(function(res) {
+                    arkeoService.showMessage('MAPEDITOR.MESSAGE.T_DELETE_OK')
+                    $state.go('arkeogis.mapeditor-list')
+                }, function(err) {
+                    arkeoService.showMessage('MAPEDITOR.MESSAGE.T_DELETE_FAILED', 'error')
+                    console.log(err)
+                })
         }
 
         $scope.getLayers = function(url) {
@@ -350,7 +369,6 @@
             angular.extend(dbObj, formatTranslation('description', $scope.infos.translations.description));
             angular.extend(dbObj, formatTranslation('name', $scope.infos.translations.name));
             var url = ($scope.type == 'shp') ? '/api/shpLayer' : '/api/wmLayer';
-            console.log(dbObj);
             if (form.$valid) {
                 if ($scope.file) {
                     Upload.upload({
