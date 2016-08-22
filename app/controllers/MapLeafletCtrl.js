@@ -53,12 +53,14 @@
 
             leafletData.getMap().then(function(map) {
                 map.on('zoomend', function(e) {
-                    $scope.layers.overlays.sites.layerParams.showOnSelector = false;
+                    // $scope.layers.overlays.sites.layerParams.showOnSelector = false;
                 });
 
                 map.on('layeradd', function(e) {
-                    console.log(e);
-                })
+					if (e.layer.feature && e.layer.feature.geometry.coordinates[0] == 0 && e.layer.feature.geometry.coordinates[1] == 0 && e.layer.feature.properties.init === false) {
+                     // 	console.log(e.layer.feature);
+					}
+                 })
             });
 
             function initProjectLayers() {
@@ -72,13 +74,37 @@
             }
 
             function addLayer(layer, map) {
+				leafletData.getDirectiveControls().then(function(d) {
+					console.log(d);
+
+				});
                 if (layer.type == 'shp') {
-                    $scope.geojsonLayer = L.geoJson().addTo(map)
-                    $scope.geojsonLayer.addData($scope.infos.geojson);
-                    var bounds = $scope.geojsonLayer.getBounds();
-                    map.fitBounds(bounds);
+					console.log(layer)
+                    var geojsonFeature = {
+                        type: "Feature",
+                        properties: {
+                            name: layer.translations.name.en,
+							uniq_code: layer.uniq_code,
+							type: layer.type,
+							id: layer.id,
+							init: false
+                        },
+                        geometry: {
+                            type: "Point",
+                            coordinates: [0, 0]
+                        }
+                    };
+                    $scope.layers.overlays[layer.uniq_code] = {
+                        name: layer.translations.name.en,
+                        type: 'geoJSONShape',
+						data: geojsonFeature,
+                        visible: false,
+                        layerOptions: {
+                            layers: layer.identifier
+                        }
+                    };
                 } else if (layer.type == 'wms') {
-                    $scope.layers.overlays[layer.id] = {
+                    $scope.layers.overlays[layer.uniq_code] = {
                         name: layer.translations.name.en,
                         type: 'wms',
                         url: layer.url,
@@ -88,13 +114,15 @@
                         }
                     };
                 } else if (layer.type == 'wmts') {
-                    var layer = new L.TileLayer.WMTS($scope.infos.url, {
-                        layer: $scope.infos.identifier
-                            //    style: "normal",
-                            //    tilematrixSet: "PM",
-                            //    format: "image/jpeg",
-                    });
-                    map.addLayer(layer);
+                    $scope.layers.overlays[layer.uniq_code] = {
+                        name: layer.translations.name.en,
+                        type: 'wmts',
+                        url: layer.url,
+                        visible: false,
+                        layerOptions: {
+                            layers: layer.identifier
+                        }
+                    };
                 }
             }
 

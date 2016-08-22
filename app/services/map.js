@@ -51,15 +51,12 @@
                     osm: {
                         name: 'OpenStreetMap',
                         url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                        type: 'xyz',
-                        minZoom: 1,
+                        type: 'xyz'
                     },
                     googleHybrid: {
                         name: 'Google Hybrid',
                         layerType: 'HYBRID',
-                        type: 'google',
-                        maxZoom: 1,
-                        showOnSelector: false 
+                        type: 'google'
                     },
                     googleRoadmap: {
                         name: 'Google Streets',
