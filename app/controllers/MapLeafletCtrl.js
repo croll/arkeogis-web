@@ -109,7 +109,8 @@
                         name: layer.translations.name.en,
                         type: 'geoJSONShape',
                         data: geojsonFeature,
-                        visible: false
+                        visible: false,
+					    doRefresh: true
                     };
                 } else if (layer.type == 'wms') {
                     $scope.layers.overlays[layer.uniq_code] = {
