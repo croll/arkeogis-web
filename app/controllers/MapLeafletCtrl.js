@@ -63,7 +63,6 @@
                             method: 'GET',
                             url: '/api/layer/' + e.layer.feature.properties.id + '/geojson'
                         }).then(function(result) {
-							console.log(result.data);
 							$scope.layers.overlays[e.layer.feature.properties.uniq_code] = {
                                  name: e.layer.feature.properties.name,
                                  type: 'geoJSONShape',
@@ -308,6 +307,7 @@
              */
 
             $scope.$parent.$watch("latest_result", function(newval, oldval) {
+				if (!newval) return;
                 console.log("display new results ...", newval);
                 displayMapResults(newval);
             });
