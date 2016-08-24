@@ -244,15 +244,48 @@
             }
 
             function displayMapResults(data) {
+
                 var latlngs = [];
 
+                var cluster = L.markerClusterGroup();
+
                 leafletData.getMap().then(function(map) {
+
                     leafletData.getLayers().then(function(layers) {
                         if ('sites' in layers.overlays)
                             map.removeLayer(layers.overlays.sites);
                     });
+
+                    L.geoJson(data, {
+                        pointToLayer: function(feature, latlng) {
+                            var marker = L.marker(latlng, {
+                                icon: generateIcon(feature)
+                            });
+                            marker.on('mouseover', function(e) {
+                                this.openPopup();
+                            });
+                            marker.on('click', function(e) {
+                                return false;
+                            });
+                            return marker;
+                        },
+                        onEachFeature: function(feature, layer) {
+                            var html = "<arkeo-popup>";
+                            html += "<div style='font-weight:bold'>" + feature.properties.infos.name + " (" + feature.properties.infos.code + ")" + "</div>";
+                            html += "<div>" + feature.properties.infos.database_name + "</div>";
+                            html += '<md-icon ng-click="toggleSiteDetailsDialog(' + feature.properties.infos.id + ')" class="md-18" style="cursor: pointer">remove_red_eye</md-icon>';
+                            html += "</arkeo-popup>";
+                            layer.bindPopup($compile(html)($scope)[0]);
+                            layer.addTo(cluster);
+                        }
+                    });
+
+                    cluster.addTo(map);
+
                 });
 
+
+                /*
                 angular.extend($scope.layers.overlays, {
                     sites: {
                         name: 'ArkeoGIS (' + (++$scope.letter) + ')',
@@ -266,7 +299,6 @@
                             transparent: true
                         },
                         layerOptions: {
-                            maxZoom: 1,
                             pointToLayer: function(feature, latlng) {
                                 var marker = L.marker(latlng, {
                                     icon: generateIcon(feature)
@@ -277,23 +309,29 @@
                                 marker.on('click', function(e) {
                                     return false;
                                 });
+
+                                if (!angular.isDefined(self.markerClusterGroup[feature.properties.infos.database_id])) {
+                                    self.markerClusterGroup[feature.properties.infos.database_id] = L.markerClusterGroup();
+                                }
+
                                 return marker;
                             },
                             onEachFeature: function(feature, layer) {
                                 var html = "<arkeo-popup>";
                                 html += "<div style='font-weight:bold'>" + feature.properties.infos.name + " (" + feature.properties.infos.code + ")" + "</div>";
                                 html += "<div>" + feature.properties.infos.database_name + "</div>";
-                                html += '<md-icon ng-click="toggleSiteDetailsDialog('+feature.properties.infos.id+')">remove-red-eye</md-icon>';
+                                html += '<md-icon ng-click="toggleSiteDetailsDialog('+feature.properties.infos.id+')" class="md-18" style="cursor: pointer">remove_red_eye</md-icon>';
                                 html += "</arkeo-popup>";
                                 layer.bindPopup($compile(html)($scope)[0]);
                             }
                         }
                     }
                 });
+                */
 
-                angular.forEach(data.features, function(feature) {
-                    latlngs.push([parseFloat(feature.geometry.coordinates[0]), parseFloat(feature.geometry.coordinates[1])]);
-                });
+                // angular.forEach(data.features, function(feature) {
+                //     latlngs.push([parseFloat(feature.geometry.coordinates[0]), parseFloat(feature.geometry.coordinates[1])]);
+                // });
 
                 resize();
             }

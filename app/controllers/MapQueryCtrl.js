@@ -375,7 +375,7 @@
 			$scope.project.databases.forEach(function(database) {
 				promises.push($http.get('/api/database/'+database.id).then(function(data) {
 
-					var root = data.data.infos;
+					var root = data.data;
 
 					databaseElementToMenuElement(root);
 
