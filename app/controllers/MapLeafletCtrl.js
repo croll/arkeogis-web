@@ -21,8 +21,8 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', 'arkeoService', 'arkeoProject', 'arkeoMap', 'leafletData',
-        function($scope, $http, arkeoService, arkeoProject, arkeoMap, leafletData) {
+    ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', '$compile', '$mdDialog', 'arkeoService', 'arkeoProject', 'arkeoMap', 'leafletData',
+        function($scope, $http, $compile, $mdDialog, arkeoService, arkeoProject, arkeoMap, leafletData) {
 
             /*
              * Leaflet Map
@@ -58,17 +58,16 @@
 
                 map.on('layeradd', function(e) {
                     if (e.layer.feature && e.layer.feature.properties && e.layer.feature.properties.init === false) {
-						console.log("LOAD");
                         $http({
                             method: 'GET',
                             url: '/api/layer/' + e.layer.feature.properties.id + '/geojson'
                         }).then(function(result) {
-							$scope.layers.overlays[e.layer.feature.properties.uniq_code] = {
-                                 name: e.layer.feature.properties.name,
-                                 type: 'geoJSONShape',
-                                 data: result.data,
-                                 visible: true,
-								 doRefresh: true
+                            $scope.layers.overlays[e.layer.feature.properties.uniq_code] = {
+                                name: e.layer.feature.properties.name,
+                                type: 'geoJSONShape',
+                                data: result.data,
+                                visible: true,
+                                doRefresh: true
                             };
                         }, function(err) {
                             arkeoService.showMessage('MAPQUERY.MESSAGE.T_GETGEOJSON_ERROR')
@@ -110,7 +109,7 @@
                         type: 'geoJSONShape',
                         data: geojsonFeature,
                         visible: false,
-					    doRefresh: true
+                        doRefresh: true
                     };
                 } else if (layer.type == 'wms') {
                     $scope.layers.overlays[layer.uniq_code] = {
@@ -199,10 +198,6 @@
                     return ret;
                 };
 
-                function buildPopup() {
-                    return 'pouet';
-                }
-
                 return L.divIcon(iconProperties);
 
             }
@@ -285,12 +280,12 @@
                                 return marker;
                             },
                             onEachFeature: function(feature, layer) {
-                                // console.log(feature);
                                 var html = "<arkeo-popup>";
                                 html += "<div style='font-weight:bold'>" + feature.properties.infos.name + " (" + feature.properties.infos.code + ")" + "</div>";
                                 html += "<div>" + feature.properties.infos.database_name + "</div>";
+                                html += '<md-icon ng-click="toggleSiteDetailsDialog('+feature.properties.infos.id+')">remove-red-eye</md-icon>';
                                 html += "</arkeo-popup>";
-                                layer.bindPopup(html);
+                                layer.bindPopup($compile(html)($scope)[0]);
                             }
                         }
                     }
@@ -303,12 +298,32 @@
                 resize();
             }
 
+            $scope.toggleSiteDetailsDialog = function(id) {
+                $mdDialog.show({
+                        controller: function($scope, $mdDialog) {
+                            $scope.id = id;
+                            $scope.hide = function() {
+                                $mdDialog.hide();
+                            };
+                        },
+                        templateUrl: 'partials/site-details.html',
+                        parent: angular.element(document.body),
+                        clickOutsideToClose: true,
+                        fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+                    })
+                    .then(function(answer) {
+                        $scope.status = 'You said the information was "' + answer + '".';
+                    }, function() {
+                        $scope.status = 'You cancelled the dialog.';
+                    });
+            };
+
             /*
              * watch on results
              */
 
             $scope.$parent.$watch("latest_result", function(newval, oldval) {
-				if (!newval) return;
+                if (!newval) return;
                 console.log("display new results ...", newval);
                 displayMapResults(newval);
             });
