@@ -21,8 +21,8 @@
 
 (function() {
 	'use strict';
-	ArkeoGIS.controller('MapQueryCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', 'arkeoService', '$timeout',
-	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, arkeoService, $timeout) {
+	ArkeoGIS.controller('MapQueryCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', '$timeout', 'arkeoService', 'arkeoQuery',
+	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, $timeout, arkeoService, arkeoQuery) {
 
 		/*
 		 * menus init : buttons styles
@@ -476,14 +476,7 @@
 
 
 		$scope.showMap = function() {
-			var params = $scope.query;
-			$http.post("/api/map/search", params).then(function(data) {
-				// console.log("data", data);
-                $scope.$parent.latest_result = data.data;
-			}, function(err) {
-				arkeoService.fieldErrorDisplay(err)
-				console.error(err);
-			});
+			arkeoQuery.do($scope.query);
 		};
 
 

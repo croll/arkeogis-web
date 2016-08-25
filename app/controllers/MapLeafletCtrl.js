@@ -21,14 +21,15 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', '$compile', '$mdDialog', 'arkeoService', 'arkeoProject', 'arkeoMap', 'leafletData',
-        function($scope, $http, $compile, $mdDialog, arkeoService, arkeoProject, arkeoMap, leafletData) {
+    ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', '$compile', '$mdDialog', 'arkeoService', 'arkeoProject', 'arkeoMap', 'arkeoQuery', 'leafletData',
+        function($scope, $http, $compile, $mdDialog, arkeoService, arkeoProject, arkeoMap, arkeoQuery, leafletData) {
 
             /*
              * Leaflet Map
              */
             var self = this;
 
+            this.queries = [];
             this.letter = 'A';
 
             this.markerClusters = {};
@@ -245,7 +246,41 @@
                 return ret;
             }
 
-            function displayMapResults(data) {
+            function createGroupMarkerIcon() {
+
+                L.Control.GroupMarkers = L.Control.extend({
+                    options: {
+                        position: 'topright',
+                    },
+
+                    onAdd: function(map) {
+                        var controlDiv = L.DomUtil.create('div', 'leaflet-control-custom leaflet-control-groupmarkers leaflet-control-hiddable');
+                        L.DomEvent
+                            .addListener(controlDiv, 'click', L.DomEvent.stopPropagation)
+                            .addListener(controlDiv, 'click', L.DomEvent.preventDefault)
+                            .addListener(controlDiv, 'click', function() {
+                                if (layerType == 'cluster') {
+                                    layerType = 'simple';
+                                    controlDiv.className = controlDiv.className.replace(' leaflet-control-active', '');
+                                } else {
+                                    layerType = 'cluster';
+                                    L.DomUtil.addClass(controlDiv, 'leaflet-control-active');
+                                }
+                                redrawMarkers();
+                            });
+
+                        var controlUI = L.DomUtil.create('div', 'leaflet-control-command-interior', controlDiv);
+                        controlUI.title = ch_t('arkeogis', 'Recadrer sur l\'emprise des icones');
+                        return controlDiv;
+                    }
+                });
+
+                new L.Control.GroupMarkers({})
+                    .addTo(map);
+
+            }
+
+            function displayQuery(query) {
 
                 var latlngs = [];
 
@@ -256,7 +291,7 @@
                             map.removeLayer(layers.overlays.sites);
                     });
 
-                    L.geoJson(data, {
+                    L.geoJson(query.data, {
                         pointToLayer: function(feature, latlng) {
                             var marker = L.marker(latlng, {
                                 icon: generateIcon(feature)
@@ -276,20 +311,27 @@
                             html += "<div>" + feature.properties.infos.database_name + "</div>";
                             html += '<md-icon ng-click="toggleSiteDetailsDialog(' + feature.properties.infos.id + ')" class="md-18" style="cursor: pointer">remove_red_eye</md-icon>';
                             html += "</arkeo-popup>";
+                            layer.bindPopup($compile(html)($scope)[0]);
 
+                            /*
                             if (!_.has(self.markerClusters, feature.properties.infos.database_id)) {
-                                self.markerClusters[feature.properties.infos.database_id] = L.markerClusterGroup({maxClusterRadius: 50000});
+                                self.markerClusters[feature.properties.infos.database_id] = L.markerClusterGroup({
+                                    maxClusterRadius: 50000
+                                });
                             }
                             self.markerClusters[feature.properties.infos.database_id].addLayer(layer)
-                            layer.bindPopup($compile(html)($scope)[0]);
+                            */
+
+                            layer.addTo(map);
+
                         }
                     });
 
+                    /*
                     angular.forEach(self.markerClusters, function(mc) {
-                        console.log("--------------");
-                        console.log(mc);
                         mc.addTo(map);
                     });
+                    */
 
                 });
 
@@ -369,11 +411,14 @@
              * watch on results
              */
 
-            $scope.$parent.$watch("latest_result", function(newval, oldval) {
-                if (!newval) return;
-                console.log("display new results ...", newval);
-                displayMapResults(newval);
-            });
+            $scope.$watch(function() {
+                return arkeoQuery.getQueries();
+            }, function(newList, oldList) {
+                if (newList.length == 0) {
+                    return;
+                }
+                displayQuery(newList.pop());
+            }, true);
 
             function drawSearchZoneRect() {
                 leafletData.getMap().then(function(map) {
