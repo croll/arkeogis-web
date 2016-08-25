@@ -31,6 +31,8 @@
 
             this.letter = 'A';
 
+            this.markerClusters = {};
+
             var project = arkeoProject.get();
 
             // Get map area to fit full screen
@@ -247,8 +249,6 @@
 
                 var latlngs = [];
 
-                var cluster = L.markerClusterGroup();
-
                 leafletData.getMap().then(function(map) {
 
                     leafletData.getLayers().then(function(layers) {
@@ -270,17 +270,26 @@
                             return marker;
                         },
                         onEachFeature: function(feature, layer) {
+
                             var html = "<arkeo-popup>";
                             html += "<div style='font-weight:bold'>" + feature.properties.infos.name + " (" + feature.properties.infos.code + ")" + "</div>";
                             html += "<div>" + feature.properties.infos.database_name + "</div>";
                             html += '<md-icon ng-click="toggleSiteDetailsDialog(' + feature.properties.infos.id + ')" class="md-18" style="cursor: pointer">remove_red_eye</md-icon>';
                             html += "</arkeo-popup>";
+
+                            if (!_.has(self.markerClusters, feature.properties.infos.database_id)) {
+                                self.markerClusters[feature.properties.infos.database_id] = L.markerClusterGroup({maxClusterRadius: 50000});
+                            }
+                            self.markerClusters[feature.properties.infos.database_id].addLayer(layer)
                             layer.bindPopup($compile(html)($scope)[0]);
-                            layer.addTo(cluster);
                         }
                     });
 
-                    cluster.addTo(map);
+                    angular.forEach(self.markerClusters, function(mc) {
+                        console.log("--------------");
+                        console.log(mc);
+                        mc.addTo(map);
+                    });
 
                 });
 

@@ -478,7 +478,7 @@
 		$scope.showMap = function() {
 			var params = $scope.query;
 			$http.post("/api/map/search", params).then(function(data) {
-				console.log("data", data);
+				// console.log("data", data);
                 $scope.$parent.latest_result = data.data;
 			}, function(err) {
 				arkeoService.fieldErrorDisplay(err)

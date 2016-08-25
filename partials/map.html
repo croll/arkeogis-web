@@ -47,7 +47,7 @@
 
     <md-content class="content-map" flex layout-padding ng-controller="MapLeafletCtrl">
         <leaflet controls="controls" defaults="defaults" layers="layers" flex height="{{mapHeight}}" lf-center="center" width="100%" watch-options="{{watchOptions}}">
-             <!-- <layercontrol order="normal" icons="layercontrol.icons" auto-hide-opacity="true" show-groups="true" title="Layer Manager" base-title="Base Layers" overlays-title="Overlays Layers"></layercontrol> -->
+            <!-- <layercontrol order="normal" icons="layercontrol.icons" auto-hide-opacity="true" show-groups="true" title="Layer Manager" base-title="Base Layers" overlays-title="Overlays Layers"></layercontrol> -->
         </leaflet>
     </md-content>
 
@@ -117,32 +117,30 @@
 </div>
 
 <svg style="position: absolute" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-
-    <svg style="position: absolute" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <symbol id="arkeo-marker-circle-symbol" viewBox="0 0 55 55">
-            <title>icon site</title>
-            <circle cx="27" cy="27" r="25" id="arkeo-marker-circle-shape"></circle>
-            <!-- <g transform="translate(16,34)">
+    <symbol id="arkeo-marker-circle-symbol" viewBox="0 0 55 55">
+        <title>icon site</title>
+        <circle cx="27" cy="27" r="25" id="arkeo-marker-circle-shape"></circle>
+        <!-- <g transform="translate(16,34)">
                 <text id="arkeo-marker-letter" class="arkeo-marker-letter arkeo-marker-circle-letter">A</text>
             </g> -->
-        </symbol>
-        <symbol id="arkeo-marker-circle-symbol-exceptional" viewBox="0 0 55 55">
-            <title>icon site</title>
-            <circle cx="27" cy="27" r="25" id="arkeo-marker-circle-shape"></circle>
-        </symbol>
-        <symbol id="arkeo-marker-drop-symbol" viewBox="0 0 55 60">
-            <title>icon site</title>
-            <path
-                id="arkeo-marker-drop-shape"
-                d="m 25.221294,1.1584867 c 6.882118,0.5186017 13.527295,2.032357 18.856181,9.0745373 3.143609,4.48669 5.587851,9.418432 5.303301,16.086679 -0.90221,7.170462 -3.98018,12.382739 -8.013877,16.734861 -3.115035,2.984752 -6.868596,6.227605 -9.722719,8.779909 -1.34619,1.430765 -1.997047,1.568303 -3.889087,4.24264 -1.156208,1.890995 -2.424441,3.66597 -2.483249,4.302793 m 0.184,-59.2214193 C 18.573726,1.6770884 11.928549,3.1908437 6.5996633,10.233024 3.456054,14.719714 1.0118115,19.651456 1.2963624,26.319703 c 0.9022093,7.170462 3.9801795,12.382739 8.0138769,16.734861 3.1150347,2.984752 6.8685957,6.227605 9.7227187,8.779909 1.34619,1.430765 1.997047,1.568303 3.889087,4.24264 1.156208,1.890995 2.424441,3.66597 2.483249,4.302793"/>
-                <!-- <g transform="translate(30, 78)">
+    </symbol>
+    <symbol id="arkeo-marker-circle-symbol-exceptional" viewBox="0 0 55 55">
+        <title>icon site</title>
+        <circle cx="27" cy="27" r="25" id="arkeo-marker-circle-shape"></circle>
+    </symbol>
+    <symbol id="arkeo-marker-drop-symbol" viewBox="0 0 55 60">
+        <title>icon site</title>
+        <path
+            id="arkeo-marker-drop-shape"
+            d="m 25.221294,1.1584867 c 6.882118,0.5186017 13.527295,2.032357 18.856181,9.0745373 3.143609,4.48669 5.587851,9.418432 5.303301,16.086679 -0.90221,7.170462 -3.98018,12.382739 -8.013877,16.734861 -3.115035,2.984752 -6.868596,6.227605 -9.722719,8.779909 -1.34619,1.430765 -1.997047,1.568303 -3.889087,4.24264 -1.156208,1.890995 -2.424441,3.66597 -2.483249,4.302793 m 0.184,-59.2214193 C 18.573726,1.6770884 11.928549,3.1908437 6.5996633,10.233024 3.456054,14.719714 1.0118115,19.651456 1.2963624,26.319703 c 0.9022093,7.170462 3.9801795,12.382739 8.0138769,16.734861 3.1150347,2.984752 6.8685957,6.227605 9.7227187,8.779909 1.34619,1.430765 1.997047,1.568303 3.889087,4.24264 1.156208,1.890995 2.424441,3.66597 2.483249,4.302793"/>
+        <!-- <g transform="translate(30, 78)">
                     <text class="arkeo-marker-letter arkeo-marker-drop-letter">B</text>
                 </g> -->
-        </symbol>
-        <symbol id="arkeo-marker-drop-symbol-exceptional" viewBox="0 0 55 60">
-            <title>icon site</title>
-            <path
-                id="arkeo-marker-drop-shape"
-                d="m 25.221294,1.1584867 c 6.882118,0.5186017 13.527295,2.032357 18.856181,9.0745373 3.143609,4.48669 5.587851,9.418432 5.303301,16.086679 -0.90221,7.170462 -3.98018,12.382739 -8.013877,16.734861 -3.115035,2.984752 -6.868596,6.227605 -9.722719,8.779909 -1.34619,1.430765 -1.997047,1.568303 -3.889087,4.24264 -1.156208,1.890995 -2.424441,3.66597 -2.483249,4.302793 m 0.184,-59.2214193 C 18.573726,1.6770884 11.928549,3.1908437 6.5996633,10.233024 3.456054,14.719714 1.0118115,19.651456 1.2963624,26.319703 c 0.9022093,7.170462 3.9801795,12.382739 8.0138769,16.734861 3.1150347,2.984752 6.8685957,6.227605 9.7227187,8.779909 1.34619,1.430765 1.997047,1.568303 3.889087,4.24264 1.156208,1.890995 2.424441,3.66597 2.483249,4.302793"/>
-        </symbol>
-    </svg>
+    </symbol>
+    <symbol id="arkeo-marker-drop-symbol-exceptional" viewBox="0 0 55 60">
+        <title>icon site</title>
+        <path
+            id="arkeo-marker-drop-shape"
+            d="m 25.221294,1.1584867 c 6.882118,0.5186017 13.527295,2.032357 18.856181,9.0745373 3.143609,4.48669 5.587851,9.418432 5.303301,16.086679 -0.90221,7.170462 -3.98018,12.382739 -8.013877,16.734861 -3.115035,2.984752 -6.868596,6.227605 -9.722719,8.779909 -1.34619,1.430765 -1.997047,1.568303 -3.889087,4.24264 -1.156208,1.890995 -2.424441,3.66597 -2.483249,4.302793 m 0.184,-59.2214193 C 18.573726,1.6770884 11.928549,3.1908437 6.5996633,10.233024 3.456054,14.719714 1.0118115,19.651456 1.2963624,26.319703 c 0.9022093,7.170462 3.9801795,12.382739 8.0138769,16.734861 3.1150347,2.984752 6.8685957,6.227605 9.7227187,8.779909 1.34619,1.430765 1.997047,1.568303 3.889087,4.24264 1.156208,1.890995 2.424441,3.66597 2.483249,4.302793"/>
+    </symbol>
+</svg>
