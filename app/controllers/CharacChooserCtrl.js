@@ -23,33 +23,6 @@
 	'use strict';
 
 	/*
-	 * CharacChooserListCtrl Charac Chooser List Controller
-	 */
-
-	ArkeoGIS.controller('CharacChooserListCtrl', ['$scope', '$q', '$http', 'arkeoLang', 'login', function ($scope, $q, $http, arkeoLang, Login) {
-
-		if (!Login.requirePermission('user can edit some charac', 'arkeogis.characchooser'))
-            return;
-
-        var self=this;
-
-		$scope.characlist = [];
-
-		function init() {
-			$http.get('/api/characs').then(function(data) {
-				$scope.characlist = data.data;
-			}, function(err) {
-				arkeoService.showMessage("load failed : "+err.status+", "+err.statusText);
-				console.error("loaded", err);
-			})
-		}
-		init();
-
-    }]);  // controller CharacChooserListCtrl
-
-
-
-	/*
 	 * CharacChooserCtrl Charac Chooser Controller
 	 */
 
