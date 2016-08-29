@@ -1,63 +1,97 @@
 label {
     color: #666;
     margin-right: 5px;
-    max-width: 150px;
+    font-size: 0.95em;
+    max-width: 170px;
     width: 100%;
 }
-
 md-dialog-header {
     min-height: 90px;
     border-bottom: 1px solid #ccc;
     label {
         max-width: 50px;
     }
-}
-
-md-divider {
-    margin: 10px 0 -10px 0;
-}
-
-.period {
-    div {
-        text-align: center;
-        width: 100%;
+    .period {
+        div {
+            text-align: center;
+            width: 100%;
+            &:nth-child(1) {
+                font-size: 0.8em;
+                text-transform: uppercase;
+                color: #666;
+            }
+            &:nth-child(2) {
+                 display: inline-block;
+                 margin: 5px 0;
+            }
+            &:nth-child(3) {
+                span {
+                     background-color: #6edb94;
+                     padding: 2px 5px;
+                     border-radius: 4px;
+                     color: #fff;
+                     font-size: 0.9em;
+                     font-weight: bold;;
+                }
+            }
+        }
         &:nth-child(1) {
-            font-size: 0.8em;
-            text-transform: uppercase;
-            color: #666;
+            padding-right: 10px;
+        }
+        &:nth-child(2) {
+            padding-left: 20px;
         }
     }
-    &:nth-child(1) {
-        padding-right: 10px;
-    }
-    &:nth-child(2) {
-        padding-left: 20px;
+}
+md-divider {
+    margin: 10px 0 -10px;
+}
+md-card {
+    md-toolbar {
+        font-weight: bold;;
+        .cnt {
+            font-size: 0.8em;
+            div {
+                margin-top: 5px;
+                font-size: 0.9em;
+                &:nth-child(2) {
+                    font-weight: bold;
+                    margin-left: 5px;
+                }
+            }
+        }
+            .exceptional {
+                font-size: 0.90em;
+                font-weight: normal;
+                padding-top: 5px;
+                font-style: italic;
+            }
     }
 }
-
+.section {
+    margin-top: -10px;
+    background: #f0f0f0;
+    border-bottom: 1px solid #bbb;
+    .name {
+        font-weight: bold;
+    }
+    h4 {
+        margin: 10px 0 0;
+    }
+    .info {
+        margin-top: 15px;
+    }
+}
 .geonameid {
     display: inline-block;
     margin-left: 5px;
 }
-
 .altitude {
     margin-left: 35px;
     span {
         display: inline-block;
     }
 }
-
-.section {
-    margin-top: -15px;
-    background: #f0f0f0;
-    border-bottom: 1px solid #ccc;
-
-    h4 {
-        margin: 0 0 0 0;
-        margin-top: 8px;
-    }
-
-    .info {
-        margin-top: 15px;
-    }
+.comments {
+    text-align: right;
 }
