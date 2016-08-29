@@ -48,13 +48,13 @@
 
             angular.extend($scope, arkeoMap.config);
 
-            if (project.geom != '') {
-                leafletData.getMap().then(function(map) {
-                    map.fitBounds(L.geoJson(project.geom).getBounds());
-                });
-            }
 
             leafletData.getMap().then(function(map) {
+
+                if (project.geom != '') {
+                        map.fitBounds(L.geoJson(project.geom).getBounds());
+                }
+
                 map.on('zoomend', function(e) {
                     // $scope.layers.overlays.sites.layerParams.showOnSelector = false;
                 });
@@ -406,6 +406,8 @@
                         $scope.status = 'You cancelled the dialog.';
                     });
             };
+
+            // $scope.toggleSiteDetailsDialog()
 
             /*
              * watch on results
