@@ -442,9 +442,6 @@
 			"T_HELP": "Langue utilisée dans la base de données pour décrire les caractérisations Mobilier / Immobilier / Production / Paysage / Médias",
 			"T_LABEL": "* Langue de la base"
 		},
-		"FIELD_PUBLISHED": {
-			"T_HELP": "#!#IMPORT_STEP1.FIELD_PUBLISHED.T_HELP"
-		},
 		"FIELD_SEPARATOR": {
 			"T_ERROR_LEN": "Ce champ ne peut comporter qu'un caractère maximum.",
 			"T_HELP": "Utilisez \\t si votre séparateur est une tabulation.",
@@ -531,6 +528,7 @@
 			"T_LABEL": "Licence"
 		},
 		"FIELD_PUBLISHED": {
+			"T_HELP": "#!#IMPORT_STEP3.FIELD_PUBLISHED.T_HELP",
 			"T_LABEL": "#!#IMPORT_STEP3.FIELD_PUBLISHED.T_LABEL"
 		},
 		"FIELD_SCALE_RESOLUTION": {
@@ -727,6 +725,9 @@
 		}
 	},
 	"MAPEDITOR": {
+		"BUTTON_DELETE": {
+			"T_CONFIRM": "#!#MAPEDITOR.BUTTON_DELETE.T_CONFIRM"
+		},
 		"BUTTON_SHP_FILE": {
 			"T_LABEL": "Envoyer le fichier zip"
 		},
@@ -794,6 +795,10 @@
 			"T_RESET": "Remise à zero",
 			"T_SUBMIT": "Envoyer"
 		},
+		"MESSAGE": {
+			"T_DELETE_FAILED": "#!#MAPEDITOR.MESSAGE.T_DELETE_FAILED",
+			"T_DELETE_OK": "#!#MAPEDITOR.MESSAGE.T_DELETE_OK"
+		},
 		"MESSAGE_GET_LAYER_LIST": {
 			"T_ERROR": "Récupération de la liste des calques",
 			"T_SUCCESS": "Liste des calques récupérée avec succès."
@@ -826,9 +831,24 @@
 			"T_TITLE": "Liste des calques disponibles"
 		}
 	},
+	"MAPQUERY": {
+		"MESSAGE": {
+			"T_GETGEOJSON_ERROR": "#!#MAPQUERY.MESSAGE.T_GETGEOJSON_ERROR"
+		}
+	},
 	"PROJECT_EDITOR": {
 		"BUTTON_SUBMIT": {
 			"T_LABEL": "Sauvegarder les préférences de votre projet"
+		},
+		"CHARACCHOOSER": {
+			"T_INTRO": "Si vous le souhaitez, vous pouvez cacher de votre interface certaines caractéristiques. Pour cela, cliquez sur les caractéristiques concernées ci-dessous :",
+			"T_TITLE": "Choix de caractéristiques à cacher"
+		},
+		"CHARACCHOOSER_BUTTON_CANCEL": {
+			"T_TITLE": "Annuler"
+		},
+		"CHARACCHOOSER_BUTTON_SUBMIT": {
+			"T_TITLE": "Enregistrer"
 		},
 		"FIELD_END_DATE": {
 			"T_LABEL": "Date de fin"

@@ -442,9 +442,6 @@
 			"T_HELP": "Language used to describe the caracterizations Furniture/ Real-Estate/ Production / Landscape / Text or iconography.",
 			"T_LABEL": "* Language of the database"
 		},
-		"FIELD_PUBLISHED": {
-			"T_HELP": "#!#IMPORT_STEP1.FIELD_PUBLISHED.T_HELP"
-		},
 		"FIELD_SEPARATOR": {
 			"T_ERROR_LEN": "This field can't have more than one character.",
 			"T_HELP": "Please use /t if your delimiter is a tabulation.",
@@ -531,6 +528,7 @@
 			"T_LABEL": "License"
 		},
 		"FIELD_PUBLISHED": {
+			"T_HELP": "#!#IMPORT_STEP3.FIELD_PUBLISHED.T_HELP",
 			"T_LABEL": "#!#IMPORT_STEP3.FIELD_PUBLISHED.T_LABEL"
 		},
 		"FIELD_SCALE_RESOLUTION": {
@@ -727,6 +725,9 @@
 		}
 	},
 	"MAPEDITOR": {
+		"BUTTON_DELETE": {
+			"T_CONFIRM": "#!#MAPEDITOR.BUTTON_DELETE.T_CONFIRM"
+		},
 		"BUTTON_SHP_FILE": {
 			"T_LABEL": "Submit ZIP file"
 		},
@@ -794,6 +795,10 @@
 			"T_RESET": "Reset",
 			"T_SUBMIT": "Submit"
 		},
+		"MESSAGE": {
+			"T_DELETE_FAILED": "#!#MAPEDITOR.MESSAGE.T_DELETE_FAILED",
+			"T_DELETE_OK": "#!#MAPEDITOR.MESSAGE.T_DELETE_OK"
+		},
 		"MESSAGE_GET_LAYER_LIST": {
 			"T_ERROR": "Recovery of the layers' list",
 			"T_SUCCESS": "List of the layers that have been successfully recovered."
@@ -826,9 +831,24 @@
 			"T_TITLE": "List of the available layers"
 		}
 	},
+	"MAPQUERY": {
+		"MESSAGE": {
+			"T_GETGEOJSON_ERROR": "#!#MAPQUERY.MESSAGE.T_GETGEOJSON_ERROR"
+		}
+	},
 	"PROJECT_EDITOR": {
 		"BUTTON_SUBMIT": {
 			"T_LABEL": "Save project's preferences"
+		},
+		"CHARACCHOOSER": {
+			"T_INTRO": "#!#PROJECT_EDITOR.CHARACCHOOSER.T_INTRO",
+			"T_TITLE": "#!#PROJECT_EDITOR.CHARACCHOOSER.T_TITLE"
+		},
+		"CHARACCHOOSER_BUTTON_CANCEL": {
+			"T_TITLE": "#!#PROJECT_EDITOR.CHARACCHOOSER_BUTTON_CANCEL.T_TITLE"
+		},
+		"CHARACCHOOSER_BUTTON_SUBMIT": {
+			"T_TITLE": "#!#PROJECT_EDITOR.CHARACCHOOSER_BUTTON_SUBMIT.T_TITLE"
 		},
 		"FIELD_END_DATE": {
 			"T_LABEL": "Ending date"
