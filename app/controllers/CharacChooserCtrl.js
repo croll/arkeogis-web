@@ -23,33 +23,6 @@
 	'use strict';
 
 	/*
-	 * CharacChooserListCtrl Charac Chooser List Controller
-	 */
-
-	ArkeoGIS.controller('CharacChooserListCtrl', ['$scope', '$q', '$http', 'arkeoLang', 'login', function ($scope, $q, $http, arkeoLang, Login) {
-
-		if (!Login.requirePermission('user can edit some charac', 'arkeogis.characchooser'))
-            return;
-
-        var self=this;
-
-		$scope.characlist = [];
-
-		function init() {
-			$http.get('/api/characs').then(function(data) {
-				$scope.characlist = data.data;
-			}, function(err) {
-				arkeoService.showMessage("load failed : "+err.status+", "+err.statusText);
-				console.error("loaded", err);
-			})
-		}
-		init();
-
-    }]);  // controller CharacChooserListCtrl
-
-
-
-	/*
 	 * CharacChooserCtrl Charac Chooser Controller
 	 */
 
@@ -214,40 +187,6 @@
 				console.log("starting with a new empty charac...");
 			}
 		};
-
-		$scope.delete_charac = function() {
-			var url = '/api/characs/'+$scope.arbo.id;
-			$http.delete(url).then(function(data) {
-				arkeoService.showMessage("deleted !");
-				$scope.arbo = {
-					name: {},
-					start_date: 0,
-					end_date: 0,
-					content: [],
-				};
-				$scope.check_all();
-				$state.go('arkeogis.characchooser-list');
-			}, function(err) {
-				arkeoService.showMessage("delete failed : "+err.status+", "+err.statusText);
-				console.error("delete", err);
-			});
-		};
-
-		$scope.querySearchUsers = function(query) {
-			return User.get({
-				order: 'u.firstname',
-				page: 1,
-				limit: 10,
-				filter: query,
-			}).$promise.then(function(data) {
-				if (data.data) {
-					data.data.forEach(function(elem) {
-						elem.name=elem.firstname+" "+elem.lastname;
-					});
-				} else data.data=[];
-				return data.data;
-			});
-		}
 
 		function init() {
 			$scope.load();

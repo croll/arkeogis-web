@@ -442,9 +442,6 @@
 			"T_HELP": "Language used to describe the caracterizations Furniture/ Real-Estate/ Production / Landscape / Text or iconography.",
 			"T_LABEL": "* Language of the database"
 		},
-		"FIELD_PUBLISHED": {
-			"T_HELP": "#!#IMPORT_STEP1.FIELD_PUBLISHED.T_HELP"
-		},
 		"FIELD_SEPARATOR": {
 			"T_ERROR_LEN": "This field can't have more than one character.",
 			"T_HELP": "Please use /t if your delimiter is a tabulation.",
@@ -531,6 +528,7 @@
 			"T_LABEL": "License"
 		},
 		"FIELD_PUBLISHED": {
+			"T_HELP": "#!#IMPORT_STEP3.FIELD_PUBLISHED.T_HELP",
 			"T_LABEL": "#!#IMPORT_STEP3.FIELD_PUBLISHED.T_LABEL"
 		},
 		"FIELD_SCALE_RESOLUTION": {
@@ -841,6 +839,16 @@
 	"PROJECT_EDITOR": {
 		"BUTTON_SUBMIT": {
 			"T_LABEL": "Save project's preferences"
+		},
+		"CHARACCHOOSER": {
+			"T_INTRO": "#!#PROJECT_EDITOR.CHARACCHOOSER.T_INTRO",
+			"T_TITLE": "#!#PROJECT_EDITOR.CHARACCHOOSER.T_TITLE"
+		},
+		"CHARACCHOOSER_BUTTON_CANCEL": {
+			"T_TITLE": "#!#PROJECT_EDITOR.CHARACCHOOSER_BUTTON_CANCEL.T_TITLE"
+		},
+		"CHARACCHOOSER_BUTTON_SUBMIT": {
+			"T_TITLE": "#!#PROJECT_EDITOR.CHARACCHOOSER_BUTTON_SUBMIT.T_TITLE"
 		},
 		"FIELD_END_DATE": {
 			"T_LABEL": "Ending date"

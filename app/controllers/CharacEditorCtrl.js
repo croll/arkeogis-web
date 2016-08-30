@@ -233,22 +233,6 @@
 			});
 		};
 
-		$scope.querySearchUsers = function(query) {
-			return User.get({
-				order: 'u.firstname',
-				page: 1,
-				limit: 10,
-				filter: query,
-			}).$promise.then(function(data) {
-				if (data.data) {
-					data.data.forEach(function(elem) {
-						elem.name=elem.firstname+" "+elem.lastname;
-					});
-				} else data.data=[];
-				return data.data;
-			});
-		}
-
 		function init() {
 			$scope.load();
 		}

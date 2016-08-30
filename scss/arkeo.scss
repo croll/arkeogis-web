@@ -255,3 +255,9 @@ div#arkeo_loading {
 .cell-warning {
 	background: #ff7d7d;
 }
+
+
+/*** leaflet z-index conflict with z-indexs of angular 1000 -> 15 ***/
+.leaflet-top, .leaflet-bottom {
+	z-index: 15;
+}

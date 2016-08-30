@@ -842,6 +842,16 @@
 		"BUTTON_SUBMIT": {
 			"T_LABEL": "Sauvegarder les préférences de votre projet"
 		},
+		"CHARACCHOOSER": {
+			"T_INTRO": "Si vous le souhaitez, vous pouvez cacher de votre interface certaines caractéristiques. Pour cela, cliquez sur les caractéristiques concernées ci-dessous :",
+			"T_TITLE": "Choix de caractéristiques à cacher"
+		},
+		"CHARACCHOOSER_BUTTON_CANCEL": {
+			"T_TITLE": "Annuler"
+		},
+		"CHARACCHOOSER_BUTTON_SUBMIT": {
+			"T_TITLE": "Enregistrer"
+		},
 		"FIELD_END_DATE": {
 			"T_LABEL": "Date de fin"
 		},

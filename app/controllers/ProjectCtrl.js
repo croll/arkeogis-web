@@ -389,8 +389,8 @@
         }
     ]);
 
-    ArkeoGIS.controller('ProjectCharacsCtrl', ['$scope',
-        function($scope) {
+    ArkeoGIS.controller('ProjectCharacsCtrl', ['$scope', '$mdDialog', '$http',
+        function($scope, $mdDialog, $http) {
 
             $scope.filter = {
                 show: false,
@@ -417,6 +417,83 @@
                     $scope.filter.form.$setPristine();
                 }
             };
+
+            $scope.showCharacChooserDialog = function(charac_id, project_id) {
+                $mdDialog.show({
+                        controller: function($scope, $mdDialog, arkeoService) {
+                            $scope.charac_id = charac_id;
+                            $scope.project_id = project_id;
+
+                            $scope.hide = function() {
+                                $mdDialog.hide();
+                            };
+
+                            $scope.load = function() {
+                    			var url = '/api/characs/'+$scope.charac_id+'?project_id='+$scope.project_id;
+                    			$http.get(url).then(function(data) {
+                    				$scope.arbo = data.data;
+                    			}, function(err) {
+                    				arkeoService.showMessage("load failed : "+err.status+", "+err.statusText);
+                                    $mdDialog.hide();
+                    				console.error("loaded", err);
+                    			});
+                    		};
+
+                            $scope.save = function() {
+                                var url = '/api/characs/'+$scope.charac_id+'/hiddens/'+$scope.project_id;
+                                function recurseGetHidden(item, res) {
+                                    if (item.hidden) res.push(item.id);
+                                    if ('content' in item) {
+                                        item.content.forEach(function(subitem) {
+                                            recurseGetHidden(subitem, res);
+                                        });
+                                    }
+                                }
+                                var res = [];
+                                recurseGetHidden($scope.arbo, res);
+                                //console.log("selection: ", res);
+                                $http.post(url,{
+                                    hidden_ids: res,
+                                }).then(function(data) {
+                    				$scope.arbo = data.data;
+                                    $mdDialog.hide();
+                    			}, function(err) {
+                    				arkeoService.showMessage("save failed : "+err.status+", "+err.statusText);
+                                    $mdDialog.hide();
+                    				console.error("loaded", err);
+                    			});
+                            }
+
+                            $scope.toggleHidden = function(item) {
+                                function recurseSetHidden(item, hidden) {
+                                    item.hidden = hidden;
+                                    if ('content' in item) {
+                                        item.content.forEach(function(subitem) {
+                                            recurseSetHidden(subitem, hidden);
+                                        });
+                                    }
+                                }
+                                recurseSetHidden(item, !item.hidden);
+                            };
+
+                            $scope.load();
+
+                        },
+                        templateUrl: 'partials/characchooser.html',
+                        parent: angular.element(document.body),
+                        clickOutsideToClose: true,
+                        fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+                    })
+                    .then(function(answer) {
+                        $scope.status = 'You said the information was "' + answer + '".';
+                    }, function() {
+                        $scope.status = 'You cancelled the dialog.';
+                    });
+            };
+
+            // $scope.toggleSiteDetailsDialog()
+
+
         }
     ]);
 })();
