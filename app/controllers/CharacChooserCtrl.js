@@ -188,40 +188,6 @@
 			}
 		};
 
-		$scope.delete_charac = function() {
-			var url = '/api/characs/'+$scope.arbo.id;
-			$http.delete(url).then(function(data) {
-				arkeoService.showMessage("deleted !");
-				$scope.arbo = {
-					name: {},
-					start_date: 0,
-					end_date: 0,
-					content: [],
-				};
-				$scope.check_all();
-				$state.go('arkeogis.characchooser-list');
-			}, function(err) {
-				arkeoService.showMessage("delete failed : "+err.status+", "+err.statusText);
-				console.error("delete", err);
-			});
-		};
-
-		$scope.querySearchUsers = function(query) {
-			return User.get({
-				order: 'u.firstname',
-				page: 1,
-				limit: 10,
-				filter: query,
-			}).$promise.then(function(data) {
-				if (data.data) {
-					data.data.forEach(function(elem) {
-						elem.name=elem.firstname+" "+elem.lastname;
-					});
-				} else data.data=[];
-				return data.data;
-			});
-		}
-
 		function init() {
 			$scope.load();
 		}
