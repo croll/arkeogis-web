@@ -391,12 +391,12 @@
 	},
 	"IMPORT": {
 		"BUTTON": {
-			"T_CANCEL_AND_GO_TO_SHEET": "#!#IMPORT.BUTTON.T_CANCEL_AND_GO_TO_SHEET"
+			"T_CANCEL_AND_GO_TO_SHEET": "Annuler et retour à la fiche"
 		},
 		"FIELD_ALL": {
-			"T_ENGLISH_TRANSLATION_REQUIRED": "#!#IMPORT.FIELD_ALL.T_ENGLISH_TRANSLATION_REQUIRED",
-			"T_ERROR_NOT_VALID_URL": "#!#IMPORT.FIELD_ALL.T_ERROR_NOT_VALID_URL",
-			"T_ERROR_REQUIRED": "Ce champs est requis"
+			"T_ENGLISH_TRANSLATION_REQUIRED": "La traduction en anglais de ce champs est obligatoire.",
+			"T_ERROR_NOT_VALID_URL": "L'adresse URL indiquée n'est pas utilisable.",
+			"T_ERROR_REQUIRED": "Ce champs est obligatoire."
 		},
 		"HEADER_TAB_CSV_IMPORT_REPORT": {
 			"T_LABEL": "Rapport"
@@ -419,7 +419,7 @@
 		},
 		"FIELD_DATABASE_NAME": {
 			"T_ERROR_MAX_LEN": "Le nom de la base de donnée ne peut dépasser les 50 caractères.",
-			"T_LABEL": "* Nom de la base"
+			"T_LABEL": "* Nom de la base de données"
 		},
 		"FIELD_ECHAP_CHARACTER": {
 			"T_ERROR_LEN": "Erreur de caractère d'échappement.",
@@ -430,20 +430,20 @@
 			"T_LABEL": "Utilisation des Geonames"
 		},
 		"FIELD_GEO_CONTINENT": {
-			"T_PLACEHOLDER": "#!#IMPORT_STEP1.FIELD_GEO_CONTINENT.T_PLACEHOLDER"
+			"T_PLACEHOLDER": "Indiquer un continent"
 		},
 		"FIELD_GEO_COUNTRY": {
-			"T_PLACEHOLDER": "#!#IMPORT_STEP1.FIELD_GEO_COUNTRY.T_PLACEHOLDER"
+			"T_PLACEHOLDER": "Indiquer un pays"
 		},
 		"FIELD_GEO_EXTENT": {
 			"T_LABEL": "* Étendue géographique de la base de données."
 		},
 		"FIELD_LANG": {
 			"T_HELP": "Langue utilisée dans la base de données pour décrire les caractérisations Mobilier / Immobilier / Production / Paysage / Médias",
-			"T_LABEL": "* Langue de la base"
+			"T_LABEL": "* Langue de la base de données"
 		},
 		"FIELD_PUBLISHED": {
-			"T_HELP": "#!#IMPORT_STEP1.FIELD_PUBLISHED.T_HELP"
+			"T_HELP": "Etat de publication de la base de données."
 		},
 		"FIELD_SEPARATOR": {
 			"T_ERROR_LEN": "Ce champ ne peut comporter qu'un caractère maximum.",
@@ -531,7 +531,7 @@
 			"T_LABEL": "Licence"
 		},
 		"FIELD_PUBLISHED": {
-			"T_LABEL": "#!#IMPORT_STEP3.FIELD_PUBLISHED.T_LABEL"
+			"T_LABEL": "Base de données publiée"
 		},
 		"FIELD_SCALE_RESOLUTION": {
 			"T_HELP": "Cette base de données concerne des objets, ou des sites ou des bassins versants etc.",
@@ -727,6 +727,9 @@
 		}
 	},
 	"MAPEDITOR": {
+		"BUTTON_DELETE": {
+			"T_CONFIRM": "#!#MAPEDITOR.BUTTON_DELETE.T_CONFIRM"
+		},
 		"BUTTON_SHP_FILE": {
 			"T_LABEL": "Envoyer le fichier zip"
 		},
@@ -794,6 +797,10 @@
 			"T_RESET": "Remise à zero",
 			"T_SUBMIT": "Envoyer"
 		},
+		"MESSAGE": {
+			"T_DELETE_FAILED": "#!#MAPEDITOR.MESSAGE.T_DELETE_FAILED",
+			"T_DELETE_OK": "#!#MAPEDITOR.MESSAGE.T_DELETE_OK"
+		},
 		"MESSAGE_GET_LAYER_LIST": {
 			"T_ERROR": "Récupération de la liste des calques",
 			"T_SUCCESS": "Liste des calques récupérée avec succès."
@@ -824,6 +831,11 @@
 			"T_LABEL_TYPE": "Type",
 			"T_LABEL_ZOOM_LEVEL": "Niveaux de zoom",
 			"T_TITLE": "Liste des calques disponibles"
+		}
+	},
+	"MAPQUERY": {
+		"MESSAGE": {
+			"T_GETGEOJSON_ERROR": "#!#MAPQUERY.MESSAGE.T_GETGEOJSON_ERROR"
 		}
 	},
 	"PROJECT_EDITOR": {

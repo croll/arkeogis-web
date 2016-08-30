@@ -727,6 +727,9 @@
 		}
 	},
 	"MAPEDITOR": {
+		"BUTTON_DELETE": {
+			"T_CONFIRM": "#!#MAPEDITOR.BUTTON_DELETE.T_CONFIRM"
+		},
 		"BUTTON_SHP_FILE": {
 			"T_LABEL": "Submit ZIP file"
 		},
@@ -794,6 +797,10 @@
 			"T_RESET": "Reset",
 			"T_SUBMIT": "Submit"
 		},
+		"MESSAGE": {
+			"T_DELETE_FAILED": "#!#MAPEDITOR.MESSAGE.T_DELETE_FAILED",
+			"T_DELETE_OK": "#!#MAPEDITOR.MESSAGE.T_DELETE_OK"
+		},
 		"MESSAGE_GET_LAYER_LIST": {
 			"T_ERROR": "Recovery of the layers' list",
 			"T_SUCCESS": "List of the layers that have been successfully recovered."
@@ -824,6 +831,11 @@
 			"T_LABEL_TYPE": "Type",
 			"T_LABEL_ZOOM_LEVEL": "Zoom level",
 			"T_TITLE": "List of the available layers"
+		}
+	},
+	"MAPQUERY": {
+		"MESSAGE": {
+			"T_GETGEOJSON_ERROR": "#!#MAPQUERY.MESSAGE.T_GETGEOJSON_ERROR"
 		}
 	},
 	"PROJECT_EDITOR": {
