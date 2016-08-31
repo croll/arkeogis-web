@@ -17,7 +17,7 @@
             </md-toolbar>
             <md-content layout="column">
                 <md-input-container flex>
-                    <ark-lang-selector ng-model="myTransLang1" ark-set-as-translation-lang="1" ng-disabled="false" ark-flags="true"></ark-lang-selector>
+                    <ark-lang-selector ng-model="myTransLang1" ark-translation-lang-selected="curlang" ark-set-as-translation-lang="1" ng-disabled="false" ark-flags="true"></ark-lang-selector>
                 </md-input-container>
                 <md-input-container flex>
                     <label translate>CHARACEDITOR.INPUT_NAME.T_TITLE</label>
@@ -47,9 +47,10 @@
                     </div>
                 </md-input-container>
                 <md-toolbar class="md-theme-indigo">
-                <md-button class="md-raised" aria-label="Supprimer" ng-click="delete_charac()" ark-confirm="CHARACEDITOR.BUTTON_DELETE.T_CONFIRM" ark-confirm-ok="CHARACEDITOR.BUTTON_DELETE.T_OK"><span translate>CHARACEDITOR.BUTTON_DELETE.T_TITLE</span></md-button>
-                <md-button class="md-raised" aria-label="Save" ng-click="save()" ng-disabled="!publishable"><span translate>CHARACEDITOR.BUTTON_SAVE.T_TITLE</span></md-button>
-            </md-toolbar>
+                    <md-button class="md-raised" aria-label="Download CSV" ng-click="download_csv()"><span translate>CHARACEDITOR.BUTTON_DOWNLOADCSV.T_TITLE</span></md-button>
+                    <md-button class="md-raised" aria-label="Supprimer" ng-click="delete_charac()" ark-confirm="CHARACEDITOR.BUTTON_DELETE.T_CONFIRM" ark-confirm-ok="CHARACEDITOR.BUTTON_DELETE.T_OK"><span translate>CHARACEDITOR.BUTTON_DELETE.T_TITLE</span></md-button>
+                    <md-button class="md-raised" aria-label="Save" ng-click="save()" ng-disabled="!publishable"><span translate>CHARACEDITOR.BUTTON_SAVE.T_TITLE</span></md-button>
+                </md-toolbar>
 
             </md-content>
         </md-sidenav>
