@@ -5,6 +5,9 @@
 			"T_OK": "Oui",
 			"T_TITLE": "Supprimer"
 		},
+		"BUTTON_DOWNLOADCSV": {
+			"T_TITLE": "Télécharger le CSV"
+		},
 		"BUTTON_SAVE": {
 			"T_TITLE": "Enregistrer"
 		},
@@ -35,7 +38,7 @@
 			"T_TITLE": "Nom"
 		},
 		"INPUT_ORDER": {
-			"T_TITLE": "#!#CHARACEDITOR.INPUT_ORDER.T_TITLE"
+			"T_TITLE": "Ordre"
 		},
 		"LIST": {
 			"T_TITLE": "Nom"

@@ -5,6 +5,9 @@
 			"T_OK": "Yes",
 			"T_TITLE": "Delete"
 		},
+		"BUTTON_DOWNLOADCSV": {
+			"T_TITLE": "#!#CHARACEDITOR.BUTTON_DOWNLOADCSV.T_TITLE"
+		},
 		"BUTTON_SAVE": {
 			"T_TITLE": "Save"
 		},
