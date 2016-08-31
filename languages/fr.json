@@ -49,6 +49,9 @@
 		"LIST_DESCRIPTION": {
 			"T_TITLE": "Description"
 		},
+		"LIST_LANGS": {
+			"T_TITLE": "Langues"
+		},
 		"LIST_NAME": {
 			"T_TITLE": "Nom"
 		},
@@ -445,9 +448,6 @@
 			"T_HELP": "Langue utilisée dans la base de données pour décrire les caractérisations Mobilier / Immobilier / Production / Paysage / Médias",
 			"T_LABEL": "* Langue de la base de données"
 		},
-		"FIELD_PUBLISHED": {
-			"T_HELP": "Etat de publication de la base de données."
-		},
 		"FIELD_SEPARATOR": {
 			"T_ERROR_LEN": "Ce champ ne peut comporter qu'un caractère maximum.",
 			"T_HELP": "Utilisez \\t si votre séparateur est une tabulation.",
@@ -534,6 +534,7 @@
 			"T_LABEL": "Licence"
 		},
 		"FIELD_PUBLISHED": {
+			"T_HELP": "#!#IMPORT_STEP3.FIELD_PUBLISHED.T_HELP",
 			"T_LABEL": "Base de données publiée"
 		},
 		"FIELD_SCALE_RESOLUTION": {

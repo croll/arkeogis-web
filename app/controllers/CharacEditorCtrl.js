@@ -136,6 +136,9 @@
 				}
 				$scope.errstatus.fulltrads = fulltrads;
 				console.log("fulltrads", fulltrads, publishable);
+				//$scope.arbo.cached_langs = angular.toJson(fulltrads);
+				fulltrads.sort();
+				$scope.arbo.cached_langs = fulltrads.join(',');
 			}
 
 			$scope.publishable = publishable;
