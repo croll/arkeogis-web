@@ -147,4 +147,19 @@
 			}
 		};
     });
+
+    ArkeoGIS.filter('arkTranslate', function (arkeoLang) {
+        return function(src) {
+            if (arkeoLang.userLangs[1] in src)
+                return src[arkeoLang.userLangs[1]];
+            else if (arkeoLang.userLangs[2] in src)
+                return src[arkeoLang.userLangs[2]];
+            else if ('en' in src)
+                return src['en'];
+            else if ('fr' in src)
+                return src['fr'];
+            else return "NO TRANSLATION AVAILABLE";
+        }
+    });
+
 })();
