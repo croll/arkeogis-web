@@ -251,7 +251,9 @@
 					publishable = true;
 				}
 				$scope.errstatus.fulltrads = fulltrads;
-				console.log("fulltrads", fulltrads, publishable);
+				//console.log("fulltrads", fulltrads, publishable);
+				fulltrads.sort();
+				$scope.arbo.cached_langs = fulltrads.join(',');
 			}
 			if (!publishable)
 				$scope.arbo.active = false;
