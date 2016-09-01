@@ -127,6 +127,9 @@
 		"LIST_DESCRIPTION": {
 			"T_TITLE": "Description"
 		},
+		"LIST_LANGS": {
+			"T_TITLE": "Langues"
+		},
 		"LIST_NAME": {
 			"T_TITLE": "Nom"
 		},
