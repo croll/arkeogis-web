@@ -198,6 +198,12 @@
                 }
             }
 
+            $scope.checkCharac = function(id) {
+                return _.findKey($scope.project['characs'], function(c) {
+                    return (c.id == id);
+                });
+            }
+
             $scope.preview = function(geojson) {
                 if (geojson == '') {
                     return;
@@ -235,6 +241,10 @@
                     arkeoService.showMessage('PROJECT_EDITOR.FORM_ERROR_NO_DATABASE_SELECTED.T_LABEL')
                     return false;
                 }
+                if ($scope.project.characs.lengh < 1) {
+                    arkeoService.showMessage('PROJECT_EDITOR.FORM_ERROR_NO_CHARAC_SELECTED.T_LABEL')
+                    return false;
+                }
                 leafletData.getMap().then(function(map) {
                     var bbox = map.getBounds();
                     var boundingBox = arkeoMap.getValidBoundingBox(bbox._northEast.lat, bbox._northEast.lng, bbox._southWest.lat, bbox._southWest.lng);
@@ -263,6 +273,9 @@
                     angular.forEach($scope.project.chronologies, function(chrono) {
                         prefs.chronologies.push(chrono.root_chronology_id);
                     });
+                    angular.forEach($scope.project.characs, function(charac) {
+                        prefs.characs.push(charac.root_charac_id);
+                    });
                     angular.forEach($scope.project.layers, function(layer) {
                         prefs.layers.push({
                             id: layer.id,
@@ -272,10 +285,7 @@
                     angular.forEach($scope.project.databases, function(database) {
                         prefs.databases.push(database.id);
                     });
-                    angular.forEach($scope.project.characs, function(charac) {
-                        prefs.characs.push(charac.id);
-                    });
-                    // console.log(prefs);
+                    console.log(prefs);
                     $http({
                         method: 'POST',
                         url: '/api/project',
