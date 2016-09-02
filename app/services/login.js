@@ -19,13 +19,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-(function () {
+(function() {
     'use strict';
-    ArkeoGIS.service('login', ['$http', 'user', '$q', '$cookies', 'arkeoLang', 'arkeoProject', '$state', function ($http, User, $q, $cookies, arkeoLang, arkeoProject, $state) {
+    ArkeoGIS.service('login', ['$http', 'user', '$q', '$cookies', 'arkeoLang', 'arkeoProject', '$state', function($http, User, $q, $cookies, arkeoLang, arkeoProject, $state) {
 
-        var self=this;
+        var self = this;
 
-        this.user = new User ({
+        this.user = new User({
             Username: "",
             Password: ""
         });
@@ -33,55 +33,49 @@
         this.permissions = [];
 
         this.login = function(user) {
-            var promise = $q(function(resolve, reject) {
-                $http.post('/api/login', user).then(function(ret) {
-                    $cookies.put('arkeogis_session_token', ret.data.Token);
-                    //ArkeoGIS.token=ret.data.Token;
-                    self.user = new User(ret.data.User);
-                    arkeoLang.setUserLang(1, ret.data.lang1.isocode)
-                    arkeoLang.setUserLang(2, ret.data.lang2.isocode)
-                    arkeoProject.set(ret.data.project);
-                    $cookies.put('project_id', ret.data.project.id);
-                    self.permissions = ret.data.permissions;
-                    resolve(self.user);
-                }, function(err) {
-                    reject(err);
-                });
+            return $http.post('/api/login', user).then(function(ret) {
+                $cookies.put('arkeogis_session_token', ret.data.Token);
+                //ArkeoGIS.token=ret.data.Token;
+                self.user = new User(ret.data.User);
+                arkeoLang.setUserLang(1, ret.data.lang1.isocode)
+                arkeoLang.setUserLang(2, ret.data.lang2.isocode)
+                arkeoProject.set(ret.data.project);
+                $cookies.put('project_id', ret.data.project.id);
+                self.permissions = ret.data.permissions;
+                return self.user;
+            }, function(err) {
+                console.log(err);
+                return err;
             });
-            return promise;
         };
 
         this.relogin = function() {
-            var promise = $q(function(resolve, reject) {
-                $http.get('/api/relogin').then(function(ret) {
-                    self.user = new User(ret.data.User);
-                    arkeoLang.setUserLang(1, ret.data.lang1.isocode)
-                    arkeoLang.setUserLang(2, ret.data.lang2.isocode)
-                    arkeoProject.set(ret.data.project);
-                    $cookies.put('project_id', ret.data.project.id);
-                    self.permissions = ret.data.permissions;
-                    resolve(self.user);
-                }, function(err) {
-                    reject(err);
-                });
+            return $http.get('/api/relogin').then(function(ret) {
+                self.user = new User(ret.data.User);
+                arkeoLang.setUserLang(1, ret.data.lang1.isocode)
+                arkeoLang.setUserLang(2, ret.data.lang2.isocode)
+                arkeoProject.set(ret.data.project);
+                $cookies.put('project_id', ret.data.project.id);
+                self.permissions = ret.data.permissions;
+            }, function(err) {
+                console.log(err);
+                return err;
+            }).then(function() {
+                return arkeoProject.getDetails();
             });
-            return promise;
         };
 
         this.logout = function() {
-            var promise = $q(function(resolve, reject) {
-                $http.get('/api/logout').then(function(ret) {
-                    self.user = new User(ret.data.User);
-                    arkeoLang.setUserLang(1, ret.data.lang1.isocode)
-                    arkeoLang.setUserLang(2, ret.data.lang2.isocode)
-                    $cookies.remove('project_id');
-                    self.permissions = ret.data.permissions;
-                    resolve(self.user);
-                }, function(err) {
-                    reject(err);
-                });
+            return $http.get('/api/logout').then(function(ret) {
+                self.user = new User(ret.data.User);
+                arkeoLang.setUserLang(1, ret.data.lang1.isocode)
+                arkeoLang.setUserLang(2, ret.data.lang2.isocode)
+                $cookies.remove('project_id');
+                self.permissions = ret.data.permissions;
+                return self.user;
+            }, function(err) {
+                return err;
             });
-            return promise;
         };
 
         /*
@@ -96,15 +90,17 @@
             if (!angular.isDefined(self.user.id) || self.user.id == 0) {
                 // user is not logged, so try to login first
                 if (redirectTo)
-                    $state.go('arkeogis.login', { redirectTo: redirectTo});
+                    $state.go('arkeogis.login', {
+                        redirectTo: redirectTo
+                    });
                 return false;
             } else {
                 // user is logged, check permissions
-                var haveperm=false;
+                var haveperm = false;
                 // console.log("permissions: ", self.permissions);
                 self.permissions.forEach(function(permission) {
                     if (permission.name == permname)
-                        haveperm=true;
+                        haveperm = true;
                 })
                 if (haveperm) {
                     // everything is ok

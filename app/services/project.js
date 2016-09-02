@@ -20,7 +20,7 @@
  */
 
 (function() {
-    ArkeoGIS.service('arkeoProject', ['$cookies', function($cookies) {
+    ArkeoGIS.service('arkeoProject', ['$cookies', '$http', '$q', function($cookies, $http, $q) {
 
         var self = this;
 
@@ -40,20 +40,61 @@
                 };
             } else {
                 self.project.geom = angular.fromJson(self.project.geom);
-		if (!self.project.chronologies) {
-			self.project.chronologies = [];
-		}
-		if (!self.project.layers) {
-			self.project.layers= [];
-		}
-		if (!self.project.databases) {
-			self.project.databases = [];
-		}
-		if (!self.project.characs) {
-			self.project.characs = [];
-		}
-	    }
+                if (!self.project.chronologies) {
+                    self.project.chronologies = [];
+                }
+                if (!self.project.layers) {
+                    self.project.layers = [];
+                }
+                if (!self.project.databases) {
+                    self.project.databases = [];
+                }
+                if (!self.project.characs) {
+                    self.project.characs = [];
+                }
+            }
             return self.project;
+        }
+
+        this.getDetails = function() {
+            var promises = [];
+            // Characs
+            _.each(this.project.characs, function(c) {
+                promises.push($http.get('/api/characs/'+c.id+'?project_id='+self.project.id, {
+                    silent: true
+                }).then(function(res) {
+                    _.findKey(self.project.characs, function(charac) {
+                        if (c.id == charac.id) {
+                            _.merge(charac, res.data);
+                        }
+                    });
+                }));
+            });
+            // Chronologies
+            _.each(this.project.chronologies, function(c) {
+                promises.push($http.get('/api/chronologies/'+c.id, {
+                    silent: true
+                }).then(function(res) {
+                    _.findKey(self.project.chronologies, function(chrono) {
+                        if (c.id == chrono.id) {
+                            _.merge(chrono, res.data);
+                        }
+                    });
+                }));
+            });
+            // Databases
+            _.each(this.project.databases, function(d) {
+                promises.push($http.get('/api/database/'+d.id, {
+                    silent: true
+                }).then(function(res) {
+                    _.findKey(self.project.databases, function(db) {
+                        if (d.id == db.id) {
+                            _.merge(db, res.data);
+                        }
+                    });
+                }));
+            });
+            return $q.all(promises);
         }
 
     }]);
