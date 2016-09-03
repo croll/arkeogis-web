@@ -158,7 +158,7 @@
                     exceptional += "-exceptional"
                 }
 
-                if (!feature.centroid) {
+                if (!feature.properties.infos.centroid) {
                     angular.extend(iconProperties, {
                         className: 'arkeo-marker-container-drop query' + self.letter,
                         html: '<svg class="arkeo-marker arkeo-marker-drop-svg ' + iconClasses + '"><use xlink:href="#arkeo-marker-drop-symbol' + exceptional + '" style="fill: '+characInfos.iconColor+'"></use></svg><div class="arkeo-marker-letter size' + characInfos.iconSize + '">' + self.letter + '</div>',
