@@ -24,6 +24,8 @@
 
         var self = this;
 
+        this.chronologyColors = {};
+
         this.set = function(project) {
             self.project = project;
         }
@@ -60,7 +62,7 @@
             var promises = [];
             // Characs
             _.each(this.project.characs, function(c) {
-                promises.push($http.get('/api/characs/'+c.id+'?project_id='+self.project.id, {
+                promises.push($http.get('/api/characs/' + c.id + '?project_id=' + self.project.id, {
                     silent: true
                 }).then(function(res) {
                     _.findKey(self.project.characs, function(charac) {
@@ -71,23 +73,30 @@
                 }));
             });
             // Chronologies
+            // Reset flattened chronologies cache
+            self.chronologyColors= {};
             _.each(this.project.chronologies, function(c) {
-                promises.push($http.get('/api/chronologies/'+c.id, {
+                promises.push($http.get('/api/chronologies/' + c.id, {
                     silent: true
                 }).then(function(res) {
                     _.findKey(self.project.chronologies, function(chrono) {
                         if (c.id == chrono.id) {
                             _.merge(chrono, res.data);
+                            indexChronologyColors(chrono);
                         }
                     });
                 }));
             });
             // Databases
             _.each(this.project.databases, function(d) {
-                promises.push($http.get('/api/database/'+d.id, {
+                promises.push($http.get('/api/database/' + d.id, {
                     silent: true
                 }).then(function(res) {
                     _.findKey(self.project.databases, function(db) {
+                        if (res.data.translations) {
+                            _merge(res.data, res.data.translations)
+                            delete res.data.translations;
+                        }
                         if (d.id == db.id) {
                             _.merge(db, res.data);
                         }
@@ -95,6 +104,21 @@
                 }));
             });
             return $q.all(promises);
+        }
+
+        this.getChronologyColor = function(start_date, end_date) {
+            return (_.has(self.chronologyColors, start_date+''+end_date)) ? self.chronologyColors[start_date+''+end_date] : 'ffffff';
+        }
+
+        var indexChronologyColors = function(currentChrono) {
+            if (currentChrono.content) {
+                _.each(currentChrono.content, function(c) {
+                    indexChronologyColors(c)
+                    if (c.color != "") {
+                        self.chronologyColors[c.start_date+''+c.end_date] = c.color;
+                    }
+                });
+            }
         }
 
     }]);

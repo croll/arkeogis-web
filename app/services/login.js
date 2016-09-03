@@ -42,10 +42,11 @@
                 arkeoProject.set(ret.data.project);
                 $cookies.put('project_id', ret.data.project.id);
                 self.permissions = ret.data.permissions;
-                return self.user;
             }, function(err) {
                 console.log(err);
                 return err;
+            }).then(function() {
+                return arkeoProject.getDetails();
             });
         };
 
