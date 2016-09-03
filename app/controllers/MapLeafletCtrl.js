@@ -169,7 +169,7 @@
                 } else {
                     angular.extend(iconProperties, {
                         className: 'arkeo-marker-container-circle query' + self.letter,
-                        html: '<svg class="arkeo-marker arkeo-marker-circle-svg ' + iconClasses + '"><use xlink:href="#arkeo-marker-circle-symbol' + exceptional + '" style="'+characInfos.iconColor+'"></use></svg><div class="arkeo-marker-letter size' + characInfos.iconSize + '">' + self.letter + '</div>',
+                        html: '<svg class="arkeo-marker arkeo-marker-circle-svg ' + iconClasses + '"><use xlink:href="#arkeo-marker-circle-symbol' + exceptional + '" style="fill:'+characInfos.iconColor+'"></use></svg><div class="arkeo-marker-letter size' + characInfos.iconSize + '">' + self.letter + '</div>',
                         iconSize: [55, 55],
                         iconAnchor: [25, 27.5],
                         popupAnchor: [0, 0]
