@@ -107,7 +107,7 @@
         }
 
         this.getChronologyColor = function(start_date, end_date) {
-            return (_.has(self.chronologyColors, start_date+''+end_date)) ? self.chronologyColors[start_date+''+end_date] : 'ffffff';
+            return (_.has(self.chronologyColors, start_date+''+end_date)) ? self.chronologyColors[start_date+''+end_date] : null;
         }
 
         var indexChronologyColors = function(currentChrono) {

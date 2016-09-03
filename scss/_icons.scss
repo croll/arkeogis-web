@@ -33,13 +33,11 @@
 }
 
 #arkeo-marker-circle-symbol {
-    fill: #17aaf0;
     stroke: #fff;
     stroke-width: 4px;
 }
 
 #arkeo-marker-circle-symbol-exceptional {
-    fill: #17aaf0;
     stroke: #000;
     stroke-width: 4px;
 }
@@ -95,13 +93,11 @@
 }
 
 #arkeo-marker-drop-symbol {
-    fill: #17aaf0;
     stroke: #fff;
     stroke-width: 4px;
 }
 
 #arkeo-marker-drop-symbol-exceptional {
-    fill: #17aaf0;
     stroke: #000;
     stroke-width: 4px;
 }
@@ -114,6 +110,7 @@
 .arkeo-marker-container-drop {
     .arkeo-marker-letter {
         color: #fff;
+		text-shadow: 0px 0px 1px #333;
         position: absolute;
         font-weight: bold;
         &.size1 {

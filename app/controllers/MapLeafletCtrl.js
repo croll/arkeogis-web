@@ -52,7 +52,7 @@
             leafletData.getMap().then(function(map) {
 
                 if (project.geom != '') {
-                        map.fitBounds(L.geoJson(project.geom).getBounds());
+                    map.fitBounds(L.geoJson(project.geom).getBounds());
                 }
 
                 map.on('zoomend', function(e) {
@@ -77,7 +77,7 @@
                             console.log(err);
                         })
                     }
-                })
+                });
             });
 
             function initProjectLayers() {
@@ -91,10 +91,10 @@
             }
 
             function addLayer(layer, map) {
-                leafletData.getDirectiveControls().then(function(d) {
-                    console.log(d);
-
-                });
+                // leafletData.getDirectiveControls().then(function(d) {
+                //     console.log(d);
+                //
+                // });
                 if (layer.type == 'shp') {
                     var geojsonFeature = {
                         type: "Feature",
@@ -150,7 +150,7 @@
 
                 var exceptional = "";
 
-                var characInfos = analyzeCharacs(feature);
+                var characInfos = analyzeFeature(feature);
 
                 iconClasses += " size" + characInfos.iconSize;
 
@@ -161,7 +161,7 @@
                 if (!feature.centroid) {
                     angular.extend(iconProperties, {
                         className: 'arkeo-marker-container-drop query' + self.letter,
-                        html: '<svg class="arkeo-marker arkeo-marker-drop-svg ' + iconClasses + '"><use xlink:href="#arkeo-marker-drop-symbol' + exceptional + '"></use></svg><div class="arkeo-marker-letter size' + characInfos.iconSize + '">' + self.letter + '</div>',
+                        html: '<svg class="arkeo-marker arkeo-marker-drop-svg ' + iconClasses + '"><use xlink:href="#arkeo-marker-drop-symbol' + exceptional + '" style="fill: '+characInfos.iconColor+'"></use></svg><div class="arkeo-marker-letter size' + characInfos.iconSize + '">' + self.letter + '</div>',
                         iconSize: [55, 60],
                         iconAnchor: getIconAnchorPosition(characInfos.iconSize),
                         popupAnchor: [0, 0]
@@ -169,7 +169,7 @@
                 } else {
                     angular.extend(iconProperties, {
                         className: 'arkeo-marker-container-circle query' + self.letter,
-                        html: '<svg class="arkeo-marker arkeo-marker-circle-svg ' + iconClasses + '"><use xlink:href="#arkeo-marker-circle-symbol' + exceptional + '"></use></svg><div class="arkeo-marker-letter size' + characInfos.iconSize + '">' + self.letter + '</div>',
+                        html: '<svg class="arkeo-marker arkeo-marker-circle-svg ' + iconClasses + '"><use xlink:href="#arkeo-marker-circle-symbol' + exceptional + '" style="'+characInfos.iconColor+'"></use></svg><div class="arkeo-marker-letter size' + characInfos.iconSize + '">' + self.letter + '</div>',
                         iconSize: [55, 55],
                         iconAnchor: [25, 27.5],
                         popupAnchor: [0, 0]
@@ -205,44 +205,59 @@
 
             }
 
-            var analyzeCharacs = function(feature) {
-                var current = 0;
-                var memorized = 0;
+            var analyzeFeature = function(feature) {
+                var currentSize = 0;
+                var memorizedSize = 0;
+                var start_date = -9999999;
+                var end_date = 999999;
+                var color;
                 var ret = {
                     exceptional: false,
-                    iconSize: 0
+                    iconSize: 0,
+                    iconColor: 'rgba(255, 255, 255, 0.4)'
                 };
                 angular.forEach(feature.properties.site_ranges, function(site_range) {
+                    // Get icon color
+                    if (site_range.start_date > start_date) {
+                        start_date = site_range.start_date;
+                    }
+                    if (site_range.end_date < end_date) {
+                        end_date = site_range.end_date;
+                    }
                     angular.forEach(site_range.characs, function(c) {
                         if (c.exceptional) {
                             ret.exceptional = true;
                         }
                         switch (c.knowledge_type) {
                             case 'not_documented':
-                                current = 1;
+                                currentSize = 1;
                                 break;
                             case 'literature':
-                                current = 2;
+                                currentSize = 2;
                                 break;
                             case 'prospected_aerial':
-                                current = 3;
+                                currentSize = 3;
                                 break;
                             case 'prospected_pedestrian':
-                                current = 4;
+                                currentSize = 4;
                                 break;
                             case 'surveyed':
-                                current = 5;
+                                currentSize = 5;
                                 break;
                             case 'dig':
-                                current = 6;
+                                currentSize = 6;
                                 break;
                         }
-                        if (memorized < current) {
-                            memorized = current;
-                            ret.iconSize = current;
+                        if (memorizedSize < currentSize) {
+                            memorizedSize = currentSize;
+                            ret.iconSize = currentSize;
                         }
                     });
                 });
+                color = arkeoProject.getChronologyColor(start_date, end_date);
+                if (color) {
+                    ret.iconColor = '#'+color;
+                }
                 return ret;
             }
 
@@ -388,23 +403,26 @@
             }
 
             $scope.toggleSiteDetailsDialog = function(id) {
-                $mdDialog.show({
-                        controller: function($scope, $mdDialog) {
-                            $scope.id = id;
-                            $scope.hide = function() {
-                                $mdDialog.hide();
-                            };
-                        },
-                        templateUrl: 'partials/site-details.html',
-                        parent: angular.element(document.body),
-                        clickOutsideToClose: true,
-                        fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-                    })
-                    .then(function(answer) {
-                        $scope.status = 'You said the information was "' + answer + '".';
-                    }, function() {
-                        $scope.status = 'You cancelled the dialog.';
-                    });
+                arkeoQuery.getSite(id).then(function(siteInfos) {
+                    $mdDialog.show({
+                            controller: function($scope, $mdDialog) {
+                                $scope.id = id;
+                                $scope.hide = function() {
+                                    $mdDialog.hide();
+                                };
+                                $scope.site = siteInfos.features[0];
+                            },
+                            templateUrl: 'partials/site-details.html',
+                            parent: angular.element(document.body),
+                            clickOutsideToClose: true,
+                            fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+                        })
+                        .then(function(answer) {
+                            $scope.status = 'You said the information was "' + answer + '".';
+                        }, function() {
+                            $scope.status = 'You cancelled the dialog.';
+                        });
+                });
             };
 
             // $scope.toggleSiteDetailsDialog()
