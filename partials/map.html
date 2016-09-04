@@ -46,9 +46,12 @@
     </md-sidenav>
 
     <md-content class="content-map" flex layout-padding ng-controller="MapLeafletCtrl">
-        <leaflet controls="controls" defaults="defaults" layers="layers" flex height="{{mapHeight}}" lf-center="center" width="100%" watch-options="{{watchOptions}}">
-            <!-- <layercontrol order="normal" icons="layercontrol.icons" auto-hide-opacity="true" show-groups="true" title="Layer Manager" base-title="Base Layers" overlays-title="Overlays Layers"></layercontrol> -->
-        </leaflet>
+        <!-- <leaflet controls="controls" defaults="defaults" layers="layers" flex height="{{mapHeight}}" lf-center="center" width="100%" watch-options="{{watchOptions}}">
+            <layercontrol order="normal" icons="layercontrol.icons" auto-hide-opacity="true" show-groups="true" title="Layer Manager" base-title="Base Layers" overlays-title="Overlays Layers"></layercontrol>
+        </leaflet> -->
+
+        <!-- <ark-leaflet height="{{mapHeight}}"></ark-leaflet> -->
+        <ark-leaflet height="mapHeight"></ark-leaflet>
     </md-content>
 
     <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="sidenav-right" style='z-index: 1000'>

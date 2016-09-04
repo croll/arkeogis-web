@@ -23,8 +23,25 @@
     ArkeoGIS.service('arkeoMap', ['$http', '$q', '$translate', '$mdToast', 'arkeoProject', function($http, $q, $translate, $mdToast, arkeoProject) {
 
         var self = this;
+        var mapDefer;
 
         this.project = arkeoProject.get();
+
+        this.layers = {
+            baseMaps: {
+                osm: {
+                    name: 'OSM',
+                    layer: new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a>'
+                    })
+                },
+                google: {
+                    name: 'Google',
+                    layer: new L.Google()
+                }
+            },
+            overlayMaps: {}
+        }
 
         projectCentroid = {
             lat: 48.58476,
@@ -37,9 +54,41 @@
             projectCentroid.lng = c.lng;
         }
 
+        this.init = function() {
+            mapDefer = $q.defer();
+        }
+
+        this.initLeaflet = function(el) {
+            var layers = {};
+            var map = new L.Map(el, {
+                center: new L.LatLng(projectCentroid.lat, projectCentroid.lng),
+                zoomControl: false
+            });
+            num = 0;
+            _.each(self.layers.baseMaps, function(layer) {
+                if (num == 0) {
+                    map.addLayer(layer.layer);
+                    num++;
+                }
+                layers[layer.name] = layer.layer;
+            });
+            new L.Control.Zoom({
+                    position: 'topright'
+                })
+                .addTo(map);
+            map.layerControl = new L.control.layers(layers);
+            map.layerControl.addTo(map);
+            return mapDefer.resolve(map);
+        }
+
+        this.getMap = function() {
+            return mapDefer.promise;
+        }
+
         this.config = {
             defaults: {
-                zoomControlPosition: 'topright'
+                zoomControlPosition: 'topright',
+                worldCopyJump: true
             },
             center: {
                 lat: projectCentroid.lat,
@@ -51,12 +100,15 @@
                     osm: {
                         name: 'OpenStreetMap',
                         url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                        type: 'xyz'
+                        type: 'xyz',
+                        minZoom: 1,
                     },
                     googleHybrid: {
                         name: 'Google Hybrid',
                         layerType: 'HYBRID',
-                        type: 'google'
+                        type: 'google',
+                        maxZoom: 1,
+                        showOnSelector: false
                     },
                     googleRoadmap: {
                         name: 'Google Streets',

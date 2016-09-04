@@ -21,8 +21,8 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', '$compile', '$mdDialog', 'arkeoService', 'arkeoProject', 'arkeoMap', 'arkeoQuery', 'leafletData',
-        function($scope, $http, $compile, $mdDialog, arkeoService, arkeoProject, arkeoMap, arkeoQuery, leafletData) {
+    ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', '$compile', '$mdDialog', 'arkeoService', 'arkeoProject', 'arkeoMap', 'arkeoQuery',
+        function($scope, $http, $compile, $mdDialog, arkeoService, arkeoProject, arkeoMap, arkeoQuery) {
 
             /*
              * Leaflet Map
@@ -37,19 +37,14 @@
             var project = arkeoProject.get();
 
             // Get map area to fit full screen
-            var resize = function() {
-                $scope.mapHeight = $(window).height() - $("#arkeo-main-toolbar").height() + "px";
-            };
-            resize();
+            angular.element(window).on('resize', function() {
+                $scope.mapHeight = $(window).height() - $("#arkeo-main-toolbar").height() -20 + "px";
+                $scope.$apply();
+            });
 
-            initProjectLayers();
+            arkeoMap.init();
 
-            $(window).on('resize', resize);
-
-            angular.extend($scope, arkeoMap.config);
-
-
-            leafletData.getMap().then(function(map) {
+            arkeoMap.getMap().then(function(map) {
 
                 if (project.geom != '') {
                     map.fitBounds(L.geoJson(project.geom).getBounds());
@@ -65,29 +60,33 @@
                             method: 'GET',
                             url: '/api/layer/' + e.layer.feature.properties.id + '/geojson'
                         }).then(function(result) {
-                            $scope.layers.overlays[e.layer.feature.properties.uniq_code] = {
-                                name: e.layer.feature.properties.name,
-                                type: 'geoJSONShape',
-                                data: result.data,
-                                visible: true,
-                                doRefresh: true
-                            };
+                            console.log(result.data);
+                            console.log(e.layer.feature = result.data);
+                            // arkeoMap.overlays[e.layer.feature.properties.uniq_code] = {
+                            //     name: e.layer.feature.properties.name,
+                            //     type: 'geoJSONShape',
+                            //     data: result.data,
+                            //     visible: true,
+                            //     doRefresh: true
+                            // };
+                            new L.geoJson(result.data).addTo(map);
                         }, function(err) {
                             arkeoService.showMessage('MAPQUERY.MESSAGE.T_GETGEOJSON_ERROR')
                             console.log(err);
                         })
                     }
                 });
-            });
 
-            function initProjectLayers() {
-                leafletData.getMap().then(function(map) {
-                    if (project.layers.length) {
-                        angular.forEach(project.layers, function(layer) {
+                initProjectLayers(map);
+
+            })
+
+            function initProjectLayers(map) {
+                if (project.layers.length) {
+                    angular.forEach(project.layers, function(layer) {
                             addLayer(layer, map);
-                        });
-                    }
-                });
+                    });
+                }
             }
 
             function addLayer(layer, map) {
@@ -95,6 +94,9 @@
                 //     console.log(d);
                 //
                 // });
+
+                var l ;
+
                 if (layer.type == 'shp') {
                     var geojsonFeature = {
                         type: "Feature",
@@ -107,34 +109,30 @@
                         },
                         geometry: angular.fromJson(layer.geom)
                     };
-                    $scope.layers.overlays[layer.uniq_code] = {
+                    l = {
                         name: layer.translations.name.en,
-                        type: 'geoJSONShape',
-                        data: geojsonFeature,
-                        visible: false,
-                        doRefresh: true
+                        type: 'shp',
+                        layer: new L.geoJson(geojsonFeature)
                     };
                 } else if (layer.type == 'wms') {
-                    $scope.layers.overlays[layer.uniq_code] = {
+                    l = {
                         name: layer.translations.name.en,
                         type: 'wms',
-                        url: layer.url,
-                        visible: false,
-                        layerOptions: {
-                            layers: layer.identifier
-                        }
+                        layer: L.tileLayer.wms(layer.url, {layers: layer.identifier})
                     };
                 } else if (layer.type == 'wmts') {
-                    $scope.layers.overlays[layer.uniq_code] = {
+                    l = {
                         name: layer.translations.name.en,
-                        type: 'wmts',
-                        url: layer.url,
-                        visible: false,
-                        layerOptions: {
-                            layers: layer.identifier
-                        }
+                        type: 'wtms',
+                        layer: L.tileLayer.WMTS(layer.url, {layer: layer.identifier, attribution: layer.translations.attribution.en})
                     };
                 }
+
+                arkeoMap.layers.overlayMaps[layer.uniq_code] = l;
+                map.layerControl.addOverlay(l.layer, l.name);
+                // l.layer.addTo(map);
+                //console.log(map.layerControl.addOverlay(arkeoMap.layers.overlayMaps[layer.uniq_code].layer));
+                //map.layerControl.addOverlay(arkeoMap.layers.overlayMaps[layer.uniq_code].layer, arkeoMap.layers.overlayMaps[layer.uniq_code].name);
             }
 
             var generateIcon = function(feature) {
@@ -297,14 +295,9 @@
 
             function displayQuery(query) {
 
+                arkeoMap.getMap().then(function(map) {
+
                 var latlngs = [];
-
-                leafletData.getMap().then(function(map) {
-
-                    leafletData.getLayers().then(function(layers) {
-                        if ('sites' in layers.overlays)
-                            map.removeLayer(layers.overlays.sites);
-                    });
 
                     L.geoJson(query.data, {
                         pointToLayer: function(feature, latlng) {
@@ -349,57 +342,6 @@
                     */
 
                 });
-
-
-                /*
-                angular.extend($scope.layers.overlays, {
-                    sites: {
-                        name: 'ArkeoGIS (' + (++$scope.letter) + ')',
-                        type: 'geoJSONShape',
-                        data: data,
-                        visible: true,
-                        doRefresh: true,
-                        icon: generateIcon,
-                        layerParams: {
-                            showOnSelector: true,
-                            transparent: true
-                        },
-                        layerOptions: {
-                            pointToLayer: function(feature, latlng) {
-                                var marker = L.marker(latlng, {
-                                    icon: generateIcon(feature)
-                                });
-                                marker.on('mouseover', function(e) {
-                                    this.openPopup();
-                                });
-                                marker.on('click', function(e) {
-                                    return false;
-                                });
-
-                                if (!angular.isDefined(self.markerClusterGroup[feature.properties.infos.database_id])) {
-                                    self.markerClusterGroup[feature.properties.infos.database_id] = L.markerClusterGroup();
-                                }
-
-                                return marker;
-                            },
-                            onEachFeature: function(feature, layer) {
-                                var html = "<arkeo-popup>";
-                                html += "<div style='font-weight:bold'>" + feature.properties.infos.name + " (" + feature.properties.infos.code + ")" + "</div>";
-                                html += "<div>" + feature.properties.infos.database_name + "</div>";
-                                html += '<md-icon ng-click="toggleSiteDetailsDialog('+feature.properties.infos.id+')" class="md-18" style="cursor: pointer">remove_red_eye</md-icon>';
-                                html += "</arkeo-popup>";
-                                layer.bindPopup($compile(html)($scope)[0]);
-                            }
-                        }
-                    }
-                });
-                */
-
-                // angular.forEach(data.features, function(feature) {
-                //     latlngs.push([parseFloat(feature.geometry.coordinates[0]), parseFloat(feature.geometry.coordinates[1])]);
-                // });
-
-                resize();
             }
 
             $scope.toggleSiteDetailsDialog = function(id) {
@@ -441,20 +383,16 @@
             }, true);
 
             function drawSearchZoneRect() {
-                leafletData.getMap().then(function(map) {
-                    leafletData.getLayers().then(function(layers) {
-                        var drawnItems = layers.overlays.draw;
+                var drawnItems = layers.overlayMaps.draw;
 
-                        if (curlayer) {
-                            drawnItems.removeLayer(curlayer);
-                            curlayer = null;
-                        }
+                if (curlayer) {
+                    drawnItems.removeLayer(curlayer);
+                    curlayer = null;
+                }
 
-                        geom = angular.fromJson(geom);
-                        curlayer = L.geoJson(geom).addTo(drawnItems);
-                        curlayer.editing.enable();
-                    });
-                });
+                geom = angular.fromJson(geom);
+                curlayer = L.geoJson(geom).addTo(drawnItems);
+                curlayer.editing.enable();
             }
 
         }

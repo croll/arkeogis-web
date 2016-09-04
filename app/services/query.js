@@ -36,7 +36,20 @@
                 arkeoService.fieldErrorDisplay(err)
                 console.error(err);
             });
-        }
+        };
+
+        this.getSite = function(id) {
+            if (angular.isDefined(self.current.sites[id])) {
+                return self.current.sites[id];
+            }
+            return $http.get("/api/site/"+id).then(function(result) {
+                self.current.sites[result.data.id] = result.data;
+                return result.data;
+            }, function(err) {
+                arkeoService.fieldErrorDisplay(err)
+                console.error(err);
+            });
+        };
 
         this.add = function(data, params) {
             currentNum++;
@@ -45,34 +58,31 @@
                 letter: alphabet[currentNum],
                 params: params,
                 data: data,
+                sites: {}, // Store site details once
                 markers: []
             };
-            queries.push(this.current);
-        }
+            queries[currentNum] = this.current;
+        };
 
         this.get = function(id) {
-
             var ret = null,
                 prop = (typeof(id) == 'string') ? 'letter' : 'num';
-
             angular.each(queries, function(q) {
                 if (q[prop] == id) {
                     ret = q;
                     return;
                 }
             });
-
             return ret;
-
-        }
+        };
 
         this.delete = function(id) {
             this.get(id) = {};
-        }
+        };
 
         this.getQueries = function() {
             return queries;
-        }
+        };
 
     }]);
 })();
