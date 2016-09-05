@@ -58,6 +58,7 @@
                 letter: alphabet[currentNum],
                 params: params,
                 data: data,
+                status: 0, // 0 not done -- 1 executed
                 sites: {}, // Store site details once
                 markers: []
             };
@@ -82,6 +83,11 @@
 
         this.getQueries = function() {
             return queries;
+        };
+
+        this.reset = function() {
+            currentNum = -1;
+            queries = [];
         };
 
     }]);

@@ -21,7 +21,7 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.directive('arkLeaflet', function(arkeoMap, $timeout) {
+    ArkeoGIS.directive('arkLeaflet', function(arkeoMap) {
         return {
             replace: true,
             template: '<div height="mapHeight"></div>',

@@ -34,6 +34,8 @@
 
             this.markerClusters = {};
 
+            arkeoQuery.reset();
+
             var project = arkeoProject.get();
 
             // Get map area to fit full screen
@@ -60,8 +62,6 @@
                             method: 'GET',
                             url: '/api/layer/' + e.layer.feature.properties.id + '/geojson'
                         }).then(function(result) {
-                            console.log(result.data);
-                            console.log(e.layer.feature = result.data);
                             // arkeoMap.overlays[e.layer.feature.properties.uniq_code] = {
                             //     name: e.layer.feature.properties.name,
                             //     type: 'geoJSONShape',
@@ -123,7 +123,7 @@
                 } else if (layer.type == 'wmts') {
                     l = {
                         name: layer.translations.name.en,
-                        type: 'wtms',
+                        type: 'wmts',
                         layer: L.tileLayer.WMTS(layer.url, {layer: layer.identifier, attribution: layer.translations.attribution.en})
                     };
                 }
@@ -293,9 +293,19 @@
 
             }
 
+            var start;
+            var end
+
             function displayQuery(query) {
 
                 arkeoMap.getMap().then(function(map) {
+
+
+                var start, end;
+                console.time('Début query');
+
+                start = new Date().getTime();
+
 
                 var latlngs = [];
 
@@ -319,7 +329,7 @@
                             html += "<div>" + feature.properties.infos.database_name + "</div>";
                             html += '<md-icon ng-click="toggleSiteDetailsDialog(' + feature.properties.infos.id + ')" class="md-18" style="cursor: pointer">remove_red_eye</md-icon>';
                             html += "</arkeo-popup>";
-                            layer.bindPopup($compile(html)($scope)[0]);
+                            // layer.bindPopup($compile(html)($scope)[0]);
 
                             /*
                             if (!_.has(self.markerClusters, feature.properties.infos.database_id)) {
@@ -333,6 +343,7 @@
                             layer.addTo(map);
 
                         }
+
                     });
 
                     /*
@@ -340,8 +351,12 @@
                         mc.addTo(map);
                     });
                     */
+                        console.timeEnd('Debut query');
+                        end  = new Date().getTime();
+                        console.log( end - start);
 
                 });
+
             }
 
             $scope.toggleSiteDetailsDialog = function(id) {
@@ -379,7 +394,13 @@
                 if (newList.length == 0) {
                     return;
                 }
-                displayQuery(newList.pop());
+                _.each(newList, function(q) {
+                    if (q.status == 0) {
+                        q.status = 1;
+                        console.log("DISPLAY QUERY "+newList.length);
+                        displayQuery(q);
+                    }
+                });
             }, true);
 
             function drawSearchZoneRect() {
