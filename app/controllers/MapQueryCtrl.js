@@ -21,8 +21,8 @@
 
 (function() {
 	'use strict';
-	ArkeoGIS.controller('MapQueryCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', '$timeout', 'arkeoService', 'arkeoQuery',
-	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, $timeout, arkeoService, arkeoQuery) {
+	ArkeoGIS.controller('MapQueryCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', '$timeout', '$mdDialog', 'arkeoService', 'arkeoProject', 'arkeoQuery',
+	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, $timeout, $mdDialog, arkeoService, arkeoProject, arkeoQuery) {
 
 		/*
 		 * menus init : buttons styles
@@ -478,6 +478,82 @@
 		$scope.showMap = function() {
 			arkeoQuery.do($scope.query);
 		};
+
+
+
+/****************************************************************************/
+
+		$scope.params = {
+			databases: [],
+		};
+
+
+		// rebuild all types of databases
+		$scope.$watchCollection('params.databases', function() {
+			$scope.databases_per_type = {};
+			$scope.params.databases.forEach(function(elem) {
+				var type_tr = 'MAP.MENU_DATABASE.T_UNDEFINED';
+				switch(elem.type) {
+					case 'inventory': type_tr = 'MAP.MENU_DATABASE.T_INVENTORY'; break;
+					case 'research': type_tr = 'MAP.MENU_DATABASE.T_RESEARCH'; break;
+					case 'literary-work': type_tr = 'MAP.MENU_DATABASE.T_LITERARYWORK'; break;
+				}
+				if (!(type_tr in $scope.databases_per_type))
+					$scope.databases_per_type[type_tr] = [];
+
+				var db = _.find(arkeoProject.get().databases, function(_db) {
+					console.log("check: ", _db);
+					if (_db.id == elem)
+						return _db;
+				});
+
+				$scope.databases_per_type[type_tr].push(db);
+			});
+		});
+
+
+		$scope.toggle_query_element = function(elemname) {
+			var html_elem_icon = $('.query-element-'+elemname+' .query-element-show-icon');
+			var html_elem_content = $('.query-element-'+elemname+' .query-element-content');
+			if (html_elem_icon.hasClass('query-element-icon-hide')) {
+				html_elem_icon.removeClass("query-element-icon-hide");
+				html_elem_content.removeClass("query-element-content-hide");
+			} else {
+				html_elem_icon.addClass("query-element-icon-hide");
+				html_elem_content.addClass("query-element-content-hide");
+			}
+		}
+
+		$scope.showDatabaseChooserDialog = function() {
+			showDatabaseChooserDialog($scope.params);
+		};
+
+		function showDatabaseChooserDialog(params) {
+			$mdDialog.show({
+					controller: function($scope, $mdDialog, arkeoService) {
+						$scope.databases = arkeoProject.get().databases;
+						$scope.selected_databases = params.databases;
+
+						$scope.hide = function() {
+							$mdDialog.hide();
+						};
+
+						$scope.$watchCollection('selected_databases', function() {
+							params.databases = $scope.selected_databases.map(function(elem) { return elem.id });
+						});
+
+					},
+					templateUrl: 'partials/query/databaseschooser.html',
+					parent: angular.element(document.body),
+					clickOutsideToClose: true,
+				})
+				.then(function(answer) {
+					$scope.status = 'You said the information was "' + answer + '".';
+				}, function() {
+					$scope.status = 'You cancelled the dialog.';
+				});
+		};
+
 
 
 	}]);

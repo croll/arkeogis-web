@@ -1,10 +1,54 @@
 <div class="arkeomap" layout="row" style="position: relative">
 
     <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="sidenav-left">
-        <md-toolbar class="md-theme-indigo">
-            <h1 class="md-toolbar-tools">Recherche :</h1>
-        </md-toolbar>
         <md-content layout-padding ng-controller="MapQueryCtrl">
+            <!-- New query display -->
+            <div>
+
+                <!-- archived queries menu -->
+                <md-input-container>
+                    <label>Requêtes archivées</label>
+                    <md-select ng-model="archives">
+                        <md-option ng-repeat="archive in archives" value="{{archive.id}}">{{archive.name}}</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <!-- query title -->
+                <div class="query-title">{{query.name}}</div>
+
+                <!-- area -->
+                <div class="query-element query-element-area">
+                    <div class="query-element-title">
+                        <span translate>QUERY.AREA.T_TITLE</span>
+                        <md-icon class="query-element-edit-icon">mode_edit</md-icon>
+                        <md-icon class="query-element-show-icon" ng-click="toggle_query_element('area')">play_arrow</md-icon>
+                    </div>
+                    <div class="query-element-content">
+                        blah
+                    </div>
+                </div>
+
+                <!-- databases -->
+                <div class="query-element query-element-databases">
+                    <div class="query-element-title">
+                        <span translate>QUERY.DATABASES.T_TITLE</span>
+                        <md-icon class="query-element-edit-icon" ng-click="showDatabaseChooserDialog(null, null)">mode_edit</md-icon>
+                        <md-icon class="query-element-show-icon" ng-click="toggle_query_element('databases')">play_arrow</md-icon>
+                    </div>
+                    <div class="query-element-content">
+                        <div class="query-subelement" ng-repeat="(dbtype, databases) in databases_per_type">
+                            <div class="query-subelement-title">{{dbtype | translate}}</div>
+                            <ul>
+                                <li ng-repeat="database in databases">{{database.name}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <hr/>
+
+            </div>
+
             <div>
                 <div>
                     <ark-menu-item ng-model="query.centroid" ark-item="menuCentroid"></ark-menu-item>

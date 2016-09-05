@@ -84,3 +84,26 @@
         }
     }
 }
+
+
+
+.query-element-edit-icon {
+    float: right;
+    cursor: pointer;
+}
+.query-element-show-icon {
+    float: right;
+    cursor: pointer;
+    transition: 0.5s;
+    transform: rotate(90deg);
+}
+.query-element-icon-hide {
+    transform: rotate(0deg);
+}
+.query-element-content {
+    transition: 0.5s;
+    overflow-y: hidden;
+}
+.query-element-content-hide {
+    height: 0;
+}
