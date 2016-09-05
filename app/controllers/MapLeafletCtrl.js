@@ -52,6 +52,15 @@
 
                 map.on('zoomend', function(e) {
                     // $scope.layers.overlays.sites.layerParams.showOnSelector = false;
+                    //initProjectLayers(this);
+                    // var currentZoom = map.getZoom();
+                    // console.log(currentZoom);
+                    // _.each(arkeoMap.layers.overlayMaps, function(layer) {
+                    //     if (layer.type == 'shp') {
+                    //         console.log(layer);
+                    //         map.removeLayer(layer.instance);
+                    //     }
+                    // });
                 });
 
                 map.on('layeradd', function(e) {
@@ -81,17 +90,15 @@
 
             function initProjectLayers(map) {
                 if (project.layers.length) {
-                    angular.forEach(project.layers, function(layer) {
-                        addLayer(layer, map);
+                    _.each(project.layers, function(layer) {
+                        var l = addLayer(layer, map);
+                        arkeoMap.layerControl.addOverlay(l.instance, l.name)
                     });
+
                 }
             }
 
             function addLayer(layer, map) {
-                // leafletData.getDirectiveControls().then(function(d) {
-                //     console.log(d);
-                //
-                // });
 
                 var l;
 
@@ -110,13 +117,15 @@
                     l = {
                         name: layer.translations.name.en,
                         type: 'shp',
-                        layer: new L.geoJson(geojsonFeature)
+                        instance: new L.geoJson(geojsonFeature)
                     };
                 } else if (layer.type == 'wms') {
                     l = {
                         name: layer.translations.name.en,
                         type: 'wms',
-                        layer: L.tileLayer.wms(layer.url, {
+                        instance: L.tileLayer.wms(layer.url, {
+                            minZoom: layer.min_scale,
+                            maxZoom: layer.max_scale,
                             layers: layer.identifier
                         })
                     };
@@ -124,18 +133,18 @@
                     l = {
                         name: layer.translations.name.en,
                         type: 'wmts',
-                        layer: L.tileLayer.WMTS(layer.url, {
+                        instance: L.tileLayer.WMTS(layer.url, {
                             layer: layer.identifier,
-                            attribution: layer.translations.attribution.en
+                            attribution: layer.translations.attribution.en,
+                            minZoom: layer.min_scale,
+                            maxZoom: layer.max_scale
                         })
                     };
                 }
 
                 arkeoMap.layers.overlayMaps[layer.uniq_code] = l;
-                arkeoMap.layerControl.addOverlay(l.layer, l.name);
-                // l.layer.addTo(map);
-                //console.log(map.layerControl.addOverlay(arkeoMap.layers.overlayMaps[layer.uniq_code].layer));
-                //map.layerControl.addOverlay(arkeoMap.layers.overlayMaps[layer.uniq_code].layer, arkeoMap.layers.overlayMaps[layer.uniq_code].name);
+
+                return l;
             }
 
             var generateIcon = function(feature, letter) {

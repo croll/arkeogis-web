@@ -83,8 +83,10 @@
                 })
                 .addTo(map);
             // Layer control
-            self.layerControl = new L.control.layers(layers);
-            self.layerControl.addTo(map);
+            // self.layerControl = new L.control.layers(layers);
+            // self.layerControl.addTo(map);
+
+            self.layerControl = new L.Control.LayerDynamic(layers, null, {collapsed: true}).addTo(map);
             // Scale control
             new L.control.scale({
                 position: 'bottomright'
@@ -111,15 +113,12 @@
                     osm: {
                         name: 'OpenStreetMap',
                         url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                        type: 'xyz',
-                        minZoom: 1,
+                        type: 'xyz'
                     },
                     googleHybrid: {
                         name: 'Google Hybrid',
                         layerType: 'HYBRID',
-                        type: 'google',
-                        maxZoom: 1,
-                        showOnSelector: false
+                        type: 'google'
                     },
                     googleRoadmap: {
                         name: 'Google Streets',
