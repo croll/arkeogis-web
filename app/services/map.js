@@ -83,6 +83,8 @@
             // Layer control
             self.layerControl = new L.control.layers(layers);
             self.layerControl.addTo(map);
+            // Scale control
+            L.control.scale({position: 'bottomright'}).addTo(map);
             return mapDefer.resolve(map);
         }
 
