@@ -48,7 +48,7 @@
                 }
 
                 // Cluster radius
-                arkeoMap.clusterRadiusControl = new L.Control.ClusterRadius({minRadius: 15, maxRadius: 80, callback: function(){ $scope.displayMarkers(); }}).addTo(map);
+                arkeoMap.clusterRadiusControl = new L.Control.ClusterRadius({minRadius: 20, maxRadius: 80, callback: function(){ $scope.displayMarkers(); }}).addTo(map);
 
                 map.on('zoomend', function(e) {
                     // $scope.layers.overlays.sites.layerParams.showOnSelector = false;
