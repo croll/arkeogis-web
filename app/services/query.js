@@ -58,9 +58,9 @@
                 letter: alphabet[currentNum],
                 params: params,
                 data: data,
-                status: 0, // 0 not done -- 1 executed
+                done: false,
                 sites: {}, // Store site details once
-                markers: []
+                markerClusters: {} // object keys: dbID and cluster
             };
             queries[currentNum] = this.current;
         };
@@ -76,6 +76,14 @@
             });
             return ret;
         };
+
+        this.getCurrent = function() {
+            return this.current;
+        }
+
+        this.getNumQueries = function() {
+            return currentNum+1;
+        }
 
         this.delete = function(id) {
             this.get(id) = {};
