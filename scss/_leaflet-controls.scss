@@ -12,3 +12,14 @@
     text-align: center;
     background-color: #FFFFFF;
 }
+
+.leaflet-control-layers-toggle.queries {
+    background-image: none;
+    .letter {
+        display: inline-block;
+        color: #aaa;
+        font-size: 20px;
+        padding: 4px 11px;
+        font-weight: bold;
+    }
+}
