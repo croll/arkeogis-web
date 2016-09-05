@@ -75,6 +75,8 @@
                 layers: [mapLayers[0]],
                 zoomControl: false
             });
+            // Full screen control
+            new L.Control.Fullscreen({position: 'topright'}).addTo(map);
             // Zoom control
             new L.Control.Zoom({
                     position: 'topright'
@@ -84,7 +86,9 @@
             self.layerControl = new L.control.layers(layers);
             self.layerControl.addTo(map);
             // Scale control
-            L.control.scale({position: 'bottomright'}).addTo(map);
+            new L.control.scale({
+                position: 'bottomright'
+            }).addTo(map);
             return mapDefer.resolve(map);
         }
 
