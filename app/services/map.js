@@ -25,6 +25,7 @@
         var self = this,
             mapDefer,
             layerControl,
+            queryControl,
             clusterRadiusControl;
 
         this.project = arkeoProject.get();
@@ -75,16 +76,21 @@
                 layers: [mapLayers[0]],
                 zoomControl: false
             });
+            // Full screen control
+            new L.Control.Fullscreen({position: 'topright'}).addTo(map);
             // Zoom control
             new L.Control.Zoom({
                     position: 'topright'
                 })
                 .addTo(map);
-            // Layer control
-            self.layerControl = new L.control.layers(layers);
-            self.layerControl.addTo(map);
+            // Layers control
+            self.layerControl = new L.Control.LayerDynamic(layers, null, {collapsed: true}).addTo(map);
+            // Databases control
+            self.queryControl = new L.Control.Queries(null, null, {collapsed: false}).addTo(map);
             // Scale control
-            L.control.scale({position: 'bottomright'}).addTo(map);
+            new L.control.scale({
+                position: 'bottomright'
+            }).addTo(map);
             return mapDefer.resolve(map);
         }
 
@@ -107,15 +113,12 @@
                     osm: {
                         name: 'OpenStreetMap',
                         url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                        type: 'xyz',
-                        minZoom: 1,
+                        type: 'xyz'
                     },
                     googleHybrid: {
                         name: 'Google Hybrid',
                         layerType: 'HYBRID',
-                        type: 'google',
-                        maxZoom: 1,
-                        showOnSelector: false
+                        type: 'google'
                     },
                     googleRoadmap: {
                         name: 'Google Streets',

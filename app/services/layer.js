@@ -49,6 +49,7 @@
                         } else {
                             d.zoom_level = d.min_scale + ' / ' + d.max_scale;
                         }
+
                         if (d.description == "") {
                             d.description = d.description_en;
                             delete d.description_en;
@@ -103,7 +104,7 @@
             for (var k in data.translations.attribution) {
                 if (!data.translations.attribution.hasOwnProperty(k)) continue;
                 if (data.translations.attribution[k]) {
-                    data.attribution= data.translations.attribution[k];
+                    data.attribution = data.translations.attribution[k];
                 }
             }
 

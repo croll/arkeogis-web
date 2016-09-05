@@ -60,7 +60,7 @@
                 data: data,
                 done: false,
                 sites: {}, // Store site details once
-                markers: [],
+                markersByDatabase: {},
                 markerClusters: {} // object keys: dbID and cluster
             };
             queries[currentNum] = this.current;

@@ -52,6 +52,15 @@
 
                 map.on('zoomend', function(e) {
                     // $scope.layers.overlays.sites.layerParams.showOnSelector = false;
+                    //initProjectLayers(this);
+                    // var currentZoom = map.getZoom();
+                    // console.log(currentZoom);
+                    // _.each(arkeoMap.layers.overlayMaps, function(layer) {
+                    //     if (layer.type == 'shp') {
+                    //         console.log(layer);
+                    //         map.removeLayer(layer.instance);
+                    //     }
+                    // });
                 });
 
                 map.on('layeradd', function(e) {
@@ -81,17 +90,15 @@
 
             function initProjectLayers(map) {
                 if (project.layers.length) {
-                    angular.forEach(project.layers, function(layer) {
-                        addLayer(layer, map);
+                    _.each(project.layers, function(layer) {
+                        var l = addLayer(layer, map);
+                        arkeoMap.layerControl.addOverlay(l.instance, l.name)
                     });
+
                 }
             }
 
             function addLayer(layer, map) {
-                // leafletData.getDirectiveControls().then(function(d) {
-                //     console.log(d);
-                //
-                // });
 
                 var l;
 
@@ -110,13 +117,15 @@
                     l = {
                         name: layer.translations.name.en,
                         type: 'shp',
-                        layer: new L.geoJson(geojsonFeature)
+                        instance: new L.geoJson(geojsonFeature)
                     };
                 } else if (layer.type == 'wms') {
                     l = {
                         name: layer.translations.name.en,
                         type: 'wms',
-                        layer: L.tileLayer.wms(layer.url, {
+                        instance: L.tileLayer.wms(layer.url, {
+                            minZoom: layer.min_scale,
+                            maxZoom: layer.max_scale,
                             layers: layer.identifier
                         })
                     };
@@ -124,18 +133,18 @@
                     l = {
                         name: layer.translations.name.en,
                         type: 'wmts',
-                        layer: L.tileLayer.WMTS(layer.url, {
+                        instance: L.tileLayer.WMTS(layer.url, {
                             layer: layer.identifier,
-                            attribution: layer.translations.attribution.en
+                            attribution: layer.translations.attribution.en,
+                            minZoom: layer.min_scale,
+                            maxZoom: layer.max_scale
                         })
                     };
                 }
 
                 arkeoMap.layers.overlayMaps[layer.uniq_code] = l;
-                arkeoMap.layerControl.addOverlay(l.layer, l.name);
-                // l.layer.addTo(map);
-                //console.log(map.layerControl.addOverlay(arkeoMap.layers.overlayMaps[layer.uniq_code].layer));
-                //map.layerControl.addOverlay(arkeoMap.layers.overlayMaps[layer.uniq_code].layer, arkeoMap.layers.overlayMaps[layer.uniq_code].name);
+
+                return l;
             }
 
             var generateIcon = function(feature, letter) {
@@ -294,48 +303,13 @@
                         marker.bindPopup($compile(html)($scope)[0]);
                         marker.feature = feature;
 
-                        query.markers.push(marker);
-
+                        if (!_.has(query.markersByDatabase, feature.properties.infos.database_id)) {
+                            query.markersByDatabase[feature.properties.infos.database_id] = {markers: [], instance: null};
+                        }
+                        query.markersByDatabase[feature.properties.infos.database_id].database = feature.properties.infos.database_name;
+                        query.markersByDatabase[feature.properties.infos.database_id].markers.push(marker);
+                        query.markersByDatabase[feature.properties.infos.database_id].cluster = null;
                     });
-
-
-
-                    /*
-                                        L.geoJson(query.data, {
-                                            pointToLayer: function(feature, latlng) {
-                                                var marker = L.marker(latlng, {
-                                                    icon: generateIcon(feature)
-                                                });
-                                                marker.on('mouseover', function(e) {
-                                                    this.openPopup();
-                                                });
-                                                marker.on('click', function(e) {
-                                                    return false;
-                                                });
-                                                return marker;
-                                            },
-                                            onEachFeature: function(feature, layer) {
-
-                                                var html = "<arkeo-popup>";
-                                                html += "<div style='font-weight:bold'>" + feature.properties.infos.name + " (" + feature.properties.infos.code + ")" + "</div>";
-                                                html += "<div>" + feature.properties.infos.database_name + "</div>";
-                                                html += '<md-icon ng-click="toggleSiteDetailsDialog(' + feature.properties.infos.id + ')" class="md-18" style="cursor: pointer">remove_red_eye</md-icon>';
-                                                html += "</arkeo-popup>";
-                                                layer.bindPopup($compile(html)($scope)[0]);
-
-                                                if (!_.has(query, feature.properties.infos.database_id) {
-                                                    query.clusters[feature.properties.infos.database_id] = new L.markerClusterGroup();
-                                                });
-                                                query.clusters[feature.properties.infos.database_id].addLayer(layer);
-
-                                            }
-                                        });
-                                        */
-                    /*
-                    angular.forEach(self.markerClusters, function(mc) {
-                        mc.addTo(map);
-                    });
-                    */
 
                     $scope.displayMarkers();
 
@@ -346,27 +320,25 @@
             $scope.displayMarkers = function() {
 
                 arkeoMap.getMap().then(function(map) {
+
                     var query = arkeoQuery.getCurrent();
 
-                    _.each(query.markerClusters, function(mc) {
-                        map.removeLayer(mc);
-                    });
 
                     query.markerClusters = {};
 
-                    _.each(query.markers, function(marker) {
-                        if (!_.has(query.markerClusters, marker.feature.properties.infos.database_id)) {
-                            query.markerClusters[marker.feature.properties.infos.database_id] = new L.markerClusterGroup({
-                                maxClusterRadius: arkeoMap.clusterRadiusControl.getCurrentRadius()
-                            });
-                        };
+                    _.each(query.markersByDatabase, function(markerGroup, dbID) {
 
-                        query.markerClusters[marker.feature.properties.infos.database_id].addLayer(marker);
+                        if (markerGroup.cluster) {
+                            map.removeLayer(markerGroup.cluster);
+                            arkeoMap.queryControl.removeLayer(markerGroup.cluster);
+                        }
 
-                        // Add markerClusters to map
-                        _.each(query.markerClusters, function(mc) {
-                            mc.addTo(map);
+                        markerGroup.cluster = new L.markerClusterGroup({
+                            maxClusterRadius: arkeoMap.clusterRadiusControl.getCurrentRadius()
                         });
+                        markerGroup.cluster.addLayers(markerGroup.markers).addTo(map)
+
+                        arkeoMap.queryControl.addOverlay(markerGroup.cluster, '('+query.letter+') '+markerGroup.database);
 
                     });
 

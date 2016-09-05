@@ -1,25 +1,36 @@
 <md-dialog style="min-width: 80%">
     <md-dialog-header layout-padding layout>
         <div flex="35">
-            <div class="name" style="font-size: 1.5em; font-weight: bold; #color: 555">Nom du site</div>
-            <div layout="row" style="font-size: 0.8em">
-                <label>Bdd:</label>
-                <div class="name">Bernard_2003_revue</div>
+            <div>
+                <span class="name" style="font-size: 1.5em; font-weight: bold; #color: 555">{{site.properties.infos.name}}</span>
+                <span class="code">({{site.properties.infos.code}})</span>
             </div>
             <div layout="row" style="font-size: 0.8em">
-                <label>Auteurs:</label>
-                <div class="name">Loup Bernard, Philippe Jullien</div>
+                <label>
+                    <span translate>SITE_DETAILS.FIELD_DATABASE.T_LABEL_SHORT</span>:</label>
+                <div class="name">{{site.properties.infos.database_name}}</div>
+            </div>
+            <div layout="row" style="font-size: 0.8em">
+                <label>
+                    <span translate>SITE_DETAILS.FIELD_Authors.T_LABEL</span>:</label>
+                <div class="name">
+                    <span ng-repeat="author in site.properties.infos.authors">{{author.fullname}}</span>
+                </div>
             </div>
         </div>
         <div flex="25" class="period" layout="column" layout-align="center end">
-            <div>Début</div>
-            <div>-200 -> -100</div>
-            <div><span>HAC2</span></div>
+            <div translate>SITE_DETAILS.FIELD_STARTING_PERIOD.T_LABEL</div>
+            <div>{{site.properties.infos.starting_period.dates}}</div>
+            <div>
+                <span>{{site.properties.infos.ending_period.label}}</span>
+            </div>
         </div>
         <div flex="25" class="period" layout="column" layout-align="center start">
-            <div>Fin</div>
-            <div>200 -> 400</div>
-            <div><span style="background-color:#f1ac06">Période de fin</span></div>
+            <div translate>SITE_DETAILS.FIELD_ENDING_PERIOD.T_LABEL</div>
+            <div>{{site.properties.infos.ending_period.dates}}</div>
+            <div>
+                <span style="background-color:#f1ac06">{{site.properties.infos.ending_period.label}}</span>
+            </div>
         </div>
         <div flex="25"></div>
     </md-dialog-header>
@@ -28,157 +39,86 @@
         <div layout="column" style="background: #f0f0f0" layout-padding>
             <md-card flex layout-padding>
                 <div layout="row">
-                    <label>Coordonnées:</label>
-                    <div>4.494932 43.232321</div>
-                    <div class="altitude">
-                        <label>Altitude:</label>
-                        <span>321m</span>
+                    <label>
+                        <span translate>SITE_DETAILS.FIELD_ENDING_COORDINATES.T_LABEL</span>:</label>
+                    <div>{{site.geometry.coordinates[0]}}
+                        {{site.geometry.coordinates[0]}}</div>
+                    <div class="altitude" ng-show="site.properties.infos.altitude != -999999">
+                        <label>
+                            <span translate>SITE_DETAILS.FIELD_ENDING_PERIOD.T_LABEL</span>:</label>
+                        <span>{{site.properties.infos.altitude}}</span>
                     </div>
                 </div>
                 <div layout="row">
-                    <label>Commune:</label>
-                    <div>Montpellier</div>
+                    <label>
+                        <span translate>SITE_DETAILS.FIELD_CITY_NAME.T_LABEL</span>:</label>
+                    <div>{{site.properties.infos.city_name}}</div>
                 </div>
                 <div layout="row">
-                    <label>Précision:</label>
-                    <div>Géolocalisé au centre de la commune avec geonames.org, identifiant</div>
-                    <span class="geonameid">
-                        <a href="http://www.geonames.org/2992166" title="geonames.org" target="_blank">#2992166</a>
+                    <label>
+                        <span translate>SITE_DETAILS.FIELD_ACCURACY.T_LABEL</span>:</label>
+                    <div ng-show="site.properties.infos.centroid">
+                        <span translate>SITE_DETAILS.FIELD_ACCURACY_CENTROID.T_LABEL</span>:</div>
+                    <div ng-hide="site.properties.infos.centroid">
+                        <span translate>SITE_DETAILS.FIELD_ACCURACY_FINE.T_LABEL</span>:</div>
+                    <span class="geonameid" ng-show="site.properties.infos.city_geonameid">
+                        <a href="http://www.geonames.org/2992166" title="geonames.org" target="_blank">{{site.properties.infos.city_geonameid}}</a>
                     </span>
                 </div>
                 <div layout="row">
-                    <label>Occupation du site:</label>
-                    <div>Unique</div>
+                    <label>
+                        <span translate>SITE_DETAILS.FIELD_OCCUPATION.T_LABEL</span>:</label>
+                    <div>{{site.properties.infos.occupation}}</div>
                 </div>
             </md-card>
         </div>
 
-        <div layout="column" layout-padding class="section">
+        <div layout="column" layout-padding class="section" ng-repeat="srange in site.properties.site_ranges">
             <md-card flex layout-padding>
                 <md-toolbar class="md-hue-2">
-                    <div class="name">Période -450 -> -300 à 200 -> 2000</div>
-                    <div class="exceptional">Site exceptionnel</div>
+                    <div class="name">
+                        -450 -> -300 à 200 -> 2000
+                        <span translate>SITE_DETAILS.SITE_RANGE_START_DATE.T_LABEL</span>:
+                        <span>{{srange.start_date1}}
+                            :
+                            {{srange.start_date2}}</span>
+                        <span translate>SITE_DETAILS.SITE_RANGE_TO.T_LABEL</span>:
+                        <span translate>SITE_DETAILS.SITE_RANGE_END_DATE.T_LABEL</span>:
+                        <span>{{srange.end_date1}}
+                            :
+                            {{srange.end_date2}}</span>
+                    </div>
+                    <!-- <div class="exceptional">Site exceptionnel</div> -->
                 </md-toolbar>
-                <md-toolbar style="min-height: 40px">
-                    Immobilier
-                </md-toolbar>
-                <section>
-                    <h4>Habitat / Groupé</h4>
-                    <div class="info" layout="row">
-                        <label>État des connaissances:</label>
-                        <div>Fouillé</div>
+                <div ng-repeat="charac_section in srange.characs_sections">
+                    <md-toolbar style="min-height: 40px">
+                        {{charac_section.name}}
+                    </md-toolbar>
+                    <section ng-repeat="charac in charac_section.characs">
+                        <h4>charac.name</h4>
+                        <div class="info" layout="row">
+                            <label>
+                                <span translate>SITE_DETAILS.CHARAC_KNOWLEGDE_TYPE.T_LABEL</span>:</label>
+                            <div>{{charac.knowledge_type}}</div>
+                        </div>
+                        <div class="info" layout="row" ng-hide="hideComments">
+                            <label>
+                                <span translate>SITE_DETAILS.CHARAC_COMMENT.T_LABEL</span>:</label>
+                            <div>{{charac.comment}}</div>
+                        </div>
+                        <div class="info" layout="row" ng-hide="hideComments">
+                            <label>
+                                <span translate>SITE_DETAILS.CHARAC_BIBLIOGRAPHY_LABEL</span>:</label>
+                            <div>{{charac.bibliography}}</div>
+                        </div>
+                    </section>
+                    <md-divider></md-divider>
+                    <div class="comments">
+                        <a ng-click="hideComments = !hideComments" ng-hide="hideComments">Masquer descriptions et commentaires</a>
+                        <a ng-click="hideComments = !hideComments" ng-show="hideComments">Montrer descriptions et commentaires</a>
                     </div>
-                    <div class="info" layout="row" ng-hide="hideComments">
-                        <label>Commentaires:</label>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id dui semper lacus convallis molestie. Donec eu magna a mauris pulvinar volutpat. Quisque tincidunt, urna non molestie congue, ante magna maximus nisi, vitae tristique tellus massa
-                            vel quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae</div>
-                    </div>
-                    <div class="info" layout="row" ng-hide="hideComments">
-                        <label>Bibliography:</label>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id dui semper lacus convallis molestie. Donec eu magna a mauris pulvinar volutpat. Quisque tincidunt, urna non molestie congue, ante magna maximus nisi, vitae tristique tellus massa
-                            vel quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae</div>
-                    </div>
-                </section>
-                <md-divider></md-divider>
-                <section>
-                    <h4>Aménagement hydrolique / Autres</h4>
-                    <div class="info" layout="row">
-                        <label>État des connaissances:</label>
-                        <div>Prospecté</div>
-                    </div>
-                    <div class="info" layout="row">
-                        <label>Exceptionnel:</label>
-                        <div>Oui</div>
-                    </div>
-                    <div class="info" layout="row" ng-hide="hideComments">
-                        <label>Commentaires:</label>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id dui semper lacus convallis molestie. Donec eu magna a mauris pulvinar volutpat. Quisque tincidunt, urna non molestie congue, ante magna maximus nisi, vitae tristique tellus massa
-                            vel quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae</div>
-                    </div>
-                    <div class="info" layout="row" ng-hide="hideComments">
-                        <label>Bibliography:</label>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id dui semper lacus convallis molestie. Donec eu magna a mauris pulvinar volutpat. Quisque tincidunt, urna non molestie congue, ante magna maximus nisi, vitae tristique tellus massa
-                            vel quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae</div>
-                    </div>
-                </section>
-                <md-toolbar style="min-height: 40px">
-                    Mobilier
-                </md-toolbar>
-                <section>
-                    <h4>Céramique / Conteneur / Amphore</h4>
-                    <div class="info" layout="row">
-                        <label>État des connaissances:</label>
-                        <div>Fouillé</div>
-                    </div>
-                    <div class="info" layout="row" ng-hide="hideComments">
-                        <label>Commentaires:</label>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id dui semper lacus convallis molestie. Donec eu magna a mauris pulvinar volutpat. Quisque tincidunt, urna non molestie congue, ante magna maximus nisi, vitae tristique tellus massa
-                            vel quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae</div>
-                    </div>
-                    <div class="info" layout="row" ng-hide="hideComments">
-                        <label>Bibliography:</label>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id dui semper lacus convallis molestie. Donec eu magna a mauris pulvinar volutpat. Quisque tincidunt, urna non molestie congue, ante magna maximus nisi, vitae tristique tellus massa
-                            vel quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae</div>
-                    </div>
-                </section>
-                <md-divider></md-divider>
-                <div class="comments">
-                    <a ng-click="hideComments = !hideComments" ng-hide="hideComments">Masquer descriptions et commentaires</a>
-                    <a ng-click="hideComments = !hideComments" ng-show="hideComments">Montrer descriptions et commentaires</a>
-                </div>
-            </md-card>
-        </div>
+                </md-card>
+            </div>
 
-        <div layout="column" layout-padding class="section">
-            <md-card flex layout-padding>
-                <md-toolbar class="md-hue-2">
-                    <div class="name">Période -100 -> 200 à 200 -> 600</div>
-                </md-toolbar>
-                <md-toolbar style="min-height: 40px">
-                    Mobilier
-                </md-toolbar>
-                <section>
-                    <h4>Céramique / Conteneur / Amphore</h4>
-                    <div class="info" layout="row">
-                        <label>État des connaissances:</label>
-                        <div>Fouillé</div>
-                    </div>
-                    <div class="info" layout="row" ng-hide="hideComments">
-                        <label>Commentaires:</label>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id dui semper lacus convallis molestie. Donec eu magna a mauris pulvinar volutpat. Quisque tincidunt, urna non molestie congue, ante magna maximus nisi, vitae tristique tellus massa
-                            vel quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae</div>
-                    </div>
-                    <div class="info" layout="row" ng-hide="hideComments">
-                        <label>Bibliography:</label>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id dui semper lacus convallis molestie. Donec eu magna a mauris pulvinar volutpat. Quisque tincidunt, urna non molestie congue, ante magna maximus nisi, vitae tristique tellus massa
-                            vel quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae</div>
-                    </div>
-                </section>
-                <md-divider></md-divider>
-                <section>
-                    <h4>Lithique / Block architectural / Autres / Décor</h4>
-                    <div class="info" layout="row">
-                        <label>État des connaissances:</label>
-                        <div>Fouillé</div>
-                    </div>
-                    <div class="info" layout="row" ng-hide="hideComments">
-                        <label>Commentaires:</label>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id dui semper lacus convallis molestie. Donec eu magna a mauris pulvinar volutpat. Quisque tincidunt, urna non molestie congue, ante magna maximus nisi, vitae tristique tellus massa
-                            vel quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae</div>
-                    </div>
-                    <div class="info" layout="row" ng-hide="hideComments">
-                        <label>Bibliography:</label>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id dui semper lacus convallis molestie. Donec eu magna a mauris pulvinar volutpat. Quisque tincidunt, urna non molestie congue, ante magna maximus nisi, vitae tristique tellus massa
-                            vel quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae</div>
-                    </div>
-                </section>
-                <md-divider></md-divider>
-                <div class="comments">
-                    <a ng-click="hideComments = !hideComments" ng-hide="hideComments">Masquer descriptions et commentaires</a>
-                    <a ng-click="hideComments = !hideComments" ng-show="hideComments">Montrer descriptions et commentaires</a>
-                </div>
-            </md-card>
-        </div>
-
-    </md-dialog-content>
-</md-dialog>
+        </md-dialog-content>
+    </md-dialog>
