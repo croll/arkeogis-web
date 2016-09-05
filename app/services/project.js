@@ -100,6 +100,9 @@
                         if (d.id == db.id) {
                             _.merge(db, res.data);
                         }
+
+                        // make a string of authors array of objects
+                        db.author = Array.isArray(db.authors) ? db.authors.map(function(elem){ return elem.fullname }).join(",") : '';
                     });
                 }));
             });
