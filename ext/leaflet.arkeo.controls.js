@@ -33,3 +33,40 @@ L.Control.ClusterRadius = L.Control.extend({
         this.controlUI.innerHTML = '['+this._currentRadius+']';
     }
 });
+
+
+L.Control.LayerDynamic = L.Control.Layers.extend({
+    onAdd: function(map) {
+        this._map = map;
+        map.on('zoomend', this._update, this);
+        return L.Control.Layers.prototype.onAdd.call(this, map);
+    },
+
+    onRemove: function(map) {
+        map.off('zoomend', this._update, this);
+        L.Control.Layers.prototype.onRemove.call(this, map);
+    },
+
+    _addItem: function(obj){
+        var item = L.Control.Layers.prototype._addItem.call(this, obj);
+
+        var currentZoom = this._map.getZoom();
+
+        if (_.has(obj.layer.options, 'minZoom')) {
+            if (currentZoom < obj.layer.options.minZoom) {
+                $(item).find('input').prop('disabled', true);
+            }
+        }
+
+        if (_.has(obj.layer.options, 'maxZoom')) {
+            if (currentZoom > obj.layer.options.maxZoom) {
+                $(item).find('input').prop('disabled', true);
+            }
+        }
+
+        return item;
+    }
+})
+
+
+L.Control.Queries = L.Control.Layers.extend({});
