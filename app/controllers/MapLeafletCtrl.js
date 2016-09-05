@@ -129,7 +129,7 @@
                 }
 
                 arkeoMap.layers.overlayMaps[layer.uniq_code] = l;
-                map.layerControl.addOverlay(l.layer, l.name);
+                arkeoMap.layerControl.addOverlay(l.layer, l.name);
                 // l.layer.addTo(map);
                 //console.log(map.layerControl.addOverlay(arkeoMap.layers.overlayMaps[layer.uniq_code].layer));
                 //map.layerControl.addOverlay(arkeoMap.layers.overlayMaps[layer.uniq_code].layer, arkeoMap.layers.overlayMaps[layer.uniq_code].name);

@@ -22,8 +22,9 @@
 (function() {
     ArkeoGIS.service('arkeoMap', ['$http', '$q', '$translate', '$mdToast', 'arkeoProject', function($http, $q, $translate, $mdToast, arkeoProject) {
 
-        var self = this;
-        var mapDefer;
+        var self = this,
+            mapDefer,
+            layerControl;
 
         this.project = arkeoProject.get();
 
@@ -59,25 +60,28 @@
         }
 
         this.initLeaflet = function(el) {
+            // Base layers
+            // var num = 0;
             var layers = {};
+            var mapLayers = [];
+            _.each(self.layers.baseMaps, function(layer) {
+                layers[layer.name] = layer.layer;
+                mapLayers.push(layer.layer);
+            });
+            // Init leaflet
             var map = new L.Map(el, {
                 center: new L.LatLng(projectCentroid.lat, projectCentroid.lng),
+                layers: [mapLayers[0]],
                 zoomControl: false
             });
-            num = 0;
-            _.each(self.layers.baseMaps, function(layer) {
-                if (num == 0) {
-                    map.addLayer(layer.layer);
-                    num++;
-                }
-                layers[layer.name] = layer.layer;
-            });
+            // Zoom control
             new L.Control.Zoom({
                     position: 'topright'
                 })
                 .addTo(map);
-            map.layerControl = new L.control.layers(layers);
-            map.layerControl.addTo(map);
+            // Layer control
+            self.layerControl = new L.control.layers(layers);
+            self.layerControl.addTo(map);
             return mapDefer.resolve(map);
         }
 
