@@ -50,32 +50,12 @@
                 // Cluster radius
                 arkeoMap.clusterRadiusControl = new L.Control.ClusterRadius({minRadius: 20, maxRadius: 80, callback: function(){ $scope.displayMarkers(); }}).addTo(map);
 
-                map.on('zoomend', function(e) {
-                    // $scope.layers.overlays.sites.layerParams.showOnSelector = false;
-                    //initProjectLayers(this);
-                    // var currentZoom = map.getZoom();
-                    // console.log(currentZoom);
-                    // _.each(arkeoMap.layers.overlayMaps, function(layer) {
-                    //     if (layer.type == 'shp') {
-                    //         console.log(layer);
-                    //         map.removeLayer(layer.instance);
-                    //     }
-                    // });
-                });
-
                 map.on('layeradd', function(e) {
                     if (e.layer.feature && e.layer.feature.properties && e.layer.feature.properties.init === false) {
                         $http({
                             method: 'GET',
                             url: '/api/layer/' + e.layer.feature.properties.id + '/geojson'
                         }).then(function(result) {
-                            // arkeoMap.overlays[e.layer.feature.properties.uniq_code] = {
-                            //     name: e.layer.feature.properties.name,
-                            //     type: 'geoJSONShape',
-                            //     data: result.data,
-                            //     visible: true,
-                            //     doRefresh: true
-                            // };
                             new L.geoJson(result.data).addTo(map);
                         }, function(err) {
                             arkeoService.showMessage('MAPQUERY.MESSAGE.T_GETGEOJSON_ERROR')
@@ -323,14 +303,24 @@
 
                     var query = arkeoQuery.getCurrent();
 
+                    if (!query) {
+                        return;
+                    }
 
                     query.markerClusters = {};
+
+                    if (_.has(arkeoMap.queryControls, query.letter)) {
+                        map.removeControl(arkeoMap.queryControls[query.letter]);
+                    }
+                    var control = new L.Control.Queries(null, null, {collapsed: true, letter: query.letter}).addTo(map);
+
+                    arkeoMap.queryControls[query.letter] = control;
 
                     _.each(query.markersByDatabase, function(markerGroup, dbID) {
 
                         if (markerGroup.cluster) {
                             map.removeLayer(markerGroup.cluster);
-                            arkeoMap.queryControl.removeLayer(markerGroup.cluster);
+                            arkeoMap.queryControls[query.letter].removeLayer(markerGroup.cluster);
                         }
 
                         markerGroup.cluster = new L.markerClusterGroup({
@@ -338,12 +328,13 @@
                         });
                         markerGroup.cluster.addLayers(markerGroup.markers).addTo(map)
 
-                        arkeoMap.queryControl.addOverlay(markerGroup.cluster, '('+query.letter+') '+markerGroup.database);
+                        // Databases control
+                        control.addOverlay(markerGroup.cluster, markerGroup.database);
 
                     });
 
                 });
-            }
+            };
 
             $scope.toggleSiteDetailsDialog = function(id) {
                 arkeoQuery.getSite(id).then(function(siteInfos) {
@@ -365,6 +356,25 @@
                         }, function() {
                             $scope.status = 'You cancelled the dialog.';
                         });
+                });
+            };
+
+            $scope.reset = function() {
+                arkeoMap.getMap().then(function(map) {
+
+                    var query = arkeoQuery.getCurrent();
+
+                    _.each(arkeoMap.queryControls, function(control) {
+                        map.removeControl(control);
+                    });
+
+                    _.each(query.markersByDatabase, function(markerGroup, dbID) {
+
+                        if (markerGroup.cluster) {
+                            map.removeLayer(markerGroup.cluster);
+                            arkeoMap.queryControls[query.letter].removeLayer(markerGroup.cluster);
+                        }
+                    });
                 });
             };
 
