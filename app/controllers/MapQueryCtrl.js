@@ -542,6 +542,17 @@
 							params.databases = $scope.selected_databases.map(function(elem) { return elem.id });
 						});
 
+						function init() {
+							$scope.selected_databases=[];
+							$scope.selected_databases = params.databases.map(function(id) {
+								return _.find($scope.databases, function(elem) {
+									if (elem.id == id) return elem;
+								})
+							});
+						}
+
+						init();
+
 					},
 					templateUrl: 'partials/query/databaseschooser.html',
 					parent: angular.element(document.body),
