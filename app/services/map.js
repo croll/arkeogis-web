@@ -24,7 +24,8 @@
 
         var self = this,
             mapDefer,
-            layerControl;
+            layerControl,
+            clusterRadiusControl;
 
         this.project = arkeoProject.get();
 
@@ -59,7 +60,7 @@
             mapDefer = $q.defer();
         }
 
-        this.initLeaflet = function(el) {
+        this.initLeaflet = function(el, $scope) {
             // Base layers
             // var num = 0;
             var layers = {};

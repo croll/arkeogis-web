@@ -35,7 +35,7 @@
 
             // Get map area to fit full screen
             angular.element(window).on('resize', function() {
-                $scope.mapHeight = $(window).height() - $("#arkeo-main-toolbar").height() -20 + "px";
+                $scope.mapHeight = $(window).height() - $("#arkeo-main-toolbar").height() - 20 + "px";
                 $scope.$apply();
             });
 
@@ -46,6 +46,9 @@
                 if (project.geom != '') {
                     map.fitBounds(L.geoJson(project.geom).getBounds());
                 }
+
+                // Cluster radius
+                arkeoMap.clusterRadiusControl = new L.Control.ClusterRadius({minRadius: 15, maxRadius: 80, callback: function(){ $scope.displayMarkers(); }}).addTo(map);
 
                 map.on('zoomend', function(e) {
                     // $scope.layers.overlays.sites.layerParams.showOnSelector = false;
@@ -79,7 +82,7 @@
             function initProjectLayers(map) {
                 if (project.layers.length) {
                     angular.forEach(project.layers, function(layer) {
-                            addLayer(layer, map);
+                        addLayer(layer, map);
                     });
                 }
             }
@@ -90,7 +93,7 @@
                 //
                 // });
 
-                var l ;
+                var l;
 
                 if (layer.type == 'shp') {
                     var geojsonFeature = {
@@ -113,13 +116,18 @@
                     l = {
                         name: layer.translations.name.en,
                         type: 'wms',
-                        layer: L.tileLayer.wms(layer.url, {layers: layer.identifier})
+                        layer: L.tileLayer.wms(layer.url, {
+                            layers: layer.identifier
+                        })
                     };
                 } else if (layer.type == 'wmts') {
                     l = {
                         name: layer.translations.name.en,
                         type: 'wmts',
-                        layer: L.tileLayer.WMTS(layer.url, {layer: layer.identifier, attribution: layer.translations.attribution.en})
+                        layer: L.tileLayer.WMTS(layer.url, {
+                            layer: layer.identifier,
+                            attribution: layer.translations.attribution.en
+                        })
                     };
                 }
 
@@ -154,7 +162,7 @@
                 if (!feature.properties.infos.centroid) {
                     angular.extend(iconProperties, {
                         className: 'arkeo-marker-container-drop query' + letter,
-                        html: '<svg class="arkeo-marker arkeo-marker-drop-svg ' + iconClasses + '"><use xlink:href="#arkeo-marker-drop-symbol' + exceptional + '" style="fill: '+characInfos.iconColor+'"></use></svg><div class="arkeo-marker-letter size' + characInfos.iconSize + '">' + letter + '</div>',
+                        html: '<svg class="arkeo-marker arkeo-marker-drop-svg ' + iconClasses + '"><use xlink:href="#arkeo-marker-drop-symbol' + exceptional + '" style="fill: ' + characInfos.iconColor + '"></use></svg><div class="arkeo-marker-letter size' + characInfos.iconSize + '">' + letter + '</div>',
                         iconSize: [55, 60],
                         iconAnchor: getIconAnchorPosition(characInfos.iconSize),
                         popupAnchor: [0, 0]
@@ -162,7 +170,7 @@
                 } else {
                     angular.extend(iconProperties, {
                         className: 'arkeo-marker-container-circle query' + letter,
-                        html: '<svg class="arkeo-marker arkeo-marker-circle-svg ' + iconClasses + '"><use xlink:href="#arkeo-marker-circle-symbol' + exceptional + '" style="fill:'+characInfos.iconColor+'"></use></svg><div class="arkeo-marker-letter size' + characInfos.iconSize + '">' + letter + '</div>',
+                        html: '<svg class="arkeo-marker arkeo-marker-circle-svg ' + iconClasses + '"><use xlink:href="#arkeo-marker-circle-symbol' + exceptional + '" style="fill:' + characInfos.iconColor + '"></use></svg><div class="arkeo-marker-letter size' + characInfos.iconSize + '">' + letter + '</div>',
                         iconSize: [55, 55],
                         iconAnchor: [25, 27.5],
                         popupAnchor: [0, 0]
@@ -249,43 +257,9 @@
                 });
                 color = arkeoProject.getChronologyColor(start_date, end_date);
                 if (color) {
-                    ret.iconColor = '#'+color;
+                    ret.iconColor = '#' + color;
                 }
                 return ret;
-            }
-
-            function createGroupMarkerIcon() {
-
-                L.Control.GroupMarkers = L.Control.extend({
-                    options: {
-                        position: 'topright',
-                    },
-
-                    onAdd: function(map) {
-                        var controlDiv = L.DomUtil.create('div', 'leaflet-control-custom leaflet-control-groupmarkers leaflet-control-hiddable');
-                        L.DomEvent
-                            .addListener(controlDiv, 'click', L.DomEvent.stopPropagation)
-                            .addListener(controlDiv, 'click', L.DomEvent.preventDefault)
-                            .addListener(controlDiv, 'click', function() {
-                                if (layerType == 'cluster') {
-                                    layerType = 'simple';
-                                    controlDiv.className = controlDiv.className.replace(' leaflet-control-active', '');
-                                } else {
-                                    layerType = 'cluster';
-                                    L.DomUtil.addClass(controlDiv, 'leaflet-control-active');
-                                }
-                                redrawMarkers();
-                            });
-
-                        var controlUI = L.DomUtil.create('div', 'leaflet-control-command-interior', controlDiv);
-                        controlUI.title = ch_t('arkeogis', 'Recadrer sur l\'emprise des icones');
-                        return controlDiv;
-                    }
-                });
-
-                new L.Control.GroupMarkers({})
-                    .addTo(map);
-
             }
 
             var start;
@@ -297,81 +271,106 @@
 
                 arkeoMap.getMap().then(function(map) {
 
-                var start, end;
-                start = new Date().getTime();
+                    var start, end;
+                    start = new Date().getTime();
 
-                var latlngs = [];
+                    var latlngs = [];
 
-                _.each(query.data.features, function(feature) {
-                    var marker = L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {
-                        icon: generateIcon(feature, query.letter)
+                    _.each(query.data.features, function(feature) {
+                        var marker = L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {
+                            icon: generateIcon(feature, query.letter)
+                        });
+                        marker.on('mouseover', function(e) {
+                            this.openPopup();
+                        });
+                        marker.on('click', function(e) {
+                            return false;
+                        });
+                        var html = "<arkeo-popup>";
+                        html += "<div style='font-weight:bold'>" + feature.properties.infos.name + " (" + feature.properties.infos.code + ")" + "</div>";
+                        html += "<div>" + feature.properties.infos.database_name + "</div>";
+                        html += '<md-icon ng-click="toggleSiteDetailsDialog(' + feature.properties.infos.id + ')" class="md-18" style="cursor: pointer">remove_red_eye</md-icon>';
+                        html += "</arkeo-popup>";
+                        marker.bindPopup($compile(html)($scope)[0]);
+                        marker.feature = feature;
+
+                        query.markers.push(marker);
+
                     });
-                    marker.on('mouseover', function(e) {
-                        this.openPopup();
-                    });
-                    marker.on('click', function(e) {
-                        return false;
-                    });
-                    var html = "<arkeo-popup>";
-                    html += "<div style='font-weight:bold'>" + feature.properties.infos.name + " (" + feature.properties.infos.code + ")" + "</div>";
-                    html += "<div>" + feature.properties.infos.database_name + "</div>";
-                    html += '<md-icon ng-click="toggleSiteDetailsDialog(' + feature.properties.infos.id + ')" class="md-18" style="cursor: pointer">remove_red_eye</md-icon>';
-                    html += "</arkeo-popup>";
-                    marker.bindPopup($compile(html)($scope)[0]);
-
-                    if (!_.has(query.markerClusters, feature.properties.infos.database_id)) {
-                        query.markerClusters[feature.properties.infos.database_id] = new L.markerClusterGroup();
-                    };
-
-                    query.markerClusters[feature.properties.infos.database_id].addLayer(marker);
-                });
 
 
 
-/*
-                    L.geoJson(query.data, {
-                        pointToLayer: function(feature, latlng) {
-                            var marker = L.marker(latlng, {
-                                icon: generateIcon(feature)
-                            });
-                            marker.on('mouseover', function(e) {
-                                this.openPopup();
-                            });
-                            marker.on('click', function(e) {
-                                return false;
-                            });
-                            return marker;
-                        },
-                        onEachFeature: function(feature, layer) {
+                    /*
+                                        L.geoJson(query.data, {
+                                            pointToLayer: function(feature, latlng) {
+                                                var marker = L.marker(latlng, {
+                                                    icon: generateIcon(feature)
+                                                });
+                                                marker.on('mouseover', function(e) {
+                                                    this.openPopup();
+                                                });
+                                                marker.on('click', function(e) {
+                                                    return false;
+                                                });
+                                                return marker;
+                                            },
+                                            onEachFeature: function(feature, layer) {
 
-                            var html = "<arkeo-popup>";
-                            html += "<div style='font-weight:bold'>" + feature.properties.infos.name + " (" + feature.properties.infos.code + ")" + "</div>";
-                            html += "<div>" + feature.properties.infos.database_name + "</div>";
-                            html += '<md-icon ng-click="toggleSiteDetailsDialog(' + feature.properties.infos.id + ')" class="md-18" style="cursor: pointer">remove_red_eye</md-icon>';
-                            html += "</arkeo-popup>";
-                            layer.bindPopup($compile(html)($scope)[0]);
+                                                var html = "<arkeo-popup>";
+                                                html += "<div style='font-weight:bold'>" + feature.properties.infos.name + " (" + feature.properties.infos.code + ")" + "</div>";
+                                                html += "<div>" + feature.properties.infos.database_name + "</div>";
+                                                html += '<md-icon ng-click="toggleSiteDetailsDialog(' + feature.properties.infos.id + ')" class="md-18" style="cursor: pointer">remove_red_eye</md-icon>';
+                                                html += "</arkeo-popup>";
+                                                layer.bindPopup($compile(html)($scope)[0]);
 
-                            if (!_.has(query, feature.properties.infos.database_id) {
-                                query.clusters[feature.properties.infos.database_id] = new L.markerClusterGroup();
-                            });
-                            query.clusters[feature.properties.infos.database_id].addLayer(layer);
+                                                if (!_.has(query, feature.properties.infos.database_id) {
+                                                    query.clusters[feature.properties.infos.database_id] = new L.markerClusterGroup();
+                                                });
+                                                query.clusters[feature.properties.infos.database_id].addLayer(layer);
 
-                        }
-                    });
-                    */
+                                            }
+                                        });
+                                        */
                     /*
                     angular.forEach(self.markerClusters, function(mc) {
                         mc.addTo(map);
                     });
                     */
 
-                    // Add markerClusters to map
-                    _.each(query.markerClusters, function(mc) {
-                        mc.addTo(map);
-                    });
+                    $scope.displayMarkers();
 
                 });
 
+            }
+
+            $scope.displayMarkers = function() {
+
+                arkeoMap.getMap().then(function(map) {
+                    var query = arkeoQuery.getCurrent();
+
+                    _.each(query.markerClusters, function(mc) {
+                        map.removeLayer(mc);
+                    });
+
+                    query.markerClusters = {};
+
+                    _.each(query.markers, function(marker) {
+                        if (!_.has(query.markerClusters, marker.feature.properties.infos.database_id)) {
+                            query.markerClusters[marker.feature.properties.infos.database_id] = new L.markerClusterGroup({
+                                maxClusterRadius: arkeoMap.clusterRadiusControl.getCurrentRadius()
+                            });
+                        };
+
+                        query.markerClusters[marker.feature.properties.infos.database_id].addLayer(marker);
+
+                        // Add markerClusters to map
+                        _.each(query.markerClusters, function(mc) {
+                            mc.addTo(map);
+                        });
+
+                    });
+
+                });
             }
 
             $scope.toggleSiteDetailsDialog = function(id) {
