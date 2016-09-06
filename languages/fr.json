@@ -435,7 +435,7 @@
 			"T_LABEL": "* Caractère d'échappement"
 		},
 		"FIELD_GEONAMES": {
-			"T_HELP": "Utiliser les codes ville/village (icône P) fournis par Geonames pour géolocaliser les sites.(icône P)",
+			"T_HELP": "Déplacer le curseur ci-dessus pour utiliser les codes ville/village fournis par Geonames.org pour géolocaliser les sites.(icône P)",
 			"T_LABEL": "Utilisation des Geonames"
 		},
 		"FIELD_GEO_CONTINENT": {
@@ -457,7 +457,7 @@
 			"T_LABEL": "Séparateur"
 		},
 		"FORM": {
-			"T_HELP": "Utilisez un fichier de type csv au format d’encodage UTF8 pour votre importation.",
+			"T_HELP": "Utilisez un fichier de type csv au format d’encodage UTF8 pour votre importation, le séparateur doit être un  \" ; \"",
 			"T_RESET": "Réinitialiser",
 			"T_SUBMIT": "Envoyer le fichier et passer à l'étape suivante",
 			"T_UPDATE": "Mettre à jour les informations"
@@ -537,7 +537,7 @@
 			"T_LABEL": "Licence"
 		},
 		"FIELD_PUBLISHED": {
-			"T_HELP": "#!#IMPORT_STEP3.FIELD_PUBLISHED.T_HELP",
+			"T_HELP": "Déplacer le curseur ci-dessus pour publier  la base de données dans l'interface cartographique.",
 			"T_LABEL": "Base de données publiée"
 		},
 		"FIELD_SCALE_RESOLUTION": {
@@ -672,7 +672,7 @@
 			"T_ITEM_LOGOUT": "Déconnecter",
 			"T_ITEM_MAP": "Carte",
 			"T_ITEM_MAPEDITOR": "Éditeur de cartes",
-			"T_ITEM_PREFERENCES": "Préférences utilisateur",
+			"T_ITEM_PREFERENCES": "Préférences du projet",
 			"T_ITEM_USERSMANAGER": "Éditeur d'utilisateurs"
 		},
 		"LOADING": {

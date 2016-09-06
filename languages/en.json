@@ -672,7 +672,7 @@
 			"T_ITEM_LOGOUT": "Logout",
 			"T_ITEM_MAP": "Map",
 			"T_ITEM_MAPEDITOR": "Map editor",
-			"T_ITEM_PREFERENCES": "Preferences of the users",
+			"T_ITEM_PREFERENCES": "Project preferences",
 			"T_ITEM_USERSMANAGER": "Users Manager"
 		},
 		"LOADING": {
