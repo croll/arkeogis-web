@@ -567,5 +567,33 @@
 
 
 
+		$scope.showAreaChooserDialog = function() {
+			showAreaChooserDialog($scope.params);
+		};
+
+		function showAreaChooserDialog(params) {
+			$mdDialog.show({
+					controller: function($scope, $mdDialog, arkeoService) {
+						$scope.selected_area = params.area;
+						$scope.area = { type: 'free', };
+
+						$scope.hide = function() {
+							$mdDialog.hide();
+						};
+
+					},
+					templateUrl: 'partials/query/areachooser.html',
+					parent: angular.element(document.body),
+					clickOutsideToClose: true,
+				})
+				.then(function(answer) {
+					$scope.status = 'You said the information was "' + answer + '".';
+				}, function() {
+					$scope.status = 'You cancelled the dialog.';
+				});
+		};
+
+
+
 	}]);
 })();
