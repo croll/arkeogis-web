@@ -20,8 +20,8 @@
                 <div class="query-element query-element-area">
                     <div class="query-element-title">
                         <span translate>QUERY.AREA.T_TITLE</span>
-                        <md-icon class="query-element-edit-icon" ng-click="showAreaChooserDialog()">mode_edit</md-icon>
-                        <md-icon class="query-element-show-icon" ng-click="toggle_query_element('area')">play_arrow</md-icon>
+                        <div class="query-element-edit-icon noselect"><md-icon ng-click="showAreaChooserDialog()">mode_edit</md-icon></div>
+                        <div class="query-element-show-icon noselect"><md-icon ng-click="toggle_query_element('area')">play_arrow</md-icon></div>
                     </div>
                     <div class="query-element-content">
                         blah
@@ -32,8 +32,8 @@
                 <div class="query-element query-element-databases">
                     <div class="query-element-title">
                         <span translate>QUERY.DATABASES.T_TITLE</span>
-                        <md-icon class="query-element-edit-icon" ng-click="showDatabaseChooserDialog()">mode_edit</md-icon>
-                        <md-icon class="query-element-show-icon" ng-click="toggle_query_element('databases')">play_arrow</md-icon>
+                        <div class="query-element-edit-icon noselect"><md-icon ng-click="showDatabaseChooserDialog()">mode_edit</md-icon></div>
+                        <div class="query-element-show-icon noselect"><md-icon ng-click="toggle_query_element('databases')">play_arrow</md-icon></div>
                     </div>
                     <div class="query-element-content">
                         <div class="query-subelement" ng-repeat="(dbtype, databases) in databases_per_type">
@@ -49,8 +49,8 @@
                 <div class="query-element query-element-characs">
                     <div class="query-element-title">
                         <span translate>QUERY.CHARACS.T_TITLE</span>
-                        <md-icon class="query-element-edit-icon" ng-click="showCharacChooserDialog()">mode_edit</md-icon>
-                        <md-icon class="query-element-show-icon" ng-click="toggle_query_element('characs')">play_arrow</md-icon>
+                        <div class="query-element-edit-icon noselect"><md-icon ng-click="showCharacChooserDialog()">mode_edit</md-icon></div>
+                        <div class="query-element-show-icon noselect"><md-icon ng-click="toggle_query_element('characs')">play_arrow</md-icon></div>
                     </div>
                     <div class="query-element-content">
                         <div class="query-subelement" ng-if="characs_selecteds_include.length > 0">

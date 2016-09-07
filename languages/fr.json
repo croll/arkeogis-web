@@ -962,6 +962,12 @@
 		"AREA": {
 			"T_TITLE": "Emprise :"
 		},
+		"CHARACS": {
+			"T_EXCEPTIOINAL": "Inclure les exceptionnel :",
+			"T_EXCLUDE": "Exclure :",
+			"T_INCLUDE": "Inclure :",
+			"T_TITLE": "Caractérisations :"
+		},
 		"DATABASES": {
 			"T_TITLE": "Bases de données :"
 		}
@@ -1005,6 +1011,19 @@
 			"T_DISC": "Disque",
 			"T_FREE": "Libre",
 			"T_RECT": "Rectangle"
+		}
+	},
+	"QUERY_CHARAC": {
+		"BUTTON_OK": {
+			"T_TITLE": "Ok"
+		},
+		"DIALOG": {
+			"T_CHOOSETOOL": "",
+			"T_FOOTER_BOLD": "",
+			"T_FOOTER_TEXT1": "",
+			"T_FOOTER_TEXT2": "",
+			"T_INTRO": "",
+			"T_TITLE": "Caractéristiques"
 		}
 	},
 	"QUERY_DATABASES": {
