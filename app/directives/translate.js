@@ -82,13 +82,13 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.directive('arkGetTranslation', function(arkeoLang, $translate, $parse) {
+    ArkeoGIS.directive('arkGetTranslation', function(arkeoLang, $translate, $parse, $interpolate) {
 
 		return {
 			restrict: 'A',
 			template: '',
             scope: {
-                arkTranslations: '=',
+                arkTranslations: '=?',
                 arkForceLang: '=?'
             },
 			link: function(scope, element, attrs) {
@@ -120,21 +120,37 @@
                 function switchModel(newLangs) {
                     var translation = '';
                     if (angular.isObject(scope.arkTranslations)) {
-                        if (angular.isDefined(scope.arkTranslations[newLangs[1]]) && scope.arkTranslations[newLangs[1]] != "") {
-                            translation = scope.arkTranslations[newLangs[1]];
-                        } else if (angular.isDefined(scope.arkTranslations[newLangs[2]]) && scope.arkTranslations[newLangs[2]] != "") {
-                            translation = scope.arkTranslations[newLangs[2]];
-                        } else {
-                            translation = scope.arkTranslations['en'];
-                        }
-                        setVal(translation);
+                        setVal(searchTranslation(scope.arkTranslations, newLangs));
                     } else if (angular.isString(scope.arkTranslations)) {
                         $translate(scope.arkTranslations).then(function(t) {
                             setVal(t);
                         }, function(t) {
                             setVal(scope.arkTranslations);
                         });
+                    } else {
+                        var str = $interpolate(element.text())(scope);
+                        if (str) {
+                            setVal(searchTranslation(angular.fromJson(str), newLangs));
+                        }
+                        // console.log(angular.fromJson($interpolate(element.text())(scope)));
                     }
+                }
+
+                function searchTranslation(transObj, newLangs) {
+                    var translation = '';
+                        if (angular.isDefined(transObj[newLangs[1]]) && transObj[newLangs[1]] != "") {
+                            translation = transObj[newLangs[1]];
+                        } else if (angular.isDefined(transObj[newLangs[2]]) && transObj[newLangs[2]] != "") {
+                            translation = transObj[newLangs[2]];
+                        } else if (angular.isDefined(transObj['en'])) {
+                            translation = transObj['en'];
+                        } else if (angular.isDefined(transObj['D'])){
+                            translation = transObj['D'];
+                        } else {
+                            console.error("ark-get-translation: No translation found !");
+                            translation = '';
+                        }
+                        return translation;
                 }
 
                 function setVal(translation) {
