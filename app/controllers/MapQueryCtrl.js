@@ -134,6 +134,13 @@
 				});
 		};
 
+		function init_database() {
+			$scope.params.database = [];
+			arkeoProject.get().databases.forEach(function(database) {
+				$scope.params.database.push(database.id);
+			});
+		}
+
 
 		/************
 		 * area
@@ -429,5 +436,7 @@
 			characsSelectionToStrings();
 		});
 
+
+		init_database();
 	}]);
 })();
