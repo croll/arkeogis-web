@@ -53,11 +53,17 @@
                         <md-icon class="query-element-show-icon" ng-click="toggle_query_element('characs')">play_arrow</md-icon>
                     </div>
                     <div class="query-element-content">
-                        <div class="query-subelement" ng-repeat="(dbtype, characs) in characs_per_type">
-                            <div class="query-subelement-title">{{dbtype | translate}}</div>
-                            <ul>
-                                <li ng-repeat="charac in characs">{{charac.name}}</li>
-                            </ul>
+                        <div class="query-subelement" ng-if="characs_selecteds_include.length > 0">
+                            <div translate>QUERY.CHARACS.T_INCLUDE</div>
+                            <div ng-repeat="path in characs_selecteds_include">{{path}}</div>
+                        </div>
+                        <div class="query-subelement" ng-if="characs_selecteds_exceptional.length > 0">
+                            <div translate>QUERY.CHARACS.T_EXCEPTIOINAL</div>
+                            <div ng-repeat="path in characs_selecteds_exceptional">{{path}}</div>
+                        </div>
+                        <div class="query-subelement" ng-if="characs_selecteds_exclude.length > 0">
+                            <div translate>QUERY.CHARACS.T_EXCLUDE</div>
+                            <div ng-repeat="path in characs_selecteds_exclude">{{path}}</div>
                         </div>
                     </div>
                 </div>

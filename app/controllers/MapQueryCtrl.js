@@ -485,6 +485,7 @@
 
 		$scope.params = {
 			databases: [],
+			characs: {},
 		};
 
 
@@ -739,6 +740,116 @@
 				});
 		};
 
+		// cache characs by id
+		var characs_by_id = null;
+		function getCharacById(id) {
+			if (characs_by_id == null) {
+				characs_by_id = {};
+				var characsAll = arkeoProject.get().characs;
+				function fillCache(content) {
+					_.each(content, function(charac) {
+						characs_by_id[parseInt(charac.id)]=charac;
+						if (_.has(charac, 'content'))
+							fillCache(charac.content);
+					});
+				}
+				fillCache(characsAll);
+			}
+			return characs_by_id[parseInt(id)];
+		}
+
+		function testSubCharacsSelection(selecteds, charac, concerneds) {
+			concerneds.push(charac.id);
+			if (selecteds.indexOf(charac.id) != -1) {
+				var ok = true;
+				if (_.has(charac, 'content')) {
+					_.each(charac.content, function(subcharac) {
+						if (!testSubCharacsSelection(selecteds, subcharac, concerneds))
+							ok=false;
+					});
+				}
+				return ok;
+			}
+			return false;
+		}
+
+		function characsSelectionToStrings() {
+			var chraracsAll = arkeoProject.get().characs;
+			var selecteds = $scope.params.characs;
+
+			var selecteds_include = [];
+			var selecteds_exceptional = [];
+			var selecteds_exclude = [];
+
+			_.each(selecteds, function(selected, id) {
+				id=parseInt(id);
+				if (selected == '+')
+					selecteds_include.push(id);
+				else if (selected == '!')
+					selecteds_exceptional.push(id);
+				else if (selected == '-')
+					selecteds_exclude.push(id);
+			});
+
+			function buildPath(charac, selecteds, sel) {
+
+				// check if the parent is in selection, so we build the path from the parent before.
+				if (angular.isObject(charac.parent) && selecteds.indexOf(charac.parent.id) !== -1)
+					return buildPath(charac.parent);
+
+				// check if all childrends are also in selection, or not
+				var concerneds = [];
+				var withChildrens = false;
+				if (testSubCharacsSelection(selecteds, charac, concerneds)) {
+					// this charac have all it's childrends selecteds.
+
+					if (concerneds.length > 1)
+						withChildrens = true;
+
+					// remove all concerneds from selecteds, because theses are childrens
+					_.remove(selecteds, function(id) {
+						return concerneds.indexOf(id) != -1;
+					});
+
+				} else {
+					// this charac do NOT have all it's childrends selecteds.
+
+					withChildrens = false;
+
+					// remove only this charac, not childrens
+					var i=selecteds.indexOf(charac.id);
+					if (i > -1) selecteds.splice(i, 1);
+				}
+
+				// now build the full path
+				var c=charac;
+				var path="";
+				while(angular.isObject(c)) {
+					path=c.name.fr+(path != '' ? '.'+path : '');
+					c=c.parent;
+				}
+				if (withChildrens) path+='*';
+				return path;
+			}
+
+			function buildPaths(selecteds, sel) {
+				var paths=[];
+				while (selecteds.length > 0) {
+					paths.push(buildPath(getCharacById(selecteds[0]), selecteds, sel));
+				}
+				return paths;
+			}
+
+			$scope.characs_selecteds_include = buildPaths(selecteds_include, '+');
+			$scope.characs_selecteds_exceptional = buildPaths(selecteds_exceptional, '!');
+			$scope.characs_selecteds_exclude = buildPaths(selecteds_exclude, '-');
+
+			console.log("$scope.characs_selecteds_include", $scope.characs_selecteds_include, $scope.characs_selecteds_exceptional, $scope.characs_selecteds_exclude);
+		}
+
+		$scope.$watchCollection('params.characs', function() {
+			characsSelectionToStrings();
+		});
 
 	}]);
 })();
