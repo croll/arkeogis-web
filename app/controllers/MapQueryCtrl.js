@@ -33,6 +33,26 @@
 			arkeoQuery.do($scope.params);
 		};
 
+
+		$scope.toggle_query_element = function(elemname) {
+			var html_elem_icon = $('.query-element-'+elemname+' .query-element-show-icon');
+			var html_elem_content = $('.query-element-'+elemname+' .query-element-content');
+			if (html_elem_icon.hasClass('query-element-icon-hide')) {
+				html_elem_icon.removeClass("query-element-icon-hide");
+				html_elem_content.removeClass("query-element-content-hide");
+			} else {
+				html_elem_icon.addClass("query-element-icon-hide");
+				html_elem_content.addClass("query-element-content-hide");
+			}
+		}
+
+
+
+
+		/************
+		 * databases
+		 ************/
+
 		// cache databases by id
 		var databases_by_id = null;
 		function getDatabaseById(id) {
@@ -72,19 +92,6 @@
 				$scope.databases_per_type[type_tr].push(db);
 			});
 		});
-
-
-		$scope.toggle_query_element = function(elemname) {
-			var html_elem_icon = $('.query-element-'+elemname+' .query-element-show-icon');
-			var html_elem_content = $('.query-element-'+elemname+' .query-element-content');
-			if (html_elem_icon.hasClass('query-element-icon-hide')) {
-				html_elem_icon.removeClass("query-element-icon-hide");
-				html_elem_content.removeClass("query-element-content-hide");
-			} else {
-				html_elem_icon.addClass("query-element-icon-hide");
-				html_elem_content.addClass("query-element-content-hide");
-			}
-		}
 
 		$scope.showDatabaseChooserDialog = function() {
 			showDatabaseChooserDialog($scope.params);
@@ -127,6 +134,10 @@
 				});
 		};
 
+
+		/************
+		 * area
+		 ************/
 
 
 		$scope.showAreaChooserDialog = function() {
@@ -211,6 +222,12 @@
 					$scope.status = 'You cancelled the dialog.';
 				});
 		};
+
+
+		/************
+		 * characs
+		 ************/
+
 
 		$scope.showCharacChooserDialog = function() {
 			showCharacChooserDialog($scope.params);
