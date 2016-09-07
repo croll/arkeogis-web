@@ -39,7 +39,7 @@
                         <div class="query-subelement" ng-repeat="(dbtype, databases) in databases_per_type">
                             <div class="query-subelement-title">{{dbtype | translate}}</div>
                             <ul>
-                                <li ng-repeat="database in databases">{{database.name}}</li>
+                                <li ng-repeat="database in databases">- {{database.name}}</li>
                             </ul>
                         </div>
                     </div>
@@ -54,16 +54,16 @@
                     </div>
                     <div class="query-element-content">
                         <div class="query-subelement" ng-if="characs_selecteds_include.length > 0">
-                            <div translate>QUERY.CHARACS.T_INCLUDE</div>
-                            <div ng-repeat="path in characs_selecteds_include">{{path}}</div>
+                            <div class="query-subelement-title" translate>QUERY.CHARACS.T_INCLUDE</div>
+                            <div ng-repeat="path in characs_selecteds_include">- {{path}}</div>
                         </div>
                         <div class="query-subelement" ng-if="characs_selecteds_exceptional.length > 0">
-                            <div translate>QUERY.CHARACS.T_EXCEPTIOINAL</div>
-                            <div ng-repeat="path in characs_selecteds_exceptional">{{path}}</div>
+                            <div class="query-subelement-title" translate>QUERY.CHARACS.T_EXCEPTIOINAL</div>
+                            <div ng-repeat="path in characs_selecteds_exceptional">- {{path}}</div>
                         </div>
                         <div class="query-subelement" ng-if="characs_selecteds_exclude.length > 0">
-                            <div translate>QUERY.CHARACS.T_EXCLUDE</div>
-                            <div ng-repeat="path in characs_selecteds_exclude">{{path}}</div>
+                            <div class="query-subelement-title" translate>QUERY.CHARACS.T_EXCLUDE</div>
+                            <div ng-repeat="path in characs_selecteds_exclude">- {{path}}</div>
                         </div>
                     </div>
                 </div>
