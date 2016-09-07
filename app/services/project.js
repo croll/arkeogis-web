@@ -66,6 +66,17 @@
                     silent: true
                 }).then(function(res) {
                     _.each(self.project.characs, function(charac) {
+
+                        // set parent
+                        function setRootRecurse(charac, parent) {
+                            charac.parent = parent;
+                            if (_.has(charac, 'content'))
+                                _.each(charac.content, function(subcharac) {
+                                    setRootRecurse(subcharac, charac);
+                                })
+                        }
+                        setRootRecurse(charac, null);
+
                         if (c.id == charac.id) {
                             _.merge(charac, res.data);
                         }
