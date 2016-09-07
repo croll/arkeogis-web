@@ -21,7 +21,7 @@
 
         <div layout="row" class="arkmultiselect">
             <div flex layout="column" class="arkmonoselect" ng-repeat="col in [0,1,2,3,4]">
-                <div class="arkelementselect" ng-repeat="charac in selection[col].content" ng-click="characSelect(col+1, charac)" ng-class="selection[col+1] == charac ? 'arkelementselected' : ''">
+                <div class="arkelementselect" ng-repeat="charac in selection[col].content" ng-click="characSelect(col+1, charac)" ng-class="selection[col+1] == charac ? 'arkelementselected' : ''" ng-if="!charac.hidden">
                     <md-icon ng-if="getButtonState(charac) == ''" ng-click="toggleButton(charac)" class="arktributton">check_box_outline_blank</md-icon>
                     <md-icon ng-if="getButtonState(charac) == '+'" ng-click="toggleButton(charac)" class="arktributton">check_box</md-icon>
                     <md-icon ng-if="getButtonState(charac) == '!'" ng-click="toggleButton(charac)" class="arktributton">new_releases</md-icon>
