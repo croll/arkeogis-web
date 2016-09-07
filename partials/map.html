@@ -73,37 +73,8 @@
             </div>
 
             <div>
-                <div>
-                    <ark-menu-item ng-model="query.centroid" ark-item="menuCentroid"></ark-menu-item>
-                    <ark-menu-item ng-model="query.knowledge" ark-item="menuKnowledge"></ark-menu-item>
-                    <ark-menu-item ng-model="query.occupation" ark-item="menuOccupation"></ark-menu-item>
-                </div>
-
-                <div>
-                    <ark-menu-item ng-model="query.zone" ark-item="menuZone"></ark-menu-item>
-                </div>
-
-                <div ng-repeat="menuDatabase in menuDatabases">
-                    <ark-menu-item ng-model="query.database" ark-item="menuDatabase"></ark-menu-item>
-                </div>
-
-                <div ng-repeat="menuChronology in menuChronologies">
-                    <ark-menu-item ng-model="query.chronology" ark-item="menuChronology"></ark-menu-item>
-                </div>
-
-                <div ng-repeat="characMenu in menuCharacs">
-                    <ark-menu-item ng-model="query.charac" ark-item="characMenu"></ark-menu-item>
-                </div>
-
-            </div>
-            <!-- latest div for menus -->
-
-            <div>
-                <md-button ng-click="showMap()">
-                    <span translate>MAP.BUTTON_DISPLAYMAP.T_TITLE</span>
-                </md-button>
                 <md-button ng-click="showMap2()">
-                    <span translate>MAP.BUTTON_DISPLAYMAP.T_TITLE</span> 2
+                    <span translate>MAP.BUTTON_DISPLAYMAP.T_TITLE</span>
                 </md-button>
             </div>
         </md-content>
