@@ -1,6 +1,6 @@
-<md-dialog class="dialog-areachooser" aria-label="Area Chooser..." ng-cloak>
+<md-dialog class="dialog-areachooser" aria-label="Area Chooser..." ng-cloak flex="60">
 
-    <md-toolbar layout-padding id='arkeo-databaseschooser-toolbar' class="md-primary md-hue-3">
+    <md-toolbar layout-padding id='arkeo-areachooser-toolbar' class="md-primary md-hue-3">
         <div class="md-toolbar-tools">
             <h3>
                 <span translate>QUERY_AREA.DIALOG.T_TITLE</span> <span ark-get-translation ark-translations="arbo.name"></span>
@@ -14,44 +14,59 @@
 
         <h4 translate>QUERY_AREA.DIALOG.T_INTRO</h4>
 
-        <div class='title-1' translate>QUERY_AREA.DIALOG.T_CHOOSETOOL</div>
+        <div class='title-1' translate>QUERY_AREA.DIALOG.T_CHOOSETOOL</div><br />
         <md-radio-group ng-model="area.type">
-            <md-radio-button value="map" aria-label=""><span translate>QUERY_AREA.RADIOBUTTON_ALLMAP</span></md-radio-button>
-            <md-radio-button value="rect" aria-label=""><span translate>QUERY_AREA.RADIOBUTTON_RECT</span></md-radio-button>
-            <md-radio-button value="disc" aria-label=""><span translate>QUERY_AREA.RADIOBUTTON_DISC</span></md-radio-button>
-            <md-radio-button value="free" aria-label=""><span translate>QUERY_AREA.RADIOBUTTON_FREE</span></md-radio-button>
-            <md-radio-button value="custom" aria-label=""><span translate>QUERY_AREA.RADIOBUTTON_CUSTOM</span></md-radio-button>
-            <table>
+            <md-radio-button value="map" aria-label=""><span translate>QUERY_AREA.RADIOBUTTON.T_ALLMAP</span></md-radio-button>
+            <md-radio-button value="rect" aria-label=""><span translate>QUERY_AREA.RADIOBUTTON.T_RECT</span></md-radio-button>
+            <md-radio-button value="disc" aria-label=""><span translate>QUERY_AREA.RADIOBUTTON.T_DISC</span></md-radio-button>
+            <md-radio-button value="free" aria-label=""><span translate>QUERY_AREA.RADIOBUTTON.T_FREE</span></md-radio-button>
+            <md-radio-button value="custom" aria-label=""><span translate>QUERY_AREA.RADIOBUTTON.T_CUSTOM</span></md-radio-button>
+            <table ng-show="area.type == 'custom'">
                 <tr>
-                    <th>QUERY_AREA.CUSTOM_LAT.T_DEG</th>
-                    <th>QUERY_AREA.CUSTOM_LAT.T_MIN</th>
-                    <th>QUERY_AREA.CUSTOM_LAT.T_SEC</th>
-                    <th>QUERY_AREA.CUSTOM_LAT.T_OR</th>
-                    <th>QUERY_AREA.CUSTOM_LAT.T_NUMERIC</th>
+                    <th colspan="5" translate>QUERY_AREA.CUSTOM_LAT.T_TITLE</th>
                 </tr>
                 <tr>
-                    <td><input type="number" step="1" ng-model="area.lat.deg"></input></td>
-                    <td><input type="number" step="1" ng-model="area.lat.min"></input></td>
-                    <td><input type="number" step="1" ng-model="area.lat.sec"></input></td>
+                    <th translate>QUERY_AREA.CUSTOM_LAT.T_DEG</th>
+                    <th translate>QUERY_AREA.CUSTOM_LAT.T_MIN</th>
+                    <th translate>QUERY_AREA.CUSTOM_LAT.T_SEC</th>
+                    <th translate>QUERY_AREA.CUSTOM_LAT.T_OR</th>
+                    <th translate>QUERY_AREA.CUSTOM_LAT.T_NUMERIC</th>
+                </tr>
+                <tr>
+                    <td><input type="number" step="1" ng-model="area.lat.deg" ng-change="toDecimal_lat()"></input></td>
+                    <td><input type="number" step="1" ng-model="area.lat.min" ng-change="toDecimal_lat()"></input></td>
+                    <td><input type="number" step="1" ng-model="area.lat.sec" ng-change="toDecimal_lat()"></input></td>
                     <td></td>
-                    <th><input type="number" step="0.001" ng-model="area.lat.numeric"></input></th>
+                    <th><input type="number" step="0.001" ng-model="area.lat.numeric" ng-change="fromDecimal_lat()"></input></th>
                 </tr>
                 <tr>
-                    <th>QUERY_AREA.CUSTOM_LNG.T_DEG</th>
-                    <th>QUERY_AREA.CUSTOM_LNG.T_MIN</th>
-                    <th>QUERY_AREA.CUSTOM_LNG.T_SEC</th>
-                    <th>QUERY_AREA.CUSTOM_LNG.T_OR</th>
-                    <th>QUERY_AREA.CUSTOM_LNG.T_NUMERIC</th>
+                    <th colspan="5" translate>QUERY_AREA.CUSTOM_LNG.T_TITLE</th>
                 </tr>
                 <tr>
-                    <td><input type="number" step="1" ng-model="area.lng.deg"></input></td>
-                    <td><input type="number" step="1" ng-model="area.lng.min"></input></td>
-                    <td><input type="number" step="1" ng-model="area.lng.sec"></input></td>
+                    <th translate>QUERY_AREA.CUSTOM_LNG.T_DEG</th>
+                    <th translate>QUERY_AREA.CUSTOM_LNG.T_MIN</th>
+                    <th translate>QUERY_AREA.CUSTOM_LNG.T_SEC</th>
+                    <th translate>QUERY_AREA.CUSTOM_LNG.T_OR</th>
+                    <th translate>QUERY_AREA.CUSTOM_LNG.T_NUMERIC</th>
+                </tr>
+                <tr>
+                    <td><input type="number" step="1" ng-model="area.lng.deg" ng-change="toDecimal_lng()"></input></td>
+                    <td><input type="number" step="1" ng-model="area.lng.min" ng-change="toDecimal_lng()"></input></td>
+                    <td><input type="number" step="1" ng-model="area.lng.sec" ng-change="toDecimal_lng()"></input></td>
                     <td></td>
-                    <th><input type="number" step="0.001" ng-model="area.lng.numeric"></input></th>
+                    <th><input type="number" step="0.001" ng-model="area.lng.numeric" ng-change="fromDecimal_lng()"></input></th>
+                </tr>
+                <tr>
+                    <th colspan="5" translate>QUERY_AREA.CUSTOM_RADIUS.T_TITLE</th>
+                </tr>
+                <tr>
+                    <td colspan="5"><span translate>QUERY_AREA.CUSTOM_RADIUS.T_RADIUSOF</span> <input type="number" step="1" ng-model="area.radius"></input> <span translate>QUERY_AREA.CUSTOM_RADIUS.T_FROMCENTER</span></td>
                 </tr>
             </table>
         </md-radio-group>
+
+        <br /><br />
+        <div class="querywin-footer"><b translate>QUERY_AREA.DIALOG.T_FOOTER_BOLD</b><span translate>QUERY_AREA.DIALOG.T_FOOTER_TEXT1</span><span translate>QUERY_AREA.DIALOG.T_FOOTER_TEXT2</span></div>
 
     </md-dialog-content>
 

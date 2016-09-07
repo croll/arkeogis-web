@@ -574,12 +574,69 @@
 		function showAreaChooserDialog(params) {
 			$mdDialog.show({
 					controller: function($scope, $mdDialog, arkeoService) {
-						$scope.selected_area = params.area;
-						$scope.area = { type: 'free', };
 
 						$scope.hide = function() {
 							$mdDialog.hide();
 						};
+
+						$scope.toDecimal_lat = function() {
+							$scope.area.lat.numeric = Math.round(toDecimal($scope.area.lat.deg,
+																		   $scope.area.lat.min,
+																		   $scope.area.lat.sec)*1000)/1000;
+						}
+
+						$scope.toDecimal_lng = function() {
+							$scope.area.lng.numeric = Math.round(toDecimal($scope.area.lng.deg,
+																$scope.area.lng.min,
+																$scope.area.lng.sec)*1000)/1000;
+						}
+
+						$scope.fromDecimal_lat = function() {
+							var r = fromDecimal($scope.area.lat.numeric);
+							$scope.area.lat.deg=r.d;
+							$scope.area.lat.min=r.m;
+							$scope.area.lat.sec=Math.round(r.s);
+						}
+
+						$scope.fromDecimal_lng = function() {
+							var r = fromDecimal($scope.area.lng.numeric);
+							$scope.area.lng.deg=r.d;
+							$scope.area.lng.min=r.m;
+							$scope.area.lng.sec=Math.round(r.s);
+						}
+
+						function toDecimal(d, m, s) {
+							return Math.sign(d) * (Math.abs(d) + (m / 60.0) + (s / 3600.0));
+						}
+
+						function fromDecimal(dd) {
+							var r={};
+							r.d = Math.floor(dd);  // Truncate the decimals
+							var t1 = (dd - r.d) * 60;
+							r.m = Math.floor(t1);
+							r.s = (t1 - r.m) * 60;
+							return r;
+						}
+
+						function init() {
+							if (angular.isObject(params.area) && angular.isObject(params.area.lat) && angular.isObject(params.area.lng)) {
+								if (angular.isNumber($scope.area.lat.deg) && angular.isNumber($scope.area.lat.min) && angular.isNumber($scope.area.lat.sec)
+									&& angular.isNumber($scope.area.lng.deg) && angular.isNumber($scope.area.lng.min) && angular.isNumber($scope.area.lng.sec)) {
+										$scope.area = params.area;
+										$scope.fromDecimal_lat();
+										$scope.fromDecimal_lng();
+								} else if (angular.isNumber($scope.area.lat.numeric) && angular.isNumber($scope.area.lng.numeric)) {
+									$scope.area = params.area;
+									$scope.toDecimal_lat();
+									$scope.toDecimal_lng();
+								} else {
+									$scope.area = { type: 'free', lat: {}, lng: {}};
+								}
+							} else {
+								$scope.area = { type: 'free', lat: {}, lng: {}};
+							}
+						}
+						init();
 
 					},
 					templateUrl: 'partials/query/areachooser.html',
