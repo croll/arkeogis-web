@@ -865,6 +865,9 @@
 		"FIELD_START_DATE": {
 			"T_LABEL": "Date de début"
 		},
+		"FORM_ERROR_NO_CHARAC_SELECTED": {
+			"T_LABEL": "#!#PROJECT_EDITOR.FORM_ERROR_NO_CHARAC_SELECTED.T_LABEL"
+		},
 		"FORM_ERROR_NO_CHRONOLOGY_SELECTED": {
 			"T_LABEL": "#!#PROJECT_EDITOR.FORM_ERROR_NO_CHRONOLOGY_SELECTED.T_LABEL"
 		},
@@ -953,6 +956,126 @@
 		},
 		"USER_SELECTION_LAYERS_NONE": {
 			"T_TITLE": "Aucune carte."
+		}
+	},
+	"QUERY": {
+		"AREA": {
+			"T_TITLE": "Emprise :"
+		},
+		"DATABASES": {
+			"T_TITLE": "Bases de données :"
+		}
+	},
+	"QUERY_AREA": {
+		"BUTTON_OK": {
+			"T_TITLE": "Ok"
+		},
+		"CUSTOM_LAT": {
+			"T_DEG": "degrés",
+			"T_MIN": "minutes",
+			"T_NUMERIC": "décimaux",
+			"T_OR": "- ou -",
+			"T_SEC": "secondes",
+			"T_TITLE": "Latitude (exemple, Strasbourg : 48°35'N  ou décimaux : 48.583)"
+		},
+		"CUSTOM_LNG": {
+			"T_DEG": "degrés",
+			"T_MIN": "minutes",
+			"T_NUMERIC": "décimaux",
+			"T_OR": "- ou -",
+			"T_SEC": "secondes",
+			"T_TITLE": "Longitude (exemple Strasbourg : 7°45'E ou décimaux : 7.750)"
+		},
+		"CUSTOM_RADIUS": {
+			"T_FROMCENTER": "km à partir du centre de la recherche.",
+			"T_RADIUSOF": "Dans un rayon de",
+			"T_TITLE": "Distance :"
+		},
+		"DIALOG": {
+			"T_CHOOSETOOL": "Outil de sélection :",
+			"T_FOOTER_BOLD": "nota :",
+			"T_FOOTER_TEXT1": "Les longitudes sont le plus souvent comptées positivement vers l'Est, par rapport à un méridien origine. Ce méridien origine peut être celui de Greenwich (méridien international), ou encore propre à la géodésie d'un pays (méridien de Paris pour la France).",
+			"T_FOOTER_TEXT2": "Chaque méridien origine est défini numériquement par sa longitude par rapport au méridien international. Le méridien de Paris est à 2° 20' 14.025\" à l'Est de celui de Greenwich (source IGN). Le méridien origine utilisé par ArkeoGIS est celui de Greenwich.",
+			"T_INTRO": "Sélection de la zone à requéter sur la carte",
+			"T_TITLE": "Emprise"
+		},
+		"RADIOBUTTON": {
+			"T_ALLMAP": "Carte",
+			"T_CUSTOM": "Avancée :",
+			"T_DISC": "Disque",
+			"T_FREE": "Libre",
+			"T_RECT": "Rectangle"
+		}
+	},
+	"QUERY_DATABASES": {
+		"BUTTON_OK": {
+			"T_TITLE": "Ok"
+		},
+		"DIALOG": {
+			"T_INTRO": "Sélection des base de données à requéter sur la carte",
+			"T_TITLE": "Base de données"
+		},
+		"LIST_AUTHOR": {
+			"T_LABEL": "Autheur(s)"
+		},
+		"LIST_DESCRIPTION": {
+			"T_LABEL": "Description"
+		},
+		"LIST_END_DATE": {
+			"T_LABEL": "Fin"
+		},
+		"LIST_LANG": {
+			"T_LABEL": "Langues"
+		},
+		"LIST_NAME": {
+			"T_LABEL": "Nom"
+		},
+		"LIST_START_DATE": {
+			"T_LABEL": "Début"
+		}
+	},
+	"SITE_DETAILS": {
+		"CHARAC_COMMENT": {
+			"T_LABEL": "#!#SITE_DETAILS.CHARAC_COMMENT.T_LABEL"
+		},
+		"CHARAC_KNOWLEGDE_TYPE": {
+			"T_LABEL": "#!#SITE_DETAILS.CHARAC_KNOWLEGDE_TYPE.T_LABEL"
+		},
+		"FIELD_ACCURACY": {
+			"T_LABEL": "#!#SITE_DETAILS.FIELD_ACCURACY.T_LABEL"
+		},
+		"FIELD_ACCURACY_CENTROID": {
+			"T_LABEL": "#!#SITE_DETAILS.FIELD_ACCURACY_CENTROID.T_LABEL"
+		},
+		"FIELD_ACCURACY_FINE": {
+			"T_LABEL": "#!#SITE_DETAILS.FIELD_ACCURACY_FINE.T_LABEL"
+		},
+		"FIELD_CITY_NAME": {
+			"T_LABEL": "#!#SITE_DETAILS.FIELD_CITY_NAME.T_LABEL"
+		},
+		"FIELD_DATABASE": {
+			"T_LABEL_SHORT": "#!#SITE_DETAILS.FIELD_DATABASE.T_LABEL_SHORT"
+		},
+		"FIELD_ENDING_COORDINATES": {
+			"T_LABEL": "#!#SITE_DETAILS.FIELD_ENDING_COORDINATES.T_LABEL"
+		},
+		"FIELD_ENDING_PERIOD": {
+			"T_LABEL": "#!#SITE_DETAILS.FIELD_ENDING_PERIOD.T_LABEL"
+		},
+		"FIELD_OCCUPATION": {
+			"T_LABEL": "#!#SITE_DETAILS.FIELD_OCCUPATION.T_LABEL"
+		},
+		"FIELD_STARTING_PERIOD": {
+			"T_LABEL": "#!#SITE_DETAILS.FIELD_STARTING_PERIOD.T_LABEL"
+		},
+		"SITE_RANGE_END_DATE": {
+			"T_LABEL": "#!#SITE_DETAILS.SITE_RANGE_END_DATE.T_LABEL"
+		},
+		"SITE_RANGE_START_DATE": {
+			"T_LABEL": "#!#SITE_DETAILS.SITE_RANGE_START_DATE.T_LABEL"
+		},
+		"SITE_RANGE_TO": {
+			"T_LABEL": "#!#SITE_DETAILS.SITE_RANGE_TO.T_LABEL"
 		}
 	},
 	"USER": {
