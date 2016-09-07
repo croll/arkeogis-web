@@ -37,7 +37,7 @@
                     </div>
                     <div class="query-element-content">
                         <div class="query-subelement" ng-repeat="(dbtype, databases) in databases_per_type">
-                            <div class="query-subelement-title">{{dbtype | translate}}</div>
+                            <div class="query-subelement-title">{{dbtype | translate}} :</div>
                             <ul>
                                 <li ng-repeat="database in databases">- {{database.name}}</li>
                             </ul>

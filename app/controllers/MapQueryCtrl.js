@@ -33,25 +33,42 @@
 			arkeoQuery.do($scope.params);
 		};
 
+		// cache databases by id
+		var databases_by_id = null;
+		function getDatabaseById(id) {
+			if (databases_by_id == null) {
+				databases_by_id = {};
+				var databasesAll = arkeoProject.get().databases;
+				function fillCache(content) {
+					_.each(content, function(database) {
+						databases_by_id[parseInt(database.id)]=database;
+					});
+				}
+				fillCache(databasesAll);
+			}
+			return databases_by_id[parseInt(id)];
+		}
+
 		// rebuild all types of databases
 		$scope.$watchCollection('params.database', function() {
 			$scope.databases_per_type = {};
-			$scope.params.database.forEach(function(elem) {
+			$scope.params.database.forEach(function(database_id) {
+				/*
+								var db = _.find(arkeoProject.get().databases, function(_db) {
+									console.log("check: ", _db);
+									if (_db.id == database_id)
+										return _db;
+								});
+				*/
+				var db = getDatabaseById(database_id);
 				var type_tr = 'MAP.MENU_DATABASE.T_UNDEFINED';
-				switch(elem.type) {
+				switch(db.type) {
 					case 'inventory': type_tr = 'MAP.MENU_DATABASE.T_INVENTORY'; break;
 					case 'research': type_tr = 'MAP.MENU_DATABASE.T_RESEARCH'; break;
 					case 'literary-work': type_tr = 'MAP.MENU_DATABASE.T_LITERARYWORK'; break;
 				}
 				if (!(type_tr in $scope.databases_per_type))
 					$scope.databases_per_type[type_tr] = [];
-
-				var db = _.find(arkeoProject.get().databases, function(_db) {
-					console.log("check: ", _db);
-					if (_db.id == elem)
-						return _db;
-				});
-
 				$scope.databases_per_type[type_tr].push(db);
 			});
 		});
