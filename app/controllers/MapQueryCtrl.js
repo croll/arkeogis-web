@@ -484,15 +484,18 @@
 /****************************************************************************/
 
 		$scope.params = {
-			databases: [],
+			database: [],
 			characs: {},
 		};
 
+		$scope.showMap2 = function() {
+			arkeoQuery.do($scope.params);
+		};
 
 		// rebuild all types of databases
-		$scope.$watchCollection('params.databases', function() {
+		$scope.$watchCollection('params.database', function() {
 			$scope.databases_per_type = {};
-			$scope.params.databases.forEach(function(elem) {
+			$scope.params.database.forEach(function(elem) {
 				var type_tr = 'MAP.MENU_DATABASE.T_UNDEFINED';
 				switch(elem.type) {
 					case 'inventory': type_tr = 'MAP.MENU_DATABASE.T_INVENTORY'; break;
@@ -533,19 +536,19 @@
 			$mdDialog.show({
 					controller: function($scope, $mdDialog, arkeoService) {
 						$scope.databases = arkeoProject.get().databases;
-						$scope.selected_databases = params.databases;
+						$scope.selected_databases = params.database;
 
 						$scope.hide = function() {
 							$mdDialog.hide();
 						};
 
 						$scope.$watchCollection('selected_databases', function() {
-							params.databases = $scope.selected_databases.map(function(elem) { return elem.id });
+							params.database = $scope.selected_databases.map(function(elem) { return elem.id });
 						});
 
 						function init() {
 							$scope.selected_databases=[];
-							$scope.selected_databases = params.databases.map(function(id) {
+							$scope.selected_databases = params.database.map(function(id) {
 								return _.find($scope.databases, function(elem) {
 									if (elem.id == id) return elem;
 								})
@@ -825,7 +828,7 @@
 				var c=charac;
 				var path="";
 				while(angular.isObject(c)) {
-					path=c.name.fr+(path != '' ? '.'+path : '');
+					path=c.name.fr+(path != '' ? ' / '+path : '');
 					c=c.parent;
 				}
 				if (withChildrens) path+='*';
