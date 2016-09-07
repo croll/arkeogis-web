@@ -12,7 +12,7 @@
             </div>
             <div layout="row" style="font-size: 0.8em">
                 <label>
-                    <span translate>SITE_DETAILS.FIELD_Authors.T_LABEL</span>:</label>
+                    <span translate>SITE_DETAILS.FIELD_AUTHORS.T_LABEL</span>:</label>
                 <div class="name">
                     <span ng-repeat="author in site.properties.infos.authors">{{author.fullname}}</span>
                 </div>
@@ -20,16 +20,16 @@
         </div>
         <div flex="25" class="period" layout="column" layout-align="center end">
             <div translate>SITE_DETAILS.FIELD_STARTING_PERIOD.T_LABEL</div>
-            <div>{{site.properties.infos.starting_period.dates}}</div>
-            <div>
-                <span>{{site.properties.infos.ending_period.label}}</span>
+            <div ng-show="site.properties.infos.startingPeriod.startDate">{{site.properties.infos.startingPeriod.startDate}} : {{site.properties.infos.startingPeriod.endDate}}</div>
+            <div ng-show="site.properties.infos.startingPeriod.endDate">
+                <span style="background-color:#{{site.properties.infos.startingPeriod.color}}"><span ark-get-translation>{{site.properties.infos.startingPeriod.name}}</span></span>
             </div>
         </div>
         <div flex="25" class="period" layout="column" layout-align="center start">
             <div translate>SITE_DETAILS.FIELD_ENDING_PERIOD.T_LABEL</div>
-            <div>{{site.properties.infos.ending_period.dates}}</div>
-            <div>
-                <span style="background-color:#f1ac06">{{site.properties.infos.ending_period.label}}</span>
+            <div ng-show="site.properties.infos.endingPeriod.startDate">{{site.properties.infos.endingPeriod.startDate}} : {{site.properties.infos.endingPeriod.endDate}}</div>
+            <div ng-show="site.properties.infos.endingPeriod.endDate">
+                <span style="background-color:#{{site.properties.infos.endingPeriod.color}}"><span ark-get-translation>{{site.properties.infos.endingPeriod.name}}</span></span>
             </div>
         </div>
         <div flex="25"></div>
@@ -40,16 +40,16 @@
             <md-card flex layout-padding>
                 <div layout="row">
                     <label>
-                        <span translate>SITE_DETAILS.FIELD_ENDING_COORDINATES.T_LABEL</span>:</label>
+                        <span translate>SITE_DETAILS.FIELD_COORDINATES.T_LABEL</span>:</label>
                     <div>{{site.geometry.coordinates[0]}}
                         {{site.geometry.coordinates[0]}}</div>
                     <div class="altitude" ng-show="site.properties.infos.altitude != -999999">
                         <label>
-                            <span translate>SITE_DETAILS.FIELD_ENDING_PERIOD.T_LABEL</span>:</label>
+                            <span translate>SITE_DETAILS.FIELD_ALTITUDE.T_LABEL</span>:</label>
                         <span>{{site.properties.infos.altitude}}</span>
                     </div>
                 </div>
-                <div layout="row">
+                <div layout="row" ng-show="site.properties.infos.city_name">
                     <label>
                         <span translate>SITE_DETAILS.FIELD_CITY_NAME.T_LABEL</span>:</label>
                     <div>{{site.properties.infos.city_name}}</div>
@@ -58,7 +58,7 @@
                     <label>
                         <span translate>SITE_DETAILS.FIELD_ACCURACY.T_LABEL</span>:</label>
                     <div ng-show="site.properties.infos.centroid">
-                        <span translate>SITE_DETAILS.FIELD_ACCURACY_CENTROID.T_LABEL</span>:</div>
+                        <span translate>SITE_DETAILS.FIELD_ACCURACY_CENTROID.T_LABEL</span></div>
                     <div ng-hide="site.properties.infos.centroid">
                         <span translate>SITE_DETAILS.FIELD_ACCURACY_FINE.T_LABEL</span>:</div>
                     <span class="geonameid" ng-show="site.properties.infos.city_geonameid">
@@ -70,6 +70,11 @@
                         <span translate>SITE_DETAILS.FIELD_OCCUPATION.T_LABEL</span>:</label>
                     <div>{{site.properties.infos.occupation}}</div>
                 </div>
+                <div layout="row">
+                    <label>
+                        <span translate>SITE_DETAILS.FIELD_CREATION_DATE.T_LABEL</span>:</label>
+                    <div>{{site.properties.infos.created_at | date:'short'}}</div>
+                </div>
             </md-card>
         </div>
 
@@ -77,20 +82,19 @@
             <md-card flex layout-padding>
                 <md-toolbar class="md-hue-2">
                     <div class="name">
-                        -450 -> -300 à 200 -> 2000
-                        <span translate>SITE_DETAILS.SITE_RANGE_START_DATE.T_LABEL</span>:
+                        <span translate>SITE_DETAILS.SITE_RANGE_STARTING_PERIOD.T_LABEL</span>:
                         <span>{{srange.start_date1}}
                             :
                             {{srange.start_date2}}</span>
-                        <span translate>SITE_DETAILS.SITE_RANGE_TO.T_LABEL</span>:
-                        <span translate>SITE_DETAILS.SITE_RANGE_END_DATE.T_LABEL</span>:
+                        <span translate>SITE_DETAILS.SITE_RANGE_TO.T_LABEL</span>&nbsp;
+                        <span translate>SITE_DETAILS.SITE_RANGE_ENDING_PERIOD.T_LABEL</span>:
                         <span>{{srange.end_date1}}
                             :
                             {{srange.end_date2}}</span>
                     </div>
                     <!-- <div class="exceptional">Site exceptionnel</div> -->
                 </md-toolbar>
-                <div ng-repeat="charac_section in srange.characs_sections">
+                <div ng-repeat="charac_section in srange.charac_sections">
                     <md-toolbar style="min-height: 40px">
                         {{charac_section.name}}
                     </md-toolbar>
@@ -108,14 +112,14 @@
                         </div>
                         <div class="info" layout="row" ng-hide="hideComments">
                             <label>
-                                <span translate>SITE_DETAILS.CHARAC_BIBLIOGRAPHY_LABEL</span>:</label>
+                                <span translate>SITE_DETAILS.CHARAC_BIBLIOGRAPHY.T_LABEL</span>:</label>
                             <div>{{charac.bibliography}}</div>
                         </div>
                     </section>
                     <md-divider></md-divider>
                     <div class="comments">
-                        <a ng-click="hideComments = !hideComments" ng-hide="hideComments">Masquer descriptions et commentaires</a>
-                        <a ng-click="hideComments = !hideComments" ng-show="hideComments">Montrer descriptions et commentaires</a>
+                        <a ng-click="hideComments = !hideComments" ng-hide="hideComments"><span translate>SITE_DETAILS.INTERFACE_HIDE_DESCRIPTIONS_AND_LABELS.T_LABEL</span></a>
+                        <a ng-click="hideComments = !hideComments" ng-show="hideComments"><span translate>SITE_DETAILS.INTERFACE_SHOW_DESCRIPTIONS_AND_LABELS.T_LABEL</span></a>
                     </div>
                 </md-card>
             </div>
