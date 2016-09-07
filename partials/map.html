@@ -102,6 +102,9 @@
                 <md-button ng-click="showMap()">
                     <span translate>MAP.BUTTON_DISPLAYMAP.T_TITLE</span>
                 </md-button>
+                <md-button ng-click="showMap2()">
+                    <span translate>MAP.BUTTON_DISPLAYMAP.T_TITLE</span> 2
+                </md-button>
             </div>
         </md-content>
     </md-sidenav>
@@ -114,65 +117,9 @@
         <ark-leaflet height="mapHeight"></ark-leaflet>
     </md-content>
 
-    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="sidenav-right" style='z-index: 1000'>
-        <md-toolbar class="md-theme-light">
-            <h1 class="md-toolbar-tools">Récapitulatif :</h1>
-        </md-toolbar>
-        <md-content layout-padding ng-controller="MapQueryCtrl">
-            <div class="query">
-                <div>{{query.centroid}}</div>
-                <div>{{query.database}}</div>
-                <div>{{query.charac}}</div>
-                <div>{{query.chronology}}</div>
-                <div>{{query.knowledge}}</div>
-                <div ng-hide="isEmptyObject(query.centroid)">
-                    <span translate>Centroïde</span>
-                    :
-                    <span ng-repeat="o in menutolist(query.centroid, menuCentroid.menu)">{{ $first ? '' : ', ' }}
-                        <md-button ng-click="removeFromQuery('centroid', o.v)">
-                            <md-icon>delete</md-icon>
-                        </md-button>
-                        <span translate>{{ o.text }}</span>
-                    </span>
-                </div>
-                <div ng-hide="isEmptyObject(query.knowledge)">
-                    <span translate>Connaisance</span>
-                    :
-                    <span ng-repeat="o in menutolist(query.knowledge, menuKnowledge.menu)">{{ $first ? '' : ', ' }}
-                        <md-button ng-click="removeFromQuery('knowledge', o.v)">
-                            <md-icon>delete</md-icon>
-                        </md-button>
-                        <span translate>{{ o.text }}</span>
-                    </span>
-                </div>
-                <div ng-hide="isEmptyObject(query.occupation)">
-                    <span translate>Connaisance</span>
-                    :
-                    <span ng-repeat="o in menutolist(query.occupation, menuOccupation.menu)">{{ $first ? '' : ', ' }}
-                        <md-button ng-click="removeFromQuery('occupation', o.v)">
-                            <md-icon>delete</md-icon>
-                        </md-button>
-                        <span translate>{{ o.text }}</span>
-                    </span>
-                </div>
-                <div ng-show="query.searchzone != undefined">
-                    Zone de recherche :
-                    <span ng-repeat="o in query.searchzone">{{ $first ? '' : ', ' }}
-                        <md-button ng-click="removeFromQuery('searchzone', o.v)">
-                            <md-icon>delete</md-icon>
-                        </md-button>
-                        {{ o.text }}</span>
-                </div>
-            </div>
-
-            <hr/>
-
-            <div>{{query}}</div>
-        </md-content>
-    </md-sidenav>
 
     <div style="position: absolute; left: 10px; top: 10px; width: 64px; height: 48px; background: white">
-        <md-button ng-click="open_sides()">
+        <md-button ng-click="open_sideleft()">
             <md-icon>search</md-icon>
         </md-button>
     </div>
