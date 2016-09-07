@@ -650,6 +650,94 @@
 				});
 		};
 
+		$scope.showCharacChooserDialog = function() {
+			showCharacChooserDialog($scope.params);
+		};
+
+		function showCharacChooserDialog(params) {
+			$mdDialog.show({
+					controller: function($scope, $mdDialog, arkeoService) {
+						$scope.characs = arkeoProject.get().characs;
+						$scope.selection = [{content: $scope.characs},null,null,null,null];
+						$scope.selected_characs = params.characs;
+
+						$scope.hide = function() {
+							$mdDialog.hide();
+						};
+
+/*
+						$scope.$watchCollection('selected_characs', function() {
+							params.characs = $scope.selected_characs.map(function(elem) { return elem.id });
+						});
+*/
+
+						function setCharacSelect(charac, sel) {
+							if (sel != '')
+								$scope.selected_characs[charac.id]=sel;
+							else {
+								_.unset($scope.selected_characs, charac.id);
+							}
+
+							if (_.has(charac, 'content') && charac.content.length > 0) {
+								charac.content.forEach(function(subcharac) {
+									setCharacSelect(subcharac, sel);
+								})
+							}
+						}
+
+						$scope.toggleButton = function(charac) {
+							if (_.has($scope.selected_characs, charac.id)) {
+								var sel = $scope.selected_characs[charac.id];
+								if (sel == '+')
+									setCharacSelect(charac, '!');
+								else if (sel == '!')
+									setCharacSelect(charac, '-');
+								else if (sel == '-')
+									setCharacSelect(charac, '');
+							} else {
+								setCharacSelect(charac, '+');
+							}
+						};
+
+						$scope.getButtonState = function(charac) {
+							if (_.has($scope.selected_characs, charac.id)) {
+								return $scope.selected_characs[charac.id];
+							} else {
+								return '';
+							}
+						};
+
+						$scope.haveSubContent = function(charac) {
+							if (_.has(charac, 'content') && charac.content.length > 0)
+								return true;
+							else
+								return false;
+						};
+
+						$scope.characSelect = function(col, charac) {
+							$scope.selection[col]=charac;
+							for (var i=col+1; i<5; i++) {
+								$scope.selection[i]=null;
+							}
+						};
+
+						function init() {
+							if (!angular.isObject($scope.selected_characs))
+								$scope.selected_characs={};
+							console.log("scope.characs : ", $scope.characs);
+						}
+						init();
+					},
+					templateUrl: 'partials/query/characschooser.html',
+					parent: angular.element(document.body),
+					clickOutsideToClose: true,
+				})
+				.then(function(answer) {
+					$scope.status = 'You said the information was "' + answer + '".';
+				}, function() {
+					$scope.status = 'You cancelled the dialog.';
+				});
+		};
 
 
 	}]);

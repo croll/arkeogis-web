@@ -1,0 +1,45 @@
+<md-dialog class="dialog-characchooser" aria-label="Charac Chooser..." ng-cloak flex="60">
+
+    <md-toolbar layout-padding id='arkeo-characschooser-toolbar' class="md-primary md-hue-3">
+        <div class="md-toolbar-tools">
+            <h3>
+                <span translate>QUERY_CHARAC.DIALOG.T_TITLE</span>
+            </h3>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="hide()"><md-icon>close</md-icon></md-button>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+
+        <h4 translate>QUERY_CHARAC.DIALOG.T_INTRO</h4>
+
+        <div class='title-1' translate>QUERY_CHARAC.DIALOG.T_CHOOSETOOL</div><br />
+
+        <!-- radio_button_unchecked ; add_circle_outline ; block -->
+        <!-- radio_button_unchecked ; new_releases -->
+
+        <div layout="row" class="arkmultiselect">
+            <div flex layout="column" class="arkmonoselect" ng-repeat="col in [0,1,2,3,4]">
+                <div class="arkelementselect" ng-repeat="charac in selection[col].content" ng-click="characSelect(col+1, charac)" ng-class="selection[col+1] == charac ? 'arkelementselected' : ''">
+                    <md-icon ng-if="getButtonState(charac) == ''" ng-click="toggleButton(charac)" class="arktributton">check_box_outline_blank</md-icon>
+                    <md-icon ng-if="getButtonState(charac) == '+'" ng-click="toggleButton(charac)" class="arktributton">check_box</md-icon>
+                    <md-icon ng-if="getButtonState(charac) == '!'" ng-click="toggleButton(charac)" class="arktributton">new_releases</md-icon>
+                    <md-icon ng-if="getButtonState(charac) == '-'" ng-click="toggleButton(charac)" class="arktributton">block</md-icon>
+                    <span class="arkelementselecttext" ark-get-translation ark-translations="charac.name"></span>
+                    <md-icon ng-if="haveSubContent(charac)" class="arksubselect">chevron_right</md-icon>
+                </div>
+            </div>
+        </div>
+
+
+        <br /><br />
+        <div class="querywin-footer"><b translate>QUERY_CHARAC.DIALOG.T_FOOTER_BOLD</b><span translate>QUERY_CHARAC.DIALOG.T_FOOTER_TEXT1</span><span translate>QUERY_CHARAC.DIALOG.T_FOOTER_TEXT2</span></div>
+
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+        <md-button class="md-raised md-primary" type="submit" ng-click="hide()"><span translate>QUERY_CHARAC.BUTTON_OK.T_TITLE</span></md-button>
+    </md-dialog-actions>
+
+</md-dialog>
