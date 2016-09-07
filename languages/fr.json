@@ -1097,6 +1097,59 @@
 			"T_LABEL": "#!#SITE_DETAILS.SITE_RANGE_TO.T_LABEL"
 		}
 	},
+	"SITE_DETAILS": {
+		"CHARAC_COMMENT": {
+			"T_LABEL": "Commentaire"
+		},
+		"CHARAC_KNOWLEGDE_TYPE": {
+			"T_LABEL": "État des connaissances"
+		},
+		"FIELD_ACCURACY": {
+			"T_LABEL": "Précision"
+		},
+		"FIELD_ACCURACY_CENTROID": {
+			"T_LABEL": "Centroide"
+		},
+		"FIELD_ACCURACY_FINE": {
+			"T_LABEL": "Fine"
+		},
+		"FIELD_ALTITUDE": {
+			"T_LABEL": "Altitude"
+		},
+		"FIELD_AUTHORS": {
+			"T_LABEL": "Auteurs"
+		},
+		"FIELD_CITY_NAME": {
+			"T_LABEL": "Nom de la commune"
+		},
+		"FIELD_COORDINATES": {
+			"T_LABEL": "Coordonnées"
+		},
+		"FIELD_CREATION_DATE": {
+			"T_LABEL": "Date de création de la fiche"
+		},
+		"FIELD_DATABASE": {
+			"T_LABEL_SHORT": "Bdd"
+		},
+		"FIELD_ENDING_PERIOD": {
+			"T_LABEL": "Période de fin"
+		},
+		"FIELD_OCCUPATION": {
+			"T_LABEL": "Occupation"
+		},
+		"FIELD_STARTING_PERIOD": {
+			"T_LABEL": "Période de début"
+		},
+		"SITE_RANGE_END_DATE": {
+			"T_LABEL": "Date de fin"
+		},
+		"SITE_RANGE_START_DATE": {
+			"T_LABEL": "Date de début"
+		},
+		"SITE_RANGE_TO": {
+			"T_LABEL": "jusqu'à"
+		}
+	},
 	"USER": {
 		"BUTTON_CANCEL": {
 			"T_TITLE": "Annuler"
