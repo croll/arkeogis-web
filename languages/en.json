@@ -683,54 +683,11 @@
 		"BUTTON_DISPLAYMAP": {
 			"T_TITLE": "Display the map"
 		},
-		"MENU_CENTROID": {
-			"T_NO": "No",
-			"T_TITLE": "Centroid",
-			"T_YES": "Yes"
-		},
-		"MENU_CHARACS": {
-			"T_TITLE": "Characteristics"
-		},
-		"MENU_CHRONO": {
-			"T_CHRONOLOGY": "Period",
-			"T_MANUAL": "Limits' definition",
-			"T_TITLE": "Choice by period(s)"
-		},
 		"MENU_DATABASE": {
 			"T_INVENTORY": "Inventory",
 			"T_LITERARYWORK": "Literary work",
 			"T_RESEARCH": "Research",
-			"T_TITLE": "Databases",
 			"T_UNDEFINED": "Undefined"
-		},
-		"MENU_KNOWLEDGE": {
-			"T_DIG": "Excavated",
-			"T_LITERATURE": "Literature",
-			"T_NOTDOCUMENTED": "Not documented",
-			"T_PROSPECTED_AERIAL": "Airborne Survey",
-			"T_PROSPECTED_PEDESTRIAN": "Foot Survey",
-			"T_SURVEYED": "Probed",
-			"T_TITLE": "State of knowledge"
-		},
-		"MENU_OCCUPATION": {
-			"T_CONTINUOUS": "Continuous (several consecutive periods)",
-			"T_MULTIPLE": "Multiple (several independant periods)",
-			"T_NOTDOCUMENTED": "Not documented",
-			"T_SINGLE": "Single",
-			"T_TITLE": "Occupation"
-		},
-		"MENU_PERIOD": {
-			"T_CHRONOLOGY": "Choice by period",
-			"T_MANUAL": "Limits' definition",
-			"T_TITLE": "Period"
-		},
-		"MENU_SEARCHZONE": {
-			"T_COORDINATES": "Geographical coordinates...",
-			"T_DISC": "Disc...",
-			"T_MAP": "Map",
-			"T_POLYGON": "Free...",
-			"T_RECT": "Rectangle...",
-			"T_TITLE": "Geographical area"
 		}
 	},
 	"MAPEDITOR": {
@@ -969,6 +926,8 @@
 			"T_TITLE": "#!#QUERY.CHARACS.T_TITLE"
 		},
 		"CHRONOLOGIES": {
+			"T_EXCLUDE": "#!#QUERY.CHRONOLOGIES.T_EXCLUDE",
+			"T_INCLUDE": "#!#QUERY.CHRONOLOGIES.T_INCLUDE",
 			"T_TITLE": "#!#QUERY.CHRONOLOGIES.T_TITLE"
 		},
 		"DATABASES": {
@@ -976,6 +935,11 @@
 		}
 	},
 	"QUERY_AREA": {
+		"BUTTON": {
+			"T_CANCEL_DRAW": "#!#QUERY_AREA.BUTTON.T_CANCEL_DRAW",
+			"T_REDO": "#!#QUERY_AREA.BUTTON.T_REDO",
+			"T_VALID": "#!#QUERY_AREA.BUTTON.T_VALID"
+		},
 		"BUTTON_DRAW": {
 			"T_TITLE": "#!#QUERY_AREA.BUTTON_DRAW.T_TITLE"
 		},
@@ -1011,6 +975,18 @@
 			"T_FOOTER_TEXT2": "#!#QUERY_AREA.DIALOG.T_FOOTER_TEXT2",
 			"T_INTRO": "#!#QUERY_AREA.DIALOG.T_INTRO",
 			"T_TITLE": "#!#QUERY_AREA.DIALOG.T_TITLE"
+		},
+		"ERROR_CUSTOM_AREA": {
+			"T_MISSING_INFORMATIONS": "#!#QUERY_AREA.ERROR_CUSTOM_AREA.T_MISSING_INFORMATIONS"
+		},
+		"LABEL_LATITUDE": {
+			"T_SHORT": "#!#QUERY_AREA.LABEL_LATITUDE.T_SHORT"
+		},
+		"LABEL_LONGITUDE": {
+			"T_SHORT": "#!#QUERY_AREA.LABEL_LONGITUDE.T_SHORT"
+		},
+		"LABEL_RADIUS": {
+			"T_SHORT": "#!#QUERY_AREA.LABEL_RADIUS.T_SHORT"
 		},
 		"RADIOBUTTON": {
 			"T_ALLMAP": "#!#QUERY_AREA.RADIOBUTTON.T_ALLMAP",
