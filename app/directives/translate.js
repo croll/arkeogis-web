@@ -174,6 +174,8 @@
                 return src['en'];
             else if ('fr' in src)
                 return src['fr'];
+            else if ('D' in src)
+                return src['D'];
             else return "NO TRANSLATION AVAILABLE";
         }
     });
