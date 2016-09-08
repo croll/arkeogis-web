@@ -65,7 +65,18 @@
                 promises.push($http.get('/api/characs/' + c.id + '?project_id=' + self.project.id, {
                     silent: true
                 }).then(function(res) {
-                    _.findKey(self.project.characs, function(charac) {
+                    _.each(self.project.characs, function(charac) {
+
+                        // set parent
+                        function setRootRecurse(charac, parent) {
+                            charac.parent = parent;
+                            if (_.has(charac, 'content'))
+                                _.each(charac.content, function(subcharac) {
+                                    setRootRecurse(subcharac, charac);
+                                })
+                        }
+                        setRootRecurse(charac, null);
+
                         if (c.id == charac.id) {
                             _.merge(charac, res.data);
                         }
@@ -79,7 +90,7 @@
                 promises.push($http.get('/api/chronologies/' + c.id, {
                     silent: true
                 }).then(function(res) {
-                    _.findKey(self.project.chronologies, function(chrono) {
+                    _.each(self.project.chronologies, function(chrono) {
                         if (c.id == chrono.id) {
                             _.merge(chrono, res.data);
                             indexChronologyColors(chrono);
@@ -92,7 +103,7 @@
                 promises.push($http.get('/api/database/' + d.id, {
                     silent: true
                 }).then(function(res) {
-                    _.findKey(self.project.databases, function(db) {
+                    _.each(self.project.databases, function(db) {
                         if (res.data.translations) {
                             _merge(res.data, res.data.translations)
                             delete res.data.translations;
@@ -100,6 +111,9 @@
                         if (d.id == db.id) {
                             _.merge(db, res.data);
                         }
+
+                        // make a string of authors array of objects
+                        db.author = Array.isArray(db.authors) ? db.authors.map(function(elem){ return elem.fullname }).join(",") : '';
                     });
                 }));
             });
