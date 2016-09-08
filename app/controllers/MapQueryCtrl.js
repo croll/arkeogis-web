@@ -22,8 +22,8 @@
 (function() {
 
 	'use strict';
-	ArkeoGIS.controller('MapQueryCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', '$timeout', '$mdDialog', '$translate', 'arkeoService', 'arkeoProject', 'arkeoQuery', 'arkeoMap',
-	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, $timeout, $mdDialog, $translate, arkeoService, arkeoProject, arkeoQuery, arkeoMap) {
+	ArkeoGIS.controller('MapQueryCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', '$timeout', '$mdDialog', '$translate', '$filter', 'arkeoService', 'arkeoProject', 'arkeoQuery', 'arkeoMap',
+	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, $timeout, $mdDialog, $translate, $filter, arkeoService, arkeoProject, arkeoQuery, arkeoMap) {
             /*
              * menus init : buttons styles
              */
@@ -529,7 +529,7 @@
 				var c=charac;
 				var path="";
 				while(angular.isObject(c)) {
-					path=c.name.fr+(path != '' ? ' / '+path : '');
+					path=$filter('arkTranslate')(c.name)+(path != '' ? ' / '+path : '');
 					c=c.parent;
 				}
 				if (withChildrens) path+='*';
