@@ -35,7 +35,7 @@
 			database: [],
 			characs: {},
 			chronologies: {},
-			area: {type: 'custom', lat: null, lng: null, radius: null, geojson: null}
+			area: {type: 'custom', lat: null, lng: null, radius: null, geojson: null, layer: null}
 		};
 
 		$scope.showMap2 = function() {
@@ -155,7 +155,7 @@
 
 		$scope.showAreaChooserDialog = function(params) {
 			$mdDialog.show({
-					controller: function($scope, $mdDialog, arkeoService) {
+					controller: function($scope, $mdDialog, $mdSidenav, arkeoService) {
 
 				        arkeoMap.getMap().then(function(map) {
 
@@ -190,7 +190,8 @@
 
 				            $scope.initDraw = function() {
 				                drawnItems.removeLayer(layerDraw);
-				                switch ($scope.area) {
+				                $scope.editMode = true;
+				                switch ($scope.area.type) {
 									case 'rect':
 				                		new L.Draw.Rectangle(map, {shapeOptions: shapeOptions}).enable();
 									break;
@@ -202,7 +203,8 @@
 										new L.Draw.Polygon(map, {shapeOptions: shapeOptions, allowIntersection: false, showArea: true}).enable();
 									break;
 								}
-				                $scope.editMode = true;
+								$scope.hide();
+								$mdSidenav('sidenav-left').toggle();
 				            }
 
 				            $scope.zoneTypeChanged = function() {
@@ -220,7 +222,26 @@
 				        });
 
 						$scope.hide= function() {
-							$mdDialog.hide();
+							console.log("ICICI");
+							console.log($scope.area.lat);
+							if ($scope.area.type == 'custom') {
+								var score = 0;
+								if ($scope.area.lat != "" && $scope.area.lat != null) {
+									score++;
+								}
+								if ($scope.area.lng!="" && $scope.area.lng != null) {
+									score++;
+								}
+								if ($scope.area.radius!="" && $scope.area.radius != null) {
+									score++;
+								}
+								if (score < 3) {
+									$scope.showAreaCustomError = true;
+									return
+								}
+								console.log(score);
+								$mdDialog.hide();
+							}
 						};
 
 						$scope.toDecimal_lat = function() {

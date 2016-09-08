@@ -25,11 +25,22 @@
                         <div class="query-element-show-icon noselect"><md-icon ng-click="toggle_query_element('area')">play_arrow</md-icon></div>
                     </div>
                     <div class="query-element-content">
-                        <span translate ng-show="params.area.type == 'map' || ''">QUERY_AREA.RADIOBUTTON.T_ALLMAP</span>
-                        <span translate ng-show="params.area.type == 'rect'">QUERY_AREA.RADIOBUTTON.T_RECT</span>
-                        <span translate ng-show="params.area.type == 'disc'">QUERY_AREA.RADIOBUTTON.T_DISC</span>
-                        <span translate ng-show="params.area.type == 'free'">QUERY_AREA.RADIOBUTTON.T_FREE</span>
-                        <span translate ng-show="params.area.type == 'custom'">QUERY_AREA.RADIOBUTTON.T_CUSTOM</span>
+                        <div translate ng-show="params.area.type == 'map' || ''">QUERY_AREA.RADIOBUTTON.T_ALLMAP</div>
+                        <div translate ng-show="params.area.type == 'rect'">QUERY_AREA.RADIOBUTTON.T_RECT</div>
+                        <div translate ng-show="params.area.type == 'disc'">QUERY_AREA.RADIOBUTTON.T_DISC</div>
+                        <div translate ng-show="params.area.type == 'free'">QUERY_AREA.RADIOBUTTON.T_FREE</div>
+                        <div ng-show="params.area.type == 'custom'">
+                            <div translate>QUERY_AREA.RADIOBUTTON.T_CUSTOM</div>
+                            <div ng-show="params.area.lat">
+                                - <span translate>QUERY_AREA.LABEL_LATITUDE.T_SHORT</span>: {{params.area.lat}}
+                            </div>
+                            <div ng-show="params.area.lng">
+                                - <span translate>QUERY_AREA.LABEL_LONGITUDE.T_SHORT</span>: {{params.area.lng}}
+                            </div>
+                            <div ng-show="params.area.radius">
+                                - <span translate>QUERY_AREA.LABEL_RADIUS.T_SHORT</span>: {{params.area.radius}}
+                            </div>
+                        </div>
                     </div>
                 </div>
 
