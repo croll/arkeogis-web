@@ -34,7 +34,6 @@
         </div>
         <div flex="25"></div>
     </md-dialog-header>
-
     <md-dialog-content>
         <div layout="column" style="background: #f0f0f0" layout-padding>
             <md-card flex layout-padding>
@@ -60,7 +59,7 @@
                     <div ng-show="site.properties.infos.centroid">
                         <span translate>SITE_DETAILS.FIELD_ACCURACY_CENTROID.T_LABEL</span></div>
                     <div ng-hide="site.properties.infos.centroid">
-                        <span translate>SITE_DETAILS.FIELD_ACCURACY_FINE.T_LABEL</span>:</div>
+                        <span translate>SITE_DETAILS.FIELD_ACCURACY_FINE.T_LABEL</span></div>
                     <span class="geonameid" ng-show="site.properties.infos.city_geonameid">
                         <a href="http://www.geonames.org/2992166" title="geonames.org" target="_blank">{{site.properties.infos.city_geonameid}}</a>
                     </span>
@@ -68,7 +67,7 @@
                 <div layout="row">
                     <label>
                         <span translate>SITE_DETAILS.FIELD_OCCUPATION.T_LABEL</span>:</label>
-                    <div>{{site.properties.infos.occupation}}</div>
+                    <div>{{databaseDefinitions[site.properties.infos.occupation]}}</div>
                 </div>
                 <div layout="row">
                     <label>
@@ -79,50 +78,50 @@
         </div>
 
         <div layout="column" layout-padding class="section" ng-repeat="srange in site.properties.site_ranges">
-            <md-card flex layout-padding>
-                <md-toolbar class="md-hue-2">
+            <md-card flex>
+                <md-toolbar class="md-hue-2" layout-padding>
                     <div class="name">
                         <span translate>SITE_DETAILS.SITE_RANGE_STARTING_PERIOD.T_LABEL</span>:
                         <span>{{srange.start_date1}}
-                            :
+                            /
                             {{srange.start_date2}}</span>
                         <span translate>SITE_DETAILS.SITE_RANGE_TO.T_LABEL</span>&nbsp;
                         <span translate>SITE_DETAILS.SITE_RANGE_ENDING_PERIOD.T_LABEL</span>:
                         <span>{{srange.end_date1}}
-                            :
+                            /
                             {{srange.end_date2}}</span>
                     </div>
-                    <!-- <div class="exceptional">Site exceptionnel</div> -->
+                    <div class="exceptional" ng-show="site.properties.infos.exceptional"><span translate>SITE_DETAILS.FIELD_EXCEPTIONAL.T_EXCEPTIONAL_SITE</span></div>
                 </md-toolbar>
                 <div ng-repeat="charac_section in srange.charac_sections">
-                    <md-toolbar style="min-height: 40px">
+                    <md-toolbar style="min-height: 40px" layout-padding>
                         {{charac_section.name}}
                     </md-toolbar>
-                    <section ng-repeat="charac in charac_section.characs">
-                        <h4>charac.name</h4>
+                    <section ng-repeat="scharac in charac_section.characs" layout-padding>
+                        <h4>{{scharac.path}}</h4>
                         <div class="info" layout="row">
                             <label>
                                 <span translate>SITE_DETAILS.CHARAC_KNOWLEGDE_TYPE.T_LABEL</span>:</label>
-                            <div>{{charac.knowledge_type}}</div>
+                            <div>{{databaseDefinitions[charac.knowledge_type]}}</div>
                         </div>
-                        <div class="info" layout="row" ng-hide="hideComments">
+                        <div class="info" layout="row" ng-show="!hideComments && scharac.comment">
                             <label>
                                 <span translate>SITE_DETAILS.CHARAC_COMMENT.T_LABEL</span>:</label>
-                            <div>{{charac.comment}}</div>
+                            <div>{{scharac.comment}}</div>
                         </div>
-                        <div class="info" layout="row" ng-hide="hideComments">
+                        <div class="info" layout="row" ng-show="!hideComments && scharac.bibliography">
                             <label>
                                 <span translate>SITE_DETAILS.CHARAC_BIBLIOGRAPHY.T_LABEL</span>:</label>
-                            <div>{{charac.bibliography}}</div>
+                            <div>{{scharac.bibliography}}</div>
                         </div>
+                        <md-divider ng-hide="$last"></md-divider>
                     </section>
-                    <md-divider></md-divider>
-                    <div class="comments">
-                        <a ng-click="hideComments = !hideComments" ng-hide="hideComments"><span translate>SITE_DETAILS.INTERFACE_HIDE_DESCRIPTIONS_AND_LABELS.T_LABEL</span></a>
-                        <a ng-click="hideComments = !hideComments" ng-show="hideComments"><span translate>SITE_DETAILS.INTERFACE_SHOW_DESCRIPTIONS_AND_LABELS.T_LABEL</span></a>
-                    </div>
                 </md-card>
             </div>
-
+        </div>
         </md-dialog-content>
+        <md-dialog-actions class="comments-toggler">
+            <a ng-click="hideComments = !hideComments" ng-hide="hideComments"><span translate>SITE_DETAILS.INTERFACE_HIDE_DESCRIPTIONS_AND_LABELS.T_LABEL</span></a>
+            <a ng-click="hideComments = !hideComments" ng-show="hideComments"><span translate>SITE_DETAILS.INTERFACE_SHOW_DESCRIPTIONS_AND_LABELS.T_LABEL</span></a>
+        </md-dialog-actions>
     </md-dialog>

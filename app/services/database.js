@@ -24,62 +24,11 @@
 
         var self = this;
 
-        /*
-        this.defaultValues = {
-            id: null,
-            name: "",
-            scale_resolution: "",
-            geographical_extent: "world",
-            type: "undefined",
-            owner: null,
-            declared_creation_date: "",
-            data_set: "",/lo
-            identifier: "",
-            source: "",
-            source_url: "",
-            editor : "",
-            contributor: "",
-            default_language: null,
-            relation: "",
-            coverage: "",
-            copyright: "",
-            state: "undefined",
-            license_id: 0,
-            context: "undefined",
-            context_description: "",
-            subject: "",
-            published: false,
-            soft_deleted: false,
-            created_at: null,
-            updated_at: null,
-            geographical_limit: "",
-            bibliography: "",
-            countries: [],
-            continents: [],
-            handles: [],
-            number_of_sites: [],
-            owner_name: ""
-        }
-        */
-
         this.Database = $resource('/api/database/:id', {}, {
             'get': {
                 method: 'GET',
                 isArray: false,
                 transformResponse: function(data, headers) {
-                    /*
-                    if (data == 'null' || data == null) {
-                        var dbInfos = {
-                            default_language: login.user.first_lang_isocode,
-                            contexts: [],
-                            translations: {
-                                description: {},
-                                bibliography: {},
-                                geographical_limit: {}
-                            }
-                        }
-                    } else {
-                    */
                     var dbInfos = angular.fromJson(data);
                     if (dbInfos.id > 0) {
                         dbInfos.created_at = new Date(dbInfos.created_at);
@@ -103,17 +52,6 @@
                     if (!dbInfos.contexts) {
                         dbInfos.contexts = [];
                     }
-                    /*
-                    if (dbInfos && typeof(dbInfos.infos) != undefined) {
-                        angular.extend(dbInfos, dbInfos.infos);
-                        delete dbInfos.infos;
-                    }
-                    if (dbInfos && typeof(dbInfos.translations) != undefined) {
-                        angular.extend(dbInfos, dbInfos.translations);
-                        delete dbInfos.translations;
-                    }
-                    */
-                    // console.log(dbInfos);
                     return dbInfos;
                 }
             },

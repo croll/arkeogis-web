@@ -62,10 +62,7 @@
                 letter: alphabet[currentNum],
                 data: null,
                 params: params,
-                zone: {
-                    type: null,
-                    geojson: null
-                },
+                area: {},
                 done: false,
                 sites: {}, // Store site details once
                 markersByDatabase: {},
