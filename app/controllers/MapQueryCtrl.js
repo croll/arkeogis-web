@@ -173,12 +173,6 @@
 
                 var layerDraw,
                     drawnItems = new L.FeatureGroup().addTo(map),
-                    // drawControl = new L.Control.Draw({
-                    //     draw: false,
-                    //     edit: {
-                    //         featureGroup: drawnItems
-                    //     }
-                    // }),
 
                     shapeOptions = {
                         stroke: true,
@@ -219,7 +213,6 @@
                                 shapeOptions: shapeOptions,
                                 allowIntersection: false
                             }).enable();
-                            // new L.Circle(map.getCenter(), 20, shapeOptions);
                             break;
                         case 'free':
                             new L.Draw.Polygon(map, {
@@ -269,13 +262,13 @@
 
                                 $scope.area = params.area;
 
-                                $scope.latInDeg = {};
-                                $scope.lngInDeg = {};
+								if (!angular.isDefined($scope.latInDeg)) {
+									$scope.latInDeg = {};
+								}
 
-                                if (angular.isNumber($scope.area.lat) && angular.isNumber($scope.area.lng)) {
-                                    $scope.toDecimal_lat();
-                                    $scope.toDecimal_lng();
-                                }
+								if (!angular.isDefined($scope.lngInDeg)) {
+									$scope.lngInDeg = {};
+								}
 
                                 $scope.hide = function() {
                                     switch ($scope.area.type) {
@@ -308,10 +301,6 @@
                                     $mdDialog.hide();
                                 };
 
-                                var populateAreaObject = function() {
-                                    console.log("POPU");
-                                }
-
                                 $scope.toDecimal_lat = function() {
                                     $scope.area.lat = Math.round(toDecimal($scope.latInDeg.deg,
                                         $scope.latInDeg.min,
@@ -322,6 +311,11 @@
                                     $scope.area.lng = Math.round(toDecimal($scope.lngInDeg.deg,
                                         $scope.lngInDeg.min,
                                         $scope.lngInDeg.sec) * 1000) / 1000;
+                                }
+
+                                if (angular.isNumber($scope.area.lat) && angular.isNumber($scope.area.lng)) {
+                                    $scope.toDecimal_lat();
+                                    $scope.toDecimal_lng();
                                 }
 
                                 $scope.fromDecimal_lat = function() {
