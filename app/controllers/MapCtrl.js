@@ -38,42 +38,9 @@
 		 * SideNav
 		 */
 
-		$scope.sideNavLeftisOpen = function() { return false };
-		$scope.sideNavRightisOpen = function() { return false };
-
-		// Register bindnig function
-		$mdComponentRegistry
-		            .when("sidenav-left")
-		            .then(function(sideNav) {
-		                $scope.sideNavLeftisOpen = angular.bind(sideNav, sideNav.isOpen );
-		});
-
-		$mdComponentRegistry
-		            .when("sidenav-right")
-		            .then(function(sideNav) {
-		                $scope.sideNavRightisOpen = angular.bind(sideNav, sideNav.isOpen );
-		});
-
-
-		$scope.$watch("sideNavLeftisOpen()",function(newValue,oldValue) {
-			// save your changes here
-			if (newValue == false) {
-				$mdSidenav('sidenav-right').close();
-			}
-		},true);
-
-		$scope.$watch("sideNavRightisOpen()",function (newValue,oldValue) {
-			// save your changes here
-			if (newValue == false) {
-				$mdSidenav('sidenav-left').close();
-			}
-		},true);
-
-		$scope.open_sides = function() {
+		$scope.open_sideleft = function() {
 			$mdSidenav('sidenav-left').open();
-			$mdSidenav('sidenav-right').open();
 		};
-
 
 	}]);
 })();

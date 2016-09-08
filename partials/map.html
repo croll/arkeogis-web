@@ -2,11 +2,7 @@
 <div class="arkeomap" layout="row" style="position: relative">
 
     <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="sidenav-left">
-        <md-toolbar class="md-theme-indigo">
-            <h1 class="md-toolbar-tools">Recherche :</h1>
-        </md-toolbar>
         <md-content layout-padding ng-controller="MapQueryCtrl">
-
             <!-- BV -->
             <div layout="row">
                 <md-select ng-model="zoneType" ng-change="zoneTypeChanged()">
@@ -18,41 +14,79 @@
                 <md-button ng-click="initDraw()">Dessiner</md-button>
             </div>
             <!-- BV -->
+            <!-- New query display -->
             <div>
-                <div>
-                    <ark-menu-item ng-model="query.centroid" ark-item="menuCentroid"></ark-menu-item>
-                    <ark-menu-item ng-model="query.knowledge" ark-item="menuKnowledge"></ark-menu-item>
-                    <ark-menu-item ng-model="query.occupation" ark-item="menuOccupation"></ark-menu-item>
+
+                <!-- archived queries menu -->
+                <md-input-container>
+                    <label>Requêtes archivées</label>
+                    <md-select ng-model="archives">
+                        <md-option ng-repeat="archive in archives" value="{{archive.id}}">{{archive.name}}</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <!-- query title -->
+                <div class="query-title">{{query.name}}</div>
+
+                <!-- area -->
+                <div class="query-element query-element-area">
+                    <div class="query-element-title">
+                        <span translate>QUERY.AREA.T_TITLE</span>
+                        <div class="query-element-edit-icon noselect"><md-icon ng-click="showAreaChooserDialog()">mode_edit</md-icon></div>
+                        <div class="query-element-show-icon noselect"><md-icon ng-click="toggle_query_element('area')">play_arrow</md-icon></div>
+                    </div>
+                    <div class="query-element-content">
+                        blah
+                    </div>
                 </div>
 
-                <div>
-                    <ark-menu-item ng-model="query.zone" ark-item="menuZone"></ark-menu-item>
+                <!-- databases -->
+                <div class="query-element query-element-databases">
+                    <div class="query-element-title">
+                        <span translate>QUERY.DATABASES.T_TITLE</span>
+                        <div class="query-element-edit-icon noselect"><md-icon ng-click="showDatabaseChooserDialog()">mode_edit</md-icon></div>
+                        <div class="query-element-show-icon noselect"><md-icon ng-click="toggle_query_element('databases')">play_arrow</md-icon></div>
+                    </div>
+                    <div class="query-element-content">
+                        <div class="query-subelement" ng-repeat="(dbtype, databases) in databases_per_type">
+                            <div class="query-subelement-title">{{dbtype | translate}} :</div>
+                            <ul>
+                                <li ng-repeat="database in databases">- {{database.name}}</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
-                <div ng-repeat="menuDatabase in menuDatabases">
-                    <ark-menu-item ng-model="query.database" ark-item="menuDatabase"></ark-menu-item>
+                <!-- characs -->
+                <div class="query-element query-element-characs">
+                    <div class="query-element-title">
+                        <span translate>QUERY.CHARACS.T_TITLE</span>
+                        <div class="query-element-edit-icon noselect"><md-icon ng-click="showCharacChooserDialog()">mode_edit</md-icon></div>
+                        <div class="query-element-show-icon noselect"><md-icon ng-click="toggle_query_element('characs')">play_arrow</md-icon></div>
+                    </div>
+                    <div class="query-element-content">
+                        <div class="query-subelement" ng-if="characs_selecteds_include.length > 0">
+                            <div class="query-subelement-title" translate>QUERY.CHARACS.T_INCLUDE</div>
+                            <div ng-repeat="path in characs_selecteds_include">- {{path}}</div>
+                        </div>
+                        <div class="query-subelement" ng-if="characs_selecteds_exceptional.length > 0">
+                            <div class="query-subelement-title" translate>QUERY.CHARACS.T_EXCEPTIOINAL</div>
+                            <div ng-repeat="path in characs_selecteds_exceptional">- {{path}}</div>
+                        </div>
+                        <div class="query-subelement" ng-if="characs_selecteds_exclude.length > 0">
+                            <div class="query-subelement-title" translate>QUERY.CHARACS.T_EXCLUDE</div>
+                            <div ng-repeat="path in characs_selecteds_exclude">- {{path}}</div>
+                        </div>
+                    </div>
                 </div>
 
-                <div ng-repeat="menuChronology in menuChronologies">
-                    <ark-menu-item ng-model="query.chronology" ark-item="menuChronology"></ark-menu-item>
-                </div>
-
-                <div ng-repeat="characMenu in menuCharacs">
-                    <ark-menu-item ng-model="query.charac" ark-item="characMenu"></ark-menu-item>
-                </div>
+                <hr/>
 
             </div>
-            <!-- latest div for menus -->
 
             <div>
-                <md-button ng-click="showMap()">
+                <md-button ng-click="showMap2()">
                     <span translate>MAP.BUTTON_DISPLAYMAP.T_TITLE</span>
-                </md-button>
-                <md-button ng-click="zpouitz()">
-                    <span translate>zpouitz</span>
-                </md-button>
-                <md-button ng-click="zpouitz2()">
-                    <span translate>zpouitz2</span>
                 </md-button>
             </div>
         </md-content>
@@ -66,65 +100,9 @@
         <ark-leaflet height="mapHeight"></ark-leaflet>
     </md-content>
 
-    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="sidenav-right" style='z-index: 1000'>
-        <md-toolbar class="md-theme-light">
-            <h1 class="md-toolbar-tools">Récapitulatif :</h1>
-        </md-toolbar>
-        <md-content layout-padding>
-            <div class="query">
-                <div>{{query.centroid}}</div>
-                <div>{{query.database}}</div>
-                <div>{{query.charac}}</div>
-                <div>{{query.chronology}}</div>
-                <div>{{query.knowledge}}</div>
-                <div ng-hide="isEmptyObject(query.centroid)">
-                    <span translate>Centroïde</span>
-                    :
-                    <span ng-repeat="o in menutolist(query.centroid, menuCentroid.menu)">{{ $first ? '' : ', ' }}
-                        <md-button ng-click="removeFromQuery('centroid', o.v)">
-                            <md-icon>delete</md-icon>
-                        </md-button>
-                        <span translate>{{ o.text }}</span>
-                    </span>
-                </div>
-                <div ng-hide="isEmptyObject(query.knowledge)">
-                    <span translate>Connaisance</span>
-                    :
-                    <span ng-repeat="o in menutolist(query.knowledge, menuKnowledge.menu)">{{ $first ? '' : ', ' }}
-                        <md-button ng-click="removeFromQuery('knowledge', o.v)">
-                            <md-icon>delete</md-icon>
-                        </md-button>
-                        <span translate>{{ o.text }}</span>
-                    </span>
-                </div>
-                <div ng-hide="isEmptyObject(query.occupation)">
-                    <span translate>Connaisance</span>
-                    :
-                    <span ng-repeat="o in menutolist(query.occupation, menuOccupation.menu)">{{ $first ? '' : ', ' }}
-                        <md-button ng-click="removeFromQuery('occupation', o.v)">
-                            <md-icon>delete</md-icon>
-                        </md-button>
-                        <span translate>{{ o.text }}</span>
-                    </span>
-                </div>
-                <div ng-show="query.searchzone != undefined">
-                    Zone de recherche :
-                    <span ng-repeat="o in query.searchzone">{{ $first ? '' : ', ' }}
-                        <md-button ng-click="removeFromQuery('searchzone', o.v)">
-                            <md-icon>delete</md-icon>
-                        </md-button>
-                        {{ o.text }}</span>
-                </div>
-            </div>
-
-            <hr/>
-
-            <div>{{query}}</div>
-        </md-content>
-    </md-sidenav>
 
     <div style="position: absolute; left: 10px; top: 10px; width: 64px; height: 48px; background: white">
-        <md-button ng-click="open_sides()">
+        <md-button ng-click="open_sideleft()">
             <md-icon>search</md-icon>
         </md-button>
     </div>
