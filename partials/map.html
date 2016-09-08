@@ -3,17 +3,6 @@
 
     <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="sidenav-left">
         <md-content layout-padding ng-controller="MapQueryCtrl">
-            <!-- BV -->
-            <div layout="row">
-                <md-select ng-model="zoneType" ng-change="zoneTypeChanged()">
-                    <md-option value="">Toute la carte visible</md-option>
-                    <md-option value="rect">Rectangle</md-option>
-                    <md-option value="circle">Cercle</md-option>
-                    <md-option value="free">Libre</md-option>
-                </md-select>
-                <md-button ng-click="initDraw()">Dessiner</md-button>
-            </div>
-            <!-- BV -->
             <!-- New query display -->
             <div>
 
@@ -32,11 +21,15 @@
                 <div class="query-element query-element-area">
                     <div class="query-element-title">
                         <span translate>QUERY.AREA.T_TITLE</span>
-                        <div class="query-element-edit-icon noselect"><md-icon ng-click="showAreaChooserDialog()">mode_edit</md-icon></div>
+                        <div class="query-element-edit-icon noselect"><md-icon ng-click="showAreaChooserDialog(params)">mode_edit</md-icon></div>
                         <div class="query-element-show-icon noselect"><md-icon ng-click="toggle_query_element('area')">play_arrow</md-icon></div>
                     </div>
                     <div class="query-element-content">
-                        blah
+                        <span translate ng-show="params.area.type == 'map' || ''">QUERY_AREA.RADIOBUTTON.T_ALLMAP</span>
+                        <span translate ng-show="params.area.type == 'rect'">QUERY_AREA.RADIOBUTTON.T_RECT</span>
+                        <span translate ng-show="params.area.type == 'disc'">QUERY_AREA.RADIOBUTTON.T_DISC</span>
+                        <span translate ng-show="params.area.type == 'free'">QUERY_AREA.RADIOBUTTON.T_FREE</span>
+                        <span translate ng-show="params.area.type == 'custom'">QUERY_AREA.RADIOBUTTON.T_CUSTOM</span>
                     </div>
                 </div>
 

@@ -24,79 +24,22 @@
 	'use strict';
 	ArkeoGIS.controller('MapQueryCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', '$timeout', '$mdDialog', 'arkeoService', 'arkeoProject', 'arkeoQuery', 'arkeoMap',
 	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, $timeout, $mdDialog, arkeoService, arkeoProject, arkeoQuery, arkeoMap) {
-
-            // BV --------------------------
-            arkeoMap.init();
-
-            arkeoQuery.reset();
-
-            arkeoMap.getMap().then(function(map) {
-
-                var layerDraw,
-                    drawnItems = new L.FeatureGroup(),
-                    drawControl = new L.Control.Draw({
-                        draw: false,
-                        edit: {
-                            featureGroup: drawnItems
-                        }
-                    }),
-                    shapeOptions = {
-                        stroke: true,
-                        color: '#f06eaa',
-                        weight: 4,
-                        opacity: 0.5,
-                        fill: true,
-                        fillColor: null,
-                        fillOpacity: 0.2,
-                    };
-
-                $scope.editMode = false;
-
-                $scope.initDraw = function() {
-                    drawnItems.removeLayer(layerDraw);
-                    switch ($scope.zoneType) {
-						case 'rect':
-                    		new L.Draw.Rectangle(map, {shapeOptions: shapeOptions}).enable();
-						break;
-						case 'circle':
-							new L.Draw.Circle(map, {shapeOptions: shapeOptions, allowIntersection: false}).enable();
-							// new L.Circle(map.getCenter(), 20, shapeOptions);
-						break;
-						case 'free':
-							new L.Draw.Polygon(map, {shapeOptions: shapeOptions, allowIntersection: false, showArea: true}).enable();
-						break;
-					}
-                    $scope.editMode = true;
-                }
-
-                $scope.zoneTypeChanged = function() {
-                    $scope.editMode = false;
-                }
-
-                map.addLayer(drawnItems);
-
-                map.on('draw:created', function(e) {
-                    layerDraw = e.layer;
-                    drawnItems.addLayer(layerDraw);
-                    layerDraw.editing.enable();
-                });
-
-            });
-
-            // BV --------------------------
             /*
              * menus init : buttons styles
              */
+        arkeoMap.init();
+
+        arkeoQuery.reset();
 
 		$scope.params = {
 			database: [],
 			characs: {},
+			area: {type: 'custom', lat: null, lng: null, radius: null, geojson: null}
 		};
 
 		$scope.showMap2 = function() {
 			arkeoQuery.do($scope.params);
 		};
-
 
 		$scope.toggle_query_element = function(elemname) {
 			var html_elem_icon = $('.query-element-'+elemname+' .query-element-show-icon');
@@ -114,7 +57,7 @@
 
 
 		/************
-		 * databases
+	 * databases
 		 ************/
 
 		// cache databases by id
@@ -205,48 +148,104 @@
 			});
 		}
 
-
 		/************
 		 * area
 		 ************/
 
-
-		$scope.showAreaChooserDialog = function() {
-			showAreaChooserDialog($scope.params);
-		};
-
-		function showAreaChooserDialog(params) {
+		$scope.showAreaChooserDialog = function(params) {
 			$mdDialog.show({
 					controller: function($scope, $mdDialog, arkeoService) {
 
-						$scope.hide = function() {
+				        arkeoMap.getMap().then(function(map) {
+
+							$scope.area = params.area;
+
+				            var layerDraw,
+				                drawnItems = new L.FeatureGroup(),
+				                drawControl = new L.Control.Draw({
+				                    draw: false,
+				                    edit: {
+				                        featureGroup: drawnItems
+				                    }
+				                }),
+				                shapeOptions = {
+				                    stroke: true,
+				                    color: '#f06eaa',
+				                    weight: 4,
+				                    opacity: 0.5,
+				                    fill: true,
+				                    fillColor: null,
+				                    fillOpacity: 0.2,
+				                };
+
+				            $scope.editMode = false;
+							$scope.latInDeg = {};
+							$scope.lngInDeg = {};
+
+							if (angular.isNumber($scope.area.lat) && angular.isNumber($scope.area.lng)) {
+								$scope.toDecimal_lat();
+								$scope.toDecimal_lng();
+							}
+
+				            $scope.initDraw = function() {
+				                drawnItems.removeLayer(layerDraw);
+				                switch ($scope.area) {
+									case 'rect':
+				                		new L.Draw.Rectangle(map, {shapeOptions: shapeOptions}).enable();
+									break;
+									case 'circle':
+										new L.Draw.Circle(map, {shapeOptions: shapeOptions, allowIntersection: false}).enable();
+										// new L.Circle(map.getCenter(), 20, shapeOptions);
+									break;
+									case 'free':
+										new L.Draw.Polygon(map, {shapeOptions: shapeOptions, allowIntersection: false, showArea: true}).enable();
+									break;
+								}
+				                $scope.editMode = true;
+				            }
+
+				            $scope.zoneTypeChanged = function() {
+				                $scope.editMode = false;
+				            }
+
+				            map.addLayer(drawnItems);
+
+				            map.on('draw:created', function(e) {
+				                layerDraw = e.layer;
+				                drawnItems.addLayer(layerDraw);
+				                layerDraw.editing.enable();
+				            });
+
+				        });
+
+						$scope.hide= function() {
 							$mdDialog.hide();
 						};
 
 						$scope.toDecimal_lat = function() {
-							$scope.area.lat.numeric = Math.round(toDecimal($scope.area.lat.deg,
-																		   $scope.area.lat.min,
-																		   $scope.area.lat.sec)*1000)/1000;
+							$scope.area.lat = Math.round(toDecimal($scope.latInDeg.deg,
+																		   $scope.latInDeg.min,
+																		   $scope.latInDeg.sec)*1000)/1000;
 						}
 
 						$scope.toDecimal_lng = function() {
-							$scope.area.lng.numeric = Math.round(toDecimal($scope.area.lng.deg,
-																$scope.area.lng.min,
-																$scope.area.lng.sec)*1000)/1000;
+							$scope.area.lng = Math.round(toDecimal($scope.lngInDeg.deg,
+																$scope.lngInDeg.min,
+																$scope.lngInDeg.sec)*1000)/1000;
 						}
 
 						$scope.fromDecimal_lat = function() {
-							var r = fromDecimal($scope.area.lat.numeric);
-							$scope.area.lat.deg=r.d;
-							$scope.area.lat.min=r.m;
-							$scope.area.lat.sec=Math.round(r.s);
+							var r = fromDecimal($scope.area.lat);
+							$scope.latInDeg.deg=r.d;
+							$scope.latInDeg.min=r.m;
+							$scope.latInDeg.sec=Math.round(r.s);
 						}
 
 						$scope.fromDecimal_lng = function() {
-							var r = fromDecimal($scope.area.lng.numeric);
-							$scope.area.lng.deg=r.d;
-							$scope.area.lng.min=r.m;
-							$scope.area.lng.sec=Math.round(r.s);
+							var r = fromDecimal($scope.area.lng);
+							$scope.lngInDeg.deg=r.d;
+							$scope.lngInDeg.min=r.m;
+							$scope.lngInDeg.sec=Math.round(r.s);
 						}
 
 						function toDecimal(d, m, s) {
@@ -262,35 +261,13 @@
 							return r;
 						}
 
-						function init() {
-							if (angular.isObject(params.area) && angular.isObject(params.area.lat) && angular.isObject(params.area.lng)) {
-								if (angular.isNumber($scope.area.lat.deg) && angular.isNumber($scope.area.lat.min) && angular.isNumber($scope.area.lat.sec)
-									&& angular.isNumber($scope.area.lng.deg) && angular.isNumber($scope.area.lng.min) && angular.isNumber($scope.area.lng.sec)) {
-										$scope.area = params.area;
-										$scope.fromDecimal_lat();
-										$scope.fromDecimal_lng();
-								} else if (angular.isNumber($scope.area.lat.numeric) && angular.isNumber($scope.area.lng.numeric)) {
-									$scope.area = params.area;
-									$scope.toDecimal_lat();
-									$scope.toDecimal_lng();
-								} else {
-									$scope.area = { type: 'free', lat: {}, lng: {}};
-								}
-							} else {
-								$scope.area = { type: 'free', lat: {}, lng: {}};
-							}
-						}
-						init();
-
 					},
 					templateUrl: 'partials/query/areachooser.html',
 					parent: angular.element(document.body),
 					clickOutsideToClose: true,
-				})
-				.then(function(answer) {
-					$scope.status = 'You said the information was "' + answer + '".';
-				}, function() {
-					$scope.status = 'You cancelled the dialog.';
+				// })
+				// .then(function(area) {
+				// 	$scope.params.area = area;
 				});
 		};
 
@@ -314,7 +291,6 @@
 						$scope.hide = function() {
 							$mdDialog.hide();
 						};
-
 /*
 						$scope.$watchCollection('selected_characs', function() {
 							params.characs = $scope.selected_characs.map(function(elem) { return elem.id });
