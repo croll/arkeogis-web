@@ -29,8 +29,6 @@
              */
             var self = this;
 
-            arkeoQuery.reset();
-
             var project = arkeoProject.get();
 
             // Get map area to fit full screen
@@ -38,8 +36,6 @@
                 $scope.mapHeight = $(window).height() - $("#arkeo-main-toolbar").height() - 20 + "px";
                 $scope.$apply();
             });
-
-            arkeoMap.init();
 
             arkeoMap.getMap().then(function(map) {
 
@@ -339,12 +335,39 @@
             $scope.toggleSiteDetailsDialog = function(id) {
                 arkeoQuery.getSite(id).then(function(siteInfos) {
                     $mdDialog.show({
-                            controller: function($scope, $mdDialog) {
+                            controller: function($scope, $mdDialog, arkeoProject) {
+
+                                var project = arkeoProject.get();
                                 $scope.id = id;
                                 $scope.hide = function() {
                                     $mdDialog.hide();
                                 };
+                                var characCache = {};
                                 $scope.site = siteInfos.features[0];
+                                $scope.site.properties.infos.startingPeriod = {startDate: null, endDate: null, color: null};
+                                $scope.site.properties.infos.endingPeriod = {startDate: null, endDate: null, color: null};
+                                // Starting and ending period infos
+                                _.each($scope.site.properties.site_ranges, function(sr) {
+                                    if ($scope.site.properties.infos.startingPeriod.startDate === null || sr.start_date1 < $scope.site.properties.infos.startingPeriod.startDate) {
+                                        $scope.site.properties.infos.startingPeriod.startDate = sr.start_date1;
+                                        $scope.site.properties.infos.startingPeriod.endDate = sr.end_date1;
+                                        $scope.site.properties.infos.startingPeriod.color = arkeoProject.getChronologyColor(sr.start_date1, sr.end_date1);
+                                        $scope.site.properties.infos.startingPeriod.name = arkeoProject.getChronologyName(sr.start_date1, sr.end_date1);
+                                    }
+                                    if ($scope.site.properties.infos.endingPeriod.endDate === null || sr.end_date2 > $scope.site.properties.infos.endingPeriod.endDate) {
+                                        $scope.site.properties.infos.endingPeriod.startDate = sr.start_date2;
+                                        $scope.site.properties.infos.endingPeriod.endDate = sr.end_date2;
+                                        $scope.site.properties.infos.endingPeriod.color = arkeoProject.getChronologyColor(sr.start_date2, sr.end_date2);
+                                        $scope.site.properties.infos.endingPeriod.name = arkeoProject.getChronologyName(sr.start_date2, sr.end_date2);
+                                    }
+                                    // Organise characs
+                                    _.each(sr.characs, function(charac) {
+                                        var obj = arkeoProject.getCharacParents(charac.id);
+                                        console.log(obj);
+                                        // if (!_.has(caracCache, obj.root.id))
+                                    });
+                                });
+                                console.log($scope.site);
                             },
                             templateUrl: 'partials/site-details.html',
                             parent: angular.element(document.body),
@@ -385,7 +408,7 @@
              */
 
             $scope.$watch(function() {
-                return arkeoQuery.getNumQueries();
+                return arkeoQuery.getNumQueries(true);
             }, function(newNum, oldNum) {
                 if (newNum == 0) {
                     return;
