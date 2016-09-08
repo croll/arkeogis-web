@@ -1120,7 +1120,7 @@
 	},
 	"SITE_DETAILS": {
 		"CHARAC_BIBLIOGRAPHY": {
-			"T_LABEL": "#!#SITE_DETAILS.CHARAC_BIBLIOGRAPHY.T_LABEL"
+			"T_LABEL": "Bibliographie"
 		},
 		"CHARAC_COMMENT": {
 			"T_LABEL": "Commentaire"
@@ -1158,6 +1158,9 @@
 		"FIELD_ENDING_PERIOD": {
 			"T_LABEL": "Période de fin"
 		},
+		"FIELD_EXCEPTIONAL": {
+			"T_EXCEPTIONAL_SITE": "Site exceptionnel"
+		},
 		"FIELD_OCCUPATION": {
 			"T_LABEL": "Occupation"
 		},
@@ -1165,19 +1168,19 @@
 			"T_LABEL": "Période de début"
 		},
 		"INTERFACE_HIDE_DESCRIPTIONS_AND_LABELS": {
-			"T_LABEL": "#!#SITE_DETAILS.INTERFACE_HIDE_DESCRIPTIONS_AND_LABELS.T_LABEL"
+			"T_LABEL": "Cacher les commentaires et bibliographies"
 		},
 		"INTERFACE_SHOW_DESCRIPTIONS_AND_LABELS": {
-			"T_LABEL": "#!#SITE_DETAILS.INTERFACE_SHOW_DESCRIPTIONS_AND_LABELS.T_LABEL"
+			"T_LABEL": "Montrer les commentaires et bibliographies"
 		},
 		"SITE_RANGE_ENDING_PERIOD": {
-			"T_LABEL": "#!#SITE_DETAILS.SITE_RANGE_ENDING_PERIOD.T_LABEL"
+			"T_LABEL": "période de fin"
 		},
 		"SITE_RANGE_STARTING_PERIOD": {
-			"T_LABEL": "#!#SITE_DETAILS.SITE_RANGE_STARTING_PERIOD.T_LABEL"
+			"T_LABEL": "Période de début"
 		},
 		"SITE_RANGE_TO": {
-			"T_LABEL": "jusqu'à"
+			"T_LABEL": "jusqu'à la"
 		}
 	},
 	"USER": {
