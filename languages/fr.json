@@ -968,6 +968,11 @@
 			"T_INCLUDE": "Inclure :",
 			"T_TITLE": "Caractérisations :"
 		},
+		"CHRONOLOGIES": {
+			"T_EXCLUDE": "#!#QUERY.CHRONOLOGIES.T_EXCLUDE",
+			"T_INCLUDE": "#!#QUERY.CHRONOLOGIES.T_INCLUDE",
+			"T_TITLE": "Périodes :"
+		},
 		"DATABASES": {
 			"T_TITLE": "Bases de données :"
 		}
@@ -1026,6 +1031,59 @@
 			"T_TITLE": "Caractéristiques"
 		}
 	},
+	"QUERY_CHRONOLOGIES": {
+		"ADVANCED": {
+			"T_TITLE": "Sélection avancé :"
+		},
+		"BUTTON_OK": {
+			"T_TITLE": "Ajouter"
+		},
+		"DIALOG": {
+			"T_FOOTER_BOLD": "",
+			"T_FOOTER_TEXT1": "",
+			"T_FOOTER_TEXT2": "",
+			"T_TITLE": ""
+		},
+		"EXISTENCE_INSIDE_INCLUDE": {
+			"T_EXCLUDE": "Exclure",
+			"T_INCLUDE": "Inclure",
+			"T_TITLE": "Les sites ayant une existence durant cette période sont à :"
+		},
+		"EXISTENCE_INSIDE_PART": {
+			"T_FULL": "Intégrale",
+			"T_PARTLY": "Partielle",
+			"T_TITLE": "L'existence durant cette période est :"
+		},
+		"EXISTENCE_INSIDE_SURENESS": {
+			"T_CERTAINLY": "Assurément (exclure les zones indéterminés)",
+			"T_POTENTIALLY": "Potentiellement ou Assurément (inclure les zones indéterminés)",
+			"T_POTENTIALLY_ONLY": "Uniquement Potentiellement (indéterminés)",
+			"T_TITLE": "Et ce :"
+		},
+		"EXISTENCE_OUTSIDE_INCLUDE": {
+			"T_MUST": "Oui, il doit avoir existé aussi en dehors de cette période",
+			"T_MUSTNOT": "Non, il ne doit pas avoir existé en dehors de cette période",
+			"T_POSSIBLY": "Oui, il peut avoir existé aussi en dehors de cette période",
+			"T_TITLE": "Le site a aussi pu exister en dehors de cette période ?"
+		},
+		"EXISTENCE_OUTSIDE_SURENESS": {
+			"T_CERTAINLY": "Assurément (exclure les zones indéterminés)",
+			"T_POTENTIALLY": "Potentiellement ou Assurément (inclure les zones indéterminés)",
+			"T_POTENTIALLY_ONLY": "Uniquement Potentiellement (indéterminés)",
+			"T_TITLE": "Et ce :"
+		},
+		"INPUT_ELEM_BEGIN": {
+			"T_TITLE": "Année de début :"
+		},
+		"INPUT_ELEM_END": {
+			"T_TITLE": "Année de fin :"
+		},
+		"SELECT_TYPE": {
+			"T_CHRONOLOGY": "Choix dans la chronologie",
+			"T_NUMERIC": "Choix numérique",
+			"T_TITLE": "Choix du type de période :"
+		}
+	},
 	"QUERY_DATABASES": {
 		"BUTTON_OK": {
 			"T_TITLE": "Ok"
@@ -1054,50 +1112,9 @@
 		}
 	},
 	"SITE_DETAILS": {
-		"CHARAC_COMMENT": {
-			"T_LABEL": "#!#SITE_DETAILS.CHARAC_COMMENT.T_LABEL"
+		"CHARAC_BIBLIOGRAPHY": {
+			"T_LABEL": "#!#SITE_DETAILS.CHARAC_BIBLIOGRAPHY.T_LABEL"
 		},
-		"CHARAC_KNOWLEGDE_TYPE": {
-			"T_LABEL": "#!#SITE_DETAILS.CHARAC_KNOWLEGDE_TYPE.T_LABEL"
-		},
-		"FIELD_ACCURACY": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_ACCURACY.T_LABEL"
-		},
-		"FIELD_ACCURACY_CENTROID": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_ACCURACY_CENTROID.T_LABEL"
-		},
-		"FIELD_ACCURACY_FINE": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_ACCURACY_FINE.T_LABEL"
-		},
-		"FIELD_CITY_NAME": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_CITY_NAME.T_LABEL"
-		},
-		"FIELD_DATABASE": {
-			"T_LABEL_SHORT": "#!#SITE_DETAILS.FIELD_DATABASE.T_LABEL_SHORT"
-		},
-		"FIELD_ENDING_COORDINATES": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_ENDING_COORDINATES.T_LABEL"
-		},
-		"FIELD_ENDING_PERIOD": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_ENDING_PERIOD.T_LABEL"
-		},
-		"FIELD_OCCUPATION": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_OCCUPATION.T_LABEL"
-		},
-		"FIELD_STARTING_PERIOD": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_STARTING_PERIOD.T_LABEL"
-		},
-		"SITE_RANGE_END_DATE": {
-			"T_LABEL": "#!#SITE_DETAILS.SITE_RANGE_END_DATE.T_LABEL"
-		},
-		"SITE_RANGE_START_DATE": {
-			"T_LABEL": "#!#SITE_DETAILS.SITE_RANGE_START_DATE.T_LABEL"
-		},
-		"SITE_RANGE_TO": {
-			"T_LABEL": "#!#SITE_DETAILS.SITE_RANGE_TO.T_LABEL"
-		}
-	},
-	"SITE_DETAILS": {
 		"CHARAC_COMMENT": {
 			"T_LABEL": "Commentaire"
 		},
@@ -1140,11 +1157,17 @@
 		"FIELD_STARTING_PERIOD": {
 			"T_LABEL": "Période de début"
 		},
-		"SITE_RANGE_END_DATE": {
-			"T_LABEL": "Date de fin"
+		"INTERFACE_HIDE_DESCRIPTIONS_AND_LABELS": {
+			"T_LABEL": "#!#SITE_DETAILS.INTERFACE_HIDE_DESCRIPTIONS_AND_LABELS.T_LABEL"
 		},
-		"SITE_RANGE_START_DATE": {
-			"T_LABEL": "Date de début"
+		"INTERFACE_SHOW_DESCRIPTIONS_AND_LABELS": {
+			"T_LABEL": "#!#SITE_DETAILS.INTERFACE_SHOW_DESCRIPTIONS_AND_LABELS.T_LABEL"
+		},
+		"SITE_RANGE_ENDING_PERIOD": {
+			"T_LABEL": "#!#SITE_DETAILS.SITE_RANGE_ENDING_PERIOD.T_LABEL"
+		},
+		"SITE_RANGE_STARTING_PERIOD": {
+			"T_LABEL": "#!#SITE_DETAILS.SITE_RANGE_STARTING_PERIOD.T_LABEL"
 		},
 		"SITE_RANGE_TO": {
 			"T_LABEL": "jusqu'à"
