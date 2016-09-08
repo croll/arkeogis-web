@@ -1,0 +1,22 @@
+.dialog-areachooser {
+    md-radio-button {
+        &:nth-child(1) {
+            margin-left: 0;
+        }
+        margin-left: 40px;
+    }
+    md-input-container {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    label {
+        text-align: center;
+    }
+    .or {
+        text-align: center;
+        margin-top: 8px;
+    }
+    ark-help {
+        margin-top: -15px;
+    }
+}
