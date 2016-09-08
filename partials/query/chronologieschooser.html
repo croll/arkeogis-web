@@ -3,7 +3,7 @@
     <md-toolbar layout-padding id='arkeo-chronologieschooser-toolbar' class="md-primary md-hue-3">
         <div class="md-toolbar-tools">
             <h3>
-                <span translate>QUERY_CHARAC.DIALOG.T_TITLE</span>
+                <span translate>QUERY_CHRONOLOGIES.DIALOG.T_TITLE</span>
             </h3>
             <span flex></span>
             <md-button class="md-icon-button" ng-click="hide()"><md-icon>close</md-icon></md-button>
@@ -12,34 +12,88 @@
 
     <md-dialog-content>
 
-        <h4 translate>QUERY_CHARAC.DIALOG.T_INTRO</h4>
+        <div>
 
-        <div class='title-1' translate>QUERY_CHARAC.DIALOG.T_CHOOSETOOL</div><br />
+            <md-input-container>
+              <label translate>QUERY_CHRONOLOGIES.SELECT_TYPE.T_TITLE</label>
+              <md-select ng-model="type">
+                  <md-option ng-value="'chronology'"><span translate>QUERY_CHRONOLOGIES.SELECT_TYPE.T_CHRONOLOGY</span></md-option>
+                  <md-option ng-value="'numeric'"><span translate>QUERY_CHRONOLOGIES.SELECT_TYPE.T_NUMERIC</span></md-option>
+              </md-select>
+            </md-input-container>
+        </div>
 
         <!-- radio_button_unchecked ; add_circle_outline ; block -->
         <!-- radio_button_unchecked ; new_releases -->
 
-        <div layout="row" class="arkmultiselect">
-            <div flex layout="column" class="arkmonoselect" ng-repeat="col in [0,1,2,3,4]">
+        <div layout="row" class="arkmultiselect" ng-if="type == 'chronology'">
+            <div flex layout="column" class="arkmonoselect" ng-repeat="col in [1,2,3,4]">
                 <div class="arkelementselect" ng-repeat="chronology in selection[col].content" ng-click="chronologySelect(col+1, chronology)" ng-class="selection[col+1] == chronology ? 'arkelementselected' : ''" ng-if="!chronology.hidden">
-                    <md-icon ng-if="getButtonState(chronology) == ''" ng-click="toggleButton(chronology)" class="arktributton">check_box_outline_blank</md-icon>
-                    <md-icon ng-if="getButtonState(chronology) == '+'" ng-click="toggleButton(chronology)" class="arktributton">check_box</md-icon>
-                    <md-icon ng-if="getButtonState(chronology) == '!'" ng-click="toggleButton(chronology)" class="arktributton">new_releases</md-icon>
-                    <md-icon ng-if="getButtonState(chronology) == '-'" ng-click="toggleButton(chronology)" class="arktributton">block</md-icon>
+                    <md-icon ng-if="getButtonState(chronology) == ''" ng-click="toggleButton(chronology)" class="arktributton">radio_button_unchecked</md-icon>
+                    <md-icon ng-if="getButtonState(chronology) == '+'" ng-click="toggleButton(chronology)" class="arktributton">radio_button_checked</md-icon>
                     <span class="arkelementselecttext" ark-get-translation ark-translations="chronology.name"></span>
                     <md-icon ng-if="haveSubContent(chronology)" class="arksubselect">chevron_right</md-icon>
                 </div>
             </div>
         </div>
 
+        <div layout="row" class="chronology-numeric" ng-if="type == 'numeric'">
+            <md-input-container class='date-begin' flex>
+                <label translate>QUERY_CHRONOLOGIES.INPUT_ELEM_BEGIN.T_TITLE</label>
+                <input ark-year ng-model="params.start_date" placeholder="" required maxlength="10" minlength="1"/>
+            </md-input-container>
+            <md-input-container class='date-end' flex>
+                <label translate>QUERY_CHRONOLOGIES.INPUT_ELEM_END.T_TITLE</label>
+                <input ark-year ng-model="params.end_date" placeholder="" required maxlength="10" minlength="1"/>
+            </md-input-container>
+        </div>
+
+
+        <div><span>QUERY_CHRONOLOGIES.ADVANCED.T_TITLE</span></div>
+
+        <div>
+            <div class="advanced_chrono_h1" translate>QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_INCLUDE.T_TITLE</div>
+            <md-radio-group ng-model="params.existence_inside_include">
+                <md-radio-button value="+"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_INCLUDE.T_INCLUDE</span></md-radio-button>
+                <md-radio-button value="-"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_INCLUDE.T_EXCLUDE</span></md-radio-button>
+            </md-radio-group>
+
+            <div class="advanced_chrono_h1" translate>QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_PART.T_TITLE</div>
+            <md-radio-group ng-model="params.existence_inside_part">
+                <md-radio-button value="partly"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_PART.T_PARTLY</span></md-radio-button>
+                <md-radio-button value="full"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_PART.T_FULL</span></md-radio-button>
+            </md-radio-group>
+
+            <div class="advanced_chrono_h2" translate>QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_SURENESS.T_TITLE</div>
+            <md-radio-group ng-model="params.existence_inside_sureness">
+                <md-radio-button value="potentially-only"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_SURENESS.T_POTENTIALLY_ONLY</span></md-radio-button>
+                <md-radio-button value="potentially"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_SURENESS.T_POTENTIALLY</span></md-radio-button>
+                <md-radio-button value="certainly"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_SURENESS.T_CERTAINLY</span></md-radio-button>
+            </md-radio-group>
+
+            <div class="advanced_chrono_h1" translate>QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_INCLUDE.T_TITLE</div>
+            <md-radio-group ng-model="params.existence_oustide_include">
+                <md-radio-button value=""><span translate>QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_INCLUDE.T_POSSIBLY</span></md-radio-button>
+                <md-radio-button value="+"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_INCLUDE.T_MUST</span></md-radio-button>
+                <md-radio-button value="-"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_INCLUDE.T_MUSTNOT</span></md-radio-button>
+            </md-radio-group>
+
+            <div class="advanced_chrono_h2" translate>QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_SURENESS.T_TITLE</div>
+            <md-radio-group ng-model="params.existence_oustide_sureness">
+                <md-radio-button value="potentially-only"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_SURENESS.T_POTENTIALLY_ONLY</span></md-radio-button>
+                <md-radio-button value="potentially"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_SURENESS.T_POTENTIALLY</span></md-radio-button>
+                <md-radio-button value="certainly"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_SURENESS.T_CERTAINLY</span></md-radio-button>
+            </md-radio-group>
+
+        </div>
 
         <br /><br />
-        <div class="querywin-footer"><b translate>QUERY_CHARAC.DIALOG.T_FOOTER_BOLD</b><span translate>QUERY_CHARAC.DIALOG.T_FOOTER_TEXT1</span><span translate>QUERY_CHARAC.DIALOG.T_FOOTER_TEXT2</span></div>
+        <div class="querywin-footer"><b translate>QUERY_CHRONOLOGIES.DIALOG.T_FOOTER_BOLD</b><span translate>QUERY_CHRONOLOGIES.DIALOG.T_FOOTER_TEXT1</span><span translate>QUERY_CHRONOLOGIES.DIALOG.T_FOOTER_TEXT2</span></div>
 
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
-        <md-button class="md-raised md-primary" type="submit" ng-click="hide()"><span translate>QUERY_CHARAC.BUTTON_OK.T_TITLE</span></md-button>
+        <md-button class="md-raised md-primary" type="submit" ng-click="hide()"><span translate>QUERY_CHRONOLOGIES.BUTTON_OK.T_TITLE</span></md-button>
     </md-dialog-actions>
 
 </md-dialog>

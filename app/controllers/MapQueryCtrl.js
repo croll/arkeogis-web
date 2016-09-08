@@ -91,6 +91,7 @@
 		$scope.params = {
 			database: [],
 			characs: {},
+			chronologies: {},
 		};
 
 		$scope.showMap2 = function() {
@@ -515,8 +516,18 @@
 			$mdDialog.show({
 					controller: function($scope, $mdDialog, arkeoService) {
 						$scope.chronologies = arkeoProject.get().chronologies;
-						$scope.selection = [{content: $scope.chronologies},null,null,null,null];
+						$scope.selection = [{content: $scope.chronologies},$scope.chronologies[0],null,null,null];
 						$scope.selected_chronologies = params.chronologies;
+						$scope.type="";
+						$scope.params = {
+							start_date: '',
+							end_date: '',
+							existence_inside_include: '+',
+							existence_inside_part: 'partly',
+							existence_inside_sureness: 'potentially',
+							existence_outside_include: '',
+							existence_outside_sureness: 'potentially',
+						};
 
 						$scope.hide = function() {
 							$mdDialog.hide();
@@ -529,16 +540,11 @@
 */
 
 						function setChronologySelect(chronology, sel) {
-							if (sel != '')
+							$scope.selected_chronologies={}; // emtpy selection first
+							if (sel != '') {
 								$scope.selected_chronologies[chronology.id]=sel;
-							else {
-								_.unset($scope.selected_chronologies, chronology.id);
-							}
-
-							if (_.has(chronology, 'content') && chronology.content.length > 0) {
-								chronology.content.forEach(function(subchronology) {
-									setChronologySelect(subchronology, sel);
-								})
+								$scope.params.start_date = chronology.start_date;
+								$scope.params.end_date = chronology.end_date;
 							}
 						}
 
@@ -546,10 +552,10 @@
 							if (_.has($scope.selected_chronologies, chronology.id)) {
 								var sel = $scope.selected_chronologies[chronology.id];
 								if (sel == '+')
-									setChronologySelect(chronology, '!');
+/*									setChronologySelect(chronology, '!');
 								else if (sel == '!')
 									setChronologySelect(chronology, '-');
-								else if (sel == '-')
+								else if (sel == '-')*/
 									setChronologySelect(chronology, '');
 							} else {
 								setChronologySelect(chronology, '+');
