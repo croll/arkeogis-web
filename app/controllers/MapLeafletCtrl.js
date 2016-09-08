@@ -247,8 +247,6 @@
                     });
                 });
                 var c = arkeoProject.getChronologyByDates(start_date, end_date);
-                console.log("---");
-                console.log(c);
                 if (c && c.color) {
                     ret.iconColor = '#' + c.color;
                 }
@@ -264,11 +262,10 @@
 
                 arkeoMap.getMap().then(function(map) {
 
-                    var start, end;
-                    start = new Date().getTime();
-
-                    var latlngs = [];
-
+                    var start, end,
+                        start = new Date().getTime(),
+                        latlngs = [],
+                        characIds = [];
                     _.each(query.data.features, function(feature) {
                         var marker = L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {
                             icon: generateIcon(feature, query.letter)
@@ -282,7 +279,17 @@
                         var html = "<arkeo-popup>";
                         html += "<div style='font-weight:bold'>" + feature.properties.infos.name + " (" + feature.properties.infos.code + ")" + "</div>";
                         html += "<div>" + feature.properties.infos.database_name + "</div>";
-                        html += '<md-icon ng-click="toggleSiteDetailsDialog(' + feature.properties.infos.id + ')" class="md-18" style="cursor: pointer">remove_red_eye</md-icon>';
+                        // For reach site range get characs
+                        _.each(feature.properties.site_ranges, function(sr) {
+                            _.each(sr.characs, function(charac) {
+                                if (characIds.indexOf(charac.charac_id) == -1) {
+                                    characIds.push(charac.charac_id);
+                                    var characInfos = arkeoProject.getCharacById(charac.charac_id);
+                                    html += "<div>" + buildCharacHierarchy(characInfos).join(' / ') + "</div>";
+                                }
+                            });
+                        });
+                        html += '<div style="text-align:center;margin: 10px 0 -8px 0;"><md-icon ng-click="toggleSiteDetailsDialog(' + feature.properties.infos.id + ')" class="md-18" style="cursor: pointer">info</md-icon></div>';
                         html += "</arkeo-popup>";
                         marker.bindPopup($compile(html)($scope)[0]);
                         marker.feature = feature;
