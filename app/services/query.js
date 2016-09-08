@@ -25,13 +25,17 @@
         var self = this,
             alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
             queries = [],
-            currentNum = -1;
+            cachedSites = {},
+            currentNum = -1,
+            queriesDoneNum = -1;
 
         this.current = undefined;
 
         this.do = function(params) {
+            self.add(params);
             $http.post("/api/map/search", params).then(function(result) {
-                self.add(result.data, params);
+                queriesDoneNum++;
+                self.setData(result.data);
             }, function(err) {
                 arkeoService.fieldErrorDisplay(err)
                 console.error(err);
@@ -39,11 +43,11 @@
         };
 
         this.getSite = function(id) {
-            if (angular.isDefined(self.current.sites[id])) {
-                return self.current.sites[id];
+            if (angular.isDefined(cachedSites[id])) {
+                return cachedSites[id];
             }
             return $http.get("/api/site/"+id).then(function(result) {
-                self.current.sites[result.data.id] = result.data;
+                cachedSites[result.data.id] = result.data;
                 return result.data;
             }, function(err) {
                 arkeoService.fieldErrorDisplay(err)
@@ -51,19 +55,27 @@
             });
         };
 
-        this.add = function(data, params) {
+        this.add = function(params) {
             currentNum++;
             this.current = {
                 num: currentNum,
                 letter: alphabet[currentNum],
+                data: null,
                 params: params,
-                data: data,
+                zone: {
+                    type: null,
+                    geojson: null
+                },
                 done: false,
                 sites: {}, // Store site details once
                 markersByDatabase: {},
                 markerClusters: {} // object keys: dbID and cluster
             };
             queries[currentNum] = this.current;
+        };
+
+        this.setData = function(data) {
+            this.current.data = data;
         };
 
         this.get = function(id) {
@@ -82,8 +94,8 @@
             return this.current;
         }
 
-        this.getNumQueries = function() {
-            return currentNum+1;
+        this.getNumQueries = function(onlyDone) {
+            return (onlyDone) ? queriesDoneNum+1 : currentNum+1;
         }
 
         this.delete = function(id) {
