@@ -58,7 +58,7 @@
                         <div class="query-element-show-icon noselect"><md-icon ng-click="toggle_query_element('chronologies')">play_arrow</md-icon></div>
                     </div>
                     <div class="query-element-content">
-                        <div class='query-element' ng-repeat="line in chronologies_lines">
+                        <div class='query-element chrono-string' ng-repeat="(i, line) in chronologies_lines" ng-click="showChronologyChooserDialog(params.chronologies[i])">
                             {{line}}
                         </div>
                     </div>
