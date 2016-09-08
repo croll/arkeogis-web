@@ -683,54 +683,11 @@
 		"BUTTON_DISPLAYMAP": {
 			"T_TITLE": "AFFICHER LA CARTE"
 		},
-		"MENU_CENTROID": {
-			"T_NO": "Non",
-			"T_TITLE": "Centroïde",
-			"T_YES": "Oui"
-		},
-		"MENU_CHARACS": {
-			"T_TITLE": "Caractéristiques"
-		},
-		"MENU_CHRONO": {
-			"T_CHRONOLOGY": "Période",
-			"T_MANUAL": "Définition des bornes",
-			"T_TITLE": "Choix par période(s)"
-		},
 		"MENU_DATABASE": {
 			"T_INVENTORY": "Inventaire",
 			"T_LITERARYWORK": "Ouvrage",
 			"T_RESEARCH": "Recherche",
-			"T_TITLE": "Bases de données",
 			"T_UNDEFINED": "Non défini"
-		},
-		"MENU_KNOWLEDGE": {
-			"T_DIG": "Fouillé",
-			"T_LITERATURE": "Littérature",
-			"T_NOTDOCUMENTED": "Non renseigné",
-			"T_PROSPECTED_AERIAL": "Prospection aérienne",
-			"T_PROSPECTED_PEDESTRIAN": "Prospection terrestre",
-			"T_SURVEYED": "Sondé",
-			"T_TITLE": "Connaissance"
-		},
-		"MENU_OCCUPATION": {
-			"T_CONTINUOUS": "Continue (plusieurs périodes continues)",
-			"T_MULTIPLE": "Multiple (plusieurs périodes indépendantes)",
-			"T_NOTDOCUMENTED": "Non renseigné",
-			"T_SINGLE": "Unique",
-			"T_TITLE": "Occupation"
-		},
-		"MENU_PERIOD": {
-			"T_CHRONOLOGY": "Choix par période...",
-			"T_MANUAL": "Définition des bornes...",
-			"T_TITLE": "Période"
-		},
-		"MENU_SEARCHZONE": {
-			"T_COORDINATES": "Coordonées...",
-			"T_DISC": "Disque...",
-			"T_MAP": "Carte",
-			"T_POLYGON": "Libre...",
-			"T_RECT": "Rectangle...",
-			"T_TITLE": "Zone géographique"
 		}
 	},
 	"MAPEDITOR": {
@@ -978,37 +935,58 @@
 		}
 	},
 	"QUERY_AREA": {
+		"BUTTON": {
+			"T_CANCEL_DRAW": "Annuler",
+			"T_REDO": "Recommencer",
+			"T_VALID": "Valider"
+		},
+		"BUTTON_DRAW": {
+			"T_TITLE": "Tracer la zone sur la carte"
+		},
 		"BUTTON_OK": {
-			"T_TITLE": "Ok"
+			"T_TITLE": "Fermer la fenêtre"
 		},
 		"CUSTOM_LAT": {
 			"T_DEG": "degrés",
+			"T_HELP": "Exemple: Strasbourg : 48°35'N  ou décimaux : 48.583",
 			"T_MIN": "minutes",
 			"T_NUMERIC": "décimaux",
-			"T_OR": "- ou -",
+			"T_OR": "ou",
 			"T_SEC": "secondes",
-			"T_TITLE": "Latitude (exemple, Strasbourg : 48°35'N  ou décimaux : 48.583)"
+			"T_TITLE": "Latitude"
 		},
 		"CUSTOM_LNG": {
 			"T_DEG": "degrés",
+			"T_HELP": "Exemple Strasbourg : 7°45'E ou décimaux : 7.750)",
 			"T_MIN": "minutes",
 			"T_NUMERIC": "décimaux",
-			"T_OR": "- ou -",
+			"T_OR": "ou",
 			"T_SEC": "secondes",
-			"T_TITLE": "Longitude (exemple Strasbourg : 7°45'E ou décimaux : 7.750)"
+			"T_TITLE": "Longitude"
 		},
 		"CUSTOM_RADIUS": {
-			"T_FROMCENTER": "km à partir du centre de la recherche.",
-			"T_RADIUSOF": "Dans un rayon de",
-			"T_TITLE": "Distance :"
+			"T_HELP": "Radius",
+			"T_TITLE": "Distance"
 		},
 		"DIALOG": {
-			"T_CHOOSETOOL": "Outil de sélection :",
+			"T_CHOOSETOOL": "Outil de sélection",
 			"T_FOOTER_BOLD": "nota :",
 			"T_FOOTER_TEXT1": "Les longitudes sont le plus souvent comptées positivement vers l'Est, par rapport à un méridien origine. Ce méridien origine peut être celui de Greenwich (méridien international), ou encore propre à la géodésie d'un pays (méridien de Paris pour la France).",
 			"T_FOOTER_TEXT2": "Chaque méridien origine est défini numériquement par sa longitude par rapport au méridien international. Le méridien de Paris est à 2° 20' 14.025\" à l'Est de celui de Greenwich (source IGN). Le méridien origine utilisé par ArkeoGIS est celui de Greenwich.",
 			"T_INTRO": "Sélection de la zone à requéter sur la carte",
 			"T_TITLE": "Emprise"
+		},
+		"ERROR_CUSTOM_AREA": {
+			"T_MISSING_INFORMATIONS": "Veuillez saisir la latitude, la longitude et le radius."
+		},
+		"LABEL_LATITUDE": {
+			"T_SHORT": "Lat"
+		},
+		"LABEL_LONGITUDE": {
+			"T_SHORT": "Lng"
+		},
+		"LABEL_RADIUS": {
+			"T_SHORT": "Radius"
 		},
 		"RADIOBUTTON": {
 			"T_ALLMAP": "Carte",
