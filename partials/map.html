@@ -50,6 +50,25 @@
                     </div>
                 </div>
 
+                <!-- chronologies -->
+                <div class="query-element query-element-chronologies">
+                    <div class="query-element-title">
+                        <span translate>QUERY.CHRONOLOGIES.T_TITLE</span>
+                        <div class="query-element-edit-icon noselect"><md-icon ng-click="showChronologyChooserDialog()">mode_edit</md-icon></div>
+                        <div class="query-element-show-icon noselect"><md-icon ng-click="toggle_query_element('chronologies')">play_arrow</md-icon></div>
+                    </div>
+                    <div class="query-element-content">
+                        <div class="query-subelement" ng-if="chronologies_selecteds_include.length > 0">
+                            <div class="query-subelement-title" translate>QUERY.CHRONOLOGIES.T_INCLUDE</div>
+                            <div ng-repeat="path in chronologies_selecteds_include">- {{path}}</div>
+                        </div>
+                        <div class="query-subelement" ng-if="chronologies_selecteds_exclude.length > 0">
+                            <div class="query-subelement-title" translate>QUERY.CHRONOLOGIES.T_EXCLUDE</div>
+                            <div ng-repeat="path in chronologies_selecteds_exclude">- {{path}}</div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- characs -->
                 <div class="query-element query-element-characs">
                     <div class="query-element-title">

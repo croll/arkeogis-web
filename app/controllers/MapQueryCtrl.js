@@ -34,6 +34,7 @@
 		$scope.params = {
 			database: [],
 			characs: {},
+			chronologies: {},
 			area: {type: 'custom', lat: null, lng: null, radius: null, geojson: null}
 		};
 
@@ -474,6 +475,232 @@
 
 		$scope.$watchCollection('params.characs', function() {
 			characsSelectionToStrings();
+		});
+
+
+
+		/************
+		 * chronologies
+		 ************/
+
+
+		$scope.showChronologyChooserDialog = function() {
+			showChronologyChooserDialog($scope.params);
+		};
+
+		function showChronologyChooserDialog(params) {
+			$mdDialog.show({
+					controller: function($scope, $mdDialog, arkeoService) {
+						$scope.chronologies = arkeoProject.get().chronologies;
+						$scope.selection = [{content: $scope.chronologies},$scope.chronologies[0],null,null,null];
+						$scope.selected_chronologies = params.chronologies;
+						$scope.type="";
+						$scope.params = {
+							start_date: '',
+							end_date: '',
+							existence_inside_include: '+',
+							existence_inside_part: 'partly',
+							existence_inside_sureness: 'potentially',
+							existence_outside_include: '',
+							existence_outside_sureness: 'potentially',
+						};
+
+						$scope.hide = function() {
+							$mdDialog.hide();
+						};
+
+						$scope.toggle_display = function(elemname) {
+							var html_elem_icon = $('.'+elemname+'-show-icon');
+							var html_elem_content = $('.'+elemname+'-content');
+							if (html_elem_icon.hasClass('display-icon-hide')) {
+								html_elem_icon.removeClass("display-icon-hide");
+								html_elem_content.removeClass("display-content-hide");
+							} else {
+								html_elem_icon.addClass("display-icon-hide");
+								html_elem_content.addClass("display-content-hide");
+							}
+						}
+
+/*
+						$scope.$watchCollection('selected_chronologies', function() {
+							params.chronologies = $scope.selected_chronologies.map(function(elem) { return elem.id });
+						});
+*/
+
+						function setChronologySelect(chronology, sel) {
+							$scope.selected_chronologies={}; // emtpy selection first
+							if (sel != '') {
+								$scope.selected_chronologies[chronology.id]=sel;
+								$scope.params.start_date = chronology.start_date;
+								$scope.params.end_date = chronology.end_date;
+							}
+						}
+
+						$scope.toggleButton = function(chronology) {
+							if (_.has($scope.selected_chronologies, chronology.id)) {
+								// we never remove a selection by clicking on it here
+/*								var sel = $scope.selected_chronologies[chronology.id];
+								if (sel == '+')
+									setChronologySelect(chronology, '!');
+								else if (sel == '!')
+									setChronologySelect(chronology, '-');
+								else if (sel == '-')
+									setChronologySelect(chronology, '');
+*/
+							} else {
+								setChronologySelect(chronology, '+');
+							}
+						};
+
+						$scope.getButtonState = function(chronology) {
+							if (_.has($scope.selected_chronologies, chronology.id)) {
+								return $scope.selected_chronologies[chronology.id];
+							} else {
+								return '';
+							}
+						};
+
+						$scope.haveSubContent = function(chronology) {
+							if (_.has(chronology, 'content') && chronology.content.length > 0)
+								return true;
+							else
+								return false;
+						};
+
+						$scope.chronologySelect = function(col, chronology) {
+							$scope.selection[col]=chronology;
+							for (var i=col+1; i<5; i++) {
+								$scope.selection[i]=null;
+							}
+						};
+
+						function init() {
+							if (!angular.isObject($scope.selected_chronologies))
+								$scope.selected_chronologies={};
+							console.log("scope.chronologies : ", $scope.chronologies);
+						}
+						init();
+					},
+					templateUrl: 'partials/query/chronologieschooser.html',
+					parent: angular.element(document.body),
+					clickOutsideToClose: true,
+				})
+				.then(function(answer) {
+					$scope.status = 'You said the information was "' + answer + '".';
+				}, function() {
+					$scope.status = 'You cancelled the dialog.';
+				});
+		};
+
+		// cache chronologies by id
+		var chronologies_by_id = null;
+		function getChronologyById(id) {
+			if (chronologies_by_id == null) {
+				chronologies_by_id = {};
+				var chronologiesAll = arkeoProject.get().chronologies;
+				function fillCache(content) {
+					_.each(content, function(chronology) {
+						chronologies_by_id[parseInt(chronology.id)]=chronology;
+						if (_.has(chronology, 'content'))
+							fillCache(chronology.content);
+					});
+				}
+				fillCache(chronologiesAll);
+			}
+			return chronologies_by_id[parseInt(id)];
+		}
+
+		function testSubChronologiesSelection(selecteds, chronology, concerneds) {
+			concerneds.push(chronology.id);
+			if (selecteds.indexOf(chronology.id) != -1) {
+				var ok = true;
+				if (_.has(chronology, 'content')) {
+					_.each(chronology.content, function(subchronology) {
+						if (!testSubChronologiesSelection(selecteds, subchronology, concerneds))
+							ok=false;
+					});
+				}
+				return ok;
+			}
+			return false;
+		}
+
+		function chronologiesSelectionToStrings() {
+			var chraracsAll = arkeoProject.get().chronologies;
+			var selecteds = $scope.params.chronologies;
+
+			var selecteds_include = [];
+			var selecteds_exceptional = [];
+			var selecteds_exclude = [];
+
+			_.each(selecteds, function(selected, id) {
+				id=parseInt(id);
+				if (selected == '+')
+					selecteds_include.push(id);
+				else if (selected == '!')
+					selecteds_exceptional.push(id);
+				else if (selected == '-')
+					selecteds_exclude.push(id);
+			});
+
+			function buildPath(chronology, selecteds, sel) {
+
+				// check if the parent is in selection, so we build the path from the parent before.
+				if (angular.isObject(chronology.parent) && selecteds.indexOf(chronology.parent.id) !== -1)
+					return buildPath(chronology.parent);
+
+				// check if all childrends are also in selection, or not
+				var concerneds = [];
+				var withChildrens = false;
+				if (testSubChronologiesSelection(selecteds, chronology, concerneds)) {
+					// this chronology have all it's childrends selecteds.
+
+					if (concerneds.length > 1)
+						withChildrens = true;
+
+					// remove all concerneds from selecteds, because theses are childrens
+					_.remove(selecteds, function(id) {
+						return concerneds.indexOf(id) != -1;
+					});
+
+				} else {
+					// this chronology do NOT have all it's childrends selecteds.
+
+					withChildrens = false;
+
+					// remove only this chronology, not childrens
+					var i=selecteds.indexOf(chronology.id);
+					if (i > -1) selecteds.splice(i, 1);
+				}
+
+				// now build the full path
+				var c=chronology;
+				var path="";
+				while(angular.isObject(c)) {
+					path=c.name.fr+(path != '' ? ' / '+path : '');
+					c=c.parent;
+				}
+				if (withChildrens) path+='*';
+				return path;
+			}
+
+			function buildPaths(selecteds, sel) {
+				var paths=[];
+				while (selecteds.length > 0) {
+					paths.push(buildPath(getChronologyById(selecteds[0]), selecteds, sel));
+				}
+				return paths;
+			}
+
+			$scope.chronologies_selecteds_include = buildPaths(selecteds_include, '+');
+			$scope.chronologies_selecteds_exceptional = buildPaths(selecteds_exceptional, '!');
+			$scope.chronologies_selecteds_exclude = buildPaths(selecteds_exclude, '-');
+
+			console.log("$scope.chronologies_selecteds_include", $scope.chronologies_selecteds_include, $scope.chronologies_selecteds_exceptional, $scope.chronologies_selecteds_exclude);
+		}
+
+		$scope.$watchCollection('params.chronologies', function() {
+			chronologiesSelectionToStrings();
 		});
 
 
