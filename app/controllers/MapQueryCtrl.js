@@ -22,8 +22,8 @@
 (function() {
 
 	'use strict';
-	ArkeoGIS.controller('MapQueryCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', '$timeout', '$mdDialog', 'arkeoService', 'arkeoProject', 'arkeoQuery', 'arkeoMap',
-	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, $timeout, $mdDialog, arkeoService, arkeoProject, arkeoQuery, arkeoMap) {
+	ArkeoGIS.controller('MapQueryCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', '$timeout', '$mdDialog', '$translate', 'arkeoService', 'arkeoProject', 'arkeoQuery', 'arkeoMap',
+	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, $timeout, $mdDialog, $translate, arkeoService, arkeoProject, arkeoQuery, arkeoMap) {
             /*
              * menus init : buttons styles
              */
@@ -34,7 +34,7 @@
 		$scope.params = {
 			database: [],
 			characs: {},
-			chronologies: {},
+			chronologies: [],
 			area: {type: 'custom', lat: null, lng: null, radius: null, geojson: null}
 		};
 
@@ -484,26 +484,37 @@
 		 ************/
 
 
-		$scope.showChronologyChooserDialog = function() {
-			showChronologyChooserDialog($scope.params);
+		$scope.showChronologyChooserDialog = function(params) {
+			if (params)
+				showChronologyChooserDialog(params);
+			else {
+				params = {
+					selected_chronologie_id: 0,
+					start_date: '',
+					end_date: '',
+					existence_inside_include: '+',
+					existence_inside_part: 'partly',
+					existence_inside_sureness: 'potentially',
+					existence_outside_include: '',
+					existence_outside_sureness: 'potentially',
+				}
+				$scope.params.chronologies.push(params);
+				showChronologyChooserDialog(params);
+			}
 		};
 
-		function showChronologyChooserDialog(params) {
+		function showChronologyChooserDialog(chrono_params) {
 			$mdDialog.show({
 					controller: function($scope, $mdDialog, arkeoService) {
 						$scope.chronologies = arkeoProject.get().chronologies;
 						$scope.selection = [{content: $scope.chronologies},$scope.chronologies[0],null,null,null];
-						$scope.selected_chronologies = params.chronologies;
 						$scope.type="";
-						$scope.params = {
-							start_date: '',
-							end_date: '',
-							existence_inside_include: '+',
-							existence_inside_part: 'partly',
-							existence_inside_sureness: 'potentially',
-							existence_outside_include: '',
-							existence_outside_sureness: 'potentially',
-						};
+						$scope.params = chrono_params;
+
+						{ // init of selected_chronologies
+							$scope.selected_chronologies = {};
+							$scope.selected_chronologies[$scope.params.selected_chronologie_id] = '+';
+						}
 
 						$scope.hide = function() {
 							$mdDialog.hide();
@@ -610,97 +621,110 @@
 			return chronologies_by_id[parseInt(id)];
 		}
 
-		function testSubChronologiesSelection(selecteds, chronology, concerneds) {
-			concerneds.push(chronology.id);
-			if (selecteds.indexOf(chronology.id) != -1) {
-				var ok = true;
-				if (_.has(chronology, 'content')) {
-					_.each(chronology.content, function(subchronology) {
-						if (!testSubChronologiesSelection(selecteds, subchronology, concerneds))
-							ok=false;
-					});
-				}
-				return ok;
-			}
-			return false;
-		}
+		$scope.$watch(function() { return angular.toJson($scope.params.chronologies); }, function() {
+		//$scope.$watchCollection('params.chronologies', function() {
+			console.log("changed !");
+			var trads = {
+				'QUERY_CHRONOLOGIES.SENTENSE.T_ALL' : "EXISTENCE_INSIDE_INCLUDE les sites ayant EXISTENCE_INSIDE_SURENESS une existence EXISTENCE_INSIDE_PART durant la période PERIOD. Ces sites EXISTENCE_OUTSIDE_INCLUDE EXISTENCE_OUTSIDE_SURENESS avoir existé en dehors de cette période.",
+				'QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_INSIDE_INCLUDE.T_INCLUDE' : "Inclure",
+				'QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_INSIDE_INCLUDE.T_EXCLUDE' : "Exclure",
+				'QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_INSIDE_PART.T_PARTLY' : "partielle",
+				'QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_INSIDE_PART.T_FULL'   : "intégrale",
+				'QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_INSIDE_SURENESS.T_POTENTIALLY_ONLY' : "uniquement potentiellement",
+				'QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_INSIDE_SURENESS.T_POTENTIALLY' : "potentiellement",
+				'QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_INSIDE_SURENESS.T_CERTAINLY' : "assurément",
+				'QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_OUTSIDE_INCLUDE.T_POSSIBLY' : "peuvent",
+				'QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_OUTSIDE_INCLUDE.T_MUST' : "doivent",
+				'QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_OUTSIDE_INCLUDE.T_MUSTNOT' : "ne peuvent pas",
+				'QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_OUTSIDE_SURENESS.T_POTENTIALLY_ONLY' : "uniquement potentiellement",
+				'QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_OUTSIDE_SURENESS.T_POTENTIALLY' : "potentiellement",
+				'QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_OUTSIDE_SURENESS.T_CERTAINLY' : "assurément",
+			};
 
-		function chronologiesSelectionToStrings() {
-			var chraracsAll = arkeoProject.get().chronologies;
-			var selecteds = $scope.params.chronologies;
+			var q={};
+			for (var t in trads)
+				q[t]=$translate(t);
 
-			var selecteds_include = [];
-			var selecteds_exceptional = [];
-			var selecteds_exclude = [];
+			$q.all(q).then(function(translateds) {
+				trads = translateds;
+			}, function(err) {
+				console.log(err);
+			}).then(function() {
+				$scope.chronologies_lines = [];
+				$scope.params.chronologies.forEach(function(p) {
 
-			_.each(selecteds, function(selected, id) {
-				id=parseInt(id);
-				if (selected == '+')
-					selecteds_include.push(id);
-				else if (selected == '!')
-					selecteds_exceptional.push(id);
-				else if (selected == '-')
-					selecteds_exclude.push(id);
+					var str = trads['QUERY_CHRONOLOGIES.SENTENSE.T_ALL'];
+
+					var w='BUG';
+					switch(p.existence_inside_include) {
+						case '+':
+							w = trads['QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_INSIDE_INCLUDE.T_INCLUDE'];
+							break;
+						case '-':
+							w = trads['QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_INSIDE_INCLUDE.T_EXCLUDE'];
+							break;
+					}
+					str = str.replace('EXISTENCE_INSIDE_INCLUDE', w);
+
+					w='BUG';
+					switch(p.existence_inside_part) {
+						case 'partly':
+							w = trads['QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_INSIDE_PART.T_PARTLY'];
+							break;
+						case 'full':
+							w = trads['QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_INSIDE_PART.T_FULL'];
+							break;
+					}
+					str = str.replace('EXISTENCE_INSIDE_PART', w);
+
+					w='BUG';
+					switch(p.existence_inside_sureness) {
+						case 'potentially-only':
+							w = trads['QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_INSIDE_SURENESS.T_POTENTIALLY_ONLY'];
+							break;
+						case 'potentially':
+							w = trads['QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_INSIDE_SURENESS.T_POTENTIALLY'];
+							break;
+						case 'certainly':
+							w = trads['QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_INSIDE_SURENESS.T_CERTAINLY'];
+							break;
+					}
+					str = str.replace('EXISTENCE_INSIDE_SURENESS', w);
+
+					w='BUG';
+					switch(p.existence_outside_include) {
+						case '':
+							w = trads['QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_OUTSIDE_INCLUDE.T_POSSIBLY'];
+							break;
+						case '+':
+							w = trads['QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_OUTSIDE_INCLUDE.T_MUST'];
+							break;
+						case '-':
+							w = trads['QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_OUTSIDE_INCLUDE.T_MUSTNOT'];
+							break;
+					}
+					str = str.replace('EXISTENCE_OUTSIDE_INCLUDE', w);
+
+
+					w='BUG';
+					switch(p.existence_outside_sureness) {
+						case 'potentially-only':
+							w = trads['QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_OUTSIDE_SURENESS.T_POTENTIALLY_ONLY'];
+							break;
+						case 'potentially':
+							w = trads['QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_OUTSIDE_SURENESS.T_POTENTIALLY'];
+							break;
+						case 'certainly':
+							w = trads['QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_OUTSIDE_SURENESS.T_CERTAINLY'];
+							break;
+					}
+					str = str.replace('EXISTENCE_OUTSIDE_SURENESS', w);
+
+					$scope.chronologies_lines.push(str);
+				});
+
 			});
 
-			function buildPath(chronology, selecteds, sel) {
-
-				// check if the parent is in selection, so we build the path from the parent before.
-				if (angular.isObject(chronology.parent) && selecteds.indexOf(chronology.parent.id) !== -1)
-					return buildPath(chronology.parent);
-
-				// check if all childrends are also in selection, or not
-				var concerneds = [];
-				var withChildrens = false;
-				if (testSubChronologiesSelection(selecteds, chronology, concerneds)) {
-					// this chronology have all it's childrends selecteds.
-
-					if (concerneds.length > 1)
-						withChildrens = true;
-
-					// remove all concerneds from selecteds, because theses are childrens
-					_.remove(selecteds, function(id) {
-						return concerneds.indexOf(id) != -1;
-					});
-
-				} else {
-					// this chronology do NOT have all it's childrends selecteds.
-
-					withChildrens = false;
-
-					// remove only this chronology, not childrens
-					var i=selecteds.indexOf(chronology.id);
-					if (i > -1) selecteds.splice(i, 1);
-				}
-
-				// now build the full path
-				var c=chronology;
-				var path="";
-				while(angular.isObject(c)) {
-					path=c.name.fr+(path != '' ? ' / '+path : '');
-					c=c.parent;
-				}
-				if (withChildrens) path+='*';
-				return path;
-			}
-
-			function buildPaths(selecteds, sel) {
-				var paths=[];
-				while (selecteds.length > 0) {
-					paths.push(buildPath(getChronologyById(selecteds[0]), selecteds, sel));
-				}
-				return paths;
-			}
-
-			$scope.chronologies_selecteds_include = buildPaths(selecteds_include, '+');
-			$scope.chronologies_selecteds_exceptional = buildPaths(selecteds_exceptional, '!');
-			$scope.chronologies_selecteds_exclude = buildPaths(selecteds_exclude, '-');
-
-			console.log("$scope.chronologies_selecteds_include", $scope.chronologies_selecteds_include, $scope.chronologies_selecteds_exceptional, $scope.chronologies_selecteds_exclude);
-		}
-
-		$scope.$watchCollection('params.chronologies', function() {
-			chronologiesSelectionToStrings();
 		});
 
 
