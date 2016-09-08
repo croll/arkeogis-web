@@ -35,7 +35,7 @@
 			database: [],
 			characs: {},
 			chronologies: [],
-			area: {type: 'custom', lat: null, lng: null, radius: null, geojson: null}
+			area: {type: 'map', lat: null, lng: null, radius: null, geojson: null}
 		};
 
 		$scope.showMap2 = function() {
@@ -247,13 +247,8 @@
 
                                 $scope.area = params.area;
 
-								if (!angular.isDefined($scope.latInDeg)) {
-									$scope.latInDeg = {};
-								}
-
-								if (!angular.isDefined($scope.lngInDeg)) {
-									$scope.lngInDeg = {};
-								}
+								$scope.latInDeg = {};
+								$scope.lngInDeg = {};
 
                                 $scope.hide = function() {
                                     switch ($scope.area.type) {
@@ -287,12 +282,18 @@
                                 };
 
                                 $scope.toDecimal_lat = function() {
+									if ($scope.latInDeg.deg == null || $scope.latInDeg.min == null || $scope.latInDeg.sec == null) {
+										return;
+									}
                                     $scope.area.lat = Math.round(toDecimal($scope.latInDeg.deg,
                                         $scope.latInDeg.min,
                                         $scope.latInDeg.sec) * 1000) / 1000;
                                 }
 
                                 $scope.toDecimal_lng = function() {
+									if ($scope.lngInDeg.deg == null || $scope.lngInDeg.min == null || $scope.lngInDeg.sec == null) {
+										return;
+									}
                                     $scope.area.lng = Math.round(toDecimal($scope.lngInDeg.deg,
                                         $scope.lngInDeg.min,
                                         $scope.lngInDeg.sec) * 1000) / 1000;
