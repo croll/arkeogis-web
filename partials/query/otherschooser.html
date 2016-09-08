@@ -1,9 +1,9 @@
-<md-dialog class="dialog-areachooser" aria-label="Area Chooser..." ng-cloak flex="60">
+<md-dialog class="dialog-otherschooser" aria-label="Others Chooser..." ng-cloak flex="60">
 
-    <md-toolbar layout-padding id='arkeo-areachooser-toolbar' class="md-primary md-hue-3">
+    <md-toolbar layout-padding id='arkeo-otherschooser-toolbar' class="md-primary md-hue-3">
         <div class="md-toolbar-tools">
             <h2>
-                <span translate>QUERY_AREA.DIALOG.T_TITLE</span>
+                <span translate>QUERY_OTHERS.DIALOG.T_TITLE</span>
                 <span ark-get-translation ark-translations="arbo.name"></span>
             </h2>
             <span flex></span>
@@ -15,132 +15,138 @@
 
     <md-dialog-content layout-padding>
 
-        <h2 translate>QUERY_AREA.DIALOG.T_INTRO</h2>
+        <h2 translate>QUERY_OTHERS.DIALOG.T_INTRO</h2>
 
-        <h3 translate style="margin-top:0;margin-bottom:0;padding-top:0;padding-bottom:0">QUERY_AREA.DIALOG.T_CHOOSETOOL</h3>
-        <md-radio-group ng-model="area.type" layout-padding>
+        <h3 translate>QUERY_OTHERS.CHARACS.T_TITLE</h3>
+        <div translate>QUERY_OTHERS.CHARACS_LINKED.T_TITLE</div>
+        <md-radio-group ng-model="others.characs_linked" layout-padding>
             <div layout="row">
-                <md-radio-button value="map" aria-label="">
-                    <span translate>QUERY_AREA.RADIOBUTTON.T_ALLMAP</span>
+                <md-radio-button value="at-least-one" aria-label="">
+                    <span translate>QUERY_OTHERS.CHARACS_LINKED.T_AT_LEAST_ONE</span>
                 </md-radio-button>
-                <md-radio-button value="rect" aria-label="">
-                    <span translate>QUERY_AREA.RADIOBUTTON.T_RECT</span>
-                </md-radio-button>
-                <md-radio-button value="disc" aria-label="">
-                    <span translate>QUERY_AREA.RADIOBUTTON.T_DISC</span>
-                </md-radio-button>
-                <md-radio-button value="free" aria-label="">
-                    <span translate>QUERY_AREA.RADIOBUTTON.T_FREE</span>
-                </md-radio-button>
-                <md-radio-button value="custom" aria-label="">
-                    <span translate>QUERY_AREA.RADIOBUTTON.T_CUSTOM</span>
+                <md-radio-button value="all" aria-label="">
+                    <span translate>QUERY_OTHERS.CHARACS_LINKED.T_ALL</span>
                 </md-radio-button>
             </div>
         </md-radio-group>
 
-        <div ng-show="area.type == 'custom'">
+        <h3 translate>QUERY_OTHERS.PRECISIONS.T_TITLE</h3>
+        <div translate>QUERY_OTHERS.PRECISIONS.T_INTRO</div>
+        <div translate>QUERY_OTHERS.PRECISIONS_KNOWLEDGES.T_TITLE</div>
+        <md-radio-group ng-model="others.knowledge" layout-padding>
+            <div layout="row">
+                <md-radio-button value="at-least-one" aria-label="">
+                    <span translate>QUERY_OTHERS.CHARACS_LINKED.T_AT_LEAST_ONE</span>
+                </md-radio-button>
+                <md-radio-button value="all" aria-label="">
+                    <span translate>QUERY_OTHERS.CHARACS_LINKED.T_ALL</span>
+                </md-radio-button>
+            </div>
+        </md-radio-group>
+
+        <div ng-show="others.type == 'custom'">
 
             <!-- LAT -->
-            <h3 translate>QUERY_AREA.CUSTOM_LAT.T_TITLE</h3>
+            <h3 translate>QUERY_OTHERS.CUSTOM_LAT.T_TITLE</h3>
             <div layout="row" layout-md="col">
                 <div layout="row" flex>
                     <div layout="column">
-                        <label translate>QUERY_AREA.CUSTOM_LAT.T_NUMERIC</label>
+                        <label translate>QUERY_OTHERS.CUSTOM_LAT.T_NUMERIC</label>
                         <md-input-container>
-                            <input type="number" ng-model="area.lat" ng-change="fromDecimal_lat()"></input>
+                            <input type="number" ng-model="others.lat" ng-change="fromDecimal_lat()"></input>
                         </md-input-container>
                     </div>
                 </div>
                 <div flex="10" layout-align="center center">
                     <label></label>
-                    <div class="or" translate>QUERY_AREA.CUSTOM_LAT.T_OR</div>
+                    <div class="or" translate>QUERY_OTHERS.CUSTOM_LAT.T_OR</div>
                 </div>
                 <div layout="row" flex="70">
                     <div layout="column">
-                        <label translate>QUERY_AREA.CUSTOM_LAT.T_DEG</label>
+                        <label translate>QUERY_OTHERS.CUSTOM_LAT.T_DEG</label>
                         <md-input-container>
                             <input type="number" class="deg" step="1" ng-model="latInDeg.deg" ng-change="toDecimal_lat()"></input>
                         </md-input-container>
                     </div>
                     <div layout="column">
-                        <label translate>QUERY_AREA.CUSTOM_LAT.T_MIN</label>
+                        <label translate>QUERY_OTHERS.CUSTOM_LAT.T_MIN</label>
                         <md-input-container>
                             <input type="number" class="deg" step="1" ng-model="latInDeg.min" ng-change="toDecimal_lat()"></input>
                         </md-input-container>
                     </div>
                     <div layout="column">
-                        <label translate>QUERY_AREA.CUSTOM_LAT.T_SEC</label>
+                        <label translate>QUERY_OTHERS.CUSTOM_LAT.T_SEC</label>
                         <md-input-container>
                             <input type="number" class="deg" step="1" ng-model="latInDeg.sec" ng-change="toDecimal_lat()"></input>
                         </md-input-container>
                     </div>
                 </div>
             </div>
-            <ark-help><span translate>QUERY_AREA.CUSTOM_LAT.T_HELP</span></ark-help>
+            <ark-help><span translate>QUERY_OTHERS.CUSTOM_LAT.T_HELP</span></ark-help>
 
             <!-- LNG -->
-            <h3 translate style="margin-top: 30px">QUERY_AREA.CUSTOM_LNG.T_TITLE</h3>
+            <h3 translate style="margin-top: 30px">QUERY_OTHERS.CUSTOM_LNG.T_TITLE</h3>
             <div layout="row" layout-md="col">
                 <div layout="row" flex>
                     <div layout="column">
-                        <label translate>QUERY_AREA.CUSTOM_LNG.T_NUMERIC</label>
+                        <label translate>QUERY_OTHERS.CUSTOM_LNG.T_NUMERIC</label>
                         <md-input-container>
-                            <input type="number" ng-model="area.lng" ng-change="fromDecimal_lng()"></input>
+                            <input type="number" ng-model="others.lng" ng-change="fromDecimal_lng()"></input>
                         </md-input-container>
                     </div>
                 </div>
                 <div flex="10" layout-align="center center">
                     <label></label>
-                    <div class="or" translate>QUERY_AREA.CUSTOM_LNG.T_OR</div>
+                    <div class="or" translate>QUERY_OTHERS.CUSTOM_LNG.T_OR</div>
                 </div>
                 <div layout="row" flex="70">
                     <div layout="column">
-                        <label translate>QUERY_AREA.CUSTOM_LNG.T_DEG</label>
+                        <label translate>QUERY_OTHERS.CUSTOM_LNG.T_DEG</label>
                         <md-input-container>
                             <input type="number" class="deg" step="1" ng-model="lngInDeg.deg" ng-change="toDecimal_lng()"></input>
                         </md-input-container>
                     </div>
                     <div layout="column">
-                        <label translate>QUERY_AREA.CUSTOM_LNG.T_MIN</label>
+                        <label translate>QUERY_OTHERS.CUSTOM_LNG.T_MIN</label>
                         <md-input-container>
                             <input type="number" class="deg" step="1" ng-model="lngInDeg.min" ng-change="toDecimal_lng()"></input>
                         </md-input-container>
                     </div>
                     <div layout="column">
-                        <label translate>QUERY_AREA.CUSTOM_LNG.T_SEC</label>
+                        <label translate>QUERY_OTHERS.CUSTOM_LNG.T_SEC</label>
                         <md-input-container>
                             <input type="number" class="deg" step="1" ng-model="lngInDeg.sec" ng-change="toDecimal_lng()"></input>
                         </md-input-container>
                     </div>
                 </div>
             </div>
-            <ark-help><span translate>QUERY_AREA.CUSTOM_LNG.T_HELP</span></ark-help>
+            <ark-help><span translate>QUERY_OTHERS.CUSTOM_LNG.T_HELP</span></ark-help>
 
 
             <!-- Radius -->
-            <h3 translate style="margin-bottom: 12px">QUERY_AREA.CUSTOM_RADIUS.T_TITLE</h3>
+            <h3 translate style="margin-bottom: 12px">QUERY_OTHERS.CUSTOM_RADIUS.T_TITLE</h3>
             <md-input-container>
-                <input type="number" step="1" ng-model="area.radius"></input>
+                <input type="number" step="1" ng-model="others.radius"></input>
             </md-input-container>
-            <ark-help><span translate>QUERY_AREA.CUSTOM_RADIUS.T_HELP</span></ark-help>
+            <ark-help><span translate>QUERY_OTHERS.CUSTOM_RADIUS.T_HELP</span></ark-help>
 
         </div>
 
 
-        <div class="querywin-footer" ng-show="area.type == 'custom'">
-            <b translate>QUERY_AREA.DIALOG.T_FOOTER_BOLD</b>
-            <span translate>QUERY_AREA.DIALOG.T_FOOTER_TEXT1</span>
-            <span translate>QUERY_AREA.DIALOG.T_FOOTER_TEXT2</span>
+        <div class="querywin-footer" ng-show="others.type == 'custom'">
+            <b translate>QUERY_OTHERS.DIALOG.T_FOOTER_BOLD</b>
+            <span translate>QUERY_OTHERS.DIALOG.T_FOOTER_TEXT1</span>
+            <span translate>QUERY_OTHERS.DIALOG.T_FOOTER_TEXT2</span>
         </div>
 
     </md-dialog-content>
 
     <md-dialog-actions>
-        <md-button class="md-raised md-primary" ng-click="hide()" ng-hide="('rect-disc-free').indexOf(area.type) != -1">
-            <span translate>QUERY_AREA.BUTTON_OK.T_TITLE</span>
+        <md-button class="md-raised md-primary" ng-click="hide()" ng-hide="('rect-disc-free').indexOf(others.type) != -1">
+            <span translate>QUERY_OTHERS.BUTTON_OK.T_TITLE</span>
         </md-button>
-        <md-button class="md-raised md-primary" ng-click="initDraw()" ng-show="('rect-disc-free').indexOf(area.type) != -1">
-            <span translate>QUERY_AREA.BUTTON_DRAW.T_TITLE</span>
+        <md-button class="md-raised md-primary" ng-click="initDraw()" ng-show="('rect-disc-free').indexOf(others.type) != -1">
+            <span translate>QUERY_OTHERS.BUTTON_DRAW.T_TITLE</span>
         </md-button>
     </md-dialog-actions>
 
