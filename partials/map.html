@@ -53,7 +53,7 @@
                                 - <span translate>QUERY_AREA.LABEL_LONGITUDE.T_SHORT</span>: {{params.area.lng}}
                             </div>
                             <div ng-show="params.area.radius">
-                                - <span translate>QUERY_AREA.LABEL_RADIUS.T_SHORT</span>: {{params.area.radius}}m
+                                - <span translate>QUERY_AREA.LABEL_RADIUS.T_SHORT</span>: {{params.area.radius}}
                             </div>
                         </div>
                     </div>
@@ -84,8 +84,13 @@
                         <div class="query-element-show-icon noselect"><md-icon ng-click="toggle_query_element('chronologies')">play_arrow</md-icon></div>
                     </div>
                     <div class="query-element-content">
-                        <div class='query-element chrono-string' ng-repeat="(i, line) in chronologies_lines" ng-click="showChronologyChooserDialog(params.chronologies[i])">
-                            {{line}}
+                        <div class="query-subelement" ng-if="chronologies_selecteds_include.length > 0">
+                            <div class="query-subelement-title" translate>QUERY.CHRONOLOGIES.T_INCLUDE</div>
+                            <div ng-repeat="path in chronologies_selecteds_include">- {{path}}</div>
+                        </div>
+                        <div class="query-subelement" ng-if="chronologies_selecteds_exclude.length > 0">
+                            <div class="query-subelement-title" translate>QUERY.CHRONOLOGIES.T_EXCLUDE</div>
+                            <div ng-repeat="path in chronologies_selecteds_exclude">- {{path}}</div>
                         </div>
                     </div>
                 </div>
