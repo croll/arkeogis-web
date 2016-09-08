@@ -412,7 +412,6 @@
                                             if (characInfos.exceptional) {
                                                 $scope.site.properties.infos.exceptional = true;
                                             }
-                                            console.log(characInfos);
                                             var hierarchy = buildCharacHierarchy(characInfos);
                                             var characRoot = hierarchy[0];
                                             if (!_.has(sr.charac_sections, characRoot)) {
