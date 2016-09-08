@@ -2,7 +2,7 @@ label {
     color: #666;
     margin-right: 5px;
     font-size: 0.95em;
-    max-width: 170px;
+    max-width: 200px;
     width: 100%;
 }
 md-dialog-header {
@@ -78,7 +78,6 @@ md-card {
         margin: 10px 0 0;
     }
     .info {
-        margin-top: 15px;
     }
 }
 .geonameid {
@@ -91,6 +90,7 @@ md-card {
         display: inline-block;
     }
 }
-.comments {
+.comments-toggl    er {
+    margin-right: 20px;
     text-align: right;
 }

@@ -22,9 +22,8 @@
 (function() {
     ArkeoGIS.service('arkeoProject', ['$cookies', '$http', '$q', function($cookies, $http, $q) {
 
-        var self = this;
-
-        this.chronologyColors = {};
+        var self = this,
+        chronologyCacheByDates = {};
 
         this.set = function(project) {
             self.project = project;
@@ -85,7 +84,7 @@
             });
             // Chronologies
             // Reset flattened chronologies cache
-            self.chronologyColors= {};
+            chronologyCacheByDates = {};
             _.each(this.project.chronologies, function(c) {
                 promises.push($http.get('/api/chronologies/' + c.id, {
                     silent: true
@@ -93,7 +92,7 @@
                     _.each(self.project.chronologies, function(chrono) {
                         if (c.id == chrono.id) {
                             _.merge(chrono, res.data);
-                            indexChronologyColors(chrono);
+                            cacheChronologiesByDates(chrono);
                         }
                     });
                 }));
@@ -120,20 +119,53 @@
             return $q.all(promises);
         }
 
-        this.getChronologyColor = function(start_date, end_date) {
-            return (_.has(self.chronologyColors, start_date+''+end_date)) ? self.chronologyColors[start_date+''+end_date] : null;
+        this.getChronologyByDates = function(start_date, end_date) {
+            return (_.has(chronologyCacheByDates, start_date+''+end_date)) ? chronologyCacheByDates[start_date+''+end_date] : null;
         }
 
-        var indexChronologyColors = function(currentChrono) {
+        var cacheChronologiesByDates = function(currentChrono) {
             if (currentChrono.content) {
                 _.each(currentChrono.content, function(c) {
-                    indexChronologyColors(c)
-                    if (c.color != "") {
-                        self.chronologyColors[c.start_date+''+c.end_date] = c.color;
-                    }
+                    cacheChronologiesByDates(c);
                 });
             }
+            chronologyCacheByDates[currentChrono.start_date+''+currentChrono.end_date] = currentChrono;
         }
+
+		var chronologies_by_id = null;
+        this.getChronologyById = function(id) {
+			if (chronologies_by_id == null) {
+				chronologies_by_id = {};
+				var chronologiesAll = self.project.chronologies;
+				function fillCache(content) {
+					_.each(content, function(chronology) {
+						chronologies_by_id[parseInt(chronology.id)]=chronology;
+						if (_.has(chronology, 'content'))
+							fillCache(chronology.content);
+					});
+				}
+				fillCache(chronologiesAll);
+			}
+			return chronologies_by_id[parseInt(id)];
+		}
+
+		// cache characs by id
+		var characs_by_id = null;
+		this.getCharacById = function(id) {
+			if (characs_by_id == null) {
+				characs_by_id = {};
+				var characsAll = self.project.characs;
+				function fillCache(content) {
+					_.each(content, function(charac) {
+						characs_by_id[parseInt(charac.id)]=charac;
+						if (_.has(charac, 'content'))
+							fillCache(charac.content);
+					});
+				}
+				fillCache(characsAll);
+			}
+			return characs_by_id[parseInt(id)];
+		}
 
     }]);
 })();
