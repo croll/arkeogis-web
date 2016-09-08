@@ -75,14 +75,14 @@
             </md-radio-group>
 
             <div class="advanced_chrono_h1" translate>QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_INCLUDE.T_TITLE</div>
-            <md-radio-group ng-model="params.existence_oustide_include" layout="row">
+            <md-radio-group ng-model="params.existence_outside_include" layout="row">
                 <md-radio-button flex value=""><span translate>QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_INCLUDE.T_POSSIBLY</span></md-radio-button>
                 <md-radio-button flex value="+"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_INCLUDE.T_MUST</span></md-radio-button>
                 <md-radio-button flex value="-"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_INCLUDE.T_MUSTNOT</span></md-radio-button>
             </md-radio-group>
 
             <div class="advanced_chrono_h2" translate>QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_SURENESS.T_TITLE</div>
-            <md-radio-group ng-model="params.existence_oustide_sureness" layout="row">
+            <md-radio-group ng-model="params.existence_outside_sureness" layout="row">
                 <md-radio-button flex value="potentially-only"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_SURENESS.T_POTENTIALLY_ONLY</span></md-radio-button>
                 <md-radio-button flex value="potentially"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_SURENESS.T_POTENTIALLY</span></md-radio-button>
                 <md-radio-button flex value="certainly"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_SURENESS.T_CERTAINLY</span></md-radio-button>
@@ -96,6 +96,7 @@
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
+        <md-button class="md-raised" ng-click="remove()"><span translate>QUERY_CHRONOLOGIES.BUTTON_REMOVE.T_TITLE</span></md-button>
         <md-button class="md-raised md-primary" type="submit" ng-click="hide()"><span translate>QUERY_CHRONOLOGIES.BUTTON_OK.T_TITLE</span></md-button>
     </md-dialog-actions>
 

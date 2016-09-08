@@ -233,3 +233,11 @@
 .display-content-hide {
     display: none;
 }
+
+.chrono-string {
+    cursor: pointer;
+}
+
+.chrono-string:hover {
+    background-color: #eee;
+}

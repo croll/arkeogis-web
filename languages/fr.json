@@ -936,19 +936,19 @@
 	},
 	"QUERY_AREA": {
 		"BUTTON": {
-			"T_CANCEL_DRAW": "Annuler",
-			"T_REDO": "Recommencer",
-			"T_VALID": "Valider"
+			"T_CANCEL_DRAW": "#!#QUERY_AREA.BUTTON.T_CANCEL_DRAW",
+			"T_REDO": "#!#QUERY_AREA.BUTTON.T_REDO",
+			"T_VALID": "#!#QUERY_AREA.BUTTON.T_VALID"
 		},
 		"BUTTON_DRAW": {
-			"T_TITLE": "Tracer la zone sur la carte"
+			"T_TITLE": "#!#QUERY_AREA.BUTTON_DRAW.T_TITLE"
 		},
 		"BUTTON_OK": {
 			"T_TITLE": "Fermer la fenêtre"
 		},
 		"CUSTOM_LAT": {
 			"T_DEG": "degrés",
-			"T_HELP": "Exemple: Strasbourg : 48°35'N  ou décimaux : 48.583",
+			"T_HELP": "#!#QUERY_AREA.CUSTOM_LAT.T_HELP",
 			"T_MIN": "minutes",
 			"T_NUMERIC": "décimaux",
 			"T_OR": "ou",
@@ -957,7 +957,7 @@
 		},
 		"CUSTOM_LNG": {
 			"T_DEG": "degrés",
-			"T_HELP": "Exemple Strasbourg : 7°45'E ou décimaux : 7.750)",
+			"T_HELP": "#!#QUERY_AREA.CUSTOM_LNG.T_HELP",
 			"T_MIN": "minutes",
 			"T_NUMERIC": "décimaux",
 			"T_OR": "ou",
@@ -965,8 +965,8 @@
 			"T_TITLE": "Longitude"
 		},
 		"CUSTOM_RADIUS": {
-			"T_HELP": "Radius",
-			"T_TITLE": "Distance"
+			"T_HELP": "#!#QUERY_AREA.CUSTOM_RADIUS.T_HELP",
+			"T_TITLE": "Distance :"
 		},
 		"DIALOG": {
 			"T_CHOOSETOOL": "Outil de sélection",
@@ -1014,7 +1014,10 @@
 			"T_TITLE": "Sélection avancé :"
 		},
 		"BUTTON_OK": {
-			"T_TITLE": "Ajouter"
+			"T_TITLE": "Ok"
+		},
+		"BUTTON_REMOVE": {
+			"T_TITLE": "Supprimer"
 		},
 		"DIALOG": {
 			"T_FOOTER_BOLD": "",
@@ -1060,6 +1063,32 @@
 			"T_CHRONOLOGY": "Choix dans la chronologie",
 			"T_NUMERIC": "Choix numérique",
 			"T_TITLE": "Choix du type de période :"
+		},
+		"SENTENSE": {
+			"T_ALL": "EXISTENCE_INSIDE_INCLUDE les sites ayant EXISTENCE_INSIDE_SURENESS une existence EXISTENCE_INSIDE_PART durant la période PERIOD. Ces sites EXISTENCE_OUTSIDE_INCLUDE EXISTENCE_OUTSIDE_SURENESS avoir existé en dehors de cette période."
+		},
+		"SENTENSE_EXISTENCE_INSIDE_INCLUDE": {
+			"T_EXCLUDE": "Exclure",
+			"T_INCLUDE": "Inclure"
+		},
+		"SENTENSE_EXISTENCE_INSIDE_PART": {
+			"T_FULL": "intégrale",
+			"T_PARTLY": "partielle"
+		},
+		"SENTENSE_EXISTENCE_INSIDE_SURENESS": {
+			"T_CERTAINLY": "assurément",
+			"T_POTENTIALLY": "potentiellement",
+			"T_POTENTIALLY_ONLY": "uniquement potentiellement"
+		},
+		"SENTENSE_EXISTENCE_OUTSIDE_INCLUDE": {
+			"T_MUST": "doivent",
+			"T_MUSTNOT": "ne peuvent pas",
+			"T_POSSIBLY": "peuvent"
+		},
+		"SENTENSE_EXISTENCE_OUTSIDE_SURENESS": {
+			"T_CERTAINLY": "assurément",
+			"T_POTENTIALLY": "potentiellement",
+			"T_POTENTIALLY_ONLY": "uniquement potentiellement"
 		}
 	},
 	"QUERY_DATABASES": {
