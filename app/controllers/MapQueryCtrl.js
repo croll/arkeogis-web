@@ -486,7 +486,7 @@
 
 		$scope.showChronologyChooserDialog = function(params) {
 			if (params)
-				showChronologyChooserDialog(params);
+				showChronologyChooserDialog(params, $scope.params.chronologies);
 			else {
 				params = {
 					selected_chronologie_id: 0,
@@ -499,11 +499,11 @@
 					existence_outside_sureness: 'potentially',
 				}
 				$scope.params.chronologies.push(params);
-				showChronologyChooserDialog(params);
+				showChronologyChooserDialog(params, $scope.params.chronologies);
 			}
 		};
 
-		function showChronologyChooserDialog(chrono_params) {
+		function showChronologyChooserDialog(chrono_params, all_chronos) {
 			$mdDialog.show({
 					controller: function($scope, $mdDialog, arkeoService) {
 						$scope.chronologies = arkeoProject.get().chronologies;
@@ -519,6 +519,14 @@
 						$scope.hide = function() {
 							$mdDialog.hide();
 						};
+
+						$scope.remove = function() {
+							var index = all_chronos.indexOf(chrono_params);
+							if (index >= 0) {
+							  all_chronos.splice( index, 1 );
+							  $scope.hide();
+							}
+						}
 
 						$scope.toggle_display = function(elemname) {
 							var html_elem_icon = $('.'+elemname+'-show-icon');

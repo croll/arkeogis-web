@@ -1040,6 +1040,9 @@
 		"BUTTON_OK": {
 			"T_TITLE": "Ok"
 		},
+		"BUTTON_REMOVE": {
+			"T_TITLE": "Supprimer"
+		},
 		"DIALOG": {
 			"T_FOOTER_BOLD": "",
 			"T_FOOTER_TEXT1": "",
