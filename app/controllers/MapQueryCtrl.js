@@ -567,7 +567,7 @@
 				showChronologyChooserDialog(params, $scope.params.chronologies);
 			else {
 				params = {
-					selected_chronologie_id: 0,
+					selected_chronology_id: 0,
 					start_date: '',
 					end_date: '',
 					existence_inside_include: '+',
@@ -591,7 +591,7 @@
 
 						{ // init of selected_chronologies
 							$scope.selected_chronologies = {};
-							$scope.selected_chronologies[$scope.params.selected_chronologie_id] = '+';
+							$scope.selected_chronologies[$scope.params.selected_chronology_id] = '+';
 						}
 
 						$scope.hide = function() {
@@ -627,6 +627,7 @@
 						function setChronologySelect(chronology, sel) {
 							$scope.selected_chronologies={}; // emtpy selection first
 							if (sel != '') {
+								$scope.params.selected_chronology_id = chronology.id;
 								$scope.selected_chronologies[chronology.id]=sel;
 								$scope.params.start_date = chronology.start_date;
 								$scope.params.end_date = chronology.end_date;
@@ -805,6 +806,12 @@
 							break;
 					}
 					str = str.replace('EXISTENCE_OUTSIDE_SURENESS', w);
+
+					console.log("chrono id : ", p.selected_chronology_id);
+					var chrono = getChronologyById(p.selected_chronology_id);
+					var chrono_name = $filter('arkTranslate')(chrono.name);
+					str = str.replace('PERIOD', chrono_name);
+
 
 					$scope.chronologies_lines.push(str);
 				});
