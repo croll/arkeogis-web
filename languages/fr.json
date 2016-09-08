@@ -936,19 +936,19 @@
 	},
 	"QUERY_AREA": {
 		"BUTTON": {
-			"T_CANCEL_DRAW": "#!#QUERY_AREA.BUTTON.T_CANCEL_DRAW",
-			"T_REDO": "#!#QUERY_AREA.BUTTON.T_REDO",
-			"T_VALID": "#!#QUERY_AREA.BUTTON.T_VALID"
+			"T_CANCEL_DRAW": "Annuler",
+			"T_REDO": "Recommencer",
+			"T_VALID": "Valider"
 		},
 		"BUTTON_DRAW": {
-			"T_TITLE": "#!#QUERY_AREA.BUTTON_DRAW.T_TITLE"
+			"T_TITLE": "Tracer la zone sur la carte"
 		},
 		"BUTTON_OK": {
 			"T_TITLE": "Fermer la fenêtre"
 		},
 		"CUSTOM_LAT": {
 			"T_DEG": "degrés",
-			"T_HELP": "#!#QUERY_AREA.CUSTOM_LAT.T_HELP",
+			"T_HELP": "Exemple Strasbourg : 48° 35'N ou décimaux : 48.583",
 			"T_MIN": "minutes",
 			"T_NUMERIC": "décimaux",
 			"T_OR": "ou",
@@ -957,7 +957,7 @@
 		},
 		"CUSTOM_LNG": {
 			"T_DEG": "degrés",
-			"T_HELP": "#!#QUERY_AREA.CUSTOM_LNG.T_HELP",
+			"T_HELP": "Exemple Strasbourg : 7° 45'E ou décimaux : 7.750",
 			"T_MIN": "minutes",
 			"T_NUMERIC": "décimaux",
 			"T_OR": "ou",
@@ -965,7 +965,7 @@
 			"T_TITLE": "Longitude"
 		},
 		"CUSTOM_RADIUS": {
-			"T_HELP": "#!#QUERY_AREA.CUSTOM_RADIUS.T_HELP",
+			"T_HELP": "Défini le rayon en km à partir du centre de la recherche",
 			"T_TITLE": "Distance :"
 		},
 		"DIALOG": {
