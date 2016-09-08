@@ -87,6 +87,23 @@
                     </div>
                 </div>
 
+
+                <!-- others -->
+                <div class="query-element query-element-others">
+                    <div class="query-element-title">
+                        <span translate>QUERY.OTHERS.T_TITLE</span>
+                        <div class="query-element-edit-icon noselect"><md-icon ng-click="showOthersChooserDialog(params)">mode_edit</md-icon></div>
+                        <div class="query-element-show-icon noselect"><md-icon ng-click="toggle_query_element('others')">play_arrow</md-icon></div>
+                    </div>
+                    <div class="query-element-content">
+                        <span translate ng-show="params.others.type == 'map' || ''">QUERY_OTHERS.RADIOBUTTON.T_ALLMAP</span>
+                        <span translate ng-show="params.others.type == 'rect'">QUERY_OTHERS.RADIOBUTTON.T_RECT</span>
+                        <span translate ng-show="params.others.type == 'disc'">QUERY_OTHERS.RADIOBUTTON.T_DISC</span>
+                        <span translate ng-show="params.others.type == 'free'">QUERY_OTHERS.RADIOBUTTON.T_FREE</span>
+                        <span translate ng-show="params.others.type == 'custom'">QUERY_OTHERS.RADIOBUTTON.T_CUSTOM</span>
+                    </div>
+                </div>
+
                 <hr/>
 
             </div>
