@@ -533,6 +533,18 @@
 							$mdDialog.hide();
 						};
 
+						$scope.toggle_display = function(elemname) {
+							var html_elem_icon = $('.'+elemname+'-show-icon');
+							var html_elem_content = $('.'+elemname+'-content');
+							if (html_elem_icon.hasClass('display-icon-hide')) {
+								html_elem_icon.removeClass("display-icon-hide");
+								html_elem_content.removeClass("display-content-hide");
+							} else {
+								html_elem_icon.addClass("display-icon-hide");
+								html_elem_content.addClass("display-content-hide");
+							}
+						}
+
 /*
 						$scope.$watchCollection('selected_chronologies', function() {
 							params.chronologies = $scope.selected_chronologies.map(function(elem) { return elem.id });
@@ -550,13 +562,15 @@
 
 						$scope.toggleButton = function(chronology) {
 							if (_.has($scope.selected_chronologies, chronology.id)) {
-								var sel = $scope.selected_chronologies[chronology.id];
+								// we never remove a selection by clicking on it here
+/*								var sel = $scope.selected_chronologies[chronology.id];
 								if (sel == '+')
-/*									setChronologySelect(chronology, '!');
+									setChronologySelect(chronology, '!');
 								else if (sel == '!')
 									setChronologySelect(chronology, '-');
-								else if (sel == '-')*/
+								else if (sel == '-')
 									setChronologySelect(chronology, '');
+*/
 							} else {
 								setChronologySelect(chronology, '+');
 							}
