@@ -49,7 +49,7 @@
                     <div layout="column">
                         <label translate>QUERY_AREA.CUSTOM_LAT.T_NUMERIC</label>
                         <md-input-container>
-                            <input type="number" ng-model="area.lat" ng-change="fromDecimal_lat();showAreaCustomError = false"></input>
+                            <input aria-label="-" type="number" ng-model="area.lat" ng-change="fromDecimal_lat();showAreaCustomError = false"></input>
                         </md-input-container>
                     </div>
                 </div>
@@ -61,19 +61,19 @@
                     <div layout="column">
                         <label translate>QUERY_AREA.CUSTOM_LAT.T_DEG</label>
                         <md-input-container>
-                            <input type="number" class="deg" step="1" ng-model="latInDeg.deg" ng-change="toDecimal_lat();showAreaCustomError = false"></input>
+                            <input aria-label="-" type="number" class="deg" step="1" ng-model="latInDeg.deg" ng-change="toDecimal_lat();showAreaCustomError = false"></input>
                         </md-input-container>
                     </div>
                     <div layout="column">
                         <label translate>QUERY_AREA.CUSTOM_LAT.T_MIN</label>
                         <md-input-container>
-                            <input type="number" class="deg" step="1" ng-model="latInDeg.min" ng-change="toDecimal_lat();showAreaCustomError = false"></input>
+                            <input aria-label="-" type="number" class="deg" step="1" ng-model="latInDeg.min" ng-change="toDecimal_lat();showAreaCustomError = false"></input>
                         </md-input-container>
                     </div>
                     <div layout="column">
                         <label translate>QUERY_AREA.CUSTOM_LAT.T_SEC</label>
                         <md-input-container>
-                            <input type="number" class="deg" step="1" ng-model="latInDeg.sec" ng-change="toDecimal_lat();showAreaCustomError = false"></input>
+                            <input aria-label="-" type="number" class="deg" step="1" ng-model="latInDeg.sec" ng-change="toDecimal_lat();showAreaCustomError = false"></input>
                         </md-input-container>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                     <div layout="column">
                         <label translate>QUERY_AREA.CUSTOM_LNG.T_NUMERIC</label>
                         <md-input-container>
-                            <input type="number" ng-model="area.lng" ng-change="fromDecimal_lng();showAreaCustomError = false"></input>
+                            <input aria-label="-" type="number" ng-model="area.lng" ng-change="fromDecimal_lng();showAreaCustomError = false"></input>
                         </md-input-container>
                     </div>
                 </div>
@@ -99,19 +99,19 @@
                     <div layout="column">
                         <label translate>QUERY_AREA.CUSTOM_LNG.T_DEG</label>
                         <md-input-container>
-                            <input type="number" class="deg" step="1" ng-model="lngInDeg.deg" ng-change="toDecimal_lng();showAreaCustomError = false"></input>
+                            <input aria-label="-" type="number" class="deg" step="1" ng-model="lngInDeg.deg" ng-change="toDecimal_lng();showAreaCustomError = false"></input>
                         </md-input-container>
                     </div>
                     <div layout="column">
                         <label translate>QUERY_AREA.CUSTOM_LNG.T_MIN</label>
                         <md-input-container>
-                            <input type="number" class="deg" step="1" ng-model="lngInDeg.min" ng-change="toDecimal_lng();showAreaCustomError = false"></input>
+                            <input aria-label="-" type="number" class="deg" step="1" ng-model="lngInDeg.min" ng-change="toDecimal_lng();showAreaCustomError = false"></input>
                         </md-input-container>
                     </div>
                     <div layout="column">
                         <label translate>QUERY_AREA.CUSTOM_LNG.T_SEC</label>
                         <md-input-container>
-                            <input type="number" class="deg" step="1" ng-model="lngInDeg.sec" ng-change="toDecimal_lng();showAreaCustomError = false"></input>
+                            <input aria-label="-" type="number" class="deg" step="1" ng-model="lngInDeg.sec" ng-change="toDecimal_lng();showAreaCustomError = false"></input>
                         </md-input-container>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
             <!-- Radius -->
             <h3 translate style="margin-bottom: 12px">QUERY_AREA.CUSTOM_RADIUS.T_TITLE</h3>
             <md-input-container>
-                <input type="number" step="1" ng-model="area.radius" ng-change="showAreaCustomError = false"></input>
+                <input aria-label="-" type="number" step="1" ng-model="area.radius" ng-change="showAreaCustomError = false"></input>
             </md-input-container>
             <ark-help><span translate>QUERY_AREA.CUSTOM_RADIUS.T_HELP</span></ark-help>
 
@@ -141,7 +141,7 @@
         <md-button class="md-raised md-primary" ng-click="hide()" ng-hide="('rect-disc-free').indexOf(area.type) != -1">
             <span translate>QUERY_AREA.BUTTON_OK.T_TITLE</span>
         </md-button>
-        <md-button class="md-raised md-primary" ng-click="initDraw()" ng-show="('rect-disc-free').indexOf(area.type) != -1">
+        <md-button class="md-raised md-primary" ng-click="hide()" ng-show="('rect-disc-free').indexOf(area.type) != -1">
             <span translate>QUERY_AREA.BUTTON_DRAW.T_TITLE</span>
         </md-button>
     </md-dialog-actions>

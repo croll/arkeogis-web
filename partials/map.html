@@ -1,8 +1,23 @@
 
 <div class="arkeomap" layout="row" style="position: relative">
 
+    <div ng-controller="MapQueryCtrl">
+
+            <!-- Buttons to edit drawing -->
+            <div class="drawButtons" layout ng-show="showDrawButtons">
+                <md-input-container>
+                    <md-button class="md-raised" ng-click="cancelDraw()"><span translate>QUERY_AREA.BUTTON.T_CANCEL_DRAW</span></md-button>
+                </md-input-container>
+                <md-input-container>
+                    <md-button class="md-raised" ng-click="initDraw()"><span translate>QUERY_AREA.BUTTON.T_REDO</span></md-button>
+                </md-input-container>
+                <md-input-container>
+                    <md-button class="md-raised md-primary" ng-click="validDraw()"><span translate>QUERY_AREA.BUTTON.T_VALID</span></md-button>
+                </md-input-container>
+            </div>
     <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="sidenav-left">
-        <md-content layout-padding ng-controller="MapQueryCtrl">
+        <md-content layout-padding>
+
             <!-- New query display -->
             <div>
 
@@ -38,7 +53,7 @@
                                 - <span translate>QUERY_AREA.LABEL_LONGITUDE.T_SHORT</span>: {{params.area.lng}}
                             </div>
                             <div ng-show="params.area.radius">
-                                - <span translate>QUERY_AREA.LABEL_RADIUS.T_SHORT</span>: {{params.area.radius}}
+                                - <span translate>QUERY_AREA.LABEL_RADIUS.T_SHORT</span>: {{params.area.radius}}m
                             </div>
                         </div>
                     </div>
@@ -114,12 +129,12 @@
             </div>
         </md-content>
     </md-sidenav>
+</div>
 
     <md-content class="content-map" flex layout-padding ng-controller="MapLeafletCtrl">
         <!-- <leaflet controls="controls" defaults="defaults" layers="layers" flex height="{{mapHeight}}" lf-center="center" width="100%" watch-options="{{watchOptions}}">
             <layercontrol order="normal" icons="layercontrol.icons" auto-hide-opacity="true" show-groups="true" title="Layer Manager" base-title="Base Layers" overlays-title="Overlays Layers"></layercontrol>
         </leaflet> -->
-
         <ark-leaflet height="mapHeight"></ark-leaflet>
     </md-content>
 
