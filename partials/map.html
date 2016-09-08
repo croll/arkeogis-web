@@ -1,3 +1,4 @@
+
 <div class="arkeomap" layout="row" style="position: relative">
 
     <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="sidenav-left">
@@ -5,6 +6,18 @@
             <h1 class="md-toolbar-tools">Recherche :</h1>
         </md-toolbar>
         <md-content layout-padding ng-controller="MapQueryCtrl">
+
+            <!-- BV -->
+            <div layout="row">
+                <md-select ng-model="zoneType" ng-change="zoneTypeChanged()">
+                    <md-option value="">Toute la carte visible</md-option>
+                    <md-option value="rect">Rectangle</md-option>
+                    <md-option value="circle">Cercle</md-option>
+                    <md-option value="free">Libre</md-option>
+                </md-select>
+                <md-button ng-click="initDraw()">Dessiner</md-button>
+            </div>
+            <!-- BV -->
             <div>
                 <div>
                     <ark-menu-item ng-model="query.centroid" ark-item="menuCentroid"></ark-menu-item>
@@ -57,7 +70,7 @@
         <md-toolbar class="md-theme-light">
             <h1 class="md-toolbar-tools">Récapitulatif :</h1>
         </md-toolbar>
-        <md-content layout-padding ng-controller="MapQueryCtrl">
+        <md-content layout-padding>
             <div class="query">
                 <div>{{query.centroid}}</div>
                 <div>{{query.database}}</div>

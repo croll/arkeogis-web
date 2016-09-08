@@ -20,465 +20,493 @@
  */
 
 (function() {
-	'use strict';
-	ArkeoGIS.controller('MapQueryCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', '$timeout', 'arkeoService', 'arkeoQuery',
-	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, $timeout, arkeoService, arkeoQuery) {
+    'use strict';
+    ArkeoGIS.controller('MapQueryCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', '$timeout', 'arkeoService', 'arkeoQuery', 'arkeoMap',
+        function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, $timeout, arkeoService, arkeoQuery, arkeoMap) {
 
-		/*
-		 * menus init : buttons styles
-		 */
+            // BV --------------------------
+            arkeoMap.init();
 
-		 var _characbuttons = {
- 			inclorexcl: [
- 				{
- 					icon: 'brightness_1'
- 				},
- 				{
- 					value: true,
- 					icon: 'add_circle'
- 				},
- 				{
- 					value: false,
- 					icon: 'remove_circle'
- 				},
- 			],
- 			exceptional: [
- 				{
- 					icon: 'check_box_outline_blank'
- 				},
- 				{
- 					value: true,
- 					icon: 'new_releases'
- 				},
- 			],
- 		};
+            arkeoQuery.reset();
 
-		var _tributtons = {
-			inclorexcl: [
-				{
-					icon: 'brightness_1'
-				},
-				{
-					value: true,
-					icon: 'add_circle'
-				},
-				{
-					value: false,
-					icon: 'remove_circle'
-				},
-			],
-		};
+            arkeoMap.getMap().then(function(map) {
 
-		var _checkbox_buttons = {
-			_: [
-				{
-					icon: 'check_box_outline_blank',
-				},
-				{
-					value: true,
-					icon: 'check_box',
-				},
-			]
-		}
+                var layerDraw,
+                    drawnItems = new L.FeatureGroup(),
+                    drawControl = new L.Control.Draw({
+                        draw: false,
+                        edit: {
+                            featureGroup: drawnItems
+                        }
+                    }),
+                    shapeOptions = {
+                        stroke: true,
+                        color: '#f06eaa',
+                        weight: 4,
+                        opacity: 0.5,
+                        fill: true,
+                        fillColor: null,
+                        fillOpacity: 0.2,
+                    };
 
-		/*
-		 * menus init : characs
-		 */
+                $scope.editMode = false;
 
-		 // this function is called when cliking on buttons to recursively select childrens
-		 var characSubSelect = function(menuitem, states, inclorexcl) {
- 			if (states !== _characbuttons.inclorexcl) return;
- 		   if (!menuitem) menuitem = $scope.menuChronologies[0];
- 		   if (!('menu' in menuitem)) return;
-
- 		   menuitem.menu.forEach(function(menuItem) {
- //				console.log("z menu: ", menuItem);
- 			   characSubSelect(menuItem, states, inclorexcl);
- 			   if ('buttons' in menuItem && 'inclorexcl' in menuItem.buttons) {
- 				   //console.log("paf : ", menuItem.value);
- 				   if (inclorexcl === undefined) {
- 					   if (menuItem.value in $scope.query.charac) {
- 						   delete $scope.query.charac[menuItem.value];
- 						   if (_.isEmpty($scope.query.charac[menuItem.value]))
- 							   delete $scope.query.charac[menuItem.value];
- 					   }
- 				   } else {
- 					   if (menuItem.value in $scope.query.charac) {
- 						   $scope.query.charac[menuItem.value].inclorexcl = inclorexcl;
- 					   } else {
- 						   $scope.query.charac[menuItem.value] = { inclorexcl: inclorexcl };
- 					   }
- 				   }
- 			   }
- 		   });
- 	   };
-
-		function characElementToMenuElement(charac) {
-			charac.value = charac.id;
-			charac.text = charac.name;
-			charac.buttons = _characbuttons;
-			charac.onchange = characSubSelect;
-
-			if (charac.content && charac.content.length > 0) {
-				charac.menu = charac.content;
-				charac.menu.forEach(characElementToMenuElement);
-			}
-		}
-
-		$http.get('/api/characs', {
-		}).then(function(data) {
-			var roots = data.data;
-			var promises=[];
-			roots.forEach(function(root) {
-				promises.push($http.get('/api/characs/'+root.id, {}).then(function(data) {
-					root.content = data.data.content;
-					characElementToMenuElement(root)
-				}));
-			})
-			$q.all(promises).then(function(res) {
-				$scope.menuCharacs = [{
-					text: "MAP.MENU_CHARACS.T_TITLE",
-					buttons: [],
-					value: 0, // value never used, there is no buttons
-					menu: roots,
-					onchange: characSubSelect,
-				}];
-			})
-		});
-
-		/*
-		 * menus init : chronologies
-		 */
-
-		 // this function is called when cliking on buttons to recursively select childrens
-		 var chronoSubSelect = function(menuitem, states, inclorexcl) {
-			 //console.log("plif", menuitem, states, inclorexcl);
- 			if (!menuitem) menuitem = $scope.menuChronologies[0];
-			if (!('menu' in menuitem)) return;
-
- 			menuitem.menu.forEach(function(menuItem) {
- //				console.log("z menu: ", menuItem);
- 				chronoSubSelect(menuItem, states, inclorexcl);
- 				if ('buttons' in menuItem && 'inclorexcl' in menuItem.buttons) {
- 					//console.log("paf : ", menuItem.value);
-					if (inclorexcl === undefined) {
-						if (menuItem.value in $scope.query.chronology) {
-							delete $scope.query.chronology[menuItem.value];
-							if (_.isEmpty($scope.query.chronology[menuItem.value]))
-								delete $scope.query.chronology[menuItem.value];
-						}
-					} else {
-						if (menuItem.value in $scope.query.chronology) {
-							$scope.query.chronology[menuItem.value].inclorexcl = inclorexcl;
-						} else {
- 							$scope.query.chronology[menuItem.value] = { inclorexcl: inclorexcl };
-						}
-					}
- 				}
- 			});
- 		};
-
-		$scope.menuChronologies=[];
-
-		function chronoElementToMenuElement(chrono) {
-			//chrono.value = chrono.id;
-			chrono.value = chrono.id+'#'+chrono.start_date+':'+chrono.end_date;
-			chrono.text = chrono.name;
-			chrono.buttons = _tributtons;
-
-			if (chrono.content && chrono.content.length > 0) {
-				chrono.menu = chrono.content;
-				chrono.menu.forEach(chronoElementToMenuElement);
-				chrono.onchange = chronoSubSelect;
-			}
-		}
-
-		$http.get('/api/chronologies/'+$scope.project.chronologies[0].id, {
-			params: {
-				active: 1,
-			},
-		}).then(function(data) {
-			console.log("chronologies: ", data.data);
-			var root = data.data;
-			chronoElementToMenuElement(root)
-
-			$scope.menuChronologies = [{
-				text: "MAP.MENU_CHRONO.T_TITLE",
-				buttons: [],
-				value: 0, // value never used, there is no buttons
-				menu: [
-					{
-						text: "MAP.MENU_CHRONO.T_MANUAL",
-						buttons: _checkbox_buttons,
-					},
-					{
-						text: "MAP.MENU_CHRONO.T_CHRONOLOGY",
-						buttons: _tributtons,
-						value: root.value,
-						menu: root.menu,
-						onchange: chronoSubSelect,
-					},
-				]
-			}];
-
-			console.log("menu: ", $scope.menuChronologies );
-
-		}, function(err) {
-			arkeoService.fieldErrorDisplay(err)
-			console.error(err);
-		});
-
-
-		$scope.menuCentroid = {
-			text: 'MAP.MENU_CENTROID.T_TITLE',
-			menu: [
-				{
-					value: 'centroid-include',
-					text: 'MAP.MENU_CENTROID.T_YES',
-					buttons: _checkbox_buttons,
-				},
-				{
-					value: 'centroid-exclude',
-					text: 'MAP.MENU_CENTROID.T_NO',
-					buttons: _checkbox_buttons,
-				},
-			],
-		};
-
-		$scope.menuKnowledge = {
-			text: 'MAP.MENU_KNOWLEDGE.T_TITLE',
-			menu: [
-				{
-					value: 'not_documented',
-					text: 'MAP.MENU_KNOWLEDGE.T_NOTDOCUMENTED',
-					buttons: _checkbox_buttons,
-				},
-				{
-					value: 'literature',
-					text: 'MAP.MENU_KNOWLEDGE.T_LITERATURE',
-					buttons: _checkbox_buttons,
-				},
-				{
-					value: 'prospected_aerial',
-					text: 'MAP.MENU_KNOWLEDGE.T_PROSPECTED_AERIAL',
-					buttons: _checkbox_buttons,
-				},
-				{
-					value: 'prospected_pedestrian',
-					text: 'MAP.MENU_KNOWLEDGE.T_PROSPECTED_PEDESTRIAN',
-					buttons: _checkbox_buttons,
-				},
-				{
-					value: 'surveyed',
-					text: 'MAP.MENU_KNOWLEDGE.T_SURVEYED',
-					buttons: _checkbox_buttons,
-				},
-				{
-					value: 'dig',
-					text: 'MAP.MENU_KNOWLEDGE.T_DIG',
-					buttons: _checkbox_buttons,
-				},
-			],
-		};
-
-		$scope.menuOccupation = {
-			text: 'MAP.MENU_OCCUPATION.T_TITLE',
-			menu: [
-				{
-					value: 'not_documented',
-					text: 'MAP.MENU_OCCUPATION.T_NOTDOCUMENTED',
-					buttons: _checkbox_buttons,
-				},
-				{
-					value: 'single',
-					text: 'MAP.MENU_OCCUPATION.T_SINGLE',
-					buttons: _checkbox_buttons,
-				},
-				{
-					value: 'continuous',
-					text: 'MAP.MENU_OCCUPATION.T_CONTINUOUS',
-					buttons: _checkbox_buttons,
-				},
-				{
-					value: 'multiple',
-					text: 'MAP.MENU_OCCUPATION.T_MULTIPLE',
-					buttons: _checkbox_buttons,
-				},
-			],
-		};
-
-		$scope.menuZone = {
-			text: 'MAP.MENU_SEARCHZONE.T_TITLE',
-			menu: [
-				{
-					value: 'map',
-					text: 'MAP.MENU_SEARCHZONE.T_MAP',
-					buttons: _checkbox_buttons,
-				},
-				{
-					value: 'rect',
-					text: 'MAP.MENU_SEARCHZONE.T_RECT',
-					buttons: _checkbox_buttons,
-				},
-				{
-					value: 'disc',
-					text: 'MAP.MENU_SEARCHZONE.T_DISC',
-					buttons: _checkbox_buttons,
-				},
-				{
-					value: 'polygon',
-					text: 'MAP.MENU_SEARCHZONE.T_POLYGON',
-					buttons: _checkbox_buttons,
-				},
-				{
-					value: 'coordinates',
-					text: 'MAP.MENU_SEARCHZONE.T_COORDINATES',
-					buttons: _checkbox_buttons,
-				},
-			],
-		};
-
-		/*
-		 * menus init : databases
-		 */
-
-		function databaseElementToMenuElement(database) {
-			database.value = database.id;
-			database.text = database.name;
-			database.buttons = _tributtons;
-		}
-
-		function populateDatabasesMenu() {
-			var menu = [{
-				text: "MAP.MENU_DATABASE.T_INVENTORY",
-				menu: [],
-				buttons: _tributtons,
-				value: 'type:inventory',
-			},{
-				text: "MAP.MENU_DATABASE.T_RESEARCH",
-				menu: [],
-				buttons: _tributtons,
-				value: 'type:research',
-			},{
-				text: "MAP.MENU_DATABASE.T_LITERARYWORK",
-				menu: [],
-				buttons: _tributtons,
-				value: 'type:literary-work',
-			},{
-				text: "MAP.MENU_DATABASE.T_UNDEFINED",
-				menu: [],
-				buttons: _tributtons,
-				value: 'type:undefined',
-			}];
-
-			var promises=[];
-			$scope.project.databases.forEach(function(database) {
-				promises.push($http.get('/api/database/'+database.id).then(function(data) {
-
-					var root = data.data;
-
-					databaseElementToMenuElement(root);
-
-					switch(root.type) {
-						case 'inventory':
-							menu[0].menu.push(root);
+                $scope.initDraw = function() {
+                    drawnItems.removeLayer(layerDraw);
+                    switch ($scope.zoneType) {
+						case 'rect':
+                    		new L.Draw.Rectangle(map, {shapeOptions: shapeOptions}).enable();
 						break;
-						case 'research':
-							menu[1].menu.push(root);
+						case 'circle':
+							new L.Draw.Circle(map, {shapeOptions: shapeOptions, allowIntersection: false}).enable();
+							// new L.Circle(map.getCenter(), 20, shapeOptions);
 						break;
-						case 'literary-work':
-							menu[2].menu.push(root);
-						break;
-						default:
-							menu[3].menu.push(root);
+						case 'free':
+							new L.Draw.Polygon(map, {shapeOptions: shapeOptions, allowIntersection: false, showArea: true}).enable();
 						break;
 					}
+                    $scope.editMode = true;
+                }
 
-				}));
-			});
+                $scope.zoneTypeChanged = function() {
+                    $scope.editMode = false;
+                }
 
-			$q.all(promises).then(function() {
-				$scope.menuDatabases = [{
-					text: "MAP.MENU_DATABASE.T_TITLE",
-					buttons: [],
-					value: 0,
-					menu: menu,
-				}];
-			});
+                map.addLayer(drawnItems);
 
-		}
-		populateDatabasesMenu();
+                map.on('draw:created', function(e) {
+                    layerDraw = e.layer;
+                    drawnItems.addLayer(layerDraw);
+                    layerDraw.editing.enable();
+                });
 
-/*
-		$scope.menuPeriod = {
-			text: 'MAP.MENU_PERIOD.T_TITLE',
-			menu: [
-				{
-					value: 'manual',
-					text: 'MAP.MENU_PERIOD.T_MANUAL',
-					buttons: _checkbox_buttons,
-					menu: [],
-				},
-				{
-					value: 'chronology',
-					text: 'MAP.MENU_PERIOD.T_CHRONOLOGY',
-					menu: [],
-				},
-			],
-		};
-*/
+            });
 
-		$scope.addInQuery = function(k, v, text) {
-			if (!(k in $scope.query)) {
-				$scope.query[k] = [];
-			}
-			$scope.query[k].push({
-				k: k,
-				v: v,
-				text: text,
-			})
-		};
+            // BV --------------------------
+            /*
+             * menus init : buttons styles
+             */
 
-		$scope.removeFromQuery = function(k, v) {
-			if (k in $scope.query) {
-				for (var i in $scope.query[k]) {
-					console.log("i: ", i);
-					if ($scope.query[k][i].v == v) {
-						$scope.query[k].splice(i, 1);
-						if ($scope.query[k].length == 0) {
-							delete $scope.query[k];
-						}
-						break;
-					}
-				}
-			}
-		};
+            var _characbuttons = {
+                inclorexcl: [{
+                    icon: 'brightness_1'
+                }, {
+                    value: true,
+                    icon: 'add_circle'
+                }, {
+                    value: false,
+                    icon: 'remove_circle'
+                }, ],
+                exceptional: [{
+                    icon: 'check_box_outline_blank'
+                }, {
+                    value: true,
+                    icon: 'new_releases'
+                }, ],
+            };
 
-		$scope.isEmptyObject = function(obj) {
-			return $.isEmptyObject(obj);
-		};
+            var _tributtons = {
+                inclorexcl: [{
+                    icon: 'brightness_1'
+                }, {
+                    value: true,
+                    icon: 'add_circle'
+                }, {
+                    value: false,
+                    icon: 'remove_circle'
+                }, ],
+            };
 
-		$scope.menutolist = function(data, menu) {
-			var res=[];
-			var keys = $.map(data, function(v, k) { return k; });
-			keys.forEach(function(key) {
-				menu.forEach(function(item) {
-					if (item.value == key)
-						res.push(item);
-				});
-			});
-			return res;
-		};
+            var _checkbox_buttons = {
+                _: [{
+                    icon: 'check_box_outline_blank',
+                }, {
+                    value: true,
+                    icon: 'check_box',
+                }, ]
+            }
 
-        /*
-		 * query => map
-		 */
+            /*
+             * menus init : characs
+             */
+
+            // this function is called when cliking on buttons to recursively select childrens
+            var characSubSelect = function(menuitem, states, inclorexcl) {
+                if (states !== _characbuttons.inclorexcl) return;
+                if (!menuitem) menuitem = $scope.menuChronologies[0];
+                if (!('menu' in menuitem)) return;
+
+                menuitem.menu.forEach(function(menuItem) {
+                    //				console.log("z menu: ", menuItem);
+                    characSubSelect(menuItem, states, inclorexcl);
+                    if ('buttons' in menuItem && 'inclorexcl' in menuItem.buttons) {
+                        //console.log("paf : ", menuItem.value);
+                        if (inclorexcl === undefined) {
+                            if (menuItem.value in $scope.query.charac) {
+                                delete $scope.query.charac[menuItem.value];
+                                if (_.isEmpty($scope.query.charac[menuItem.value]))
+                                    delete $scope.query.charac[menuItem.value];
+                            }
+                        } else {
+                            if (menuItem.value in $scope.query.charac) {
+                                $scope.query.charac[menuItem.value].inclorexcl = inclorexcl;
+                            } else {
+                                $scope.query.charac[menuItem.value] = {
+                                    inclorexcl: inclorexcl
+                                };
+                            }
+                        }
+                    }
+                });
+            };
+
+            function characElementToMenuElement(charac) {
+                charac.value = charac.id;
+                charac.text = charac.name;
+                charac.buttons = _characbuttons;
+                charac.onchange = characSubSelect;
+
+                if (charac.content && charac.content.length > 0) {
+                    charac.menu = charac.content;
+                    charac.menu.forEach(characElementToMenuElement);
+                }
+            }
+
+            $http.get('/api/characs', {}).then(function(data) {
+                var roots = data.data;
+                var promises = [];
+                roots.forEach(function(root) {
+                    promises.push($http.get('/api/characs/' + root.id, {}).then(function(data) {
+                        root.content = data.data.content;
+                        characElementToMenuElement(root)
+                    }));
+                })
+                $q.all(promises).then(function(res) {
+                    $scope.menuCharacs = [{
+                        text: "MAP.MENU_CHARACS.T_TITLE",
+                        buttons: [],
+                        value: 0, // value never used, there is no buttons
+                        menu: roots,
+                        onchange: characSubSelect,
+                    }];
+                })
+            });
+
+            /*
+             * menus init : chronologies
+             */
+
+            // this function is called when cliking on buttons to recursively select childrens
+            var chronoSubSelect = function(menuitem, states, inclorexcl) {
+                //console.log("plif", menuitem, states, inclorexcl);
+                if (!menuitem) menuitem = $scope.menuChronologies[0];
+                if (!('menu' in menuitem)) return;
+
+                menuitem.menu.forEach(function(menuItem) {
+                    //				console.log("z menu: ", menuItem);
+                    chronoSubSelect(menuItem, states, inclorexcl);
+                    if ('buttons' in menuItem && 'inclorexcl' in menuItem.buttons) {
+                        //console.log("paf : ", menuItem.value);
+                        if (inclorexcl === undefined) {
+                            if (menuItem.value in $scope.query.chronology) {
+                                delete $scope.query.chronology[menuItem.value];
+                                if (_.isEmpty($scope.query.chronology[menuItem.value]))
+                                    delete $scope.query.chronology[menuItem.value];
+                            }
+                        } else {
+                            if (menuItem.value in $scope.query.chronology) {
+                                $scope.query.chronology[menuItem.value].inclorexcl = inclorexcl;
+                            } else {
+                                $scope.query.chronology[menuItem.value] = {
+                                    inclorexcl: inclorexcl
+                                };
+                            }
+                        }
+                    }
+                });
+            };
+
+            $scope.menuChronologies = [];
+
+            function chronoElementToMenuElement(chrono) {
+                //chrono.value = chrono.id;
+                chrono.value = chrono.id + '#' + chrono.start_date + ':' + chrono.end_date;
+                chrono.text = chrono.name;
+                chrono.buttons = _tributtons;
+
+                if (chrono.content && chrono.content.length > 0) {
+                    chrono.menu = chrono.content;
+                    chrono.menu.forEach(chronoElementToMenuElement);
+                    chrono.onchange = chronoSubSelect;
+                }
+            }
+
+            $http.get('/api/chronologies/' + $scope.project.chronologies[0].id, {
+                params: {
+                    active: 1,
+                },
+            }).then(function(data) {
+                console.log("chronologies: ", data.data);
+                var root = data.data;
+                chronoElementToMenuElement(root)
+
+                $scope.menuChronologies = [{
+                    text: "MAP.MENU_CHRONO.T_TITLE",
+                    buttons: [],
+                    value: 0, // value never used, there is no buttons
+                    menu: [{
+                        text: "MAP.MENU_CHRONO.T_MANUAL",
+                        buttons: _checkbox_buttons,
+                    }, {
+                        text: "MAP.MENU_CHRONO.T_CHRONOLOGY",
+                        buttons: _tributtons,
+                        value: root.value,
+                        menu: root.menu,
+                        onchange: chronoSubSelect,
+                    }, ]
+                }];
+
+                console.log("menu: ", $scope.menuChronologies);
+
+            }, function(err) {
+                arkeoService.fieldErrorDisplay(err)
+                console.error(err);
+            });
 
 
-		$scope.showMap = function() {
-			arkeoQuery.do($scope.query);
-		};
+            $scope.menuCentroid = {
+                text: 'MAP.MENU_CENTROID.T_TITLE',
+                menu: [{
+                    value: 'centroid-include',
+                    text: 'MAP.MENU_CENTROID.T_YES',
+                    buttons: _checkbox_buttons,
+                }, {
+                    value: 'centroid-exclude',
+                    text: 'MAP.MENU_CENTROID.T_NO',
+                    buttons: _checkbox_buttons,
+                }, ],
+            };
+
+            $scope.menuKnowledge = {
+                text: 'MAP.MENU_KNOWLEDGE.T_TITLE',
+                menu: [{
+                    value: 'not_documented',
+                    text: 'MAP.MENU_KNOWLEDGE.T_NOTDOCUMENTED',
+                    buttons: _checkbox_buttons,
+                }, {
+                    value: 'literature',
+                    text: 'MAP.MENU_KNOWLEDGE.T_LITERATURE',
+                    buttons: _checkbox_buttons,
+                }, {
+                    value: 'prospected_aerial',
+                    text: 'MAP.MENU_KNOWLEDGE.T_PROSPECTED_AERIAL',
+                    buttons: _checkbox_buttons,
+                }, {
+                    value: 'prospected_pedestrian',
+                    text: 'MAP.MENU_KNOWLEDGE.T_PROSPECTED_PEDESTRIAN',
+                    buttons: _checkbox_buttons,
+                }, {
+                    value: 'surveyed',
+                    text: 'MAP.MENU_KNOWLEDGE.T_SURVEYED',
+                    buttons: _checkbox_buttons,
+                }, {
+                    value: 'dig',
+                    text: 'MAP.MENU_KNOWLEDGE.T_DIG',
+                    buttons: _checkbox_buttons,
+                }, ],
+            };
+
+            $scope.menuOccupation = {
+                text: 'MAP.MENU_OCCUPATION.T_TITLE',
+                menu: [{
+                    value: 'not_documented',
+                    text: 'MAP.MENU_OCCUPATION.T_NOTDOCUMENTED',
+                    buttons: _checkbox_buttons,
+                }, {
+                    value: 'single',
+                    text: 'MAP.MENU_OCCUPATION.T_SINGLE',
+                    buttons: _checkbox_buttons,
+                }, {
+                    value: 'continuous',
+                    text: 'MAP.MENU_OCCUPATION.T_CONTINUOUS',
+                    buttons: _checkbox_buttons,
+                }, {
+                    value: 'multiple',
+                    text: 'MAP.MENU_OCCUPATION.T_MULTIPLE',
+                    buttons: _checkbox_buttons,
+                }, ],
+            };
+
+            $scope.menuZone = {
+                text: 'MAP.MENU_SEARCHZONE.T_TITLE',
+                menu: [{
+                    value: 'map',
+                    text: 'MAP.MENU_SEARCHZONE.T_MAP',
+                    buttons: _checkbox_buttons,
+                }, {
+                    value: 'rect',
+                    text: 'MAP.MENU_SEARCHZONE.T_RECT',
+                    buttons: _checkbox_buttons,
+                }, {
+                    value: 'disc',
+                    text: 'MAP.MENU_SEARCHZONE.T_DISC',
+                    buttons: _checkbox_buttons,
+                }, {
+                    value: 'polygon',
+                    text: 'MAP.MENU_SEARCHZONE.T_POLYGON',
+                    buttons: _checkbox_buttons,
+                }, {
+                    value: 'coordinates',
+                    text: 'MAP.MENU_SEARCHZONE.T_COORDINATES',
+                    buttons: _checkbox_buttons,
+                }, ],
+            };
+
+            /*
+             * menus init : databases
+             */
+
+            function databaseElementToMenuElement(database) {
+                database.value = database.id;
+                database.text = database.name;
+                database.buttons = _tributtons;
+            }
+
+            function populateDatabasesMenu() {
+                var menu = [{
+                    text: "MAP.MENU_DATABASE.T_INVENTORY",
+                    menu: [],
+                    buttons: _tributtons,
+                    value: 'type:inventory',
+                }, {
+                    text: "MAP.MENU_DATABASE.T_RESEARCH",
+                    menu: [],
+                    buttons: _tributtons,
+                    value: 'type:research',
+                }, {
+                    text: "MAP.MENU_DATABASE.T_LITERARYWORK",
+                    menu: [],
+                    buttons: _tributtons,
+                    value: 'type:literary-work',
+                }, {
+                    text: "MAP.MENU_DATABASE.T_UNDEFINED",
+                    menu: [],
+                    buttons: _tributtons,
+                    value: 'type:undefined',
+                }];
+
+                var promises = [];
+                $scope.project.databases.forEach(function(database) {
+                    promises.push($http.get('/api/database/' + database.id).then(function(data) {
+
+                        var root = data.data;
+
+                        databaseElementToMenuElement(root);
+
+                        switch (root.type) {
+                            case 'inventory':
+                                menu[0].menu.push(root);
+                                break;
+                            case 'research':
+                                menu[1].menu.push(root);
+                                break;
+                            case 'literary-work':
+                                menu[2].menu.push(root);
+                                break;
+                            default:
+                                menu[3].menu.push(root);
+                                break;
+                        }
+
+                    }));
+                });
+
+                $q.all(promises).then(function() {
+                    $scope.menuDatabases = [{
+                        text: "MAP.MENU_DATABASE.T_TITLE",
+                        buttons: [],
+                        value: 0,
+                        menu: menu,
+                    }];
+                });
+
+            }
+            populateDatabasesMenu();
+
+            /*
+            		$scope.menuPeriod = {
+            			text: 'MAP.MENU_PERIOD.T_TITLE',
+            			menu: [
+            				{
+            					value: 'manual',
+            					text: 'MAP.MENU_PERIOD.T_MANUAL',
+            					buttons: _checkbox_buttons,
+            					menu: [],
+            				},
+            				{
+            					value: 'chronology',
+            					text: 'MAP.MENU_PERIOD.T_CHRONOLOGY',
+            					menu: [],
+            				},
+            			],
+            		};
+            */
+
+            $scope.addInQuery = function(k, v, text) {
+                if (!(k in $scope.query)) {
+                    $scope.query[k] = [];
+                }
+                $scope.query[k].push({
+                    k: k,
+                    v: v,
+                    text: text,
+                })
+            };
+
+            $scope.removeFromQuery = function(k, v) {
+                if (k in $scope.query) {
+                    for (var i in $scope.query[k]) {
+                        console.log("i: ", i);
+                        if ($scope.query[k][i].v == v) {
+                            $scope.query[k].splice(i, 1);
+                            if ($scope.query[k].length == 0) {
+                                delete $scope.query[k];
+                            }
+                            break;
+                        }
+                    }
+                }
+            };
+
+            $scope.isEmptyObject = function(obj) {
+                return $.isEmptyObject(obj);
+            };
+
+            $scope.menutolist = function(data, menu) {
+                var res = [];
+                var keys = $.map(data, function(v, k) {
+                    return k;
+                });
+                keys.forEach(function(key) {
+                    menu.forEach(function(item) {
+                        if (item.value == key)
+                            res.push(item);
+                    });
+                });
+                return res;
+            };
+
+            /*
+             * query => map
+             */
 
 
-	}]);
+            $scope.showMap = function() {
+                console.log(arkeoMap.getMap());
+                arkeoQuery.do($scope.query);
+            };
+
+
+        }
+    ]);
 })();
