@@ -969,8 +969,6 @@
 			"T_TITLE": "Caractérisations :"
 		},
 		"CHRONOLOGIES": {
-			"T_EXCLUDE": "#!#QUERY.CHRONOLOGIES.T_EXCLUDE",
-			"T_INCLUDE": "#!#QUERY.CHRONOLOGIES.T_INCLUDE",
 			"T_TITLE": "Périodes :"
 		},
 		"DATABASES": {
@@ -978,11 +976,15 @@
 		}
 	},
 	"QUERY_AREA": {
+		"BUTTON_DRAW": {
+			"T_TITLE": "#!#QUERY_AREA.BUTTON_DRAW.T_TITLE"
+		},
 		"BUTTON_OK": {
 			"T_TITLE": "Ok"
 		},
 		"CUSTOM_LAT": {
 			"T_DEG": "degrés",
+			"T_HELP": "#!#QUERY_AREA.CUSTOM_LAT.T_HELP",
 			"T_MIN": "minutes",
 			"T_NUMERIC": "décimaux",
 			"T_OR": "- ou -",
@@ -991,6 +993,7 @@
 		},
 		"CUSTOM_LNG": {
 			"T_DEG": "degrés",
+			"T_HELP": "#!#QUERY_AREA.CUSTOM_LNG.T_HELP",
 			"T_MIN": "minutes",
 			"T_NUMERIC": "décimaux",
 			"T_OR": "- ou -",
@@ -998,8 +1001,7 @@
 			"T_TITLE": "Longitude (exemple Strasbourg : 7°45'E ou décimaux : 7.750)"
 		},
 		"CUSTOM_RADIUS": {
-			"T_FROMCENTER": "km à partir du centre de la recherche.",
-			"T_RADIUSOF": "Dans un rayon de",
+			"T_HELP": "#!#QUERY_AREA.CUSTOM_RADIUS.T_HELP",
 			"T_TITLE": "Distance :"
 		},
 		"DIALOG": {
@@ -1082,6 +1084,32 @@
 			"T_CHRONOLOGY": "Choix dans la chronologie",
 			"T_NUMERIC": "Choix numérique",
 			"T_TITLE": "Choix du type de période :"
+		},
+		"SENTENSE": {
+			"T_ALL": "EXISTENCE_INSIDE_INCLUDE les sites ayant EXISTENCE_INSIDE_SURENESS une existence EXISTENCE_INSIDE_PART durant la période PERIOD. Ces sites EXISTENCE_OUTSIDE_INCLUDE EXISTENCE_OUTSIDE_SURENESS avoir existé en dehors de cette période."
+		},
+		"SENTENSE_EXISTENCE_INSIDE_INCLUDE": {
+			"T_EXCLUDE": "Exclure",
+			"T_INCLUDE": "Inclure"
+		},
+		"SENTENSE_EXISTENCE_INSIDE_PART": {
+			"T_FULL": "intégrale",
+			"T_PARTLY": "partielle"
+		},
+		"SENTENSE_EXISTENCE_INSIDE_SURENESS": {
+			"T_CERTAINLY": "assurément",
+			"T_POTENTIALLY": "potentiellement",
+			"T_POTENTIALLY_ONLY": "uniquement potentiellement"
+		},
+		"SENTENSE_EXISTENCE_OUTSIDE_INCLUDE": {
+			"T_MUST": "doivent",
+			"T_MUSTNOT": "ne peuvent pas",
+			"T_POSSIBLY": "peuvent"
+		},
+		"SENTENSE_EXISTENCE_OUTSIDE_SURENESS": {
+			"T_CERTAINLY": "assurément",
+			"T_POTENTIALLY": "potentiellement",
+			"T_POTENTIALLY_ONLY": "uniquement potentiellement"
 		}
 	},
 	"QUERY_DATABASES": {
