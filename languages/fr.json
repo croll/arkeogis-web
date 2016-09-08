@@ -973,7 +973,7 @@
 			"T_FOOTER_BOLD": "nota :",
 			"T_FOOTER_TEXT1": "Les longitudes sont le plus souvent comptées positivement vers l'Est, par rapport à un méridien origine. Ce méridien origine peut être celui de Greenwich (méridien international), ou encore propre à la géodésie d'un pays (méridien de Paris pour la France).",
 			"T_FOOTER_TEXT2": "Chaque méridien origine est défini numériquement par sa longitude par rapport au méridien international. Le méridien de Paris est à 2° 20' 14.025\" à l'Est de celui de Greenwich (source IGN). Le méridien origine utilisé par ArkeoGIS est celui de Greenwich.",
-			"T_INTRO": "Sélection de la zone à requéter sur la carte",
+			"T_INTRO": "Sélection de la zone à requêter sur la carte",
 			"T_TITLE": "Emprise"
 		},
 		"ERROR_CUSTOM_AREA": {
