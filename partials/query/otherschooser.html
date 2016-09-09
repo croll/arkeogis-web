@@ -30,114 +30,32 @@
             </div>
         </md-radio-group>
 
+        <hr />
+
         <h3 translate>QUERY_OTHERS.PRECISIONS.T_TITLE</h3>
         <div translate>QUERY_OTHERS.PRECISIONS.T_INTRO</div>
         <div translate>QUERY_OTHERS.PRECISIONS_KNOWLEDGES.T_TITLE</div>
-        <md-radio-group ng-model="others.knowledge" layout-padding>
-            <div layout="row">
-                <md-radio-button value="at-least-one" aria-label="">
-                    <span translate>QUERY_OTHERS.CHARACS_LINKED.T_AT_LEAST_ONE</span>
-                </md-radio-button>
-                <md-radio-button value="all" aria-label="">
-                    <span translate>QUERY_OTHERS.CHARACS_LINKED.T_ALL</span>
-                </md-radio-button>
-            </div>
-        </md-radio-group>
-
-        <div ng-show="others.type == 'custom'">
-
-            <!-- LAT -->
-            <h3 translate>QUERY_OTHERS.CUSTOM_LAT.T_TITLE</h3>
-            <div layout="row" layout-md="col">
-                <div layout="row" flex>
-                    <div layout="column">
-                        <label translate>QUERY_OTHERS.CUSTOM_LAT.T_NUMERIC</label>
-                        <md-input-container>
-                            <input type="number" ng-model="others.lat" ng-change="fromDecimal_lat()"></input>
-                        </md-input-container>
-                    </div>
-                </div>
-                <div flex="10" layout-align="center center">
-                    <label></label>
-                    <div class="or" translate>QUERY_OTHERS.CUSTOM_LAT.T_OR</div>
-                </div>
-                <div layout="row" flex="70">
-                    <div layout="column">
-                        <label translate>QUERY_OTHERS.CUSTOM_LAT.T_DEG</label>
-                        <md-input-container>
-                            <input type="number" class="deg" step="1" ng-model="latInDeg.deg" ng-change="toDecimal_lat()"></input>
-                        </md-input-container>
-                    </div>
-                    <div layout="column">
-                        <label translate>QUERY_OTHERS.CUSTOM_LAT.T_MIN</label>
-                        <md-input-container>
-                            <input type="number" class="deg" step="1" ng-model="latInDeg.min" ng-change="toDecimal_lat()"></input>
-                        </md-input-container>
-                    </div>
-                    <div layout="column">
-                        <label translate>QUERY_OTHERS.CUSTOM_LAT.T_SEC</label>
-                        <md-input-container>
-                            <input type="number" class="deg" step="1" ng-model="latInDeg.sec" ng-change="toDecimal_lat()"></input>
-                        </md-input-container>
-                    </div>
-                </div>
-            </div>
-            <ark-help><span translate>QUERY_OTHERS.CUSTOM_LAT.T_HELP</span></ark-help>
-
-            <!-- LNG -->
-            <h3 translate style="margin-top: 30px">QUERY_OTHERS.CUSTOM_LNG.T_TITLE</h3>
-            <div layout="row" layout-md="col">
-                <div layout="row" flex>
-                    <div layout="column">
-                        <label translate>QUERY_OTHERS.CUSTOM_LNG.T_NUMERIC</label>
-                        <md-input-container>
-                            <input type="number" ng-model="others.lng" ng-change="fromDecimal_lng()"></input>
-                        </md-input-container>
-                    </div>
-                </div>
-                <div flex="10" layout-align="center center">
-                    <label></label>
-                    <div class="or" translate>QUERY_OTHERS.CUSTOM_LNG.T_OR</div>
-                </div>
-                <div layout="row" flex="70">
-                    <div layout="column">
-                        <label translate>QUERY_OTHERS.CUSTOM_LNG.T_DEG</label>
-                        <md-input-container>
-                            <input type="number" class="deg" step="1" ng-model="lngInDeg.deg" ng-change="toDecimal_lng()"></input>
-                        </md-input-container>
-                    </div>
-                    <div layout="column">
-                        <label translate>QUERY_OTHERS.CUSTOM_LNG.T_MIN</label>
-                        <md-input-container>
-                            <input type="number" class="deg" step="1" ng-model="lngInDeg.min" ng-change="toDecimal_lng()"></input>
-                        </md-input-container>
-                    </div>
-                    <div layout="column">
-                        <label translate>QUERY_OTHERS.CUSTOM_LNG.T_SEC</label>
-                        <md-input-container>
-                            <input type="number" class="deg" step="1" ng-model="lngInDeg.sec" ng-change="toDecimal_lng()"></input>
-                        </md-input-container>
-                    </div>
-                </div>
-            </div>
-            <ark-help><span translate>QUERY_OTHERS.CUSTOM_LNG.T_HELP</span></ark-help>
-
-
-            <!-- Radius -->
-            <h3 translate style="margin-bottom: 12px">QUERY_OTHERS.CUSTOM_RADIUS.T_TITLE</h3>
-            <md-input-container>
-                <input type="number" step="1" ng-model="others.radius"></input>
-            </md-input-container>
-            <ark-help><span translate>QUERY_OTHERS.CUSTOM_RADIUS.T_HELP</span></ark-help>
-
+        <div layout="row">
+            <md-checkbox md-no-ink ng-model="others.knowledges" value="knowledges">
+                <span translate>QUERY_OTHERS.KNOWLEDGE.</span>
+            </md-checkbox>
+            <md-checkbox md-no-ink ng-model="others.knowledges" value="literature">
+                <span translate>QUERY_OTHERS.KNOWLEDGE.T_LITERATURE</span>
+            </md-checkbox>
+            <md-checkbox md-no-ink ng-model="others.knowledges" value="prospected_aerial">
+                <span translate>QUERY_OTHERS.KNOWLEDGE.T_PROSPECTED_AERIAL</span>
+            </md-checkbox>
+            <md-checkbox md-no-ink ng-model="others.knowledges" value="prospected_pedestrian">
+                <span translate>QUERY_OTHERS.KNOWLEDGE.T_PROSPECTED_PEDESTRIAN</span>
+            </md-checkbox>
+            <md-checkbox md-no-ink ng-model="others.knowledges" value="surveyed">
+                <span translate>QUERY_OTHERS.KNOWLEDGE.T_SURVEYED</span>
+            </md-checkbox>
+            <md-checkbox md-no-ink ng-model="others.knowledges" value="dig">
+                <span translate>QUERY_OTHERS.KNOWLEDGE.T_DIG</span>
+            </md-checkbox>
         </div>
 
-
-        <div class="querywin-footer" ng-show="others.type == 'custom'">
-            <b translate>QUERY_OTHERS.DIALOG.T_FOOTER_BOLD</b>
-            <span translate>QUERY_OTHERS.DIALOG.T_FOOTER_TEXT1</span>
-            <span translate>QUERY_OTHERS.DIALOG.T_FOOTER_TEXT2</span>
-        </div>
 
     </md-dialog-content>
 
