@@ -65,7 +65,6 @@
                     silent: true
                 }).then(function(res) {
                     _.each(self.project.characs, function(charac) {
-
                         // set parent
                         function setRootRecurse(charac, parent) {
                             charac.parent = parent;
@@ -77,7 +76,7 @@
                         setRootRecurse(charac, null);
 
                         if (c.id == charac.id) {
-                            _.merge(charac, res.data);
+                            self.project.characs[c.id] = res.data
                         }
                     });
                 }));
@@ -91,7 +90,7 @@
                 }).then(function(res) {
                     _.each(self.project.chronologies, function(chrono) {
                         if (c.id == chrono.id) {
-                            _.merge(chrono, res.data);
+                            self.project.chronologies[c.id] = res.data
                             cacheChronologiesByDates(chrono);
                         }
                     });
@@ -104,11 +103,11 @@
                 }).then(function(res) {
                     _.each(self.project.databases, function(db) {
                         if (res.data.translations) {
-                            _merge(res.data, res.data.translations)
+                            _.assign(res.data, res.data.translations)
                             delete res.data.translations;
                         }
                         if (d.id == db.id) {
-                            _.merge(db, res.data);
+                            self.project.datatabases[d.id] = res.data
                         }
 
                         // make a string of authors array of objects
