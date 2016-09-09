@@ -567,6 +567,7 @@
 				showChronologyChooserDialog(params, $scope.params.chronologies);
 			else {
 				params = {
+					type: '',
 					selected_chronology_id: 0,
 					start_date: '',
 					end_date: '',
@@ -586,7 +587,6 @@
 					controller: function($scope, $mdDialog, arkeoService) {
 						$scope.chronologies = arkeoProject.get().chronologies;
 						$scope.selection = [{content: $scope.chronologies},$scope.chronologies[0],null,null,null];
-						$scope.type="";
 						$scope.params = chrono_params;
 
 						{ // init of selected_chronologies
@@ -807,9 +807,13 @@
 					}
 					str = str.replace('EXISTENCE_OUTSIDE_SURENESS', w);
 
-					console.log("chrono id : ", p.selected_chronology_id);
-					var chrono = getChronologyById(p.selected_chronology_id);
-					var chrono_name = $filter('arkTranslate')(chrono.name);
+					var chrono_name = "X";
+					if (p.type == 'chronology' && p.selected_chronology_id != 0) {
+						var chrono = getChronologyById(p.selected_chronology_id);
+						chrono_name = $filter('arkTranslate')(chrono.name);
+					} else if (p.type == 'numeric' && p.start_date != '' && p.end_date != '') {
+						chrono_name=$filter('arkYear')(p.start_date)+' / '+$filter('arkYear')(p.end_date);
+					}
 					str = str.replace('PERIOD', chrono_name);
 
 
