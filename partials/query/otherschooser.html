@@ -18,6 +18,7 @@
         <h2 translate>QUERY_OTHERS.DIALOG.T_INTRO</h2>
 
         <h3 translate>QUERY_OTHERS.CHARACS.T_TITLE</h3>
+
         <div translate>QUERY_OTHERS.CHARACS_LINKED.T_TITLE</div>
         <md-radio-group ng-model="others.characs_linked" layout-padding>
             <div layout="row">
@@ -72,6 +73,21 @@
                 <span translate>QUERY_OTHERS.OCCUPATION.T_MULTIPLE</span>
             </md-checkbox>
         </div>
+
+        <div translate>QUERY_OTHERS.CENTROID.T_TITLE</div>
+        <md-radio-group ng-model="others.centroid" layout-padding>
+            <div layout="row">
+                <md-radio-button value="" aria-label="">
+                    <span translate>QUERY_OTHERS.CENTROID.T_ALL</span>
+                </md-radio-button>
+                <md-radio-button value="with" aria-label="">
+                    <span translate>QUERY_OTHERS.CENTROID.T_ONLY_WITH_CENTROID</span>
+                </md-radio-button>
+                <md-radio-button value="without" aria-label="">
+                    <span translate>QUERY_OTHERS.CENTROID.T_ONLY_WITHOUD_CENTROID</span>
+                </md-radio-button>
+            </div>
+        </md-radio-group>
 
 
     </md-dialog-content>
