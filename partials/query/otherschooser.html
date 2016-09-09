@@ -34,6 +34,7 @@
 
         <h3 translate>QUERY_OTHERS.PRECISIONS.T_TITLE</h3>
         <div translate>QUERY_OTHERS.PRECISIONS.T_INTRO</div>
+
         <div translate>QUERY_OTHERS.PRECISIONS_KNOWLEDGES.T_TITLE</div>
         <div layout="row">
             <md-checkbox md-no-ink ng-model="others.knowledges" value="not_documented">
@@ -53,6 +54,22 @@
             </md-checkbox>
             <md-checkbox md-no-ink ng-model="others.knowledges" value="dig">
                 <span translate>QUERY_OTHERS.KNOWLEDGE.T_DIG</span>
+            </md-checkbox>
+        </div>
+
+        <div translate>QUERY_OTHERS.PRECISIONS_OCCUPATION.T_TITLE</div>
+        <div layout="row">
+            <md-checkbox md-no-ink ng-model="others.occupation" value="not_documented">
+                <span translate>QUERY_OTHERS.OCCUPATION.T_NOTDOCUMENTED</span>
+            </md-checkbox>
+            <md-checkbox md-no-ink ng-model="others.occupation" value="single">
+                <span translate>QUERY_OTHERS.OCCUPATION.T_SINGLE</span>
+            </md-checkbox>
+            <md-checkbox md-no-ink ng-model="others.occupation" value="continuous">
+                <span translate>QUERY_OTHERS.OCCUPATION.T_CONTINUOUS</span>
+            </md-checkbox>
+            <md-checkbox md-no-ink ng-model="others.occupation" value="multiple">
+                <span translate>QUERY_OTHERS.OCCUPATION.T_MULTIPLE</span>
             </md-checkbox>
         </div>
 
