@@ -16,7 +16,7 @@
 
             <md-input-container>
               <label translate>QUERY_CHRONOLOGIES.SELECT_TYPE.T_TITLE</label>
-              <md-select ng-model="type">
+              <md-select ng-model="params.type">
                   <md-option ng-value="'chronology'"><span translate>QUERY_CHRONOLOGIES.SELECT_TYPE.T_CHRONOLOGY</span></md-option>
                   <md-option ng-value="'numeric'"><span translate>QUERY_CHRONOLOGIES.SELECT_TYPE.T_NUMERIC</span></md-option>
               </md-select>
@@ -26,7 +26,7 @@
         <!-- radio_button_unchecked ; add_circle_outline ; block -->
         <!-- radio_button_unchecked ; new_releases -->
 
-        <div layout="row" class="arkmultiselect" ng-if="type == 'chronology'">
+        <div layout="row" class="arkmultiselect" ng-if="params.type == 'chronology'">
             <div flex layout="column" class="arkmonoselect" ng-repeat="col in [1,2,3,4]">
                 <div class="arkelementselect" ng-repeat="chronology in selection[col].content" ng-click="chronologySelect(col+1, chronology)" ng-class="selection[col+1] == chronology ? 'arkelementselected' : ''" ng-if="!chronology.hidden">
                     <md-icon ng-if="getButtonState(chronology) == ''" ng-click="toggleButton(chronology)" class="arktributton">radio_button_unchecked</md-icon>
@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <div layout="row" class="chronology-numeric" ng-if="type == 'numeric'">
+        <div layout="row" class="chronology-numeric" ng-if="params.type == 'numeric'">
             <md-input-container class='date-begin' flex>
                 <label translate>QUERY_CHRONOLOGIES.INPUT_ELEM_BEGIN.T_TITLE</label>
                 <input ark-year ng-model="params.start_date" placeholder="" required maxlength="10" minlength="1"/>
