@@ -969,8 +969,6 @@
 			"T_TITLE": "Caractérisations :"
 		},
 		"CHRONOLOGIES": {
-			"T_EXCLUDE": "Exclure :",
-			"T_INCLUDE": "Inclure :",
 			"T_TITLE": "Périodes :"
 		},
 		"DATABASES": {
@@ -1165,12 +1163,45 @@
 		}
 	},
 	"QUERY_OTHERS": {
+		"BUTTON_DRAW": {
+			"T_TITLE": ""
+		},
+		"BUTTON_OK": {
+			"T_TITLE": "Ok"
+		},
+		"CHARACS": {
+			"T_TITLE": "Caractérisations :"
+		},
+		"CHARACS_LINKED": {
+			"T_ALL": "Toutes",
+			"T_AT_LEAST_ONE": "Au moins une",
+			"T_TITLE": "Le lien logique utilisé entre les caractérisations est :"
+		},
+		"DIALOG": {
+			"T_INTRO": "",
+			"T_TITLE": "Précisions"
+		},
+		"KNOWLEDGE": {
+			"T_DIG": "Fouillé",
+			"T_LITERATURE": "Littérature",
+			"T_NOTDOCUMENTED": "Non documenté",
+			"T_PROSPECTED_AERIAL": "Prospecté aérien",
+			"T_PROSPECTED_PEDESTRIAN": "Prospecté pédestre",
+			"T_SURVEYED": "Sondé"
+		},
+		"PRECISIONS": {
+			"T_INTRO": "Si aucune précision n’est faite sur une des points suivant tous les sites sans distinction sur ce point seront inclus dans la requête.",
+			"T_TITLE": "Précision sur les sites à inclure dans la requête :"
+		},
+		"PRECISIONS_KNOWLEDGES": {
+			"T_TITLE": "Les sites dont l’état des connaissances est :"
+		},
 		"RADIOBUTTON": {
-			"T_ALLMAP": "#!#QUERY_OTHERS.RADIOBUTTON.T_ALLMAP",
-			"T_CUSTOM": "#!#QUERY_OTHERS.RADIOBUTTON.T_CUSTOM",
-			"T_DISC": "#!#QUERY_OTHERS.RADIOBUTTON.T_DISC",
-			"T_FREE": "#!#QUERY_OTHERS.RADIOBUTTON.T_FREE",
-			"T_RECT": "#!#QUERY_OTHERS.RADIOBUTTON.T_RECT"
+			"T_ALLMAP": "",
+			"T_CUSTOM": "",
+			"T_DISC": "",
+			"T_FREE": "",
+			"T_RECT": ""
 		}
 	},
 	"SITE_DETAILS": {
