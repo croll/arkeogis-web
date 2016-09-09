@@ -1184,10 +1184,16 @@
 		"KNOWLEDGE": {
 			"T_DIG": "Fouillé",
 			"T_LITERATURE": "Littérature",
-			"T_NOTDOCUMENTED": "Non documenté",
+			"T_NOTDOCUMENTED": "Non renseigné",
 			"T_PROSPECTED_AERIAL": "Prospecté aérien",
 			"T_PROSPECTED_PEDESTRIAN": "Prospecté pédestre",
 			"T_SURVEYED": "Sondé"
+		},
+		"OCCUPATION": {
+			"T_CONTINUOUS": "Continue",
+			"T_MULTIPLE": "Multiple",
+			"T_NOTDOCUMENTED": "Non renseigné",
+			"T_SINGLE": "Unique"
 		},
 		"PRECISIONS": {
 			"T_INTRO": "Si aucune précision n’est faite sur une des points suivant tous les sites sans distinction sur ce point seront inclus dans la requête.",
@@ -1195,6 +1201,9 @@
 		},
 		"PRECISIONS_KNOWLEDGES": {
 			"T_TITLE": "Les sites dont l’état des connaissances est :"
+		},
+		"PRECISIONS_OCCUPATION": {
+			"T_TITLE": "Les sites dont l’Occupation est de type :"
 		},
 		"RADIOBUTTON": {
 			"T_ALLMAP": "",
