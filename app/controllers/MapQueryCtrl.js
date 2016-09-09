@@ -848,7 +848,6 @@
 						};
 
 						$scope.checkbox_toggle = function(arr, elem) {
-							console.log("toggle arr: ", arr);
 							if (arr.indexOf(elem) > -1)
 								arr.splice(arr.indexOf(elem), 1);
 							else
@@ -856,7 +855,6 @@
 						};
 
 						$scope.checkbox_ischecked = function(arr, elem) {
-							console.log("is? arr: ", arr);
 							return arr.indexOf(elem) > -1;
 						};
 
