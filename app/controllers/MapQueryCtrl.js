@@ -35,7 +35,13 @@
 			database: [],
 			characs: {},
 			chronologies: [],
-			area: {type: 'map', lat: null, lng: null, radius: null, geojson: null}
+			area: {type: 'map', lat: null, lng: null, radius: null, geojson: null},
+			others: {
+				test_search: '',
+				text_search_in: [],
+				occupation: [],
+				knowledges: [],
+			},
 		};
 
 		$scope.showMap2 = function() {
@@ -824,6 +830,45 @@
 
 		});
 
+		/************
+		 * others
+		 ************/
+
+		$scope.showOthersChooserDialog = function() {
+			showOthersChooserDialog($scope.params);
+		};
+
+		function showOthersChooserDialog(params) {
+			$mdDialog.show({
+					controller: function($scope, $mdDialog, arkeoService) {
+						$scope.others = params.others;
+
+						$scope.hide = function() {
+							$mdDialog.hide();
+						};
+
+						$scope.checkbox_toggle = function(arr, elem) {
+							if (arr.indexOf(elem) > -1)
+								arr.splice(arr.indexOf(elem), 1);
+							else
+								arr.push(elem);
+						};
+
+						$scope.checkbox_ischecked = function(arr, elem) {
+							return arr.indexOf(elem) > -1;
+						};
+
+					},
+					templateUrl: 'partials/query/otherschooser.html',
+					parent: angular.element(document.body),
+					clickOutsideToClose: true,
+				})
+				.then(function(answer) {
+					$scope.status = 'You said the information was "' + answer + '".';
+				}, function() {
+					$scope.status = 'You cancelled the dialog.';
+				});
+		};
 
 		init_database();
 	}]);

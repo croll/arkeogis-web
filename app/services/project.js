@@ -64,19 +64,20 @@
                 promises.push($http.get('/api/characs/' + c.id + '?project_id=' + self.project.id, {
                     silent: true
                 }).then(function(res) {
-                    _.each(self.project.characs, function(charac) {
-                        // set parent
-                        function setRootRecurse(charac, parent) {
-                            charac.parent = parent;
-                            if (_.has(charac, 'content'))
-                                _.each(charac.content, function(subcharac) {
-                                    setRootRecurse(subcharac, charac);
-                                })
-                        }
-                        setRootRecurse(charac, null);
 
+                    // set parent
+                    function setRootRecurse(charac, parent) {
+                        charac.parent = parent;
+                        if (_.has(charac, 'content'))
+                            _.each(charac.content, function(subcharac) {
+                                setRootRecurse(subcharac, charac);
+                            })
+                    }
+                    setRootRecurse(res.data, null);
+
+                    _.each(self.project.characs, function(charac) {
                         if (c.id == charac.id) {
-                            self.project.characs[c.id] = res.data
+                            _.merge(charac, res.data);
                         }
                     });
                 }));
@@ -90,7 +91,7 @@
                 }).then(function(res) {
                     _.each(self.project.chronologies, function(chrono) {
                         if (c.id == chrono.id) {
-                            self.project.chronologies[c.id] = res.data
+                            _.merge(chrono, res.data);
                             cacheChronologiesByDates(chrono);
                         }
                     });
@@ -103,11 +104,11 @@
                 }).then(function(res) {
                     _.each(self.project.databases, function(db) {
                         if (res.data.translations) {
-                            _.assign(res.data, res.data.translations)
+                            _.merge(res.data, res.data.translations)
                             delete res.data.translations;
                         }
                         if (d.id == db.id) {
-                            self.project.datatabases[d.id] = res.data
+                            _.merge(db, res.data);
                         }
 
                         // make a string of authors array of objects

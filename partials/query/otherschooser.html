@@ -18,6 +18,7 @@
         <h2 translate>QUERY_OTHERS.DIALOG.T_INTRO</h2>
 
         <h3 translate>QUERY_OTHERS.CHARACS.T_TITLE</h3>
+
         <div translate>QUERY_OTHERS.CHARACS_LINKED.T_TITLE</div>
         <md-radio-group ng-model="others.characs_linked" layout-padding>
             <div layout="row">
@@ -30,114 +31,91 @@
             </div>
         </md-radio-group>
 
+        <hr />
+
         <h3 translate>QUERY_OTHERS.PRECISIONS.T_TITLE</h3>
         <div translate>QUERY_OTHERS.PRECISIONS.T_INTRO</div>
+
         <div translate>QUERY_OTHERS.PRECISIONS_KNOWLEDGES.T_TITLE</div>
-        <md-radio-group ng-model="others.knowledge" layout-padding>
+        <div layout="row">
+            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'not_documented')" ng-click="checkbox_toggle(others.knowledges, 'not_documented')">
+                <span translate>QUERY_OTHERS.KNOWLEDGE.T_NOTDOCUMENTED</span>
+            </md-checkbox>
+            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'literature')" ng-click="checkbox_toggle(others.knowledges, 'literature')">
+                <span translate>QUERY_OTHERS.KNOWLEDGE.T_LITERATURE</span>
+            </md-checkbox>
+            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'prospected_aerial')" ng-click="checkbox_toggle(others.knowledges, 'prospected_aerial')">
+                <span translate>QUERY_OTHERS.KNOWLEDGE.T_PROSPECTED_AERIAL</span>
+            </md-checkbox>
+            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'prospected_pedestrian')" ng-click="checkbox_toggle(others.knowledges, 'prospected_pedestrian')">
+                <span translate>QUERY_OTHERS.KNOWLEDGE.T_PROSPECTED_PEDESTRIAN</span>
+            </md-checkbox>
+            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'surveyed')" ng-click="checkbox_toggle(others.knowledges, 'surveyed')">
+                <span translate>QUERY_OTHERS.KNOWLEDGE.T_SURVEYED</span>
+            </md-checkbox>
+            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'dig')" ng-click="checkbox_toggle(others.knowledges, 'dig')">
+                <span translate>QUERY_OTHERS.KNOWLEDGE.T_DIG</span>
+            </md-checkbox>
+        </div>
+
+        <div translate>QUERY_OTHERS.PRECISIONS_OCCUPATION.T_TITLE</div>
+        <div layout="row">
+            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.occupation,'not_documented')" ng-click="checkbox_toggle(others.occupation, 'not_documented')">
+                <span translate>QUERY_OTHERS.OCCUPATION.T_NOTDOCUMENTED</span>
+            </md-checkbox>
+            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.occupation,'single')" ng-click="checkbox_toggle(others.occupation, 'single')">
+                <span translate>QUERY_OTHERS.OCCUPATION.T_SINGLE</span>
+            </md-checkbox>
+            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.occupation,'continuous')" ng-click="checkbox_toggle(others.occupation, 'continuous')">
+                <span translate>QUERY_OTHERS.OCCUPATION.T_CONTINUOUS</span>
+            </md-checkbox>
+            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.occupation,'multiple')" ng-click="checkbox_toggle(others.occupation, 'multiple')">
+                <span translate>QUERY_OTHERS.OCCUPATION.T_MULTIPLE</span>
+            </md-checkbox>
+        </div>
+
+        <div translate>QUERY_OTHERS.CENTROID.T_TITLE</div>
+        <md-radio-group ng-model="others.centroid" layout-padding>
             <div layout="row">
-                <md-radio-button value="at-least-one" aria-label="">
-                    <span translate>QUERY_OTHERS.CHARACS_LINKED.T_AT_LEAST_ONE</span>
+                <md-radio-button value="" aria-label="">
+                    <span translate>QUERY_OTHERS.CENTROID.T_ALL</span>
                 </md-radio-button>
-                <md-radio-button value="all" aria-label="">
-                    <span translate>QUERY_OTHERS.CHARACS_LINKED.T_ALL</span>
+                <md-radio-button value="with" aria-label="">
+                    <span translate>QUERY_OTHERS.CENTROID.T_ONLY_WITH_CENTROID</span>
+                </md-radio-button>
+                <md-radio-button value="without" aria-label="">
+                    <span translate>QUERY_OTHERS.CENTROID.T_ONLY_WITHOUD_CENTROID</span>
                 </md-radio-button>
             </div>
         </md-radio-group>
 
-        <div ng-show="others.type == 'custom'">
 
-            <!-- LAT -->
-            <h3 translate>QUERY_OTHERS.CUSTOM_LAT.T_TITLE</h3>
-            <div layout="row" layout-md="col">
-                <div layout="row" flex>
-                    <div layout="column">
-                        <label translate>QUERY_OTHERS.CUSTOM_LAT.T_NUMERIC</label>
-                        <md-input-container>
-                            <input type="number" ng-model="others.lat" ng-change="fromDecimal_lat()"></input>
-                        </md-input-container>
-                    </div>
-                </div>
-                <div flex="10" layout-align="center center">
-                    <label></label>
-                    <div class="or" translate>QUERY_OTHERS.CUSTOM_LAT.T_OR</div>
-                </div>
-                <div layout="row" flex="70">
-                    <div layout="column">
-                        <label translate>QUERY_OTHERS.CUSTOM_LAT.T_DEG</label>
-                        <md-input-container>
-                            <input type="number" class="deg" step="1" ng-model="latInDeg.deg" ng-change="toDecimal_lat()"></input>
-                        </md-input-container>
-                    </div>
-                    <div layout="column">
-                        <label translate>QUERY_OTHERS.CUSTOM_LAT.T_MIN</label>
-                        <md-input-container>
-                            <input type="number" class="deg" step="1" ng-model="latInDeg.min" ng-change="toDecimal_lat()"></input>
-                        </md-input-container>
-                    </div>
-                    <div layout="column">
-                        <label translate>QUERY_OTHERS.CUSTOM_LAT.T_SEC</label>
-                        <md-input-container>
-                            <input type="number" class="deg" step="1" ng-model="latInDeg.sec" ng-change="toDecimal_lat()"></input>
-                        </md-input-container>
-                    </div>
-                </div>
-            </div>
-            <ark-help><span translate>QUERY_OTHERS.CUSTOM_LAT.T_HELP</span></ark-help>
+        <hr />
 
-            <!-- LNG -->
-            <h3 translate style="margin-top: 30px">QUERY_OTHERS.CUSTOM_LNG.T_TITLE</h3>
-            <div layout="row" layout-md="col">
-                <div layout="row" flex>
-                    <div layout="column">
-                        <label translate>QUERY_OTHERS.CUSTOM_LNG.T_NUMERIC</label>
-                        <md-input-container>
-                            <input type="number" ng-model="others.lng" ng-change="fromDecimal_lng()"></input>
-                        </md-input-container>
-                    </div>
-                </div>
-                <div flex="10" layout-align="center center">
-                    <label></label>
-                    <div class="or" translate>QUERY_OTHERS.CUSTOM_LNG.T_OR</div>
-                </div>
-                <div layout="row" flex="70">
-                    <div layout="column">
-                        <label translate>QUERY_OTHERS.CUSTOM_LNG.T_DEG</label>
-                        <md-input-container>
-                            <input type="number" class="deg" step="1" ng-model="lngInDeg.deg" ng-change="toDecimal_lng()"></input>
-                        </md-input-container>
-                    </div>
-                    <div layout="column">
-                        <label translate>QUERY_OTHERS.CUSTOM_LNG.T_MIN</label>
-                        <md-input-container>
-                            <input type="number" class="deg" step="1" ng-model="lngInDeg.min" ng-change="toDecimal_lng()"></input>
-                        </md-input-container>
-                    </div>
-                    <div layout="column">
-                        <label translate>QUERY_OTHERS.CUSTOM_LNG.T_SEC</label>
-                        <md-input-container>
-                            <input type="number" class="deg" step="1" ng-model="lngInDeg.sec" ng-change="toDecimal_lng()"></input>
-                        </md-input-container>
-                    </div>
-                </div>
-            </div>
-            <ark-help><span translate>QUERY_OTHERS.CUSTOM_LNG.T_HELP</span></ark-help>
+        <h3 translate>QUERY_OTHERS.TEXTSEARCH.T_TITLE</h3>
+        <div translate>QUERY_OTHERS.TEXTSEARCH.T_INTRO</div>
 
+        <md-input-container>
+            <label translate>QUERY_OTHERS.TEXTSEARCH_INPUT.T_TITLE</label>
+            <input ng-model="others.text_search"/>
+        </md-input-container>
 
-            <!-- Radius -->
-            <h3 translate style="margin-bottom: 12px">QUERY_OTHERS.CUSTOM_RADIUS.T_TITLE</h3>
-            <md-input-container>
-                <input type="number" step="1" ng-model="others.radius"></input>
-            </md-input-container>
-            <ark-help><span translate>QUERY_OTHERS.CUSTOM_RADIUS.T_HELP</span></ark-help>
-
+        <div layout="row">
+            <md-checkbox md-no-ink flex ng-checked="checkbox_ischecked(others.text_search_in,'site_name')" ng-click="checkbox_toggle(others.text_search_in, 'site_name')">
+                <span translate>QUERY_OTHERS.TEXTSEARCH_INPUT.T_SITE_NAME</span>
+            </md-checkbox>
+            <md-checkbox md-no-ink flex ng-checked="checkbox_ischecked(others.text_search_in,'city_name')" ng-click="checkbox_toggle(others.text_search_in, 'city_name')">
+                <span translate>QUERY_OTHERS.TEXTSEARCH_INPUT.T_CITY_NAME</span>
+            </md-checkbox>
+            <md-checkbox md-no-ink flex ng-checked="checkbox_ischecked(others.text_search_in,'bibliography')" ng-click="checkbox_toggle(others.text_search_in, 'bibliography')">
+                <span translate>QUERY_OTHERS.TEXTSEARCH_INPUT.T_BIBLIOGRAPHY</span>
+            </md-checkbox>
+            <md-checkbox md-no-ink flex ng-checked="checkbox_ischecked(others.text_search_in,'comment')" ng-click="checkbox_toggle(others.text_search_in, 'comment')">
+                <span translate>QUERY_OTHERS.TEXTSEARCH_INPUT.T_COMMENT</span>
+            </md-checkbox>
         </div>
 
 
-        <div class="querywin-footer" ng-show="others.type == 'custom'">
-            <b translate>QUERY_OTHERS.DIALOG.T_FOOTER_BOLD</b>
-            <span translate>QUERY_OTHERS.DIALOG.T_FOOTER_TEXT1</span>
-            <span translate>QUERY_OTHERS.DIALOG.T_FOOTER_TEXT2</span>
-        </div>
 
     </md-dialog-content>
 
