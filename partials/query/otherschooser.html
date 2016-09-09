@@ -38,38 +38,38 @@
 
         <div translate>QUERY_OTHERS.PRECISIONS_KNOWLEDGES.T_TITLE</div>
         <div layout="row">
-            <md-checkbox md-no-ink ng-model="others.knowledges" value="not_documented">
+            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'not_documented')" ng-click="checkbox_toggle(others.knowledges, 'not_documented')">
                 <span translate>QUERY_OTHERS.KNOWLEDGE.T_NOTDOCUMENTED</span>
             </md-checkbox>
-            <md-checkbox md-no-ink ng-model="others.knowledges" value="literature">
+            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'literature')" ng-click="checkbox_toggle(others.knowledges, 'literature')">
                 <span translate>QUERY_OTHERS.KNOWLEDGE.T_LITERATURE</span>
             </md-checkbox>
-            <md-checkbox md-no-ink ng-model="others.knowledges" value="prospected_aerial">
+            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'prospected_aerial')" ng-click="checkbox_toggle(others.knowledges, 'prospected_aerial')">
                 <span translate>QUERY_OTHERS.KNOWLEDGE.T_PROSPECTED_AERIAL</span>
             </md-checkbox>
-            <md-checkbox md-no-ink ng-model="others.knowledges" value="prospected_pedestrian">
+            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'prospected_pedestrian')" ng-click="checkbox_toggle(others.knowledges, 'prospected_pedestrian')">
                 <span translate>QUERY_OTHERS.KNOWLEDGE.T_PROSPECTED_PEDESTRIAN</span>
             </md-checkbox>
-            <md-checkbox md-no-ink ng-model="others.knowledges" value="surveyed">
+            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'surveyed')" ng-click="checkbox_toggle(others.knowledges, 'surveyed')">
                 <span translate>QUERY_OTHERS.KNOWLEDGE.T_SURVEYED</span>
             </md-checkbox>
-            <md-checkbox md-no-ink ng-model="others.knowledges" value="dig">
+            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'dig')" ng-click="checkbox_toggle(others.knowledges, 'dig')">
                 <span translate>QUERY_OTHERS.KNOWLEDGE.T_DIG</span>
             </md-checkbox>
         </div>
 
         <div translate>QUERY_OTHERS.PRECISIONS_OCCUPATION.T_TITLE</div>
         <div layout="row">
-            <md-checkbox md-no-ink ng-model="others.occupation" value="not_documented">
+            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.occupation,'not_documented')" ng-click="checkbox_toggle(others.occupation, 'not_documented')">
                 <span translate>QUERY_OTHERS.OCCUPATION.T_NOTDOCUMENTED</span>
             </md-checkbox>
-            <md-checkbox md-no-ink ng-model="others.occupation" value="single">
+            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.occupation,'single')" ng-click="checkbox_toggle(others.occupation, 'single')">
                 <span translate>QUERY_OTHERS.OCCUPATION.T_SINGLE</span>
             </md-checkbox>
-            <md-checkbox md-no-ink ng-model="others.occupation" value="continuous">
+            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.occupation,'continuous')" ng-click="checkbox_toggle(others.occupation, 'continuous')">
                 <span translate>QUERY_OTHERS.OCCUPATION.T_CONTINUOUS</span>
             </md-checkbox>
-            <md-checkbox md-no-ink ng-model="others.occupation" value="multiple">
+            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.occupation,'multiple')" ng-click="checkbox_toggle(others.occupation, 'multiple')">
                 <span translate>QUERY_OTHERS.OCCUPATION.T_MULTIPLE</span>
             </md-checkbox>
         </div>
@@ -95,22 +95,22 @@
         <h3 translate>QUERY_OTHERS.TEXTSEARCH.T_TITLE</h3>
         <div translate>QUERY_OTHERS.TEXTSEARCH.T_INTRO</div>
 
-        <div layout="row">
-            <md-input-container flex>
-                <label translate>QUERY_OTHERS.TEXTSEARCH_INPUT.T_TITLE</label>
-                <input ng-model="others.text_search"/>
-            </md-input-container>
+        <md-input-container>
+            <label translate>QUERY_OTHERS.TEXTSEARCH_INPUT.T_TITLE</label>
+            <input ng-model="others.text_search"/>
+        </md-input-container>
 
-            <md-checkbox md-no-ink ng-model="others.text_search_in" value="site_name" flex>
+        <div layout="row">
+            <md-checkbox md-no-ink flex ng-checked="checkbox_ischecked(others.text_search_in,'site_name')" ng-click="checkbox_toggle(others.text_search_in, 'site_name')">
                 <span translate>QUERY_OTHERS.TEXTSEARCH_INPUT.T_SITE_NAME</span>
             </md-checkbox>
-            <md-checkbox md-no-ink ng-model="others.text_search_in" value="city_name" flex>
+            <md-checkbox md-no-ink flex ng-checked="checkbox_ischecked(others.text_search_in,'city_name')" ng-click="checkbox_toggle(others.text_search_in, 'city_name')">
                 <span translate>QUERY_OTHERS.TEXTSEARCH_INPUT.T_CITY_NAME</span>
             </md-checkbox>
-            <md-checkbox md-no-ink ng-model="others.text_search_in" value="bibliography" flex>
+            <md-checkbox md-no-ink flex ng-checked="checkbox_ischecked(others.text_search_in,'bibliography')" ng-click="checkbox_toggle(others.text_search_in, 'bibliography')">
                 <span translate>QUERY_OTHERS.TEXTSEARCH_INPUT.T_BIBLIOGRAPHY</span>
             </md-checkbox>
-            <md-checkbox md-no-ink ng-model="others.text_search_in" value="comment" flex>
+            <md-checkbox md-no-ink flex ng-checked="checkbox_ischecked(others.text_search_in,'comment')" ng-click="checkbox_toggle(others.text_search_in, 'comment')">
                 <span translate>QUERY_OTHERS.TEXTSEARCH_INPUT.T_COMMENT</span>
             </md-checkbox>
         </div>

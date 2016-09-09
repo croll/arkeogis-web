@@ -35,7 +35,13 @@
 			database: [],
 			characs: {},
 			chronologies: [],
-			area: {type: 'map', lat: null, lng: null, radius: null, geojson: null}
+			area: {type: 'map', lat: null, lng: null, radius: null, geojson: null},
+			others: {
+				test_search: '',
+				text_search_in: [],
+				occupation: [],
+				knowledges: [],
+			},
 		};
 
 		$scope.showMap2 = function() {
@@ -835,11 +841,23 @@
 		function showOthersChooserDialog(params) {
 			$mdDialog.show({
 					controller: function($scope, $mdDialog, arkeoService) {
-						$scope.others = arkeoProject.get().others;
-						$scope.selected_others = params.others;
+						$scope.others = params.others;
 
 						$scope.hide = function() {
 							$mdDialog.hide();
+						};
+
+						$scope.checkbox_toggle = function(arr, elem) {
+							console.log("toggle arr: ", arr);
+							if (arr.indexOf(elem) > -1)
+								arr.splice(arr.indexOf(elem), 1);
+							else
+								arr.push(elem);
+						};
+
+						$scope.checkbox_ischecked = function(arr, elem) {
+							console.log("is? arr: ", arr);
+							return arr.indexOf(elem) > -1;
 						};
 
 					},
