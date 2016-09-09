@@ -824,6 +824,35 @@
 
 		});
 
+		/************
+		 * others
+		 ************/
+
+		$scope.showOthersChooserDialog = function() {
+			showOthersChooserDialog($scope.params);
+		};
+
+		function showOthersChooserDialog(params) {
+			$mdDialog.show({
+					controller: function($scope, $mdDialog, arkeoService) {
+						$scope.others = arkeoProject.get().others;
+						$scope.selected_others = params.others;
+
+						$scope.hide = function() {
+							$mdDialog.hide();
+						};
+
+					},
+					templateUrl: 'partials/query/otherschooser.html',
+					parent: angular.element(document.body),
+					clickOutsideToClose: true,
+				})
+				.then(function(answer) {
+					$scope.status = 'You said the information was "' + answer + '".';
+				}, function() {
+					$scope.status = 'You cancelled the dialog.';
+				});
+		};
 
 		init_database();
 	}]);
