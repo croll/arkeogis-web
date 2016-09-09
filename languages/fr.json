@@ -1169,6 +1169,12 @@
 		"BUTTON_OK": {
 			"T_TITLE": "Ok"
 		},
+		"CENTROID": {
+			"T_ALL": "Ne pas filtrer",
+			"T_ONLY_WITHOUD_CENTROID": "Uniquement si défini sans centroïde",
+			"T_ONLY_WITH_CENTROID": "Uniquement si défini avec un centroïde",
+			"T_TITLE": "Sites localisés par un centroïde :"
+		},
 		"CHARACS": {
 			"T_TITLE": "Caractérisations :"
 		},
