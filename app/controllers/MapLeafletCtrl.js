@@ -369,35 +369,24 @@
                                     $scope.site = siteInfos.features[0];
                                     $scope.site.properties.infos.exceptional = false;
                                     $scope.site.properties.infos.startingPeriod = {
-                                        startDate: null,
-                                        endDate: null,
+                                        name: null,
                                         color: null
                                     };
+                                    var chrono = arkeoProject.getChronologyByDates($scope.site.properties.infos.start_date1, $scope.site.properties.infos.start_date2);
+                                    if (chrono) {
+                                        $scope.site.properties.infos.startingPeriod.color = chrono.color;
+                                        $scope.site.properties.infos.startingPeriod.name = chrono.name;
+                                    }
                                     $scope.site.properties.infos.endingPeriod = {
-                                        startDate: null,
-                                        endDate: null,
+                                        name: null,
                                         color: null
                                     };
-                                    // Starting and ending period infos
+                                    var chrono = arkeoProject.getChronologyByDates($scope.site.properties.infos.end_date1, $scope.site.properties.infos.end_date2);
+                                    if (chrono) {
+                                        $scope.site.properties.infos.endingPeriod.color = chrono.color;
+                                        $scope.site.properties.infos.endingPeriod.name = chrono.name;
+                                    }
                                     _.each($scope.site.properties.site_ranges, function(sr) {
-                                        if ($scope.site.properties.infos.startingPeriod.startDate === null || sr.start_date1 < $scope.site.properties.infos.startingPeriod.startDate) {
-                                            $scope.site.properties.infos.startingPeriod.startDate = sr.start_date1;
-                                            $scope.site.properties.infos.startingPeriod.endDate = sr.end_date1;
-                                            var chrono = arkeoProject.getChronologyByDates(sr.start_date1, sr.start_date2);
-                                            if (chrono) {
-                                                $scope.site.properties.infos.startingPeriod.color = chrono.color;
-                                                $scope.site.properties.infos.startingPeriod.name = chrono.name;
-                                            }
-                                        }
-                                        if ($scope.site.properties.infos.endingPeriod.endDate === null || sr.end_date2 > $scope.site.properties.infos.endingPeriod.endDate) {
-                                            $scope.site.properties.infos.endingPeriod.startDate = sr.start_date2;
-                                            $scope.site.properties.infos.endingPeriod.endDate = sr.end_date2;
-                                            var chrono = arkeoProject.getChronologyByDates(sr.start_date1, sr.start_date2);
-                                            if (chrono) {
-                                                $scope.site.properties.infos.endingPeriod.color = chrono.color;
-                                                $scope.site.properties.infos.endingPeriod.name = chrono.name;
-                                            }
-                                        }
                                         // Organise characs
                                         var cachedIds = [];
                                         _.each(sr.characs, function(charac) {

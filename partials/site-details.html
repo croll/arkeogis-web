@@ -20,15 +20,15 @@
         </div>
         <div flex="25" class="period" layout="column" layout-align="center end">
             <div translate>SITE_DETAILS.FIELD_STARTING_PERIOD.T_LABEL</div>
-            <div ng-show="site.properties.infos.startingPeriod.startDate">{{site.properties.infos.startingPeriod.startDate | arkYear}} : {{site.properties.infos.startingPeriod.endDate | arkYear}}</div>
-            <div ng-show="site.properties.infos.startingPeriod.endDate">
+            <div>{{site.properties.infos.start_date1 | arkYear}}<span ng-hide="site.properties.infos.start_date1 == site.properties.infos.start_date2 || (site.properties.infos.start_date1 == -2147483648 && site.properties.infos.start_date2) == 2147483647"> : {{site.properties.infos.start_date2 | arkYear}}</span></div>
+            <div ng-show="site.properties.infos.startingPeriod.name">
                 <span style="background-color:#{{site.properties.infos.startingPeriod.color}}"><span ark-get-translation>{{site.properties.infos.startingPeriod.name}}</span></span>
             </div>
         </div>
         <div flex="25" class="period" layout="column" layout-align="center start">
             <div translate>SITE_DETAILS.FIELD_ENDING_PERIOD.T_LABEL</div>
-            <div ng-show="site.properties.infos.endingPeriod.startDate">{{site.properties.infos.endingPeriod.startDate | arkYear}} : {{site.properties.infos.endingPeriod.endDate | arkYear}}</div>
-            <div ng-show="site.properties.infos.endingPeriod.endDate">
+            <div>{{site.properties.infos.end_date1 | arkYear}}<span ng-hide="site.properties.infos.end_date1 == site.properties.infos.end_date2 || (site.properties.infos.end_date1 == -2147483648 && site.properties.infos.end_date2) == 2147483647"> : {{site.properties.infos.end_date2 | arkYear}}</span></div>
+            <div ng-show="site.properties.infos.endingPeriod.name">
                 <span style="background-color:#{{site.properties.infos.endingPeriod.color}}"><span ark-get-translation>{{site.properties.infos.endingPeriod.name}}</span></span>
             </div>
         </div>
