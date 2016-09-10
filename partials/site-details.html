@@ -20,14 +20,14 @@
         </div>
         <div flex="25" class="period" layout="column" layout-align="center end">
             <div translate>SITE_DETAILS.FIELD_STARTING_PERIOD.T_LABEL</div>
-            <div ng-show="site.properties.infos.startingPeriod.startDate">{{site.properties.infos.startingPeriod.startDate}} : {{site.properties.infos.startingPeriod.endDate}}</div>
+            <div ng-show="site.properties.infos.startingPeriod.startDate">{{site.properties.infos.startingPeriod.startDate | arkYear}} : {{site.properties.infos.startingPeriod.endDate | arkYear}}</div>
             <div ng-show="site.properties.infos.startingPeriod.endDate">
                 <span style="background-color:#{{site.properties.infos.startingPeriod.color}}"><span ark-get-translation>{{site.properties.infos.startingPeriod.name}}</span></span>
             </div>
         </div>
         <div flex="25" class="period" layout="column" layout-align="center start">
             <div translate>SITE_DETAILS.FIELD_ENDING_PERIOD.T_LABEL</div>
-            <div ng-show="site.properties.infos.endingPeriod.startDate">{{site.properties.infos.endingPeriod.startDate}} : {{site.properties.infos.endingPeriod.endDate}}</div>
+            <div ng-show="site.properties.infos.endingPeriod.startDate">{{site.properties.infos.endingPeriod.startDate | arkYear}} : {{site.properties.infos.endingPeriod.endDate | arkYear}}</div>
             <div ng-show="site.properties.infos.endingPeriod.endDate">
                 <span style="background-color:#{{site.properties.infos.endingPeriod.color}}"><span ark-get-translation>{{site.properties.infos.endingPeriod.name}}</span></span>
             </div>
@@ -82,14 +82,14 @@
                 <md-toolbar class="md-hue-2" layout-padding>
                     <div class="name">
                         <span translate>SITE_DETAILS.SITE_RANGE_STARTING_PERIOD.T_LABEL</span>:
-                        <span>{{srange.start_date1}}
+                        <span>{{srange.start_date1 | arkYear}}
                             /
-                            {{srange.start_date2}}</span>
+                            {{srange.start_date2 | arkYear}}</span>
                         <span translate>SITE_DETAILS.SITE_RANGE_TO.T_LABEL</span>&nbsp;
                         <span translate>SITE_DETAILS.SITE_RANGE_ENDING_PERIOD.T_LABEL</span>:
-                        <span>{{srange.end_date1}}
+                        <span>{{srange.end_date1 | arkYear}}
                             /
-                            {{srange.end_date2}}</span>
+                            {{srange.end_date2 | arkYear}}</span>
                     </div>
                     <div class="exceptional" ng-show="site.properties.infos.exceptional"><span translate>SITE_DETAILS.FIELD_EXCEPTIONAL.T_EXCEPTIONAL_SITE</span></div>
                 </md-toolbar>
