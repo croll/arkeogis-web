@@ -41,6 +41,8 @@
 				text_search_in: [],
 				occupation: [],
 				knowledges: [],
+				characs_linked: "at-least-one",
+				centroid: '',
 			},
 		};
 
