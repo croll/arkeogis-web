@@ -27,7 +27,7 @@
             /*
              * menus init : buttons styles
              */
-        arkeoMap.init();
+        arkeoMap.initPromise();
 
         arkeoQuery.reset();
 
