@@ -121,12 +121,30 @@
                         <div class="query-element-edit-icon noselect"><md-icon ng-click="showOthersChooserDialog(params)">mode_edit</md-icon></div>
                         <div class="query-element-show-icon noselect"><md-icon ng-click="toggle_query_element('others')">play_arrow</md-icon></div>
                     </div>
+
                     <div class="query-element-content">
-                        <span translate ng-show="params.others.type == 'map' || ''">QUERY_OTHERS.RADIOBUTTON.T_ALLMAP</span>
-                        <span translate ng-show="params.others.type == 'rect'">QUERY_OTHERS.RADIOBUTTON.T_RECT</span>
-                        <span translate ng-show="params.others.type == 'disc'">QUERY_OTHERS.RADIOBUTTON.T_DISC</span>
-                        <span translate ng-show="params.others.type == 'free'">QUERY_OTHERS.RADIOBUTTON.T_FREE</span>
-                        <span translate ng-show="params.others.type == 'custom'">QUERY_OTHERS.RADIOBUTTON.T_CUSTOM</span>
+
+                        <!-- characs linked -->
+                        <div class="query-subelement" ng-if="params.others.characs_linked != 'at-least-one'">
+                            <div class="query-subelement-title" translate>QUERY.CHARACS_LINKED.T_TITLE</div>
+                            <div>QUERY.CHARACS_LINKED.T_ALL</div>
+                        </div>
+
+                        <!-- knowledges -->
+                        <div class="query-subelement" ng-if="params.others.knowledges.length > 0">
+                            <div class="query-subelement-title" translate>QUERY.KNOWLEDGES.T_TITLE</div>
+                            <div>
+                                <span ng-repeat="knowledge in params.others.knowledges">
+                                    <span ng-if="!$first">, </span>
+                                    <span ng-if="knowledge == 'not_documented'" translate>QUERY_OTHERS.KNOWLEDGE.T_NOTDOCUMENTED</span>
+                                    <span ng-if="knowledge == 'literature'" translate>QUERY_OTHERS.KNOWLEDGE.T_LITERATURE</span>
+                                    <span ng-if="knowledge == 'prospected_aerial'" translate>QUERY_OTHERS.KNOWLEDGE.T_PROSPECTED_AERIAL</span>
+                                    <span ng-if="knowledge == 'prospected_pedestrian'" translate>QUERY_OTHERS.KNOWLEDGE.T_PROSPECTED_PEDESTRIAN</span>
+                                    <span ng-if="knowledge == 'surveyed'" translate>QUERY_OTHERS.KNOWLEDGE.T_SURVEYED</span>
+                                    <span ng-if="knowledge == 'dig'" translate>QUERY_OTHERS.KNOWLEDGE.T_DIG</span>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
