@@ -23,7 +23,7 @@
     ArkeoGIS.service('arkeoMap', ['$http', '$q', '$translate', '$mdToast', 'arkeoProject', function($http, $q, $translate, $mdToast, arkeoProject) {
 
         var self = this,
-            mapDefer,
+            mapDefer = $q.defer(),
             layerControl,
             clusterRadiusControl;
 
@@ -58,17 +58,11 @@
             projectCentroid.lng = c.lng;
         }
 
-        this.init = function() {
-            mapDefer = $q.defer();
-            return mapDefer.promise;
-        }
-
         this.initLeaflet = function(el, $scope) {
             // Base layers
-            // var num = 0;
             var layers = {};
             var mapLayers = [];
-            _.each(self.layers.baseMaps, function(layer) {
+            _.each(angular.copy(self.layers.baseMaps), function(layer) {
                 layers[layer.name] = layer.layer;
                 mapLayers.push(layer.layer);
             });
@@ -96,6 +90,10 @@
 
         this.getMap = function() {
             return mapDefer.promise;
+        }
+
+        this.initPromise = function() {
+            mapDefer = $q.defer();
         }
 
         this.config = {
