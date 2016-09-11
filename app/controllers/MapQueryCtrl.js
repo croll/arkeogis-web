@@ -37,7 +37,7 @@
 			chronologies: [],
 			area: {type: 'map', lat: 0, lng: 0, radius: 0, geojson: ""},
 			others: {
-				test_search: '',
+				text_search: '',
 				text_search_in: [],
 				occupation: [],
 				knowledges: [],
