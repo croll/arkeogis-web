@@ -59,6 +59,8 @@
         }
 
         this.initLeaflet = function(el, $scope) {
+            // query Controls
+            this.queryControls = {};
             // Base layers
             var layers = {};
             var mapLayers = [];
