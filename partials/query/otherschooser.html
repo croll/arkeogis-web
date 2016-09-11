@@ -22,10 +22,10 @@
         <div translate>QUERY_OTHERS.CHARACS_LINKED.T_TITLE</div>
         <md-radio-group ng-model="others.characs_linked" layout-padding>
             <div layout="row">
-                <md-radio-button value="at-least-one" aria-label="">
+                <md-radio-button flex="25" value="at-least-one" aria-label="">
                     <span translate>QUERY_OTHERS.CHARACS_LINKED.T_AT_LEAST_ONE</span>
                 </md-radio-button>
-                <md-radio-button value="all" aria-label="">
+                <md-radio-button flex="25" value="all" aria-label="">
                     <span translate>QUERY_OTHERS.CHARACS_LINKED.T_ALL</span>
                 </md-radio-button>
             </div>
@@ -38,38 +38,38 @@
 
         <div translate>QUERY_OTHERS.PRECISIONS_KNOWLEDGES.T_TITLE</div>
         <div layout="row">
-            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'not_documented')" ng-click="checkbox_toggle(others.knowledges, 'not_documented')">
+            <md-checkbox flex md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'not_documented')" ng-click="checkbox_toggle(others.knowledges, 'not_documented')">
                 <span translate>QUERY_OTHERS.KNOWLEDGE.T_NOTDOCUMENTED</span>
             </md-checkbox>
-            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'literature')" ng-click="checkbox_toggle(others.knowledges, 'literature')">
+            <md-checkbox flex md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'literature')" ng-click="checkbox_toggle(others.knowledges, 'literature')">
                 <span translate>QUERY_OTHERS.KNOWLEDGE.T_LITERATURE</span>
             </md-checkbox>
-            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'prospected_aerial')" ng-click="checkbox_toggle(others.knowledges, 'prospected_aerial')">
+            <md-checkbox flex md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'prospected_aerial')" ng-click="checkbox_toggle(others.knowledges, 'prospected_aerial')">
                 <span translate>QUERY_OTHERS.KNOWLEDGE.T_PROSPECTED_AERIAL</span>
             </md-checkbox>
-            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'prospected_pedestrian')" ng-click="checkbox_toggle(others.knowledges, 'prospected_pedestrian')">
+            <md-checkbox flex md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'prospected_pedestrian')" ng-click="checkbox_toggle(others.knowledges, 'prospected_pedestrian')">
                 <span translate>QUERY_OTHERS.KNOWLEDGE.T_PROSPECTED_PEDESTRIAN</span>
             </md-checkbox>
-            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'surveyed')" ng-click="checkbox_toggle(others.knowledges, 'surveyed')">
+            <md-checkbox flex md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'surveyed')" ng-click="checkbox_toggle(others.knowledges, 'surveyed')">
                 <span translate>QUERY_OTHERS.KNOWLEDGE.T_SURVEYED</span>
             </md-checkbox>
-            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'dig')" ng-click="checkbox_toggle(others.knowledges, 'dig')">
+            <md-checkbox flex md-no-ink ng-checked="checkbox_ischecked(others.knowledges,'dig')" ng-click="checkbox_toggle(others.knowledges, 'dig')">
                 <span translate>QUERY_OTHERS.KNOWLEDGE.T_DIG</span>
             </md-checkbox>
         </div>
 
         <div translate>QUERY_OTHERS.PRECISIONS_OCCUPATION.T_TITLE</div>
         <div layout="row">
-            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.occupation,'not_documented')" ng-click="checkbox_toggle(others.occupation, 'not_documented')">
+            <md-checkbox flex md-no-ink ng-checked="checkbox_ischecked(others.occupation,'not_documented')" ng-click="checkbox_toggle(others.occupation, 'not_documented')">
                 <span translate>QUERY_OTHERS.OCCUPATION.T_NOTDOCUMENTED</span>
             </md-checkbox>
-            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.occupation,'single')" ng-click="checkbox_toggle(others.occupation, 'single')">
+            <md-checkbox flex md-no-ink ng-checked="checkbox_ischecked(others.occupation,'single')" ng-click="checkbox_toggle(others.occupation, 'single')">
                 <span translate>QUERY_OTHERS.OCCUPATION.T_SINGLE</span>
             </md-checkbox>
-            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.occupation,'continuous')" ng-click="checkbox_toggle(others.occupation, 'continuous')">
+            <md-checkbox flex md-no-ink ng-checked="checkbox_ischecked(others.occupation,'continuous')" ng-click="checkbox_toggle(others.occupation, 'continuous')">
                 <span translate>QUERY_OTHERS.OCCUPATION.T_CONTINUOUS</span>
             </md-checkbox>
-            <md-checkbox md-no-ink ng-checked="checkbox_ischecked(others.occupation,'multiple')" ng-click="checkbox_toggle(others.occupation, 'multiple')">
+            <md-checkbox flex md-no-ink ng-checked="checkbox_ischecked(others.occupation,'multiple')" ng-click="checkbox_toggle(others.occupation, 'multiple')">
                 <span translate>QUERY_OTHERS.OCCUPATION.T_MULTIPLE</span>
             </md-checkbox>
         </div>
@@ -77,13 +77,13 @@
         <div translate>QUERY_OTHERS.CENTROID.T_TITLE</div>
         <md-radio-group ng-model="others.centroid" layout-padding>
             <div layout="row">
-                <md-radio-button value="" aria-label="">
+                <md-radio-button flex value="" aria-label="">
                     <span translate>QUERY_OTHERS.CENTROID.T_ALL</span>
                 </md-radio-button>
-                <md-radio-button value="with" aria-label="">
+                <md-radio-button flex value="with" aria-label="">
                     <span translate>QUERY_OTHERS.CENTROID.T_ONLY_WITH_CENTROID</span>
                 </md-radio-button>
-                <md-radio-button value="without" aria-label="">
+                <md-radio-button flex value="without" aria-label="">
                     <span translate>QUERY_OTHERS.CENTROID.T_ONLY_WITHOUD_CENTROID</span>
                 </md-radio-button>
             </div>
@@ -101,16 +101,16 @@
         </md-input-container>
 
         <div layout="row">
-            <md-checkbox md-no-ink flex ng-checked="checkbox_ischecked(others.text_search_in,'site_name')" ng-click="checkbox_toggle(others.text_search_in, 'site_name')">
+            <md-checkbox flex md-no-ink flex ng-checked="checkbox_ischecked(others.text_search_in,'site_name')" ng-click="checkbox_toggle(others.text_search_in, 'site_name')">
                 <span translate>QUERY_OTHERS.TEXTSEARCH_INPUT.T_SITE_NAME</span>
             </md-checkbox>
-            <md-checkbox md-no-ink flex ng-checked="checkbox_ischecked(others.text_search_in,'city_name')" ng-click="checkbox_toggle(others.text_search_in, 'city_name')">
+            <md-checkbox flex md-no-ink flex ng-checked="checkbox_ischecked(others.text_search_in,'city_name')" ng-click="checkbox_toggle(others.text_search_in, 'city_name')">
                 <span translate>QUERY_OTHERS.TEXTSEARCH_INPUT.T_CITY_NAME</span>
             </md-checkbox>
-            <md-checkbox md-no-ink flex ng-checked="checkbox_ischecked(others.text_search_in,'bibliography')" ng-click="checkbox_toggle(others.text_search_in, 'bibliography')">
+            <md-checkbox flex md-no-ink flex ng-checked="checkbox_ischecked(others.text_search_in,'bibliography')" ng-click="checkbox_toggle(others.text_search_in, 'bibliography')">
                 <span translate>QUERY_OTHERS.TEXTSEARCH_INPUT.T_BIBLIOGRAPHY</span>
             </md-checkbox>
-            <md-checkbox md-no-ink flex ng-checked="checkbox_ischecked(others.text_search_in,'comment')" ng-click="checkbox_toggle(others.text_search_in, 'comment')">
+            <md-checkbox flex md-no-ink flex ng-checked="checkbox_ischecked(others.text_search_in,'comment')" ng-click="checkbox_toggle(others.text_search_in, 'comment')">
                 <span translate>QUERY_OTHERS.TEXTSEARCH_INPUT.T_COMMENT</span>
             </md-checkbox>
         </div>
