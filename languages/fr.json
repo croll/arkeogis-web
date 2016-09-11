@@ -962,11 +962,17 @@
 		"AREA": {
 			"T_TITLE": "Emprise :"
 		},
+		"CENTROID": {
+			"T_TITLE": "Centroïde :"
+		},
 		"CHARACS": {
 			"T_EXCEPTIOINAL": "Inclure les exceptionnel :",
 			"T_EXCLUDE": "Exclure :",
 			"T_INCLUDE": "Inclure :",
 			"T_TITLE": "Caractérisations :"
+		},
+		"CHARACS_LINKED": {
+			"T_TITLE": "Lien entre caractérisations :"
 		},
 		"CHRONOLOGIES": {
 			"T_TITLE": "Périodes :"
@@ -974,8 +980,19 @@
 		"DATABASES": {
 			"T_TITLE": "Bases de données :"
 		},
+		"KNOWLEDGES": {
+			"T_TITLE": "Connaissances :"
+		},
+		"OCCUPATION": {
+			"T_TITLE": "Occupation :"
+		},
 		"OTHERS": {
 			"T_TITLE": "Précisions :"
+		},
+		"TEXT_SEARCH": {
+			"T_SEARCH_FOR": "Recherche de :",
+			"T_SEARCH_IN": "dans :",
+			"T_TITLE": "Recherche textuelle :"
 		}
 	},
 	"QUERY_AREA": {
@@ -1210,13 +1227,6 @@
 		},
 		"PRECISIONS_OCCUPATION": {
 			"T_TITLE": "Les sites dont l’Occupation est de type :"
-		},
-		"RADIOBUTTON": {
-			"T_ALLMAP": "",
-			"T_CUSTOM": "",
-			"T_DISC": "",
-			"T_FREE": "",
-			"T_RECT": ""
 		},
 		"TEXTSEARCH": {
 			"T_INTRO": "",
