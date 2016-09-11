@@ -347,7 +347,7 @@
                             },
                             templateUrl: 'partials/query/areachooser.html',
                             parent: angular.element(document.body),
-                            clickOutsideToClose: true,
+                            clickOutsideToClose: false,
                         })
                         .then(function() {
                             if ('rect-disc-free'.indexOf($scope.params.area.type) != -1) {
@@ -601,6 +601,7 @@
 						$scope.chronologies = arkeoProject.get().chronologies;
 						$scope.selection = [{content: $scope.chronologies},$scope.chronologies[0],null,null,null];
 						$scope.params = chrono_params;
+						$scope.error_select_period_type = false;
 
 						{ // init of selected_chronologies
 							$scope.selected_chronologies = {};
@@ -608,6 +609,23 @@
 						}
 
 						$scope.hide = function() {
+							switch($scope.params.type) {
+								case "":
+								$scope.error_select_period_type = true;
+								return;
+								case "chronology":
+								if ($scope.params.selected_chronology_id == 0) {
+									$scope.error_select_chronology = true;
+									return;
+								}
+								break;
+								case "numeric":
+								if (!Number.isInteger($scope.params.start_date) || isNaN($scope.params.start_date) || !Number.isInteger($scope.params.end_date) || isNaN($scope.params.end_date)) {
+									$scope.error_select_period_numeric = true;
+									return;
+								}
+								break;
+							}
 							$mdDialog.hide();
 						};
 
@@ -615,7 +633,7 @@
 							var index = all_chronos.indexOf(chrono_params);
 							if (index >= 0) {
 							  all_chronos.splice( index, 1 );
-							  $scope.hide();
+							  $mdDialog.hide();
 							}
 						}
 
@@ -694,7 +712,7 @@
 					},
 					templateUrl: 'partials/query/chronologieschooser.html',
 					parent: angular.element(document.body),
-					clickOutsideToClose: true,
+					clickOutsideToClose: false,
 				})
 				.then(function(answer) {
 					$scope.status = 'You said the information was "' + answer + '".';

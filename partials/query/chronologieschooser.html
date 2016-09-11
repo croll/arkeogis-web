@@ -12,15 +12,19 @@
 
     <md-dialog-content layout-padding>
 
-        <div>
+        <div layout="row">
 
             <md-input-container>
               <label translate>QUERY_CHRONOLOGIES.SELECT_TYPE.T_TITLE</label>
-              <md-select ng-model="params.type">
+              <md-select ng-model="params.type" ng-change="error_select_period_type=false; error_select_chronology=false; error_select_period_numeric=false;">
                   <md-option ng-value="'chronology'"><span translate>QUERY_CHRONOLOGIES.SELECT_TYPE.T_CHRONOLOGY</span></md-option>
                   <md-option ng-value="'numeric'"><span translate>QUERY_CHRONOLOGIES.SELECT_TYPE.T_NUMERIC</span></md-option>
               </md-select>
             </md-input-container>
+
+            <div class="error" ng-if="error_select_period_type" translate>QUERY_CHRONOLOGIES.SELECT_TYPE.T_ERROR_EMPTY</div>
+            <div class="error" ng-if="error_select_chronology" translate>QUERY_CHRONOLOGIES.SELECT_CHRONOLOGY.T_ERROR_EMPTY</div>
+            <div class="error" ng-if="error_select_period_numeric" translate>QUERY_CHRONOLOGIES.PERIOD_NUMERIC.T_ERROR_INCORRECT</div>
         </div>
 
         <!-- radio_button_unchecked ; add_circle_outline ; block -->

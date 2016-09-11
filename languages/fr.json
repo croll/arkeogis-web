@@ -1120,8 +1120,15 @@
 		"INPUT_ELEM_END": {
 			"T_TITLE": "Année de fin :"
 		},
+		"PERIOD_NUMERIC": {
+			"T_ERROR_INCORRECT": "Veuillez vérifier la saisie de la période"
+		},
+		"SELECT_CHRONOLOGY": {
+			"T_ERROR_EMPTY": "Veuillez sélectionner une période dans la chronologie"
+		},
 		"SELECT_TYPE": {
 			"T_CHRONOLOGY": "Choix dans la chronologie",
+			"T_ERROR_EMPTY": "Veuillez sélectionner un type de période",
 			"T_NUMERIC": "Choix numérique",
 			"T_TITLE": "Choix du type de période :"
 		},
