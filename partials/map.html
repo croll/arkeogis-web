@@ -145,6 +145,20 @@
                                 </span>
                             </div>
                         </div>
+
+                        <!-- occupation -->
+                        <div class="query-subelement" ng-if="params.others.occupation.length > 0">
+                            <div class="query-subelement-title" translate>QUERY.OCCUPATION.T_TITLE</div>
+                            <div>
+                                <span ng-repeat="occupation in params.others.occupation">
+                                    <span ng-if="!$first">, </span>
+                                    <span ng-if="occupation == 'not_documented'" translate>QUERY_OTHERS.OCCUPATION.T_NOTDOCUMENTED</span>
+                                    <span ng-if="occupation == 'single'" translate>QUERY_OTHERS.OCCUPATION.T_SINGLE</span>
+                                    <span ng-if="occupation == 'continuous'" translate>QUERY_OTHERS.OCCUPATION.T_CONTINUOUS</span>
+                                    <span ng-if="occupation == 'multiple'" translate>QUERY_OTHERS.OCCUPATION.T_MULTIPLE</span>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
