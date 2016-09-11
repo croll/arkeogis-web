@@ -35,7 +35,7 @@
 			database: [],
 			characs: {},
 			chronologies: [],
-			area: {type: 'map', lat: 0, lng: 0, radius: 0, geojson: ""},
+			area: {type: 'map', lat: 0, lng: 0, radius: 0, geojson: {}},
 			others: {
 				text_search: '',
 				text_search_in: [],
@@ -45,8 +45,7 @@
 		};
 
 		$scope.showMap2 = function() {
-			console.log($scope.params);
-			if ($scope.params.area.type == 'map' && $scope.params.area.geojson =='') {
+			if ($scope.params.area.type == 'map' && !_.has($scope.params.area.geojson, 'geometry')) {
 				arkeoMap.getMap().then(function(map) {
                 	$scope.params.area.geojson = L.rectangle(map.getBounds()).toGeoJSON();
 				});
@@ -230,7 +229,7 @@
                         lat: 0,
                         lng: 0,
                         radius: 0,
-                        geojson: ""
+                        geojson: {}
                     }
                     $mdSidenav('sidenav-left').open();
                 }
@@ -265,7 +264,7 @@
                                 $scope.hide = function() {
                                     switch ($scope.area.type) {
                                         case 'custom':
-											$scope.area.geojson = "";
+											$scope.area.geojson = {};
                                             var score = 0;
                                             if ($scope.area.lat != "" && $scope.area.lat != null) {
                                                 score++;
