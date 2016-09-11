@@ -35,7 +35,7 @@
 			database: [],
 			characs: {},
 			chronologies: [],
-			area: {type: 'map', lat: null, lng: null, radius: null, geojson: null},
+			area: {type: 'map', lat: 0, lng: 0, radius: 0, geojson: ""},
 			others: {
 				test_search: '',
 				text_search_in: [],
@@ -221,10 +221,10 @@
 					layerDraw = null;
                     $scope.params.area = {
                         type: 'map',
-                        lat: null,
-                        lng: null,
-                        radius: null,
-                        geojson: null
+                        lat: 0,
+                        lng: 0,
+                        radius: 0,
+                        geojson: ""
                     }
                     $mdSidenav('sidenav-left').open();
                 }
@@ -240,9 +240,9 @@
                             $scope.params.area.radius = layerDraw.getRadius();
                             break;
                         default:
-                            $scope.params.area.lat = null;
-                            $scope.params.area.lng = null;
-                            $scope.params.area.radius = null;
+                            $scope.params.area.lat = 0;
+                            $scope.params.area.lng = 0;
+                            $scope.params.area.radius = 0;
                             $scope.params.area.geojson = layerDraw.toGeoJSON();
                     }
                 }
@@ -259,7 +259,7 @@
                                 $scope.hide = function() {
                                     switch ($scope.area.type) {
                                         case 'custom':
-											$scope.area.geojson = null;
+											$scope.area.geojson = "";
                                             var score = 0;
                                             if ($scope.area.lat != "" && $scope.area.lat != null) {
                                                 score++;
@@ -267,7 +267,7 @@
                                             if ($scope.area.lng != "" && $scope.area.lng != null) {
                                                 score++;
                                             }
-                                            if ($scope.area.radius != "" && $scope.area.radius != null) {
+                                            if ($scope.area.radius != "" && $scope.area.radius != null && $scope.area.radius > 0) {
                                                 score++;
                                             }
                                             if (score < 3) {
@@ -276,9 +276,9 @@
                                             }
                                             break;
                                         case 'map':
-                                            $scope.area.lat = null;
-                                            $scope.area.lng = null;
-                                            $scope.area.radius = null;
+                                            $scope.area.lat = 0;
+                                            $scope.area.lng = 0;
+                                            $scope.area.radius = 0;
                                             arkeoMap.getMap().then(function(map) {
                                                 $scope.area.geojson = L.rectangle(map.getBounds()).toGeoJSON().geometry;
                                             });
