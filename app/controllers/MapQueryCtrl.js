@@ -38,7 +38,7 @@
 			area: {type: 'map', lat: 0, lng: 0, radius: 0, geojson: {}},
 			others: {
 				text_search: '',
-				text_search_in: [],
+				text_search_in: ["site_name", "city_name", "bibliography", "comment"],
 				occupation: [],
 				knowledges: [],
 				characs_linked: "at-least-one",
