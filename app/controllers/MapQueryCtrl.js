@@ -47,6 +47,12 @@
 		};
 
 		$scope.showMap2 = function() {
+			console.log($scope.params);
+			if ($scope.params.area.type == 'map' && $scope.params.area.geojson =='') {
+				arkeoMap.getMap().then(function(map) {
+                	$scope.params.area.geojson = L.rectangle(map.getBounds()).toGeoJSON();
+				});
+			}
 			arkeoQuery.do($scope.params);
 		};
 
@@ -282,7 +288,7 @@
                                             $scope.area.lng = 0;
                                             $scope.area.radius = 0;
                                             arkeoMap.getMap().then(function(map) {
-                                                $scope.area.geojson = L.rectangle(map.getBounds()).toGeoJSON().geometry;
+                                                $scope.area.geojson = L.rectangle(map.getBounds()).toGeoJSON();
                                             });
                                             break;
                                     }

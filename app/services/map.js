@@ -60,6 +60,7 @@
 
         this.init = function() {
             mapDefer = $q.defer();
+            return mapDefer.promise;
         }
 
         this.initLeaflet = function(el, $scope) {
