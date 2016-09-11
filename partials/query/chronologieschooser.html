@@ -54,11 +54,11 @@
 
 
         <div class="advanced_chrono_h0">
-            <div class="advanced-show-icon noselect"><md-icon ng-click="toggle_display('advanced')">play_arrow</md-icon></div>
+            <div class="advanced-show-icon noselect display-icon-hide"><md-icon ng-click="toggle_display('advanced')">play_arrow</md-icon></div>
             <span translate>QUERY_CHRONOLOGIES.ADVANCED.T_TITLE</span>
         </div>
 
-        <div class="advanced-content">
+        <div class="advanced-content display-content-hide">
             <div class="advanced_chrono_h1" translate>QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_INCLUDE.T_TITLE</div>
             <md-radio-group ng-model="params.existence_inside_include" layout="row">
                 <md-radio-button flex="20" value="+"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_INCLUDE.T_INCLUDE</span></md-radio-button>
