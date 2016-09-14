@@ -21,8 +21,8 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', '$compile', '$mdDialog', 'arkeoService', 'arkeoProject', 'arkeoMap', 'arkeoQuery', 'arkeoLang', 'arkeoDatabase',
-        function($scope, $http, $compile, $mdDialog, arkeoService, arkeoProject, arkeoMap, arkeoQuery, arkeoLang, arkeoDatabase) {
+    ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', '$compile', '$filter', '$mdDialog', 'arkeoService', 'arkeoProject', 'arkeoMap', 'arkeoQuery', 'arkeoLang', 'arkeoDatabase',
+        function($scope, $http, $compile, $filter, $mdDialog, arkeoService, arkeoProject, arkeoMap, arkeoQuery, arkeoLang, arkeoDatabase) {
 
             /*
              * Leaflet Map
@@ -265,7 +265,9 @@
 
                     var start, end,
                         start = new Date().getTime(),
-                        latlngs = [];
+                        latlngs = [],
+                        startingPeriod = {startDate: -2147483648, endDate: 2147483647},
+                        endingPeriod = {startDate: 2147483647, endDate: -2147483648};
 
                     _.each(query.data.features, function(feature) {
                         // Marker
@@ -280,17 +282,35 @@
                             return false;
                         });
                         // For each site range
-                        var divsCharacs = {}
+                        var divsCharacs ={};
                         _.each(feature.properties.site_ranges, function(sr) {
+                            /*
+                            if (startingPeriod.startDate > sr.start_date1) {
+                                startingPeriod.startDate = sr.start_date1;
+                                startingPeriod.endDate = sr.start_date2;
+                            }
+                            if (endingPeriod.endDate < sr.end_date1) {
+                                endingPeriod.startDate = sr.end_date1;
+                                endingPeriod.endDate = sr.end_date2;
+                            }
+                            */
                             _.each(sr.characs, function(charac) {
                                 var characInfos = arkeoProject.getCharacById(charac.charac_id);
                                 divsCharacs[charac.charac_id] = "<div>" + characInfos.hierarchy.join('/') + "</div>";
                             });
                         });
                         // Build html popup
+                        $scope.feature = feature;
+                        var start_date = $filter('arkYear')(feature.properties.infos.start_date1);
+                        var end_date = $filter('arkYear')(feature.properties.infos.start_date2);
                         var html = "<arkeo-popup>";
                         html += "<div class='title'>";
                         html += "<div><span class='site-name'>" + feature.properties.infos.name + "</span> (" + feature.properties.infos.code + ")" + "</div>";
+                        html += "<div class='periods'>" + start_date;
+                        if (start_date != end_date) {
+                            html += ' : '+end_date;
+                        }
+                        html += "</div>";
                         html += "<div class='db-name'>" + feature.properties.infos.database_name + "</div>";
                         html += "</div>";
                         html += "<div class='content'>";
