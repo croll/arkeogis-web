@@ -45,7 +45,7 @@
 
                 // Cluster radius
                 arkeoMap.clusterRadiusControl = new L.Control.ClusterRadius({
-                    minRadius: 20,
+                    minRadius: 0.1,
                     maxRadius: 80,
                     callback: function() {
                         $scope.displayMarkers();
