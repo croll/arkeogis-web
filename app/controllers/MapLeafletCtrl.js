@@ -265,8 +265,7 @@
 
                     var start, end,
                         start = new Date().getTime(),
-                        latlngs = [],
-                        characIds = [];
+                        latlngs = [];
                     _.each(query.data.features, function(feature) {
                         var marker = L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {
                             icon: generateIcon(feature, query.letter)
@@ -277,22 +276,23 @@
                         marker.on('click', function(e) {
                             return false;
                         });
+                        console.log(feature);
                         var html = "<arkeo-popup>";
-                        html += "<div style='font-weight:bold'>" + feature.properties.infos.name + " (" + feature.properties.infos.code + ")" + "</div>";
-                        html += "<div>" + feature.properties.infos.database_name + "</div>";
+                        html += "<div class='title'>";
+                        html += "<div><span class='site-name'>" + feature.properties.infos.name + "</span> (" + feature.properties.infos.code + ")" + "</div>";
+                        html += "<div class='db-name'>" + feature.properties.infos.database_name + "</div>";
+                        html += "</div>";
+                        html += "<div class='content'>";
                         // For reach site range get characs
                         _.each(feature.properties.site_ranges, function(sr) {
                             _.each(sr.characs, function(charac) {
-                                if (characIds.indexOf(charac.charac_id) == -1) {
-                                    characIds.push(charac.charac_id);
-                                    var characInfos = arkeoProject.getCharacById(charac.charac_id);
-                                    html += "<div>" + buildCharacHierarchy(characInfos).join(' / ') + "</div>";
-                                }
+                                var characInfos = arkeoProject.getCharacById(charac.charac_id);
+                                html += "<div>" + characInfos.hierarchy.join('/') + "</div>";
                             });
                         });
-                        html += '<div style="text-align:center;margin: 10px 0 -8px 0;"><md-icon ng-click="toggleSiteDetailsDialog(' + feature.properties.infos.id + ')" class="md-18" style="cursor: pointer">info</md-icon></div>';
-                        html += "</arkeo-popup>";
-                        marker.bindPopup($compile(html)($scope)[0]);
+                        html += '<div class="more"><md-icon ng-click="toggleSiteDetailsDialog(' + feature.properties.infos.id + ')" class="md-18" style="cursor: pointer">info</md-icon></div>';
+                        html += "</div></arkeo-popup>";
+                        marker.bindPopup($compile(html)($scope)[0], {maxWidth: '500'});
                         marker.feature = feature;
 
                         if (!_.has(query.markersByDatabase, feature.properties.infos.database_id)) {
@@ -423,8 +423,7 @@
                                             if (characInfos.exceptional) {
                                                 $scope.site.properties.infos.exceptional = true;
                                             }
-                                            var hierarchy = buildCharacHierarchy(characInfos);
-                                            var characRoot = hierarchy[0];
+                                            var characRoot = characInfos.hierarchy[0];
                                             if (!_.has(sr.charac_sections, characRoot)) {
                                                 sr.charac_sections[characRoot] = {
                                                     name: characRoot,
@@ -432,7 +431,7 @@
                                                 }
                                             }
                                             sr.charac_sections[characRoot].characs.push(_.assign(characInfos, {
-                                                path: hierarchy.join(' / ')
+                                                path: characInfos.hierarchy.join(' / ')
                                             }));
                                         });
                                     });
@@ -502,15 +501,6 @@
                 geom = angular.fromJson(geom);
                 curlayer = L.geoJson(geom).addTo(drawnItems);
                 curlayer.editing.enable();
-            }
-
-            function buildCharacHierarchy(charac, path) {
-                var path = path || [];
-                if (angular.isObject(charac.parent)) {
-                    buildCharacHierarchy(charac.parent, path);
-                }
-                path.push(charac.name[arkeoLang.getUserLang()]);
-                return path;
             }
 
         }
