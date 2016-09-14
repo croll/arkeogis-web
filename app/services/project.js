@@ -20,7 +20,7 @@
  */
 
 (function() {
-    ArkeoGIS.service('arkeoProject', ['$cookies', '$http', '$q', function($cookies, $http, $q) {
+    ArkeoGIS.service('arkeoProject', ['$cookies', '$http', '$q', 'arkeoLang', function($cookies, $http, $q, arkeoLang) {
 
         var self = this,
         chronologyCacheByDates = {};
@@ -156,15 +156,24 @@
 			if (characs_by_id == null) {
 				characs_by_id = {};
 				var characsAll = self.project.characs;
+                function buildCharacHierarchy(charac, path) {
+                    var path = path || [];
+                    if (angular.isObject(charac.parent)) {
+                        buildCharacHierarchy(charac.parent, path);
+                    }
+                    path.push(charac.name[arkeoLang.getUserLang()]);
+                    return path;
+                }
 				function fillCache(content) {
 					_.each(content, function(charac) {
+                        charac.hierarchy = buildCharacHierarchy(charac);
 						characs_by_id[parseInt(charac.id)]=charac;
 						if (_.has(charac, 'content'))
 							fillCache(charac.content);
 					});
 				}
 				fillCache(characsAll);
-			}
+	   	    }
 			return characs_by_id[parseInt(id)];
 		}
 
