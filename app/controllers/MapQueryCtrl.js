@@ -389,16 +389,20 @@
 						});
 */
 
-						function setCharacSelect(charac, sel) {
-							if (sel != '')
-								$scope.selected_characs[charac.id]=sel;
+						function setCharacSelect(charac, selected, include, exceptional) {
+							if (selected)
+								$scope.selected_characs[charac.id]={
+									include: include,
+									exceptional: exceptional,
+									root_id: arkeoProject.getCharacRoot(charac).id,
+								};
 							else {
 								_.unset($scope.selected_characs, charac.id);
 							}
 
 							if (_.has(charac, 'content') && charac.content.length > 0) {
 								charac.content.forEach(function(subcharac) {
-									setCharacSelect(subcharac, sel);
+									setCharacSelect(subcharac, selected, include, exceptional);
 								})
 							}
 						}
@@ -406,20 +410,24 @@
 						$scope.toggleButton = function(charac) {
 							if (_.has($scope.selected_characs, charac.id)) {
 								var sel = $scope.selected_characs[charac.id];
-								if (sel == '+')
-									setCharacSelect(charac, '!');
-								else if (sel == '!')
-									setCharacSelect(charac, '-');
-								else if (sel == '-')
-									setCharacSelect(charac, '');
+								if (sel.include && !sel.exceptional)
+									setCharacSelect(charac, true, true, true);
+								else if (sel.include && sel.exceptional)
+									setCharacSelect(charac, true, false, false);
+								else if (!sel.include)
+									setCharacSelect(charac, false);
 							} else {
-								setCharacSelect(charac, '+');
+								setCharacSelect(charac, true, true, false);
 							}
 						};
 
 						$scope.getButtonState = function(charac) {
 							if (_.has($scope.selected_characs, charac.id)) {
-								return $scope.selected_characs[charac.id];
+								var sel=$scope.selected_characs[charac.id];
+								if (sel.include && !sel.exceptional) return '+';
+								else if (sel.include && sel.exceptional) return '!';
+								else if (!sel.include) return '-';
+								return '';
 							} else {
 								return '';
 							}
@@ -457,24 +465,6 @@
 				});
 		};
 
-		// cache characs by id
-		var characs_by_id = null;
-		function getCharacById(id) {
-			if (characs_by_id == null) {
-				characs_by_id = {};
-				var characsAll = arkeoProject.get().characs;
-				function fillCache(content) {
-					_.each(content, function(charac) {
-						characs_by_id[parseInt(charac.id)]=charac;
-						if (_.has(charac, 'content'))
-							fillCache(charac.content);
-					});
-				}
-				fillCache(characsAll);
-			}
-			return characs_by_id[parseInt(id)];
-		}
-
 		function testSubCharacsSelection(selecteds, charac, concerneds) {
 			concerneds.push(charac.id);
 			if (selecteds.indexOf(charac.id) != -1) {
@@ -500,15 +490,15 @@
 
 			_.each(selecteds, function(selected, id) {
 				id=parseInt(id);
-				if (selected == '+')
+				if (selected.include && !selected.exceptional)
 					selecteds_include.push(id);
-				else if (selected == '!')
+				else if (selected.include && selected.exceptional)
 					selecteds_exceptional.push(id);
-				else if (selected == '-')
+				else if (!selected.include)
 					selecteds_exclude.push(id);
 			});
 
-			function buildPath(charac, selecteds, sel) {
+			function buildPath(charac, selecteds) {
 
 				// check if the parent is in selection, so we build the path from the parent before.
 				if (angular.isObject(charac.parent) && selecteds.indexOf(charac.parent.id) !== -1)
@@ -549,17 +539,17 @@
 				return path;
 			}
 
-			function buildPaths(selecteds, sel) {
+			function buildPaths(selecteds) {
 				var paths=[];
 				while (selecteds.length > 0) {
-					paths.push(buildPath(getCharacById(selecteds[0]), selecteds, sel));
+					paths.push(buildPath(arkeoProject.getCharacById(selecteds[0]), selecteds));
 				}
 				return paths;
 			}
 
-			$scope.characs_selecteds_include = buildPaths(selecteds_include, '+');
-			$scope.characs_selecteds_exceptional = buildPaths(selecteds_exceptional, '!');
-			$scope.characs_selecteds_exclude = buildPaths(selecteds_exclude, '-');
+			$scope.characs_selecteds_include = buildPaths(selecteds_include);
+			$scope.characs_selecteds_exceptional = buildPaths(selecteds_exceptional);
+			$scope.characs_selecteds_exclude = buildPaths(selecteds_exclude);
 
 			console.log("$scope.characs_selecteds_include", $scope.characs_selecteds_include, $scope.characs_selecteds_exceptional, $scope.characs_selecteds_exclude);
 		}
@@ -685,7 +675,7 @@
 							if (_.has($scope.selected_chronologies, chronology.id)) {
 								return $scope.selected_chronologies[chronology.id];
 							} else {
-								return '';
+									return '';
 							}
 						};
 
