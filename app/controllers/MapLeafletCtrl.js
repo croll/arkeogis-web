@@ -199,22 +199,20 @@
 
             var analyzeFeature = function(feature) {
                 var currentSize = 0;
-                var memorizedSize = 0;
-                var start_date = -9999999;
-                var end_date = 999999;
+                var end_date1 = -2147483648;
+                var end_date2 = 2147483647;
                 var color;
                 var ret = {
                     exceptional: false,
-                    iconSize: 0,
+                    iconSize: 7,
                     iconColor: 'rgba(255, 255, 255, 0.4)'
                 };
+                console.log(feature.properties);
                 angular.forEach(feature.properties.site_ranges, function(site_range) {
                     // Get icon color
-                    if (site_range.start_date > start_date) {
-                        start_date = site_range.start_date;
-                    }
-                    if (site_range.end_date < end_date) {
-                        end_date = site_range.end_date;
+                    if (site_range.end_date1 > end_date1) {
+                        end_date1 = site_range.end_date1;
+                        end_date2 = site_range.end_date2;
                     }
                     angular.forEach(site_range.characs, function(c) {
                         if (c.exceptional) {
@@ -240,15 +238,19 @@
                                 currentSize = 6;
                                 break;
                         }
-                        if (memorizedSize < currentSize) {
-                            memorizedSize = currentSize;
+                        if (ret.iconSize > currentSize) {
                             ret.iconSize = currentSize;
                         }
                     });
                 });
-                var c = arkeoProject.getChronologyByDates(start_date, end_date);
-                if (c && c.color) {
-                    ret.iconColor = '#' + c.color;
+                // Hack to undefined color
+                if (end_date1 == -2147483648 && end_date2 == 2147483647) {
+                    ret.iconColor = '#888';
+                } else {
+                    var c = arkeoProject.getChronologyByDates(end_date1, end_date2);
+                    if (c && c.color) {
+                        ret.iconColor = '#' + c.color;
+                    }
                 }
                 return ret;
             }
@@ -370,23 +372,45 @@
                                     $scope.site.properties.infos.exceptional = false;
                                     $scope.site.properties.infos.startingPeriod = {
                                         name: null,
-                                        color: null
+                                        color: null,
+                                        startDate: null,
+                                        endDate: null
                                     };
-                                    var chrono = arkeoProject.getChronologyByDates($scope.site.properties.infos.start_date1, $scope.site.properties.infos.start_date2);
-                                    if (chrono) {
-                                        $scope.site.properties.infos.startingPeriod.color = chrono.color;
-                                        $scope.site.properties.infos.startingPeriod.name = chrono.name;
-                                    }
                                     $scope.site.properties.infos.endingPeriod = {
                                         name: null,
-                                        color: null
+                                        color: null,
+                                        startDate: null,
+                                        endDate: null
                                     };
-                                    var chrono = arkeoProject.getChronologyByDates($scope.site.properties.infos.end_date1, $scope.site.properties.infos.end_date2);
-                                    if (chrono) {
-                                        $scope.site.properties.infos.endingPeriod.color = chrono.color;
-                                        $scope.site.properties.infos.endingPeriod.name = chrono.name;
-                                    }
                                     _.each($scope.site.properties.site_ranges, function(sr) {
+                                        // Periods
+                                        if ($scope.site.properties.infos.startingPeriod.startDate == null || $scope.site.properties.infos.startingPeriod.startDate > sr.start_date1) {
+                                            $scope.site.properties.infos.startingPeriod.startDate = sr.start_date1;
+                                            $scope.site.properties.infos.startingPeriod.endDate = sr.start_date2;
+                                            var chrono = arkeoProject.getChronologyByDates(sr.start_date1, sr.start_date2);
+                                            if (chrono) {
+                                                $scope.site.properties.infos.startingPeriod.color = chrono.color;
+                                                $scope.site.properties.infos.startingPeriod.name = chrono.name;
+                                            }
+                                            // Hack to undefined period color
+                                            if (sr.start_date1 == -2147483648 && sr.start_date2 == 2147483647) {
+                                                $scope.site.properties.infos.startingPeriod.isUndefined = true;
+                                            }
+                                        }
+                                        if ($scope.site.properties.infos.endingPeriod.endDate == null || $scope.site.properties.infos.endingPeriod.endDate < sr.end_date2) {
+                                            $scope.site.properties.infos.endingPeriod.startDate = sr.end_date1;
+                                            $scope.site.properties.infos.endingPeriod.endDate = sr.end_date2;
+                                            var chrono = arkeoProject.getChronologyByDates(sr.end_date1, sr.end_date2);
+                                            if (chrono) {
+                                                $scope.site.properties.infos.endingPeriod.color = chrono.color;
+                                                $scope.site.properties.infos.endingPeriod.name = chrono.name;
+                                            }
+                                            // Hack to undefined period color
+                                            if (sr.end_date1 == -2147483648 && sr.end_date2 == 2147483647) {
+                                                console.log("ICICI");
+                                                $scope.site.properties.infos.endingPeriod.isUndefined = true;
+                                            }
+                                        }
                                         // Organise characs
                                         var cachedIds = [];
                                         _.each(sr.characs, function(charac) {

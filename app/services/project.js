@@ -120,6 +120,7 @@
         }
 
         this.getChronologyByDates = function(start_date, end_date) {
+            if (start_date == end_date) return null;
             return (_.has(chronologyCacheByDates, start_date+''+end_date)) ? chronologyCacheByDates[start_date+''+end_date] : null;
         }
 
