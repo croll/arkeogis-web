@@ -266,17 +266,28 @@
                     var start, end,
                         start = new Date().getTime(),
                         latlngs = [];
+
                     _.each(query.data.features, function(feature) {
+                        // Marker
                         var marker = L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {
                             icon: generateIcon(feature, query.letter)
                         });
+                        // Events
                         marker.on('mouseover', function(e) {
                             this.openPopup();
                         });
                         marker.on('click', function(e) {
                             return false;
                         });
-                        console.log(feature);
+                        // For each site range
+                        var divsCharacs = {}
+                        _.each(feature.properties.site_ranges, function(sr) {
+                            _.each(sr.characs, function(charac) {
+                                var characInfos = arkeoProject.getCharacById(charac.charac_id);
+                                divsCharacs[charac.charac_id] = "<div>" + characInfos.hierarchy.join('/') + "</div>";
+                            });
+                        });
+                        // Build html popup
                         var html = "<arkeo-popup>";
                         html += "<div class='title'>";
                         html += "<div><span class='site-name'>" + feature.properties.infos.name + "</span> (" + feature.properties.infos.code + ")" + "</div>";
@@ -284,11 +295,9 @@
                         html += "</div>";
                         html += "<div class='content'>";
                         // For reach site range get characs
-                        _.each(feature.properties.site_ranges, function(sr) {
-                            _.each(sr.characs, function(charac) {
-                                var characInfos = arkeoProject.getCharacById(charac.charac_id);
-                                html += "<div>" + characInfos.hierarchy.join('/') + "</div>";
-                            });
+                        // Store charac divs and order them later
+                        Object.keys(divsCharacs).reverse().forEach(function(key) {
+                            html += divsCharacs[key];
                         });
                         html += '<div class="more"><md-icon ng-click="toggleSiteDetailsDialog(' + feature.properties.infos.id + ')" class="md-18" style="cursor: pointer">info</md-icon></div>';
                         html += "</div></arkeo-popup>";
