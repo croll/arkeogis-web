@@ -167,5 +167,13 @@
 			return characs_by_id[parseInt(id)];
 		}
 
+        //get charac root
+        this.getCharacRoot = function(charac) {
+            while(charac.parent) {
+                charac=charac.parent;
+            }
+            return charac;
+        }
+
     }]);
 })();
