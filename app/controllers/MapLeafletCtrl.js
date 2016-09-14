@@ -207,7 +207,6 @@
                     iconSize: 7,
                     iconColor: 'rgba(255, 255, 255, 0.4)'
                 };
-                console.log(feature.properties);
                 angular.forEach(feature.properties.site_ranges, function(site_range) {
                     // Get icon color
                     if (site_range.end_date1 > end_date1) {
@@ -407,7 +406,6 @@
                                             }
                                             // Hack to undefined period color
                                             if (sr.end_date1 == -2147483648 && sr.end_date2 == 2147483647) {
-                                                console.log("ICICI");
                                                 $scope.site.properties.infos.endingPeriod.isUndefined = true;
                                             }
                                         }
