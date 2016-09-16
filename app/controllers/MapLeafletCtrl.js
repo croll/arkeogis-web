@@ -382,7 +382,6 @@
                         if (_.has(arkeoMap.queryControls, query.letter)) {
                             map.removeControl(arkeoMap.queryControls[query.letter]);
                         }
-                        console.log('label', label);
                         var control = new L.Control.Queries(null, null, {
                             collapsed: true,
                             letter: query.letter,
