@@ -71,6 +71,11 @@ L.Control.LayerDynamic = L.Control.Layers.extend({
 
 L.Control.Queries = L.Control.Layers.extend({
 
+    options: {
+      letter: '',
+      title: 'Query'
+    },
+
 	_initLayout: function () {
 		var className = 'leaflet-control-layers',
 		    container = this._container = L.DomUtil.create('div', className);
@@ -116,6 +121,17 @@ L.Control.Queries = L.Control.Layers.extend({
 		} else {
 			this._expand();
 		}
+
+        var titleContainer = L.DomUtil.create('div', 'className' + '-base', form);
+        titleContainer.innerHTML = "<a style='padding: 3px'>"+this.options.title+"</a>";
+        L.DomEvent
+            .addListener(titleContainer, 'click', L.DomEvent.stopPropagation)
+            .addListener(titleContainer, 'click', L.DomEvent.preventDefault)
+            .addListener(titleContainer, 'click', function() {
+                    $(this).parent().find('input[type=checkbox]').each(function() {
+                        $(this).click();
+                    });
+                });
 
 		this._baseLayersList = L.DomUtil.create('div', className + '-base', form);
 		this._separator = L.DomUtil.create('div', className + '-separator', form);
