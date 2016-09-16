@@ -132,9 +132,9 @@
             var generateIcon = function(feature, letter) {
 
                 // Debug icon position
-                 arkeoMap.getMap().then(function(map) {
-                     L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]).addTo(map);
-                 });
+                //  arkeoMap.getMap().then(function(map) {
+                //      L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]).addTo(map);
+                //  });
 
                 var iconProperties = {};
 
@@ -161,43 +161,12 @@
                 } else {
                     angular.extend(iconProperties, {
                         className: 'arkeo-marker-container-circle query' + letter,
-                        html: '<svg class="arkeo-marker arkeo-marker-circle-svg ' + iconClasses + '"><use xlink:href="#arkeo-marker-circle-symbol' + exceptional + '" style="fill:' + characInfos.iconColor + '"></use></svg><div class="arkeo-marker-letter size' + characInfos.iconSize + '">' + letter + '</div>',
-                        iconSize: characInfos.iconSize,
-                        iconAnchor: [25, 27.5],
+                        html: '<svg class="arkeo-marker circle arkeo-marker-circle-svg ' + iconClasses + '"><use xlink:href="#arkeo-marker-circle-symbol' + exceptional + '" style="fill:' + characInfos.iconColor + '"></use></svg><div class="arkeo-marker-letter size' + characInfos.iconSize + '">' + letter + '</div>',
+                        iconSize: characInfos.iconDimensions,
+                        iconAnchor: [characInfos.iconAnchorPosition[0], characInfos.iconAnchorPosition[1] - (characInfos.iconAnchorPosition[1]/2)],
                         popupAnchor: [0, 0]
                     });
                 }
-
-                function getIconAnchorPosition(iconSize) {
-                    var ret;
-                    switch (iconSize) {
-                        case 1:
-                            // ret = [24, 38];
-                            ret = [0, 0];
-                            break;
-                        case 2:
-                            // ret = [23, 41];
-                            ret = [0, 0];
-                            break;
-                        case 3:
-                            // ret = [23, 43];
-                            ret = [0, 0];
-                            break;
-                        case 4:
-                            // ret = [23, 46];
-                            ret = [0, 0];
-                            break;
-                        case 5:
-                            // ret = [23, 52];
-                            ret = [0, 0];
-                            break;
-                        case 6:
-                            // ret = [23, 55];
-                            ret = [0, 0];
-                            break;
-                    }
-                    return ret;
-                };
 
                 return L.divIcon(iconProperties);
 
@@ -246,7 +215,7 @@
                         if (ret.iconSize > currentSize) {
                             ret.iconSize = currentSize;
                         }
-                        return ret.iconSize = 1;
+                        return ret;
                     });
                 });
                 // Hack to undefined color

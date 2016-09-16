@@ -7,6 +7,9 @@
 		height: 19px;
 		margin-top: 0px;
 		margin-left: 1px;
+		&.circle {
+			height: 14px;
+		}
     }
     &.size2 {
 	    font-size: 16px;
@@ -14,6 +17,9 @@
 		height: 21px;
 		margin-top: 0px;
 		margin-left: 1px;
+		&.circle {
+			height: 21px;
+		}
     }
     &.size3 {
 	    font-size: 19px;
@@ -21,6 +27,9 @@
 		height: 23px;
 		margin-top: 0px;
 		margin-left: 1px;
+		&.circle {
+			height: 23px;
+		}
     }
     &.size4 {
 	    font-size: 23px;
@@ -28,6 +37,9 @@
 		height: 28px;
 		margin-top: 0px;
 		margin-left: 1px;
+		&.circle {
+			height: 28px;
+		}
     }
     &.size5 {
 	    font-size: 30px;
@@ -35,13 +47,17 @@
 		height: 37px;
 		margin-top: 0px;
 		margin-left: 1px;
+		&.circle {
+			height: 37px;
+		}
     }
     &.size6 {
 	    font-size: 37px;
 		width: 38px;
-		height: 46px;
-		margin-top: 0px;
 		margin-left: 1px;
+		&.circle {
+			height: 38px;
+		}
     }
 }
 
@@ -69,39 +85,39 @@
 
 .arkeo-marker-container-circle {
     .arkeo-marker-letter {
-        font-weight: bold;
-        position: absolute;
-		text-shadow: 0px 0px 1px #333;
         color: #fff;
+		text-shadow: 0px 0px 1px #333;
+        position: absolute;
+        font-weight: bold;
         &.size1 {
-            font-size: 8px;
-            top: 18px;
-            left: 22px;
+            font-size: 10px;
+            top: -1px;
+            left: 4px;
         }
         &.size2 {
-            font-size: 10px;
-            top: 17px;
-            left: 21px;
+            font-size: 12px;
+            top: 1px;
+            left: 5px;
         }
         &.size3 {
             font-size: 13px;
-            top: 15px;
-            left: 20px;
+            top: 1px;
+            left: 6px;
         }
         &.size4 {
-            font-size: 15px;
-            top: 14px;
-            left: 19px;
+            font-size: 16px;
+            top: 2px;
+            left: 7px;
         }
         &.size5 {
-            font-size: 20px;
-            top: 10px;
-            left: 18px;
+            font-size: 21px;
+            top: 3px;
+            left: 8px;
         }
         &.size6 {
             font-size: 24px;
-            top: 8px;
-            left: 16px;
+            top: 1px;
+            left: 11px;
         }
     }
 }
@@ -127,8 +143,7 @@
 }
 
 .arkeo-marker-container-drop {
-	border: 1px solid blue;
-	// pointer-events: none;
+
     .arkeo-marker-letter {
         color: #fff;
 		text-shadow: 0px 0px 1px #333;
@@ -161,7 +176,7 @@
         }
         &.size6 {
             font-size: 24px;
-            top: 2px;
+            top: 9px;
             left: 10px;
         }
     }
