@@ -110,7 +110,7 @@
 			"T_TITLE": "Nom de la période"
 		},
 		"INPUT_NAME": {
-			"T_TITLE": "Nom de la chronologie"
+			"T_TITLE": "Nom de la chronologie (100 caractères maximum)"
 		},
 		"LIST": {
 			"T_TITLE": "Liste des chronologies"
