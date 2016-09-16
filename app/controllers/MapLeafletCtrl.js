@@ -45,7 +45,7 @@
 
                 // Cluster radius
                 arkeoMap.clusterRadiusControl = new L.Control.ClusterRadius({
-                    minRadius: 0.1,
+                    minRadius: 0,
                     maxRadius: 80,
                     callback: function() {
                         $scope.displayMarkers();
@@ -262,6 +262,7 @@
 
             function displayQuery(query) {
 
+
                 query.done = true;
 
                 arkeoMap.getMap().then(function(map) {
@@ -284,16 +285,6 @@
                             icon: generateIcon(feature, query.letter)
                         });
                         marker.feature = feature;
-                        // Events
-                        // marker.on('mouseover', function(e) {
-                        //     this.openPopup();
-                        // });
-                        // marker.on('mouseout', function(e) {
-                        //     this.closePopup();
-                        // });
-                        // marker.on('click', function(e) {
-                        //     console.log("lick");
-                        // });
                         // For each site range
                         var divsCharacs = {};
                         _.each(feature.properties.site_ranges, function(sr) {
@@ -406,10 +397,19 @@
                             arkeoMap.queryControls[query.letter].removeLayer(markerGroup.cluster);
                         }
 
-                        markerGroup.cluster = new L.markerClusterGroup({
-                            maxClusterRadius: arkeoMap.clusterRadiusControl.getCurrentRadius()
-                        });
-                        markerGroup.cluster.addLayers(markerGroup.markers).addTo(map)
+                        var radius = arkeoMap.clusterRadiusControl.getCurrentRadius();
+
+                        if (radius > 0) {
+                            markerGroup.cluster = new L.markerClusterGroup({
+                                maxClusterRadius: radius
+                            });
+                            markerGroup.cluster.addLayers(markerGroup.markers).addTo(map)
+                        } else {
+                            markerGroup.cluster = new L.layerGroup();
+                            _.each(markerGroup.markers, function(marker) {
+                                markerGroup.cluster.addLayer(marker).addTo(map)
+                            });
+                        }
 
                         // Databases control
                         control.addOverlay(markerGroup.cluster, markerGroup.database);

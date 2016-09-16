@@ -113,7 +113,6 @@ L.Control.Queries = L.Control.Layers.extend({
 			}, this);
 
 			this._map.on('click', this._collapse, this);
-			// TODO keyboard accessibility
 		} else {
 			this._expand();
 		}
