@@ -156,15 +156,15 @@
                         html: '<svg class="arkeo-marker arkeo-marker-drop-svg ' + iconClasses + '"><use xlink:href="#arkeo-marker-drop-symbol' + exceptional + '" style="fill: ' + characInfos.iconColor + '"></use></svg><div class="arkeo-marker-letter size' + characInfos.iconSize + '">' + letter + '</div>',
                         iconSize: characInfos.iconDimensions,
                         iconAnchor: characInfos.iconAnchorPosition,
-                        popupAnchor: [0, 0]
+                        popupAnchor: [0, 10]
                     });
                 } else {
                     angular.extend(iconProperties, {
                         className: 'arkeo-marker-container-circle query' + letter,
                         html: '<svg class="arkeo-marker circle arkeo-marker-circle-svg ' + iconClasses + '"><use xlink:href="#arkeo-marker-circle-symbol' + exceptional + '" style="fill:' + characInfos.iconColor + '"></use></svg><div class="arkeo-marker-letter size' + characInfos.iconSize + '">' + letter + '</div>',
                         iconSize: characInfos.iconDimensions,
-                        iconAnchor: [characInfos.iconAnchorPosition[0], characInfos.iconAnchorPosition[1] - (characInfos.iconAnchorPosition[1]/2)],
-                        popupAnchor: [0, 15]
+                        iconAnchor: [characInfos.iconAnchorPosition[0], characInfos.iconAnchorPosition[1] - (characInfos.iconAnchorPosition[1] / 2)],
+                        popupAnchor: [0, 25]
                     });
                 }
 
@@ -228,31 +228,31 @@
                     }
                 }
                 // Icon dimensions
-                switch(ret.iconSize) {
+                switch (ret.iconSize) {
                     case 1:
                         ret.iconDimensions = [15, 19];
                         ret.iconAnchorPosition = [7, 19];
-                    break;
+                        break;
                     case 2:
                         ret.iconDimensions = [17, 21];
                         ret.iconAnchorPosition = [8, 21];
-                    break;
+                        break;
                     case 3:
                         ret.iconDimensions = [19, 23];
                         ret.iconAnchorPosition = [9, 23];
-                    break;
+                        break;
                     case 4:
                         ret.iconDimensions = [23, 28];
                         ret.iconAnchorPosition = [11, 28];
-                    break;
+                        break;
                     case 5:
                         ret.iconDimensions = [30, 37];
                         ret.iconAnchorPosition = [15, 37];
-                    break;
+                        break;
                     case 6:
                         ret.iconDimensions = [38, 46];
                         ret.iconAnchorPosition = [19, 46];
-                    break;
+                        break;
                 }
                 return ret;
             }
@@ -333,12 +333,12 @@
                         });
 
                         marker.on("mouseover", function() {
-                                 marker.openPopup();
-                                 // Cannot get the popup element until it's been created
-                                 $('.leaflet-popup').on('mouseleave', function() {
-                                     marker.closePopup();
-                                 });
-                         });
+                            marker.openPopup();
+                            // Cannot get the popup element until it's been created
+                            $('.leaflet-popup').on('mouseleave', function() {
+                                marker.closePopup();
+                            });
+                        });
 
                         if (!_.has(query.markersByDatabase, feature.properties.infos.database_id)) {
                             query.markersByDatabase[feature.properties.infos.database_id] = {
@@ -359,53 +359,65 @@
 
             $scope.displayMarkers = function() {
 
-                arkeoMap.getMap().then(function(map) {
+                var map,
+                    label = "Query";
 
-                    var query = arkeoQuery.getCurrent();
+                arkeoMap.getMap().then(function(m) {
+                    map = m;
+                }).then(function() {
 
-                    if (!query) {
-                        return;
-                    }
+                    $translate('SITE_DETAILS.FIELD_QUERY.T_LABEL').then(function(trans) {
+                        label = trans;
+                    }, function() {
 
-                    query.markerClusters = {};
+                    }).then(function() {
+                        var query = arkeoQuery.getCurrent();
 
-                    if (_.has(arkeoMap.queryControls, query.letter)) {
-                        map.removeControl(arkeoMap.queryControls[query.letter]);
-                    }
-                    var control = new L.Control.Queries(null, null, {
-                        collapsed: true,
-                        letter: query.letter,
-                        title: $translate('T')
-                    }).addTo(map);
-
-                    arkeoMap.queryControls[query.letter] = control;
-
-                    _.each(query.markersByDatabase, function(markerGroup, dbID) {
-
-                        if (markerGroup.cluster) {
-                            map.removeLayer(markerGroup.cluster);
-                            arkeoMap.queryControls[query.letter].removeLayer(markerGroup.cluster);
+                        if (!query) {
+                            return;
                         }
 
-                        var radius = arkeoMap.clusterRadiusControl.getCurrentRadius();
+                        query.markerClusters = {};
 
-                        if (radius > 0) {
-                            markerGroup.cluster = new L.markerClusterGroup({
-                                maxClusterRadius: radius
-                            });
-                            markerGroup.cluster.addLayers(markerGroup.markers).addTo(map)
-                        } else {
-                            markerGroup.cluster = new L.layerGroup();
-                            _.each(markerGroup.markers, function(marker) {
-                                markerGroup.cluster.addLayer(marker).addTo(map)
-                            });
+                        if (_.has(arkeoMap.queryControls, query.letter)) {
+                            map.removeControl(arkeoMap.queryControls[query.letter]);
                         }
+                        console.log('label', label);
+                        var control = new L.Control.Queries(null, null, {
+                            collapsed: true,
+                            letter: query.letter,
+                            title: label + ' ' + query.letter
+                        }).addTo(map);
 
-                        // Databases control
-                        control.addOverlay(markerGroup.cluster, markerGroup.database);
+                        arkeoMap.queryControls[query.letter] = control;
+
+                        _.each(query.markersByDatabase, function(markerGroup, dbID) {
+
+                            if (markerGroup.cluster) {
+                                map.removeLayer(markerGroup.cluster);
+                                arkeoMap.queryControls[query.letter].removeLayer(markerGroup.cluster);
+                            }
+
+                            var radius = arkeoMap.clusterRadiusControl.getCurrentRadius();
+
+                            if (radius > 0) {
+                                markerGroup.cluster = new L.markerClusterGroup({
+                                    maxClusterRadius: radius
+                                });
+                                markerGroup.cluster.addLayers(markerGroup.markers).addTo(map)
+                            } else {
+                                markerGroup.cluster = new L.layerGroup();
+                                _.each(markerGroup.markers, function(marker) {
+                                    markerGroup.cluster.addLayer(marker).addTo(map)
+                                });
+                            }
+
+                            // Databases control
+                            control.addOverlay(markerGroup.cluster, markerGroup.database);
+
+                        });
 
                     });
-
                 });
             };
 

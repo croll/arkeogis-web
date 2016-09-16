@@ -20,7 +20,7 @@
  */
 
 (function() {
-    ArkeoGIS.service('arkeoMap', ['$http', '$q', '$translate', '$mdToast', 'arkeoProject', function($http, $q, $translate, $mdToast, arkeoProject) {
+    ArkeoGIS.service('arkeoMap', ['$http', '$q', 'arkeoProject', function($http, $q, arkeoProject) {
 
         var self = this,
             mapDefer = $q.defer(),
