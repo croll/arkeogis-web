@@ -132,9 +132,9 @@
             var generateIcon = function(feature, letter) {
 
                 // Debug icon position
-                // leafletData.getMap().then(function(map) {
-                // 	L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]).addTo(map);
-                // });
+                 arkeoMap.getMap().then(function(map) {
+                     L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]).addTo(map);
+                 });
 
                 var iconProperties = {};
 
@@ -154,15 +154,15 @@
                     angular.extend(iconProperties, {
                         className: 'arkeo-marker-container-drop query' + letter,
                         html: '<svg class="arkeo-marker arkeo-marker-drop-svg ' + iconClasses + '"><use xlink:href="#arkeo-marker-drop-symbol' + exceptional + '" style="fill: ' + characInfos.iconColor + '"></use></svg><div class="arkeo-marker-letter size' + characInfos.iconSize + '">' + letter + '</div>',
-                        iconSize: [55, 60],
-                        iconAnchor: getIconAnchorPosition(characInfos.iconSize),
+                        iconSize: characInfos.iconDimensions,
+                        iconAnchor: characInfos.iconAnchorPosition,
                         popupAnchor: [0, 0]
                     });
                 } else {
                     angular.extend(iconProperties, {
                         className: 'arkeo-marker-container-circle query' + letter,
                         html: '<svg class="arkeo-marker arkeo-marker-circle-svg ' + iconClasses + '"><use xlink:href="#arkeo-marker-circle-symbol' + exceptional + '" style="fill:' + characInfos.iconColor + '"></use></svg><div class="arkeo-marker-letter size' + characInfos.iconSize + '">' + letter + '</div>',
-                        iconSize: [55, 55],
+                        iconSize: characInfos.iconSize,
                         iconAnchor: [25, 27.5],
                         popupAnchor: [0, 0]
                     });
@@ -172,22 +172,28 @@
                     var ret;
                     switch (iconSize) {
                         case 1:
-                            ret = [24, 38];
+                            // ret = [24, 38];
+                            ret = [0, 0];
                             break;
                         case 2:
-                            ret = [23, 41];
+                            // ret = [23, 41];
+                            ret = [0, 0];
                             break;
                         case 3:
-                            ret = [23, 43];
+                            // ret = [23, 43];
+                            ret = [0, 0];
                             break;
                         case 4:
-                            ret = [23, 46];
+                            // ret = [23, 46];
+                            ret = [0, 0];
                             break;
                         case 5:
-                            ret = [23, 52];
+                            // ret = [23, 52];
+                            ret = [0, 0];
                             break;
                         case 6:
-                            ret = [23, 55];
+                            // ret = [23, 55];
+                            ret = [0, 0];
                             break;
                     }
                     return ret;
@@ -240,6 +246,7 @@
                         if (ret.iconSize > currentSize) {
                             ret.iconSize = currentSize;
                         }
+                        return ret.iconSize = 1;
                     });
                 });
                 // Hack to undefined color
@@ -250,6 +257,33 @@
                     if (c && c.color) {
                         ret.iconColor = '#' + c.color;
                     }
+                }
+                // Icon dimensions
+                switch(ret.iconSize) {
+                    case 1:
+                        ret.iconDimensions = [15, 19];
+                        ret.iconAnchorPosition = [7, 19];
+                    break;
+                    case 2:
+                        ret.iconDimensions = [17, 21];
+                        ret.iconAnchorPosition = [8, 21];
+                    break;
+                    case 3:
+                        ret.iconDimensions = [19, 23];
+                        ret.iconAnchorPosition = [9, 23];
+                    break;
+                    case 4:
+                        ret.iconDimensions = [23, 28];
+                        ret.iconAnchorPosition = [11, 28];
+                    break;
+                    case 5:
+                        ret.iconDimensions = [30, 37];
+                        ret.iconAnchorPosition = [15, 37];
+                    break;
+                    case 6:
+                        ret.iconDimensions = [38, 46];
+                        ret.iconAnchorPosition = [19, 46];
+                    break;
                 }
                 return ret;
             }
@@ -266,23 +300,33 @@
                     var start, end,
                         start = new Date().getTime(),
                         latlngs = [],
-                        startingPeriod = {startDate: -2147483648, endDate: 2147483647},
-                        endingPeriod = {startDate: 2147483647, endDate: -2147483648};
+                        startingPeriod = {
+                            startDate: -2147483648,
+                            endDate: 2147483647
+                        },
+                        endingPeriod = {
+                            startDate: 2147483647,
+                            endDate: -2147483648
+                        };
 
                     _.each(query.data.features, function(feature) {
                         // Marker
                         var marker = L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {
                             icon: generateIcon(feature, query.letter)
                         });
+                        marker.feature = feature;
                         // Events
-                        marker.on('mouseover', function(e) {
-                            this.openPopup();
-                        });
-                        marker.on('click', function(e) {
-                            return false;
-                        });
+                        // marker.on('mouseover', function(e) {
+                        //     this.openPopup();
+                        // });
+                        // marker.on('mouseout', function(e) {
+                        //     this.closePopup();
+                        // });
+                        // marker.on('click', function(e) {
+                        //     console.log("lick");
+                        // });
                         // For each site range
-                        var divsCharacs ={};
+                        var divsCharacs = {};
                         _.each(feature.properties.site_ranges, function(sr) {
                             /*
                             if (startingPeriod.startDate > sr.start_date1) {
@@ -308,7 +352,7 @@
                         html += "<div><span class='site-name'>" + feature.properties.infos.name + "</span> (" + feature.properties.infos.code + ")" + "</div>";
                         html += "<div class='periods'>" + start_date;
                         if (start_date != end_date) {
-                            html += ' : '+end_date;
+                            html += ' : ' + end_date;
                         }
                         html += "</div>";
                         html += "<div class='db-name'>" + feature.properties.infos.database_name + "</div>";
@@ -321,8 +365,31 @@
                         });
                         html += '<div class="more"><md-icon ng-click="toggleSiteDetailsDialog(' + feature.properties.infos.id + ')" class="md-18" style="cursor: pointer">info</md-icon></div>';
                         html += "</div></arkeo-popup>";
-                        marker.bindPopup($compile(html)($scope)[0], {maxWidth: '500'});
-                        marker.feature = feature;
+
+                        marker.popup = L.popup().setContent($compile(html)($scope)[0]);
+
+                        marker.bindPopup(marker.popup, {
+                            maxWidth: '500'
+                        });
+
+                        // marker.on('click', function(e) {console.log('ici');return;});
+                        // marker.off('click', function(e) {e.preventDefault;return;});
+
+                        marker.on('add', function() {
+                            $(this._icon).find('svg').on("click", function() {
+                                console.log('ici');
+                                marker.openPopup();
+                                // marker.toggle();
+                            })
+                        });
+
+                        // marker.on("mouseover", function() {
+                        //         marker.openPopup();
+                        //         // Cannot get the popup element until it's been created
+                        //         $('.leaflet-popup').on('mouseleave', function() {
+                        //             marker.closePopup();
+                        //         });
+                        // });
 
                         if (!_.has(query.markersByDatabase, feature.properties.infos.database_id)) {
                             query.markersByDatabase[feature.properties.infos.database_id] = {
