@@ -21,8 +21,8 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', '$compile', '$filter', '$mdDialog', 'arkeoService', 'arkeoProject', 'arkeoMap', 'arkeoQuery', 'arkeoLang', 'arkeoDatabase',
-        function($scope, $http, $compile, $filter, $mdDialog, arkeoService, arkeoProject, arkeoMap, arkeoQuery, arkeoLang, arkeoDatabase) {
+    ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', '$compile', '$filter', '$mdDialog', '$translate', 'arkeoService', 'arkeoProject', 'arkeoMap', 'arkeoQuery', 'arkeoLang', 'arkeoDatabase',
+        function($scope, $http, $compile, $filter, $mdDialog, $translate, arkeoService, arkeoProject, arkeoMap, arkeoQuery, arkeoLang, arkeoDatabase) {
 
             /*
              * Leaflet Map
@@ -164,7 +164,7 @@
                         html: '<svg class="arkeo-marker circle arkeo-marker-circle-svg ' + iconClasses + '"><use xlink:href="#arkeo-marker-circle-symbol' + exceptional + '" style="fill:' + characInfos.iconColor + '"></use></svg><div class="arkeo-marker-letter size' + characInfos.iconSize + '">' + letter + '</div>',
                         iconSize: characInfos.iconDimensions,
                         iconAnchor: [characInfos.iconAnchorPosition[0], characInfos.iconAnchorPosition[1] - (characInfos.iconAnchorPosition[1]/2)],
-                        popupAnchor: [0, 0]
+                        popupAnchor: [0, 15]
                     });
                 }
 
@@ -306,13 +306,13 @@
                         // Build html popup
                         $scope.feature = feature;
                         var start_date = $filter('arkYear')(feature.properties.infos.start_date1);
-                        var end_date = $filter('arkYear')(feature.properties.infos.start_date2);
+                        var end_date = $filter('arkYear')(feature.properties.infos.end_date2);
                         var html = "<arkeo-popup>";
                         html += "<div class='title'>";
                         html += "<div><span class='site-name'>" + feature.properties.infos.name + "</span> (" + feature.properties.infos.code + ")" + "</div>";
                         html += "<div class='periods'>" + start_date;
                         if (start_date != end_date) {
-                            html += ' : ' + end_date;
+                            html += ' => ' + end_date;
                         }
                         html += "</div>";
                         html += "<div class='db-name'>" + feature.properties.infos.database_name + "</div>";
@@ -332,24 +332,13 @@
                             maxWidth: '500'
                         });
 
-                        // marker.on('click', function(e) {console.log('ici');return;});
-                        // marker.off('click', function(e) {e.preventDefault;return;});
-
-                        marker.on('add', function() {
-                            $(this._icon).find('svg').on("click", function() {
-                                console.log('ici');
-                                marker.openPopup();
-                                // marker.toggle();
-                            })
-                        });
-
-                        // marker.on("mouseover", function() {
-                        //         marker.openPopup();
-                        //         // Cannot get the popup element until it's been created
-                        //         $('.leaflet-popup').on('mouseleave', function() {
-                        //             marker.closePopup();
-                        //         });
-                        // });
+                        marker.on("mouseover", function() {
+                                 marker.openPopup();
+                                 // Cannot get the popup element until it's been created
+                                 $('.leaflet-popup').on('mouseleave', function() {
+                                     marker.closePopup();
+                                 });
+                         });
 
                         if (!_.has(query.markersByDatabase, feature.properties.infos.database_id)) {
                             query.markersByDatabase[feature.properties.infos.database_id] = {
@@ -385,7 +374,8 @@
                     }
                     var control = new L.Control.Queries(null, null, {
                         collapsed: true,
-                        letter: query.letter
+                        letter: query.letter,
+                        title: $translate('T')
                     }).addTo(map);
 
                     arkeoMap.queryControls[query.letter] = control;
