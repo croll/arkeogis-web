@@ -103,4 +103,12 @@ div.arkeo-characeditor {
             width: 0%;
         }
     }
+
+    .md-sidenav-left {
+        position: fixed;        
+    }
+
+    .md-sidenav-backdrop {
+        position: fixed;
+    }
 }
