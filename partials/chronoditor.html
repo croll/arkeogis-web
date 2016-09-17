@@ -1,11 +1,14 @@
 <div class="arkeo-chronoditor" layout="column">
 
     <md-toolbar id='arkeo-chronoditor-toolbar' class="md-primary md-hue-3">
-        <div class="md-toolbar-tools">
-            <h3>
+        <div class="md-toolbar-tools" layout="row">
+            <h3 flex="80">
                 <md-button ng-click="openLeftMenu()"><md-icon>menu</md-icon></md-button>
                 <span translate>CHRONODITOR.HEADER_CHRONODITOR.T_TITLE</span> <span ark-get-translation ark-translations="arbo.name"></span>
             </h3>
+            <md-input-container flex="20">
+                <ark-lang-selector ng-model="myTransLang1" ark-set-as-translation-lang="1" ng-disabled="false" ark-flags="true"></ark-lang-selector>
+            </md-input-container>
         </div>
     </md-toolbar>
 
@@ -16,9 +19,6 @@
                 <h1 class="md-toolbar-tools" translate>CHRONODITOR.SIDENAV.T_TITLE</h1>
             </md-toolbar>
             <md-content layout="column">
-                <md-input-container flex>
-                    <ark-lang-selector ng-model="myTransLang1" ark-set-as-translation-lang="1" ng-disabled="false" ark-flags="true"></ark-lang-selector>
-                </md-input-container>
                 <md-input-container flex>
                     <label translate>CHRONODITOR.INPUT_NAME.T_TITLE</label>
                     <input ng-model="arbo.name_cur" maxlength="100" ng-change="check_all()" ark-translate ark-translate-bind-lang="1" ark-translations="arbo.name"></input>
