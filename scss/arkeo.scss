@@ -226,6 +226,22 @@ div#arkeo_loading {
 	cursor: wait;
 }
 
+/* idle */
+div#arkeo_idle {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: black;
+	opacity: 0.9;
+	z-index: 9999;
+	font-size: 48px;
+	vertical-align: middle;
+	color: white;
+}
+
+
 
 /*** Lang selector ***/
 

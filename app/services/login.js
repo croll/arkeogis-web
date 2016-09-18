@@ -21,7 +21,7 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.service('login', ['$http', 'user', '$q', '$cookies', 'arkeoLang', 'arkeoProject', '$state', function($http, User, $q, $cookies, arkeoLang, arkeoProject, $state) {
+    ArkeoGIS.service('login', ['$http', 'user', '$q', '$cookies', 'arkeoLang', 'arkeoProject', '$state', 'Idle', function($http, User, $q, $cookies, arkeoLang, arkeoProject, $state, Idle) {
 
         var self = this;
 
@@ -42,6 +42,7 @@
                 arkeoProject.set(ret.data.project);
                 $cookies.put('project_id', ret.data.project.id);
                 self.permissions = ret.data.permissions;
+                if ('id' in self.user && self.user.id != 0) Idle.watch();
             }, function(err) {
                 console.log(err);
                 return err;
@@ -58,6 +59,7 @@
                 arkeoProject.set(ret.data.project);
                 $cookies.put('project_id', ret.data.project.id);
                 self.permissions = ret.data.permissions;
+                if ('id' in self.user && self.user.id != 0) Idle.watch();
             }, function(err) {
                 console.log(err);
                 return err;
@@ -73,6 +75,7 @@
                 arkeoLang.setUserLang(2, ret.data.lang2.isocode)
                 $cookies.remove('project_id');
                 self.permissions = ret.data.permissions;
+                Idle.unwatch();
                 return self.user;
             }, function(err) {
                 return err;

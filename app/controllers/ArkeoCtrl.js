@@ -21,7 +21,7 @@
 
 (function() {
 	'use strict';
-	ArkeoGIS.controller('ArkeoCtrl', ['$scope', 'arkeoService', 'arkeoLang', function($scope, Arkeo, arkeoLang) {
+	ArkeoGIS.controller('ArkeoCtrl', ['$scope', 'arkeoService', 'arkeoLang', 'Idle', 'Keepalive', 'login', '$state', function($scope, Arkeo, arkeoLang, Idle, Keepalive, Login, $state) {
 
 		$scope.theme = Arkeo.theme;
 
@@ -34,5 +34,24 @@
 			Arkeo.theme = name;
 			$scope.theme = name;
 		};
+
+      	$scope.$on('IdleStart', function() {
+			$('div#arkeo_idle').show();
+			console.log("idle start");
+		});
+
+		$scope.$on('IdleEnd', function() {
+			$('div#arkeo_idle').hide();
+			console.log("idle end");
+        });
+
+		$scope.$on('IdleTimeout', function() {
+			console.log("idle timeout");
+			$('div#arkeo_idle').hide();
+			Login.logout().then(function() {
+				$state.go('arkeogis.map');
+			});
+		});
+
 	}]);
 })();
