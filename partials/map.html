@@ -127,7 +127,7 @@
                         <!-- characs linked -->
                         <div class="query-subelement" ng-if="params.others.characs_linked != 'at-least-one'">
                             <div class="query-subelement-title" translate>QUERY.CHARACS_LINKED.T_TITLE</div>
-                            <div>QUERY_OTHERS.CHARACS_LINKED.T_ALL</div>
+                            <div translate>QUERY_OTHERS.CHARACS_LINKED.T_ALL</div>
                         </div>
 
                         <!-- knowledges -->
@@ -163,9 +163,9 @@
                         <!-- centroid -->
                         <div class="query-subelement" ng-if="params.others.centroid != ''">
                             <div class="query-subelement-title" translate>QUERY.CENTROID.T_TITLE</div>
-                            <div ng-if="params.others.centroid == ''">QUERY_OTHERS.CENTROID.T_ALL</div>
-                            <div ng-if="params.others.centroid == 'with'">QUERY_OTHERS.CENTROID.T_ONLY_WITH_CENTROID</div>
-                            <div ng-if="params.others.centroid == 'without'">QUERY_OTHERS.CENTROID.T_ONLY_WITHOUD_CENTROID</div>
+                            <div ng-if="params.others.centroid == ''" translate>QUERY_OTHERS.CENTROID.T_ALL</div>
+                            <div ng-if="params.others.centroid == 'with'" translate>QUERY_OTHERS.CENTROID.T_ONLY_WITH_CENTROID</div>
+                            <div ng-if="params.others.centroid == 'without'" translate>QUERY_OTHERS.CENTROID.T_ONLY_WITHOUD_CENTROID</div>
                         </div>
 
                         <!-- text search -->
