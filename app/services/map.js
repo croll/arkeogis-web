@@ -24,27 +24,27 @@
 
         var self = this,
             mapDefer = $q.defer(),
-            layerControl,
             clusterRadiusControl;
 
         this.project = arkeoProject.get();
 
-        this.queryControls = {};
+        // this.queryControls = {};
+
+        this.queryControl = {};
 
         this.layers = {
-            baseMaps: {
-                osm: {
-                    name: 'OSM',
-                    layer: new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            baseMaps: [{
+                groupName: 'BaseLayers',
+                expanded: true,
+                layers: {
+                    "OSM": new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a>'
-                    })
-                },
-                google: {
-                    name: 'Google',
-                    layer: new L.Google()
+                    }),
+                    "Google Roadmap": new L.Google('ROADMAP'),
+                    "Google Sat": new L.Google('SATELLITE'),
+                    "Google Terrain": new L.Google('TERRAIN')
                 }
-            },
-            overlayMaps: {}
+            }]
         }
 
         projectCentroid = {
@@ -60,29 +60,53 @@
 
         this.initLeaflet = function(el, $scope) {
             // query Controls
-            this.queryControls = {};
+            // this.queryControls = {};
+            this.queryControl = null;
             // Base layers
             var layers = {};
-            var mapLayers = [];
-            _.each(angular.copy(self.layers.baseMaps), function(layer) {
-                layers[layer.name] = layer.layer;
-                mapLayers.push(layer.layer);
-            });
+            // var mapLayers = [];
+            // _.each(angular.copy(self.layers.baseMaps), function(layer) {
+            // layers[layer.name] = layer.layer;
+            // mapLayers.push(layer.layer);
+            // });
             // Init leaflet
             var map = new L.Map(el, {
                 center: new L.LatLng(projectCentroid.lat, projectCentroid.lng),
-                layers: [mapLayers[0]],
-                zoomControl: false
+                layers: [self.layers.baseMaps[0].layers["OSM"]],
+                zoomControl: false,
+                maxZoom: 18
             });
             // Full screen control
-            new L.Control.Fullscreen({position: 'topright'}).addTo(map);
+            new L.Control.Fullscreen({
+                position: 'topright'
+            }).addTo(map);
             // Zoom control
             new L.Control.Zoom({
                     position: 'topright'
                 })
                 .addTo(map);
             // Layers control
-            self.layerControl = new L.Control.LayerDynamic(layers, null, {collapsed: true}).addTo(map);
+            // self.layerControl = new L.Control.LayerDynamic(layers, null, {
+            //     collapsed: true
+            // }).addTo(map);
+            // Cluster radius
+            self.clusterRadiusControl = new L.Control.ClusterRadius({
+                minRadius: 0,
+                maxRadius: 80
+            }).addTo(map);
+            self.layerControl = L.Control.styledLayerControl(self.layers.baseMaps, null, {
+                container_width: "200px",
+                container_maxHeight: "350px",
+                group_maxHeight: "80px",
+                exclusive: false,
+                collapsed: false,
+                group_togglers: {
+                    show: true,
+                    labelAll: 'All',
+                    labelNone: 'None'
+                },
+                groupDeleteLabel: 'Delete'
+            }).addTo(map);
             // Scale control
             new L.control.scale({
                 position: 'bottomright'
