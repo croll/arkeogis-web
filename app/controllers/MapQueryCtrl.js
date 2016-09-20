@@ -31,20 +31,30 @@
 
         arkeoQuery.reset();
 
-		$scope.params = {
-			database: [],
-			characs: {},
-			chronologies: [],
-			area: {type: 'map', lat: 0, lng: 0, radius: 0, geojson: {}},
-			others: {
-				text_search: '',
-				text_search_in: ["site_name", "city_name", "bibliography", "comment"],
-				occupation: [],
-				knowledges: [],
-				characs_linked: "at-least-one",
-				centroid: '',
-			},
-		};
+		var my_databases = [];
+
+		$scope.params = {};
+
+		$scope.$watch(arkeoQuery.getCurrent(), function(new_params) {
+			console.log("new params : ", new_params);
+			if (new_params === undefined) {
+				new_params = {
+					database: my_databases,
+					characs: {},
+					chronologies: [],
+					area: {type: 'map', lat: 0, lng: 0, radius: 0, geojson: {}},
+					others: {
+						text_search: '',
+						text_search_in: ["site_name", "city_name", "bibliography", "comment"],
+						occupation: [],
+						knowledges: [],
+						characs_linked: "at-least-one",
+						centroid: '',
+					},
+				};
+			}
+			$scope.params = new_params;
+		});
 
 		$scope.showMap2 = function() {
 			if ($scope.params.area.type == 'map' && !_.has($scope.params.area.geojson, 'geometry')) {
@@ -156,9 +166,9 @@
 		};
 
 		function init_database() {
-			$scope.params.database = [];
+			my_databases = [];
 			arkeoProject.get().databases.forEach(function(database) {
-				$scope.params.database.push(database.id);
+				my_databases.push(database.id);
 			});
 		}
 
