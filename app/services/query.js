@@ -65,8 +65,7 @@
                 area: {},
                 done: false,
                 sites: {}, // Store site details once
-                markersByDatabase: {},
-                markerClusters: {} // object keys: dbID and cluster
+                markersByDatabase: {}
             };
             queries[currentNum] = this.current;
         };
