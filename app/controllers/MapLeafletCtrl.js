@@ -34,7 +34,7 @@
             // Get map area to fit full screen
             angular.element(window).on('resize', function() {
                 $scope.mapHeight = $(window).height() - $("#arkeo-main-toolbar").height() - 20 + "px";
-                $scope.$apply();
+                // $scope.$apply();
             });
 
             arkeoMap.getMap().then(function(map) {
@@ -42,15 +42,6 @@
                 if (project.geom != '') {
                     map.fitBounds(L.geoJson(project.geom).getBounds());
                 }
-
-                // Cluster radius
-                arkeoMap.clusterRadiusControl = new L.Control.ClusterRadius({
-                    minRadius: 0,
-                    maxRadius: 80,
-                    callback: function() {
-                        $scope.displayMarkers();
-                    }
-                }).addTo(map);
 
                 map.on('layeradd', function(e) {
                     if (e.layer.feature && e.layer.feature.properties && e.layer.feature.properties.init === false) {
@@ -74,7 +65,11 @@
                 if (project.layers.length) {
                     _.each(project.layers, function(layer) {
                         var l = addLayer(layer, map);
-                        arkeoMap.layerControl.addOverlay(l.instance, l.name)
+                        // arkeoMap.layerControl.addOverlay(l.instance, l.name)
+                        arkeoMap.layerControl.addOverlay(l.instance, l.name, {
+                            groupName: "Project layers",
+                            expanded: true
+                        });
                     });
 
                 }
@@ -123,8 +118,6 @@
                         })
                     };
                 }
-
-                arkeoMap.layers.overlayMaps[layer.uniq_code] = l;
 
                 return l;
             }
@@ -262,6 +255,10 @@
 
             function displayQuery(query) {
 
+                // Cluster radius
+                arkeoMap.clusterRadiusControl.setCallback(function() {
+                    $scope.redrawMarkers();
+                });
 
                 query.done = true;
 
@@ -288,16 +285,6 @@
                         // For each site range
                         var divsCharacs = {};
                         _.each(feature.properties.site_ranges, function(sr) {
-                            /*
-                            if (startingPeriod.startDate > sr.start_date1) {
-                                startingPeriod.startDate = sr.start_date1;
-                                startingPeriod.endDate = sr.start_date2;
-                            }
-                            if (endingPeriod.endDate < sr.end_date1) {
-                                endingPeriod.startDate = sr.end_date1;
-                                endingPeriod.endDate = sr.end_date2;
-                            }
-                            */
                             _.each(sr.characs, function(charac) {
                                 var characInfos = arkeoProject.getCharacById(charac.charac_id);
                                 divsCharacs[charac.charac_id] = "<div>" + characInfos.hierarchy.join('/') + "</div>";
@@ -342,8 +329,7 @@
 
                         if (!_.has(query.markersByDatabase, feature.properties.infos.database_id)) {
                             query.markersByDatabase[feature.properties.infos.database_id] = {
-                                markers: [],
-                                instance: null
+                                markers: []
                             };
                         }
                         query.markersByDatabase[feature.properties.infos.database_id].database = feature.properties.infos.database_name;
@@ -357,66 +343,76 @@
 
             }
 
-            $scope.displayMarkers = function() {
+            var drawQueryMarkers = function(query) {
 
-                var map,
-                    label = "Query";
+                if (!query) {
+                    return;
+                }
 
-                arkeoMap.getMap().then(function(m) {
-                    map = m;
-                }).then(function() {
+                arkeoMap.getMap().then(function(map) {
 
-                    $translate('SITE_DETAILS.FIELD_QUERY.T_LABEL').then(function(trans) {
-                        label = trans;
-                    }, function() {
+                    _.each(query.markersByDatabase, function(markerGroup, dbID) {
 
-                    }).then(function() {
-                        var query = arkeoQuery.getCurrent();
+                        var radius = arkeoMap.clusterRadiusControl.getCurrentRadius();
 
-                        if (!query) {
-                            return;
+                        if (radius > 0) {
+                            markerGroup.cluster = new L.markerClusterGroup({
+                                maxClusterRadius: radius
+                            });
+                            markerGroup.cluster.addLayers(markerGroup.markers).addTo(map)
+                        } else {
+                            markerGroup.cluster = new L.layerGroup();
+                            _.each(markerGroup.markers, function(marker) {
+                                markerGroup.cluster.addLayer(marker).addTo(map)
+                            });
                         }
 
-                        query.markerClusters = {};
-
-                        if (_.has(arkeoMap.queryControls, query.letter)) {
-                            map.removeControl(arkeoMap.queryControls[query.letter]);
-                        }
-                        var control = new L.Control.Queries(null, null, {
-                            collapsed: true,
-                            letter: query.letter,
-                            title: label + ' ' + query.letter
-                        }).addTo(map);
-
-                        arkeoMap.queryControls[query.letter] = control;
-
-                        _.each(query.markersByDatabase, function(markerGroup, dbID) {
-
-                            if (markerGroup.cluster) {
-                                map.removeLayer(markerGroup.cluster);
-                                arkeoMap.queryControls[query.letter].removeLayer(markerGroup.cluster);
-                            }
-
-                            var radius = arkeoMap.clusterRadiusControl.getCurrentRadius();
-
-                            if (radius > 0) {
-                                markerGroup.cluster = new L.markerClusterGroup({
-                                    maxClusterRadius: radius
-                                });
-                                markerGroup.cluster.addLayers(markerGroup.markers).addTo(map)
-                            } else {
-                                markerGroup.cluster = new L.layerGroup();
-                                _.each(markerGroup.markers, function(marker) {
-                                    markerGroup.cluster.addLayer(marker).addTo(map)
-                                });
-                            }
-
-                            // Databases control
-                            control.addOverlay(markerGroup.cluster, markerGroup.database);
-
+                        arkeoMap.layerControl.addOverlay(markerGroup.cluster, markerGroup.database, {
+                            groupName: "query " + query.letter,
+                            expanded: true,
+                            removable: true
                         });
 
                     });
+                });
+
+            }
+
+            $scope.displayMarkers = function() {
+
+                var label = "Query";
+
+                $translate('SITE_DETAILS.FIELD_QUERY.T_LABEL').then(function(trans) {
+                    label = trans;
+                }, function() {
+                }).then(function() {
+                    var query = arkeoQuery.getCurrent();
+
+                    drawQueryMarkers(query);
+                });
+            };
+
+            $scope.redrawMarkers = function() {
+
+                var label = "Query";
+
+                $translate('SITE_DETAILS.FIELD_QUERY.T_LABEL').then(function(trans) {
+                    label = trans;
+                }, function() {
+                }).then(function() {
+                    var queries = arkeoQuery.getQueries();
+
+                    if (!queries) {
+                        return;
+                    }
+
+                    arkeoMap.layerControl.removeAllGroups(true);
+
+                    _.each(queries, function(query) {
+                        console.log(query);
+                        drawQueryMarkers(query);
+                    });
+
                 });
             };
 
@@ -520,19 +516,8 @@
             $scope.reset = function() {
                 arkeoMap.getMap().then(function(map) {
 
-                    var query = arkeoQuery.getCurrent();
+                    arkeoMap.layerControl.removeAllGroups(true);
 
-                    _.each(arkeoMap.queryControls, function(control) {
-                        map.removeControl(control);
-                    });
-
-                    _.each(query.markersByDatabase, function(markerGroup, dbID) {
-
-                        if (markerGroup.cluster) {
-                            map.removeLayer(markerGroup.cluster);
-                            arkeoMap.queryControls[query.letter].removeLayer(markerGroup.cluster);
-                        }
-                    });
                 });
             };
 
