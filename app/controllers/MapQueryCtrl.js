@@ -56,16 +56,24 @@
 		}
 
 		$scope.$watch('query', function(new_query) {
-			$scope.params = $scope.query.params;
+			if (new_query.done)
+				$scope.params = angular.copy($scope.query.params);
+			else
+				$scope.params = $scope.query.params;
+		});
+
+		$scope.$watch(function() { return angular.toJson($scope.params); }, function() {
+			console.log("modified !");
+			if ($scope.params === $scope.query.params && $scope.query.done) {
+				arkeoQuery.add($scope.params);
+			}
 		});
 
 		$scope.$watch(function() { return arkeoQuery.getCurrent() }, function(new_query) {
 			if (new_query !== undefined && 'params' in new_query && new_query.params) {
-				$scope.params = new_query.params;
 				$scope.query = new_query;
 			} else {
-				$scope.params = newParams();
-				$scope.query = { params: $scope.params };
+				$scope.query = { params: newParams() };
 			}
 		});
 
