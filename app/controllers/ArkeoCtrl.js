@@ -49,7 +49,7 @@
 			console.log("idle timeout");
 			$('div#arkeo_idle').hide();
 			Login.logout().then(function() {
-				$state.go('arkeogis.map');
+				window.location.href="http://arkeo4.dev.rhack.net/";
 			});
 		});
 
