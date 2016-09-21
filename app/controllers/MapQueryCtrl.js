@@ -930,5 +930,74 @@
 					$scope.status = 'You cancelled the dialog.';
 				});
 		};
+
+
+
+
+		/************
+		 * query save
+		 ************/
+
+		$scope.showQuerySaveDialog = function() {
+			showQuerySaveDialog($scope.query);
+		};
+
+		function showQuerySaveDialog(query) {
+			$mdDialog.show({
+					controller: function($scope, $mdDialog, arkeoService) {
+						$scope.name = query.name;
+
+						$scope.hide = function() {
+							$mdDialog.hide();
+						};
+
+						$scope.save = function() {
+							return $http.post("/api/query", {
+								project_id: arkeoProject.get().id,
+								name: $scope.name,
+								params: angular.toJson(query.params),
+							}).then(function(result) {
+								$mdDialog.hide();
+								arkeoService.showMessage('MAP.MESSAGE_QUERY_SAVED.T_CONTENT');
+								init_saved_queries();
+				            }, function(err) {
+				                arkeoService.fieldErrorDisplay(err);
+				                console.error(err);
+				            });
+						};
+
+					},
+					templateUrl: 'partials/query/savequery.html',
+					parent: angular.element(document.body),
+					clickOutsideToClose: true,
+				})
+				.then(function(answer) {
+					$scope.status = 'You said the information was "' + answer + '".';
+				}, function() {
+					$scope.status = 'You cancelled the dialog.';
+				});
+		};
+
+
+		function init_saved_queries() {
+			return $http.get("/api/query/"+arkeoProject.get().id).then(function(data) {
+				$scope.saved_queries = data.data;
+			}, function(err) {
+				console.error("getting project saved queries failed : ", err);
+			});
+
+		}
+
+		$scope.$watch("cur_saved_query", function(new_saved_query) {
+			if (new_saved_query != undefined && new_saved_query.name.length > 0) {
+				// load this saved query
+				arkeoQuery.add(angular.fromJson(new_saved_query.params), new_saved_query.name);
+			} else {
+
+			}
+		});
+
+		init_saved_queries();
+
 	}]);
 })();

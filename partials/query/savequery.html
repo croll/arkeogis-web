@@ -1,0 +1,38 @@
+<md-dialog class="dialog-savequery" aria-label="Save query..." ng-cloak flex="60">
+
+    <md-toolbar layout-padding id='arkeo-savequery-toolbar' class="md-primary md-hue-3">
+        <div class="md-toolbar-tools">
+            <h2>
+                <span translate>QUERY_SAVE.DIALOG.T_TITLE</span>
+                <span ark-get-translation ark-translations="arbo.name"></span>
+            </h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="hide()">
+                <md-icon>close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content layout-padding>
+
+        <h2 translate>QUERY_SAVE.DIALOG.T_INTRO</h2>
+
+        <md-input-container>
+            <label translate>QUERY_SAVE.INPUT_QUERYNAME.T_TITLE</label>
+            <input ng-model="name"/>
+        </md-input-container>
+
+
+
+    </md-dialog-content>
+
+    <md-dialog-actions>
+        <md-button class="md-raised md-primary" ng-click="hide()">
+            <span translate>QUERY_SAVE.BUTTON_CANCEL.T_TITLE</span>
+        </md-button>
+        <md-button class="md-raised md-primary" ng-click="save()">
+            <span translate>QUERY_SAVE.BUTTON_OK.T_TITLE</span>
+        </md-button>
+    </md-dialog-actions>
+
+</md-dialog>

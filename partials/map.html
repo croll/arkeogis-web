@@ -24,8 +24,8 @@
                 <!-- archived queries menu -->
                 <md-input-container>
                     <label>Requêtes archivées</label>
-                    <md-select ng-model="archives">
-                        <md-option ng-repeat="archive in archives" value="{{archive.id}}">{{archive.name}}</md-option>
+                    <md-select ng-model="cur_saved_query">
+                        <md-option ng-repeat="saved_query in saved_queries" ng-value="saved_query">{{saved_query.name}}</md-option>
                     </md-select>
                 </md-input-container>
 
@@ -201,7 +201,7 @@
                 <md-button ng-click="downloadCSV()">
                     <span translate>MAP.BUTTON_DOWNLOADCSV.T_TITLE</span>
                 </md-button>
-                <md-button ng-click="saveQuery()">
+                <md-button ng-click="showQuerySaveDialog()">
                     <span translate>MAP.BUTTON_SAVEQUERY.T_TITLE</span>
                 </md-button>
                 <md-button ng-click="initQuery()">
