@@ -371,6 +371,7 @@
                             groupName: "query " + query.letter,
                             expanded: true,
                             removable: true,
+                            deletable: true,
                             removeCallback: function() {
                                 arkeoQuery.delete(query.letter);
                             },

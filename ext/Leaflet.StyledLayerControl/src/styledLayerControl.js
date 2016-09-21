@@ -263,7 +263,8 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                 expanded: group.expanded,
                 removable: group.removable,
                 removeCallback: group.removeCallback,
-                removeCallback: group.selectCallback
+                selectable: group.selectable,
+                selectCallback: group.selectCallback
             };
         }
 
@@ -510,6 +511,32 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                     }
                 }
 
+                if (obj.overlay && (this.options.group_togglers.show || obj.group.removable ) && obj.group.removable) {
+                    // Separator
+                    var separator = L.DomUtil.create('span', 'group-toggle-divider', togglerContainer);
+                    separator.innerHTML = ' / ';
+                }
+
+                if (obj.group.selectable) {
+                    // Link Select
+                    var linkSelect= L.DomUtil.create('a', 'group-toggle-none', togglerContainer);
+                    linkSelect.href = '#';
+                    linkSelect.title = this.options.groupSelectLabel;
+                    linkSelect.innerHTML = this.options.groupSelectLabel;
+                    linkSelect.setAttribute("data-group-name", obj.group.name);
+
+                    if (L.Browser.touch) {
+                        L.DomEvent
+                            .on(linkSelect, 'click', L.DomEvent.stop)
+                            .on(linkSelect, 'click', this._onSelectGroup, this);
+                    } else {
+                        L.DomEvent
+                            .on(linkSelect, 'click', L.DomEvent.stop)
+                            .on(linkSelect, 'focus', this._onSelectGroup, this);
+                    }
+
+                }
+
             }
 
             container.appendChild(groupContainer);
@@ -579,6 +606,10 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
 
     _onRemoveGroup: function(e) {
         this.removeGroup(e.target.getAttribute("data-group-name"), true);
+    },
+
+    _onSelectGroup: function(e) {
+        console.log('select');
     },
 
     _expand: function() {
