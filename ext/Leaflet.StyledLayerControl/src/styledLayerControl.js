@@ -3,15 +3,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
         collapsed: true,
         position: 'topright',
         autoZIndex: true,
-        group_toggler: {
-            show: false,
-            label: 'All'
-        },
-        group_buttons: {
-            show: false
-        },
-        groupDeleteLabel: 'Delete',
-        groupSelectLabel: 'Select',
+        buttons: []
     },
 
     initialize: function(baseLayers, groupedOverlays, options) {
@@ -264,10 +256,8 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                 id: groupId,
                 expanded: group.expanded,
                 removable: group.removable,
-                removeCallback: group.removeCallback,
-                selectable: group.selectable,
-                selectCallback: group.selectCallback,
-                togglable: group.togglable
+                togglable: group.togglable,
+                buttons: group.buttons
             };
         }
 
@@ -362,7 +352,8 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             input,
             checked = this._map.hasLayer(obj.layer),
             id = 'ac_layer_input_' + obj.layer._leaflet_id,
-            container;
+            container,
+            self = this;
 
 
         if (obj.overlay) {
@@ -477,57 +468,53 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             article.appendChild(label);
 
             // Link to toggle all layers
-            if (obj.overlay && this.options.group_buttons.show) {
+            if (obj.overlay && obj.group.buttons) {
 
-                // Toggler container
-                var buttonsContainer = L.DomUtil.create('div', 'group-toggle-container', groupContainer);
+                var bn = 0;
+                // Buttons container
+                var buttonsContainer = L.DomUtil.create('div', 'group-buttons-container', groupContainer);
 
-                if (obj.group.removable) {
-                    // Link delete group
-                    var linkRemove = L.DomUtil.create('a', 'group-toggle-none', buttonsContainer);
-                    linkRemove.href = '#';
-                    linkRemove.title = this.options.groupDeleteLabel;
-                    linkRemove.innerHTML = this.options.groupDeleteLabel;
-                    linkRemove.setAttribute("data-group-name", obj.group.name);
+                // Link delete group
+                obj.group.buttons.forEach(function(btn) {
+                    var link = L.DomUtil.create('a', 'group-toggle-none', buttonsContainer);
+                    link.href = '#';
+                    link.title = btn.label;
+                    link.innerHTML = btn.label;
+                    link.setAttribute("data-group-name", obj.group.name);
+
+                    var btnEvent;
 
                     if (L.Browser.touch) {
-                        L.DomEvent
-                            .on(linkRemove, 'click', L.DomEvent.stop)
-                            .on(linkRemove, 'click', this._onRemoveGroup, this);
+                        btnEvent = L.DomEvent.on(link, 'click', L.DomEvent.stop)
                     } else {
-                        L.DomEvent
-                            .on(linkRemove, 'click', L.DomEvent.stop)
-                            .on(linkRemove, 'focus', this._onRemoveGroup, this);
+                        btnEvent = L.DomEvent.on(link, 'click', L.DomEvent.stop)
                     }
-                }
 
-                if (obj.overlay && (obj.group.removable) && obj.group.removable) {
+                    if (btn.trigger) {
+                        switch(btn.trigger) {
+                            case 'removeGroup':
+                                btnEvent = L.DomEvent.on(link, 'click', self._onRemoveGroup, self);
+                            break;
+                        }
+                    }
+
+                    if (btn.callback) {
+                        btnEvent.on(link, 'click', btn.callback, this);
+                    }
+
+                    groupContainer.appendChild(link);
+
                     // Separator
-                    var separator = L.DomUtil.create('span', 'group-toggle-divider', buttonsContainer);
-                    separator.innerHTML = ' / ';
-                }
-
-                if (obj.group.selectable) {
-                    // Link Select
-                    var linkSelect = L.DomUtil.create('a', 'group-toggle-none', buttonsContainer);
-                    linkSelect.href = '#';
-                    linkSelect.title = this.options.groupSelectLabel;
-                    linkSelect.innerHTML = this.options.groupSelectLabel;
-                    linkSelect.setAttribute("data-group-name", obj.group.name);
-
-                    if (L.Browser.touch) {
-                        L.DomEvent
-                            .on(linkSelect, 'click', L.DomEvent.stop)
-                            .on(linkSelect, 'click', this._onModifyGroup, this);
-                    } else {
-                        L.DomEvent
-                            .on(linkSelect, 'click', L.DomEvent.stop)
-                            .on(linkSelect, 'focus', this._onModifyGroup, this);
+                    if (bn < obj.group.buttons.length - 1) {
+                        var separator = L.DomUtil.create('span', 'group-toggle-divider', buttonsContainer);
+                        separator.innerHTML = ' / ';
+                        groupContainer.appendChild(separator);
                     }
-
-                }
-
+                    bn++;
+                });
             }
+
+
 
             container.appendChild(groupContainer);
 
@@ -545,15 +532,15 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
         var el = this._domGroups[obj.group.id].querySelector('.leaflet-toggler-checkbox');
         if (!el) return;
         el.checked = true;
-        for(var index in this._layers) {
-           if (this._layers.hasOwnProperty(index)) {
-               if (this._layers[index].group.togglable && this._layers[index].group.name == obj.group.name) {
+        for (var index in this._layers) {
+            if (this._layers.hasOwnProperty(index)) {
+                if (this._layers[index].group.togglable && this._layers[index].group.name == obj.group.name) {
                     if (!this._map.hasLayer(this._layers[index].layer)) {
                         el.checked = false;
                         return;
                     }
-               }
-           }
+                }
+            }
         }
     },
 
