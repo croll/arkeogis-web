@@ -21,8 +21,8 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', '$compile', '$filter', '$mdDialog', '$translate', 'arkeoService', 'arkeoProject', 'arkeoMap', 'arkeoQuery', 'arkeoLang', 'arkeoDatabase',
-        function($scope, $http, $compile, $filter, $mdDialog, $translate, arkeoService, arkeoProject, arkeoMap, arkeoQuery, arkeoLang, arkeoDatabase) {
+    ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', '$compile', '$filter', '$mdDialog', '$mdSidenav', '$translate', 'arkeoService', 'arkeoProject', 'arkeoMap', 'arkeoQuery', 'arkeoLang', 'arkeoDatabase',
+        function($scope, $http, $compile, $filter, $mdDialog, $mdSidenav, $translate, arkeoService, arkeoProject, arkeoMap, arkeoQuery, arkeoLang, arkeoDatabase) {
 
             /*
              * Leaflet Map
@@ -377,6 +377,7 @@
                                     label: 'mod',
                                     callback: function() {
                                         arkeoQuery.setCurrent(query);
+                                        $mdSidenav('sidenav-left').open();
                                     }
                                 },
                                 {
