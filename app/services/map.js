@@ -103,12 +103,7 @@
                 group_toggler: {
                     show: true,
                     label: 'All'
-                },
-                group_buttons: {
-                    show: true
-                },
-                groupDeleteLabel: 'Del',
-                groupSelectLabel: 'Mod',
+                }
             }).addTo(map);
             // Scale control
             new L.control.scale({

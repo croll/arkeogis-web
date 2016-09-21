@@ -372,14 +372,30 @@
                             expanded: true,
                             removable: true,
                             togglable: true,
-                            deletable: true,
-                            removeCallback: function() {
-                                arkeoQuery.delete(query.letter);
-                            },
-                            selectable: true,
-                            selectCallback: function() {
-                                arkeoQuery.setCurrent(query.letter);
-                            }
+                            buttons: [
+                                {
+                                    label: 'mod',
+                                    callback: function() {
+                                        arkeoQuery.setCurrent(query);
+                                    }
+                                },
+                                {
+                                    label: 'csv',
+                                    callback: function() {
+                                        arkeoQuery.getCSV(query);
+                                    }
+                                },
+                                {
+                                    label: 'archive',
+                                    callback: function() {
+                                        arkeoQuery.archive(query);
+                                    }
+                                },
+                                {
+                                    label: 'del',
+                                    trigger: 'removeGroup'
+                                }
+                            ]
                         });
 
                     });
