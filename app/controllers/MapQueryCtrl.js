@@ -36,7 +36,7 @@
 		init_database();
 
 		$scope.params = {};
-		$scope.query = arkeoQuery.add(newParams(), "plop");
+		$scope.query = arkeoQuery.add(newParams());
 
 		function newParams() {
 			return {
@@ -56,12 +56,10 @@
 		}
 
 		$scope.$watch('query', function(new_query) {
-			console.log("query: ", new_query);
 			$scope.params = $scope.query.params;
 		});
 
 		$scope.$watch(function() { return arkeoQuery.getCurrent() }, function(new_query) {
-			console.log("new query : ", new_query);
 			if (new_query !== undefined && 'params' in new_query && new_query.params) {
 				$scope.params = new_query.params;
 				$scope.query = new_query;
@@ -69,7 +67,6 @@
 				$scope.params = newParams();
 				$scope.query = { params: $scope.params };
 			}
-			console.log("new params 2 : ", $scope.params);
 		});
 
 		$scope.showMap = function() {
@@ -78,7 +75,9 @@
                 	$scope.params.area.geojson = L.rectangle(map.getBounds()).toGeoJSON();
 				});
 			}
-			arkeoQuery.do($scope.query);
+			arkeoQuery.do($scope.query).then(function() {
+				//arkeoQuery.add(newParams()); // create a new query
+			})
 		};
 
 		$scope.initQuery = function() {
