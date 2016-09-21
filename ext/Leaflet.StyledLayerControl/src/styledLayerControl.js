@@ -432,7 +432,6 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
 
             article = document.createElement('article');
             article.className = 'ac-large';
-            article.appendChild(label);
 
             // process options of ac-large css class - to options.group_maxHeight property
             if (this.options.group_maxHeight) {
@@ -440,7 +439,32 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             }
 
             groupContainer.innerHTML = inputElement + inputLabel;
+
             groupContainer.appendChild(article);
+
+            // Link to toggle all layers
+            if (obj.overlay && this.options.group_togglers.show) {
+
+                // Toggler container
+                var togglerContainer = L.DomUtil.create('div', 'group-toggle-container');
+
+                // Link All
+                checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'leaflet-control-layers-selector';
+                checkbox.defaultChecked = true;
+
+                //L.DomEvent.on(togglerContainer, 'click', this._onToggleGroup, this);
+                var self = this;
+                checkbox.addEventListener("click", function() {self._onToggleGroup(this, obj.group.name)}, false);
+
+                togglerContainer.appendChild(checkbox);
+
+                article.appendChild(togglerContainer);
+            }
+
+            // Add the layer
+            article.appendChild(label);
 
             // Link to toggle all layers
             if (obj.overlay && this.options.group_togglers.show) {
@@ -528,11 +552,11 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                     if (L.Browser.touch) {
                         L.DomEvent
                             .on(linkSelect, 'click', L.DomEvent.stop)
-                            .on(linkSelect, 'click', this._onSelectGroup, this);
+                            .on(linkSelect, 'click', this._onModifyGroup, this);
                     } else {
                         L.DomEvent
                             .on(linkSelect, 'click', L.DomEvent.stop)
-                            .on(linkSelect, 'focus', this._onSelectGroup, this);
+                            .on(linkSelect, 'focus', this._onModifyGroup, this);
                     }
 
                 }
@@ -596,6 +620,17 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
         return false;
     },
 
+    _onToggleGroup: function(e, groupName) {
+        console.log(e);
+        console.log(e.checked);
+        console.log(groupName);
+        if (e.checked) {
+            this.selectGroup(groupName);
+        } else {
+            this.unSelectGroup(groupName);
+        }
+    },
+
     _onSelectGroup: function(e) {
         this.selectGroup(e.target.getAttribute("data-group-name"));
     },
@@ -608,7 +643,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
         this.removeGroup(e.target.getAttribute("data-group-name"), true);
     },
 
-    _onSelectGroup: function(e) {
+    _onModifyGroup: function(e) {
         console.log('select');
     },
 
