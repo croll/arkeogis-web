@@ -90,6 +90,10 @@
             return this.current;
         }
 
+        this.setCurrent = function(query) {
+            this.current = query;
+        }
+
         this.getNumQueries = function(onlyDone) {
             return (onlyDone) ? queriesDoneNum+1 : currentNum+1;
         }
