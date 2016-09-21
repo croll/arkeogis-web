@@ -304,7 +304,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
          * auto logout (idle)
          ***/
 
-         IdleProvider.idle(30*60);
+         IdleProvider.idle(15*60);
          IdleProvider.timeout(3*60);
          KeepaliveProvider.interval(10);
 
