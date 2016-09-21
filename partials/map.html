@@ -192,7 +192,7 @@
             </div>
 
             <div>
-                <md-button ng-click="showMap()">
+                <md-button ng-disabled="query.done" ng-click="showMap()">
                     <span translate>MAP.BUTTON_DISPLAYMAP.T_TITLE</span>
                 </md-button>
                 <md-button ng-click="downloadCSV()">
