@@ -8,7 +8,8 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             labelAll: 'All',
             labelNone: 'None'
         },
-        groupDeleteLabel: 'Delete the group'
+        groupDeleteLabel: 'Delete',
+        groupSelectLabel: 'Select',
     },
 
     initialize: function(baseLayers, groupedOverlays, options) {
@@ -81,6 +82,9 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                     if (this._layers[layer].group && this._layers[layer].group.name == group_Name) {
                         if (del) {
                             this._map.removeLayer(this._layers[layer].layer);
+                        }
+                        if (this._layers[layer].group.removeCallback && typeof(this._layers[layer].group.removeCallback) == 'function') {
+                            this._layers[layer].group.removeCallback();
                         }
                         delete this._layers[layer];
                     }
@@ -257,7 +261,9 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                 name: group.groupName,
                 id: groupId,
                 expanded: group.expanded,
-                removable: group.removable
+                removable: group.removable,
+                removeCallback: group.removeCallback,
+                removeCallback: group.selectCallback
             };
         }
 
