@@ -3,10 +3,12 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
         collapsed: true,
         position: 'topright',
         autoZIndex: true,
-        group_togglers: {
+        group_toggler: {
             show: false,
-            labelAll: 'All',
-            labelNone: 'None'
+            label: 'All'
+        },
+        group_buttons: {
+            show: false
         },
         groupDeleteLabel: 'Delete',
         groupSelectLabel: 'Select',
@@ -98,15 +100,15 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
 
     removeAllGroups: function(del) {
         for (group in this._groupList) {
-                for (layer in this._layers) {
-                    if (this._layers[layer].group && this._layers[layer].group.removable) {
-                        if (del) {
-                            this._map.removeLayer(this._layers[layer].layer);
-                        }
-                        delete this._layers[layer];
+            for (layer in this._layers) {
+                if (this._layers[layer].group && this._layers[layer].group.removable) {
+                    if (del) {
+                        this._map.removeLayer(this._layers[layer].layer);
                     }
+                    delete this._layers[layer];
                 }
-                delete this._groupList[group];
+            }
+            delete this._groupList[group];
         }
         this._update();
     },
@@ -264,7 +266,8 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                 removable: group.removable,
                 removeCallback: group.removeCallback,
                 selectable: group.selectable,
-                selectCallback: group.selectCallback
+                selectCallback: group.selectCallback,
+                togglable: group.togglable
             };
         }
 
@@ -427,7 +430,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             // verify if type is exclusive
             var s_type_exclusive = this.options.exclusive ? ' type="radio" ' : ' type="checkbox" ';
 
-            inputElement = '<input id="ac' + obj.group.id + '" name="accordion-1" class="menu" ' + s_expanded + s_type_exclusive + '/>';
+            inputElement = '<input id="ac' + obj.group.id + '" class="menu" ' + s_expanded + s_type_exclusive + '/>';
             inputLabel = '<label for="ac' + obj.group.id + '">' + obj.group.name + '</label>';
 
             article = document.createElement('article');
@@ -443,7 +446,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             groupContainer.appendChild(article);
 
             // Link to toggle all layers
-            if (obj.overlay && this.options.group_togglers.show) {
+            if (obj.overlay && obj.group.togglable && this.options.group_toggler.show) {
 
                 // Toggler container
                 var togglerContainer = L.DomUtil.create('div', 'group-toggle-container');
@@ -451,14 +454,21 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                 // Link All
                 checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
-                checkbox.className = 'leaflet-control-layers-selector';
-                checkbox.defaultChecked = true;
+                checkbox.className = 'leaflet-toggler-checkbox';
+                checkbox.id = 'checkboxAll' + obj.group.id;
 
                 //L.DomEvent.on(togglerContainer, 'click', this._onToggleGroup, this);
                 var self = this;
-                checkbox.addEventListener("click", function() {self._onToggleGroup(this, obj.group.name)}, false);
+                checkbox.addEventListener("click", function() {
+                    self._onToggleGroup(this, obj.group.name)
+                }, false);
 
                 togglerContainer.appendChild(checkbox);
+
+                checkboxLabel = document.createElement('label');
+                checkboxLabel.innerHTML = this.options.group_toggler.label;
+                checkboxLabel.setAttribute('for', 'checkboxAll' + obj.group.id)
+                togglerContainer.appendChild(checkboxLabel);
 
                 article.appendChild(togglerContainer);
             }
@@ -467,58 +477,14 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             article.appendChild(label);
 
             // Link to toggle all layers
-            if (obj.overlay && this.options.group_togglers.show) {
+            if (obj.overlay && this.options.group_buttons.show) {
 
                 // Toggler container
-                var togglerContainer = L.DomUtil.create('div', 'group-toggle-container', groupContainer);
-
-                // Link All
-                var linkAll = L.DomUtil.create('a', 'group-toggle-all', togglerContainer);
-                linkAll.href = '#';
-                linkAll.title = this.options.group_togglers.labelAll;
-                linkAll.innerHTML = this.options.group_togglers.labelAll;
-                linkAll.setAttribute("data-group-name", obj.group.name);
-
-                if (L.Browser.touch) {
-                    L.DomEvent
-                        .on(linkAll, 'click', L.DomEvent.stop)
-                        .on(linkAll, 'click', this._onSelectGroup, this);
-                } else {
-                    L.DomEvent
-                        .on(linkAll, 'click', L.DomEvent.stop)
-                        .on(linkAll, 'focus', this._onSelectGroup, this);
-                }
-
-                // Separator
-                var separator = L.DomUtil.create('span', 'group-toggle-divider', togglerContainer);
-                separator.innerHTML = ' / ';
-
-                // Link none
-                var linkNone = L.DomUtil.create('a', 'group-toggle-none', togglerContainer);
-                linkNone.href = '#';
-                linkNone.title = this.options.group_togglers.labelNone;
-                linkNone.innerHTML = this.options.group_togglers.labelNone;
-                linkNone.setAttribute("data-group-name", obj.group.name);
-
-                if (L.Browser.touch) {
-                    L.DomEvent
-                        .on(linkNone, 'click', L.DomEvent.stop)
-                        .on(linkNone, 'click', this._onUnSelectGroup, this);
-                } else {
-                    L.DomEvent
-                        .on(linkNone, 'click', L.DomEvent.stop)
-                        .on(linkNone, 'focus', this._onUnSelectGroup, this);
-                }
-
-                if (obj.overlay && this.options.group_togglers.show && obj.group.removable) {
-                    // Separator
-                    var separator = L.DomUtil.create('span', 'group-toggle-divider', togglerContainer);
-                    separator.innerHTML = ' / ';
-                }
+                var buttonsContainer = L.DomUtil.create('div', 'group-toggle-container', groupContainer);
 
                 if (obj.group.removable) {
                     // Link delete group
-                    var linkRemove = L.DomUtil.create('a', 'group-toggle-none', togglerContainer);
+                    var linkRemove = L.DomUtil.create('a', 'group-toggle-none', buttonsContainer);
                     linkRemove.href = '#';
                     linkRemove.title = this.options.groupDeleteLabel;
                     linkRemove.innerHTML = this.options.groupDeleteLabel;
@@ -535,15 +501,15 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                     }
                 }
 
-                if (obj.overlay && (this.options.group_togglers.show || obj.group.removable ) && obj.group.removable) {
+                if (obj.overlay && (obj.group.removable) && obj.group.removable) {
                     // Separator
-                    var separator = L.DomUtil.create('span', 'group-toggle-divider', togglerContainer);
+                    var separator = L.DomUtil.create('span', 'group-toggle-divider', buttonsContainer);
                     separator.innerHTML = ' / ';
                 }
 
                 if (obj.group.selectable) {
                     // Link Select
-                    var linkSelect= L.DomUtil.create('a', 'group-toggle-none', togglerContainer);
+                    var linkSelect = L.DomUtil.create('a', 'group-toggle-none', buttonsContainer);
                     linkSelect.href = '#';
                     linkSelect.title = this.options.groupSelectLabel;
                     linkSelect.innerHTML = this.options.groupSelectLabel;
@@ -570,8 +536,40 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             groupContainer.getElementsByTagName('article')[0].appendChild(label);
         }
 
+        this._checkTogglerCheckbox(obj);
 
         return label;
+    },
+
+    _checkTogglerCheckbox: function(obj) {
+        var el = this._domGroups[obj.group.id].querySelector('.leaflet-toggler-checkbox');
+        if (!el) return;
+        el.checked = true;
+        for(var index in this._layers) {
+           if (this._layers.hasOwnProperty(index)) {
+               if (this._layers[index].group.togglable && this._layers[index].group.name == obj.group.name) {
+                    if (!this._map.hasLayer(this._layers[index].layer)) {
+                        el.checked = false;
+                        return;
+                    }
+               }
+           }
+        }
+    },
+
+    _groupHasAllLayersVisible: function(group_Name) {
+        for (group in this._groupList) {
+            if (this._groupList[group].groupName == group_Name) {
+                for (layer in this._layers) {
+                    if (this._layers[layer].group && this._layers[layer].group.name == group_Name) {
+                        if (!this._map.hasLayer(this._layers[layer])) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     },
 
     _onInputClick: function() {
@@ -593,11 +591,13 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
 
             if (input.checked && !this._map.hasLayer(obj.layer)) {
                 this._map.addLayer(obj.layer);
-
+                this._checkTogglerCheckbox(obj);
             } else if (!input.checked && this._map.hasLayer(obj.layer)) {
                 this._map.removeLayer(obj.layer);
+                this._checkTogglerCheckbox(obj);
             }
         }
+
 
         this._handlingClick = false;
     },
@@ -621,9 +621,6 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
     },
 
     _onToggleGroup: function(e, groupName) {
-        console.log(e);
-        console.log(e.checked);
-        console.log(groupName);
         if (e.checked) {
             this.selectGroup(groupName);
         } else {

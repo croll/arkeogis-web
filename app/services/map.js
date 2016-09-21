@@ -100,12 +100,15 @@
                 group_maxHeight: "80px",
                 exclusive: false,
                 collapsed: false,
-                group_togglers: {
+                group_toggler: {
                     show: true,
-                    labelAll: 'All',
-                    labelNone: 'None'
+                    label: 'All'
                 },
-                groupDeleteLabel: 'Delete'
+                group_buttons: {
+                    show: true
+                },
+                groupDeleteLabel: 'Del',
+                groupSelectLabel: 'Mod',
             }).addTo(map);
             // Scale control
             new L.control.scale({

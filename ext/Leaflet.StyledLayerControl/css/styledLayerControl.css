@@ -122,7 +122,7 @@ div[id^="leaflet-control-accordion-layers"] > label:hover {
     cursor: pointer;
 }
 
-.ac-container .group-toggle-container {
+.ac-container .group-buttons-container {
     text-align: right;
     margin-right: 3px;
     line-height: 0px;
@@ -130,7 +130,7 @@ div[id^="leaflet-control-accordion-layers"] > label:hover {
     height: 20px;
 }
 
-.ac-container input.menu:checked ~ .group-toggle-container {
+.ac-container input.menu:checked ~ .group-buttons-container {
     display: block;
 	line-height: 1em;
 }
