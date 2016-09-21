@@ -33,36 +33,56 @@
 
 		var my_databases = [];
 
-		$scope.params = {};
+		init_database();
 
-		$scope.$watch(arkeoQuery.getCurrent(), function(new_params) {
-			console.log("new params : ", new_params);
-			if (new_params === undefined) {
-				new_params = {
-					database: my_databases,
-					characs: {},
-					chronologies: [],
-					area: {type: 'map', lat: 0, lng: 0, radius: 0, geojson: {}},
-					others: {
-						text_search: '',
-						text_search_in: ["site_name", "city_name", "bibliography", "comment"],
-						occupation: [],
-						knowledges: [],
-						characs_linked: "at-least-one",
-						centroid: '',
-					},
-				};
-			}
-			$scope.params = new_params;
+		$scope.params = {};
+		$scope.query = arkeoQuery.add(newParams(), "plop");
+
+		function newParams() {
+			return {
+				database: my_databases,
+				characs: {},
+				chronologies: [],
+				area: {type: 'map', lat: 0, lng: 0, radius: 0, geojson: {}},
+				others: {
+					text_search: '',
+					text_search_in: ["site_name", "city_name", "bibliography", "comment"],
+					occupation: [],
+					knowledges: [],
+					characs_linked: "at-least-one",
+					centroid: '',
+				},
+			};
+		}
+
+		$scope.$watch('query', function(new_query) {
+			console.log("query: ", new_query);
+			$scope.params = $scope.query.params;
 		});
 
-		$scope.showMap2 = function() {
+		$scope.$watch(function() { return arkeoQuery.getCurrent() }, function(new_query) {
+			console.log("new query : ", new_query);
+			if (new_query !== undefined && 'params' in new_query && new_query.params) {
+				$scope.params = new_query.params;
+				$scope.query = new_query;
+			} else {
+				$scope.params = newParams();
+				$scope.query = { params: $scope.params };
+			}
+			console.log("new params 2 : ", $scope.params);
+		});
+
+		$scope.showMap = function() {
 			if ($scope.params.area.type == 'map' && !_.has($scope.params.area.geojson, 'geometry')) {
 				arkeoMap.getMap().then(function(map) {
                 	$scope.params.area.geojson = L.rectangle(map.getBounds()).toGeoJSON();
 				});
 			}
-			arkeoQuery.do($scope.params);
+			arkeoQuery.do($scope.query);
+		};
+
+		$scope.initQuery = function() {
+			$scope.query = arkeoQuery.add(newParams());
 		};
 
 		$scope.toggle_query_element = function(elemname) {
@@ -102,8 +122,9 @@
 
 		// rebuild all types of databases
 		$scope.$watchCollection('params.database', function() {
+			console.log("params.database changed !", $scope.params.database);
 			$scope.databases_per_type = {};
-			$scope.params.database.forEach(function(database_id) {
+			_.each($scope.params.database, function(database_id) {
 				/*
 								var db = _.find(arkeoProject.get().databases, function(_db) {
 									console.log("check: ", _db);
@@ -565,6 +586,7 @@
 		}
 
 		$scope.$watchCollection('params.characs', function() {
+			console.log("params.characs changed !", $scope.params.characs)
 			characsSelectionToStrings();
 		});
 
@@ -741,7 +763,7 @@
 
 		$scope.$watch(function() { return angular.toJson($scope.params.chronologies); }, function() {
 		//$scope.$watchCollection('params.chronologies', function() {
-			console.log("changed !");
+			console.log("params.chronologies changed !", $scope.params.chronologies);
 			var trads = {
 				'QUERY_CHRONOLOGIES.SENTENSE.T_ALL' : "EXISTENCE_INSIDE_INCLUDE les sites ayant EXISTENCE_INSIDE_SURENESS une existence EXISTENCE_INSIDE_PART durant la période PERIOD. Ces sites EXISTENCE_OUTSIDE_INCLUDE EXISTENCE_OUTSIDE_SURENESS avoir existé en dehors de cette période.",
 				'QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_INSIDE_INCLUDE.T_INCLUDE' : "Inclure",
@@ -769,7 +791,7 @@
 				console.log(err);
 			}).then(function() {
 				$scope.chronologies_lines = [];
-				$scope.params.chronologies.forEach(function(p) {
+				_.each($scope.params.chronologies, function(p) {
 
 					var str = trads['QUERY_CHRONOLOGIES.SENTENSE.T_ALL'];
 
@@ -894,7 +916,5 @@
 					$scope.status = 'You cancelled the dialog.';
 				});
 		};
-
-		init_database();
 	}]);
 })();

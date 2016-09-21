@@ -30,7 +30,8 @@
                 </md-input-container>
 
                 <!-- query title -->
-                <div class="query-title">{{query.name}}</div>
+                <div ng-if="query != undefined && query.name != undefined" class="query-title">{{query.name}}</div>
+                <div ng-if="query == undefined || query.name == undefined" class="query-title" translate>QUERY.NEWQUERY.T_NAME</div>
 
                 <!-- area -->
                 <div class="query-element query-element-area">
@@ -191,8 +192,17 @@
             </div>
 
             <div>
-                <md-button ng-click="showMap2()">
+                <md-button ng-click="showMap()">
                     <span translate>MAP.BUTTON_DISPLAYMAP.T_TITLE</span>
+                </md-button>
+                <md-button ng-click="downloadCSV()">
+                    <span translate>MAP.BUTTON_DOWNLOADCSV.T_TITLE</span>
+                </md-button>
+                <md-button ng-click="saveQuery()">
+                    <span translate>MAP.BUTTON_SAVEQUERY.T_TITLE</span>
+                </md-button>
+                <md-button ng-click="initQuery()">
+                    <span translate>MAP.BUTTON_INITQUERY.T_TITLE</span>
                 </md-button>
             </div>
         </md-content>

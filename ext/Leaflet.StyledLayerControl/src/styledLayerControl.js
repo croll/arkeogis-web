@@ -8,7 +8,8 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             labelAll: 'All',
             labelNone: 'None'
         },
-        groupDeleteLabel: 'Delete the group'
+        groupDeleteLabel: 'Delete',
+        groupSelectLabel: 'Select',
     },
 
     initialize: function(baseLayers, groupedOverlays, options) {
@@ -81,6 +82,9 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                     if (this._layers[layer].group && this._layers[layer].group.name == group_Name) {
                         if (del) {
                             this._map.removeLayer(this._layers[layer].layer);
+                        }
+                        if (this._layers[layer].group.removeCallback && typeof(this._layers[layer].group.removeCallback) == 'function') {
+                            this._layers[layer].group.removeCallback();
                         }
                         delete this._layers[layer];
                     }
@@ -257,7 +261,10 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                 name: group.groupName,
                 id: groupId,
                 expanded: group.expanded,
-                removable: group.removable
+                removable: group.removable,
+                removeCallback: group.removeCallback,
+                selectable: group.selectable,
+                selectCallback: group.selectCallback
             };
         }
 
@@ -504,6 +511,32 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                     }
                 }
 
+                if (obj.overlay && (this.options.group_togglers.show || obj.group.removable ) && obj.group.removable) {
+                    // Separator
+                    var separator = L.DomUtil.create('span', 'group-toggle-divider', togglerContainer);
+                    separator.innerHTML = ' / ';
+                }
+
+                if (obj.group.selectable) {
+                    // Link Select
+                    var linkSelect= L.DomUtil.create('a', 'group-toggle-none', togglerContainer);
+                    linkSelect.href = '#';
+                    linkSelect.title = this.options.groupSelectLabel;
+                    linkSelect.innerHTML = this.options.groupSelectLabel;
+                    linkSelect.setAttribute("data-group-name", obj.group.name);
+
+                    if (L.Browser.touch) {
+                        L.DomEvent
+                            .on(linkSelect, 'click', L.DomEvent.stop)
+                            .on(linkSelect, 'click', this._onSelectGroup, this);
+                    } else {
+                        L.DomEvent
+                            .on(linkSelect, 'click', L.DomEvent.stop)
+                            .on(linkSelect, 'focus', this._onSelectGroup, this);
+                    }
+
+                }
+
             }
 
             container.appendChild(groupContainer);
@@ -573,6 +606,10 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
 
     _onRemoveGroup: function(e) {
         this.removeGroup(e.target.getAttribute("data-group-name"), true);
+    },
+
+    _onSelectGroup: function(e) {
+        console.log('select');
     },
 
     _expand: function() {

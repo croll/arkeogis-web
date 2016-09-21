@@ -370,7 +370,15 @@
                         arkeoMap.layerControl.addOverlay(markerGroup.cluster, markerGroup.database, {
                             groupName: "query " + query.letter,
                             expanded: true,
-                            removable: true
+                            removable: true,
+                            deletable: true,
+                            removeCallback: function() {
+                                arkeoQuery.delete(query.letter);
+                            },
+                            selectable: true,
+                            selectCallback: function() {
+                                arkeoQuery.setCurrent(query.letter);
+                            }
                         });
 
                     });
@@ -408,9 +416,8 @@
 
                     arkeoMap.layerControl.removeAllGroups(true);
 
-                    _.each(queries, function(query) {
-                        console.log(query);
-                        drawQueryMarkers(query);
+                    _.forOwn(queries, function(q, k) {
+                        drawQueryMarkers(q);
                     });
 
                 });
@@ -535,7 +542,7 @@
                 }
                 if (newNum > oldNum) {
                     var q = arkeoQuery.getCurrent();
-                    if (q.done === false) {
+                    if (q.done === true) {
                         displayQuery(q);
                     }
                 }
