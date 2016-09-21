@@ -92,6 +92,13 @@
 			$scope.query = arkeoQuery.add(newParams());
 		};
 
+		$scope.helpAndSaveBeve = function() {
+			if (!('beve' in $scope.params))
+				$scope.params.beve = 0;
+			$scope.params.beve++;
+			console.log("beve smacked ", $scope.params.beve, "time(s) !");
+		};
+
 		$scope.toggle_query_element = function(elemname) {
 			var html_elem_icon = $('.query-element-'+elemname+' .query-element-show-icon');
 			var html_elem_content = $('.query-element-'+elemname+' .query-element-content');
