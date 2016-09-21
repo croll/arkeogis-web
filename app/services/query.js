@@ -24,7 +24,7 @@
 
         var self = this,
             alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-            queries = [],
+            queries = {},
             cachedSites = {},
             currentNum = -1,
             queriesDoneNum = -1;
@@ -67,7 +67,7 @@
                 sites: {}, // Store site details once
                 markersByDatabase: {}
             };
-            queries[currentNum] = this.current;
+            queries[alphabet[currentNum]] = this.current;
         };
 
         this.setData = function(data) {
@@ -77,7 +77,7 @@
         this.get = function(id) {
             var ret = null,
                 prop = (typeof(id) == 'string') ? 'letter' : 'num';
-            angular.each(queries, function(q) {
+            _.forOwn(queries, function(q, k) {
                 if (q[prop] == id) {
                     ret = q;
                     return;
@@ -99,7 +99,26 @@
         }
 
         this.delete = function(id) {
-            this.get(id) = {};
+            var prop = (typeof(id) == 'string') ? 'letter' : 'num';
+            c = this.getCurrent(),
+            n = 0;
+            _.forOwn(queries, function(q, k) {
+                if (q[prop] == id) {
+                    if (c.letter == q.letter) {
+                        self.setCurrent(self.getLastQuery());
+                    }
+                    delete queries[q.letter]
+                }
+                n++;
+            });
+        };
+
+        this.getLastQuery = function() {
+            _.forOwn(_.cloneDeep(queries).reverse(), function(q, k) {
+                if (_.has(q, 'letter')) {
+                    return q;
+                }
+            });
         };
 
         this.getQueries = function() {
