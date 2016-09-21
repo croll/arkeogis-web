@@ -468,7 +468,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             article.appendChild(label);
 
             // Link to toggle all layers
-            if (obj.overlay && obj.group.buttons) {
+            if (obj.overlay && obj.group.buttons && obj.group.buttons.length) {
 
                 var bn = 0;
                 // Buttons container
@@ -502,13 +502,10 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                         btnEvent.on(link, 'click', btn.callback, this);
                     }
 
-                    groupContainer.appendChild(link);
-
                     // Separator
                     if (bn < obj.group.buttons.length - 1) {
                         var separator = L.DomUtil.create('span', 'group-toggle-divider', buttonsContainer);
                         separator.innerHTML = ' / ';
-                        groupContainer.appendChild(separator);
                     }
                     bn++;
                 });
