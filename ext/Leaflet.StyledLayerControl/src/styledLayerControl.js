@@ -440,7 +440,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             if (obj.overlay && obj.group.togglable && this.options.group_toggler.show) {
 
                 // Toggler container
-                var togglerContainer = L.DomUtil.create('div', 'group-toggle-container gtc'+obj.group.id);
+                var togglerContainer = L.DomUtil.create('div', 'group-toggle-container gtc' + obj.group.id);
 
                 // Link All
                 checkbox = document.createElement('input');
@@ -491,10 +491,10 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                     }
 
                     if (btn.trigger) {
-                        switch(btn.trigger) {
+                        switch (btn.trigger) {
                             case 'removeGroup':
                                 btnEvent = L.DomEvent.on(link, 'click', self._onRemoveGroup, self);
-                            break;
+                                break;
                         }
                     }
 
@@ -528,21 +528,21 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
     _checkTogglerCheckbox: function(obj) {
         var el = this._domGroups[obj.group.id].querySelector('.leaflet-toggler-checkbox');
         if (!el) return;
-        var articleEl = this._domGroups[obj.group.id].getElementsByTagName('article')[0];
+        el.checked = true;
         for (var index in this._layers) {
             if (this._layers.hasOwnProperty(index)) {
                 if (this._layers[index].group.togglable && this._layers[index].group.name == obj.group.name) {
                     if (!this._map.hasLayer(this._layers[index].layer)) {
                         el.checked = false;
-                        return;
                     }
                 }
             }
         }
-        if (articleEl.children.length == 2) {
-            this._domGroups[obj.group.id].querySelector('.group-toggle-container.gtc'+obj.group.id).style.display = 'none';
+        var articleEl = this._domGroups[obj.group.id].getElementsByTagName('article')[0];
+        if (articleEl.children.length <= 2) {
+            this._domGroups[obj.group.id].querySelector('.group-toggle-container.gtc' + obj.group.id).style.display = 'none';
         } else {
-            this._domGroups[obj.group.id].querySelector('.group-toggle-container.gtc'+obj.group.id).style.display = 'block';
+            this._domGroups[obj.group.id].querySelector('.group-toggle-container.gtc' + obj.group.id).style.display = 'block';
         }
     },
 
