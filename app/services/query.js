@@ -31,8 +31,8 @@
 
         this.current = undefined;
 
-        this.do = function(params) {
-            self.add(params);
+        this.do = function(params, name) {
+            var query=self.add(params, name);
             $http.post("/api/map/search", params).then(function(result) {
                 queriesDoneNum++;
                 self.setData(result.data);
@@ -40,6 +40,7 @@
                 arkeoService.fieldErrorDisplay(err)
                 console.error(err);
             });
+            return query;
         };
 
         this.getSite = function(id) {
@@ -55,9 +56,10 @@
             });
         };
 
-        this.add = function(params) {
+        this.add = function(params, name) {
             currentNum++;
             this.current = {
+                name: name,
                 num: currentNum,
                 letter: alphabet[currentNum],
                 data: null,
@@ -68,6 +70,7 @@
                 markersByDatabase: {}
             };
             queries[currentNum] = this.current;
+            return this.current;
         };
 
         this.setData = function(data) {
