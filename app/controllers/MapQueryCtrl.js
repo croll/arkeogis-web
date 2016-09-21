@@ -63,17 +63,17 @@
 		});
 
 		$scope.$watch(function() { return angular.toJson($scope.params); }, function() {
-			console.log("modified !");
 			if ($scope.params === $scope.query.params && $scope.query.done) {
 				arkeoQuery.add($scope.params);
 			}
 		});
 
 		$scope.$watch(function() { return arkeoQuery.getCurrent() }, function(new_query) {
+			console.log("new query: ", new_query);
 			if (new_query !== undefined && 'params' in new_query && new_query.params) {
 				$scope.query = new_query;
 			} else {
-				$scope.query = { params: newParams() };
+				arkeoQuery.add(newParams());
 			}
 		});
 
