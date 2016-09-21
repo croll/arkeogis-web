@@ -440,7 +440,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             if (obj.overlay && obj.group.togglable && this.options.group_toggler.show) {
 
                 // Toggler container
-                var togglerContainer = L.DomUtil.create('div', 'group-toggle-container');
+                var togglerContainer = L.DomUtil.create('div', 'group-toggle-container gtc'+obj.group.id);
 
                 // Link All
                 checkbox = document.createElement('input');
@@ -528,7 +528,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
     _checkTogglerCheckbox: function(obj) {
         var el = this._domGroups[obj.group.id].querySelector('.leaflet-toggler-checkbox');
         if (!el) return;
-        el.checked = true;
+        var articleEl = this._domGroups[obj.group.id].getElementsByTagName('article')[0];
         for (var index in this._layers) {
             if (this._layers.hasOwnProperty(index)) {
                 if (this._layers[index].group.togglable && this._layers[index].group.name == obj.group.name) {
@@ -538,6 +538,11 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                     }
                 }
             }
+        }
+        if (articleEl.children.length == 2) {
+            this._domGroups[obj.group.id].querySelector('.group-toggle-container.gtc'+obj.group.id).style.display = 'none';
+        } else {
+            this._domGroups[obj.group.id].querySelector('.group-toggle-container.gtc'+obj.group.id).style.display = 'block';
         }
     },
 
