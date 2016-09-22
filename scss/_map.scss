@@ -13,6 +13,12 @@
             min-width: 0;
         }
     }
+    .md-sidenav-left {
+        background: rgba(255, 255, 255, 0.9);
+        md-content {
+            background: none;
+        }
+    }
 }
 .map-button-side-left {
     position: absolute;
