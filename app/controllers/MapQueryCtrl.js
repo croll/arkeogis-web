@@ -997,6 +997,13 @@
 			}
 		});
 
+		$scope.$watch(function() { return arkeoQuery.getAskForSave(); }, function(query) {
+			if (query) {
+				arkeoQuery.askForSave(null);
+				showQuerySaveDialog(query);
+			}
+		});
+
 		init_saved_queries();
 
 	}]);

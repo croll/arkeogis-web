@@ -387,9 +387,10 @@
                                     }
                                 },
                                 {
-                                    label: 'archive',
+                                    label: 'archive...',
                                     callback: function() {
-                                        arkeoQuery.archive(query);
+                                        arkeoQuery.askForSave(query);
+                                        $mdSidenav('sidenav-left').open();
                                     }
                                 },
                                 {
