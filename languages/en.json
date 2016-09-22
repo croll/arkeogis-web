@@ -630,7 +630,7 @@
 	},
 	"LANGEDITOR": {
 		"BUTTON_CANCEL": {
-			"T_CONFIRM": "Voulez-vous vraiment annuler vos modifications ?",
+			"T_CONFIRM": "Cancel confirm ?",
 			"T_TITLE": "Cancel"
 		},
 		"BUTTON_SAVE": {
