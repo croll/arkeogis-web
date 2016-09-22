@@ -78,14 +78,14 @@
                 maxZoom: 18
             });
             // Full screen control
-            new L.Control.Fullscreen({
-                position: 'topright'
-            }).addTo(map);
+            // new L.Control.Fullscreen({
+            //     position: 'topright'
+            // }).addTo(map);
             // Zoom control
-            new L.Control.Zoom({
-                    position: 'topright'
-                })
-                .addTo(map);
+            // new L.Control.Zoom({
+            //         position: 'topright'
+            //     })
+            //     .addTo(map);
             // Layers control
             // self.layerControl = new L.Control.LayerDynamic(layers, null, {
             //     collapsed: true
@@ -126,12 +126,6 @@
                             zoomend: function(button, layerControl) {
                                 $(button.element).addClass('disabled');
                             }
-                        }
-                    },
-                    {
-                        name: 'fullscreen',
-                        callback: function(button, layerControl) {
-                            console.log("Nico it's your turn !");
                         }
                     },
                     {
