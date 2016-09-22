@@ -114,10 +114,10 @@
 			</div>
 			<layout layout="row" layout-align="end center">
 				<!-- fullscreen button -->
-				<md-button md-position-mode="target-right target" ng-click="toggleFullScreen()"><md-icon>fullscreen</md-icon></md-button>
+				<md-button md-position-mode="target-right target" class="md-icon-button" ng-click="toggleFullScreen()"><md-icon>fullscreen</md-icon></md-button>
 
 				<!-- Lang menu -->
-				<md-menu md-position-mode="target-right target">
+				<md-menu ng-if="false" md-position-mode="target-right target">
 					<md-button aria-label="Language" class="md-icon-button" ng-click="$mdOpenMenu($event)">
 						<!--<md-icon md-menu-origin md-svg-src="/img/flags/fr.svg"></md-icon>-->
 						<img src="/img/blank.gif" class="flag flag-{{userLangs[1]}}" alt="{{userLangs[1]}}" />
