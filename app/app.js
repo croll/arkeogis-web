@@ -304,9 +304,11 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
          * auto logout (idle)
          ***/
 
-         IdleProvider.idle(30*60);
-         IdleProvider.timeout(3*60);
-         KeepaliveProvider.interval(10);
+         if (window.location.hostname != "localhost" && window.location.hostname != "humain" && window.location.hostname != "home.keblo.net") {
+             IdleProvider.idle(15*60);
+             IdleProvider.timeout(3*60);
+             KeepaliveProvider.interval(10);
+         }
 
     }
 ]);

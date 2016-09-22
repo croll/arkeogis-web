@@ -24,18 +24,18 @@
 
         var self = this,
             alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-            queries = [],
+            queries = {},
             cachedSites = {},
             currentNum = -1,
             queriesDoneNum = -1;
 
         this.current = undefined;
 
-        this.do = function(params) {
-            self.add(params);
-            $http.post("/api/map/search", params).then(function(result) {
+        this.do = function(query) {
+            return $http.post("/api/map/search", query.params).then(function(result) {
+                query.data = result.data;
+                query.done = true;
                 queriesDoneNum++;
-                self.setData(result.data);
             }, function(err) {
                 arkeoService.fieldErrorDisplay(err)
                 console.error(err);
@@ -55,9 +55,10 @@
             });
         };
 
-        this.add = function(params) {
+        this.add = function(params, name) {
             currentNum++;
             this.current = {
+                name: name,
                 num: currentNum,
                 letter: alphabet[currentNum],
                 data: null,
@@ -67,7 +68,8 @@
                 sites: {}, // Store site details once
                 markersByDatabase: {}
             };
-            queries[currentNum] = this.current;
+            queries[alphabet[currentNum]] = this.current;
+            return this.current;
         };
 
         this.setData = function(data) {
@@ -77,7 +79,7 @@
         this.get = function(id) {
             var ret = null,
                 prop = (typeof(id) == 'string') ? 'letter' : 'num';
-            angular.each(queries, function(q) {
+            _.forOwn(queries, function(q, k) {
                 if (q[prop] == id) {
                     ret = q;
                     return;
@@ -90,12 +92,35 @@
             return this.current;
         }
 
+        this.setCurrent = function(query) {
+            this.current = query;
+        }
+
         this.getNumQueries = function(onlyDone) {
             return (onlyDone) ? queriesDoneNum+1 : currentNum+1;
         }
 
         this.delete = function(id) {
-            this.get(id) = {};
+            var prop = (typeof(id) == 'string') ? 'letter' : 'num';
+            c = this.getCurrent(),
+            n = 0;
+            _.forOwn(queries, function(q, k) {
+                if (q[prop] == id) {
+                    if (c.letter == q.letter) {
+                        self.setCurrent(self.getLastQuery());
+                    }
+                    delete queries[q.letter]
+                }
+                n++;
+            });
+        };
+
+        this.getLastQuery = function() {
+            _.forOwn(_.cloneDeep(queries).reverse(), function(q, k) {
+                if (_.has(q, 'letter')) {
+                    return q;
+                }
+            });
         };
 
         this.getQueries = function() {

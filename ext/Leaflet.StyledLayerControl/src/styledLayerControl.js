@@ -3,12 +3,8 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
         collapsed: true,
         position: 'topright',
         autoZIndex: true,
-        group_togglers: {
-            show: false,
-            labelAll: 'All',
-            labelNone: 'None'
-        },
-        groupDeleteLabel: 'Delete the group'
+        autoScroll: true,
+        buttons: []
     },
 
     initialize: function(baseLayers, groupedOverlays, options) {
@@ -21,6 +17,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
         this._handlingClick = false;
         this._groupList = [];
         this._domGroups = [];
+        this._buttonList = [];
 
         for (i in baseLayers) {
             for (var j in baseLayers[i].layers) {
@@ -39,6 +36,14 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
 
     onAdd: function(map) {
         this._initLayout();
+
+        // Create top buttons
+        if (this.options.buttons.length) {
+            for (i in this.options.buttons) {
+                this._addButton(this.options.buttons[i]);
+            }
+        }
+
         this._update();
 
         map
@@ -82,6 +87,9 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                         if (del) {
                             this._map.removeLayer(this._layers[layer].layer);
                         }
+                        if (this._layers[layer].group.removeCallback && typeof(this._layers[layer].group.removeCallback) == 'function') {
+                            this._layers[layer].group.removeCallback();
+                        }
                         delete this._layers[layer];
                     }
                 }
@@ -90,21 +98,23 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                 break;
             }
         }
+        this._map.fire('groupRemoved', group_Name);
     },
 
     removeAllGroups: function(del) {
         for (group in this._groupList) {
-                for (layer in this._layers) {
-                    if (this._layers[layer].group && this._layers[layer].group.removable) {
-                        if (del) {
-                            this._map.removeLayer(this._layers[layer].layer);
-                        }
-                        delete this._layers[layer];
+            for (layer in this._layers) {
+                if (this._layers[layer].group && this._layers[layer].group.removable) {
+                    if (del) {
+                        this._map.removeLayer(this._layers[layer].layer);
                     }
+                    delete this._layers[layer];
                 }
-                delete this._groupList[group];
+            }
+            delete this._groupList[group];
         }
         this._update();
+        this._map.fire('groupRemoved');
     },
 
     selectLayer: function(layer) {
@@ -158,10 +168,16 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             L.DomEvent.on(container, 'click', L.DomEvent.stopPropagation);
         }
 
+        // Buttons container
+        if (this.options.buttons.length) {
+            this._buttonsContainer = L.DomUtil.create('div', className + '-buttons', container);
+        }
+
+        // Layers container
         var section = document.createElement('section');
         section.className = 'ac-container ' + className + '-list';
 
-        var form = this._form = L.DomUtil.create('form');
+        var form = this._form = L.DomUtil.create('form', '');
 
         section.appendChild(form);
 
@@ -257,8 +273,14 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                 name: group.groupName,
                 id: groupId,
                 expanded: group.expanded,
-                removable: group.removable
+                removable: group.removable,
+                togglable: group.togglable,
+                buttons: group.buttons
             };
+
+            if (group.removable) {
+                this._map.fire('groupAdded');
+            }
         }
 
         if (this.options.autoZIndex && layer.setZIndex) {
@@ -287,6 +309,11 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             this._addItem(obj);
             overlaysPresent = overlaysPresent || obj.overlay;
             baseLayersPresent = baseLayersPresent || !obj.overlay;
+        }
+
+        if (this.options.autoScroll) {
+            var section = this._container.getElementsByTagName('section')[0]
+            section.scrollTop = section.scrollHeight
         }
 
     },
@@ -352,7 +379,8 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             input,
             checked = this._map.hasLayer(obj.layer),
             id = 'ac_layer_input_' + obj.layer._leaflet_id,
-            container;
+            container,
+            self = this;
 
 
         if (obj.overlay) {
@@ -420,12 +448,16 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             // verify if type is exclusive
             var s_type_exclusive = this.options.exclusive ? ' type="radio" ' : ' type="checkbox" ';
 
-            inputElement = '<input id="ac' + obj.group.id + '" name="accordion-1" class="menu" ' + s_expanded + s_type_exclusive + '/>';
-            inputLabel = '<label for="ac' + obj.group.id + '">' + obj.group.name + '</label>';
+            // verify if group is removable
+            if (obj.group.removable) {
+                groupContainer.className += 'removable';
+            }
+
+            inputElement = '<input id="ac' + obj.group.id + '" class="menu" ' + s_expanded + s_type_exclusive + '/>';
+            inputLabel = '<label class="section-label" for="ac' + obj.group.id + '">' + obj.group.name + '</label>';
 
             article = document.createElement('article');
             article.className = 'ac-large';
-            article.appendChild(label);
 
             // process options of ac-large css class - to options.group_maxHeight property
             if (this.options.group_maxHeight) {
@@ -433,78 +465,85 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             }
 
             groupContainer.innerHTML = inputElement + inputLabel;
+
             groupContainer.appendChild(article);
 
             // Link to toggle all layers
-            if (obj.overlay && this.options.group_togglers.show) {
+            if (obj.overlay && obj.group.togglable && this.options.group_toggler.show) {
 
                 // Toggler container
-                var togglerContainer = L.DomUtil.create('div', 'group-toggle-container', groupContainer);
+                var togglerContainer = L.DomUtil.create('div', 'group-toggle-container gtc' + obj.group.id);
 
                 // Link All
-                var linkAll = L.DomUtil.create('a', 'group-toggle-all', togglerContainer);
-                linkAll.href = '#';
-                linkAll.title = this.options.group_togglers.labelAll;
-                linkAll.innerHTML = this.options.group_togglers.labelAll;
-                linkAll.setAttribute("data-group-name", obj.group.name);
+                checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'leaflet-toggler-checkbox';
+                checkbox.id = 'checkboxAll' + obj.group.id;
 
-                if (L.Browser.touch) {
-                    L.DomEvent
-                        .on(linkAll, 'click', L.DomEvent.stop)
-                        .on(linkAll, 'click', this._onSelectGroup, this);
-                } else {
-                    L.DomEvent
-                        .on(linkAll, 'click', L.DomEvent.stop)
-                        .on(linkAll, 'focus', this._onSelectGroup, this);
-                }
+                //L.DomEvent.on(togglerContainer, 'click', this._onToggleGroup, this);
+                var self = this;
+                checkbox.addEventListener("click", function() {
+                    self._onToggleGroup(this, obj.group.name)
+                }, false);
 
-                // Separator
-                var separator = L.DomUtil.create('span', 'group-toggle-divider', togglerContainer);
-                separator.innerHTML = ' / ';
+                togglerContainer.appendChild(checkbox);
 
-                // Link none
-                var linkNone = L.DomUtil.create('a', 'group-toggle-none', togglerContainer);
-                linkNone.href = '#';
-                linkNone.title = this.options.group_togglers.labelNone;
-                linkNone.innerHTML = this.options.group_togglers.labelNone;
-                linkNone.setAttribute("data-group-name", obj.group.name);
+                checkboxLabel = document.createElement('label');
+                checkboxLabel.innerHTML = this.options.group_toggler.label;
+                checkboxLabel.setAttribute('for', 'checkboxAll' + obj.group.id)
+                togglerContainer.appendChild(checkboxLabel);
 
-                if (L.Browser.touch) {
-                    L.DomEvent
-                        .on(linkNone, 'click', L.DomEvent.stop)
-                        .on(linkNone, 'click', this._onUnSelectGroup, this);
-                } else {
-                    L.DomEvent
-                        .on(linkNone, 'click', L.DomEvent.stop)
-                        .on(linkNone, 'focus', this._onUnSelectGroup, this);
-                }
+                article.appendChild(togglerContainer);
+            }
 
-                if (obj.overlay && this.options.group_togglers.show && obj.group.removable) {
-                    // Separator
-                    var separator = L.DomUtil.create('span', 'group-toggle-divider', togglerContainer);
-                    separator.innerHTML = ' / ';
-                }
+            // Add the layer
+            article.appendChild(label);
 
-                if (obj.group.removable) {
-                    // Link delete group
-                    var linkRemove = L.DomUtil.create('a', 'group-toggle-none', togglerContainer);
-                    linkRemove.href = '#';
-                    linkRemove.title = this.options.groupDeleteLabel;
-                    linkRemove.innerHTML = this.options.groupDeleteLabel;
-                    linkRemove.setAttribute("data-group-name", obj.group.name);
+            // Link to toggle all layers
+            if (obj.overlay && obj.group.buttons && obj.group.buttons.length) {
+
+                var bn = 0;
+                // Buttons container
+                var buttonsContainer = L.DomUtil.create('div', 'group-buttons-container', groupContainer);
+
+                // Link delete group
+                obj.group.buttons.forEach(function(btn) {
+                    var link = L.DomUtil.create('a', 'group-toggle-none', buttonsContainer);
+                    link.href = '#';
+                    link.title = btn.label;
+                    link.innerHTML = btn.label;
+                    link.setAttribute("data-group-name", obj.group.name);
+
+                    var btnEvent;
 
                     if (L.Browser.touch) {
-                        L.DomEvent
-                            .on(linkRemove, 'click', L.DomEvent.stop)
-                            .on(linkRemove, 'click', this._onRemoveGroup, this);
+                        btnEvent = L.DomEvent.on(link, 'click', L.DomEvent.stop)
                     } else {
-                        L.DomEvent
-                            .on(linkRemove, 'click', L.DomEvent.stop)
-                            .on(linkRemove, 'focus', this._onRemoveGroup, this);
+                        btnEvent = L.DomEvent.on(link, 'click', L.DomEvent.stop)
                     }
-                }
 
+                    if (btn.trigger) {
+                        switch (btn.trigger) {
+                            case 'removeGroup':
+                                btnEvent = L.DomEvent.on(link, 'click', self._onRemoveGroup, self);
+                                break;
+                        }
+                    }
+
+                    if (btn.callback) {
+                        btnEvent.on(link, 'click', btn.callback, this);
+                    }
+
+                    // Separator
+                    if (bn < obj.group.buttons.length - 1) {
+                        var separator = L.DomUtil.create('span', 'group-toggle-divider', buttonsContainer);
+                        separator.innerHTML = ' / ';
+                    }
+                    bn++;
+                });
             }
+
+
 
             container.appendChild(groupContainer);
 
@@ -513,8 +552,45 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             groupContainer.getElementsByTagName('article')[0].appendChild(label);
         }
 
+        this._checkTogglerCheckbox(obj);
 
         return label;
+    },
+
+    _checkTogglerCheckbox: function(obj) {
+        var el = this._domGroups[obj.group.id].querySelector('.leaflet-toggler-checkbox');
+        if (!el) return;
+        el.checked = true;
+        for (var index in this._layers) {
+            if (this._layers.hasOwnProperty(index)) {
+                if (this._layers[index].group.togglable && this._layers[index].group.name == obj.group.name) {
+                    if (!this._map.hasLayer(this._layers[index].layer)) {
+                        el.checked = false;
+                    }
+                }
+            }
+        }
+        var articleEl = this._domGroups[obj.group.id].getElementsByTagName('article')[0];
+        if (articleEl.children.length <= 2) {
+            this._domGroups[obj.group.id].querySelector('.group-toggle-container.gtc' + obj.group.id).style.display = 'none';
+        } else {
+            this._domGroups[obj.group.id].querySelector('.group-toggle-container.gtc' + obj.group.id).style.display = 'block';
+        }
+    },
+
+    _groupHasAllLayersVisible: function(group_Name) {
+        for (group in this._groupList) {
+            if (this._groupList[group].groupName == group_Name) {
+                for (layer in this._layers) {
+                    if (this._layers[layer].group && this._layers[layer].group.name == group_Name) {
+                        if (!this._map.hasLayer(this._layers[layer])) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     },
 
     _onInputClick: function() {
@@ -536,11 +612,13 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
 
             if (input.checked && !this._map.hasLayer(obj.layer)) {
                 this._map.addLayer(obj.layer);
-
+                this._checkTogglerCheckbox(obj);
             } else if (!input.checked && this._map.hasLayer(obj.layer)) {
                 this._map.removeLayer(obj.layer);
+                this._checkTogglerCheckbox(obj);
             }
         }
+
 
         this._handlingClick = false;
     },
@@ -563,6 +641,14 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
         return false;
     },
 
+    _onToggleGroup: function(e, groupName) {
+        if (e.checked) {
+            this.selectGroup(groupName);
+        } else {
+            this.unSelectGroup(groupName);
+        }
+    },
+
     _onSelectGroup: function(e) {
         this.selectGroup(e.target.getAttribute("data-group-name"));
     },
@@ -575,12 +661,60 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
         this.removeGroup(e.target.getAttribute("data-group-name"), true);
     },
 
+    _onModifyGroup: function(e) {
+        console.log('select');
+    },
+
     _expand: function() {
         L.DomUtil.addClass(this._container, 'leaflet-control-layers-expanded');
     },
 
     _collapse: function() {
         this._container.className = this._container.className.replace(' leaflet-control-layers-expanded', '');
+    },
+
+    _addButton: function(button) {
+
+        // button = {
+        //     enabled: true,
+        //     disable: function() {
+        //         this.enabled = false;
+        //     },
+        //     enable: function() {
+        //         this.enabled = true;
+        //     },
+        //     toggle: function() {
+        //         if (this.enabled) {
+        //             this.disable();
+        //         } else {
+        //             this.enabled();
+        //         }
+        //     }
+        // }
+
+        var self = this;
+
+        button.element = L.DomUtil.create('div', 'cb-button-container', this._buttonsContainer);
+        var icon = L.DomUtil.create('a', 'cb-button-container-icon '+button.name, button.element);
+        // icon.innerHTML = button.name;
+
+        L.DomEvent
+            .addListener(icon, 'click', L.DomEvent.stop)
+            .addListener(icon, 'click', function() {
+                button.callback(button, this);
+            });
+
+        if (typeof(button.events) == 'object') {
+            for (var eventName in button.events) {
+                if (!button.events.hasOwnProperty(eventName)) continue;
+                this._map.on(eventName, function() {
+                    button.events[eventName](button, self);
+                })
+            }
+        }
+
+        this._buttonList[button.name] = button;
+
     }
 });
 

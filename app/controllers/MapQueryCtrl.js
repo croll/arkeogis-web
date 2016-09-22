@@ -31,28 +31,84 @@
 
         arkeoQuery.reset();
 
-		$scope.params = {
-			database: [],
-			characs: {},
-			chronologies: [],
-			area: {type: 'map', lat: 0, lng: 0, radius: 0, geojson: {}},
-			others: {
-				text_search: '',
-				text_search_in: ["site_name", "city_name", "bibliography", "comment"],
-				occupation: [],
-				knowledges: [],
-				characs_linked: "at-least-one",
-				centroid: '',
-			},
-		};
+		var my_databases = [];
 
-		$scope.showMap2 = function() {
+		init_database();
+
+		$scope.params = {};
+		$scope.query = arkeoQuery.add(newParams());
+
+		function newParams() {
+			return {
+				database: my_databases,
+				characs: {},
+				chronologies: [],
+				area: {type: 'map', lat: 0, lng: 0, radius: 0, geojson: {}},
+				others: {
+					text_search: '',
+					text_search_in: ["site_name", "city_name", "bibliography", "comment"],
+					occupation: [],
+					knowledges: [],
+					characs_linked: "at-least-one",
+					centroid: '',
+				},
+			};
+		}
+
+/*
+		$scope.$watch('query', function(new_query) {
+			console.log("watch query ....", new_query);
+			if (new_query.done)
+				$scope.params = angular.copy(new_query.params);
+			else
+				$scope.params = new_query.params;
+		});
+*/
+		$scope.$watch(function() { return angular.toJson($scope.params); }, function() {
+			console.log("watch params ...", $scope.params);
+			if ($scope.query.done) {
+				arkeoQuery.add($scope.params);
+			}
+		});
+
+		$scope.$watch(function() { return arkeoQuery.getCurrent() }, function(new_query) {
+			console.log("new query: ", new_query);
+			if (new_query !== undefined && 'params' in new_query && new_query.params) {
+				if (new_query.params === $scope.params) { // we are making a new query because we had modifed the current one
+						// so here, we don't copy again the $scope.params
+					$scope.query = new_query;
+				} else {
+					$scope.query = new_query;
+					if (new_query.done)
+						$scope.params = angular.copy(new_query.params);
+					else
+						$scope.params = new_query.params;
+				}
+			} else {
+				arkeoQuery.add(newParams());
+			}
+		});
+
+		$scope.showMap = function() {
 			if ($scope.params.area.type == 'map' && !_.has($scope.params.area.geojson, 'geometry')) {
 				arkeoMap.getMap().then(function(map) {
                 	$scope.params.area.geojson = L.rectangle(map.getBounds()).toGeoJSON();
 				});
 			}
-			arkeoQuery.do($scope.params);
+			arkeoQuery.do($scope.query).then(function() {
+				//arkeoQuery.add(newParams()); // create a new query
+			})
+		};
+
+		$scope.initQuery = function() {
+			$scope.query = arkeoQuery.add(newParams());
+		};
+
+		$scope.helpAndSaveBeve = function() {
+			if (!('beve' in $scope.params))
+				$scope.params.beve = 0;
+			$scope.params.beve++;
+			console.log("beve smacked ", $scope.params.beve, "time(s) !");
 		};
 
 		$scope.toggle_query_element = function(elemname) {
@@ -67,6 +123,10 @@
 			}
 		}
 
+		// usefull for debugging
+		$scope.getHostname = function() {
+			return window.location.hostname;
+		};
 
 
 
@@ -93,7 +153,7 @@
 		// rebuild all types of databases
 		$scope.$watchCollection('params.database', function() {
 			$scope.databases_per_type = {};
-			$scope.params.database.forEach(function(database_id) {
+			_.each($scope.params.database, function(database_id) {
 				/*
 								var db = _.find(arkeoProject.get().databases, function(_db) {
 									console.log("check: ", _db);
@@ -156,9 +216,9 @@
 		};
 
 		function init_database() {
-			$scope.params.database = [];
+			my_databases = [];
 			arkeoProject.get().databases.forEach(function(database) {
-				$scope.params.database.push(database.id);
+				my_databases.push(database.id);
 			});
 		}
 
@@ -450,7 +510,6 @@
 						function init() {
 							if (!angular.isObject($scope.selected_characs))
 								$scope.selected_characs={};
-							console.log("scope.characs : ", $scope.characs);
 						}
 						init();
 					},
@@ -550,8 +609,6 @@
 			$scope.characs_selecteds_include = buildPaths(selecteds_include);
 			$scope.characs_selecteds_exceptional = buildPaths(selecteds_exceptional);
 			$scope.characs_selecteds_exclude = buildPaths(selecteds_exclude);
-
-			console.log("$scope.characs_selecteds_include", $scope.characs_selecteds_include, $scope.characs_selecteds_exceptional, $scope.characs_selecteds_exclude);
 		}
 
 		$scope.$watchCollection('params.characs', function() {
@@ -696,7 +753,6 @@
 						function init() {
 							if (!angular.isObject($scope.selected_chronologies))
 								$scope.selected_chronologies={};
-							console.log("scope.chronologies : ", $scope.chronologies);
 						}
 						init();
 					},
@@ -731,7 +787,6 @@
 
 		$scope.$watch(function() { return angular.toJson($scope.params.chronologies); }, function() {
 		//$scope.$watchCollection('params.chronologies', function() {
-			console.log("changed !");
 			var trads = {
 				'QUERY_CHRONOLOGIES.SENTENSE.T_ALL' : "EXISTENCE_INSIDE_INCLUDE les sites ayant EXISTENCE_INSIDE_SURENESS une existence EXISTENCE_INSIDE_PART durant la période PERIOD. Ces sites EXISTENCE_OUTSIDE_INCLUDE EXISTENCE_OUTSIDE_SURENESS avoir existé en dehors de cette période.",
 				'QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_INSIDE_INCLUDE.T_INCLUDE' : "Inclure",
@@ -759,7 +814,7 @@
 				console.log(err);
 			}).then(function() {
 				$scope.chronologies_lines = [];
-				$scope.params.chronologies.forEach(function(p) {
+				_.each($scope.params.chronologies, function(p) {
 
 					var str = trads['QUERY_CHRONOLOGIES.SENTENSE.T_ALL'];
 
@@ -885,6 +940,99 @@
 				});
 		};
 
-		init_database();
+
+
+
+		/************
+		 * query save
+		 ************/
+
+/*
+		$scope.showQuerySaveDialog = function() {
+			showQuerySaveDialog($scope.query);
+		};
+*/
+		$scope.$parent.showQuerySaveDialog = function (query) {
+			return showQuerySaveDialog(query);
+		};
+
+		function showQuerySaveDialog(query) {
+			return $mdDialog.show({
+					controller: function($scope, $mdDialog, arkeoService) {
+						$scope.name = query.name;
+
+						$scope.hide = function() {
+							$mdDialog.hide();
+						};
+
+						$scope.save = function() {
+							return $http.post("/api/query", {
+								project_id: arkeoProject.get().id,
+								name: $scope.name,
+								params: angular.toJson(query.params),
+							}).then(function(result) {
+								$mdDialog.hide();
+								arkeoService.showMessage('MAP.MESSAGE_QUERY_SAVED.T_CONTENT');
+								init_saved_queries();
+				            }, function(err) {
+				                arkeoService.fieldErrorDisplay(err);
+				                console.error(err);
+				            });
+						};
+
+					},
+					templateUrl: 'partials/query/savequery.html',
+					parent: angular.element(document.body),
+					clickOutsideToClose: true,
+				})
+				.then(function(answer) {
+					$scope.status = 'You said the information was "' + answer + '".';
+				}, function() {
+					$scope.status = 'You cancelled the dialog.';
+				});
+		};
+
+
+		function init_saved_queries() {
+			return $http.get("/api/query/"+arkeoProject.get().id).then(function(data) {
+				$scope.saved_queries = data.data;
+			}, function(err) {
+				console.error("getting project saved queries failed : ", err);
+			});
+
+		}
+
+		$scope.deleteSavedQuery = function(saved_query) {
+			return $http.delete("/api/query", {
+				params: {
+					project_id: arkeoProject.get().id,
+					name: saved_query.name,
+				}
+			}).then(function(data) {
+				$scope.saved_queries = data.data;
+				arkeoService.showMessage('MAP.MESSAGE_QUERY_DELETED.T_CONTENT');
+			}, function(err) {
+				console.error("getting project saved queries failed : ", err);
+			});
+		};
+
+		$scope.showSavedQuery = function(new_saved_query) {
+			if (new_saved_query != undefined && new_saved_query.name.length > 0) {
+				// load this saved query
+				arkeoQuery.add(angular.fromJson(new_saved_query.params), new_saved_query.name);
+				$scope.cur_saved_query = undefined;
+			}
+		};
+
+		$scope.$watch("cur_saved_query", function(new_saved_query) {
+			if (new_saved_query != undefined && new_saved_query.name.length > 0) {
+				// load this saved query
+				arkeoQuery.add(angular.fromJson(new_saved_query.params), new_saved_query.name);
+				$scope.cur_saved_query = undefined;
+			}
+		});
+
+		init_saved_queries();
+
 	}]);
 })();

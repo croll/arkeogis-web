@@ -21,16 +21,31 @@
             <!-- New query display -->
             <div>
 
-                <!-- archived queries menu -->
-                <md-input-container>
-                    <label>Requêtes archivées</label>
-                    <md-select ng-model="archives">
-                        <md-option ng-repeat="archive in archives" value="{{archive.id}}">{{archive.name}}</md-option>
-                    </md-select>
-                </md-input-container>
+                <div layout="row" layout-align="left center">
+                    <!-- archived queries menu -->
+                    <md-menu md-position-mode="target-right target">
+                        <md-button aria-label="Archives..." class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                            <md-icon>save</md-icon>
+                        </md-button>
+                        <md-menu-content>
+                          <md-menu-item ng-repeat="saved_query in saved_queries">
+                                  <md-button ng-click="showSavedQuery(saved_query)">
+                                      {{saved_query.name}}
+                                  </md-button>
+                                  <md-button ng-click="deleteSavedQuery(saved_query)" style="min-width: 0; width: 50px" ark-confirm="QUERY.DELETE_SAVED_QUERY.T_CONFIRM" ark-confirm-ok="QUERY.DELETE_SAVED_QUERY.T_OK">
+                                      <md-icon md-menu-align-target>delete</md-icon>
+                                  </md-button>
+                          </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
 
-                <!-- query title -->
-                <div class="query-title">{{query.name}}</div>
+                    <!-- query title -->
+                    <div>
+                        <span translate>QUERY.QUERY_NAME.T_TITLE</span> : <span>{{query.letter}}</span> <span ng-if="!angular.isUndefined(query.name) && query.name.length > 0" class="query-title">({{query.name}})</span>
+                    </div>
+                    <div ng-if="angular.isUndefined(query.name) || query.name.length == 0" class="query-title"></div>
+
+                </div>
 
                 <!-- area -->
                 <div class="query-element query-element-area">
@@ -190,9 +205,15 @@
 
             </div>
 
-            <div>
-                <md-button ng-click="showMap2()">
+            <div layout="column">
+                <md-button ng-click="helpAndSaveBeve()" ng-if="getHostname() == 'localhost'">
+                    <span>MODIFY IT !</span>
+                </md-button>
+                <md-button ng-disabled="query.done" ng-click="showMap()">
                     <span translate>MAP.BUTTON_DISPLAYMAP.T_TITLE</span>
+                </md-button>
+                <md-button ng-click="initQuery()">
+                    <span translate>MAP.BUTTON_INITQUERY.T_TITLE</span>
                 </md-button>
             </div>
         </md-content>
@@ -207,9 +228,9 @@
     </md-content>
 
 
-    <div style="position: absolute; left: 10px; top: 10px; width: 64px; height: 48px; background: white">
-        <md-button ng-click="open_sideleft()">
-            <md-icon>search</md-icon>
+    <div class="map-button-side-left">
+        <md-button class="md-icon-button" ng-click="open_sideleft()">
+            <md-icon>format_align_left</md-icon>
         </md-button>
     </div>
 

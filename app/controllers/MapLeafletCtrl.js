@@ -21,8 +21,8 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', '$compile', '$filter', '$mdDialog', '$translate', 'arkeoService', 'arkeoProject', 'arkeoMap', 'arkeoQuery', 'arkeoLang', 'arkeoDatabase',
-        function($scope, $http, $compile, $filter, $mdDialog, $translate, arkeoService, arkeoProject, arkeoMap, arkeoQuery, arkeoLang, arkeoDatabase) {
+    ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', '$compile', '$filter', '$mdDialog', '$mdSidenav', '$translate', 'arkeoService', 'arkeoProject', 'arkeoMap', 'arkeoQuery', 'arkeoLang', 'arkeoDatabase',
+        function($scope, $http, $compile, $filter, $mdDialog, $mdSidenav, $translate, arkeoService, arkeoProject, arkeoMap, arkeoQuery, arkeoLang, arkeoDatabase) {
 
             /*
              * Leaflet Map
@@ -33,8 +33,7 @@
 
             // Get map area to fit full screen
             angular.element(window).on('resize', function() {
-                $scope.mapHeight = $(window).height() - $("#arkeo-main-toolbar").height() - 20 + "px";
-                // $scope.$apply();
+                $scope.mapHeight = $(window).height() + $("#arkeo-main-toolbar").height() - 145 + "px";
             });
 
             arkeoMap.getMap().then(function(map) {
@@ -42,6 +41,11 @@
                 if (project.geom != '') {
                     map.fitBounds(L.geoJson(project.geom).getBounds());
                 }
+
+                // Cluster radius
+                $scope.$watch(function() { return arkeoMap.getRadius()}, function(o, n) {
+                    $scope.redrawMarkers();
+                });
 
                 map.on('layeradd', function(e) {
                     if (e.layer.feature && e.layer.feature.properties && e.layer.feature.properties.init === false) {
@@ -254,11 +258,9 @@
             var end
 
             function displayQuery(query) {
-
-                // Cluster radius
-                arkeoMap.clusterRadiusControl.setCallback(function() {
-                    $scope.redrawMarkers();
-                });
+                // arkeoMap.clusterRadiusControl.setCallback(function() {
+                    // $scope.redrawMarkers();
+                // });
 
                 query.done = true;
 
@@ -353,7 +355,9 @@
 
                     _.each(query.markersByDatabase, function(markerGroup, dbID) {
 
-                        var radius = arkeoMap.clusterRadiusControl.getCurrentRadius();
+                        // var radius = arkeoMap.clusterRadiusControl.getCurrentRadius();
+
+                        var radius = arkeoMap.getRadius();
 
                         if (radius > 0) {
                             markerGroup.cluster = new L.markerClusterGroup({
@@ -370,7 +374,37 @@
                         arkeoMap.layerControl.addOverlay(markerGroup.cluster, markerGroup.database, {
                             groupName: "query " + query.letter,
                             expanded: true,
-                            removable: true
+                            removable: true,
+                            togglable: true,
+                            buttons: [
+                                {
+                                    label: 'mod',
+                                    callback: function() {
+                                        arkeoQuery.setCurrent(query);
+                                        $mdSidenav('sidenav-left').open();
+                                    }
+                                },
+                                {
+                                    label: 'csv',
+                                    callback: function() {
+                                        arkeoQuery.getCSV(query);
+                                    }
+                                },
+                                {
+                                    label: 'archive...',
+                                    callback: function() {
+                                        $scope.$parent.showQuerySaveDialog(query);
+                                        $mdSidenav('sidenav-left').open();
+                                    }
+                                },
+                                {
+                                    label: 'del',
+                                    trigger: 'removeGroup',
+                                    callback: function() {
+                                        arkeoQuery.delete(query.letter);
+                                    }
+                                }
+                            ]
                         });
 
                     });
@@ -408,9 +442,8 @@
 
                     arkeoMap.layerControl.removeAllGroups(true);
 
-                    _.each(queries, function(query) {
-                        console.log(query);
-                        drawQueryMarkers(query);
+                    _.forOwn(queries, function(q, k) {
+                        drawQueryMarkers(q);
                     });
 
                 });
@@ -535,7 +568,7 @@
                 }
                 if (newNum > oldNum) {
                     var q = arkeoQuery.getCurrent();
-                    if (q.done === false) {
+                    if (q.done === true) {
                         displayQuery(q);
                     }
                 }
