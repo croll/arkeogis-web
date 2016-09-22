@@ -97,6 +97,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                 break;
             }
         }
+        this._map.fire('groupRemoved', group_Name);
     },
 
     removeAllGroups: function(del) {
@@ -112,6 +113,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             delete this._groupList[group];
         }
         this._update();
+        this._map.fire('groupRemoved');
     },
 
     selectLayer: function(layer) {
@@ -274,6 +276,10 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                 togglable: group.togglable,
                 buttons: group.buttons
             };
+
+            if (group.removable) {
+                this._map.fire('groupAdded');
+            }
         }
 
         if (this.options.autoZIndex && layer.setZIndex) {
@@ -675,9 +681,11 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
         //     }
         // }
 
+        var self = this;
+
         button.element = L.DomUtil.create('div', 'cb-button-container', this._buttonsContainer);
-        var icon = L.DomUtil.create('a', 'cb-button-container-icon', button.element);
-        icon.innerHTML = button.name;
+        var icon = L.DomUtil.create('a', 'cb-button-container-icon '+button.name, button.element);
+        // icon.innerHTML = button.name;
 
         L.DomEvent
             .addListener(icon, 'click', L.DomEvent.stop)
@@ -689,7 +697,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             for (var eventName in button.events) {
                 if (!button.events.hasOwnProperty(eventName)) continue;
                 this._map.on(eventName, function() {
-                    button.events[eventName](button, this);
+                    button.events[eventName](button, self);
                 })
             }
         }
