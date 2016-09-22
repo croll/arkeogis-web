@@ -389,8 +389,10 @@
                                 {
                                     label: 'archive...',
                                     callback: function() {
-                                        $scope.$parent.showQuerySaveDialog(query);
                                         $mdSidenav('sidenav-left').open();
+                                        $scope.$parent.showQuerySaveDialog(query).finally(function() {
+                                            $mdSidenav('sidenav-left').close();
+                                        });
                                     }
                                 },
                                 {

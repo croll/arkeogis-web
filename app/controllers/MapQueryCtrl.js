@@ -114,7 +114,7 @@
 		// usefull for debugging
 		$scope.getHostname = function() {
 			return window.location.hostname;
-		}
+		};
 
 
 
@@ -948,11 +948,11 @@
 		};
 */
 		$scope.$parent.showQuerySaveDialog = function (query) {
-			showQuerySaveDialog(query);
+			return showQuerySaveDialog(query);
 		};
 
 		function showQuerySaveDialog(query) {
-			$mdDialog.show({
+			return $mdDialog.show({
 					controller: function($scope, $mdDialog, arkeoService) {
 						$scope.name = query.name;
 
@@ -1001,8 +1001,7 @@
 			if (new_saved_query != undefined && new_saved_query.name.length > 0) {
 				// load this saved query
 				arkeoQuery.add(angular.fromJson(new_saved_query.params), new_saved_query.name);
-			} else {
-
+				$scope.cur_saved_query = undefined;
 			}
 		});
 
