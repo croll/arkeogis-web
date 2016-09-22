@@ -300,35 +300,6 @@ arkeo-popup {
     display: none;
 }
 
-// Layer menus
-
-.ac-container {
-    article {
-        // margin-top: 2px;
-        // padding: 8px 0;
-        box-shadow: none;
-    }
-
-    label.section-title {
-        background: #fff!important;
-        box-shadow: none!important;
-        // padding: 0 0 0 5px;
-    }
-
-    input.menu {
-
-    }
-
-}
-
-.leaflet-control-layers {
-    // padding: 2px;
-    &:hover {
-        background: #fff;
-        background-image: none;
-    }
-}
-
 .cb-button-container {
     display: inline-block;
     padding: 3px;
@@ -353,7 +324,6 @@ arkeo-popup {
         height: 25px;
         background-size: 25px;
         background-repeat: no-repeat;
-
     }
 
     .zoomin {

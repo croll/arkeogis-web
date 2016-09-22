@@ -97,8 +97,8 @@
             // }).addTo(map);
             self.layerControl = L.Control.styledLayerControl(self.layers.baseMaps, null, {
                 container_width: "200px",
-                container_maxHeight: "350px",
-                group_maxHeight: "80px",
+                container_maxHeight: "600px",
+                // group_maxHeight: "80px",
                 exclusive: false,
                 collapsed: false,
                 group_toggler: {
