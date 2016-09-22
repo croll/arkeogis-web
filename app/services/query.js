@@ -135,14 +135,5 @@
             queries = [];
         };
 
-        var ask_for_save = null;
-        this.askForSave = function(query) {
-            ask_for_save = query;
-        };
-
-        this.getAskForSave = function() {
-            return ask_for_save;
-        };
-
     }]);
 })();

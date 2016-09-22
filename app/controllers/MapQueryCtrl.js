@@ -111,6 +111,10 @@
 			}
 		}
 
+		// usefull for debugging
+		$scope.getHostname = function() {
+			return window.location.hostname;
+		}
 
 
 
@@ -938,8 +942,13 @@
 		 * query save
 		 ************/
 
+/*
 		$scope.showQuerySaveDialog = function() {
 			showQuerySaveDialog($scope.query);
+		};
+*/
+		$scope.$parent.showQuerySaveDialog = function (query) {
+			showQuerySaveDialog(query);
 		};
 
 		function showQuerySaveDialog(query) {
@@ -994,13 +1003,6 @@
 				arkeoQuery.add(angular.fromJson(new_saved_query.params), new_saved_query.name);
 			} else {
 
-			}
-		});
-
-		$scope.$watch(function() { return arkeoQuery.getAskForSave(); }, function(query) {
-			if (query) {
-				arkeoQuery.askForSave(null);
-				showQuerySaveDialog(query);
 			}
 		});
 

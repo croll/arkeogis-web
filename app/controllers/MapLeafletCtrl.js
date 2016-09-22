@@ -389,7 +389,7 @@
                                 {
                                     label: 'archive...',
                                     callback: function() {
-                                        arkeoQuery.askForSave(query);
+                                        $scope.$parent.showQuerySaveDialog(query);
                                         $mdSidenav('sidenav-left').open();
                                     }
                                 },

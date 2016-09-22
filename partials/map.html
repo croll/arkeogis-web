@@ -192,17 +192,11 @@
             </div>
 
             <div layout="column">
-                <md-button ng-click="helpAndSaveBeve()">
+                <md-button ng-click="helpAndSaveBeve()" ng-if="getHostname() == 'localhost'">
                     <span>MODIFY IT !</span>
                 </md-button>
                 <md-button ng-disabled="query.done" ng-click="showMap()">
                     <span translate>MAP.BUTTON_DISPLAYMAP.T_TITLE</span>
-                </md-button>
-                <md-button ng-click="downloadCSV()">
-                    <span translate>MAP.BUTTON_DOWNLOADCSV.T_TITLE</span>
-                </md-button>
-                <md-button ng-click="showQuerySaveDialog()">
-                    <span translate>MAP.BUTTON_SAVEQUERY.T_TITLE</span>
                 </md-button>
                 <md-button ng-click="initQuery()">
                     <span translate>MAP.BUTTON_INITQUERY.T_TITLE</span>
