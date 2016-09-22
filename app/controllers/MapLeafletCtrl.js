@@ -33,8 +33,7 @@
 
             // Get map area to fit full screen
             angular.element(window).on('resize', function() {
-                $scope.mapHeight = $(window).height() - $("#arkeo-main-toolbar").height() - 20 + "px";
-                // $scope.$apply();
+                $scope.mapHeight = $(window).height() + $("#arkeo-main-toolbar").height() - 145 + "px";
             });
 
             arkeoMap.getMap().then(function(map) {
