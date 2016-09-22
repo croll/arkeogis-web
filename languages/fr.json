@@ -189,8 +189,8 @@
 		"INFORMATIONS": {
 			"T_AUTHOR_AND_CO_AUTHORS": "Auteur (e-s) et co-auteur(e-s)",
 			"T_BIBLIOGRAPHY": "Bibliographie",
-			"T_CONTEXT": "Cadre de réalisation",
-			"T_CONTEXT_DESCRIPTION": "Cadre(s) de réalisation",
+			"T_CONTEXT": "Cadre(s) de réalisation",
+			"T_CONTEXT_DESCRIPTION": "Précision Cadre(s) de réalisation",
 			"T_CONTINENTS": "Continents",
 			"T_CONTRIBUTOR": "Contributeur",
 			"T_COUNTRIES": "Pays",
@@ -198,7 +198,7 @@
 			"T_DATE": "Date de réalisation",
 			"T_DESCRIPTION": "Description",
 			"T_EDITOR": "Structure éditrice",
-			"T_ENDING_PERIOD": "Fin",
+			"T_ENDING_PERIOD": "Date de Fin",
 			"T_GEOGRAPHICAL_EXTENT": "Etendue géographique",
 			"T_GEOGRAPHICAL_LIMITS_DESCRIPTION": "Précision sur l'emprise géographique",
 			"T_HANDLE": "Identifiant de la ressource",
@@ -219,7 +219,7 @@
 			"T_SCALE": "Échelle",
 			"T_SOURCE_DESCRIPTION": "Description de la ressource",
 			"T_SOURCE_RELATION": "Lien avec d'autres ressources",
-			"T_STARTING_PERIOD": "Début",
+			"T_STARTING_PERIOD": "Date de début",
 			"T_STATUS": "Avancement",
 			"T_SUBJECT_AND_KEYWORDS": "Sujet(s) / Mots-clés",
 			"T_TYPE": "Type",
@@ -485,7 +485,7 @@
 			"T_HELP_NB_ERRORS_TOTAL": "Liste détaillée ci dessous",
 			"T_HELP_NB_SITES_WITH_ERROR": "Nombre de sites en erreur",
 			"T_HELP_NB_VALID_SITES": "Importables dans ArkeoGIS",
-			"T_LABEL_ACCESS_TO_PUBLICATION": "Accéder au formulaire de publication",
+			"T_LABEL_ACCESS_TO_PUBLICATION": "Accéder au formulaire de publication, pour saisir les informations obligatoires.",
 			"T_LABEL_IMPORT_ANOTHER_FILE": "Importer un autre fichier",
 			"T_LABEL_IMPORT_SUCCESS": "Importation réussie",
 			"T_LABEL_MODIFY_IMPORT_OPTIONS": "Modifier les options d'import",
@@ -519,7 +519,7 @@
 			"T_LABEL": "Attribuée à"
 		},
 		"FIELD_CONTEXT": {
-			"T_HELP": "Travail réalisé dans le ou les cadre (s) de : Travail universitaire / Contrat / Équipe de recherche / Autres",
+			"T_HELP": "Travail réalisé dans le ou les cadre (s) de : Travail universitaire / Contrat / Équipe de recherche / Autres (plusieurs choix possibles)",
 			"T_LABEL": "Cadre de réalisation"
 		},
 		"FIELD_CREATION_DATE": {
@@ -537,8 +537,8 @@
 			"T_LABEL": "Licence"
 		},
 		"FIELD_PUBLISHED": {
-			"T_HELP": "Déplacer le curseur ci-dessus pour publier  la base de données dans l'interface cartographique.",
-			"T_LABEL": "Base de données publiée"
+			"T_HELP": "Déplacer le curseur ci-dessus pour publier la base de données dans l'interface cartographique. Cette publication permet de rendre la base de donnée interrogeable par les utilisateurs d'ArkeoGIS.",
+			"T_LABEL": "Base de données publiée sur ArkeoGIS"
 		},
 		"FIELD_SCALE_RESOLUTION": {
 			"T_HELP": "Cette base de données concerne des objets, ou des sites ou des bassins versants etc.",
@@ -558,8 +558,8 @@
 		},
 		"FORM": {
 			"T_BUTTON_BACK": "Retour vers le formulaire d'importation",
-			"T_BUTTON_SUBMIT": "Publier la base et passer à l'étape suivante",
-			"T_TITLE": "Demande de publication de la base"
+			"T_BUTTON_SUBMIT": "Enregistrer et passer à l'étape suivante",
+			"T_TITLE": "Demande d'enregistrement de la base"
 		},
 		"INFOS": {
 			"T_LINE1": "Suite à votre importation de la base de données : “nom de la base importée” , merci de bien vouloir renseigner les champs suivants de présentation de votre travail pour pouvoir publier votre base de données sur la plate-forme ArkeoGIS.",
@@ -630,7 +630,7 @@
 	},
 	"LANGEDITOR": {
 		"BUTTON_CANCEL": {
-			"T_CONFIRM": "#!#LANGEDITOR.BUTTON_CANCEL.T_CONFIRM",
+			"T_CONFIRM": "Voulez-vous vraiment annuler vos modifications ?",
 			"T_TITLE": "Annuler"
 		},
 		"BUTTON_SAVE": {
@@ -1100,9 +1100,9 @@
 			"T_TITLE": "L'existence durant cette période est :"
 		},
 		"EXISTENCE_INSIDE_SURENESS": {
-			"T_CERTAINLY": "Assurément (exclure les zones indéterminés)",
-			"T_POTENTIALLY": "Potentiellement ou Assurément (inclure les zones indéterminés)",
-			"T_POTENTIALLY_ONLY": "Uniquement Potentiellement (indéterminés)",
+			"T_CERTAINLY": "Assurément (exclure les zones d'existence potentielle)",
+			"T_POTENTIALLY": "Potentiellement ou Assurément (inclure les zones d'existence potentielle)",
+			"T_POTENTIALLY_ONLY": "Uniquement Potentiellement (existence potentielle)",
 			"T_TITLE": "Et ce :"
 		},
 		"EXISTENCE_OUTSIDE_INCLUDE": {
@@ -1229,7 +1229,7 @@
 			"T_SINGLE": "Unique"
 		},
 		"PRECISIONS": {
-			"T_INTRO": "Si aucune précision n’est faite sur une des points suivant tous les sites sans distinction sur ce point seront inclus dans la requête.",
+			"T_INTRO": "Si aucune précision n’est faite sur une des points suivants tous les sites sans distinction sur ce point seront inclus dans la requête.",
 			"T_TITLE": "Précision sur les sites à inclure dans la requête :"
 		},
 		"PRECISIONS_KNOWLEDGES": {
@@ -1261,7 +1261,7 @@
 			"T_LABEL": "État des connaissances"
 		},
 		"FIELD_ACCURACY": {
-			"T_LABEL": "Précision"
+			"T_LABEL": "Précision des coordonnées"
 		},
 		"FIELD_ACCURACY_CENTROID": {
 			"T_LABEL": "Centroide"
@@ -1279,7 +1279,7 @@
 			"T_LABEL": "Nom de la commune"
 		},
 		"FIELD_COORDINATES": {
-			"T_LABEL": "Coordonnées"
+			"T_LABEL": "Coordonnées (WGS84)"
 		},
 		"FIELD_CREATION_DATE": {
 			"T_LABEL": "Date de création de la fiche"
