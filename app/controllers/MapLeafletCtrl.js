@@ -372,7 +372,7 @@
                         }
 
                         arkeoMap.layerControl.addOverlay(markerGroup.cluster, markerGroup.database, {
-                            groupName: "query " + query.letter,
+                            groupName: "query " + query.letter + (angular.isDefined(query.name) && query.name.length > 0 ? ' ('+query.name+')' : ''),
                             expanded: true,
                             removable: true,
                             togglable: true,
@@ -393,8 +393,10 @@
                                 {
                                     label: 'archive...',
                                     callback: function() {
-                                        $scope.$parent.showQuerySaveDialog(query);
                                         $mdSidenav('sidenav-left').open();
+                                        $scope.$parent.showQuerySaveDialog(query).finally(function() {
+                                            $mdSidenav('sidenav-left').close();
+                                        });
                                     }
                                 },
                                 {
