@@ -319,3 +319,12 @@ arkeo-popup {
         background-image: none;
     }
 }
+
+.cb-button-container {
+    display: inline-block;
+    padding: 3px;
+
+    &:disabled {
+        background: #c0c0c0;
+    }
+}
