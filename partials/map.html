@@ -30,8 +30,10 @@
                 </md-input-container>
 
                 <!-- query title -->
-                <div ng-if="query != undefined && query.name != undefined" class="query-title">{{query.name}}</div>
-                <div ng-if="query == undefined || query.name == undefined" class="query-title" translate>QUERY.NEWQUERY.T_NAME</div>
+                <div>
+                    <span translate>QUERY.QUERY_NAME.T_TITLE</span> : <span>{{query.letter}}</span> <span ng-if="!angular.isUndefined(query.name) && query.name.length > 0" class="query-title">({{query.name}})</span>
+                </div>
+                <div ng-if="angular.isUndefined(query.name) || query.name.length == 0" class="query-title"></div>
 
                 <!-- area -->
                 <div class="query-element query-element-area">

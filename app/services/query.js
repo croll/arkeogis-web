@@ -57,9 +57,6 @@
 
         this.add = function(params, name) {
             currentNum++;
-            if (name === undefined) {
-                name = alphabet[currentNum];
-            }
             this.current = {
                 name: name,
                 num: currentNum,
