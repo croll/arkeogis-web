@@ -399,7 +399,10 @@
                                 },
                                 {
                                     label: 'del',
-                                    trigger: 'removeGroup'
+                                    trigger: 'removeGroup',
+                                    callback: function() {
+                                        arkeoQuery.delete(query.letter);
+                                    }
                                 }
                             ]
                         });
