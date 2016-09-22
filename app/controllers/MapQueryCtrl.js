@@ -55,15 +55,18 @@
 			};
 		}
 
+/*
 		$scope.$watch('query', function(new_query) {
+			console.log("watch query ....", new_query);
 			if (new_query.done)
-				$scope.params = angular.copy($scope.query.params);
+				$scope.params = angular.copy(new_query.params);
 			else
-				$scope.params = $scope.query.params;
+				$scope.params = new_query.params;
 		});
-
+*/
 		$scope.$watch(function() { return angular.toJson($scope.params); }, function() {
-			if ($scope.params === $scope.query.params && $scope.query.done) {
+			console.log("watch params ...", $scope.params);
+			if ($scope.query.done) {
 				arkeoQuery.add($scope.params);
 			}
 		});
@@ -71,7 +74,16 @@
 		$scope.$watch(function() { return arkeoQuery.getCurrent() }, function(new_query) {
 			console.log("new query: ", new_query);
 			if (new_query !== undefined && 'params' in new_query && new_query.params) {
-				$scope.query = new_query;
+				if (new_query.params === $scope.params) { // we are making a new query because we had modifed the current one
+						// so here, we don't copy again the $scope.params
+					$scope.query = new_query;
+				} else {
+					$scope.query = new_query;
+					if (new_query.done)
+						$scope.params = angular.copy(new_query.params);
+					else
+						$scope.params = new_query.params;
+				}
 			} else {
 				arkeoQuery.add(newParams());
 			}
@@ -140,7 +152,6 @@
 
 		// rebuild all types of databases
 		$scope.$watchCollection('params.database', function() {
-			console.log("params.database changed !", $scope.params.database);
 			$scope.databases_per_type = {};
 			_.each($scope.params.database, function(database_id) {
 				/*
@@ -499,7 +510,6 @@
 						function init() {
 							if (!angular.isObject($scope.selected_characs))
 								$scope.selected_characs={};
-							console.log("scope.characs : ", $scope.characs);
 						}
 						init();
 					},
@@ -599,12 +609,9 @@
 			$scope.characs_selecteds_include = buildPaths(selecteds_include);
 			$scope.characs_selecteds_exceptional = buildPaths(selecteds_exceptional);
 			$scope.characs_selecteds_exclude = buildPaths(selecteds_exclude);
-
-			console.log("$scope.characs_selecteds_include", $scope.characs_selecteds_include, $scope.characs_selecteds_exceptional, $scope.characs_selecteds_exclude);
 		}
 
 		$scope.$watchCollection('params.characs', function() {
-			console.log("params.characs changed !", $scope.params.characs)
 			characsSelectionToStrings();
 		});
 
@@ -746,7 +753,6 @@
 						function init() {
 							if (!angular.isObject($scope.selected_chronologies))
 								$scope.selected_chronologies={};
-							console.log("scope.chronologies : ", $scope.chronologies);
 						}
 						init();
 					},
@@ -781,7 +787,6 @@
 
 		$scope.$watch(function() { return angular.toJson($scope.params.chronologies); }, function() {
 		//$scope.$watchCollection('params.chronologies', function() {
-			console.log("params.chronologies changed !", $scope.params.chronologies);
 			var trads = {
 				'QUERY_CHRONOLOGIES.SENTENSE.T_ALL' : "EXISTENCE_INSIDE_INCLUDE les sites ayant EXISTENCE_INSIDE_SURENESS une existence EXISTENCE_INSIDE_PART durant la période PERIOD. Ces sites EXISTENCE_OUTSIDE_INCLUDE EXISTENCE_OUTSIDE_SURENESS avoir existé en dehors de cette période.",
 				'QUERY_CHRONOLOGIES.SENTENSE_EXISTENCE_INSIDE_INCLUDE.T_INCLUDE' : "Inclure",
