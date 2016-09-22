@@ -105,37 +105,58 @@
                     show: true,
                     label: 'All'
                 },
-                buttons: [
-                    {
-                        name: 'zoomin',
-                        callback: function(button, layerControl) {
-                            map.zoomIn();
-                        },
-                        events: {
-                            zoomend: function(button, layerControl) {
+                buttons: [{
+                    name: 'zoomin',
+                    callback: function(button, layerControl) {
+                        map.zoomIn();
+                    },
+                    events: {
+                        zoomend: function(button, layerControl) {
+                            if (map.getZoom() >= map.getMaxZoom()) {
                                 $(button.element).addClass('disabled');
+                            } else {
+                                $(button.element).removeClass('disabled');
                             }
                         }
+                    }
+                }, {
+                    name: 'zoomout',
+                    callback: function(button, layerControl) {
+                        map.zoomOut();
                     },
-                    {
-                        name: 'zoomout',
-                        callback: function(button, layerControl) {
-                            map.zoomOut();
-                        },
-                        events: {
-                            zoomend: function(button, layerControl) {
+                    events: {
+                        zoomend: function(button, layerControl) {
+                            if (map.getZoom() <= map.getMinZoom()) {
                                 $(button.element).addClass('disabled');
+                            } else {
+                                $(button.element).removeClass('disabled');
                             }
                         }
+                    }
+                }, {
+                    name: 'group',
+                    callback: function(button, layerControl) {
+                        groupRadius = (groupRadius == 0) ? 80 : 0;
+                        $rootScope.$apply();
                     },
-                    {
-                        name: 'group',
-                        callback: function(button, layerControl) {
-                            groupRadius = (groupRadius == 0) ? 80 : 0;
-                            $rootScope.$apply();
+                    events: {
+                        groupRemoved: function(button, layerControl) {
+                            if (layerControl._domGroups.length <= 2) {
+                                $(button.element).addClass('disabled');
+                            } else {
+                                $(button.element).removeClass('disabled');
+                            }
+                        },
+                        groupAdded: function(button, layerControl) {
+                            if (layerControl._domGroups.length <= 2) {
+                                $(button.element).addClass('disabled');
+                            } else {
+                                $(button.element).removeClass('disabled');
+                            }
                         }
-                    },
-                ]
+                    }
+                }
+            ]
 
             }).addTo(map);
             // Scale control

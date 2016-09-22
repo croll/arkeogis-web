@@ -334,3 +334,44 @@ arkeo-popup {
         background-image: none;
     }
 }
+
+.cb-button-container {
+    display: inline-block;
+    padding: 3px;
+    opacity: 0.7;
+
+    &:hover {
+        opacity: 1;
+    }
+
+    &.disabled {
+        opacity: 0.2;
+        &:hover {
+
+       pointer-events: none;
+       cursor: default;
+        }
+    }
+
+    .cb-button-container-icon {
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        background-size: 25px;
+        background-repeat: no-repeat;
+
+    }
+
+    .zoomin {
+        background-image: url(../img/icons/zoomin.svg)
+    }
+
+    .zoomout {
+        background-image: url(../img/icons/zoomout.svg)
+    }
+
+    .group {
+        background-size: 22px;
+        background-image: url(../img/icons/group.svg)
+    }
+}
