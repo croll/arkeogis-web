@@ -686,6 +686,9 @@
 		"BUTTON_DISPLAYMAP": {
 			"T_TITLE": "AFFICHER LA CARTE"
 		},
+		"BUTTON_INITQUERY": {
+			"T_TITLE": "Réinitialiser la requête"
+		},
 		"MENU_CENTROID": {
 			"T_NO": "#!#MAP.MENU_CENTROID.T_NO",
 			"T_TITLE": "#!#MAP.MENU_CENTROID.T_TITLE",
@@ -734,6 +737,9 @@
 			"T_POLYGON": "#!#MAP.MENU_SEARCHZONE.T_POLYGON",
 			"T_RECT": "#!#MAP.MENU_SEARCHZONE.T_RECT",
 			"T_TITLE": "#!#MAP.MENU_SEARCHZONE.T_TITLE"
+		},
+		"MESSAGE_QUERY_SAVED": {
+			"T_CONTENT": "#!#MAP.MESSAGE_QUERY_SAVED.T_CONTENT"
 		}
 	},
 	"MAPEDITOR": {
@@ -992,6 +998,9 @@
 		"OTHERS": {
 			"T_TITLE": "Précisions :"
 		},
+		"QUERY_NAME": {
+			"T_TITLE": "Requête"
+		},
 		"TEXT_SEARCH": {
 			"T_SEARCH_FOR": "Recherche de :",
 			"T_SEARCH_IN": "dans :",
@@ -1248,6 +1257,21 @@
 			"T_COMMENT": "Commentaires",
 			"T_SITE_NAME": "Nom du site",
 			"T_TITLE": ""
+		}
+	},
+	"QUERY_SAVE": {
+		"BUTTON_CANCEL": {
+			"T_TITLE": "Annuler"
+		},
+		"BUTTON_OK": {
+			"T_TITLE": "Ok"
+		},
+		"DIALOG": {
+			"T_INTRO": "Choisissez un nom pour archiver cette reqûete :",
+			"T_TITLE": "Archivage..."
+		},
+		"INPUT_QUERYNAME": {
+			"T_TITLE": "Nom de la requête archivée :"
 		}
 	},
 	"SITE_DETAILS": {
