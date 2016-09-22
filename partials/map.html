@@ -21,19 +21,31 @@
             <!-- New query display -->
             <div>
 
-                <!-- archived queries menu -->
-                <md-input-container>
-                    <label>Requêtes archivées</label>
-                    <md-select ng-model="cur_saved_query">
-                        <md-option ng-repeat="saved_query in saved_queries" ng-value="saved_query">{{saved_query.name}}</md-option>
-                    </md-select>
-                </md-input-container>
+                <div layout="row" layout-align="left center">
+                    <!-- archived queries menu -->
+                    <md-menu md-position-mode="target-right target">
+                        <md-button aria-label="Archives..." class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                            <md-icon>save</md-icon>
+                        </md-button>
+                        <md-menu-content>
+                          <md-menu-item ng-repeat="saved_query in saved_queries">
+                                  <md-button ng-click="showSavedQuery(saved_query)">
+                                      {{saved_query.name}}
+                                  </md-button>
+                                  <md-button ng-click="deleteSavedQuery(saved_query)" style="min-width: 0; width: 50px" ark-confirm="QUERY.DELETE_SAVED_QUERY.T_CONFIRM" ark-confirm-ok="QUERY.DELETE_SAVED_QUERY.T_OK">
+                                      <md-icon md-menu-align-target>delete</md-icon>
+                                  </md-button>
+                          </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
 
-                <!-- query title -->
-                <div>
-                    <span translate>QUERY.QUERY_NAME.T_TITLE</span> : <span>{{query.letter}}</span> <span ng-if="!angular.isUndefined(query.name) && query.name.length > 0" class="query-title">({{query.name}})</span>
+                    <!-- query title -->
+                    <div>
+                        <span translate>QUERY.QUERY_NAME.T_TITLE</span> : <span>{{query.letter}}</span> <span ng-if="!angular.isUndefined(query.name) && query.name.length > 0" class="query-title">({{query.name}})</span>
+                    </div>
+                    <div ng-if="angular.isUndefined(query.name) || query.name.length == 0" class="query-title"></div>
+
                 </div>
-                <div ng-if="angular.isUndefined(query.name) || query.name.length == 0" class="query-title"></div>
 
                 <!-- area -->
                 <div class="query-element query-element-area">

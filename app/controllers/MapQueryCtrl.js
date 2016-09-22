@@ -1002,6 +1002,28 @@
 
 		}
 
+		$scope.deleteSavedQuery = function(saved_query) {
+			return $http.delete("/api/query", {
+				params: {
+					project_id: arkeoProject.get().id,
+					name: saved_query.name,
+				}
+			}).then(function(data) {
+				$scope.saved_queries = data.data;
+				arkeoService.showMessage('MAP.MESSAGE_QUERY_DELETED.T_CONTENT');
+			}, function(err) {
+				console.error("getting project saved queries failed : ", err);
+			});
+		};
+
+		$scope.showSavedQuery = function(new_saved_query) {
+			if (new_saved_query != undefined && new_saved_query.name.length > 0) {
+				// load this saved query
+				arkeoQuery.add(angular.fromJson(new_saved_query.params), new_saved_query.name);
+				$scope.cur_saved_query = undefined;
+			}
+		};
+
 		$scope.$watch("cur_saved_query", function(new_saved_query) {
 			if (new_saved_query != undefined && new_saved_query.name.length > 0) {
 				// load this saved query
