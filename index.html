@@ -113,6 +113,8 @@
 				<md-button ng-click="setTheme('pink')" ng-hide="theme == 'pink'">La vie en rose</md-button>
 			</div>
 			<layout layout="row" layout-align="end center">
+				<!-- fullscreen button -->
+				<md-button md-position-mode="target-right target" ng-click="toggleFullScreen()"><md-icon>fullscreen</md-icon></md-button>
 
 				<!-- Lang menu -->
 				<md-menu md-position-mode="target-right target">
