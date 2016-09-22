@@ -105,9 +105,10 @@
 <body ng-app="ArkeoGIS" ng-controller="ArkeoCtrl as arkeo" layout="row" ng-cloak translate-namespace="MAIN">
 	<div id='arkeo_loading' style="display: none;" translate>.LOADING.T_TITLE</div>
 	<div id='arkeo_idle' style="display: none;" translate>.IDLE.T_TITLE</div>
+
 	<div layout="column" flex md-theme="{{theme}}">
 		<md-toolbar id="arkeo-main-toolbar" class="md-toolbar-tools">
-			<h1 flex><a href="http://localhost:44444/">ArkeoGIS</a></h1>
+			<h1 flex><img src="img/logo.png"/></h1>
 			<div ng-hide="true">
 				<md-button ng-click="setTheme('grey')" ng-hide="theme == 'grey'">La vie en bleu</md-button>
 				<md-button ng-click="setTheme('pink')" ng-hide="theme == 'pink'">La vie en rose</md-button>
