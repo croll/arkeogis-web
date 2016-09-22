@@ -20,11 +20,12 @@
  */
 
 (function() {
-    ArkeoGIS.service('arkeoMap', ['$http', '$q', 'arkeoProject', function($http, $q, arkeoProject) {
+    ArkeoGIS.service('arkeoMap', ['$http', '$q', 'arkeoProject', '$rootScope', function($http, $q, arkeoProject, $rootScope) {
 
         var self = this,
             mapDefer = $q.defer(),
-            clusterRadiusControl;
+            clusterRadiusControl,
+            groupRadius = 80;
 
         this.project = arkeoProject.get();
 
@@ -58,7 +59,7 @@
             projectCentroid.lng = c.lng;
         }
 
-        this.initLeaflet = function(el, $scope) {
+        this.initLeaflet = function(el) {
             // query Controls
             // this.queryControls = {};
             this.queryControl = null;
@@ -90,10 +91,10 @@
             //     collapsed: true
             // }).addTo(map);
             // Cluster radius
-            self.clusterRadiusControl = new L.Control.ClusterRadius({
-                minRadius: 0,
-                maxRadius: 80
-            }).addTo(map);
+            // self.clusterRadiusControl = new L.Control.ClusterRadius({
+            //     minRadius: 0,
+            //     maxRadius: 80
+            // }).addTo(map);
             self.layerControl = L.Control.styledLayerControl(self.layers.baseMaps, null, {
                 container_width: "200px",
                 container_maxHeight: "350px",
@@ -103,7 +104,45 @@
                 group_toggler: {
                     show: true,
                     label: 'All'
-                }
+                },
+                buttons: [
+                    {
+                        name: 'zoomin',
+                        callback: function(button, layerControl) {
+                            map.zoomIn();
+                        },
+                        events: {
+                            zoomend: function(button, layerControl) {
+                                $(button.element).addClass('disabled');
+                            }
+                        }
+                    },
+                    {
+                        name: 'zoomout',
+                        callback: function(button, layerControl) {
+                            map.zoomOut();
+                        },
+                        events: {
+                            zoomend: function(button, layerControl) {
+                                $(button.element).addClass('disabled');
+                            }
+                        }
+                    },
+                    {
+                        name: 'fullscreen',
+                        callback: function(button, layerControl) {
+                            console.log("Nico it's your turn !");
+                        }
+                    },
+                    {
+                        name: 'group',
+                        callback: function(button, layerControl) {
+                            groupRadius = (groupRadius == 0) ? 80 : 0;
+                            $rootScope.$apply();
+                        }
+                    },
+                ]
+
             }).addTo(map);
             // Scale control
             new L.control.scale({
@@ -118,6 +157,10 @@
 
         this.initPromise = function() {
             mapDefer = $q.defer();
+        }
+
+        this.getRadius = function() {
+            return groupRadius;
         }
 
         this.config = {

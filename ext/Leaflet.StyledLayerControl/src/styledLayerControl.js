@@ -16,6 +16,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
         this._handlingClick = false;
         this._groupList = [];
         this._domGroups = [];
+        this._buttonList = [];
 
         for (i in baseLayers) {
             for (var j in baseLayers[i].layers) {
@@ -34,6 +35,14 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
 
     onAdd: function(map) {
         this._initLayout();
+
+        // Create top buttons
+        if (this.options.buttons.length) {
+            for (i in this.options.buttons) {
+                this._addButton(this.options.buttons[i]);
+            }
+        }
+
         this._update();
 
         map
@@ -156,6 +165,12 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             L.DomEvent.on(container, 'click', L.DomEvent.stopPropagation);
         }
 
+        // Buttons container
+        if (this.options.buttons.length) {
+            this._buttonsContainer = L.DomUtil.create('div', className + '-buttons', container);
+        }
+
+        // Layers container
         var section = document.createElement('section');
         section.className = 'ac-container ' + className + '-list';
 
@@ -639,6 +654,48 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
 
     _collapse: function() {
         this._container.className = this._container.className.replace(' leaflet-control-layers-expanded', '');
+    },
+
+    _addButton: function(button) {
+
+        // button = {
+        //     enabled: true,
+        //     disable: function() {
+        //         this.enabled = false;
+        //     },
+        //     enable: function() {
+        //         this.enabled = true;
+        //     },
+        //     toggle: function() {
+        //         if (this.enabled) {
+        //             this.disable();
+        //         } else {
+        //             this.enabled();
+        //         }
+        //     }
+        // }
+
+        button.element = L.DomUtil.create('div', 'cb-button-container', this._buttonsContainer);
+        var icon = L.DomUtil.create('a', 'cb-button-container-icon', button.element);
+        icon.innerHTML = button.name;
+
+        L.DomEvent
+            .addListener(icon, 'click', L.DomEvent.stop)
+            .addListener(icon, 'click', function() {
+                button.callback(button, this);
+            });
+
+        if (typeof(button.events) == 'object') {
+            for (var eventName in button.events) {
+                if (!button.events.hasOwnProperty(eventName)) continue;
+                this._map.on(eventName, function() {
+                    button.events[eventName](button, this);
+                })
+            }
+        }
+
+        this._buttonList[button.name] = button;
+
     }
 });
 

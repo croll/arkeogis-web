@@ -43,6 +43,11 @@
                     map.fitBounds(L.geoJson(project.geom).getBounds());
                 }
 
+                // Cluster radius
+                $scope.$watch(function() { return arkeoMap.getRadius()}, function(o, n) {
+                    $scope.redrawMarkers();
+                });
+
                 map.on('layeradd', function(e) {
                     if (e.layer.feature && e.layer.feature.properties && e.layer.feature.properties.init === false) {
                         $http({
@@ -254,11 +259,9 @@
             var end
 
             function displayQuery(query) {
-
-                // Cluster radius
-                arkeoMap.clusterRadiusControl.setCallback(function() {
-                    $scope.redrawMarkers();
-                });
+                // arkeoMap.clusterRadiusControl.setCallback(function() {
+                    // $scope.redrawMarkers();
+                // });
 
                 query.done = true;
 
@@ -353,7 +356,9 @@
 
                     _.each(query.markersByDatabase, function(markerGroup, dbID) {
 
-                        var radius = arkeoMap.clusterRadiusControl.getCurrentRadius();
+                        // var radius = arkeoMap.clusterRadiusControl.getCurrentRadius();
+
+                        var radius = arkeoMap.getRadius();
 
                         if (radius > 0) {
                             markerGroup.cluster = new L.markerClusterGroup({
@@ -368,7 +373,7 @@
                         }
 
                         arkeoMap.layerControl.addOverlay(markerGroup.cluster, markerGroup.database, {
-                            groupName: "query " + query.letter + (angular.isDefined(query.name) && query.name.length > 0 ? ' ('+query.name+')' : ''),
+                            groupName: "query " + query.letter,
                             expanded: true,
                             removable: true,
                             togglable: true,
@@ -389,10 +394,8 @@
                                 {
                                     label: 'archive...',
                                     callback: function() {
+                                        $scope.$parent.showQuerySaveDialog(query);
                                         $mdSidenav('sidenav-left').open();
-                                        $scope.$parent.showQuerySaveDialog(query).finally(function() {
-                                            $mdSidenav('sidenav-left').close();
-                                        });
                                     }
                                 },
                                 {
