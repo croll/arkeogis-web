@@ -3,6 +3,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
         collapsed: true,
         position: 'topright',
         autoZIndex: true,
+        autoScroll: true,
         buttons: []
     },
 
@@ -176,7 +177,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
         var section = document.createElement('section');
         section.className = 'ac-container ' + className + '-list';
 
-        var form = this._form = L.DomUtil.create('form');
+        var form = this._form = L.DomUtil.create('form', '');
 
         section.appendChild(form);
 
@@ -308,6 +309,11 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             this._addItem(obj);
             overlaysPresent = overlaysPresent || obj.overlay;
             baseLayersPresent = baseLayersPresent || !obj.overlay;
+        }
+
+        if (this.options.autoScroll) {
+            var section = this._container.getElementsByTagName('section')[0]
+            section.scrollTop = section.scrollHeight
         }
 
     },
@@ -442,8 +448,13 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             // verify if type is exclusive
             var s_type_exclusive = this.options.exclusive ? ' type="radio" ' : ' type="checkbox" ';
 
+            // verify if group is removable
+            if (obj.group.removable) {
+                groupContainer.className += 'removable';
+            }
+
             inputElement = '<input id="ac' + obj.group.id + '" class="menu" ' + s_expanded + s_type_exclusive + '/>';
-            inputLabel = '<label for="ac' + obj.group.id + '">' + obj.group.name + '</label>';
+            inputLabel = '<label class="section-label" for="ac' + obj.group.id + '">' + obj.group.name + '</label>';
 
             article = document.createElement('article');
             article.className = 'ac-large';
