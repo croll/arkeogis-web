@@ -27,7 +27,7 @@
             return;
 
 		$scope.users_query = {
-			order: 'u.created_at',
+			order: '-u.created_at',
 			limit: 10,
 			page: 1,
 			filter: ''
