@@ -37,6 +37,7 @@
 		$scope.query = {
 			page: 1,
 			limit: 10,
+			order: '-created_at',
 		};
 
 		function init() {
