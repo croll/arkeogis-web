@@ -95,8 +95,16 @@
                 	$scope.params.area.geojson = L.rectangle(map.getBounds()).toGeoJSON();
 				});
 			}
-			arkeoQuery.do($scope.query).then(function() {
-				//arkeoQuery.add(newParams()); // create a new query
+
+			$mdSidenav('sidenav-left').close();
+			arkeoQuery.do($scope.query).then(function(q) {
+				if (angular.isUndefined(q.data.features) || q.data.features.length == 0) {
+					arkeoService.showMessage('MAP.MESSAGE_QUERY_RESULT.T_NORESULT');
+					$mdSidenav('sidenav-left').open();
+				}
+			}, function(err) {
+				arkeoService.showMessage('MAP.MESSAGE_QUERY_RESULT.T_SERVERERROR');
+				$mdSidenav('sidenav-left').open();
 			})
 		};
 

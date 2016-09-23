@@ -36,6 +36,7 @@
                 query.data = result.data;
                 query.done = true;
                 queriesDoneNum++;
+                return query;
             }, function(err) {
                 arkeoService.fieldErrorDisplay(err)
                 console.error(err);
