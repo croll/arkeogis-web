@@ -34,6 +34,10 @@
         var self=this;
 
 		$scope.characlist = [];
+		$scope.query = {
+			page: 1,
+			limit: 10,
+		};
 
 		function init() {
 			$http.get('/api/characs').then(function(data) {
