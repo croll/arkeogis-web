@@ -59,7 +59,7 @@
 					row.groups_charac = translate_groups(row.groups_charac);
 					row.groups_chronology = translate_groups(row.groups_chronology);
 				});
-				console.log("updated ! ", users);
+				//console.log("updated ! ", users);
 				$scope.users = users;
 			}, function(err) {
 				$mdToast.show($mdToast.simple().textContent("Something bas appened ! can't load users...").position('bottom left'));
@@ -67,7 +67,7 @@
 		}
 
 		$scope.users_onPaginate = function (page, limit) {
-			console.log("users_onPaginate", page, limit);
+			//console.log("users_onPaginate", page, limit);
 			//getUsers(angular.extend({}, $scope.users_query, {page: page, limit: limit}));
 			if (page > 0)
 				getUsers();
@@ -77,12 +77,12 @@
 		}
 
 		$scope.users_onReorder = function (order) {
-			console.log("users_onReorder", order);
+			//console.log("users_onReorder", order);
 			getUsers(angular.extend({}, $scope.users_query, {order: order}));
 		}
 
 		$scope.users_removeFilter = function () {
-			console.log("users_removeFilter");
+			//console.log("users_removeFilter");
 	      	$scope.users_filter.show = false;
 	      	$scope.users_query.filter = '';
 
@@ -92,7 +92,7 @@
 	    }
 
 		$scope.$watch('users_query.filter', function (newValue, oldValue) {
-			console.log("users_query.filter", newValue, oldValue);
+			//console.log("users_query.filter", newValue, oldValue);
 	      	if(!oldValue) {
 	        	users_bookmark_page = $scope.users_query.page;
 	      	}
@@ -105,7 +105,7 @@
 	        	$scope.users_query.page = users_bookmark_page;
 	      	}
 
-			console.log("yo watch");
+			//console.log("yo watch");
 	      	getUsers();
 	    });
 
@@ -125,7 +125,6 @@
             });
         };
 
-		console.log("yo 1");
 		//getUsers();
 
 	}]);
