@@ -698,6 +698,10 @@
 		"MESSAGE_QUERY_DELETED": {
 			"T_CONTENT": "Votre requête archivée à bien été éffacée"
 		},
+		"MESSAGE_QUERY_RESULT": {
+			"T_NORESULT": "Cette requête ne comporte aucun résultat",
+			"T_SERVERERROR": "Désolé, une erreur interne est survenue"
+		},
 		"MESSAGE_QUERY_SAVED": {
 			"T_CONTENT": "Votre requête à bien été archivée"
 		}
