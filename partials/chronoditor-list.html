@@ -13,7 +13,7 @@
     <!-- exact table from live demo -->
     <md-table-container>
         <table class="chronolist" md-table md-row-select multiple ng-model="selected" md-progress="promise">
-            <thead md-head md-order="query.order" md-on-reorder="getDesserts">
+            <thead md-head md-order="query.order">
                 <tr md-row>
                     <th md-column md-order-by="name | arkTranslate">
                         <span translate>CHRONODITOR.LIST_NAME.T_TITLE</span> / <span translate>CHRONODITOR.LIST_DESCRIPTION.T_TITLE</span>
@@ -63,5 +63,5 @@
     </md-table-container>
 
     <md-table-pagination md-label="{page: '{{'USER.FOOTER_USERSLIST.T_PAGE' | translate }}', rowsPerPage: '{{'USER.FOOTER_USERSLIST.T_ROWSPERPAGE' | translate }}', of: '{{'USER.FOOTER_USERSLIST.T_ROWSPERPAGE_OF' | translate }}'}"
-                         md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{desserts.count}}" md-on-paginate="getDesserts" md-page-select></md-table-pagination>
+                         md-limit="query.limit" md-limit-options="[5, 10, 25, 50]" md-page="query.page" md-total="{{chronolist.length}}" md-page-select></md-table-pagination>
 </div>
