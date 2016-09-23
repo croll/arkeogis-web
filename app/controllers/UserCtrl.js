@@ -52,7 +52,7 @@
 		}
 
 		function getUsers(query) {
- 			$scope.users = User.get(query || $scope.users_query).$promise.then(function(users) {
+			$scope.promise = User.get(query || $scope.users_query).$promise.then(function(users) {
 				// update groups translations...
 				users.data.forEach(function(row) {
 					row.groups_user = translate_groups(row.groups_user);
