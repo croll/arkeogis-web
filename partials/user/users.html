@@ -75,7 +75,7 @@
                     <td md-cell>{{(user.active ? 'USER.USERSLIST_ACTIVE.T_TRUE' : 'USER.USERSLIST_ACTIVE.T_FALSE') | translate}}</td>
                     <td md-cell>{{user.country_and_city.country_name}}</td>
                     <td md-cell><span ng-repeat="company in user.companies">{{company.name}}{{$last ? '' : ', '}}</span></td>
-                    <td md-cell>{{user.databases}}</td>
+                    <td md-cell><span ng-repeat="db in user.databases"><a href="#/database/{{db.f1}}">{{db.f2}}</a>{{$last ? '' : ', '}}</span></td>
                 </tr>
             </tbody>
         </table>
