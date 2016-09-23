@@ -1185,7 +1185,7 @@
 		"CHARACS_LINKED": {
 			"T_ALL": "Toutes",
 			"T_AT_LEAST_ONE": "Au moins une",
-			"T_TITLE": "Le lien logique utilisé entre les caractérisations est :"
+			"T_TITLE": "Le lien logique utilisé entre les catégories (immobilier/mobilier/paysage/production) de caractérisations est :"
 		},
 		"DIALOG": {
 			"T_INTRO": "",
@@ -1216,7 +1216,7 @@
 			"T_TITLE": "Les sites dont l’Occupation est de type :"
 		},
 		"TEXTSEARCH": {
-			"T_INTRO": "",
+			"T_INTRO": "La recherche peut inclure ces symboles :\n\" % \" : (remplace n'importe quoi) et \" _ \" : (remplace un seul caractère par n'importe quoi)",
 			"T_TITLE": "Recherche textuelle"
 		},
 		"TEXTSEARCH_INPUT": {
