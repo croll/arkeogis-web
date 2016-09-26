@@ -13,24 +13,13 @@
     <md-dialog-content layout-padding>
 
         <div layout="row">
-
-            <md-input-container>
-              <label translate>QUERY_CHRONOLOGIES.SELECT_TYPE.T_TITLE</label>
-              <md-select ng-model="params.type" ng-change="error_select_period_type=false; error_select_chronology=false; error_select_period_numeric=false;">
-                  <md-option ng-value="'chronology'"><span translate>QUERY_CHRONOLOGIES.SELECT_TYPE.T_CHRONOLOGY</span></md-option>
-                  <md-option ng-value="'numeric'"><span translate>QUERY_CHRONOLOGIES.SELECT_TYPE.T_NUMERIC</span></md-option>
-              </md-select>
-            </md-input-container>
-
-            <div class="error" ng-if="error_select_period_type" translate>QUERY_CHRONOLOGIES.SELECT_TYPE.T_ERROR_EMPTY</div>
-            <div class="error" ng-if="error_select_chronology" translate>QUERY_CHRONOLOGIES.SELECT_CHRONOLOGY.T_ERROR_EMPTY</div>
-            <div class="error" ng-if="error_select_period_numeric" translate>QUERY_CHRONOLOGIES.PERIOD_NUMERIC.T_ERROR_INCORRECT</div>
+            <div class="error" ng-if="error_select_period" translate>QUERY_CHRONOLOGIES.PERIOD.T_ERROR_INCORRECT</div>
         </div>
 
         <!-- radio_button_unchecked ; add_circle_outline ; block -->
         <!-- radio_button_unchecked ; new_releases -->
 
-        <div layout="row" class="arkmultiselect" ng-if="params.type == 'chronology'">
+        <div layout="row" class="arkmultiselect">
             <div flex layout="column" class="arkmonoselect" ng-repeat="col in [1,2,3,4]">
                 <div class="arkelementselect" ng-repeat="chronology in selection[col].content" ng-click="chronologySelect(col+1, chronology)" ng-class="selection[col+1] == chronology ? 'arkelementselected' : ''" ng-if="!chronology.hidden">
                     <md-icon ng-if="getButtonState(chronology) == ''" ng-click="toggleButton(chronology)" class="arktributton">radio_button_unchecked</md-icon>
@@ -41,7 +30,7 @@
             </div>
         </div>
 
-        <div layout="row" class="chronology-numeric" ng-if="params.type == 'numeric'">
+        <div layout="row" class="chronology-numeric">
             <md-input-container class='date-begin' flex>
                 <label translate>QUERY_CHRONOLOGIES.INPUT_ELEM_BEGIN.T_TITLE</label>
                 <input ark-year ng-model="params.start_date" placeholder="" required maxlength="10" minlength="1"/>
@@ -52,6 +41,11 @@
             </md-input-container>
         </div>
 
+        <div class="advanced_chrono_h1" translate>QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_INCLUDE.T_TITLE</div>
+        <md-radio-group ng-model="params.existence_inside_include" layout="row">
+            <md-radio-button flex="20" value="+"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_INCLUDE.T_INCLUDE</span></md-radio-button>
+            <md-radio-button flex="20" value="-"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_INCLUDE.T_EXCLUDE</span></md-radio-button>
+        </md-radio-group>
 
         <div class="advanced_chrono_h0">
             <div class="advanced-show-icon noselect display-icon-hide"><md-icon ng-click="toggle_display('advanced')">play_arrow</md-icon></div>
@@ -59,12 +53,6 @@
         </div>
 
         <div class="advanced-content display-content-hide">
-            <div class="advanced_chrono_h1" translate>QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_INCLUDE.T_TITLE</div>
-            <md-radio-group ng-model="params.existence_inside_include" layout="row">
-                <md-radio-button flex="20" value="+"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_INCLUDE.T_INCLUDE</span></md-radio-button>
-                <md-radio-button flex="20" value="-"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_INCLUDE.T_EXCLUDE</span></md-radio-button>
-            </md-radio-group>
-
             <div class="advanced_chrono_h1" translate>QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_PART.T_TITLE</div>
             <md-radio-group ng-model="params.existence_inside_part" layout="row">
                 <md-radio-button flex="20" value="partly"><span translate>QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_PART.T_PARTLY</span></md-radio-button>

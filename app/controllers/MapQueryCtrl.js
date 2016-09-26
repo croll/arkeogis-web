@@ -656,7 +656,7 @@
 						$scope.chronologies = arkeoProject.get().chronologies;
 						$scope.selection = [{content: $scope.chronologies},$scope.chronologies[0],null,null,null];
 						$scope.params = chrono_params;
-						$scope.error_select_period_type = false;
+						$scope.error_select_period = false;
 
 						{ // init of selected_chronologies
 							$scope.selected_chronologies = {};
@@ -664,22 +664,11 @@
 						}
 
 						$scope.hide = function() {
-							switch($scope.params.type) {
-								case "":
-								$scope.error_select_period_type = true;
-								return;
-								case "chronology":
-								if ($scope.params.selected_chronology_id == 0) {
-									$scope.error_select_chronology = true;
-									return;
-								}
-								break;
-								case "numeric":
+							if ($scope.params.selected_chronology_id == 0) {
 								if (!Number.isInteger($scope.params.start_date) || isNaN($scope.params.start_date) || !Number.isInteger($scope.params.end_date) || isNaN($scope.params.end_date)) {
-									$scope.error_select_period_numeric = true;
+									$scope.error_select_period = true;
 									return;
 								}
-								break;
 							}
 							$mdDialog.hide();
 						};
