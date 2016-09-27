@@ -35,7 +35,7 @@
             angular.element(window).on('resize', function() {
                 $scope.mapHeight = $(window).height() + $("#arkeo-main-toolbar").height() - 145 + "px";
                 arkeoMap.getMap().then(function(map) {
-                    map._onResize(); 
+                    map._onResize();
                 });
             });
 
@@ -382,6 +382,7 @@
                             buttons: [
                                 {
                                     label: 'mod',
+                                    class: 'edit',
                                     callback: function() {
                                         arkeoQuery.setCurrent(query);
                                         $mdSidenav('sidenav-left').open();
@@ -389,12 +390,14 @@
                                 },
                                 {
                                     label: 'csv',
+                                    class: 'download',
                                     callback: function() {
                                         arkeoQuery.getCSV(query);
                                     }
                                 },
                                 {
                                     label: 'archive...',
+                                    class: 'save',
                                     callback: function() {
                                         $mdSidenav('sidenav-left').open();
                                         $scope.$parent.showQuerySaveDialog(query).finally(function() {
@@ -404,6 +407,7 @@
                                 },
                                 {
                                     label: 'del',
+                                    class: 'delete',
                                     trigger: 'removeGroup',
                                     callback: function() {
                                         arkeoQuery.delete(query.letter);
