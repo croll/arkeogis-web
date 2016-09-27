@@ -327,18 +327,21 @@ arkeo-popup {
 .cb-button-container, .cb-group-button-container {
     display: inline-block;
     padding: 3px;
-    opacity: 0.7;
+    opacity: 0.5;
+
+    &.enabled {
+        opacity: 1;
+    }
 
     &:hover {
-        opacity: 1;
+        opacity: 0.8!important;
     }
 
     &.disabled {
         opacity: 0.2;
         &:hover {
-
-       pointer-events: none;
-       cursor: default;
+           pointer-events: none;
+           cursor: default;
         }
     }
 

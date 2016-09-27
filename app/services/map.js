@@ -113,25 +113,11 @@
                 }, {
                     label: 'Group icons',
                     class: 'group',
+                    enabled: true,
+                    togglable: true,
                     callback: function(button, layerControl) {
                         groupRadius = (groupRadius == 0) ? 80 : 0;
                         $rootScope.$apply();
-                    },
-                    events: {
-                        groupRemoved: function(button, layerControl) {
-                            if (layerControl._domGroups.length <= 2) {
-                                $(button.element).addClass('disabled');
-                            } else {
-                                $(button.element).removeClass('disabled');
-                            }
-                        },
-                        groupAdded: function(button, layerControl) {
-                            if (layerControl._domGroups.length <= 2) {
-                                $(button.element).addClass('disabled');
-                            } else {
-                                $(button.element).removeClass('disabled');
-                            }
-                        }
                     }
                 }
             ]
