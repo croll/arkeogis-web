@@ -37,44 +37,72 @@
                 $cookies.put('arkeogis_session_token', ret.data.Token);
                 //ArkeoGIS.token=ret.data.Token;
                 self.user = new User(ret.data.User);
+
+                // set langs
                 arkeoLang.setUserLang(1, ret.data.lang1.isocode)
                 arkeoLang.setUserLang(2, ret.data.lang2.isocode)
+
+                // set permissions
+                self.permissions = ret.data.permissions;
+
+                // init idle timeout
+                if ('id' in self.user && self.user.id != 0) Idle.watch();
+
+                // set project
                 arkeoProject.set(ret.data.project);
                 $cookies.put('project_id', ret.data.project.id);
-                self.permissions = ret.data.permissions;
-                if ('id' in self.user && self.user.id != 0) Idle.watch();
+                return arkeoProject.getDetails();
+
             }, function(err) {
                 console.log(err);
                 return err;
             }).then(function() {
-                return arkeoProject.getDetails();
+                return self.user;
             });
         };
 
         this.relogin = function() {
             return $http.get('/api/relogin').then(function(ret) {
                 self.user = new User(ret.data.User);
+
+                // set langs
                 arkeoLang.setUserLang(1, ret.data.lang1.isocode)
                 arkeoLang.setUserLang(2, ret.data.lang2.isocode)
+
+                // set permissions
+                self.permissions = ret.data.permissions;
+
+                // init idle timeout
+                if ('id' in self.user && self.user.id != 0) Idle.watch();
+
+                // set project
                 arkeoProject.set(ret.data.project);
                 $cookies.put('project_id', ret.data.project.id);
-                self.permissions = ret.data.permissions;
-                if ('id' in self.user && self.user.id != 0) Idle.watch();
+                return arkeoProject.getDetails();
+
             }, function(err) {
                 console.log(err);
                 return err;
             }).then(function() {
-                return arkeoProject.getDetails();
+                return self.user;
             });
         };
 
         this.logout = function() {
             return $http.get('/api/logout').then(function(ret) {
                 self.user = new User(ret.data.User);
+
+                // reset lang
                 arkeoLang.setUserLang(1, ret.data.lang1.isocode)
                 arkeoLang.setUserLang(2, ret.data.lang2.isocode)
+
+                // reset project
                 $cookies.remove('project_id');
+
+                // reset permissions
                 self.permissions = ret.data.permissions;
+
+                // reset idle timeout
                 Idle.unwatch();
                 return self.user;
             }, function(err) {
