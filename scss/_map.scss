@@ -334,7 +334,7 @@ arkeo-popup {
     display: none;
 }
 
-.cb-button-container {
+.cb-button-container, .cb-group-button-container {
     display: inline-block;
     padding: 3px;
     opacity: 0.7;
@@ -354,9 +354,9 @@ arkeo-popup {
 
     .cb-button-container-icon {
         display: inline-block;
-        width: 25px;
-        height: 25px;
-        background-size: 25px;
+        width: 24px;
+        height: 24px;
+        background-size: 24px;
         background-repeat: no-repeat;
     }
 
@@ -371,5 +371,40 @@ arkeo-popup {
     .group {
         background-size: 22px;
         background-image: url(../img/icons/group.svg)
+    }
+}
+
+
+.leaflet-control-layers-overlays {
+
+    .group-buttons-container {
+        padding: 3px 0;
+
+        .cb-group-button-container {
+
+            .cb-button-container-icon {
+                width: 16px;
+                height: 16px;
+                background-size: 16px;
+            }
+
+            .save {
+                background-image: url(../img/icons/save.svg)
+            }
+
+            .delete {
+                background-image: url(../img/icons/delete.svg)
+            }
+
+            .download {
+                background-image: url(../img/icons/download.svg)
+            }
+
+            .edit {
+                background-image: url(../img/icons/edit.svg)
+            }
+
+        }
+
     }
 }

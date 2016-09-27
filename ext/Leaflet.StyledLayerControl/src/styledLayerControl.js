@@ -508,10 +508,11 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
 
                 // Link delete group
                 obj.group.buttons.forEach(function(btn) {
-                    var link = L.DomUtil.create('a', 'group-toggle-none', buttonsContainer);
+                    var cont = L.DomUtil.create('div', 'cb-group-button-container', buttonsContainer);
+                    var link = L.DomUtil.create('a', 'cb-button-container-icon '+btn.class, cont);
                     link.href = '#';
                     link.title = btn.label;
-                    link.innerHTML = btn.label;
+
                     link.setAttribute("data-group-name", obj.group.name);
 
                     var btnEvent;
@@ -535,15 +536,13 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                     }
 
                     // Separator
-                    if (bn < obj.group.buttons.length - 1) {
+                    if (bn < obj.group.buttons.length - 1 && btn.separator) {
                         var separator = L.DomUtil.create('span', 'group-toggle-divider', buttonsContainer);
                         separator.innerHTML = ' / ';
                     }
                     bn++;
                 });
             }
-
-
 
             container.appendChild(groupContainer);
 
@@ -675,28 +674,10 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
 
     _addButton: function(button) {
 
-        // button = {
-        //     enabled: true,
-        //     disable: function() {
-        //         this.enabled = false;
-        //     },
-        //     enable: function() {
-        //         this.enabled = true;
-        //     },
-        //     toggle: function() {
-        //         if (this.enabled) {
-        //             this.disable();
-        //         } else {
-        //             this.enabled();
-        //         }
-        //     }
-        // }
-
         var self = this;
 
         button.element = L.DomUtil.create('div', 'cb-button-container', this._buttonsContainer);
         var icon = L.DomUtil.create('a', 'cb-button-container-icon '+button.name, button.element);
-        // icon.innerHTML = button.name;
 
         L.DomEvent
             .addListener(icon, 'click', L.DomEvent.stop)
