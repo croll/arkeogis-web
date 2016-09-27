@@ -61,15 +61,9 @@
 
         this.initLeaflet = function(el) {
             // query Controls
-            // this.queryControls = {};
             this.queryControl = null;
             // Base layers
             var layers = {};
-            // var mapLayers = [];
-            // _.each(angular.copy(self.layers.baseMaps), function(layer) {
-            // layers[layer.name] = layer.layer;
-            // mapLayers.push(layer.layer);
-            // });
             // Init leaflet
             var map = new L.Map(el, {
                 center: new L.LatLng(projectCentroid.lat, projectCentroid.lng),
@@ -77,28 +71,9 @@
                 zoomControl: false,
                 maxZoom: 18
             });
-            // Full screen control
-            // new L.Control.Fullscreen({
-            //     position: 'topright'
-            // }).addTo(map);
-            // Zoom control
-            // new L.Control.Zoom({
-            //         position: 'topright'
-            //     })
-            //     .addTo(map);
-            // Layers control
-            // self.layerControl = new L.Control.LayerDynamic(layers, null, {
-            //     collapsed: true
-            // }).addTo(map);
-            // Cluster radius
-            // self.clusterRadiusControl = new L.Control.ClusterRadius({
-            //     minRadius: 0,
-            //     maxRadius: 80
-            // }).addTo(map);
             self.layerControl = L.Control.styledLayerControl(self.layers.baseMaps, null, {
                 container_width: "200px",
                 container_maxHeight: "600px",
-                // group_maxHeight: "80px",
                 exclusive: false,
                 collapsed: false,
                 group_toggler: {
@@ -106,7 +81,8 @@
                     label: 'All'
                 },
                 buttons: [{
-                    name: 'zoomin',
+                    label: 'Zoom +',
+                    class: 'zoomin',
                     callback: function(button, layerControl) {
                         map.zoomIn();
                     },
@@ -120,7 +96,8 @@
                         }
                     }
                 }, {
-                    name: 'zoomout',
+                    label: 'Zoom -',
+                    class: 'zoomout',
                     callback: function(button, layerControl) {
                         map.zoomOut();
                     },
@@ -134,26 +111,13 @@
                         }
                     }
                 }, {
-                    name: 'group',
+                    label: 'Group icons',
+                    class: 'group',
+                    enabled: true,
+                    togglable: true,
                     callback: function(button, layerControl) {
                         groupRadius = (groupRadius == 0) ? 80 : 0;
                         $rootScope.$apply();
-                    },
-                    events: {
-                        groupRemoved: function(button, layerControl) {
-                            if (layerControl._domGroups.length <= 2) {
-                                $(button.element).addClass('disabled');
-                            } else {
-                                $(button.element).removeClass('disabled');
-                            }
-                        },
-                        groupAdded: function(button, layerControl) {
-                            if (layerControl._domGroups.length <= 2) {
-                                $(button.element).addClass('disabled');
-                            } else {
-                                $(button.element).removeClass('disabled');
-                            }
-                        }
                     }
                 }
             ]

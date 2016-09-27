@@ -17,6 +17,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
         this._handlingClick = false;
         this._groupList = [];
         this._domGroups = [];
+        this.removableGroupsNum = 0;
         this._buttonList = [];
 
         for (i in baseLayers) {
@@ -98,6 +99,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                 break;
             }
         }
+        this.removableGroupsNum--;
         this._map.fire('groupRemoved', group_Name);
     },
 
@@ -109,6 +111,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                         this._map.removeLayer(this._layers[layer].layer);
                     }
                     delete this._layers[layer];
+                    this.removableGroupsNum--;
                 }
             }
             delete this._groupList[group];
@@ -279,6 +282,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             };
 
             if (group.removable) {
+                this.removableGroupsNum++;
                 this._map.fire('groupAdded');
             }
         }
@@ -676,12 +680,18 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
 
         var self = this;
 
-        button.element = L.DomUtil.create('div', 'cb-button-container', this._buttonsContainer);
-        var icon = L.DomUtil.create('a', 'cb-button-container-icon '+button.name, button.element);
+        var className = 'cb-button-container';
+
+        button.element = L.DomUtil.create('div', className + (button.enabled ? ' enabled' : ''), this._buttonsContainer);
+        var icon = L.DomUtil.create('a', 'cb-button-container-icon '+button.class, button.element);
+        icon.title = button.label;
 
         L.DomEvent
             .addListener(icon, 'click', L.DomEvent.stop)
             .addListener(icon, 'click', function() {
+                if (button.togglable) {
+                    button.element.className = (button.element.className.indexOf('enabled') == -1) ? className + ' enabled' : className;
+                }
                 button.callback(button, this);
             });
 
