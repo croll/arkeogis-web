@@ -185,5 +185,11 @@
             return charac;
         }
 
+        this.reset = function() {
+            this.project = {
+                id: false,
+            };
+            this.get();
+        }
     }]);
 })();

@@ -98,6 +98,7 @@
 
                 // reset project
                 $cookies.remove('project_id');
+                arkeoProject.reset();
 
                 // reset permissions
                 self.permissions = ret.data.permissions;
