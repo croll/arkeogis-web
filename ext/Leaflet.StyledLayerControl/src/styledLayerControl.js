@@ -677,7 +677,8 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
         var self = this;
 
         button.element = L.DomUtil.create('div', 'cb-button-container', this._buttonsContainer);
-        var icon = L.DomUtil.create('a', 'cb-button-container-icon '+button.name, button.element);
+        var icon = L.DomUtil.create('a', 'cb-button-container-icon '+button.class, button.element);
+        icon.title = button.label;
 
         L.DomEvent
             .addListener(icon, 'click', L.DomEvent.stop)
