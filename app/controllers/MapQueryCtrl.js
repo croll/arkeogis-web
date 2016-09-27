@@ -37,6 +37,10 @@
 
 		$scope.params = {};
 		$scope.query = arkeoQuery.add(newParams());
+		$scope.display = {
+			characs: true,
+			chronologies: true,
+		};
 
 		function newParams() {
 			return {
@@ -636,9 +640,8 @@
 			else {
 				params = {
 					type: '',
-					selected_chronology_id: 0,
-					start_date: '',
-					end_date: '',
+					start_date: -2147483648,
+					end_date: 2147483647,
 					existence_inside_include: '+',
 					existence_inside_part: 'partly',
 					existence_inside_sureness: 'potentially',
@@ -699,37 +702,41 @@
 						});
 */
 
-						function setChronologySelect(chronology, sel) {
-							$scope.selected_chronologies={}; // emtpy selection first
-							if (sel != '') {
-								$scope.params.selected_chronology_id = chronology.id;
-								$scope.selected_chronologies[chronology.id]=sel;
+						$scope.toggleButton = function(chronology) {
+							if ($scope.params.start_date == -2147483648 && $scope.params.end_date == 2147483647) { // special case for undetermined
 								$scope.params.start_date = chronology.start_date;
 								$scope.params.end_date = chronology.end_date;
+								return;
 							}
-						}
 
-						$scope.toggleButton = function(chronology) {
-							if (_.has($scope.selected_chronologies, chronology.id)) {
-								// we never remove a selection by clicking on it here
-/*								var sel = $scope.selected_chronologies[chronology.id];
-								if (sel == '+')
-									setChronologySelect(chronology, '!');
-								else if (sel == '!')
-									setChronologySelect(chronology, '-');
-								else if (sel == '-')
-									setChronologySelect(chronology, '');
-*/
+							if ((chronology.start_date >= $scope.params.start_date) && (chronology.end_date <= $scope.params.end_date)) {
+								// the user has clicked on an already selected checkbox, so we reset to undetermined
+								$scope.params.start_date = -2147483648;
+								$scope.params.end_date = 2147483647;
 							} else {
-								setChronologySelect(chronology, '+');
+								if (chronology.start_date < $scope.params.start_date) {
+									$scope.params.start_date = chronology.start_date;
+								}
+								if (chronology.end_date > $scope.params.end_date) {
+									$scope.params.end_date = chronology.end_date;
+								}
 							}
 						};
 
 						$scope.getButtonState = function(chronology) {
-							if (_.has($scope.selected_chronologies, chronology.id)) {
-								return $scope.selected_chronologies[chronology.id];
+							if ($scope.params.start_date == -2147483648 && $scope.params.end_date == 2147483647) { // special case for undetermined
+								if (chronology.start_date == -2147483648 && chronology.end_date == 2147483647) return '+';
+								else return '';
+							}
+
+							if ((chronology.start_date >= $scope.params.start_date) && (chronology.end_date <= $scope.params.end_date)) {
+								return '+';
 							} else {
-									return '';
+								if ($scope.params.end_date >= chronology.start_date && $scope.params.start_date <= chronology.end_date) {
+									return '.'
+								} else {
+									return ''
+								}
 							}
 						};
 

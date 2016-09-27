@@ -132,9 +132,10 @@
 .query-element-content {
     transition: 0.5s;
     overflow-y: hidden;
+    max-height: 999px;
 }
 .query-element-content-hide {
-    height: 0;
+    max-height: 0;
 }
 
 .arkmultiselect {
@@ -152,21 +153,14 @@
 
              .arktributton {
                  position: absolute;
-                 font-size: 16px;
+                 font-size: 32px;
                  left: 3px;
-                 top: 0;
-             }
-
-             .arkexpbutton {
-                 position: absolute;
-                 font-size: 16px;
-                 left: 20px;
                  top: 0;
              }
 
              .arksubselect {
                  position: absolute;
-                 font-size: 16px;
+                 font-size: 32px;
                  right: 52px;
                  top: 0;
              }
@@ -174,6 +168,10 @@
 
         .arkelementselected {
             background-color: #aaf;
+        }
+
+        .arkelementsubselecttext {
+            font-weight: bold;
         }
 
         .charac_hidden {
