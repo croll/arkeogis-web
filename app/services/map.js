@@ -33,21 +33,6 @@
 
         this.queryControl = {};
 
-        this.layers = {
-            baseMaps: [{
-                groupName: 'BaseLayers',
-                expanded: true,
-                layers: {
-                    "OSM": new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a>'
-                    }),
-                    "Google Roadmap": new L.Google('ROADMAP'),
-                    "Google Sat": new L.Google('SATELLITE'),
-                    "Google Terrain": new L.Google('TERRAIN')
-                }
-            }]
-        }
-
         projectCentroid = {
             lat: 48.58476,
             lng: 7.750576
@@ -60,18 +45,31 @@
         }
 
         this.initLeaflet = function(el) {
-            // query Controls
-            this.queryControl = null;
-            // Base layers
-            var layers = {};
+
+            var layers = {
+                baseMaps: [{
+                    groupName: 'BaseLayers',
+                    expanded: true,
+                    layers: {
+                        "OSM": new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a>'
+                        }),
+                        "Google Roadmap": new L.Google('ROADMAP'),
+                        "Google Sat": new L.Google('SATELLITE'),
+                        "Google Terrain": new L.Google('TERRAIN')
+                    }
+                }]
+            }
+
             // Init leaflet
             var map = new L.Map(el, {
                 center: new L.LatLng(projectCentroid.lat, projectCentroid.lng),
-                layers: [self.layers.baseMaps[0].layers["OSM"]],
+                layers: [layers.baseMaps[0].layers["OSM"]],
                 zoomControl: false,
                 maxZoom: 18
             });
-            self.layerControl = L.Control.styledLayerControl(self.layers.baseMaps, null, {
+
+            self.layerControl = L.Control.styledLayerControl(layers.baseMaps, null, {
                 container_width: "200px",
                 container_maxHeight: "600px",
                 exclusive: false,
@@ -119,8 +117,7 @@
                         groupRadius = (groupRadius == 0) ? 80 : 0;
                         $rootScope.$apply();
                     }
-                }
-            ]
+                }]
 
             }).addTo(map);
             // Scale control
