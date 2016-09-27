@@ -24,6 +24,8 @@
 
         var self = this,
         chronologyCacheByDates = {};
+        chronologyCacheByStartDate = {};
+        chronologyCacheByEndDate = {};
 
         this.set = function(project) {
             self.project = project;
@@ -85,6 +87,9 @@
             // Chronologies
             // Reset flattened chronologies cache
             chronologyCacheByDates = {};
+            chronologyCacheByStartDate = {};
+            chronologyCacheByEndDate = {};
+            chronologies_by_id=null;
             _.each(this.project.chronologies, function(c) {
                 promises.push($http.get('/api/chronologies/' + c.id, {
                     silent: true
@@ -93,6 +98,8 @@
                         if (c.id == chrono.id) {
                             _.merge(chrono, res.data);
                             cacheChronologiesByDates(chrono);
+                            cacheChronologiesByStartDate(chrono);
+                            cacheChronologiesByEndDate(chrono);
                         }
                     });
                 }));
@@ -124,6 +131,14 @@
             return (_.has(chronologyCacheByDates, start_date+''+end_date)) ? chronologyCacheByDates[start_date+''+end_date] : null;
         }
 
+        this.getChronologyByStartDate = function(start_date) {
+            return (_.has(chronologyCacheByStartDate, start_date)) ? chronologyCacheByStartDate[start_date] : null;
+        }
+
+        this.getChronologyByEndDate = function(end_date) {
+            return (_.has(chronologyCacheByEndDate, end_date)) ? chronologyCacheByEndDate[end_date] : null;
+        }
+
         var cacheChronologiesByDates = function(currentChrono) {
             if (currentChrono.content) {
                 _.each(currentChrono.content, function(c) {
@@ -131,6 +146,24 @@
                 });
             }
             chronologyCacheByDates[currentChrono.start_date+''+currentChrono.end_date] = currentChrono;
+        }
+
+        var cacheChronologiesByStartDate = function(currentChrono) {
+            if (currentChrono.content) {
+                _.each(currentChrono.content, function(c) {
+                    cacheChronologiesByStartDate(c);
+                });
+            }
+            chronologyCacheByStartDate[currentChrono.start_date] = currentChrono;
+        }
+
+        var cacheChronologiesByEndDate = function(currentChrono) {
+            if (currentChrono.content) {
+                _.each(currentChrono.content, function(c) {
+                    cacheChronologiesByEndDate(c);
+                });
+            }
+            chronologyCacheByEndDate[currentChrono.end_date] = currentChrono;
         }
 
 		var chronologies_by_id = null;

@@ -41,6 +41,7 @@
 			characs: true,
 			chronologies: true,
 		};
+		$scope.editing_chronology = null;
 
 		function newParams() {
 			return {
@@ -639,7 +640,6 @@
 				showChronologyChooserDialog(params, $scope.params.chronologies);
 			else {
 				params = {
-					type: '',
 					start_date: -2147483648,
 					end_date: 2147483647,
 					existence_inside_include: '+',
@@ -654,6 +654,7 @@
 		};
 
 		function showChronologyChooserDialog(chrono_params, all_chronos) {
+			$scope.editing_chronology = chrono_params;
 			$mdDialog.show({
 					controller: function($scope, $mdDialog, arkeoService) {
 						$scope.chronologies = arkeoProject.get().chronologies;
@@ -661,18 +662,7 @@
 						$scope.params = chrono_params;
 						$scope.error_select_period = false;
 
-						{ // init of selected_chronologies
-							$scope.selected_chronologies = {};
-							$scope.selected_chronologies[$scope.params.selected_chronology_id] = '+';
-						}
-
 						$scope.hide = function() {
-							if ($scope.params.selected_chronology_id == 0) {
-								if (!Number.isInteger($scope.params.start_date) || isNaN($scope.params.start_date) || !Number.isInteger($scope.params.end_date) || isNaN($scope.params.end_date)) {
-									$scope.error_select_period = true;
-									return;
-								}
-							}
 							$mdDialog.hide();
 						};
 
@@ -695,12 +685,6 @@
 								html_elem_content.addClass("display-content-hide");
 							}
 						}
-
-/*
-						$scope.$watchCollection('selected_chronologies', function() {
-							params.chronologies = $scope.selected_chronologies.map(function(elem) { return elem.id });
-						});
-*/
 
 						$scope.toggleButton = function(chronology) {
 							if ($scope.params.start_date == -2147483648 && $scope.params.end_date == 2147483647) { // special case for undetermined
@@ -754,20 +738,15 @@
 							}
 						};
 
-						function init() {
-							if (!angular.isObject($scope.selected_chronologies))
-								$scope.selected_chronologies={};
-						}
-						init();
 					},
 					templateUrl: 'partials/query/chronologieschooser.html',
 					parent: angular.element(document.body),
 					clickOutsideToClose: false,
 				})
 				.then(function(answer) {
-					$scope.status = 'You said the information was "' + answer + '".';
+					$scope.editing_chronology = null;
 				}, function() {
-					$scope.status = 'You cancelled the dialog.';
+					$scope.editing_chronology = null;
 				});
 		};
 
@@ -888,11 +867,17 @@
 					str = str.replace('EXISTENCE_OUTSIDE_SURENESS', w);
 
 					var chrono_name = "X";
-					if (p.type == 'chronology' && p.selected_chronology_id != 0) {
-						var chrono = getChronologyById(p.selected_chronology_id);
+					var chrono = arkeoProject.getChronologyByDates(p.start_date, p.end_date);
+					if (chrono) {
 						chrono_name = $filter('arkTranslate')(chrono.name);
-					} else if (p.type == 'numeric' && p.start_date != '' && p.end_date != '') {
-						chrono_name=$filter('arkYear')(p.start_date)+' / '+$filter('arkYear')(p.end_date);
+					} else {
+						var chrono1 = arkeoProject.getChronologyByStartDate(p.start_date);
+						var chrono2 = arkeoProject.getChronologyByEndDate(p.end_date);
+						if (chrono1 && chrono2)
+							chrono_name = $filter('arkTranslate')(chrono1.name)+' - '+$filter('arkTranslate')(chrono2.name);
+						else {
+							chrono_name = $filter('arkYear')(p.start_date)+' / '+$filter('arkYear')(p.end_date);
+						}
 					}
 					str = str.replace('PERIOD', chrono_name);
 

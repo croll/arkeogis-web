@@ -79,7 +79,7 @@
                     <div class="query-element-title">
                         <span translate>QUERY.DATABASES.T_TITLE</span>
                         <div class="query-element-edit-icon noselect"><md-icon ng-click="showDatabaseChooserDialog()">mode_edit</md-icon></div>
-                        <div class="query-element-show-icon noselect"><md-icon ng-click="toggle_query_element('databases')">play_arrow</md-icon></div>
+                        <div class="query-element-show-icon noselect"><md-icon ng-show="params.database.length > 0" ng-click="toggle_query_element('databases')">play_arrow</md-icon></div>
                     </div>
                     <div class="query-element-content">
                         <div class="query-subelement" ng-repeat="(dbtype, databases) in databases_per_type">
@@ -95,14 +95,18 @@
                 <div class="query-element query-element-chronologies">
                     <div class="query-element-title">
                         <span translate>QUERY.CHRONOLOGIES.T_TITLE</span>
-                        <div class="query-element-edit-icon noselect"><md-icon ng-click="showChronologyChooserDialog()">playlist_add</md-icon></div>
-                        <div class="query-element-show-icon noselect"><md-icon ng-click="toggle_query_element('chronologies')">play_arrow</md-icon></div>
+                        <div class="query-element-show-icon noselect"><md-icon ng-hide="chronologies_lines.length == 0" ng-click="display.chronologies=!display.chronologies">play_arrow</md-icon></div>
                     </div>
-                    <div class="query-element-content">
-                        <div class='query-element chrono-string' ng-repeat="(i, line) in chronologies_lines" ng-click="showChronologyChooserDialog(params.chronologies[i])">
+                    <div ng-hide="!display.chronologies" class="query-element-content animate-hide">
+                        <div class='query-element chrono-string'
+                             ng-repeat="(i, line) in chronologies_lines"
+                             ng-click="showChronologyChooserDialog(params.chronologies[i])"
+                             ng-class="params.chronologies[i] == editing_chronology ? 'query-element-content-editing' : ''">
                             {{line}}
+                            <div class="query-element-edit-icon noselect"><md-icon>mode_edit</md-icon></div>
                         </div>
                     </div>
+                    <md-button class="md-mini" ng-click="showChronologyChooserDialog()"><span ng-show="chronologies_lines.length == 0">Ajouter une période...</span><span ng-show="chronologies_lines.length != 0">Ajouter une autre période...</span></md-button>
                 </div>
 
                 <!-- characs -->
@@ -110,9 +114,9 @@
                     <div class="query-element-title">
                         <span translate>QUERY.CHARACS.T_TITLE</span>
                         <div class="query-element-edit-icon noselect"><md-icon ng-click="showCharacChooserDialog()">mode_edit</md-icon></div>
-                        <div class="query-element-show-icon noselect"><md-icon ng-click="toggle_query_element('characs')">play_arrow</md-icon></div>
+                        <div class="query-element-show-icon noselect"><md-icon ng-hide="characs_selecteds_include.length == 0 && characs_selecteds_exceptional==0 && characs_selecteds_exclude==0" ng-click="display.characs=!display.characs">play_arrow</md-icon></div>
                     </div>
-                    <div class="query-element-content">
+                    <div ng-hide="!display.characs" class="query-element-content animate-hide">
                         <div class="query-subelement" ng-if="characs_selecteds_include.length > 0">
                             <div class="query-subelement-title" translate>QUERY.CHARACS.T_INCLUDE</div>
                             <div ng-repeat="path in characs_selecteds_include">- {{path}}</div>
@@ -134,7 +138,7 @@
                     <div class="query-element-title">
                         <span translate>QUERY.OTHERS.T_TITLE</span>
                         <div class="query-element-edit-icon noselect"><md-icon ng-click="showOthersChooserDialog(params)">mode_edit</md-icon></div>
-                        <div class="query-element-show-icon noselect"><md-icon ng-click="toggle_query_element('others')">play_arrow</md-icon></div>
+                        <div class="query-element-show-icon noselect"><md-icon ng-show="params.others.characs_linked != 'at-least-one' || params.others.knowledges.length > 0 || params.others.occupation.length > 0 || params.others.centroid != '' || (params.others.text_search != '' && params.others.text_search_in.length > 0)" ng-click="toggle_query_element('others')">play_arrow</md-icon></div>
                     </div>
 
                     <div class="query-element-content">

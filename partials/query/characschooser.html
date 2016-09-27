@@ -21,12 +21,16 @@
 
         <div layout="row" class="arkmultiselect">
             <div flex layout="column" class="arkmonoselect" ng-repeat="col in [0,1,2,3,4]">
-                <div class="arkelementselect" ng-repeat="charac in selection[col].content" ng-click="characSelect(col+1, charac)" ng-class="selection[col+1] == charac ? 'arkelementselected' : ''" ng-if="!charac.hidden">
-                    <md-icon ng-if="getButtonState(charac) == ''" ng-click="toggleButton(charac)" class="arktributton">check_box_outline_blank</md-icon>
+                <div class="arkelementselect" style="min-height: 32px"
+                     ng-repeat="charac in selection[col].content"
+                     ng-click="characSelect(col+1, charac)"
+                     ng-class="selection[col+1] == charac ? 'arkelementselected' : ''"
+                     ng-if="!charac.hidden">
+                    <md-icon ng-if="getButtonState(charac) == '' || getButtonState(charac) == '.'" ng-click="toggleButton(charac)" class="arktributton">check_box_outline_blank</md-icon>
                     <md-icon ng-if="getButtonState(charac) == '+'" ng-click="toggleButton(charac)" class="arktributton">check_box</md-icon>
                     <md-icon ng-if="getButtonState(charac) == '!'" ng-click="toggleButton(charac)" class="arktributton">new_releases</md-icon>
                     <md-icon ng-if="getButtonState(charac) == '-'" ng-click="toggleButton(charac)" class="arktributton">block</md-icon>
-                    <span class="arkelementselecttext" ark-get-translation ark-translations="charac.name"></span>
+                    <span class="arkelementselecttext" ng-class="getButtonState(charac) != '' ? 'arkelementsubselecttext' : ''" ark-get-translation ark-translations="charac.name"></span>
                     <md-icon ng-if="haveSubContent(charac)" class="arksubselect">chevron_right</md-icon>
                 </div>
             </div>
