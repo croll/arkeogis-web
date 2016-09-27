@@ -37,10 +37,6 @@
 
 		$scope.params = {};
 		$scope.query = arkeoQuery.add(newParams());
-		$scope.display = {
-			characs: true,
-			chronologies: true,
-		};
 		$scope.editing_chronology = null;
 
 		function newParams() {

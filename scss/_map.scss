@@ -104,30 +104,34 @@
 
 .query-element-edit-icon {
     position: absolute;
-    top: 0;
-    right: 20px;
-    width: 14px;
-    height: 14px;
+    top: -4px;
+    right: 18px;
+    width: 18px;
+    height: 18px;
     cursor: pointer;
+    vertical-align: middle;
     md-icon {
-        font-size: 14px;
+        font-size: 18px;
     }
 }
 .query-element-show-icon {
     position: absolute;
-    top: 0;
-    right: 0;
-    width: 14px;
-    height: 14px;
+    top: -8px;
+    right: -8px;
+    width: 28px;
+    height: 28px;
     cursor: pointer;
     transition: 0.5s;
-    transform: rotate(90deg);
+    transform: rotate(180deg);
+    transform-origin: center;
+    vertical-align: middle;
     md-icon {
-        font-size: 14px;
+        font-size: 28px;
     }
 }
 .query-element-icon-hide {
     transform: rotate(0deg);
+    transform-origin: center;
 }
 .query-element-content {
     transition: 0.5s;
@@ -216,6 +220,9 @@
 }
 
 .advanced-content {
+    max-height: 1200px;
+    transition: 0.5s;
+
     md-radio-group {
         margin-left: 20px;
         margin-bottom: 20px;
@@ -239,6 +246,7 @@
 
 .advanced_chrono_h0 {
     position: relative;
+    cursor: pointer;
 
     span {
         margin-left: 20px;
@@ -248,27 +256,29 @@
         position: absolute;
         top: 0;
         left: 0px;
-        width: 18px;
-        height: 18px;
-        cursor: pointer;
+        width: 28px;
+        height: 28px;
         transition: 0.5s;
-        transform: rotate(90deg);
+        transform: rotate(180deg);
         md-icon {
-            font-size: 18px;
+            font-size: 28px;
         }
     }
     .display-icon-hide {
         transform: rotate(0deg);
+        transform-origin: center;
     }
 }
 
 .display-content-hide {
-    display: none;
+    transform: scaleY(0);
+    transform-origin: top;
+    max-height: 0;
 }
 
 .chrono-string {
     cursor: pointer;
-    width: 240px;
+    padding-right: 50px;
 }
 
 .chrono-string:hover {
