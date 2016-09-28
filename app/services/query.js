@@ -61,7 +61,6 @@
                 letter: alphabet[currentNum],
                 data: null,
                 params: params,
-                area: {},
                 done: false,
                 sites: {}, // Store site details once
                 markersByDatabase: {}

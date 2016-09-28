@@ -39,14 +39,14 @@
 		$scope.query = arkeoQuery.add(newParams());
 		$scope.editing_chronology = null;
 
-		var layerDraw;
+		var layerDraw, drawnItems;
 
 		function newParams() {
 			return {
 				database: my_databases,
 				characs: {},
 				chronologies: [],
-				area: {type: 'map', lat: 0, lng: 0, radius: 0, geojson: L.rectangle(arkeoProject.get().geom.coordinates).toGeoJSON()},
+				area: {type: 'map', lat: 0, lng: 0, radius: 0, geojson: JSON.stringify(arkeoProject.get().geom)},
 				others: {
 					text_search: '',
 					text_search_in: ["site_name", "city_name", "bibliography", "comment"],
@@ -136,6 +136,17 @@
                 }
 		}
 
+		function recenterMapFromQuery(query) {
+			arkeoMap.getMap().then(function(map) {
+				var center;
+				if (query.params.area == 'disc') {
+					map.fitBounds(L.circle([query.params.lat, query.params.lng], query.params.radius).getBounds());
+				} else {
+					map.fitBounds(L.geoJson(angular.fromJson(query.params.area.geojson)).getBounds());
+				}
+			});
+		}
+
 		$scope.showMap = function() {
 			// updateParamsArea().then(function() {
 				$mdSidenav('sidenav-left').close();
@@ -158,7 +169,10 @@
 		$scope.initQuery = function() {
 			$scope.query = arkeoQuery.add(newParams());
 			arkeoMap.getMap().then(function(map) {
-				console.log($scope.query);
+				recenterMapFromQuery($scope.query);
+				if (layerDraw) {
+                	drawnItems.removeLayer(layerDraw);
+				}
 			});
 		};
 
@@ -287,9 +301,9 @@
 
             arkeoMap.getMap().then(function(map) {
 
-                    var drawnItems = new L.FeatureGroup().addTo(map),
+                    drawnItems = new L.FeatureGroup().addTo(map);
 
-                    shapeOptions = {
+                    var shapeOptions = {
                         stroke: true,
                         color: '#f06eaa',
                         weight: 4,
