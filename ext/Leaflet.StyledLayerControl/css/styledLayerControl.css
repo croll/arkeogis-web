@@ -25,17 +25,17 @@
     text-transform: none;
 }
 
-.ac-container .section-label:hover:after,
-.ac-container input.menu:checked + .section-label:hover:after{
+.ac-container .section-label:after,
+.ac-container input.menu:checked + .section-label:after{
 	content: '';
 	position: absolute;
 	width: 24px;
 	height: 24px;
 	right: 13px;
-	top: -3px;
+	top: -5px;
 	background: transparent url(images/arrow_down.png) no-repeat center center;
 }
-.ac-container input.menu:checked + .section-label:hover:after{
+.ac-container input.menu:checked + .section-label:after{
 	background-image: url(images/arrow_up.png);
 }
 .ac-container input.menu{

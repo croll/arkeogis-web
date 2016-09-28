@@ -69,6 +69,7 @@
             })
 
             function initProjectLayers(map) {
+                console.log('pppppppppppppppp');
                 if (project.layers.length) {
                     _.each(project.layers, function(layer) {
                         var l = addLayer(layer, map);

@@ -411,3 +411,16 @@ arkeo-popup {
 
     }
 }
+
+.ac-container .section-label:after,
+.ac-container input.menu:checked + .section-label:after{
+	background-image: url(../img/icons/up.svg) !important;
+    background-size: 28px;
+    transition: transform 0.3s linear;
+    opacity: 0.5;
+}
+.ac-container input.menu:checked + .section-label:after{
+   transform: rotate(45deg);
+   -webkit-transform: rotate(180deg);
+   -ms-transform: rotate(180deg);
+}
