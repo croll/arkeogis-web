@@ -263,7 +263,16 @@
                     layerDraw = e.layer;
                     drawnItems.addLayer(layerDraw);
                     layerDraw.editing.enable();
+					setDrawParams();
                 });
+
+                map.on('draw:editvertex', function(e) {
+					setDrawParams();
+                });
+
+                map.on('draw:editresize', function(e) {
+					setDrawParams();
+				});
 
                 $scope.initDraw = function() {
 
@@ -308,6 +317,10 @@
                 $scope.validDraw = function() {
                     $rootScope.showDrawButtons = false;
                     $mdSidenav('sidenav-left').open();
+					setDrawParams();
+                }
+
+				var setDrawParams = function(add, restore) {
                     switch ($scope.params.area.type) {
                         case 'disc':
 							var center = layerDraw.getBounds().getCenter();
@@ -321,7 +334,7 @@
                             $scope.params.area.radius = 0;
                             $scope.params.area.geojson = layerDraw.toGeoJSON();
                     }
-                }
+				}
 
                 $scope.showAreaChooserDialog = function(params) {
                     $mdDialog.show({
