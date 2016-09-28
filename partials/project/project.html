@@ -21,7 +21,8 @@
         </div>
         <div flex="40" layout-align="center start">
             <!-- Out of bounds items -->
-            <md-content style="height: 320px" flex>
+            <h3>PROJECT_EDITOR.SELECTION.T_TITLE</h3>
+            <md-content flex style="max-height: 590px">
                 <section>
                     <md-subheader class="md-primary"><span translate>PROJECT_EDITOR.USER_SELECTION_CHRONOLOGIES.T_TITLE</span></md-subheader>
                     <md-list layout-padding>
@@ -79,6 +80,7 @@
                     </md-list>
                 </section>
             </md-content>
+            <div style="color: red;padding: 20px; text-align: center" ng-show="selectionHasError" translate>PROJECT_EDITOR.SELECTION_HAS_ERROR.T_LABEL</div>
         </div>
     </md-card-content>
     <div style="color: #555; padding: 15px 0px; text-align: center;" translate>PROJECT_EDITOR.INTERFACE_INFOS_USAGE.T_LABEL</div>
@@ -98,7 +100,7 @@
     </md-tab>
 </md-tabs>
 <div style="text-align: center; margin: -20px 0 50px 0">
-    <md-button class="md-primary md-raised" aria-label="{{'PROJECT_EDITOR.BUTTON_SUBMIT.T_LABEL' | translate}}" md-ripple-size="full" ng-disabled="isInvalid" ng-click="savePreferences()">
+    <md-button class="md-primary md-raised" aria-label="{{'PROJECT_EDITOR.BUTTON_SUBMIT.T_LABEL' | translate}}" md-ripple-size="full" ng-disabled="selectionHasError" ng-click="savePreferences()">
         <span translate>PROJECT_EDITOR.BUTTON_SUBMIT.T_LABEL</span>
     </md-button>
 </div>
