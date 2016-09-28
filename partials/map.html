@@ -9,12 +9,13 @@
                     <md-button class="md-raised" ng-click="cancelDraw()"><span translate>QUERY_AREA.BUTTON.T_CANCEL_DRAW</span></md-button>
                 </md-input-container>
                 <md-input-container>
-                    <md-button class="md-raised" ng-click="initDraw()"><span translate>QUERY_AREA.BUTTON.T_REDO</span></md-button>
+                    <md-button class="md-raised md-warn" ng-click="initDraw()"><span translate>QUERY_AREA.BUTTON.T_REDO</span></md-button>
                 </md-input-container>
                 <md-input-container>
                     <md-button class="md-raised md-primary" ng-click="validDraw()"><span translate>QUERY_AREA.BUTTON.T_VALID</span></md-button>
                 </md-input-container>
             </div>
+
     <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="sidenav-left">
         <md-content layout-padding>
 
@@ -234,7 +235,7 @@
     </md-content>
 
 
-    <div class="map-button-side-left">
+    <div class="map-button-side-left" ng-hide="showDrawButtons">
         <md-button class="md-icon-button" ng-click="open_sideleft()">
             <md-icon>format_align_left</md-icon>
         </md-button>

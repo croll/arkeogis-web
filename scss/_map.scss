@@ -424,3 +424,12 @@ arkeo-popup {
    -webkit-transform: rotate(180deg);
    -ms-transform: rotate(180deg);
 }
+
+// Buttons draw area
+
+.drawButtons button {
+    padding-top: 2px;
+    span {
+        font-size: 1.5em;
+    }
+}

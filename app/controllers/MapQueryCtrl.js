@@ -22,8 +22,8 @@
 (function() {
 
 	'use strict';
-	ArkeoGIS.controller('MapQueryCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', '$timeout', '$mdDialog', '$translate', '$filter', 'arkeoService', 'arkeoProject', 'arkeoQuery', 'arkeoMap',
-	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, $timeout, $mdDialog, $translate, $filter, arkeoService, arkeoProject, arkeoQuery, arkeoMap) {
+	ArkeoGIS.controller('MapQueryCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', '$timeout', '$mdDialog', '$translate', '$filter', '$rootScope', 'arkeoService', 'arkeoProject', 'arkeoQuery', 'arkeoMap',
+	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, $timeout, $mdDialog, $translate, $filter, $rootScope, arkeoService, arkeoProject, arkeoQuery, arkeoMap) {
             /*
              * menus init : buttons styles
              */
@@ -267,7 +267,7 @@
 
                 $scope.initDraw = function() {
 
-                    $scope.showDrawButtons = true;
+                    $rootScope.showDrawButtons = true;
                     drawnItems.removeLayer(layerDraw);
                     switch ($scope.params.area.type) {
                         case 'rect':
@@ -292,7 +292,7 @@
                 }
 
                 $scope.cancelDraw = function() {
-                    $scope.showDrawButtons = false;
+                    $rootScope.showDrawButtons = false;
                     drawnItems.removeLayer(layerDraw);
 					layerDraw = null;
                     $scope.params.area = {
@@ -306,7 +306,7 @@
                 }
 
                 $scope.validDraw = function() {
-                    $scope.showDrawButtons = false;
+                    $rootScope.showDrawButtons = false;
                     $mdSidenav('sidenav-left').open();
                     switch ($scope.params.area.type) {
                         case 'disc':
