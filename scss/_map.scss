@@ -22,12 +22,13 @@
 }
 .map-button-side-left {
     position: absolute;
-    left: -5px;
+    left: 10px;
     top: 10px;
-    width: 40px; height: 40px;
-    background-color: rgba(255,255,255,0.5);
-    border-radius: 5px;
-
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 1px 1px 5px #777;
 }
 .arkeomap-submenu {
     padding: 0;
@@ -427,9 +428,12 @@ arkeo-popup {
 
 // Buttons draw area
 
-.drawButtons button {
-    padding-top: 2px;
-    span {
-        font-size: 1.5em;
+.drawButtons {
+    margin-top: 10px;
+    button {
+        padding-top: 2px;
+        span {
+            font-size: 1.5em;
+        }
     }
 }
