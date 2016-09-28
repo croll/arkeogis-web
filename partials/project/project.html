@@ -1,11 +1,10 @@
-<md-card md-padding="false">
+<h1 style="margin:16px 8px;padding:0" translate>PROJECT_EDITOR.INTERFACE.T_TITLE</h1>
+<md-card>
     <md-card-content style="padding-bottom: 0" layout="row" layout-align="center start">
-        <div flex="66" layout-align="center start" layout-padding>
+        <div flex="60" layout-align="center start" layout-padding>
             <h2 class="md-headline" style="margin: 0; padding: 0" translate>PROJECT_EDITOR.INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA.T_LABEL</h2>
             <div style="margin: 5px 0px 30px 0; padding: 0; color: #555" translate>PROJECT_EDITOR.INTERFACE_RECENTER_THE_MAP_ON_YOUR_WORKING_AREA.T_LABEL</div>
             <leaflet lf-center="center" layers="layers" geojson="geojson" height="400px"></leaflet>
-        </div>
-        <div flex="33" layout-align="center start">
             <h2 class="md-headline" style="margin: 10px 0 5px 0px" translate>PROJECT_EDITOR.INFORMATIONS_PERIOD_SELECTION.T_LABEL</h2>
             <div style="margin: 5px 0px 10px 0; padding: 0;color: #555" translate>PROJECT_EDITOR.INFORMATIONS_PERIOD_SELECTION.T_HELP</div>
             <div layout="row">
@@ -19,6 +18,8 @@
                     <input type="text" ng-model="project.end_date" ark-year>
                 </md-input-container>
             </div>
+        </div>
+        <div flex="40" layout-align="center start">
             <!-- Out of bounds items -->
             <md-content style="height: 320px" flex>
                 <section>
