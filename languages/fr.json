@@ -687,7 +687,7 @@
 			"T_TITLE": "AFFICHER LA CARTE"
 		},
 		"BUTTON_INITQUERY": {
-			"T_TITLE": "Réinitialiser la requête"
+			"T_TITLE": "REINITIALISER LES FILTRES"
 		},
 		"MENU_DATABASE": {
 			"T_INVENTORY": "Inventaire",
@@ -696,7 +696,7 @@
 			"T_UNDEFINED": "Non défini"
 		},
 		"MESSAGE_QUERY_DELETED": {
-			"T_CONTENT": "Votre requête archivée à bien été éffacée"
+			"T_CONTENT": "Votre requête archivée à bien été effacée"
 		},
 		"MESSAGE_QUERY_RESULT": {
 			"T_NORESULT": "Cette requête ne comporte aucun résultat",
@@ -991,10 +991,10 @@
 			"T_VALID": "Valider"
 		},
 		"BUTTON_DRAW": {
-			"T_TITLE": "Tracer la zone sur la carte"
+			"T_TITLE": "Tracer la zone de sélection sur la carte"
 		},
 		"BUTTON_OK": {
-			"T_TITLE": "Fermer la fenêtre"
+			"T_TITLE": "OK"
 		},
 		"CUSTOM_LAT": {
 			"T_DEG": "degrés",
@@ -1030,17 +1030,17 @@
 			"T_MISSING_INFORMATIONS": "Veuillez saisir la latitude, la longitude et le radius."
 		},
 		"LABEL_LATITUDE": {
-			"T_SHORT": "Lat"
+			"T_SHORT": "Lat (WGS 84)"
 		},
 		"LABEL_LONGITUDE": {
-			"T_SHORT": "Lng"
+			"T_SHORT": "Lng (WGS 84)"
 		},
 		"LABEL_RADIUS": {
-			"T_SHORT": "Radius"
+			"T_SHORT": "Radius (km)"
 		},
 		"RADIOBUTTON": {
 			"T_ALLMAP": "Carte",
-			"T_CUSTOM": "Avancée :",
+			"T_CUSTOM": "Coordonnées :",
 			"T_DISC": "Disque",
 			"T_FREE": "Libre",
 			"T_RECT": "Rectangle"
@@ -1061,7 +1061,7 @@
 	},
 	"QUERY_CHRONOLOGIES": {
 		"ADVANCED": {
-			"T_TITLE": "Sélection avancé :"
+			"T_TITLE": "Sélection avancée :"
 		},
 		"BUTTON_OK": {
 			"T_TITLE": "Ok"
@@ -1216,7 +1216,7 @@
 			"T_TITLE": "Les sites dont l’Occupation est de type :"
 		},
 		"TEXTSEARCH": {
-			"T_INTRO": "La recherche peut inclure ces symboles :\n\" % \" : (remplace n'importe quoi) et \" _ \" : (remplace un seul caractère par n'importe quoi)",
+			"T_INTRO": "La recherche peut inclure ces symboles :\n\" % \" : (remplace n'importe quoi) et \" _ \" : (remplace un seul caractère par n'importe quoi).\nLa recherche peut s'effectuer sur les champs Nom du site, Commune, Commentaires et Bibliographie de chaque fiche-site des bases de données sélectionnées.",
 			"T_TITLE": "Recherche textuelle"
 		},
 		"TEXTSEARCH_INPUT": {
@@ -1224,7 +1224,7 @@
 			"T_CITY_NAME": "Commune",
 			"T_COMMENT": "Commentaires",
 			"T_SITE_NAME": "Nom du site",
-			"T_TITLE": ""
+			"T_TITLE": "Saisir votre recherche"
 		}
 	},
 	"QUERY_SAVE": {
