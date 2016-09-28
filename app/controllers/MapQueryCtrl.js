@@ -65,12 +65,17 @@
 				$scope.params = new_query.params;
 		});
 		*/
+
+		var hack_inhibit_watch_params = false;
 		$scope.$watch(function() { return angular.toJson($scope.params); }, function(a, b) {
+			if (hack_inhibit_watch_params) {
+				hack_inhibit_watch_params = false;
+				return;
+			}
 			if ($scope.query.done) {
 				arkeoQuery.add($scope.params);
 			}
 		});
-
 
 		$scope.$watch(function() { return arkeoQuery.getCurrent() }, function(new_query) {
 			console.log("new query: ", new_query);
@@ -80,10 +85,13 @@
 					$scope.query = new_query;
 				} else {
 					$scope.query = new_query;
-					if (new_query.done)
+					if (new_query.done) {
+						hack_inhibit_watch_params = true;
 						$scope.params = angular.copy(new_query.params);
-					else
+					} else {
+						console.log("helllllllllllooo !!! am i really here !?")
 						$scope.params = new_query.params;
+					}
 				}
 			} else {
 				arkeoQuery.add(newParams());
