@@ -46,7 +46,7 @@
                 }
 
                 // Cluster radius
-                $scope.$watch(function() { return arkeoMap.getRadius()}, function(o, n) {
+                $scope.$watch(function() { return arkeoMap.getRadius()}, function() {
                     $scope.redrawMarkers();
                 });
 
@@ -69,7 +69,6 @@
             })
 
             function initProjectLayers(map) {
-                console.log('pppppppppppppppp');
                 if (project.layers.length) {
                     _.each(project.layers, function(layer) {
                         var l = addLayer(layer, map);
@@ -293,7 +292,9 @@
                         _.each(feature.properties.site_ranges, function(sr) {
                             _.each(sr.characs, function(charac) {
                                 var characInfos = arkeoProject.getCharacById(charac.charac_id);
-                                divsCharacs[charac.charac_id] = "<div>" + characInfos.hierarchy.join('/') + "</div>";
+                                if (characInfos) {
+                                    divsCharacs[charac.charac_id] = "<div>" + characInfos.hierarchy.join('/') + "</div>";
+                                }
                             });
                         });
                         // Build html popup
