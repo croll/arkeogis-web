@@ -854,6 +854,9 @@
 			"T_HELP": "Please, specify the starting and ending dates of your project. The choice of the period has an impact on the chronologies and databases available.",
 			"T_LABEL": "Choice of the period"
 		},
+		"INTERFACE": {
+			"T_TITLE": "#!#PROJECT_EDITOR.INTERFACE.T_TITLE"
+		},
 		"INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA": {
 			"T_LABEL": "Choice of the geographical frame"
 		},
@@ -893,6 +896,12 @@
 		"MESSAGE_SAVE": {
 			"T_ERROR": "Sorry, an error occured while saving.",
 			"T_OK": "Successfully saved."
+		},
+		"SELECTION": {
+			"T_TITLE": "#!#PROJECT_EDITOR.SELECTION.T_TITLE"
+		},
+		"SELECTION_HAS_ERROR": {
+			"T_LABEL": "#!#PROJECT_EDITOR.SELECTION_HAS_ERROR.T_LABEL"
 		},
 		"TAB_CHARACTERISTICS": {
 			"T_LABEL": "Characteristics"
@@ -1100,17 +1109,8 @@
 		"INPUT_ELEM_END": {
 			"T_TITLE": "#!#QUERY_CHRONOLOGIES.INPUT_ELEM_END.T_TITLE"
 		},
-		"PERIOD_NUMERIC": {
-			"T_ERROR_INCORRECT": "#!#QUERY_CHRONOLOGIES.PERIOD_NUMERIC.T_ERROR_INCORRECT"
-		},
-		"SELECT_CHRONOLOGY": {
-			"T_ERROR_EMPTY": "#!#QUERY_CHRONOLOGIES.SELECT_CHRONOLOGY.T_ERROR_EMPTY"
-		},
-		"SELECT_TYPE": {
-			"T_CHRONOLOGY": "#!#QUERY_CHRONOLOGIES.SELECT_TYPE.T_CHRONOLOGY",
-			"T_ERROR_EMPTY": "#!#QUERY_CHRONOLOGIES.SELECT_TYPE.T_ERROR_EMPTY",
-			"T_NUMERIC": "#!#QUERY_CHRONOLOGIES.SELECT_TYPE.T_NUMERIC",
-			"T_TITLE": "#!#QUERY_CHRONOLOGIES.SELECT_TYPE.T_TITLE"
+		"PERIOD": {
+			"T_ERROR_INCORRECT": "#!#QUERY_CHRONOLOGIES.PERIOD.T_ERROR_INCORRECT"
 		},
 		"SENTENSE": {
 			"T_ALL": "EXISTENCE_INSIDE_INCLUDE sites that have EXISTENCE_INSIDE_SURENESS an existence EXISTENCE_INSIDE_PART during the period PERIOD. Theses sites EXISTENCE_OUTSIDE_INCLUDE EXISTENCE_OUTSIDE_SURENESS been exists outside of this period."
@@ -1441,11 +1441,6 @@
 		"USERSLIST_ACTIVE": {
 			"T_FALSE": "no",
 			"T_TRUE": "yes"
-		}
-	},
-	"USER_PREFERENCES": {
-		"INFORMATIONS": {
-			"T_TILE": "Research's project"
 		}
 	}
 }
