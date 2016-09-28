@@ -162,7 +162,7 @@
     };
 
     this.restoreTranslationLang = function() {
-        self.setTranslationLang(1, self.getUserLang(2));
+        self.setTranslationLang(2, self.getUserLang(2));
     }
 
     // map an sql translation object to a js translation object

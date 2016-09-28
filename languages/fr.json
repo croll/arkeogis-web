@@ -839,20 +839,23 @@
 			"T_LABEL": "Date de début"
 		},
 		"FORM_ERROR_NO_CHARAC_SELECTED": {
-			"T_LABEL": "#!#PROJECT_EDITOR.FORM_ERROR_NO_CHARAC_SELECTED.T_LABEL"
+			"T_LABEL": "Veuillez sélectionner au moins une caractéristique"
 		},
 		"FORM_ERROR_NO_CHRONOLOGY_SELECTED": {
-			"T_LABEL": "#!#PROJECT_EDITOR.FORM_ERROR_NO_CHRONOLOGY_SELECTED.T_LABEL"
+			"T_LABEL": "Veuillez sélectionner une chronologie"
 		},
 		"FORM_ERROR_NO_DATABASE_SELECTED": {
-			"T_LABEL": "#!#PROJECT_EDITOR.FORM_ERROR_NO_DATABASE_SELECTED.T_LABEL"
+			"T_LABEL": "Veuillez sélectionner au moins une base de données"
 		},
 		"FORM_ERROR_OUT_OF_BOUNDS": {
-			"T_LABEL": "#!#PROJECT_EDITOR.FORM_ERROR_OUT_OF_BOUNDS.T_LABEL"
+			"T_LABEL": "Selection hors des limites"
 		},
 		"INFORMATIONS_PERIOD_SELECTION": {
 			"T_HELP": "Indiquez les bornes de début et de fin de votre projet. Le choix de la période a une incidence sur les listes de chronologies, de cartes et sur les bases de données disponibles.",
 			"T_LABEL": "Choix de la période"
+		},
+		"INTERFACE": {
+			"T_TITLE": "Définition du projet"
 		},
 		"INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA": {
 			"T_LABEL": "Choix de la zone de travail"
@@ -893,6 +896,12 @@
 		"MESSAGE_SAVE": {
 			"T_ERROR": "Désolé, une erreur s'est produite pendant l'enregistrement.",
 			"T_OK": "Enregistrement effectué avec succès."
+		},
+		"SELECTION": {
+			"T_TITLE": "Votre sélection"
+		},
+		"SELECTION_HAS_ERROR": {
+			"T_LABEL": "Certains de vos choix ne sont plus compatibles avec votre sélection (dates et ou zone)"
 		},
 		"TAB_CHARACTERISTICS": {
 			"T_LABEL": "Caractéristiques"
@@ -1100,17 +1109,8 @@
 		"INPUT_ELEM_END": {
 			"T_TITLE": "Année de fin :"
 		},
-		"PERIOD_NUMERIC": {
-			"T_ERROR_INCORRECT": "Veuillez vérifier la saisie de la période"
-		},
-		"SELECT_CHRONOLOGY": {
-			"T_ERROR_EMPTY": "Veuillez sélectionner une période dans la chronologie"
-		},
-		"SELECT_TYPE": {
-			"T_CHRONOLOGY": "Choix dans la chronologie",
-			"T_ERROR_EMPTY": "Veuillez sélectionner un type de période",
-			"T_NUMERIC": "Choix numérique",
-			"T_TITLE": "Choix du type de période :"
+		"PERIOD": {
+			"T_ERROR_INCORRECT": "#!#QUERY_CHRONOLOGIES.PERIOD.T_ERROR_INCORRECT"
 		},
 		"SENTENSE": {
 			"T_ALL": "EXISTENCE_INSIDE_INCLUDE les sites ayant EXISTENCE_INSIDE_SURENESS une existence EXISTENCE_INSIDE_PART durant la période PERIOD. Ces sites EXISTENCE_OUTSIDE_INCLUDE EXISTENCE_OUTSIDE_SURENESS avoir existé en dehors de cette période."
@@ -1441,11 +1441,6 @@
 		"USERSLIST_ACTIVE": {
 			"T_FALSE": "non",
 			"T_TRUE": "oui"
-		}
-	},
-	"USER_PREFERENCES": {
-		"INFORMATIONS": {
-			"T_TILE": "Projet de recherche"
 		}
 	}
 }

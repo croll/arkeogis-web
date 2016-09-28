@@ -22,8 +22,8 @@
 (function() {
 
 	'use strict';
-	ArkeoGIS.controller('MapQueryCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', '$timeout', '$mdDialog', '$translate', '$filter', 'arkeoService', 'arkeoProject', 'arkeoQuery', 'arkeoMap',
-	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, $timeout, $mdDialog, $translate, $filter, arkeoService, arkeoProject, arkeoQuery, arkeoMap) {
+	ArkeoGIS.controller('MapQueryCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', '$timeout', '$mdDialog', '$translate', '$filter', '$rootScope', 'arkeoService', 'arkeoProject', 'arkeoQuery', 'arkeoMap',
+	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, $timeout, $mdDialog, $translate, $filter, $rootScope, arkeoService, arkeoProject, arkeoQuery, arkeoMap) {
             /*
              * menus init : buttons styles
              */
@@ -39,12 +39,14 @@
 		$scope.query = arkeoQuery.add(newParams());
 		$scope.editing_chronology = null;
 
+		var layerDraw, drawnItems;
+
 		function newParams() {
 			return {
 				database: my_databases,
 				characs: {},
 				chronologies: [],
-				area: {type: 'map', lat: 0, lng: 0, radius: 0, geojson: {}},
+				area: {type: 'map', lat: 0, lng: 0, radius: 0, geojson: JSON.stringify(arkeoProject.get().geom)},
 				others: {
 					text_search: '',
 					text_search_in: ["site_name", "city_name", "bibliography", "comment"],
@@ -56,7 +58,7 @@
 			};
 		}
 
-/*
+		/*
 		$scope.$watch('query', function(new_query) {
 			console.log("watch query ....", new_query);
 			if (new_query.done)
@@ -64,9 +66,14 @@
 			else
 				$scope.params = new_query.params;
 		});
-*/
-		$scope.$watch(function() { return angular.toJson($scope.params); }, function() {
-			console.log("watch params ...", $scope.params);
+		*/
+
+		var hack_inhibit_watch_params = false;
+		$scope.$watch(function() { return angular.toJson($scope.params); }, function(a, b) {
+			if (hack_inhibit_watch_params) {
+				hack_inhibit_watch_params = false;
+				return;
+			}
 			if ($scope.query.done) {
 				arkeoQuery.add($scope.params);
 			}
@@ -74,43 +81,99 @@
 
 		$scope.$watch(function() { return arkeoQuery.getCurrent() }, function(new_query) {
 			console.log("new query: ", new_query);
+			arkeoMap.getMap().then(function() {
+					updateParamsArea();
 			if (new_query !== undefined && 'params' in new_query && new_query.params) {
 				if (new_query.params === $scope.params) { // we are making a new query because we had modifed the current one
 						// so here, we don't copy again the $scope.params
 					$scope.query = new_query;
 				} else {
 					$scope.query = new_query;
-					if (new_query.done)
+					if (new_query.done) {
+						hack_inhibit_watch_params = true;
 						$scope.params = angular.copy(new_query.params);
-					else
+					} else {
+						console.log("helllllllllllooo !!! am i really here !?")
 						$scope.params = new_query.params;
+					}
 				}
 			} else {
 				arkeoQuery.add(newParams());
 			}
 		});
+		});
+
+		function updateParamsArea() {
+			// return $q(function(resolve, reject) {
+
+				if (!$scope.params.area) return;
+
+                switch ($scope.params.area.type) {
+					case 'map':
+						arkeoMap.getMap().then(function(map) {
+		                	$scope.params.area.geojson = L.rectangle(map.getBounds()).toGeoJSON();
+							// resolve();
+						}, function(err) {
+							// reject(err);
+							console.log("Error getting map");
+						});
+					break;
+                    case 'disc':
+							if (layerDraw) {
+								var center = layerDraw.getBounds().getCenter();
+	                            $scope.params.area.lat = center.lat;
+	                            $scope.params.area.lng = center.lng;
+	                            $scope.params.area.radius = layerDraw.getRadius();
+							}
+                        break;
+                    default:
+							if (layerDraw) {
+		                        $scope.params.area.lat = 0;
+		                        $scope.params.area.lng = 0;
+		                        $scope.params.area.radius = 0;
+		                        $scope.params.area.geojson = layerDraw.toGeoJSON();
+							}
+                }
+		}
+
+		function recenterMapFromQuery(query) {
+			arkeoMap.getMap().then(function(map) {
+				var center;
+				if (query.params.area == 'disc') {
+					map.fitBounds(L.circle([query.params.lat, query.params.lng], query.params.radius).getBounds());
+				} else {
+					map.fitBounds(L.geoJson(angular.fromJson(query.params.area.geojson)).getBounds());
+				}
+			});
+		}
 
 		$scope.showMap = function() {
-			if ($scope.params.area.type == 'map' && !_.has($scope.params.area.geojson, 'geometry')) {
-				arkeoMap.getMap().then(function(map) {
-                	$scope.params.area.geojson = L.rectangle(map.getBounds()).toGeoJSON();
-				});
-			}
-
-			$mdSidenav('sidenav-left').close();
-			arkeoQuery.do($scope.query).then(function(q) {
-				if (angular.isUndefined(q.data.features) || q.data.features.length == 0) {
-					arkeoService.showMessage('MAP.MESSAGE_QUERY_RESULT.T_NORESULT');
+			// updateParamsArea().then(function() {
+				$mdSidenav('sidenav-left').close();
+				$scope.params = angular.copy($scope.query.params);
+				arkeoQuery.do($scope.query).then(function(q) {
+					if (angular.isUndefined(q.data.features) || q.data.features.length == 0) {
+						arkeoService.showMessage('MAP.MESSAGE_QUERY_RESULT.T_NORESULT');
+						$mdSidenav('sidenav-left').open();
+					}
+				}, function(err) {
+					arkeoService.showMessage('MAP.MESSAGE_QUERY_RESULT.T_SERVERERROR');
 					$mdSidenav('sidenav-left').open();
-				}
-			}, function(err) {
-				arkeoService.showMessage('MAP.MESSAGE_QUERY_RESULT.T_SERVERERROR');
-				$mdSidenav('sidenav-left').open();
-			})
+				})
+
+			// }, function(err) {
+				// console.err("updateParamsArea failed: ", err);
+			// });
 		};
 
 		$scope.initQuery = function() {
 			$scope.query = arkeoQuery.add(newParams());
+			arkeoMap.getMap().then(function(map) {
+				recenterMapFromQuery($scope.query);
+				if (layerDraw) {
+                	drawnItems.removeLayer(layerDraw);
+				}
+			});
 		};
 
 		$scope.helpAndSaveBeve = function() {
@@ -238,10 +301,9 @@
 
             arkeoMap.getMap().then(function(map) {
 
-                var layerDraw,
-                    drawnItems = new L.FeatureGroup().addTo(map),
+                    drawnItems = new L.FeatureGroup().addTo(map);
 
-                    shapeOptions = {
+                    var shapeOptions = {
                         stroke: true,
                         color: '#f06eaa',
                         weight: 4,
@@ -250,6 +312,10 @@
                         fillColor: null,
                         fillOpacity: 0.2,
                     };
+
+				map.on('moveend', function() {
+					updateParamsArea();
+				});
 
                 map.on('draw:drawstart', function(e) {
                     if (layerDraw) {
@@ -263,11 +329,20 @@
                     layerDraw = e.layer;
                     drawnItems.addLayer(layerDraw);
                     layerDraw.editing.enable();
+					updateParamsArea();
                 });
+
+                map.on('draw:editvertex', function(e) {
+					updateParamsArea();
+                });
+
+                map.on('draw:editresize', function(e) {
+					updateParamsArea();
+				});
 
                 $scope.initDraw = function() {
 
-                    $scope.showDrawButtons = true;
+                    $rootScope.showDrawButtons = true;
                     drawnItems.removeLayer(layerDraw);
                     switch ($scope.params.area.type) {
                         case 'rect':
@@ -292,7 +367,7 @@
                 }
 
                 $scope.cancelDraw = function() {
-                    $scope.showDrawButtons = false;
+                    $rootScope.showDrawButtons = false;
                     drawnItems.removeLayer(layerDraw);
 					layerDraw = null;
                     $scope.params.area = {
@@ -306,21 +381,9 @@
                 }
 
                 $scope.validDraw = function() {
-                    $scope.showDrawButtons = false;
+                    $rootScope.showDrawButtons = false;
                     $mdSidenav('sidenav-left').open();
-                    switch ($scope.params.area.type) {
-                        case 'disc':
-							var center = layerDraw.getBounds().getCenter();
-                            $scope.params.area.lat = center.lat;
-                            $scope.params.area.lng = center.lng;
-                            $scope.params.area.radius = layerDraw.getRadius();
-                            break;
-                        default:
-                            $scope.params.area.lat = 0;
-                            $scope.params.area.lng = 0;
-                            $scope.params.area.radius = 0;
-                            $scope.params.area.geojson = layerDraw.toGeoJSON();
-                    }
+					updateParamsArea();
                 }
 
                 $scope.showAreaChooserDialog = function(params) {

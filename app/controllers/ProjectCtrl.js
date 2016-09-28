@@ -24,7 +24,7 @@
 
     ArkeoGIS.controller('ProjectCtrl', ['$scope', '$q', '$http', '$timeout', '$cookies', 'arkeoService', 'arkeoMap', 'layerService', 'arkeoProject', 'arkeoDatabase', 'login', 'leafletData',
         function($scope, $q, $http, $timeout, $cookies, arkeoService, arkeoMap, layerService, arkeoProject, arkeoDatabase, login, leafletData) {
-            var self = this;
+            var self = this, outOfBounds = {};
 
             angular.extend($scope, angular.extend(arkeoMap.config, {
                 center: {
@@ -34,7 +34,7 @@
 
             $scope.project = arkeoProject.get();
 
-            $scope.outOfBounds = {
+            outOfBounds = {
                 chronologies: [],
                 layers: [],
                 databases: []
@@ -55,11 +55,13 @@
             $scope.isValid = false;
 
             leafletData.getMap().then(function(map) {
+                self.refreshAll();
                 if ($scope.project.geom != '') {
                     map.fitBounds(L.geoJson($scope.project.geom).getBounds());
                 }
                 // Center map on project bounds
-                map.on('moveend', function() { var bbox = map.getBounds(); var boundingBox = arkeoMap.getValidBoundingBox(bbox._northEast.lat, bbox._northEast.lng, bbox._southWest.lat, bbox._southWest.lng);
+                map.on('moveend', function() {
+                    var bbox = map.getBounds(); var boundingBox = arkeoMap.getValidBoundingBox(bbox._northEast.lat, bbox._northEast.lng, bbox._southWest.lat, bbox._southWest.lng);
                     $scope.bounds = arkeoMap.getBoundsAsGeoJSON(boundingBox);
                     if (map.getZoom() < 2) {
                         $scope.geojson = {
@@ -80,18 +82,18 @@
                 });
             });
 
-            this._compare = function() {
-                $scope.outOfBounds = {
-                    hasError: false
-                };
-                $scope.outOfBounds.chronologies = _.differenceBy($scope.project.chronologies, $scope.chronologies, '$$hashKey');
-                $scope.outOfBounds.layers = _.differenceBy($scope.project.layers, $scope.layerList, '$$hashKey');
-                $scope.outOfBounds.databases = _.differenceBy($scope.project.databases, $scope.databases, '$$hashKey');
+            $scope.checkItem = function(item, type) {
+                return _.includes(outOfBounds[type], item);
             }
 
-            $scope.checkItem = function(item, type) {
-                $scope.isInvalid = _.includes($scope.outOfBounds[type], item);
-                return $scope.isInvalid;
+            this._compare = function() {
+                $scope.selectionHasError = false;
+                outOfBounds.chronologies = _.differenceBy($scope.project.chronologies, $scope.chronologies, 'id');
+                outOfBounds.layers = _.differenceBy($scope.project.layers, $scope.layerList, 'id');
+                outOfBounds.databases = _.differenceBy($scope.project.databases, $scope.databases, 'id');
+                if (outOfBounds.chronologies.length || outOfBounds.layers.length || outOfBounds.databases.length) {
+                    $scope.selectionHasError = true;
+                }
             }
 
             this._filterParams = function() {
@@ -129,6 +131,8 @@
                 self.httpGetFuncs[self.activeTab]();
                 $q.all(promises).then(function() {
                     self._compare();
+                }, function() {
+                    console.error("Error getting infos");
                 });
             }
 
@@ -140,6 +144,8 @@
                 });
                 $q.all(promises).then(function() {
                     self._compare();
+                }, function() {
+                    console.error("Error getting infos");
                 });
             }
 
@@ -184,18 +190,24 @@
 
             $scope.toggleItem = function(item, type) {
                 // Specific case for chronoly (not multiple)
+                var i = $scope.project[type].indexOf(item);
                 if (type == 'chronologies') {
-                    $scope.project.chronologies = [
-                        item
-                    ]
+                    if (i != -1) {
+                        $scope.project.chronologies = [];
+                    } else {
+                        $scope.project.chronologies = [
+                            item
+                        ]
+                    }
+                    self._compare();
                     return;
                 }
-                var i = $scope.project[type].indexOf(item);
                 if (i != -1) {
                     $scope.project[type].splice(i, 1);
                 } else {
                     $scope.project[type].push(item);
                 }
+                self._compare();
             }
 
             $scope.checkCharac = function(id) {
@@ -229,7 +241,7 @@
             }
 
             $scope.savePreferences = function() {
-                if ($scope.outOfBounds.hasError) {
+                if ($scope.selectionHasError) {
                     arkeoService.showMessage('PROJECT_EDITOR.FORM_ERROR_OUT_OF_BOUNDS.T_LABEL')
                     return;
                 }
@@ -285,7 +297,6 @@
                     angular.forEach($scope.project.databases, function(database) {
                         prefs.databases.push(database.id);
                     });
-                    console.log(prefs);
                     $http({
                         method: 'POST',
                         url: '/api/project',
@@ -298,7 +309,7 @@
                         }
                     }, function(err) {
                         arkeoService.showMessage('PROJECT_EDITOR.MESSAGE_SAVE.T_ERROR');
-                        console.log(err);
+                        console.error(err);
                     })
                 });
             }
@@ -461,7 +472,6 @@
                                 }
                                 var res = [];
                                 recurseGetHidden($scope.arbo, res);
-                                //console.log("selection: ", res);
                                 $http.post(url,{
                                     hidden_ids: res,
                                 }).then(function(data) {

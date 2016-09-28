@@ -9,12 +9,13 @@
                     <md-button class="md-raised" ng-click="cancelDraw()"><span translate>QUERY_AREA.BUTTON.T_CANCEL_DRAW</span></md-button>
                 </md-input-container>
                 <md-input-container>
-                    <md-button class="md-raised" ng-click="initDraw()"><span translate>QUERY_AREA.BUTTON.T_REDO</span></md-button>
+                    <md-button class="md-raised md-warn" ng-click="initDraw()"><span translate>QUERY_AREA.BUTTON.T_REDO</span></md-button>
                 </md-input-container>
                 <md-input-container>
                     <md-button class="md-raised md-primary" ng-click="validDraw()"><span translate>QUERY_AREA.BUTTON.T_VALID</span></md-button>
                 </md-input-container>
             </div>
+
     <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="sidenav-left">
         <md-content layout-padding>
 
@@ -52,7 +53,7 @@
                     <div class="query-element-title">
                         <span translate>QUERY.AREA.T_TITLE</span>
                         <div class="query-element-edit-icon noselect"><md-icon ng-click="showAreaChooserDialog(params)">mode_edit</md-icon></div>
-                        <div class="query-element-show-icon noselect"><md-icon ng-click="toggle_query_element('area')">expand_less</md-icon></div>
+                        <div class="query-element-show-icon noselect"><md-icon ng-click="toggle_query_element('area')" tabindex="-1">expand_less</md-icon></div>
                     </div>
                     <div class="query-element-content">
                         <div translate ng-show="params.area.type == 'map' || ''">QUERY_AREA.RADIOBUTTON.T_ALLMAP</div>
@@ -79,7 +80,7 @@
                     <div class="query-element-title">
                         <span translate>QUERY.DATABASES.T_TITLE</span>
                         <div class="query-element-edit-icon noselect"><md-icon ng-click="showDatabaseChooserDialog()">mode_edit</md-icon></div>
-                        <div class="query-element-show-icon noselect"><md-icon ng-show="params.database.length > 0" ng-click="toggle_query_element('databases')">expand_less</md-icon></div>
+                        <div class="query-element-show-icon noselect"><md-icon ng-show="params.database.length > 0" ng-click="toggle_query_element('databases')" tabindex="-1">expand_less</md-icon></div>
                     </div>
                     <div class="query-element-content">
                         <div class="query-subelement" ng-repeat="(dbtype, databases) in databases_per_type">
@@ -95,9 +96,9 @@
                 <div class="query-element query-element-chronologies">
                     <div class="query-element-title">
                         <span translate>QUERY.CHRONOLOGIES.T_TITLE</span>
-                        <div class="query-element-show-icon noselect"><md-icon ng-hide="chronologies_lines.length == 0" ng-click="toggle_query_element('chronologies');">expand_less</md-icon></div>
+                        <div class="query-element-show-icon noselect"><md-icon ng-hide="chronologies_lines.length == 0" ng-click="toggle_query_element('chronologies');" tabindex="-1">expand_less</md-icon></div>
                     </div>
-                    <div class="query-element-content animate-hide">
+                    <div class="query-element-content">
                         <div class='query-element chrono-string'
                              ng-repeat="(i, line) in chronologies_lines"
                              ng-click="showChronologyChooserDialog(params.chronologies[i])"
@@ -106,7 +107,9 @@
                             <div class="query-element-edit-icon noselect"><md-icon>mode_edit</md-icon></div>
                         </div>
                     </div>
-                    <md-button class="md-mini" ng-click="showChronologyChooserDialog()"><span ng-show="chronologies_lines.length == 0">Ajouter une période...</span><span ng-show="chronologies_lines.length != 0">Ajouter une autre période...</span></md-button>
+                    <div class="query-element-content">
+                        <md-button class="md-mini" ng-click="showChronologyChooserDialog()"><span ng-show="chronologies_lines.length == 0">Ajouter une période...</span><span ng-show="chronologies_lines.length != 0">Ajouter une autre période...</span></md-button>
+                    </div>
                 </div>
 
                 <!-- characs -->
@@ -114,7 +117,7 @@
                     <div class="query-element-title">
                         <span translate>QUERY.CHARACS.T_TITLE</span>
                         <div class="query-element-edit-icon noselect"><md-icon ng-click="showCharacChooserDialog()">mode_edit</md-icon></div>
-                        <div class="query-element-show-icon noselect"><md-icon ng-hide="characs_selecteds_include.length == 0 && characs_selecteds_exceptional==0 && characs_selecteds_exclude==0" ng-click="toggle_query_element('characs')">expand_less</md-icon></div>
+                        <div class="query-element-show-icon noselect"><md-icon ng-hide="characs_selecteds_include.length == 0 && characs_selecteds_exceptional==0 && characs_selecteds_exclude==0" ng-click="toggle_query_element('characs')" tabindex="-1">expand_less</md-icon></div>
                     </div>
                     <div class="query-element-content">
                         <div class="query-subelement" ng-if="characs_selecteds_include.length > 0">
@@ -138,7 +141,7 @@
                     <div class="query-element-title">
                         <span translate>QUERY.OTHERS.T_TITLE</span>
                         <div class="query-element-edit-icon noselect"><md-icon ng-click="showOthersChooserDialog(params)">mode_edit</md-icon></div>
-                        <div class="query-element-show-icon noselect"><md-icon ng-show="params.others.characs_linked != 'at-least-one' || params.others.knowledges.length > 0 || params.others.occupation.length > 0 || params.others.centroid != '' || (params.others.text_search != '' && params.others.text_search_in.length > 0)" ng-click="toggle_query_element('others')">expand_less</md-icon></div>
+                        <div class="query-element-show-icon noselect"><md-icon ng-show="params.others.characs_linked != 'at-least-one' || params.others.knowledges.length > 0 || params.others.occupation.length > 0 || params.others.centroid != '' || (params.others.text_search != '' && params.others.text_search_in.length > 0)" ng-click="toggle_query_element('others')" tabindex="-1">expand_less</md-icon></div>
                     </div>
 
                     <div class="query-element-content">
@@ -232,9 +235,9 @@
     </md-content>
 
 
-    <div class="map-button-side-left">
-        <md-button class="md-icon-button" ng-click="open_sideleft()">
-            <md-icon>format_align_left</md-icon>
+    <div class="map-button-side-left" ng-hide="showDrawButtons">
+        <md-button class="md-icon-button md-no-focus" ng-click="open_sideleft()" md-ink-ripple="false">
+            <md-icon md-ink-ripple="false">format_align_left</md-icon>
         </md-button>
     </div>
 

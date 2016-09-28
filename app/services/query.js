@@ -37,9 +37,6 @@
                 query.done = true;
                 queriesDoneNum++;
                 return query;
-            }, function(err) {
-                arkeoService.fieldErrorDisplay(err)
-                console.error(err);
             });
         };
 
@@ -64,7 +61,6 @@
                 letter: alphabet[currentNum],
                 data: null,
                 params: params,
-                area: {},
                 done: false,
                 sites: {}, // Store site details once
                 markersByDatabase: {}

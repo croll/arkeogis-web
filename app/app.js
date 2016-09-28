@@ -76,8 +76,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
             .state('arkeogis.map', {
                 url: "/map",
                 templateUrl: "partials/map.html",
-                controller: "MapCtrl",
-                resolve: {}
+                controller: "MapCtrl"
             })
             .state('arkeogis.import', {
                 url: "/import/:database_id",
@@ -152,13 +151,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 controller: "UserCtrl",
                 resolve: {}
             })
-            .state('arkeogis.preferences', {
-                url: "",
-                templateUrl: "partials/user/preferences.html",
-                controller: "UserPreferencesCtrl",
-                resolve: {}
-            })
-            .state('arkeogis.preferences.project', {
+            .state('arkeogis.project', {
                 url: "/project",
                 templateUrl: "partials/project/project.html",
                 controller: "ProjectCtrl",
