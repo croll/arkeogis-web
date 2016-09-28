@@ -386,6 +386,7 @@
                                     class: 'edit',
                                     callback: function() {
                                         arkeoQuery.setCurrent(query);
+                                        $scope.$parent.$apply();
                                         $mdSidenav('sidenav-left').open();
                                     }
                                 },
