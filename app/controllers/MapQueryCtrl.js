@@ -56,7 +56,7 @@
 			};
 		}
 
-/*
+		/*
 		$scope.$watch('query', function(new_query) {
 			console.log("watch query ....", new_query);
 			if (new_query.done)
@@ -64,13 +64,13 @@
 			else
 				$scope.params = new_query.params;
 		});
-*/
-		$scope.$watch(function() { return angular.toJson($scope.params); }, function() {
-			console.log("watch params ...", $scope.params);
+		*/
+		$scope.$watch(function() { return angular.toJson($scope.params); }, function(a, b) {
 			if ($scope.query.done) {
 				arkeoQuery.add($scope.params);
 			}
 		});
+
 
 		$scope.$watch(function() { return arkeoQuery.getCurrent() }, function(new_query) {
 			console.log("new query: ", new_query);
@@ -90,23 +90,39 @@
 			}
 		});
 
-		$scope.showMap = function() {
-			if ($scope.params.area.type == 'map' && !_.has($scope.params.area.geojson, 'geometry')) {
-				arkeoMap.getMap().then(function(map) {
-                	$scope.params.area.geojson = L.rectangle(map.getBounds()).toGeoJSON();
-				});
-			}
+		function updateParamsArea() {
+			return $q(function(resolve, reject) {
 
-			$mdSidenav('sidenav-left').close();
-			arkeoQuery.do($scope.query).then(function(q) {
-				if (angular.isUndefined(q.data.features) || q.data.features.length == 0) {
-					arkeoService.showMessage('MAP.MESSAGE_QUERY_RESULT.T_NORESULT');
-					$mdSidenav('sidenav-left').open();
+				if ($scope.params.area.type == 'map' && !_.has($scope.params.area.geojson, 'geometry')) {
+					arkeoMap.getMap().then(function(map) {
+	                	$scope.params.area.geojson = L.rectangle(map.getBounds()).toGeoJSON();
+						resolve();
+					}, function(err) {
+						reject(err);
+					});
 				}
+
+				resolve();
+			});
+		}
+
+		$scope.showMap = function() {
+			updateParamsArea().then(function() {
+				$mdSidenav('sidenav-left').close();
+				$scope.params = angular.copy($scope.query.params);
+				arkeoQuery.do($scope.query).then(function(q) {
+					if (angular.isUndefined(q.data.features) || q.data.features.length == 0) {
+						arkeoService.showMessage('MAP.MESSAGE_QUERY_RESULT.T_NORESULT');
+						$mdSidenav('sidenav-left').open();
+					}
+				}, function(err) {
+					arkeoService.showMessage('MAP.MESSAGE_QUERY_RESULT.T_SERVERERROR');
+					$mdSidenav('sidenav-left').open();
+				})
+
 			}, function(err) {
-				arkeoService.showMessage('MAP.MESSAGE_QUERY_RESULT.T_SERVERERROR');
-				$mdSidenav('sidenav-left').open();
-			})
+				console.err("updateParamsArea failed: ", err);
+			});
 		};
 
 		$scope.initQuery = function() {
