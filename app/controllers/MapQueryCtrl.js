@@ -39,7 +39,7 @@
 		$scope.query = arkeoQuery.add(newParams());
 		$scope.editing_chronology = null;
 
-		var layerDraw;
+		var layerDraw, drawnItems;
 
 		function newParams() {
 			return {
@@ -162,6 +162,9 @@
 			$scope.query = arkeoQuery.add(newParams());
 			arkeoMap.getMap().then(function(map) {
 				recenterMapFromQuery($scope.query);
+				if (layerDraw) {
+                	drawnItems.removeLayer(layerDraw);
+				}
 			});
 		};
 
@@ -290,9 +293,9 @@
 
             arkeoMap.getMap().then(function(map) {
 
-                    var drawnItems = new L.FeatureGroup().addTo(map),
+                    drawnItems = new L.FeatureGroup().addTo(map);
 
-                    shapeOptions = {
+                    var shapeOptions = {
                         stroke: true,
                         color: '#f06eaa',
                         weight: 4,
