@@ -22,7 +22,7 @@
             <!-- New query display -->
             <div>
 
-                <div layout="row" layout-align="left center">
+                <div layout="row" layout-align="left center" style="background-color: rgb(255,152,0);">
                     <!-- archived queries menu -->
                     <md-menu md-position-mode="target-right target">
                         <md-button aria-label="Archives..." class="md-icon-button" ng-click="$mdOpenMenu($event)">
@@ -212,17 +212,17 @@
 
             </div>
 
-            <div layout="column">
-                <md-button ng-click="helpAndSaveBeve()" ng-if="getHostname() == 'localhost'" class="md-raised">
+            <md-toolbar layout="column">
+                <md-button ng-click="helpAndSaveBeve()" ng-if="getHostname() == 'localhost'" class="md-primary md-raised">
                     <span>MODIFY IT !</span>
                 </md-button>
-                <md-button ng-disabled="query.done" ng-click="showMap()" class="md-primary md-raised">
+                <md-button ng-disabled="query.done" ng-click="showMap()" class="md-raised">
                     <span translate>MAP.BUTTON_DISPLAYMAP.T_TITLE</span>
                 </md-button>
-                <md-button ng-click="initQuery()" class="md-raised">
+                <md-button ng-click="initQuery()" class="md-primary md-raised">
                     <span translate>MAP.BUTTON_INITQUERY.T_TITLE</span>
                 </md-button>
-            </div>
+            </md-toolbar>
         </md-content>
     </md-sidenav>
 </div>
