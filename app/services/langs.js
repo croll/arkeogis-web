@@ -32,7 +32,7 @@
 
     this.init = function() {
         self.setTranslationLang(1, self.getUserLang(1));
-        self.setTranslationLang(2, self.getUserLang(2), true, false);
+        self.setTranslationLang(2, self.getUserLang(2));
         return self.getLangs(true, true).then(function(langs) {
             self.langs = langs;
             $rootScope.langs = langs;
