@@ -106,7 +106,7 @@
 	<div id='arkeo_idle' style="display: none;" translate>.IDLE.T_TITLE</div>
 
 	<div layout="column" flex md-theme="{{theme}}">
-		<md-toolbar id="arkeo-main-toolbar" class="md-toolbar-tools" md-theme="grey">
+		<md-toolbar id="arkeo-main-toolbar" class="md-toolbar-tools">
 			<h1 flex><img src="img/logo.png"/></h1>
 			<div ng-hide="false">
 				<md-button ng-click="setTheme('arkeo-grey')" ng-hide="theme == 'arkeo-grey'">La vie en gris</md-button>
@@ -114,7 +114,7 @@
 			</div>
 			<layout layout="row" layout-align="end center">
 				<!-- fullscreen button -->
-				<md-button md-position-mode="target-right target" class="md-icon-button" ng-click="toggleFullScreen()"><md-icon>fullscreen</md-icon></md-button>
+				<md-button md-position-mode="target-right target" class="md-icon-button" ng-click="toggleFullScreen()"><md-icon  md-svg-icon="img/icons/fullscreen.svg"class="light"></md-icon></md-button>
 
 				<!-- Lang menu -->
 				<md-menu ng-if="false" md-position-mode="target-right target">
@@ -134,7 +134,7 @@
 				<!-- Main Menu -->
 				<md-menu md-position-mode="target-right target" id="mainMenu" style="z-index:10000">
 					<md-button class="md-icon-button" aria-label="Toggle Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-						<md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
+						<md-icon md-svg-icon="img/icons/menu.svg" class="light"></md-icon>
 					</md-button>
 					<md-menu-content width="4">
 						<md-menu-item>

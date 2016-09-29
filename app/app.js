@@ -27,13 +27,12 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
         /*
          * Theme
          */
-        $mdThemingProvider.alwaysWatchTheme(true);
 /*
         $mdThemingProvider.theme('pink')
             .primaryPalette('pink', {})
             .accentPalette('red');
 */
-        $mdThemingProvider.theme('grey').primaryPalette('grey', {default: '900'});
+        // $mdThemingProvider.theme('grey').primaryPalette('grey', {default: '900'});
 
         $mdThemingProvider.theme('arkeo-grey')
             .primaryPalette('orange', {
