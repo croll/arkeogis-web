@@ -33,10 +33,12 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
             .primaryPalette('pink', {})
             .accentPalette('red');
 */
+        $mdThemingProvider.theme('grey').primaryPalette('grey', {default: '900'});
+
         $mdThemingProvider.theme('arkeo-grey')
-            .primaryPalette('grey', {
+            .primaryPalette('orange', {
             })
-            .warnPalette('grey')
+            .warnPalette('red')
             .backgroundPalette('grey')
             .accentPalette('orange');
 
