@@ -530,16 +530,18 @@
                                             if (characInfos.exceptional) {
                                                 $scope.site.properties.infos.exceptional = true;
                                             }
-                                            var characRoot = characInfos.hierarchy[0];
-                                            if (!_.has(sr.charac_sections, characRoot)) {
-                                                sr.charac_sections[characRoot] = {
-                                                    name: characRoot,
-                                                    characs: []
+                                            if (characInfos.hierarchy && angular.isArray(characInfos.hierarchy) && characInfos.hierarchy.length) {
+                                                var characRoot = characInfos.hierarchy[0];
+                                                if (!_.has(sr.charac_sections, characRoot)) {
+                                                    sr.charac_sections[characRoot] = {
+                                                        name: characRoot,
+                                                        characs: []
+                                                    }
                                                 }
+                                                sr.charac_sections[characRoot].characs.push(_.assign(characInfos, {
+                                                    path: characInfos.hierarchy.join(' / ')
+                                                }));
                                             }
-                                            sr.charac_sections[characRoot].characs.push(_.assign(characInfos, {
-                                                path: characInfos.hierarchy.join(' / ')
-                                            }));
                                         });
                                     });
                                 },
