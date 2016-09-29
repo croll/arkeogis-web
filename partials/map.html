@@ -108,7 +108,7 @@
                         </div>
                     </div>
                     <div class="query-element-content">
-                        <md-button class="md-mini" ng-click="showChronologyChooserDialog()"><span ng-show="chronologies_lines.length == 0">Ajouter une période...</span><span ng-show="chronologies_lines.length != 0">Ajouter une autre période...</span></md-button>
+                        <md-button class="md-primary md-mini" ng-click="showChronologyChooserDialog()"><span ng-show="chronologies_lines.length == 0">Ajouter une période...</span><span ng-show="chronologies_lines.length != 0">Ajouter une autre période...</span></md-button>
                     </div>
                 </div>
 
@@ -213,13 +213,13 @@
             </div>
 
             <div layout="column">
-                <md-button ng-click="helpAndSaveBeve()" ng-if="getHostname() == 'localhost'">
+                <md-button ng-click="helpAndSaveBeve()" ng-if="getHostname() == 'localhost'" class="md-raised">
                     <span>MODIFY IT !</span>
                 </md-button>
-                <md-button ng-disabled="query.done" ng-click="showMap()">
+                <md-button ng-disabled="query.done" ng-click="showMap()" class="md-primary md-raised">
                     <span translate>MAP.BUTTON_DISPLAYMAP.T_TITLE</span>
                 </md-button>
-                <md-button ng-click="initQuery()">
+                <md-button ng-click="initQuery()" class="md-raised">
                     <span translate>MAP.BUTTON_INITQUERY.T_TITLE</span>
                 </md-button>
             </div>
