@@ -24,7 +24,7 @@
 
         var self = this;
 
-        this.theme = 'grey';
+        this.theme = 'arkeo-grey';
 
         // automatically set message error from server on form fields
         // - form is the $scope.form of the form :)

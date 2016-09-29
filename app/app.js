@@ -28,15 +28,26 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
          * Theme
          */
         $mdThemingProvider.alwaysWatchTheme(true);
+/*
         $mdThemingProvider.theme('pink')
             .primaryPalette('pink', {})
             .accentPalette('red');
+*/
+        $mdThemingProvider.theme('arkeo-grey')
+            .primaryPalette('grey', {
+            })
+            .warnPalette('grey')
+            .backgroundPalette('grey')
+            .accentPalette('orange');
 
+        $mdThemingProvider.setDefaultTheme('arkeo-grey');
+/*
         $mdThemingProvider.theme('grey')
             .backgroundPalette('grey', {
                 'default': '100'
             })
             .accentPalette('orange');
+            */
         /******/
 
         /*
