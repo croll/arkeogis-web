@@ -128,6 +128,9 @@
                 if (database.editMode) {
                     arkeoImport.enableReportTab();
                 }
+                console.log($scope.importChoices);
+                console.log(angular.copy($scope.database));
+
                 arkeoImport.uploadCSV($scope.file, $scope.importChoices, $scope.database).then(function(resp) {
                     arkeoImport.data = resp.data;
                     if (angular.isDefined(resp.data.database_id) && resp.data.database_id) {
@@ -411,10 +414,10 @@
                             $state.go('arkeogis.import.step4')
                             arkeoService.showMessage("IMPORT_STEP3.MESSAGES.T_PUBLICATION_INFORMATIONS_SAVED")
                                 //Restore translation lang 2 to user choice
-                            arkeoLang.restoreTranslationLang();
                         } else {
                             console.log("Error sending step3");
                         }
+                        arkeoLang.restoreTranslationLang();
                     }, function(error) {
                         console.log("Error sending step3");
                         console.log(error);
