@@ -569,13 +569,13 @@
 						$scope.toggleButton = function(charac) {
 							if (_.has($scope.selected_characs, charac.id)) {
 								var sel = $scope.selected_characs[charac.id];
-								if (sel.include && !sel.exceptional)
+								if (sel.include && !sel.exceptional) // include => exclude
+									setCharacSelect(charac, true, false);
+								else if (!sel.include) // exclude => exceptional
 									setCharacSelect(charac, true, true, true);
-								else if (sel.include && sel.exceptional)
-									setCharacSelect(charac, true, false, false);
-								else if (!sel.include)
+								else if (sel.include && sel.exceptional) // exceptional => unselected
 									setCharacSelect(charac, false);
-							} else {
+							} else { // unselected => include
 								setCharacSelect(charac, true, true, false);
 							}
 						};
