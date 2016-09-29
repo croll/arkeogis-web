@@ -21,7 +21,7 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('MapEditorCtrl', ['$scope', '$state', 'arkeoService', 'arkeoMap', 'login', '$http', 'X2JS', '$q', 'leafletData', 'Upload', 'layer', function($scope, $state, arkeoService, arkeoMap, login, $http, X2JS, $q, leafletData, Upload, layer) {
+    ArkeoGIS.controller('MapEditorCtrl', ['$scope', '$state', 'arkeoService', 'arkeoMap', 'login', '$http', 'X2JS', '$q', 'leafletData', 'Upload', 'layer', 'arkeoLang', function($scope, $state, arkeoService, arkeoMap, login, $http, X2JS, $q, leafletData, Upload, layer, arkeoLang) {
 
         var self = this;
 
@@ -65,6 +65,28 @@
             $scope.infos.url = 'http://demo.opengeo.org/geoserver/wms';
             $scope.hideFields = true;
         }
+
+        arkeoLang.autoSetTranslationLang2FromDatas([$scope.infos.translations.description, $scope.infos.translations.name]);
+
+        $scope.$watch('infos.translations.name.en', function(newVal, oldVal) {
+            if (!newVal || (newVal && newVal == '')) {
+                $scope.lang2SelectDisabled = true;
+                $scope.mapEditorForm.name2.$setValidity('english_required', false)
+            } else {
+                $scope.lang2SelectDisabled = false;
+                $scope.mapEditorForm.name2.$setValidity('english_required', true)
+            }
+        }, true);
+
+        $scope.$watch('infos.translations.description.en', function(newVal, oldVal) {
+            if (!newVal || (newVal && newVal == '')) {
+                $scope.lang2SelectDisabled = true;
+                $scope.mapEditorForm.description2.$setValidity('english_required', false)
+            } else {
+                $scope.lang2SelectDisabled = false;
+                $scope.mapEditorForm.description2.$setValidity('english_required', true)
+            }
+        }, true);
 
         // Debug
 

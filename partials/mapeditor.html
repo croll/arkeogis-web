@@ -156,7 +156,7 @@
         <div class="md-padding" flex="50">
             <ark-form-block layout="column">
                 <md-input-container>
-                    <ark-lang-selector ng-model="myTransLang1" ark-set-as-translation-lang="1" ng-disabled="true" ark-flags="true"></ark-lang-selector>
+                    <ark-lang-selector ark-set-as-translation-lang="1" ng-disabled="true"></ark-lang-selector>
                 </md-input-container>
             </ark-form-block flex>
             <ark-form-block flex>
@@ -169,30 +169,30 @@
                 <md-input-container style="margin-top: 25px">
                     <label translate>MAPEDITOR.FIELD_DESCRIPTION_LANG1.T_LABEL</label>
                     <textarea name="description" ng-model="desc_lang1" ark-translations="infos.translations.description" ark-translate ark-translate-bind-lang="1" aria-label="-" required style="min-width: 500px; min-height:30px" flex></textarea>
-                    <div ng-messages="mapEditorForm.description.$error">
-                        <div ng-message="required" translate>MAPEDITOR.FIELD_ALL.T_ERROR_REQUIRED</div>
-                    </div>
                 </md-input-container>
             </ark-form-block>
         </div>
         <div class="md-padding" flex-offset-gt-md="5" flex="50">
             <ark-form-block flex layout="column">
                 <md-input-container>
-                    <ark-lang-selector ng-model="myTransLang2" ark-set-as-translation-lang="2" ng-disabled="false" ark-flags="true"></ark-lang-selector>
+                    <ark-lang-selector ark-set-as-translation-lang="2" ng-disabled="lang2SelectDisabled"></ark-lang-selector>
                 </md-input-container>
             </ark-form-block>
             <ark-form-block flex>
                 <md-input-container style="width: 400px">
                     <label translate>MAPEDITOR.FIELD_NAME_LANG2.T_LABEL</label>
-                    <input name="name2" ng-model="name_lang2" ark-translations="infos.translations.name" ark-translate ark-translate-bind-lang="2" aria-label="-" required></input>
+                    <input name="name2" ng-model="name_lang2" ark-translations="infos.translations.name" ark-translate ark-translate-bind-lang="2" aria-label="-"></input>
+                    <div ng-messages="mapEditorForm.name2.$error">
+                        <div ng-message="english_required" translate>IMPORT.FIELD_ALL.T_ENGLISH_TRANSLATION_REQUIRED</div>
+                    </div>
                 </md-input-container>
             </ark-form-block>
             <ark-form-block flex>
                 <md-input-container style="margin-top: 25px">
                     <label translate>MAPEDITOR.FIELD_DESCRIPTION_LANG2.T_LABEL</label>
-                    <textarea name="description2" ng-model="desc_lang2" ark-translations="infos.translations.description" ark-translate ark-translate-bind-lang="2" aria-label="-" required style="min-width: 500px; min-height:30px"></textarea>
+                    <textarea name="description2" ng-model="desc_lang2" ark-translations="infos.translations.description" ark-translate ark-translate-bind-lang="2" aria-label="-" style="min-width: 500px; min-height:30px"></textarea>
                     <div ng-messages="mapEditorForm.description2.$error">
-                        <div ng-message="required" translate>MAPEDITOR.FIELD_ALL.T_ERROR_REQUIRED</div>
+                        <div ng-message="english_required" translate>IMPORT.FIELD_ALL.T_ENGLISH_TRANSLATION_REQUIRED</div>
                     </div>
                 </md-input-container>
             </ark-form-block>
