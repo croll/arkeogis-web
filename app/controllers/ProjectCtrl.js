@@ -305,8 +305,8 @@
                         arkeoService.showMessage('PROJECT_EDITOR.MESSAGE_SAVE.T_OK');
                         if ($scope.project.id == null || $scope.project.id == 0) {
                             $scope.project.id = result.data.project_id;
-                            arkeoProject.set($scope.project);
                         }
+                        arkeoProject.set($scope.project);
                     }, function(err) {
                         arkeoService.showMessage('PROJECT_EDITOR.MESSAGE_SAVE.T_ERROR');
                         console.error(err);
