@@ -126,7 +126,6 @@
             $http.get('/api/database').then(function(response) {
                 $scope.databaseDefinitions = databaseDefinitions;
                 var databases = response.data;
-                console.log(databases);
                 angular.forEach(databases, function(db) {
                     var co = (db.authors) ? db.authors.join(',') : '';
                     if (co != '') {
@@ -146,7 +145,7 @@
             $scope.query = {
                 filter: '',
                 order: null,
-                limitOptions: [10, 25, 50, translations['GENERAL.TABLE_PAGINATION.T_ALL']],
+                limitOptions: [10, 25, 50, {label: translations['GENERAL.TABLE_PAGINATION.T_ALL'], value: function() {return 10000}}],
                 limit: 20,
                 page: 1
             };
