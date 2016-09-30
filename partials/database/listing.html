@@ -73,7 +73,7 @@
                 <td md-cell>{{item.default_language | uppercase }}</td>
                 <td md-cell ark-get-translation ark-translations="item.name"></td>
                 <td md-cell>{{item.authors}}</td>
-                <td md-cell>{{item.subject}}</td>
+                <td md-cell ark-get-translation ark-translations="item.subject"></td>
                 <td md-cell>{{databaseDefinitions[item.type]}}</td>
                 <td md-cell>{{item.number_of_lines}}</td>
                 <td md-cell>{{item.number_of_sites}}</td>
@@ -81,7 +81,7 @@
                 <td md-cell>{{item.start_date | arkYear}}</td>
                 <td md-cell>{{item.end_date | arkYear}}</td>
                 <td md-cell>{{databaseDefinitions[item.state]}}</td>
-                <td md-cell>{{databaseDefinitions[item.context]}}</td>
+                <td md-cell>{{databaseDefinitions[item.geographical_extent]}}</td>
                 <td md-cell>{{item.license}}</td>
                 <td md-cell ark-get-translation ark-translations="item.description"></td>
             </tr>
