@@ -88,7 +88,12 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
             .state('arkeogis.map', {
                 url: "/map",
                 templateUrl: "partials/map.html",
-                controller: "MapCtrl"
+                controller: "MapCtrl",
+                resolve: {
+                    translations: function($translate) {
+                        return $translate(['MAP.QUERY_MENU.T_MODIFY', 'MAP.QUERY_MENU.T_DOWNLOAD_CSV', 'MAP.QUERY_MENU.T_ARCHIVE', 'MAP.QUERY_MENU.T_DELETE']);
+                    }
+                }
             })
             .state('arkeogis.import', {
                 url: "/import/:database_id",
@@ -196,7 +201,11 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 url: "/mapeditor-list",
                 templateUrl: "partials/mapeditor-list.html",
                 controller: "MapEditorListCtrl",
-                resolve: {}
+                resolve: {
+                    translations: function($translate) {
+                        return $translate(['GENERAL.TABLE_PAGINATION.T_ALL']);
+                    }
+                }
             })
             .state('arkeogis.group', {
                 url: "/group",
