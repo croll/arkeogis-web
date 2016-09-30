@@ -147,5 +147,20 @@
             }
         };
 
+        this.resolvePermission = function(permname, redirectTo) {
+            return $q(function(resolve, reject) {
+                if (self.requirePermission(permname)) {
+                    console.log("perm ok");
+                    resolve(self.user);
+                } else {
+                    console.log("perm bad");
+                    reject({
+                        requirePermission: permname,
+                        redirectTo: redirectTo,
+                    });
+                }
+            });
+        };
+
     }]);
 })();
