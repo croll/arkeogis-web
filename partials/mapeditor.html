@@ -15,6 +15,10 @@
                             <span translate>MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_WMTS</span>
                         </md-option>
                     </md-select>
+                    <ark-help translate ng-show="!type">SELECT_SHP_WMS_WMTS.T_OPTION_NONE_HELP</ark-help>
+                    <ark-help translate ng-show="type == 'shp'">SELECT_SHP_WMS_WMTS.T_OPTION_SHP_HELP</ark-help>
+                    <ark-help translate ng-show="type == 'wms'">SELECT_SHP_WMS_WMTS.T_OPTION_WMS_HELP</ark-help>
+                    <ark-help translate ng-show="type == 'wmts'">SELECT_SHP_WMS_WMTS.T_OPTION_WMTS_HELP</ark-help>
                 </md-input-container>
             </ark-form-block>
             <!-- SHP FILE -->
@@ -125,6 +129,7 @@
             <label translate>MAPEDITOR.FIELD_ATTRIBUTION.T_LABEL</label>
             <input name="attribution" ng-model="infos.attribution" required="true">
         </md-input-container>
+        <ark-help translate>MAPEDITOR.FIELD_ATTRIBUTION.T_HELP</ark-help>
     </ark-form-block>
     <!-- Copyright -->
     <ark-form-block>
@@ -132,6 +137,7 @@
             <label translate>MAPEDITOR.FIELD_COPYRIGHT.T_LABEL</label>
             <textarea name="copyright" ng-model="infos.copyright" required="true"></textarea>
         </md-input-container>
+        <ark-help translate>MAPEDITOR.FIELD_COPYRIGHT.T_HELP</ark-help>
     </ark-form-block>
     <!-- License -->
     <ark-form-block layout="row">
