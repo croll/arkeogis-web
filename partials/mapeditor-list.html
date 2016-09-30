@@ -3,6 +3,9 @@
         <div class="md-toolbar-tools">
             <h2 class="md-title" translate>MAPEDITOR.TABLE_LIST.T_TITLE</h2>
             <div flex></div>
+            <md-button class="md-icon-button" ui-sref="arkeogis.mapeditor" aria-label="{{'MAPEDITOR.INTERFACE_BUTTON.ADD_LAYER'}}">
+              <md-icon>add</md-icon>
+            </md-button>
             <md-button class="md-icon-button" ng-click="filter.show = true">
                 <md-tooltip md-direction="left">
                     <div translate>MAPEDITOR.TABLE_LIST.T_FILTER_RESULTS_LABEL</div>
@@ -59,7 +62,7 @@
                 </tr>
             </thead>
             <tbody md-body>
-                <tr md-row md-auto-select ng-click="edit(layer.type, layer.id)" ng-repeat="layer in mapLayers | filter:query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit" style="cursor: pointer">
+                <tr md-row ng-click="edit(layer.type, layer.id)" ng-repeat="layer in mapLayers | filter:query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit" style="cursor: pointer">
                     <td md-cell>{{layer.created_at | date:'short'}}</td>
                     <td md-cell>{{layer.author}}</td>
                     <td md-cell>{{layer.start_date}}</td>
@@ -77,7 +80,3 @@
     </md-table-container>
     <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{mapLayers.length}}" md-row-select="query.numRows" md-page-select></md-table-pagination>
 </md-content>
-
-<md-button class="md-fab" aria-label="{{'MAPEDITOR.INTERFACE_BUTTON.ADD_LAYER'}}" style="position:absolute;bottom:50px;right:50px" ui-sref="arkeogis.mapeditor">
-    <md-icon>add</md-icon>
-</md-button>

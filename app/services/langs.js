@@ -135,7 +135,8 @@
     };
 
     this.autoSetTranslationLang2FromDatas = function(aDatas) {
-        var ret = false;
+        var ret = false,
+            englishLang1 = false;;
         if (!angular.isArray(aDatas) && !angular.isObject(aDatas)) {
             console.error("arkeoLang.autoSetTranslationLangFromData: data passed is not valid");
             return false;
@@ -144,15 +145,15 @@
             aDatas = [aDatas];
         }
         if (this.getTranslationLang(1) == 'en') {
-            return false;
+            englishLang1 = true;
         }
         angular.forEach(aDatas, function(d) {
-            if (!angular.isDefined(d) || !d) {
+            if ((!angular.isDefined(d) || !d) && !englishLang1) {
                 self.setTranslationLang(2, 'en');
                 ret = true;
                 return;
             }
-            if (!angular.isDefined(d.en) || (angular.isDefined(d.en) && d.en.trim() == '')) {
+            if ((!angular.isDefined(d.en) || (angular.isDefined(d.en) && d.en.trim() == '')) && !englishLang1) {
                 self.setTranslationLang(2, 'en');
                 ret = true;
                 return;

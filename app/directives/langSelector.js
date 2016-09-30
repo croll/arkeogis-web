@@ -44,7 +44,9 @@
                     scope.arkHide = [];
                 }
                 if (scope.arkSetAsTranslationLang) {
-                    scope.ngModel = arkeoLang.getTranslationLang(scope.arkSetAsTranslationLang);
+                    if (!scope.ngModel) {
+                        scope.ngModel = arkeoLang.getTranslationLang(scope.arkSetAsTranslationLang);
+                    }
                 }
                 scope.langs = [];
                 angular.forEach(angular.copy(arkeoLang.langs), function(lang) {
