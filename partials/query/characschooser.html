@@ -1,4 +1,4 @@
-<md-dialog class="dialog-characchooser" aria-label="Charac Chooser..." ng-cloak flex="60">
+<md-dialog class="dialog-characchooser" style="min-width: 1000px" aria-label="Charac Chooser..." ng-cloak flex="60">
 
     <md-toolbar id='arkeo-characschooser-toolbar' class="md-primary md-hue-3">
         <div class="md-toolbar-tools">
@@ -21,7 +21,7 @@
 
         <div layout="row" class="arkmultiselect">
             <div flex layout="column" class="arkmonoselect" ng-repeat="col in [0,1,2,3,4]">
-                <div layout="row" layout-align="left center" class="arkelementselect noselect" style="min-height: 32px" 
+                <div layout="row" layout-align="left center" class="arkelementselect noselect" style="min-height: 32px"
                      ng-repeat="charac in selection[col].content"
                      ng-click="characSelect(col+1, charac)"
                      ng-class="selection[col+1] == charac ? 'arkelementselected' : ''"
