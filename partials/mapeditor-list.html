@@ -65,8 +65,8 @@
                 <tr md-row ng-click="edit(layer.type, layer.id)" ng-repeat="layer in mapLayers | filter:query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit" style="cursor: pointer">
                     <td md-cell>{{layer.created_at | date:'short'}}</td>
                     <td md-cell>{{layer.author}}</td>
-                    <td md-cell>{{layer.start_date}}</td>
-                    <td md-cell>{{layer.end_date}}</td>
+                    <td md-cell>{{layer.start_date | arkYear}}</td>
+                    <td md-cell>{{layer.end_date | arkYear}}</td>
                     <td md-cell>{{layer.zoom_level}}</td>
                     <td md-cell>{{layer.type}}</td>
                     <td md-cell ark-get-translation ark-translations="layer.description"></td>
