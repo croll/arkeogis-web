@@ -217,6 +217,9 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 resolve: {
                     databaseDefinitions: function(arkeoDatabase) {
                         return arkeoDatabase.translateDefinitions();
+                    },
+                    translations: function($translate) {
+                        return $translate(['GENERAL.TABLE_PAGINATION.T_ALL']);
                     }
                 }
             })
