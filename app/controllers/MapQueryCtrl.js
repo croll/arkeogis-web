@@ -726,8 +726,8 @@
 				showChronologyChooserDialog(params, $scope.params.chronologies);
 			else {
 				params = {
-					start_date: -2147483648,
-					end_date: 2147483647,
+					start_date: 2147483647,
+					end_date: -2147483648,
 					existence_inside_include: '+',
 					existence_inside_part: 'partly',
 					existence_inside_sureness: 'potentially',
@@ -773,7 +773,7 @@
 						}
 
 						$scope.toggleButton = function(chronology) {
-							if ($scope.params.start_date == -2147483648 && $scope.params.end_date == 2147483647) { // special case for undetermined
+							if ($scope.params.start_date == 2147483647 && $scope.params.end_date == -2147483648) { // special case for undetermined
 								$scope.params.start_date = chronology.start_date;
 								$scope.params.end_date = chronology.end_date;
 								return;
@@ -781,8 +781,8 @@
 
 							if ((chronology.start_date >= $scope.params.start_date) && (chronology.end_date <= $scope.params.end_date)) {
 								// the user has clicked on an already selected checkbox, so we reset to undetermined
-								$scope.params.start_date = -2147483648;
-								$scope.params.end_date = 2147483647;
+								$scope.params.start_date = 2147483647;
+								$scope.params.end_date = -2147483648;
 							} else {
 								if (chronology.start_date < $scope.params.start_date) {
 									$scope.params.start_date = chronology.start_date;
@@ -794,8 +794,8 @@
 						};
 
 						$scope.getButtonState = function(chronology) {
-							if ($scope.params.start_date == -2147483648 && $scope.params.end_date == 2147483647) { // special case for undetermined
-								if (chronology.start_date == -2147483648 && chronology.end_date == 2147483647) return '+';
+							if ($scope.params.start_date == 2147483647 && $scope.params.end_date == -2147483648) { // special case for undetermined
+								if (chronology.start_date == 2147483647 && chronology.end_date == -2147483648) return '+';
 								else return '';
 							}
 
