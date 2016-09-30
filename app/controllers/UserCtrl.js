@@ -21,10 +21,7 @@
 
 (function () {
 	'use strict';
-	ArkeoGIS.controller('UserCtrl', ['$scope', 'user', 'login', 'arkeoLang', '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", function ($scope, User, Login, arkeoLang, $mdDialog, $http, $q, arkeoService, $mdToast) {
-
-		if (!Login.requirePermission('adminusers', 'arkeogis.user'))
-            return;
+	ArkeoGIS.controller('UserCtrl', ['$scope', 'user', 'login', 'arkeoLang', "$stateParams", '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", function ($scope, User, Login, arkeoLang, $stateParams, $mdDialog, $http, $q, arkeoService, $mdToast) {
 
 		$scope.users_query = {
 			order: '-u.created_at',
@@ -126,6 +123,14 @@
         };
 
 		//getUsers();
+
+		function init() {
+			console.log("user_id: ", $stateParams.user_id)
+			if ($stateParams.user_id > 0) {
+				$scope.openDialogEdit(null, $stateParams.user_id);
+			}
+		}
+		init();
 
 	}]);
 
