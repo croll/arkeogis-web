@@ -116,14 +116,6 @@
 
 		//getUsers();
 
-		function init() {
-			console.log("user_id: ", $stateParams.user_id)
-			if ($stateParams.user_id > 0) {
-				$scope.openDialogEdit(null, $stateParams.user_id);
-			}
-		}
-		init();
-
 	}]);
 
 
