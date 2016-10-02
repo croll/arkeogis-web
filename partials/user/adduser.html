@@ -1,0 +1,318 @@
+<md-toolbar>
+    <div class='md-toolbar-tools'>
+        <h2>{{user.id != undefined ? 'USER.HEADER_EDITUSER.T_TITLE' : 'USER.HEADER_ADDUSER.T_TITLE' | translate}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+            <md-icon>close</md-icon>
+        </md-button>
+    </div>
+</md-toolbar>
+<form name="userForm" ng-submit="userAddSubmit(this.userForm)">
+    <md-dialog-content style="min-width:1100px">
+        <md-content layout-padding>
+            <div layout="row">
+
+                <md-input-container flex="20">
+                    <label translate>.FIELD_LAST_NAME.T_TITLE</label>
+                    <input required ng-model="user.lastname"/>
+                </md-input-container>
+
+                <md-input-container flex="20">
+                    <label translate>.FIELD_FIRST_NAME.T_TITLE</label>
+                    <input required ng-model="user.firstname"/>
+                </md-input-container>
+
+                <md-input-container flex="20">
+                    <label translate>.FIELD_EMAIL.T_TITLE</label>
+                    <input maxlength="255" minlength="6" name="email" ng-model="user.email" ng-pattern="/^.+@.+\..+$/" required type="email" ng-change="userForm.email.$setValidity('server', true)"/>
+                    <div ng-messages="userForm.email.$error" role="alert">
+                        <div ng-if="userForm.email.$dirty" ng-message-exp="['required']">{{ 'USER.FIELD_EMAIL.T_CHECK_MANDATORY' | translate }}</div>
+                        <div ng-if="userForm.email.$error.server">{{ userForm.email.$error.server | translate }}</div>
+                        <div ng-message-exp="['minlength', 'maxlength', 'pattern']">{{ 'USER.FIELD_EMAIL.T_CHECK_INCORRECT' | translate }}</div>
+                    </div>
+                </md-input-container>
+
+                <md-autocomplete
+                    flex="20"
+                    required
+                    md-search-text-change="searchTextCity=''"
+                    md-autoselect="true"
+                    md-floating-label="{{ 'USER.FIELD_COUNTRY.T_TITLE' | translate }}"
+                    md-item-text="item.name"
+                    md-items="item in autocompleteCountry(searchTextCountry)"
+                    md-min-length="1"
+                    md-no-cache="1"
+                    md-search-text="searchTextCountry"
+                    md-selected-item="user.city_and_country.country">
+                    <md-item-template>
+                        <span md-highlight-text="searchTextCountry">{{item.name}}</span>
+                    </md-item-template>
+                    <md-not-found>{{ 'USER.FIELD_COUNTRY.T_CHECK_NOMATCH' | translate }}</md-not-found>
+                </md-autocomplete>
+
+                <md-autocomplete
+                    flex="20"
+                    required
+                    name="searchTextCity"
+                    md-autoselect="true"
+                    md-floating-label="{{ 'USER.FIELD_CITY.T_TITLE' | translate }}"
+                    md-item-text="item.name"
+                    md-items="item in autocompleteCity(user.city_and_country.country ? user.city_and_country.country.geonameid : null, searchTextCity)"
+                    md-min-length="2"
+                    md-no-cache="1"
+                    md-search-text="searchTextCity"
+                    md-selected-item="user.city_and_country.city">
+                    <md-item-template>
+                        <span md-highlight-text="searchTextCity">{{item.name}}</span>
+                    </md-item-template>
+                    <md-not-found>{{ 'USER.FIELD_CITY.T_CHECK_NOMATCH' | translate }}</md-not-found>
+                </md-autocomplete>
+
+            </div>
+
+            <div layout="row">
+                <div flex="20" layout="column">
+                    <div flex>
+                        <md-input-container>
+                            <label translate>.FIELD_USERNAME.T_TITLE</label>
+                            <input name="username" ng-change="userForm.username.$setValidity('exists', true); userForm.username.$setValidity('server', true)" ng-model="user.username" required/>
+                            <div ng-messages="userForm.username.$error" role="alert">
+                                <div ng-if="userForm.username.$error.server">{{ userForm.username.$error.server | translate }}</div>
+                                <div ng-message="exists">{{ 'USER.FIELD_USERNAME.T_CHECK_ALREADYEXISTS' | translate }}</div>
+                                <div ng-if="userForm.username.$dirty" ng-message-exp="['required']">{{ 'USER.FIELD_USERNAME.T_CHECK_MANDATORY' | translate }}</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div flex>
+                        <md-input-container>
+                            <label translate>.FIELD_PASSWORD.T_TITLE</label>
+                            <input name="password" ng-model="user.password" ng-change="userForm.password.$setValidity('server', true)" type="password" ng-required="user.id == undefined"/>
+                            <div ng-messages="userForm.password.$error" role="alert">
+                                <div ng-if="userForm.password.$error.server">{{ userForm.password.$error.server | translate }}</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div flex>
+                        <md-input-container>
+                            <label translate>.FIELD_PASSWORD2.T_TITLE</label>
+                            <input name="password2" ng-model="user.password2" type="password" ng-required="user.id == undefined"/>
+                            <div ng-messages="userForm.password2.$error" role="alert">
+                                <div ng-if="user.password != user.password2">{{ 'USER.FIELD_PASSWORD.T_CHECK_NOTSAME' | translate }}</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+
+                <div flex="20" layout="column">
+
+                    <div flex>
+                        <md-input-container>
+                            <label translate>.FIELD_LANG1.T_TITLE</label>
+                            <md-select required name="first_lang_isocode" ng-model="user.first_lang_isocode" ng-change="userForm.first_lang_isocode.$setValidity('server', true)">
+                                <md-option ng-repeat="lang in langs" ng-value="lang.iso_code">{{lang.name || lang.isocode}}</md-option>
+                            </md-select>
+                            <div ng-messages="userForm.first_lang_isocode.$error" role="alert">
+                                <div ng-if="userForm.first_lang_isocode.$error.server">{{ userForm.first_lang_isocode.$error.server | translate }}</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+
+                    <div flex>
+                        <md-input-container>
+                            <label translate>.FIELD_LANG2.T_TITLE</label>
+                            <md-select required name="second_lang_isocode" ng-model="user.second_lang_isocode" ng-change="userForm.second_lang_isocode.$setValidity('server', true)">
+                                <md-option ng-repeat="lang in langs" ng-value="lang.iso_code">{{lang.name || lang.isocode}}</md-option>
+                            </md-select>
+                            <div ng-messages="userForm.second_lang_isocode.$error" role="alert">
+                                <div ng-if="userForm.second_lang_isocode.$error.server">{{ userForm.second_lang_isocode.$error.server | translate }}</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+
+                    <div flex>
+                        <md-input-container>
+                            <label translate>.FIELD_GROUPS.T_TITLE</label>
+                            <md-select ng-model="user.groups_user" required="required" multiple>
+                                <md-option ng-repeat="group in available_groups_user.data" ng-value="group.id" ng-selected="">{{group.name}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+
+                </div>
+
+                <div flex="60" layout="column">
+                    <div flex layout="row">
+                        <md-autocomplete
+                            flex
+                            md-selected-item-change="company_change(0)"
+                            md-select-on-match="true"
+                            md-floating-label="{{ 'USER.FIELD_COMPANY1.T_TITLE' | translate }}"
+                            md-item-text="item.name"
+                            md-items="item in autocompleteCompany(companies_search[0])"
+                            md-min-length="1"
+                            md-no-cache="1"
+                            md-search-text="companies_search[0]"
+                            md-selected-item="companies[0]">
+                            <md-item-template>
+                                <span md-highlight-text="companies_search[0]">{{item.name}}</span>
+                            </md-item-template>
+                            <md-not-found>{{ 'USER.FIELD_COMPANY.T_CHECK_NOMATCH' | translate }}</md-not-found>
+                        </md-autocomplete>
+
+                        <md-autocomplete
+                            flex
+                            md-search-text-change="companies_city_search[0]=''"
+                            md-autoselect="true"
+                            md-floating-label="{{ 'USER.FIELD_COMPANY1_COUNTRY.T_TITLE' | translate }}"
+                            md-item-text="item.name"
+                            md-items="item in autocompleteCountry(companies_country_search[0])"
+                            md-min-length="1"
+                            md-no-cache="1"
+                            md-search-text="companies_country_search[0]"
+                            md-selected-item="companies_country[0]">
+                            <md-item-template>
+                                <span md-highlight-text="companies_country_search[0]">{{item.name}}</span>
+                            </md-item-template>
+                            <md-not-found>{{ 'USER.FIELD_COMPANY_COUNTRY.T_CHECK_NOMATCH' | translate }}</md-not-found>
+                        </md-autocomplete>
+
+                        <md-autocomplete
+                            flex
+                            md-autoselect="true"
+                            md-floating-label="{{ 'USER.FIELD_COMPANY1_CITY.T_TITLE' | translate }}"
+                            md-item-text="item.name"
+                            md-items="item in autocompleteCity(companies_country[0] ? companies_country[0].geonameid : null, companies_city_search[0])"
+                            md-min-length="2"
+                            md-no-cache="1"
+                            md-search-text="companies_city_search[0]"
+                            md-selected-item="companies_city[0]">
+                            <md-item-template>
+                                <span md-highlight-text="companies_city_search[0]">{{item.name}}</span>
+                            </md-item-template>
+                            <md-not-found>{{ 'USER.FIELD_COMPANY_CITY.T_CHECK_NOMATCH' | translate }}</md-not-found>
+                        </md-autocomplete>
+                    </div>
+
+                    <div flex layout="row">
+                        <md-autocomplete
+                            flex
+                            md-selected-item-change="company_change(1)"
+                            md-select-on-match="true"
+                            md-floating-label="{{ 'USER.FIELD_COMPANY2.T_TITLE' | translate }}"
+                            md-item-text="item.name"
+                            md-items="item in autocompleteCompany(companies_search[1])"
+                            md-min-length="1"
+                            md-no-cache="1"
+                            md-search-text="companies_search[1]"
+                            md-selected-item="companies[1]">
+                            <md-item-template>
+                                <span md-highlight-text="companies_search[1]">{{item.name}}</span>
+                            </md-item-template>
+                            <md-not-found>{{ 'USER.FIELD_COMPANY.T_CHECK_NOMATCH' | translate }}</md-not-found>
+                        </md-autocomplete>
+
+                        <md-autocomplete
+                            flex
+                            md-search-text-change="companies_city_search[1]=''"
+                            md-autoselect="true"
+                            md-floating-label="{{ 'USER.FIELD_COMPANY2_COUNTRY.T_TITLE' | translate }}"
+                            md-item-text="item.name"
+                            md-items="item in autocompleteCountry(companies_country_search[1])"
+                            md-min-length="1"
+                            md-no-cache="1"
+                            md-search-text="companies_country_search[1]"
+                            md-selected-item="companies_country[1]">
+                            <md-item-template>
+                                <span md-highlight-text="companies_country_search[1]">{{item.name}}</span>
+                            </md-item-template>
+                            <md-not-found>{{ 'USER.FIELD_COMPANY_COUNTRY.T_CHECK_NOMATCH' | translate }}</md-not-found>
+                        </md-autocomplete>
+
+                        <md-autocomplete
+                            flex
+                            md-autoselect="true"
+                            md-floating-label="{{ 'USER.FIELD_COMPANY2_CITY.T_TITLE' | translate }}"
+                            md-item-text="item.name"
+                            md-items="item in autocompleteCity(companies_country[1] ? companies_country[1].geonameid : null, companies_city_search[1])"
+                            md-min-length="2"
+                            md-no-cache="1"
+                            md-search-text="companies_city_search[1]"
+                            md-selected-item="companies_city[1]">
+                            <md-item-template>
+                                <span md-highlight-text="companies_city_search[1]">{{item.name}}</span>
+                            </md-item-template>
+                            <md-not-found>{{ 'USER.FIELD_COMPANY_CITY.T_CHECK_NOMATCH' | translate }}</md-not-found>
+                        </md-autocomplete>
+                    </div>
+
+                    <div flex layout="row">
+                        <md-input-container flex>
+                            <label translate>.FIELD_DESCRIPTION.T_TITLE</label>
+                            <textarea required name="description" rows="3" ng-model="user.description" ng-change="userForm.description.$setValidity('server', true)"></textarea>
+                            <div ng-messages="userForm.description.$error" role="alert">
+                                <div ng-if="userForm.description.$error.server">{{ userForm.description.$error.server | translate }}</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+
+                </div>
+            </div>
+
+            <div layout="row">
+                <md-input-container flex>
+                    <label translate>.FIELD_CHRONOGROUP.T_TITLE</label>
+                    <md-select ng-model="user.groups_chronology" multiple>
+                        <md-option ng-repeat="group in available_groups_chronology.data" ng-value="group.id">{{group.name}}</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label translate>.FIELD_CARACSGROUP.T_TITLE</label>
+                    <md-select ng-model="user.groups_charac" multiple>
+                        <md-option ng-repeat="group in available_groups_charac.data" ng-value="group.id">{{group.name}}</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label translate>.FIELD_ACTIVE.T_TITLE</label>
+                    <md-select name="active" ng-model="user.active" required>
+                        <md-option translate ng-value="false">.FIELD_ACTIVE.T_ITEM_NO</md-option>
+                        <md-option translate ng-value="true">.FIELD_ACTIVE.T_ITEM_YES</md-option>
+                    </md-select>
+                    <div ng-messages="userForm.active.$error" role="alert">
+                        <div ng-if="userForm.active.$dirty" ng-message-exp="['required']">{{ 'USER.FIELD_ACTIVE.T_CHECK_MANDATORY' | translate }}</div>
+                    </div>
+                </md-input-container>
+
+            </div>
+
+            <div layout="row">
+                <md-input-container flex>
+                    <label translate>.FIELD_PHOTO.T_TITLE</label>
+                    <div layout="row">
+                        <input width=10 style="width: 80px" ngf-select="" ngf-accept="'image/*'" ng-model="user.photo" ngf-resize="{width: 240, height: 240, type: 'image/jpeg', quality: .9, centerCrop: true}" name="photo"/>
+                        <img ngf-src="user.photo" style="max-width: 64px; max-height: 64px">
+                    </div>
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label translate>.FIELD_DATABASES.T_TITLE</label>
+                    <textarea rows="3" ng-model="user.databases"></textarea>
+                </md-input-container>
+            </div>
+
+            <div layout="row" layout-align="end" layout-wrap>
+                <md-button ng-show="user.id != undefined" class="md-raised" ng-click="deluser()">
+                    <span translate>.BUTTON_DELETE.T_TITLE</span>
+                </md-button>
+                <md-button class="md-raised" ng-click="cancel()">
+                    <span translate>.BUTTON_CANCEL.T_TITLE</span>
+                </md-button>
+                <md-button class="md-raised md-primary" type="submit">
+                    <span translate>.BUTTON_SUBMIT.T_TITLE</span>
+                </md-button>
+            </div>
+
+        </md-content>
+    </md-dialog-content>
+</form>

@@ -21,7 +21,7 @@
 
 (function () {
 	'use strict';
-	ArkeoGIS.controller('UserCtrl', ['$scope', 'user', 'login', 'arkeoLang', "$stateParams", '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", function ($scope, User, Login, arkeoLang, $stateParams, $mdDialog, $http, $q, arkeoService, $mdToast) {
+	ArkeoGIS.controller('UserCtrl', ['$scope', 'user', 'login', 'arkeoLang', "$stateParams", '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", 'EditUser', function ($scope, User, Login, arkeoLang, $stateParams, $mdDialog, $http, $q, arkeoService, $mdToast, EditUser) {
 
 		$scope.users_query = {
 			order: '-u.created_at',
@@ -107,19 +107,11 @@
 	    });
 
 		$scope.openDialogEdit = function (ev, id_user) {
-            $mdDialog.show({
-                controller: "UserEditCtrl",
-                templateUrl: 'partials/user/dialogAddUser.tmpl.html',
-                targetEvent: ev,
-				locals: {
-					id_user: id_user
-				}
-            }).then(function(answer) {
-                console.log("Dialog Add User Answer : "+answer);
+			return EditUser.openDialogEdit(ev, id_user).then(function(answer) {
 				getUsers();
-            }, function() {
-                console.log("Dialog Add User cancelled");
-            });
+			}, function(err) {
+				// canceled
+			});
         };
 
 		//getUsers();
@@ -387,6 +379,20 @@
 				});
 		};
 
+	}]);
+
+
+	ArkeoGIS.service('EditUser', ['$mdDialog', function ($mdDialog) {
+		this.openDialogEdit = function (ev, id_user) {
+            return $mdDialog.show({
+                controller: "UserEditCtrl",
+                templateUrl: 'partials/user/dialogAddUser.tmpl.html',
+                targetEvent: ev,
+				locals: {
+					id_user: id_user
+				}
+            });
+        };
 	}]);
 
 })(angular);
