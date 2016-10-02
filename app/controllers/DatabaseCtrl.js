@@ -120,10 +120,10 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('DatabaseListCtrl', ['$scope', '$http', 'databaseDefinitions',
-        function($scope, $http, databaseDefinitions) {
+    ArkeoGIS.controller('DatabaseListCtrl', ['$scope', '$http', 'databaseDefinitions', 'translations',
+        function($scope, $http, databaseDefinitions, translations) {
 
-            $http.get('/api/database', {}).then(function(response) {
+            $http.get('/api/database').then(function(response) {
                 $scope.databaseDefinitions = databaseDefinitions;
                 var databases = response.data;
                 angular.forEach(databases, function(db) {
@@ -144,10 +144,10 @@
 
             $scope.query = {
                 filter: '',
-                order: 'line',
+                order: null,
+                limitOptions: [10, 25, 50, {label: translations['GENERAL.TABLE_PAGINATION.T_ALL'], value: function() {return 10000}}],
                 limit: 20,
-                page: 1,
-                numRows: ['All', 10, 20, 30]
+                page: 1
             };
 
             $scope.onOrderChange = function(order) {

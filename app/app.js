@@ -65,6 +65,69 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
         $translateProvider.fallbackLanguage('fr');
         /******/
 
+
+        /*
+         * http tokens
+         */
+
+        $httpProvider.interceptors.push(['$q', '$location', '$cookies', function($q, $location, $cookies) {
+            return {
+                'request': function(config) {
+                    config.headers = config.headers || {};
+                    var token = $cookies.get('arkeogis_session_token');
+                    if (token) {
+                        config.headers.Authorization = token;
+                    }
+                    return config;
+                },
+                'responseError': function(response) {
+                    if (response.status === 401 || response.status === 403) {
+                        $location.path('/login');
+                    }
+                    return $q.reject(response);
+                }
+            };
+        }]);
+
+        $httpProvider.interceptors.push(function($q) {
+            return {
+                'request': function(config) {
+                    if (!config.silent) {
+                        $('div#arkeo_loading').show();
+                    }
+                    return config;
+                },
+
+                'requestError': function(rejection) {
+                    $('div#arkeo_loading').hide();
+                    return $q.reject(rejection);
+                },
+
+
+                'response': function(response) {
+                    $('div#arkeo_loading').hide();
+                    return response;
+                },
+                'responseError': function(rejection) {
+                    $('div#arkeo_loading').hide();
+                    return $q.reject(rejection);
+                }
+
+            };
+        });
+
+        /***
+         * auto logout (idle)
+         ***/
+
+         if (window.location.hostname != "localhost" && window.location.hostname != "humain" && window.location.hostname != "home.keblo.net") {
+             IdleProvider.idle(15*60);
+             IdleProvider.timeout(3*60);
+             KeepaliveProvider.interval(10);
+         }
+
+
+
         /*
          * Routing
          */
@@ -88,7 +151,12 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
             .state('arkeogis.map', {
                 url: "/map",
                 templateUrl: "partials/map.html",
-                controller: "MapCtrl"
+                controller: "MapCtrl",
+                resolve: {
+                    translations: function($translate) {
+                        return $translate(['MAP.QUERY_MENU.T_MODIFY', 'MAP.QUERY_MENU.T_DOWNLOAD_CSV', 'MAP.QUERY_MENU.T_ARCHIVE', 'MAP.QUERY_MENU.T_DELETE']);
+                    }
+                }
             })
             .state('arkeogis.import', {
                 url: "/import/:database_id",
@@ -154,14 +222,34 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 resolve: {
                     databaseDefinitions: function(arkeoDatabase) {
                         return arkeoDatabase.translateDefinitions();
+                    },
+                    translations: function($translate) {
+                        return $translate(['GENERAL.TABLE_PAGINATION.T_ALL']);
                     }
                 }
             })
+            .state('arkeogis.user-display', {
+                url: "/user/:user_id",
+                //templateUrl: "partials/user/users.html",
+                //controller: "UserCtrl",
+                resolve: {
+                    displayUser: function() {
+                        console.log("plop");
+                    }
+                },
+            })
             .state('arkeogis.user', {
                 url: "/user",
+                params: {
+                    user_id: null,
+                },
                 templateUrl: "partials/user/users.html",
                 controller: "UserCtrl",
-                resolve: {}
+                resolve: {
+                    checkPerm: function(login) {
+                        return login.resolvePermission('adminusers', 'arkeogis.user');
+                    }
+                }
             })
             .state('arkeogis.project', {
                 url: "/project",
@@ -193,7 +281,11 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 url: "/mapeditor-list",
                 templateUrl: "partials/mapeditor-list.html",
                 controller: "MapEditorListCtrl",
-                resolve: {}
+                resolve: {
+                    translations: function($translate) {
+                        return $translate(['GENERAL.TABLE_PAGINATION.T_ALL']);
+                    }
+                }
             })
             .state('arkeogis.group', {
                 url: "/group",
@@ -255,65 +347,6 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
             });
         /**********/
 
-        /*
-         * http tokens
-         */
-
-        $httpProvider.interceptors.push(['$q', '$location', '$cookies', function($q, $location, $cookies) {
-            return {
-                'request': function(config) {
-                    config.headers = config.headers || {};
-                    var token = $cookies.get('arkeogis_session_token');
-                    if (token) {
-                        config.headers.Authorization = token;
-                    }
-                    return config;
-                },
-                'responseError': function(response) {
-                    if (response.status === 401 || response.status === 403) {
-                        $location.path('/login');
-                    }
-                    return $q.reject(response);
-                }
-            };
-        }]);
-
-        $httpProvider.interceptors.push(function($q) {
-            return {
-                'request': function(config) {
-                    if (!config.silent) {
-                        $('div#arkeo_loading').show();
-                    }
-                    return config;
-                },
-
-                'requestError': function(rejection) {
-                    $('div#arkeo_loading').hide();
-                    return $q.reject(rejection);
-                },
-
-
-                'response': function(response) {
-                    $('div#arkeo_loading').hide();
-                    return response;
-                },
-                'responseError': function(rejection) {
-                    $('div#arkeo_loading').hide();
-                    return $q.reject(rejection);
-                }
-
-            };
-        });
-
-        /***
-         * auto logout (idle)
-         ***/
-
-         if (window.location.hostname != "localhost" && window.location.hostname != "humain" && window.location.hostname != "home.keblo.net") {
-             IdleProvider.idle(15*60);
-             IdleProvider.timeout(3*60);
-             KeepaliveProvider.interval(10);
-         }
 
     }
 ]);

@@ -147,7 +147,7 @@
                         } else if (angular.isDefined(transObj['D'])){
                             translation = transObj['D'];
                         } else {
-                            console.error("ark-get-translation: No translation found !");
+                            // console.error("ark-get-translation: No translation found !");
                             translation = '';
                         }
                         return translation;

@@ -21,7 +21,7 @@
 
 (function() {
 	'use strict';
-	ArkeoGIS.controller('ArkeoCtrl', ['$scope', 'arkeoService', 'arkeoLang', 'Idle', 'Keepalive', 'login', '$state', function($scope, Arkeo, arkeoLang, Idle, Keepalive, Login, $state) {
+	ArkeoGIS.controller('ArkeoCtrl', ['$scope', 'arkeoService', 'arkeoLang', 'Idle', 'Keepalive', 'login', '$state', '$rootScope', function($scope, Arkeo, arkeoLang, Idle, Keepalive, Login, $state, $rootScope) {
 
 		$scope.theme = Arkeo.theme;
 
@@ -68,6 +68,14 @@
 		}
 
 		$scope.toggleFullScreen = toggleFullScreen;
-		
+
+		$rootScope.$on('$stateChangeError', function(e, toState, toParams, fromState, fromParams, error) {
+			if(angular.isObject(error) && ('requirePermission' in error) && ('redirectTo' in error)) {
+				$state.go('arkeogis.login', {
+					redirectTo: error.redirectTo,
+				});
+			}
+		});
+
 	}]);
 })();
