@@ -28,9 +28,6 @@
 
 	ArkeoGIS.controller('CharacEditorListCtrl', ['$scope', '$q', '$http', 'arkeoLang', 'login', function ($scope, $q, $http, arkeoLang, Login) {
 
-		if (!Login.requirePermission('user can edit some charac', 'arkeogis.characeditor'))
-            return;
-
         var self=this;
 
 		$scope.characlist = [];
@@ -58,9 +55,6 @@
 	 */
 
 	ArkeoGIS.controller('CharacEditorCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', '$http', 'arkeoService', '$stateParams', '$state', 'user', '$mdDialog', function ($scope, $q, $mdSidenav, arkeoLang, Login, $http, arkeoService, $stateParams, $state, User, $mdDialog) {
-
-		if (!Login.requirePermission('user can edit some charac', 'arkeogis.characeditor'))
-            return;
 
         var self=this;
 

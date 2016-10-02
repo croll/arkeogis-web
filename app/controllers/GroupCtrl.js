@@ -23,9 +23,6 @@
 	'use strict';
 	ArkeoGIS.controller('GroupCtrl', ['$scope', 'group', 'user', 'login', 'arkeoLang', '$mdDialog', "$http", "$q", "arkeoService", function ($scope, Group, User, Login, arkeoLang, $mdDialog, $http, $q, arkeoService) {
 
-		if (!Login.requirePermission('adminusers', 'arkeogis.group'))
-            return;
-
 		$scope.domains = [
 			{ tr: 'GROUP.GROUPTYPE_USER.T_TITLE', id: 'user'},
 			{ tr: 'GROUP.GROUPTYPE_CHRONOLOGY.T_TITLE', id: 'chronology'},

@@ -28,9 +28,6 @@
 
 	ArkeoGIS.controller('ChronoEditorListCtrl', ['$scope', '$q', '$http', 'arkeoLang', 'login', function ($scope, $q, $http, arkeoLang, Login) {
 
-		if (!Login.requirePermission('user can edit some chronology', 'arkeogis.chronoditor'))
-            return;
-
         var self=this;
 
 		$scope.chronolist = [];
@@ -59,9 +56,6 @@
 	 */
 
 	ArkeoGIS.controller('ChronoEditorCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', '$http', 'arkeoService', '$stateParams', '$rootScope', '$state', 'user', '$mdDialog', function ($scope, $q, $mdSidenav, arkeoLang, Login, $http, arkeoService, $stateParams, $rootScope, $state, User, $mdDialog) {
-
-		if (!Login.requirePermission('user can edit some chronology', 'arkeogis.chronoditor'))
-            return;
 
         var self=this;
 

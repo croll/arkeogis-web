@@ -121,9 +121,6 @@
 
 	ArkeoGIS.controller('UserEditCtrl', ['$scope', 'Upload', 'user', 'login', 'group', 'arkeoLang', '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", "id_user", function ($scope, Upload, User, Login, Group, arkeoLang, $mdDialog, $http, $q, arkeoService, $mdToast, id_user) {
 
-		if (!Login.requirePermission('adminusers', 'user'))
-            return;
-
 		arkeoLang.getActiveLangs().then(function(langs) {
 			$scope.langs = langs;
 		});

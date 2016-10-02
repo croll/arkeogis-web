@@ -28,9 +28,6 @@
 
 	ArkeoGIS.controller('CharacChooserCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', '$http', 'arkeoService', '$stateParams', '$state', 'user', '$mdDialog', function ($scope, $q, $mdSidenav, arkeoLang, Login, $http, arkeoService, $stateParams, $state, User, $mdDialog) {
 
-		if (!Login.requirePermission('user can edit some charac', 'arkeogis.characchooser'))
-            return;
-
         var self=this;
 
 		$scope.mdsidenav_opened = !($stateParams.charac_id > 0);

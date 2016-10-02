@@ -24,9 +24,6 @@
 	ArkeoGIS.controller('MapCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', 'arkeoService', 'arkeoProject', 'login',
 	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, arkeoService, arkeoProject, Login) {
 
-		if (!Login.requirePermission('request map', 'arkeogis.map'))
-            return;
-
 		$scope.project = arkeoProject.get();
 		console.log("project: ", $scope.project);
 
