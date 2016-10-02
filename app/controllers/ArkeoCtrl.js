@@ -77,5 +77,12 @@
 			}
 		});
 
+		// for display logged user on top of the site
+		$scope.$watch(function() {
+			return Login.user;
+		}, function(newval, oldval) {
+			$scope.user = newval;
+		})
+
 	}]);
 })();

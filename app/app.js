@@ -140,9 +140,6 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 url: "",
                 template: "<ui-view></ui-view>",
                 resolve: {
-                    test: function(login) {
-                        return login.relogin()
-                    },
                     langs: function(arkeoLang) {
                         return arkeoLang.init();
                     }
@@ -153,6 +150,9 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 templateUrl: "partials/map.html",
                 controller: "MapCtrl",
                 resolve: {
+                    checkPerm: function(login) {
+                        return login.resolvePermission('request map', 'arkeogis.map');
+                    },
                     translations: function($translate) {
                         return $translate(['MAP.QUERY_MENU.T_MODIFY', 'MAP.QUERY_MENU.T_DOWNLOAD_CSV', 'MAP.QUERY_MENU.T_ARCHIVE', 'MAP.QUERY_MENU.T_DELETE']);
                     }
