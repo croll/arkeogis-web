@@ -29,6 +29,7 @@
                 <th md-column md-order-by="author">
                     <span translate>PROJECT_EDITOR.LIST_AUTHOR.T_LABEL</span>
                 </th>
+                <th>hiddens</th>
                 <th></th>
             </tr>
         </thead>
@@ -37,6 +38,7 @@
                 <td md-cell ark-get-translation ark-translations="item.name"></td>
                 <td md-cell ark-get-translation ark-translations="item.description"></td>
                 <td md-cell>{{item.author.firstname}} {{item.author.lastname}}</td>
+                <td md-cell>{{item.hiddens_count}}</td>
                 <td md-cell>
                     <md-button ng-click="showCharacChooserDialog(item.id, project.id);$event.stopPropagation();" ng-show="checkCharac(item.id)">
                         <md-icon>mode_edit</md-icon>

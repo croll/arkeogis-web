@@ -177,6 +177,9 @@
                 characs: function() {
                     promises.push($http.get('/api/characs', {
                         silent: true,
+                        params: {
+                            project_id: $scope.project.id
+                        }
                     }).then(function(response) {
                         $scope.characs = response.data;
                     }));
