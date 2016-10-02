@@ -228,16 +228,6 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                     }
                 }
             })
-            .state('arkeogis.user-display', {
-                url: "/user/:user_id",
-                //templateUrl: "partials/user/users.html",
-                //controller: "UserCtrl",
-                resolve: {
-                    displayUser: function() {
-                        console.log("plop");
-                    }
-                },
-            })
             .state('arkeogis.user', {
                 url: "/user",
                 params: {
@@ -255,7 +245,11 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 url: "/project",
                 templateUrl: "partials/project/project.html",
                 controller: "ProjectCtrl",
-                resolve: {}
+                resolve: {
+                    checkPerm: function(login) {
+                        return login.resolvePermission('request map', 'arkeogis.project');
+                    },
+                }
             })
             .state('arkeogis.mapeditor', {
                 url: "/mapeditor/:type/:id",
@@ -291,37 +285,61 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 url: "/group",
                 templateUrl: "partials/user/groups.html",
                 controller: "GroupCtrl",
-                resolve: {}
+                resolve: {
+                    checkPerm: function(login) {
+                        return login.resolvePermission('adminusers', 'arkeogis.group');
+                    },
+                }
             })
             .state('arkeogis.langeditor', {
                 url: "/langeditor",
                 templateUrl: "partials/langeditor.html",
                 controller: "LangEditorCtrl",
-                resolve: {}
+                resolve: {
+                    checkPerm: function(login) {
+                        return login.resolvePermission('user can use langeditor', 'arkeogis.langeditor');
+                    },
+                }
             })
             .state('arkeogis.chronoditor-list', {
                 url: "/chronoditor-list",
                 templateUrl: "partials/chronoditor-list.html",
                 controller: "ChronoEditorListCtrl",
-                resolve: {}
+                resolve: {
+                    checkPerm: function(login) {
+                        return login.resolvePermission('user can edit some chronology', 'arkeogis.chronoditor-list');
+                    },
+                }
             })
             .state('arkeogis.chronoditor', {
                 url: "/chronoditor/:chronology_id",
                 templateUrl: "partials/chronoditor.html",
                 controller: "ChronoEditorCtrl",
-                resolve: {}
+                resolve: {
+                    checkPerm: function(login) {
+                        return login.resolvePermission('user can edit some chronology', 'arkeogis.chronoditor');
+                    },
+                }
             })
             .state('arkeogis.characeditor-list', {
                 url: "/characeditor-list",
                 templateUrl: "partials/characeditor-list.html",
                 controller: "CharacEditorListCtrl",
-                resolve: {}
+                resolve: {
+                    checkPerm: function(login) {
+                        return login.resolvePermission('user can edit some charac', 'arkeogis.characeditor-list');
+                    },
+                }
             })
             .state('arkeogis.characeditor', {
                 url: "/characeditor/:charac_id",
                 templateUrl: "partials/characeditor.html",
                 controller: "CharacEditorCtrl",
-                resolve: {}
+                resolve: {
+                    checkPerm: function(login) {
+                        return login.resolvePermission('user can edit some charac', 'arkeogis.characeditor');
+                    },
+                }
             })
             .state('arkeogis.login', {
                 url: "/login",
