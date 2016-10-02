@@ -33,31 +33,34 @@
         this.permissions = [];
 
         this.login = function(user) {
-            return $http.post('/api/login', user).then(function(ret) {
-                $cookies.put('arkeogis_session_token', ret.data.Token);
-                //ArkeoGIS.token=ret.data.Token;
-                self.user = new User(ret.data.User);
+            return $q(function(resolve, reject) {
+                $http.post('/api/login', user).then(function(ret) {
+                    $cookies.put('arkeogis_session_token', ret.data.Token);
+                    //ArkeoGIS.token=ret.data.Token;
+                    self.user = new User(ret.data.User);
 
-                // set langs
-                arkeoLang.setUserLang(1, ret.data.lang1.isocode)
-                arkeoLang.setUserLang(2, ret.data.lang2.isocode)
+                    // set langs
+                    arkeoLang.setUserLang(1, ret.data.lang1.isocode)
+                    arkeoLang.setUserLang(2, ret.data.lang2.isocode)
 
-                // set permissions
-                self.permissions = ret.data.permissions;
+                    // set permissions
+                    self.permissions = ret.data.permissions;
 
-                // init idle timeout
-                if ('id' in self.user && self.user.id != 0) Idle.watch();
+                    // init idle timeout
+                    if ('id' in self.user && self.user.id != 0) Idle.watch();
 
-                // set project
-                arkeoProject.set(ret.data.project);
-                $cookies.put('project_id', ret.data.project.id);
-                return arkeoProject.getDetails();
+                    // set project
+                    arkeoProject.set(ret.data.project);
+                    $cookies.put('project_id', ret.data.project.id);
 
-            }, function(err) {
-                console.log(err);
-                return err;
-            }).then(function() {
-                return self.user;
+                    arkeoProject.getDetails().then(function(proj) {
+                        resolve(self.user);
+                    }, function(err) {
+                        reject(err);
+                    });
+                }, function(err) {
+                    reject(err);
+                });
             });
         };
 
