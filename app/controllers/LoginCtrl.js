@@ -26,8 +26,11 @@
         $scope.user = login.user;
 
         if ($state.current.data.logout) {
-            login.logout();
-            $state.go("arkeogis.map");            
+            login.logout().then(function() {
+                $state.go("arkeogis.login");
+            }, function() {
+                $state.go("arkeogis.login");                
+            });
         }
 
 		$scope.loginSubmit = function () {
