@@ -62,29 +62,47 @@
         };
 
         this.relogin = function() {
-            return $http.get('/api/relogin').then(function(ret) {
-                self.user = new User(ret.data.User);
+            return $q(function(resolve, reject) {
+                $http.get('/api/relogin').then(function(ret) {
+                    self.user = new User(ret.data.User);
 
-                // set langs
-                arkeoLang.setUserLang(1, ret.data.lang1.isocode)
-                arkeoLang.setUserLang(2, ret.data.lang2.isocode)
+                    // set langs
+                    arkeoLang.setUserLang(1, ret.data.lang1.isocode)
+                    arkeoLang.setUserLang(2, ret.data.lang2.isocode)
 
-                // set permissions
-                self.permissions = ret.data.permissions;
+                    // set permissions
+                    self.permissions = ret.data.permissions;
 
-                // init idle timeout
-                if ('id' in self.user && self.user.id != 0) Idle.watch();
+                    // init idle timeout
+                    if ('id' in self.user && self.user.id != 0) Idle.watch();
 
-                // set project
-                arkeoProject.set(ret.data.project);
-                $cookies.put('project_id', ret.data.project.id);
-                return arkeoProject.getDetails();
+                    // set project
+                    arkeoProject.set(ret.data.project);
+                    $cookies.put('project_id', ret.data.project.id);
 
-            }, function(err) {
-                console.log(err);
-                return err;
-            }).then(function() {
-                return self.user;
+                    arkeoProject.getDetails().then(function(proj) {
+                        resolve(self.user);
+                    }, function(err) {
+                        reject(err);
+                    });
+                }, function(err) {
+                    console.error(err);
+                    reject(err);
+                });
+            });
+        };
+
+        this.getUser = function() {
+            return $q(function(resolve, reject) {
+                if (!angular.isDefined(self.user.id) || self.user.id == 0) {
+                    self.relogin().then(function(user) {
+                        resolve(user)
+                    }, function(err) {
+                        reject(err);
+                    })
+                } else {
+                    resolve(self.user);
+                }
             });
         };
 
@@ -120,6 +138,9 @@
              - if redirectTo is defined, it will be redirecte to map !
          */
         this.requirePermission = function(permname, redirectTo) {
+            console.warn("login.requirePermission IS NOT SUPPORTED ANYMORE, sorry !");
+            return true;
+
             if (!angular.isDefined(self.user.id) || self.user.id == 0) {
                 // user is not logged, so try to login first
                 if (redirectTo)
@@ -149,16 +170,26 @@
 
         this.resolvePermission = function(permname, redirectTo) {
             return $q(function(resolve, reject) {
-                if (self.requirePermission(permname)) {
-                    console.log("perm ok");
-                    resolve(self.user);
-                } else {
-                    console.log("perm bad");
-                    reject({
-                        requirePermission: permname,
-                        redirectTo: redirectTo,
-                    });
-                }
+                var user = self.getUser().then(function(user) {
+
+                    var haveperm = false;
+                    self.permissions.forEach(function(permission) {
+                        if (permission.name == permname)
+                            haveperm = true;
+                    })
+                    if (haveperm) {
+                        // everything is ok
+                        resolve(user);
+                    } else {
+                        reject({
+                            requirePermission: permname,
+                            redirectTo: redirectTo,
+                        });
+                    }
+
+                }, function(err) {
+                    reject(err);
+                });
             });
         };
 
