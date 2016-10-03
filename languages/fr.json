@@ -665,6 +665,19 @@
 		"FIELD_USERNAME": {
 			"T_TITLE": "Nom d'utilisateur"
 		},
+		"FOOTER": {
+			"T_CONTACT": "Pour obtenir un identifiant et un mot de passe, merci de prendre CONTACT_LINK",
+			"T_CONTACT_LINKNAME": "contact",
+			"T_CONTACT_LINKURL": "http://www.arkeogis.org/contact",
+			"T_DATE": "Le {{date}} sont consultables :",
+			"T_DBCOUNT": "{{dbcount}} bases de données",
+			"T_SITECOUNT": "{{sitecount}} sites"
+		},
+		"HEADER": {
+			"T_LINE1": "Bien que visant à une libre mise en commun des données archéologiques et géographiques, ArkeoGIS met à disposition des données sensibles qui pourraient conduire à un pillage de gisements archéologiques.",
+			"T_LINE2": "C'est pourquoi l'accès aux données n'est possible qu'après identification.",
+			"T_LINE3": ""
+		},
 		"HEADER_LOGIN": {
 			"T_TITLE": "Identification"
 		}
