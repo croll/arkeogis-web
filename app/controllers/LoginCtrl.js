@@ -21,7 +21,8 @@
 
 (function () {
     'use strict';
-	ArkeoGIS.controller('LoginCtrl', ['$scope', 'login', 'user', "$state", "$stateParams", "arkeoService", "$mdToast", function ($scope, login, User, $state, $stateParams, arkeoService, $mdToast) {
+	ArkeoGIS.controller('LoginCtrl', ['$scope', 'login', 'user', "$state", "$stateParams", "arkeoService", "$mdToast", '$http', '$filter',
+    function ($scope, login, User, $state, $stateParams, arkeoService, $mdToast, $http, $filter) {
 
         $scope.user = login.user;
 
@@ -29,7 +30,7 @@
             login.logout().then(function() {
                 $state.go("arkeogis.login");
             }, function() {
-                $state.go("arkeogis.login");                
+                $state.go("arkeogis.login");
             });
         }
 
@@ -53,5 +54,14 @@
                 }
             });
 		}
+
+        $http.get('/api/stats').then(function(data) {
+            $scope.stats = data.data;
+            $scope.stats.date = $filter('date')(new Date());
+
+            var contactstr = $('#LOGIN_FOOTER_T_CONTACT').text();
+            contactstr = contactstr.replace("CONTACT_LINK", "<a href='"+$('#LOGIN_FOOTER_T_CONTACT_LINKURL').html()+"'>"+$('#LOGIN_FOOTER_T_CONTACT_LINKNAME').text()+"</a>");
+            $('#contactstr').html(contactstr);
+        });
 	}]);
 })();

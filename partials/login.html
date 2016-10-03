@@ -10,6 +10,11 @@
 
         <md-content layout-padding>
             <div layout="column">
+
+                <div translate>.HEADER.T_LINE1</div>
+                <div translate>.HEADER.T_LINE2</div>
+                <div translate>.HEADER.T_LINE3</div>
+
                 <md-input-container flex>
                     <label translate>.FIELD_USERNAME.T_TITLE</label>
                     <input name="username" ng-model="user.Username"/>
@@ -21,6 +26,16 @@
                     <label translate>.FIELD_PASSWORD.T_TITLE</label>
                     <input ng-model="user.Password" type="password"/>
                 </md-input-container>
+
+                <div translate translate-value-date="{{stats.date}}">.FOOTER.T_DATE</div>
+                <div translate translate-value-dbcount="{{stats.dbcount}}">.FOOTER.T_DBCOUNT</div>
+                <div translate translate-value-sitecount="{{stats.sitecount}}">.FOOTER.T_SITECOUNT</div>
+
+                <div id="contactstr"></div>
+
+                <span id="LOGIN_FOOTER_T_CONTACT" style="display: none" translate>LOGIN.FOOTER.T_CONTACT</span>
+                <span id='LOGIN_FOOTER_T_CONTACT_LINKNAME' style="display: none" translate>LOGIN.FOOTER.T_CONTACT_LINKNAME</span>
+                <span id='LOGIN_FOOTER_T_CONTACT_LINKURL' style="display: none" translate>LOGIN.FOOTER.T_CONTACT_LINKURL</span>
             </div>
         </md-content>
 
