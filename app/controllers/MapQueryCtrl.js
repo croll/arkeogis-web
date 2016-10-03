@@ -33,9 +33,19 @@
 
 		var my_databases = [];
 
+        var shapeOptions = {
+            stroke: true,
+            color: '#f06eaa',
+            weight: 4,
+            opacity: 0.5,
+            fill: true,
+            fillColor: null,
+            fillOpacity: 0.2,
+        };
+
 		init_database();
 
-		$scope.params = {};
+		$scope.params = {area: {type:'map'}};
 		$scope.query = arkeoQuery.add(newParams());
 		$scope.editing_chronology = null;
 
@@ -83,7 +93,7 @@
 			});
 
 			$scope.$watch(function() { return arkeoQuery.getCurrent() }, function(new_query, old_query) {
-				console.log("new query: ", new_query);
+				console.info("new query: ", new_query);
 				if (new_query !== undefined && 'params' in new_query && new_query.params) {
 					if (new_query.params === $scope.params) { // we are making a new query because we had modifed the current one
 							// so here, we don't copy again the $scope.params
@@ -98,47 +108,48 @@
 							$scope.params = new_query.params;
 						}
 					}
-					if (JSON.stringify(new_query.params.area) != JSON.stringify(old_query.params.area)) {
+					// Redraw area for mod or archived queries
+					if (new_query.letter != old_query.letter) {
 						redrawArea();
 					}
 				} else {
 					arkeoQuery.add(newParams());
 				}
-				updateParamsArea();
 			});
 
 		});
 
-		function updateParamsArea() {
+		function updateParamsArea(redraw) {
 
-				if (!$scope.params.area) return;
-
-				console.log("UPDATE PARAMS");
+				console.info("UPDATE PARAMS AREA");
 
                 switch ($scope.params.area.type) {
-					case 'map':
-						arkeoMap.getMap().then(function(map) {
-		                	$scope.params.area.geojson = L.rectangle(map.getBounds()).toGeoJSON();
-						}, function(err) {
-							console.log("Error getting map");
-						});
-						break;
                     case 'disc':
-						if (layerDraw) {
-							var center = layerDraw.getBounds().getCenter();
-	                        $scope.params.area.lat = center.lat;
-	                        $scope.params.area.lng = center.lng;
-	                        $scope.params.area.radius = layerDraw.getRadius();
-						}
+						var center = layerDraw.getBounds().getCenter();
+	                    $scope.params.area.lat = center.lat;
+	                    $scope.params.area.lng = center.lng;
+	                    $scope.params.area.radius = layerDraw.getRadius();
                     	break;
                     default:
-						if (layerDraw) {
-		                    $scope.params.area.lat = 0;
-		                    $scope.params.area.lng = 0;
-		                    $scope.params.area.radius = 0;
-		                    $scope.params.area.geojson = layerDraw.toGeoJSON();
-						}
+		                $scope.params.area.lat = 0;
+		                $scope.params.area.lng = 0;
+		                $scope.params.area.radius = 0;
+		                $scope.params.area.geojson = layerDraw.toGeoJSON();
                 }
+				if (redraw) {
+					redrawArea();
+				}
+		}
+
+		function updateMapArea() {
+			if (!$scope.params.area || $scope.params.area.type != 'map') {
+				return;
+			}
+			arkeoMap.getMap().then(function(map) {
+	        	$scope.params.area.geojson = L.rectangle(map.getBounds()).toGeoJSON();
+			}, function(err) {
+				console.log("Error getting map");
+			});
 		}
 
 		function redrawArea() {
@@ -151,11 +162,20 @@
 					layerDraw = null;
 				}
 
-				if ($scope.params.area.type == 'disc') {
-					layerDraw = L.circle([$scope.params.area.lat, $scope.params.area.lng], $scope.params.area.radius).addTo(drawnItems);
-				} else if ($scope.params.area.type != 'map') {
-					console.log(angular.fromJson($scope.params.area.geojson).geometry.coordinates);
-					// layerDraw = L.geoJson($scope.params.area.geojson).addTo(drawnItems);
+				switch($scope.params.area.type) {
+					case 'disc':
+						layerDraw = L.circle([$scope.params.area.lat, $scope.params.area.lng], $scope.params.area.radius, shapeOptions).addTo(drawnItems);
+					break;
+					case 'rect':
+						layerDraw = L.rectangle(L.geoJson($scope.params.area.geojson).getBounds(), shapeOptions).addTo(drawnItems);
+					break;
+					case 'free':
+						L.geoJson($scope.params.area.geojson, {
+						 	  onEachFeature: function (feature, layer) {
+						  	    layerDraw = layer.addTo(drawnItems);
+						  	  }
+						});
+					break;
 				}
 				if (layerDraw) {
                 	layerDraw.editing.enable();
@@ -177,7 +197,6 @@
 		}
 
 		$scope.showMap = function() {
-			// updateParamsArea().then(function() {
 				$mdSidenav('sidenav-left').close();
 				$scope.params = angular.copy($scope.query.params);
 				arkeoQuery.do($scope.query).then(function(q) {
@@ -189,10 +208,6 @@
 					arkeoService.showMessage('MAP.MESSAGE_QUERY_RESULT.T_SERVERERROR');
 					$mdSidenav('sidenav-left').open();
 				})
-
-			// }, function(err) {
-				// console.err("updateParamsArea failed: ", err);
-			// });
 		};
 
 		$scope.initQuery = function() {
@@ -327,20 +342,14 @@
 
             arkeoMap.getMap().then(function(map) {
 
-                    drawnItems = new L.FeatureGroup().addTo(map);
-
-                    var shapeOptions = {
-                        stroke: true,
-                        color: '#f06eaa',
-                        weight: 4,
-                        opacity: 0.5,
-                        fill: true,
-                        fillColor: null,
-                        fillOpacity: 0.2,
-                    };
+                drawnItems = new L.FeatureGroup().addTo(map);
 
 				map.on('moveend', function() {
-					updateParamsArea();
+					updateMapArea();
+				});
+
+				map.on('load', function() {
+					updateMapArea();
 				});
 
                 map.on('draw:drawstart', function(e) {
@@ -355,14 +364,20 @@
                     layerDraw = e.layer;
                     drawnItems.addLayer(layerDraw);
                     layerDraw.editing.enable();
+					$scope.params.area.redraw = true;
 					updateParamsArea();
                 });
 
                 map.on('draw:editvertex', function(e) {
+					$scope.params.area.redraw = true;
 					updateParamsArea();
                 });
 
                 map.on('draw:editresize', function(e) {
+					updateParamsArea();
+				});
+
+                map.on('draw:editmove', function(e) {
 					updateParamsArea();
 				});
 
@@ -410,7 +425,7 @@
                 $scope.validDraw = function() {
                     $rootScope.showDrawButtons = false;
                     $mdSidenav('sidenav-left').open();
-					updateParamsArea();
+					// updateParamsArea(true);
                 }
 
                 $scope.showAreaChooserDialog = function(params) {
