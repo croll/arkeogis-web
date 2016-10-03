@@ -18,6 +18,9 @@
                     <th md-column md-order-by="name | arkTranslate">
                         <span translate>CHARACEDITOR.LIST_NAME.T_TITLE</span> / <span translate>CHARACEDITOR.LIST_DESCRIPTION.T_TITLE</span>
                     </th>
+                    <th md-column md-order-by="author.firstname+author.lastname">
+                        <span translate>CHARACEDITOR.LIST_AUTHOR.T_TITLE</span>
+                    </th>
                     <th md-column md-order-by="cached_langs">
                         <span translate>CHARACEDITOR.LIST_LANGS.T_TITLE</span>
                     </th>
@@ -41,6 +44,7 @@
                         <br/>
                         <div style="font-size: 0.8em; color: #555" ark-get-translation ark-translations="charac.description"></div>
                     </td>
+                    <td md-cell>{{charac.author.firstname}} {{charac.author.lastname}}</td>
                     <td md-cell>{{charac.cached_langs}}</td>
                     <td md-cell>
                         {{ charac.created_at | date : 'mediumDate' }}
