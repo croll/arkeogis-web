@@ -55,6 +55,9 @@
                             "OSM": new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                                 attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a>'
                             }),
+                            "OpenTopoMap": new L.TileLayer('http://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                                attribution: '<a href="http://opentopomap.org/credits">OpenTopoMap</a>'
+                            }),
                             "Google Roadmap": new L.Google('ROADMAP'),
                             "Google Sat": new L.Google('SATELLITE'),
                             "Google Terrain": new L.Google('TERRAIN')
