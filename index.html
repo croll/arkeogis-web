@@ -102,8 +102,11 @@
 </head>
 
 <body ng-app="ArkeoGIS" ng-controller="ArkeoCtrl as arkeo" layout="row" ng-cloak translate-namespace="MAIN">
-	<div id='arkeo_loading' style="display: none;" translate>.LOADING.T_TITLE</div>
-	<div id='arkeo_idle' style="display: none;" translate>.IDLE.T_TITLE</div>
+	<div id='arkeo_loading' layout="column" layout-align="center center" style="display: none;">
+		<md-progress-circular md-diameter="96"></md-progress-circular>
+		<div translate>.LOADING.T_TITLE</div>
+	</div>
+	<div id='arkeo_idle' layout="column" layout-align="center center" style="display: none;" translate>.IDLE.T_TITLE</div>
 
 	<div layout="column" flex md-theme="{{theme}}">
 		<md-toolbar id="arkeo-main-toolbar" class="md-toolbar-tools">
