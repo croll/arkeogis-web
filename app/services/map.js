@@ -46,10 +46,10 @@
 
         this.initLeaflet = function(el) {
 
-            $translate(['MAP.LAYER_MENU.T_ZOOMIN', 'MAP.LAYER_MENU.T_ZOOMOUT', 'MAP.LAYER_MENU.T_TOGGLE_GROUP', 'MAP.LAYER_MENU.T_BASE_LAYERS', 'MAP.LAYER_MENU.T_PROJECT_LAYERS', 'MAP.LAYER_MENU.T_ALL']).then(function(translations) {
+            $translate(['MAP.LAYER_MENU.T_ZOOMIN', 'MAP.LAYER_MENU.T_ZOOMOUT', 'MAP.LAYER_MENU.T_TOGGLE_GROUP', 'MAP.LAYER_MENU.T_BASE_LAYERS', 'MAP.LAYER_MENU.T_ALL']).then(function(translations) {
                 var layers = {
                     baseMaps: [{
-                        groupName: 'BaseLayers',
+                        groupName: translations['MAP.LAYER_MENU.T_BASE_LAYERS'],
                         expanded: true,
                         layers: {
                             "OSM": new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

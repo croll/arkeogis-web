@@ -74,7 +74,7 @@
                         var l = addLayer(layer, map);
                         // arkeoMap.layerControl.addOverlay(l.instance, l.name)
                         arkeoMap.layerControl.addOverlay(l.instance, l.name, {
-                            groupName: "Project layers",
+                            groupName: $scope.translations['MAP.LAYER_MENU.T_PROJECT_LAYERS'],
                             expanded: true
                         });
                     });
