@@ -187,9 +187,8 @@
 
 		function recenterMapFromQuery(query) {
 			arkeoMap.getMap().then(function(map) {
-				var center;
-				if (query.params.area == 'disc') {
-					map.fitBounds(L.circle([query.params.lat, query.params.lng], query.params.radius).getBounds());
+				if (query.params.area.type == 'disc') {
+					map.fitBounds(L.circle([query.params.area.lat, query.params.area.lng], query.params.area.radius).getBounds());
 				} else {
 					map.fitBounds(L.geoJson(angular.fromJson(query.params.area.geojson)).getBounds());
 				}
