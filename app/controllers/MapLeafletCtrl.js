@@ -74,7 +74,7 @@
                         var l = addLayer(layer, map);
                         // arkeoMap.layerControl.addOverlay(l.instance, l.name)
                         arkeoMap.layerControl.addOverlay(l.instance, l.name, {
-                            groupName: $scope.translations['MAP.LAYER_MENU.T_PROJECT_LAYERS'],
+                            groupName: $scope.translations['MAP.QUERY_MENU.T_PROJECT_LAYERS'],
                             expanded: true
                         });
                     });
@@ -377,7 +377,7 @@
                         }
 
                         arkeoMap.layerControl.addOverlay(markerGroup.cluster, markerGroup.database, {
-                            groupName: "query " + query.letter + (angular.isDefined(query.name) && query.name.length > 0 ? ' ('+query.name+')' : ''),
+                            groupName: $scope.translations['MAP.QUERY_MENU.T_QUERY'] + query.letter + (angular.isDefined(query.name) && query.name.length > 0 ? ' ('+query.name+')' : ''),
                             expanded: true,
                             removable: true,
                             togglable: true,
