@@ -21,8 +21,8 @@
 
 (function() {
 	'use strict';
-	ArkeoGIS.controller('MapCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', 'arkeoService', 'arkeoProject', 'login',
-	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, arkeoService, arkeoProject, Login) {
+	ArkeoGIS.controller('MapCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', 'arkeoService', 'arkeoProject', 'login', 'translations',
+	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, arkeoService, arkeoProject, Login, translations) {
 
 		$scope.project = arkeoProject.get();
 		console.log("project: ", $scope.project);
@@ -33,6 +33,9 @@
 
 		// results
 		$scope.latest_result = 0;
+
+		// translations
+		$scope.translations = translations;
 
 		/*
 		 * SideNav
