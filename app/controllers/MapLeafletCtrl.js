@@ -383,7 +383,7 @@
                             togglable: true,
                             buttons: [
                                 {
-                                    label: 'mod',
+                                    label: $scope.translations['MAP.QUERY_MENU.T_MODIFY'],
                                     class: 'edit',
                                     callback: function() {
                                         arkeoQuery.setCurrent(query);
@@ -392,14 +392,14 @@
                                     }
                                 },
                                 {
-                                    label: 'csv',
+                                    label: $scope.translations['MAP.QUERY_MENU.T_DOWNLOAD_CSV'],
                                     class: 'download',
                                     callback: function() {
                                         arkeoQuery.getCSV(query);
                                     }
                                 },
                                 {
-                                    label: 'archive...',
+                                    label: $scope.translations['MAP.QUERY_MENU.T_ARCHIVE'],
                                     class: 'save',
                                     callback: function() {
                                         $mdSidenav('sidenav-left').open();
@@ -409,7 +409,7 @@
                                     }
                                 },
                                 {
-                                    label: 'del',
+                                    label: $scope.translations['MAP.QUERY_MENU.T_DELETE'],
                                     class: 'delete',
                                     trigger: 'removeGroup',
                                     callback: function() {

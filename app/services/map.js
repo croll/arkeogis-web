@@ -20,7 +20,7 @@
  */
 
 (function() {
-    ArkeoGIS.service('arkeoMap', ['$http', '$q', 'arkeoProject', '$rootScope', function($http, $q, arkeoProject, $rootScope) {
+    ArkeoGIS.service('arkeoMap', ['$http', '$q', 'arkeoProject', '$rootScope', '$translate', function($http, $q, arkeoProject, $rootScope, $translate) {
 
         var self = this,
             mapDefer = $q.defer(),
@@ -46,85 +46,87 @@
 
         this.initLeaflet = function(el) {
 
-            var layers = {
-                baseMaps: [{
-                    groupName: 'BaseLayers',
-                    expanded: true,
-                    layers: {
-                        "OSM": new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                            attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a>'
-                        }),
-                        "Google Roadmap": new L.Google('ROADMAP'),
-                        "Google Sat": new L.Google('SATELLITE'),
-                        "Google Terrain": new L.Google('TERRAIN')
-                    }
-                }]
-            }
+            $translate(['MAP.LAYER_MENU.T_ZOOMIN', 'MAP.LAYER_MENU.T_ZOOMOUT', 'MAP.LAYER_MENU.T_TOGGLE_GROUP', 'MAP.LAYER_MENU.T_BASE_LAYERS', 'MAP.LAYER_MENU.T_PROJECT_LAYERS', 'MAP.LAYER_MENU.T_ALL']).then(function(translations) {
+                var layers = {
+                    baseMaps: [{
+                        groupName: 'BaseLayers',
+                        expanded: true,
+                        layers: {
+                            "OSM": new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a>'
+                            }),
+                            "Google Roadmap": new L.Google('ROADMAP'),
+                            "Google Sat": new L.Google('SATELLITE'),
+                            "Google Terrain": new L.Google('TERRAIN')
+                        }
+                    }]
+                }
 
-            // Init leaflet
-            var map = new L.Map(el, {
-                center: new L.LatLng(projectCentroid.lat, projectCentroid.lng),
-                layers: [layers.baseMaps[0].layers["OSM"]],
-                zoomControl: false,
-                maxZoom: 18
+                // Init leaflet
+                var map = new L.Map(el, {
+                    center: new L.LatLng(projectCentroid.lat, projectCentroid.lng),
+                    layers: [layers.baseMaps[0].layers["OSM"]],
+                    zoomControl: false,
+                    maxZoom: 18
+                });
+
+                self.layerControl = L.Control.styledLayerControl(layers.baseMaps, null, {
+                    container_width: "200px",
+                    container_maxHeight: "600px",
+                    exclusive: false,
+                    collapsed: false,
+                    group_toggler: {
+                        show: true,
+                        label: translations['MAP.LAYER_MENU.T_ALL']
+                    },
+                    buttons: [{
+                        label: translations['MAP.LAYER_MENU.T_ZOOMIN'],
+                        class: 'zoomin',
+                        callback: function(button, layerControl) {
+                            map.zoomIn();
+                        },
+                        events: {
+                            zoomend: function(button, layerControl) {
+                                if (map.getZoom() >= map.getMaxZoom()) {
+                                    $(button.element).addClass('disabled');
+                                } else {
+                                    $(button.element).removeClass('disabled');
+                                }
+                            }
+                        }
+                    }, {
+                        label: translations['MAP.LAYER_MENU.T_ZOOMOUT'],
+                        class: 'zoomout',
+                        callback: function(button, layerControl) {
+                            map.zoomOut();
+                        },
+                        events: {
+                            zoomend: function(button, layerControl) {
+                                if (map.getZoom() <= map.getMinZoom()) {
+                                    $(button.element).addClass('disabled');
+                                } else {
+                                    $(button.element).removeClass('disabled');
+                                }
+                            }
+                        }
+                    }, {
+                        label: translations['MAP.LAYER_MENU.T_TOGGLE_GROUP'],
+                        class: 'group',
+                        enabled: true,
+                        togglable: true,
+                        callback: function(button, layerControl) {
+                            groupRadius = (groupRadius == 0) ? 80 : 0;
+                            $rootScope.$apply();
+                        }
+                    }]
+
+                }).addTo(map);
+                // Scale control
+                new L.control.scale({
+                    position: 'bottomright'
+                }).addTo(map);
+                return mapDefer.resolve(map);
             });
-
-            self.layerControl = L.Control.styledLayerControl(layers.baseMaps, null, {
-                container_width: "200px",
-                container_maxHeight: "600px",
-                exclusive: false,
-                collapsed: false,
-                group_toggler: {
-                    show: true,
-                    label: 'All'
-                },
-                buttons: [{
-                    label: 'Zoom +',
-                    class: 'zoomin',
-                    callback: function(button, layerControl) {
-                        map.zoomIn();
-                    },
-                    events: {
-                        zoomend: function(button, layerControl) {
-                            if (map.getZoom() >= map.getMaxZoom()) {
-                                $(button.element).addClass('disabled');
-                            } else {
-                                $(button.element).removeClass('disabled');
-                            }
-                        }
-                    }
-                }, {
-                    label: 'Zoom -',
-                    class: 'zoomout',
-                    callback: function(button, layerControl) {
-                        map.zoomOut();
-                    },
-                    events: {
-                        zoomend: function(button, layerControl) {
-                            if (map.getZoom() <= map.getMinZoom()) {
-                                $(button.element).addClass('disabled');
-                            } else {
-                                $(button.element).removeClass('disabled');
-                            }
-                        }
-                    }
-                }, {
-                    label: 'Group icons',
-                    class: 'group',
-                    enabled: true,
-                    togglable: true,
-                    callback: function(button, layerControl) {
-                        groupRadius = (groupRadius == 0) ? 80 : 0;
-                        $rootScope.$apply();
-                    }
-                }]
-
-            }).addTo(map);
-            // Scale control
-            new L.control.scale({
-                position: 'bottomright'
-            }).addTo(map);
-            return mapDefer.resolve(map);
         }
 
         this.getMap = function() {
