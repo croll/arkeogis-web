@@ -150,18 +150,6 @@
 							</md-button>
 						</md-menu-item>
 						<md-menu-item>
-							<md-button ui-sref="arkeogis.user">
-								<md-icon>person</md-icon>
-								<p flex translate>.FIELD_MAINMENU.T_ITEM_USERSMANAGER</p>
-							</md-button>
-						</md-menu-item>
-						<md-menu-item>
-							<md-button ui-sref="arkeogis.group">
-								<md-icon>group</md-icon>
-								<p flex translate>.FIELD_MAINMENU.T_ITEM_GROUPSMANAGER</p>
-							</md-button>
-						</md-menu-item>
-						<md-menu-item>
 							<md-button ui-sref="arkeogis.import.step1({database_id: 0})">
 								<md-icon>cloud_upload</md-icon>
 								<p flex translate>.FIELD_MAINMENU.T_ITEM_IMPORT</p>
@@ -174,15 +162,21 @@
 							</md-button>
 						</md-menu-item>
 						<md-menu-item>
-							<md-button ui-sref="arkeogis.langeditor">
-								<md-icon>translate</md-icon>
-								<p flex translate>.FIELD_MAINMENU.T_ITEM_LANGEDITOR</p>
-							</md-button>
-						</md-menu-item>
-						<md-menu-item>
 							<md-button ui-sref="arkeogis.project">
 								<md-icon>card_travel</md-icon>
 								<p flex translate>.FIELD_MAINMENU.T_ITEM_PREFERENCES</p>
+							</md-button>
+						</md-menu-item>
+						<md-menu-item>
+							<md-button ui-sref="arkeogis.user">
+								<md-icon>person</md-icon>
+								<p flex translate>.FIELD_MAINMENU.T_ITEM_USERSMANAGER</p>
+							</md-button>
+						</md-menu-item>
+						<md-menu-item>
+							<md-button ui-sref="arkeogis.group">
+								<md-icon>group</md-icon>
+								<p flex translate>.FIELD_MAINMENU.T_ITEM_GROUPSMANAGER</p>
 							</md-button>
 						</md-menu-item>
 						<md-menu-item>
@@ -204,6 +198,12 @@
 							</md-button>
 						</md-menu-item>
 						<md-menu-item>
+							<md-button ui-sref="arkeogis.langeditor">
+								<md-icon>translate</md-icon>
+								<p flex translate>.FIELD_MAINMENU.T_ITEM_LANGEDITOR</p>
+							</md-button>
+						</md-menu-item>
+						<md-menu-item ng-hide="true">
 							<md-button ui-sref="arkeogis.login">
 								<md-icon>perm_identity</md-icon>
 								<p flex translate>.FIELD_MAINMENU.T_ITEM_LOGIN</p>
