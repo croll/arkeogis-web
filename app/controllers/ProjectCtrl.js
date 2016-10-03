@@ -67,12 +67,13 @@
                         $scope.geojson = {
                             data: L.rectangle(boundingBox).toGeoJSON(),
                             style: {
-                                fillColor: '#ff00ff',
-                                weight: 2,
-                                opacity: 1,
-                                color: '#777',
-                                dashArray: '5',
-                                fillOpacity: 0.3
+                                stroke: true,
+                                color: '#ff9800',
+                                weight: 4,
+                                opacity: 0.5,
+                                fill: true,
+                                fillColor: null,
+                                fillOpacity: 0.2,
                             }
                         }
                     } else {
@@ -228,14 +229,15 @@
                 }
                 $scope.geojson = {
                     data: angular.fromJson(geojson),
-                    style: {
-                        fillColor: '#ff00ff',
-                        weight: 2,
-                        opacity: 1,
-                        color: '#777',
-                        dashArray: '5',
-                        fillOpacity: 0.3
-                    }
+                        style: {
+                            stroke: true,
+                            color: '#ff9800',
+                            weight: 4,
+                            opacity: 0.5,
+                            fill: true,
+                            fillColor: null,
+                            fillOpacity: 0.2,
+                        }
                 }
             }
 

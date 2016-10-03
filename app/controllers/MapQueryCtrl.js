@@ -35,7 +35,7 @@
 
         var shapeOptions = {
             stroke: true,
-            color: '#f06eaa',
+            color: '#ff9800',
             weight: 4,
             opacity: 0.5,
             fill: true,
@@ -173,7 +173,8 @@
 						L.geoJson($scope.params.area.geojson, {
 						 	  onEachFeature: function (feature, layer) {
 						  	    layerDraw = layer.addTo(drawnItems);
-						  	  }
+							},
+							style: shapeOptions
 						});
 					break;
 				}

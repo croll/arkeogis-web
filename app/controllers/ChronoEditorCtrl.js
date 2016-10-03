@@ -28,6 +28,9 @@
 
 	ArkeoGIS.controller('ChronoEditorListCtrl', ['$scope', '$q', '$http', 'arkeoLang', 'login', function ($scope, $q, $http, arkeoLang, Login) {
 
+		if (!Login.requirePermission('user can edit some chronology', 'arkeogis.chronoditor'))
+            return;
+
         var self=this;
 
 		$scope.chronolist = [];
@@ -56,6 +59,9 @@
 	 */
 
 	ArkeoGIS.controller('ChronoEditorCtrl', ['$scope', '$q', '$mdSidenav', 'arkeoLang', 'login', '$http', 'arkeoService', '$stateParams', '$rootScope', '$state', 'user', '$mdDialog', function ($scope, $q, $mdSidenav, arkeoLang, Login, $http, arkeoService, $stateParams, $rootScope, $state, User, $mdDialog) {
+
+		if (!Login.requirePermission('user can edit some chronology', 'arkeogis.chronoditor'))
+            return;
 
         var self=this;
 
@@ -409,13 +415,6 @@
 			});
 		}
 
-		$scope.download_csv = function() {
-			var downloadLink = angular.element('<a></a>');
-                        downloadLink.attr('href', '/api/chronologies/csv?name='+$scope.arbo.name_cur+'&isocode='+arkeoLang.getTranslationLang()+'&dl=1');
-                        downloadLink.attr('download', $scope.arbo.name_cur+'.csv');
-			downloadLink[0].click();
-		}
-
 
 		function init() {
 			$scope.load();
@@ -435,6 +434,16 @@
 		var resize = function() {
 			$scope.mapHeight = ($(window).height() - $("#arkeo-main-toolbar").height() - $("#arkeo-chronoditor-toolbar").height())+"px";
 		};
+
+        var shapeOptions = {
+            stroke: true,
+            color: '#ff9800',
+            weight: 4,
+            opacity: 0.5,
+            fill: true,
+            fillColor: null,
+            fillOpacity: 0.2,
+        };
 
 		$(window).on('resize', resize);
 		$scope.$on('EmpriseMapShow', function(event) {
@@ -458,18 +467,12 @@
 						polygon: {
 							allowIntersection: false, // Restricts shapes to simple polygons
 							showArea: true,
-							shapeOptions: {
-				                color: '#33f',
-								weight: 5,
-				            }
+							shapeOptions: shapeOptions
 						},
 						rectangle: {
 							showArea: true,
-							shapeOptions: {
-				                color: '#33f',
-								weight: 5,
-				            }
-						}
+							shapeOptions: shapeOptions
+						},
 					}
 				}
 			},
