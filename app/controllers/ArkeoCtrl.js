@@ -21,7 +21,8 @@
 
 (function() {
 	'use strict';
-	ArkeoGIS.controller('ArkeoCtrl', ['$scope', 'arkeoService', 'arkeoLang', 'Idle', 'Keepalive', 'login', '$state', '$rootScope', function($scope, Arkeo, arkeoLang, Idle, Keepalive, Login, $state, $rootScope) {
+	ArkeoGIS.controller('ArkeoCtrl', ['$scope', 'arkeoService', 'arkeoLang', 'Idle', 'Keepalive', 'login', '$state', '$rootScope', 'EditUser',
+	function($scope, Arkeo, arkeoLang, Idle, Keepalive, Login, $state, $rootScope, EditUser) {
 
 		$scope.theme = Arkeo.theme;
 
@@ -81,8 +82,18 @@
 		$scope.$watch(function() {
 			return Login.user;
 		}, function(newval, oldval) {
-			$scope.user = newval;
+			$scope.user = Login.user;
 		})
+
+		$scope.editMyUser = function(ev) {
+			if (Login.user.id > 0) {
+				EditUser.openDialogEdit(ev, Login.user.id).then(function() {
+					Login.relogin().then(function(u) {
+						$scope.user = u;
+					});
+				});
+			}
+		};
 
 	}]);
 })();
