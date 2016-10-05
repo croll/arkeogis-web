@@ -694,18 +694,18 @@
 	},
 	"MAIN": {
 		"FIELD_MAINMENU": {
-			"T_ITEM_CHARACEDITOR": "Éditeur de caractéristiques",
-			"T_ITEM_CHRONODITOR": "Éditeurs de chronologies",
+			"T_ITEM_CHARACEDITOR": "Gestion des caractéristiques",
+			"T_ITEM_CHRONODITOR": "Gestion des chronologies",
 			"T_ITEM_DATABASE_LIST": "Index des bases de données",
 			"T_ITEM_GROUPSMANAGER": "Administration des groupes",
-			"T_ITEM_IMPORT": "Import",
-			"T_ITEM_LANGEDITOR": "Éditeur de langues",
+			"T_ITEM_IMPORT": "Importer une base de données",
+			"T_ITEM_LANGEDITOR": "Gestion des traductions",
 			"T_ITEM_LOGIN": "S'identifier",
 			"T_ITEM_LOGOUT": "Déconnecter",
 			"T_ITEM_MAP": "Carte",
-			"T_ITEM_MAPEDITOR": "Éditeur de cartes",
+			"T_ITEM_MAPEDITOR": "Gestion des cartes",
 			"T_ITEM_PREFERENCES": "Préférences du projet",
-			"T_ITEM_USERSMANAGER": "Éditeur d'utilisateurs"
+			"T_ITEM_USERSMANAGER": "Gestion des utilisateurs"
 		},
 		"IDLE": {
 			"T_TITLE": "Vous semblez inactif, si vous ne faites rien, vous allez être déconnecté..."
@@ -722,11 +722,11 @@
 			"T_TITLE": "REINITIALISER LES FILTRES"
 		},
 		"LAYER_MENU": {
-			"T_ALL": "#!#MAP.LAYER_MENU.T_ALL",
-			"T_BASE_LAYERS": "#!#MAP.LAYER_MENU.T_BASE_LAYERS",
-			"T_TOGGLE_GROUP": "#!#MAP.LAYER_MENU.T_TOGGLE_GROUP",
-			"T_ZOOMIN": "#!#MAP.LAYER_MENU.T_ZOOMIN",
-			"T_ZOOMOUT": "#!#MAP.LAYER_MENU.T_ZOOMOUT"
+			"T_ALL": "Tous",
+			"T_BASE_LAYERS": "Fonds de carte",
+			"T_TOGGLE_GROUP": "Grouper / Dégrouper les icônes",
+			"T_ZOOMIN": "Zoom +",
+			"T_ZOOMOUT": "Zoom -"
 		},
 		"MENU_DATABASE": {
 			"T_INVENTORY": "Inventaire",
@@ -745,12 +745,12 @@
 			"T_CONTENT": "Votre requête à bien été archivée"
 		},
 		"QUERY_MENU": {
-			"T_ARCHIVE": "#!#MAP.QUERY_MENU.T_ARCHIVE",
-			"T_DELETE": "#!#MAP.QUERY_MENU.T_DELETE",
-			"T_DOWNLOAD_CSV": "#!#MAP.QUERY_MENU.T_DOWNLOAD_CSV",
-			"T_MODIFY": "#!#MAP.QUERY_MENU.T_MODIFY",
-			"T_PROJECT_LAYERS": "#!#MAP.QUERY_MENU.T_PROJECT_LAYERS",
-			"T_QUERY": "#!#MAP.QUERY_MENU.T_QUERY"
+			"T_ARCHIVE": "Archiver",
+			"T_DELETE": "Supprimer",
+			"T_DOWNLOAD_CSV": "CSV",
+			"T_MODIFY": "Modifier",
+			"T_PROJECT_LAYERS": "Calques",
+			"T_QUERY": "Requête"
 		}
 	},
 	"MAPEDITOR": {
@@ -897,7 +897,7 @@
 			"T_LABEL": "Selection hors des limites"
 		},
 		"INFORMATIONS_PERIOD_SELECTION": {
-			"T_HELP": "Indiquez les bornes de début et de fin de votre projet. Le choix de la période a une incidence sur les listes de chronologies, de cartes et sur les bases de données disponibles.",
+			"T_HELP": "Si vous souhaitez ne faire apparaître que les bases étant exclusivement calées sur votre période de recherche, indiquez les bornes de début et de fin de votre projet (optionnel). Le choix de la période a une incidence sur les listes de chronologies, de cartes et sur les bases de données disponibles.",
 			"T_LABEL": "Choix de la période"
 		},
 		"INTERFACE": {
@@ -1256,10 +1256,10 @@
 			"T_TITLE": "Précision sur les sites à inclure dans la requête :"
 		},
 		"PRECISIONS_KNOWLEDGES": {
-			"T_TITLE": "Les sites dont l’état des connaissances est :"
+			"T_TITLE": "Les sites dont l’état des connaissances est (plusieurs choix possibles) :"
 		},
 		"PRECISIONS_OCCUPATION": {
-			"T_TITLE": "Les sites dont l’Occupation est de type :"
+			"T_TITLE": "Les sites dont l’Occupation est de type (plusieurs choix possibles) :"
 		},
 		"TEXTSEARCH": {
 			"T_INTRO": "La recherche peut inclure ces symboles :\n\" % \" : (remplace n'importe quoi) et \" _ \" : (remplace un seul caractère par n'importe quoi).\nLa recherche peut s'effectuer sur les champs Nom du site, Commune, Commentaires et Bibliographie de chaque fiche-site des bases de données sélectionnées.",
