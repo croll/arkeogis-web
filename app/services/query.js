@@ -32,6 +32,7 @@
         this.current = undefined;
 
         this.do = function(query) {
+            console.log('query: ', query.params);
             return $http.post("/api/map/search", query.params).then(function(result) {
                 query.data = result.data;
                 query.done = true;

@@ -1,5 +1,10 @@
 {
 	"CHARACEDITOR": {
+		"BUTTON_CANCEL": {
+			"T_CONFIRM": "#!#CHARACEDITOR.BUTTON_CANCEL.T_CONFIRM",
+			"T_OK": "#!#CHARACEDITOR.BUTTON_CANCEL.T_OK",
+			"T_TITLE": "#!#CHARACEDITOR.BUTTON_CANCEL.T_TITLE"
+		},
 		"BUTTON_DELETE": {
 			"T_CONFIRM": "Do you really wish to delete this category?",
 			"T_OK": "Yes",
@@ -65,6 +70,11 @@
 	"CHRONODITOR": {
 		"BUTTON_AREA": {
 			"T_TITLE": "Geographical extent..."
+		},
+		"BUTTON_CANCEL": {
+			"T_CONFIRM": "#!#CHRONODITOR.BUTTON_CANCEL.T_CONFIRM",
+			"T_OK": "#!#CHRONODITOR.BUTTON_CANCEL.T_OK",
+			"T_TITLE": "#!#CHRONODITOR.BUTTON_CANCEL.T_TITLE"
 		},
 		"BUTTON_CLOSEMAP": {
 			"T_TITLE": "Close the map"
