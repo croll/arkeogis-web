@@ -134,7 +134,7 @@
 		                $scope.params.area.lat = 0;
 		                $scope.params.area.lng = 0;
 		                $scope.params.area.radius = 0;
-		                $scope.params.area.geojson = layerDraw.toGeoJSON();
+		                $scope.params.area.geojson = layerDraw.toGeoJSON().geometry;
                 }
 				if (redraw) {
 					redrawArea();
@@ -146,7 +146,8 @@
 				return;
 			}
 			arkeoMap.getMap().then(function(map) {
-	        	$scope.params.area.geojson = L.rectangle(map.getBounds()).toGeoJSON();
+	        	$scope.params.area.geojson = L.rectangle(map.getBounds()).toGeoJSON().geometry;
+				console.log($scope.params.area.geojson);
 			}, function(err) {
 				console.log("Error getting map");
 			});
@@ -180,8 +181,8 @@
 				}
 				if (layerDraw) {
                 	layerDraw.editing.enable();
+					recenterMapFromQuery($scope.query);
 				}
-				recenterMapFromQuery($scope.query);
 			});
 
 		}
