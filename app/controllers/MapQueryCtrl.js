@@ -80,43 +80,39 @@
 
 		var hack_inhibit_watch_params = false;
 
-		arkeoMap.getMap().then(function() {
+		$scope.$watch(function() { return angular.toJson($scope.params); }, function(a, b) {
+			if (hack_inhibit_watch_params) {
+				hack_inhibit_watch_params = false;
+				return;
+			}
+			if ($scope.query.done) {
+				arkeoQuery.add($scope.params);
+			}
+		});
 
-			$scope.$watch(function() { return angular.toJson($scope.params); }, function(a, b) {
-				if (hack_inhibit_watch_params) {
-					hack_inhibit_watch_params = false;
-					return;
-				}
-				if ($scope.query.done) {
-					arkeoQuery.add($scope.params);
-				}
-			});
-
-			$scope.$watch(function() { return arkeoQuery.getCurrent() }, function(new_query, old_query) {
-				console.info("new query: ", new_query);
-				if (new_query !== undefined && 'params' in new_query && new_query.params) {
-					if (new_query.params === $scope.params) { // we are making a new query because we had modifed the current one
-							// so here, we don't copy again the $scope.params
-						$scope.query = new_query;
-					} else {
-						$scope.query = new_query;
-						if (new_query.done) {
-							hack_inhibit_watch_params = true;
-							$scope.params = angular.copy(new_query.params);
-						} else {
-							console.log("helllllllllllooo !!! am i really here !?")
-							$scope.params = new_query.params;
-						}
-					}
-					// Redraw area for mod or archived queries
-					if (new_query.letter != old_query.letter) {
-						redrawArea();
-					}
+		$scope.$watch(function() { return arkeoQuery.getCurrent() }, function(new_query, old_query) {
+			console.info("new query: ", new_query);
+			if (new_query !== undefined && 'params' in new_query && new_query.params) {
+				if (new_query.params === $scope.params) { // we are making a new query because we had modifed the current one
+						// so here, we don't copy again the $scope.params
+					$scope.query = new_query;
 				} else {
-					arkeoQuery.add(newParams());
+					$scope.query = new_query;
+					if (new_query.done) {
+						hack_inhibit_watch_params = true;
+						$scope.params = angular.copy(new_query.params);
+					} else {
+						console.log("helllllllllllooo !!! am i really here !?")
+						$scope.params = new_query.params;
+					}
 				}
-			});
-
+				// Redraw area for mod or archived queries
+				if (new_query.letter != old_query.letter) {
+					redrawArea();
+				}
+			} else {
+				arkeoQuery.add(newParams());
+			}
 		});
 
 		function updateParamsArea(redraw) {
