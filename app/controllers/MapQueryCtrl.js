@@ -147,6 +147,7 @@
 			}
 			arkeoMap.getMap().then(function(map) {
 	        	$scope.params.area.geojson = L.rectangle(map.getBounds()).toGeoJSON();
+				console.log($scope.params.area.geojson);
 			}, function(err) {
 				console.log("Error getting map");
 			});
@@ -180,8 +181,8 @@
 				}
 				if (layerDraw) {
                 	layerDraw.editing.enable();
+					recenterMapFromQuery($scope.query);
 				}
-				recenterMapFromQuery($scope.query);
 			});
 
 		}

@@ -70,7 +70,8 @@
                     center: new L.LatLng(projectCentroid.lat, projectCentroid.lng),
                     layers: [layers.baseMaps[0].layers["OSM"]],
                     zoomControl: false,
-                    maxZoom: 18
+                    maxZoom: 18,
+                    worldCopyJump: true
                 });
 
                 self.layerControl = L.Control.styledLayerControl(layers.baseMaps, null, {
