@@ -195,7 +195,8 @@
 
 		$scope.showMap = function() {
 				$mdSidenav('sidenav-left').close();
-				$scope.params = angular.copy($scope.query.params);
+				//$scope.params = angular.copy($scope.query.params);
+				$scope.query.params = angular.copy($scope.params);
 				arkeoQuery.do($scope.query).then(function(q) {
 					if (angular.isUndefined(q.data.features) || q.data.features.length == 0) {
 						arkeoService.showMessage('MAP.MESSAGE_QUERY_RESULT.T_NORESULT');
