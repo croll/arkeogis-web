@@ -115,7 +115,7 @@
 				<md-button ng-click="setTheme('grey')" ng-hide="theme == 'grey'">La vie en bleu</md-button>
 				<md-button ng-click="setTheme('pink')" ng-hide="theme == 'pink'">La vie en rose</md-button>
 			</div>
-			<div style="color: white;">
+			<div ng-click="editMyUser()" style="color: white; cursor: pointer">
 				{{user.firstname}} {{user.lastname}}
 			</div>
 			<layout layout="row" layout-align="end center">

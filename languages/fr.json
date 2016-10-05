@@ -1,5 +1,10 @@
 {
 	"CHARACEDITOR": {
+		"BUTTON_CANCEL": {
+			"T_CONFIRM": "Revenir à la dernière version enregistrée ?",
+			"T_OK": "Ok",
+			"T_TITLE": "Annuler"
+		},
 		"BUTTON_DELETE": {
 			"T_CONFIRM": "Souhaitez vous vraiment supprimer cette catégorie ?",
 			"T_OK": "Oui",
@@ -65,6 +70,11 @@
 	"CHRONODITOR": {
 		"BUTTON_AREA": {
 			"T_TITLE": "Emprise..."
+		},
+		"BUTTON_CANCEL": {
+			"T_CONFIRM": "Revenir à la dernière version enregistrée ?",
+			"T_OK": "Ok",
+			"T_TITLE": "Annuler"
 		},
 		"BUTTON_CLOSEMAP": {
 			"T_TITLE": "Fermer la carte"
@@ -711,6 +721,13 @@
 		"BUTTON_INITQUERY": {
 			"T_TITLE": "REINITIALISER LES FILTRES"
 		},
+		"LAYER_MENU": {
+			"T_ALL": "#!#MAP.LAYER_MENU.T_ALL",
+			"T_BASE_LAYERS": "#!#MAP.LAYER_MENU.T_BASE_LAYERS",
+			"T_TOGGLE_GROUP": "#!#MAP.LAYER_MENU.T_TOGGLE_GROUP",
+			"T_ZOOMIN": "#!#MAP.LAYER_MENU.T_ZOOMIN",
+			"T_ZOOMOUT": "#!#MAP.LAYER_MENU.T_ZOOMOUT"
+		},
 		"MENU_DATABASE": {
 			"T_INVENTORY": "Inventaire",
 			"T_LITERARYWORK": "Ouvrage",
@@ -731,7 +748,9 @@
 			"T_ARCHIVE": "#!#MAP.QUERY_MENU.T_ARCHIVE",
 			"T_DELETE": "#!#MAP.QUERY_MENU.T_DELETE",
 			"T_DOWNLOAD_CSV": "#!#MAP.QUERY_MENU.T_DOWNLOAD_CSV",
-			"T_MODIFY": "#!#MAP.QUERY_MENU.T_MODIFY"
+			"T_MODIFY": "#!#MAP.QUERY_MENU.T_MODIFY",
+			"T_PROJECT_LAYERS": "#!#MAP.QUERY_MENU.T_PROJECT_LAYERS",
+			"T_QUERY": "#!#MAP.QUERY_MENU.T_QUERY"
 		}
 	},
 	"MAPEDITOR": {

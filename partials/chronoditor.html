@@ -3,6 +3,7 @@
     <md-toolbar id='arkeo-chronoditor-toolbar' class="md-primary md-hue-3 fixme">
         <div class="md-toolbar-tools" layout="row">
             <h3 flex="80">
+                <md-button><md-icon>navigate_before</md-icon></md-button>
                 <md-button ng-click="openLeftMenu()"><md-icon>menu</md-icon></md-button>
                 <span translate>CHRONODITOR.HEADER_CHRONODITOR.T_TITLE</span> <span ark-get-translation ark-translations="arbo.name"></span>
             </h3>
@@ -57,7 +58,9 @@
                 <md-button class="md-raised" aria-label="Save" ng-click="save()"><span translate>CHRONODITOR.BUTTON_SAVE.T_TITLE</span></md-button>
                 <md-button class="md-raised" aria-label="Emprise" ng-click="showemprise()"><span translate>CHRONODITOR.BUTTON_AREA.T_TITLE</span></md-button>
                 <md-button class="md-raised" aria-label="Download CSV" ng-click="download_csv()"><span translate>CHRONODITOR.BUTTON_DOWNLOADCSV.T_TITLE</span></md-button>
+                <md-button class="md-raised" aria-label="Retour liste" ng-click="gotolist()"><span translate>CHRONODITOR.BUTTON_GOTOLIST.T_TITLE</span></md-button>
                 <md-button class="md-raised" aria-label="Supprimer" ng-click="delete_chrono()" ark-confirm="CHRONODITOR.BUTTON_DELETE.T_CONFIRM" ark-confirm-ok="CHRONODITOR.BUTTON_DELETE.T_OK"><span translate>CHRONODITOR.BUTTON_DELETE.T_TITLE</span></md-button>
+                <md-button class="md-raised" aria-label="Cancel" ng-click="load()" ark-confirm="CHRONODITOR.BUTTON_CANCEL.T_CONFIRM" ark-confirm-ok="CHRONODITOR.BUTTON_CANCEL.T_OK"><span translate>CHRONODITOR.BUTTON_CANCEL.T_TITLE</span></md-button>
             </md-toolbar>
 
             </md-content>
