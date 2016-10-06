@@ -225,13 +225,13 @@
 
         this.getBoundsAsGeoJSON = function(bbox) {
             var bounds = angular.fromJson(L.rectangle(bbox).toGeoJSON());
-            bounds.crs = {
+            bounds.geometry.crs = {
                 type: "name",
                 properties: {
                     name: "EPSG:4326"
                 }
             }
-            return JSON.stringify(bounds);
+            return bounds;
         }
 
     }]);

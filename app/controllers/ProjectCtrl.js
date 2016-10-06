@@ -100,7 +100,7 @@
 
             this._filterParams = function() {
                 self.params = {
-                    bounding_box: $scope.bounds
+                    bounding_box: JSON.stringify($scope.bounds)
                 }
                 if (angular.isDefined($scope.project.start_date)) {
                     if (!angular.isDefined($scope.project.end_date)) {
@@ -262,7 +262,7 @@
                 leafletData.getMap().then(function(map) {
                     var bbox = map.getBounds();
                     var boundingBox = arkeoMap.getValidBoundingBox(bbox._northEast.lat, bbox._northEast.lng, bbox._southWest.lat, bbox._southWest.lng);
-                    var b = arkeoMap.getBoundsAsGeoJSON(boundingBox).geometry;
+                    var b = JSON.stringify(arkeoMap.getBoundsAsGeoJSON(boundingBox).geometry);
                     var prefs = {
                         name: "PROJ -- " + login.user.firstname + ' ' + login.user.lastname,
                         geom: b,
@@ -299,6 +299,7 @@
                     angular.forEach($scope.project.databases, function(database) {
                         prefs.databases.push(database.id);
                     });
+                    console.log("PROJECT PREFS", prefs);
                     $http({
                         method: 'POST',
                         url: '/api/project',
