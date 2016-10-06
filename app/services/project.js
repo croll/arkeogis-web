@@ -82,6 +82,15 @@
                             _.merge(charac, res.data);
                         }
                     });
+
+                    // Project geojson
+                    self.project.geojson = {
+                        type: 'Feature',
+                        geometry: angular.fromJson(self.project.geom),
+                        properties: {
+                            name: self.project.name
+                        }
+                    }
                 }));
             });
             // Chronologies
