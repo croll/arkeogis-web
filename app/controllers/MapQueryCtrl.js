@@ -56,7 +56,7 @@
 				database: my_databases,
 				characs: {},
 				chronologies: [],
-				area: {type: 'map', lat: 0, lng: 0, radius: 0, geojson: JSON.stringify(arkeoProject.get().geom)},
+				area: {type: 'map', lat: 0, lng: 0, radius: 0, geojson: JSON.stringify(arkeoProject.get().geojson)},
 				others: {
 					text_search: '',
 					text_search_in: ["site_name", "city_name", "bibliography", "comment"],

@@ -61,8 +61,9 @@
                 }
                 // Center map on project bounds
                 map.on('moveend', function() {
-                    var bbox = map.getBounds(); var boundingBox = arkeoMap.getValidBoundingBox(bbox._northEast.lat, bbox._northEast.lng, bbox._southWest.lat, bbox._southWest.lng);
-                    $scope.bounds = arkeoMap.getBoundsAsGeoJSON(boundingBox);
+                    var bbox = map.getBounds();
+                    var boundingBox = arkeoMap.getValidBoundingBox(bbox._northEast.lat, bbox._northEast.lng, bbox._southWest.lat, bbox._southWest.lng);
+                    $scope.bounds = arkeoMap.getBoundsAsGeoJSON(boundingBox).geometry;
                     if (map.getZoom() < 2) {
                         $scope.geojson = {
                             data: L.rectangle(boundingBox).toGeoJSON(),
@@ -241,10 +242,6 @@
                 }
             }
 
-            $scope.editChracacVisibility = function(id) {
-                alert('En cours.');
-            }
-
             $scope.savePreferences = function() {
                 if ($scope.selectionHasError) {
                     arkeoService.showMessage('PROJECT_EDITOR.FORM_ERROR_OUT_OF_BOUNDS.T_LABEL')
@@ -265,7 +262,7 @@
                 leafletData.getMap().then(function(map) {
                     var bbox = map.getBounds();
                     var boundingBox = arkeoMap.getValidBoundingBox(bbox._northEast.lat, bbox._northEast.lng, bbox._southWest.lat, bbox._southWest.lng);
-                    var b = arkeoMap.getBoundsAsGeoJSON(boundingBox);
+                    var b = arkeoMap.getBoundsAsGeoJSON(boundingBox).geometry;
                     var prefs = {
                         name: "PROJ -- " + login.user.firstname + ' ' + login.user.lastname,
                         geom: b,

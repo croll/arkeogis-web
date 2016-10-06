@@ -38,8 +38,8 @@
             lng: 7.750576
         }
 
-        if (this.project.geom) {
-            var c = L.geoJson(this.project.geom).getBounds().getCenter();
+        if (this.project.geojson) {
+            var c = L.geoJson(this.project.geojson).getBounds().getCenter();
             projectCentroid.lat = c.lat;
             projectCentroid.lng = c.lng;
         }
@@ -224,7 +224,7 @@
         }
 
         this.getBoundsAsGeoJSON = function(bbox) {
-            var bounds = angular.fromJson(L.rectangle(bbox).toGeoJSON().geometry);
+            var bounds = angular.fromJson(L.rectangle(bbox).toGeoJSON());
             bounds.crs = {
                 type: "name",
                 properties: {
