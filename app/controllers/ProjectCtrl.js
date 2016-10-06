@@ -27,8 +27,8 @@
             var self = this, outOfBounds = {};
 
             angular.extend($scope, angular.extend(arkeoMap.config, {
-                center: {
-                    zoom: 8
+                defaults: {
+                    minZoom: 2
                 }
             }));
 
