@@ -299,7 +299,6 @@
                     angular.forEach($scope.project.databases, function(database) {
                         prefs.databases.push(database.id);
                     });
-                    console.log("PROJECT PREFS", prefs);
                     $http({
                         method: 'POST',
                         url: '/api/project',
