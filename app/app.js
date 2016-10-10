@@ -172,6 +172,9 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                             deferred.resolve(db);
                         });
                         return deferred.promise;
+                    },
+                    checkPerm: function(login) {
+                        return login.resolvePermission('import', 'arkeogis.import');
                     }
                 }
             })
@@ -212,6 +215,9 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                     },
                     databaseDefinitions: function(arkeoDatabase) {
                         return arkeoDatabase.translateDefinitions();
+                    },
+                    checkPerm: function(login) {
+                        return login.resolvePermission('request map', 'arkeogis.database');
                     }
                 }
             })
@@ -225,6 +231,9 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                     },
                     translations: function($translate) {
                         return $translate(['GENERAL.TABLE_PAGINATION.T_ALL']);
+                    },
+                    checkPerm: function(login) {
+                        return login.resolvePermission('request map', 'arkeogis.database-list');
                     }
                 }
             })
@@ -268,6 +277,9 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                             });
                         }
                         return deferred.promise;
+                    },
+                    checkPerm: function(login) {
+                        return login.resolvePermission('manage all wms/wmts', 'arkeogis.mapeditor');
                     }
                 }
             })
@@ -278,6 +290,9 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 resolve: {
                     translations: function($translate) {
                         return $translate(['GENERAL.TABLE_PAGINATION.T_ALL']);
+                    },
+                    checkPerm: function(login) {
+                        return login.resolvePermission('manage all wms/wmts', 'arkeogis.mapeditor');
                     }
                 }
             })
