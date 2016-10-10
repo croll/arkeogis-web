@@ -143,6 +143,9 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                     langs: function(arkeoLang) {
                         return arkeoLang.init();
                     }
+                },
+                controller: function($state) {
+                    $state.go("arkeogis.map");
                 }
             })
             .state('arkeogis.map', {
