@@ -38,8 +38,8 @@
             lng: 7.750576
         }
 
-        if (this.project.geom) {
-            var c = L.geoJson(this.project.geom).getBounds().getCenter();
+        if (this.project.geojson) {
+            var c = L.geoJson(this.project.geojson).getBounds().getCenter();
             projectCentroid.lat = c.lat;
             projectCentroid.lng = c.lng;
         }
@@ -224,14 +224,14 @@
         }
 
         this.getBoundsAsGeoJSON = function(bbox) {
-            var bounds = angular.fromJson(L.rectangle(bbox).toGeoJSON().geometry);
-            bounds.crs = {
+            var bounds = angular.fromJson(L.rectangle(bbox).toGeoJSON());
+            bounds.geometry.crs = {
                 type: "name",
                 properties: {
                     name: "EPSG:4326"
                 }
             }
-            return JSON.stringify(bounds);
+            return bounds;
         }
 
     }]);
