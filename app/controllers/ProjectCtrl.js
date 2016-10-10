@@ -304,7 +304,6 @@
                         url: '/api/project',
                         data: prefs
                     }).then(function(result) {
-                        var defer = $q.defer();
                         if ($scope.project.id == null || $scope.project.id == 0) {
                             $scope.project.id = result.data.project_id;
                         }
@@ -312,11 +311,10 @@
                         arkeoProject.set($scope.project);
                         arkeoProject.getDetails().then(function(proj) {
                             arkeoService.showMessage('PROJECT_EDITOR.MESSAGE_SAVE.T_OK');
-                            defer.resolve();
+                            $state.go('arkeogis.map')
                         }, function(err) {
-                            defer.reject();
+                            console.error("Error getting project infos");
                         });
-                        return defer.promise
                     }, function(err) {
                         arkeoService.showMessage('PROJECT_EDITOR.MESSAGE_SAVE.T_ERROR');
                         console.error(err);
