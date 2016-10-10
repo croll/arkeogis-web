@@ -90,22 +90,22 @@
                     var geojsonFeature = {
                         type: "Feature",
                         properties: {
-                            name: layer.translations.name.en,
+                            name: layer.name.en,
                             uniq_code: layer.uniq_code,
                             type: layer.type,
                             id: layer.id,
                             init: false
                         },
-                        geometry: angular.fromJson(layer.geom)
+                        geometry: angular.fromJson(layer.geographical_extent_geom)
                     };
                     l = {
-                        name: layer.translations.name.en,
+                        name: layer.name.en,
                         type: 'shp',
                         instance: new L.geoJson(geojsonFeature)
                     };
                 } else if (layer.type == 'wms') {
                     l = {
-                        name: layer.translations.name.en,
+                        name: layer.name.en,
                         type: 'wms',
                         instance: L.tileLayer.wms(layer.url, {
                             minZoom: layer.min_scale,
@@ -115,11 +115,11 @@
                     };
                 } else if (layer.type == 'wmts') {
                     l = {
-                        name: layer.translations.name.en,
+                        name: layer.name.en,
                         type: 'wmts',
                         instance: L.tileLayer.WMTS(layer.url, {
                             layer: layer.identifier,
-                            attribution: layer.translations.attribution.en,
+                            attribution: layer.attribution.en,
                             minZoom: layer.min_scale,
                             maxZoom: layer.max_scale
                         })

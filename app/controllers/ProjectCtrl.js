@@ -22,8 +22,8 @@
 (function() {
     'use strict';
 
-    ArkeoGIS.controller('ProjectCtrl', ['$scope', '$q', '$http', '$timeout', '$cookies', 'arkeoService', 'arkeoMap', 'layerService', 'arkeoProject', 'arkeoDatabase', 'login', 'leafletData',
-        function($scope, $q, $http, $timeout, $cookies, arkeoService, arkeoMap, layerService, arkeoProject, arkeoDatabase, login, leafletData) {
+    ArkeoGIS.controller('ProjectCtrl', ['$scope', '$q', '$http', '$state', 'arkeoService', 'arkeoMap', 'layerService', 'arkeoProject', 'arkeoDatabase', 'login', 'leafletData',
+        function($scope, $q, $http, $state, arkeoService, arkeoMap, layerService, arkeoProject, arkeoDatabase, login, leafletData) {
             var self = this, outOfBounds = {};
 
             angular.extend($scope, angular.extend(arkeoMap.config, {
@@ -32,7 +32,7 @@
                 }
             }));
 
-            $scope.project = arkeoProject.get();
+            $scope.project = angular.copy(arkeoProject.get());
 
             outOfBounds = {
                 chronologies: [],
@@ -262,10 +262,10 @@
                 leafletData.getMap().then(function(map) {
                     var bbox = map.getBounds();
                     var boundingBox = arkeoMap.getValidBoundingBox(bbox._northEast.lat, bbox._northEast.lng, bbox._southWest.lat, bbox._southWest.lng);
-                    var b = JSON.stringify(arkeoMap.getBoundsAsGeoJSON(boundingBox).geometry);
+                    var b = arkeoMap.getBoundsAsGeoJSON(boundingBox);
                     var prefs = {
                         name: "PROJ -- " + login.user.firstname + ' ' + login.user.lastname,
-                        geom: b,
+                        geom: JSON.stringify(b.geometry),
                         chronologies: [],
                         layers: [],
                         databases: [],
@@ -304,11 +304,19 @@
                         url: '/api/project',
                         data: prefs
                     }).then(function(result) {
-                        arkeoService.showMessage('PROJECT_EDITOR.MESSAGE_SAVE.T_OK');
+                        var defer = $q.defer();
                         if ($scope.project.id == null || $scope.project.id == 0) {
                             $scope.project.id = result.data.project_id;
                         }
+                        $scope.project.geom = JSON.stringify(b.geometry);
                         arkeoProject.set($scope.project);
+                        arkeoProject.getDetails().then(function(proj) {
+                            arkeoService.showMessage('PROJECT_EDITOR.MESSAGE_SAVE.T_OK');
+                            defer.resolve();
+                        }, function(err) {
+                            defer.reject();
+                        });
+                        return defer.promise
                     }, function(err) {
                         arkeoService.showMessage('PROJECT_EDITOR.MESSAGE_SAVE.T_ERROR');
                         console.error(err);
