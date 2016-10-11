@@ -64,7 +64,7 @@
                         groupName: translations['MAP.LAYER_MENU.T_BASE_LAYERS'],
                         expanded: true,
                         layers: {
-                            "OSM": new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            "OpenStreetMap": new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                                 attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a>'
                             }),
                             "OpenTopoMap": new L.TileLayer('http://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
@@ -80,10 +80,11 @@
                 // Init leaflet
                 var map = new L.Map(el, {
                     center: new L.LatLng(projectCentroid.lat, projectCentroid.lng),
-                    layers: [layers.baseMaps[0].layers["OSM"]],
+                    layers: [layers.baseMaps[0].layers["OpenStreetMap"]],
                     zoomControl: false,
                     maxZoom: 18,
-                    worldCopyJump: true
+                    worldCopyJump: true,
+                    attributionControl: false,
                 });
 
                 self.layerControl = L.Control.styledLayerControl(layers.baseMaps, null, {
@@ -137,11 +138,13 @@
                     }]
 
                 }).addTo(map);
+                // Attribution
+                new L.control.attribution({prefix: '<a href="http://www.croll.fr" target="_blank">© CROLL SAS</a>'}).addTo(map);
+                return mapDefer.resolve(map);
                 // Scale control
                 new L.control.scale({
                     position: 'bottomright'
                 }).addTo(map);
-                return mapDefer.resolve(map);
             });
         }
 
