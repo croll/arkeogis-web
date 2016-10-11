@@ -27,9 +27,9 @@
         var self = this;
 
         this.getLayers = function(config) {
-            d = $q.defer();
+            var d = $q.defer();
             var silent = false;
-            params = {
+            var params = {
                 author: 0,
                 type: ''
             };
