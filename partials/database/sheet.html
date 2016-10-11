@@ -141,12 +141,14 @@
                 <div>
                     <span translate>DATABASE.INFORMATIONS.T_CONTEXT</span>:
                 </div>
+                <div>
                 <span ng-repeat="c in database.contexts">
                     <span>&nbsp;{{databaseDefinitions[c.context]}}</span>
                     <span ng-if="!$last">
                         ,
                     </span>
                 </span>
+                </div>
             </div>
             <div layout="row" ng-show="database.context_description.en != ''">
                 <div>
