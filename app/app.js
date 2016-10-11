@@ -148,7 +148,8 @@
                         }]
                     },
                     controller: function($state) {
-                        $state.go("arkeogis.map");
+                        if ($state.current.url == "")
+                            $state.go("arkeogis.map");
                     }
                 })
                 .state('arkeogis.map', {
