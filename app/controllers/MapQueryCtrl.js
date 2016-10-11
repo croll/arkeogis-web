@@ -143,7 +143,6 @@
 			}
 			arkeoMap.getMap().then(function(map) {
 	        	$scope.params.area.geojson = L.rectangle(map.getBounds()).toGeoJSON();
-				console.log($scope.params.area.geojson);
 			}, function(err) {
 				console.log("Error getting map");
 			});
@@ -151,8 +150,6 @@
 
 		function redrawArea() {
 			arkeoMap.getMap().then(function(map) {
-
-				console.log("REDRAW");
 
 				if (layerDraw) {
 					map.removeLayer(layerDraw);

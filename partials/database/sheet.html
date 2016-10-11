@@ -21,10 +21,40 @@
                     </span>
                 </span>
             </div>
+            <div layout="row" ng-show="database.editor != ''">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_EDITOR</span>:</div>
+                <div>{{database.editor | date:'short'}}</div>
+            </div>
+            <div layout="row" ng-show="database.contributor!= ''">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_CONTRIBUTOR</span>:</div>
+                <div>{{database.contributor | date:'short'}}</div>
+            </div>
             <div layout="row">
                 <div>
                     <span translate>DATABASE.INFORMATIONS.T_SUBJECT_AND_KEYWORDS</span>:</div>
                 <div ark-get-translation ark-force-lang="database.default_language" ark-translations="database.subject"></div>
+            </div>
+            <div layout="row">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_STARTING_PERIOD</span>:</div>
+                <div>{{database.start_date | arkYear}}</div>
+            </div>
+            <div layout="row">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_ENDING_PERIOD</span>:</div>
+                <div>{{database.end_date | arkYear}}</div>
+            </div>
+            <div layout="row">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_NUMBER_OF_LINES</span>:</div>
+                <div>{{database.imports[0].number_of_lines}}</div>
+            </div>
+            <div layout="row">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_NUMBER_OF_SITES</span>:</div>
+                <div>{{database.imports[0].number_of_sites}}</div>
             </div>
             <div layout="row">
                 <div>
@@ -38,19 +68,43 @@
             </div>
             <div layout="row">
                 <div>
-                    <span translate>DATABASE.INFORMATIONS.T_DATABASE_LANG</span>:</div>
-                <div>{{database.lang.name}}</div>
+                    <span translate>DATABASE.INFORMATIONS.T_PUBLICATION_STATUS</span>:</div>
+                <div ng-show="database.published">
+                    <span style="color: #9ad49a" translate>DATABASE.INFORMATIONS.T_PUBLISHED</span>
+                </div>
+                <div ng-hide="database.published">
+                    <span style="color: #FB7378" translate>DATABASE.INFORMATIONS.T_UNPUBLISHED</span>
+                </div>
             </div>
             <div layout="row">
                 <div>
-                    <span translate>DATABASE.INFORMATIONS.T_NUMBER_OF_LINES</span>:</div>
-                <div>{{database.imports[0].number_of_lines}}</div>
+                    <span translate>DATABASE.INFORMATIONS.T_DATE</span>:</div>
+                <div>{{database.declared_creation_date | date:'short'}}</div>
             </div>
             <div layout="row">
                 <div>
-                    <span translate>DATABASE.INFORMATIONS.T_NUMBER_OF_SITES</span>:</div>
-                <div>{{database.imports[0].number_of_sites}}</div>
+                    <span translate>DATABASE.INFORMATIONS.T_IMPORTATION_DATE</span>:</div>
+                <div>{{database.created_at | date:'short'}}</div>
             </div>
+            <div layout="row" ng-show="database.created_at != database.updated_at">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_MODIFICATION_DATE</span>:</div>
+                <div>{{database.updated_at | date:'short'}}</div>
+            </div>
+            <div layout="row">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_STATUS</span>:
+                </div>
+                <div>{{databaseDefinitions[database.state]}}</div>
+            </div>
+            </section>
+        </section>
+        <section flex="50" style="padding-bottom: 0">
+            <leaflet lf-center="center" geojson="geojson" height="400px"></leaflet>
+        </section>
+    </md-content>
+    <md-content layout-padding layout style="margin-top: -15px">
+        <section flex>
             <div layout="row">
                 <div>
                     <span translate>DATABASE.INFORMATIONS.T_GEOGRAPHICAL_EXTENT</span>:</div>
@@ -76,46 +130,10 @@
                     </span>
                 </span>
             </div>
-            <div layout="row">
+            <div layout="row" ng-show="database.geographical_limit.en != ''">
                 <div>
-                    <span translate>DATABASE.INFORMATIONS.T_STARTING_PERIOD</span>:</div>
-                <div>{{database.start_date | arkYear}}</div>
-            </div>
-            <div layout="row">
-                <div>
-                    <span translate>DATABASE.INFORMATIONS.T_ENDING_PERIOD</span>:</div>
-                <div>{{database.end_date | arkYear}}</div>
-            </div>
-            <div layout="row">
-                <div>
-                    <span translate>DATABASE.INFORMATIONS.T_DATE</span>:</div>
-                <div>{{database.declared_creation_date | date:'short'}}</div>
-            </div>
-            <div layout="row">
-                <div>
-                    <span translate>DATABASE.INFORMATIONS.T_IMPORTATION_DATE</span>:</div>
-                <div>{{database.created_at | date:'short'}}</div>
-            </div>
-            <div layout="row" ng-show="database.created_at != database.updated_at">
-                <div>
-                    <span translate>DATABASE.INFORMATIONS.T_MODIFICATION_DATE</span>:</div>
-                <div>{{database.updated_at | date:'short'}}</div>
-            </div>
-            <div layout="row">
-                <div>
-                    <span translate>DATABASE.INFORMATIONS.T_PUBLICATION_STATUS</span>:</div>
-                <div ng-show="database.published">
-                    <span style="color: #9ad49a" translate>DATABASE.INFORMATIONS.T_PUBLISHED</span>
-                </div>
-                <div ng-hide="database.published">
-                    <span style="color: #FB7378" translate>DATABASE.INFORMATIONS.T_UNPUBLISHED</span>
-                </div>
-            </div>
-            <div layout="row">
-                <div>
-                    <span translate>DATABASE.INFORMATIONS.T_STATUS</span>:
-                </div>
-                <div>{{databaseDefinitions[database.state]}}</div>
+                    <span translate>DATABASE.INFORMATIONS.T_GEOGRAPHICAL_LIMITS_DESCRIPTION</span>:</div>
+                <div ark-force-lang="database.default_language" ark-get-translation ark-translations="database.geographical_limit"></div>
             </div>
             <div layout="row">
                 <div>
@@ -127,6 +145,52 @@
                         ,
                     </span>
                 </span>
+            </div>
+            <div layout="row" ng-show="database.context_description.en != ''">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_CONTEXT_DESCRIPTION</span>:</div>
+                <div>{{database.context_description}}</div>
+            </div>
+            <div layout="row">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_DATABASE_LANG</span>:</div>
+                <div>{{database.lang.name}}</div>
+            </div>
+            <div layout="row">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_DESCRIPTION</span>:</div>
+                <div ark-force-lang="database.default_language" ark-get-translation ark-translations="database.description"></div>
+            </div>
+            <div layout="row" ng-show="database.source_description != ''">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_SOURCE_DESCRIPTION</span>:</div>
+                <div>{{database.source_description}}</div>
+            </div>
+            <div layout="row" ng-show="database.source_relation != ''">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_SOURCE_RELATION</span>:</div>
+                <div>{{database.source_relation}}</div>
+            </div>
+            <div layout="row" ng-show="database.bibliography.en != ''">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_BIBLIOGRAPHY</span>:</div>
+                <div ark-force-lang="database.default_language" ark-get-translation ark-translations="database.bibliography"></div>
+            </div>
+            <div layout="row">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_LICENSE</span>:</div>
+                <div>{{database.license}}</div>
+            </div>
+            <div layout="row">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_IMPORTED_CSV</span>:
+                </div>
+                <div>
+                    <a aria-label="{{'DATABASE.INFORMATIONS.T_IMPORTED_CSV' | translate}}" ng-click="downloadCSV()">{{database.imports[0].filename}}</a>
+                </div>
+                <div style="margin: -2px 0 0 10px">
+                    <md-icon ng-click="showImportDialog($event)" aria-label="{{'DATABASE.INFORMATIONS.T_IMPORT_HISTORY' | translate}}" style="cursor:pointer">list</md-icon>
+                </div>
             </div>
             <section ng-show="database.handles.length">
                 <div layout="row">
@@ -148,70 +212,6 @@
                         <a href="{{database.handles[0].url}}" title="{{database.handles[0].url}}" target="_blank">{{database.handles[0].url}}</a>
                     </div>
                 </div>
-            </section>
-            <div layout="row" ng-show="database.source_relation != ''">
-                <div>
-                    <span translate>DATABASE.INFORMATIONS.T_SOURCE_RELATION</span>:</div>
-                <div>{{database.source_relation}}</div>
-            </div>
-            <div layout="row">
-                <div>
-                    <span translate>DATABASE.INFORMATIONS.T_LICENSE</span>:</div>
-                <div>{{database.license}}</div>
-            </div>
-            <div layout="row" ng-show="database.editor != ''">
-                <div>
-                    <span translate>DATABASE.INFORMATIONS.T_EDITOR</span>:</div>
-                <div>{{database.editor | date:'short'}}</div>
-            </div>
-            <div layout="row" ng-show="database.contributor!= ''">
-                <div>
-                    <span translate>DATABASE.INFORMATIONS.T_CONTRIBUTOR</span>:</div>
-                <div>{{database.contributor | date:'short'}}</div>
-            </div>
-            <div layout="row">
-                <div>
-                    <span translate>DATABASE.INFORMATIONS.T_IMPORTED_CSV</span>:
-                </div>
-                <div>
-                    <a aria-label="{{'DATABASE.INFORMATIONS.T_IMPORTED_CSV' | translate}}" ng-click="downloadCSV()">{{database.imports[0].filename}}</a>
-                </div>
-                <div style="margin: -2px 0 0 10px">
-                    <md-icon ng-click="showImportDialog($event)" aria-label="{{'DATABASE.INFORMATIONS.T_IMPORT_HISTORY' | translate}}" style="cursor:pointer">list</md-icon>
-                </div>
-            </div>
-        </section>
-        <section flex="50" style="padding-bottom: 0">
-            <leaflet lf-center="center" geojson="geojson" height="400px"></leaflet>
-        </section>
-    </md-content>
-    <md-content>
-        <section layout-padding style="margin-top: -15px">
-            <div layout="row">
-                <div>
-                    <span translate>DATABASE.INFORMATIONS.T_DESCRIPTION</span>:</div>
-                <div ark-force-lang="database.default_language" ark-get-translation ark-translations="database.description"></div>
-            </div>
-            <div layout="row" ng-show="database.source_description != ''">
-                <div>
-                    <span translate>DATABASE.INFORMATIONS.T_SOURCE_DESCRIPTION</span>:</div>
-                <div>{{database.source_description}}</div>
-            </div>
-            <div layout="row" ng-show="database.context_description != ''">
-                <div>
-                    <span translate>DATABASE.INFORMATIONS.T_CONTEXT_DESCRIPTION</span>:</div>
-                <div>{{database.context_description}}</div>
-            </div>
-            <div layout="row" ng-show="database.geographical_limit.en != ''">
-                <div>
-                    <span translate>DATABASE.INFORMATIONS.T_GEOGRAPHICAL_LIMITS_DESCRIPTION</span>:</div>
-                <div ark-force-lang="database.default_language" ark-get-translation ark-translations="database.geographical_limit"></div>
-            </div>
-            <div layout="row" ng-show="database.bibliography.en != ''">
-                <div>
-                    <span translate>DATABASE.INFORMATIONS.T_BIBLIOGRAPHY</span>:</div>
-                <div ark-force-lang="database.default_language" ark-get-translation ark-translations="database.bibliography"></div>
-            </div>
         </section>
     </md-content>
     <md-content layout="row" layout-padding layout-align="center center" style="padding-top: 50px; padding-bottom: 20px">

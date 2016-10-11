@@ -32,7 +32,7 @@
         }
 
         this.get = function() {
-            if (!this.project.id) {
+            if (!this.project || !this.project.id) {
                 this.project = {
                     id: 0,
                     chronologies: [],
@@ -42,7 +42,9 @@
                     geom: ''
                 };
             } else {
-                self.project.geom = angular.fromJson(self.project.geom);
+                if (!angular.isObject(self.project.geom)) {
+                    self.project.geom = angular.fromJson(self.project.geom);
+                }
                 if (!self.project.chronologies) {
                     self.project.chronologies = [];
                 }
@@ -86,7 +88,7 @@
                     // Project geojson
                     self.project.geojson = {
                         type: 'Feature',
-                        geometry: angular.fromJson(self.project.geom),
+                        geometry: (!angular.isObject(self.project.geom)) ? angular.fromJson(self.project.geom) : self.project.geom,
                         properties: {
                             name: self.project.name
                         }
@@ -132,6 +134,32 @@
                     });
                 }));
             });
+            _.each(this.project.layers, function(l) {
+                // Get wms layers list and shp layers list
+
+                promises.push($http.get('/api/layer', {
+                    params: {
+                        type: l.type,
+                        id: l.id
+                    },
+                    silent: true
+                }).then(function(res) {
+                    _.each(self.project.layers, function(lay) {
+                        if (res.data.infos) {
+                            _.merge(res.data, res.data.infos)
+                            delete res.data.infos;
+                        }
+                        if (res.data.translations) {
+                            _.merge(res.data, res.data.translations)
+                            delete res.data.translations;
+                        }
+                        if (l.id == lay.id) {
+                            _.merge(lay, res.data);
+                        }
+                    });
+                }));
+            });
+            // Layers WM(T)S
             return $q.all(promises);
         }
 

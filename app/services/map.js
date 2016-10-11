@@ -27,24 +27,33 @@
             clusterRadiusControl,
             groupRadius = 80;
 
-        this.project = arkeoProject.get();
-
         // this.queryControls = {};
+
+        this.setProject = function() {
+
+            this.project = arkeoProject.get();
+
+            projectCentroid = {
+                lat: 48.58476,
+                lng: 7.750576
+            }
+
+            if (this.project.geojson) {
+                console.log(this.project.geojson);
+                var c = L.geoJson(this.project.geojson).getBounds().getCenter();
+                projectCentroid.lat = c.lat;
+                projectCentroid.lng = c.lng;
+            }
+
+        }
+
+        this.setProject();
 
         this.queryControl = {};
 
-        projectCentroid = {
-            lat: 48.58476,
-            lng: 7.750576
-        }
-
-        if (this.project.geojson) {
-            var c = L.geoJson(this.project.geojson).getBounds().getCenter();
-            projectCentroid.lat = c.lat;
-            projectCentroid.lng = c.lng;
-        }
-
         this.initLeaflet = function(el) {
+
+            this.setProject();
 
             $translate(['MAP.LAYER_MENU.T_ZOOMIN', 'MAP.LAYER_MENU.T_ZOOMOUT', 'MAP.LAYER_MENU.T_TOGGLE_GROUP', 'MAP.LAYER_MENU.T_BASE_LAYERS', 'MAP.LAYER_MENU.T_ALL']).then(function(translations) {
                 var layers = {
