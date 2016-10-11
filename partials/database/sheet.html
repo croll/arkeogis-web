@@ -13,13 +13,15 @@
                 <div>
                     <span translate>DATABASE.INFORMATIONS.T_AUTHOR_AND_CO_AUTHORS</span>:</div>
                 <div>{{database.author_and_co_authors}}</div>
-                <span ng-repeat="a in database.authors">
-                    <span>&nbsp;{{a.firstname}}
-                        {{a.lastname}}</span>
-                    <span ng-if="!$last">
-                        -
+                <div>
+                    <span ng-repeat="a in database.authors">
+                        <span>{{a.firstname}}
+                            {{a.lastname}}</span>
+                        <span ng-if="!$last">
+                            -
+                        </span>
                     </span>
-                </span>
+                </div>
             </div>
             <div layout="row" ng-show="database.editor != ''">
                 <div>
@@ -288,5 +290,3 @@
         </md-dialog>
     </div>
 </div>
-
-{{database}}

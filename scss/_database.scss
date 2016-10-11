@@ -5,8 +5,11 @@
             &:first-child {
                 color: rgba(0,0,0,0.60);
                 vertical-align: bottom;
+                min-width: 220px;
+                max-width: 220px;
+                text-align: right;
+                padding-right: 10px;
             }
-            margin-left: 5px
         }
     }
 }
