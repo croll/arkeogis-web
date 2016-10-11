@@ -139,7 +139,7 @@
 
                 }).addTo(map);
                 // Attribution
-                new L.control.attribution({prefix: '<a href="http://www.croll.fr" target="_blank">© CROLL SAS</a>'}).addTo(map);
+                new L.control.attribution({prefix: 'Make by <a href="http://www.croll.fr" target="_blank">© CROLL SAS</a>'}).addTo(map);
                 return mapDefer.resolve(map);
                 // Scale control
                 new L.control.scale({
