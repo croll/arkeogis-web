@@ -174,7 +174,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                         return deferred.promise;
                     },
                     checkPerm: function(login) {
-                        return login.resolvePermission('import', 'arkeogis.import');
+                        return login.resolvePermission('import', 'arkeogis.import.step1');
                     }
                 }
             })
@@ -217,7 +217,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                         return arkeoDatabase.translateDefinitions();
                     },
                     checkPerm: function(login) {
-                        return login.resolvePermission('request map', 'arkeogis.database');
+                        return login.resolvePermission('request map', 'arkeogis.database-list');
                     }
                 }
             })
