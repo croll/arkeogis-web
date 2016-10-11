@@ -26,7 +26,7 @@
      * Directive <ark-confirm/>
      * attributes :
      */
-    ArkeoGIS.directive('arkConfirm', function($mdDialog, $translate, $q) {
+    ArkeoGIS.directive('arkConfirm', ['$mdDialog', '$translate', '$q', function($mdDialog, $translate, $q) {
         return {
             restrict: 'A',
             template: '',
@@ -88,5 +88,5 @@
                 });
             },
         };
-    });
+    }]);
 })();
