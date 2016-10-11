@@ -27,6 +27,8 @@
     ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$translateProvider', '$httpProvider', 'KeepaliveProvider', 'IdleProvider',
         function($mdThemingProvider, $stateProvider, $urlRouterProvider, $locationProvider, $translateProvider, $httpProvider, KeepaliveProvider, IdleProvider) {
 
+            $('div#first_loading').hide();
+
             /*
              * Theme
              */
@@ -389,6 +391,7 @@
 
 
         }
+
     ]);
 
 })();
