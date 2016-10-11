@@ -15,10 +15,9 @@
                 <div>{{database.author_and_co_authors}}</div>
                 <div>
                     <span ng-repeat="a in database.authors">
-                        <span>{{a.firstname}}
-                            {{a.lastname}}</span>
+                        <span>{{a.firstname}}&nbsp;{{a.lastname}}</span>
                         <span ng-if="!$last">
-                            -
+                            -<span> </span>
                         </span>
                     </span>
                 </div>
@@ -116,9 +115,9 @@
                 <div>
                     <span translate>DATABASE.INFORMATIONS.T_COUNTRIES</span>:</div>
                 <span ng-repeat="c in database.countries">
-                    <span>&nbsp;{{c.name}}</span>
+                    <span>{{c.name}}</span>
                     <span ng-if="!$last">
-                        -
+                        -<span> </span>
                     </span>
                 </span>
             </div>
@@ -126,9 +125,9 @@
                 <div>
                     <span translate>DATABASE.INFORMATIONS.T_CONTINENTS</span>:</div>
                 <span ng-repeat="c in database.continents">
-                    <span>&nbsp;{{c.name}}</span>
+                    <span>{{c.name}}</span>
                     <span ng-if="!$last">
-                        -
+                        -<span> </span>
                     </span>
                 </span>
             </div>
@@ -143,9 +142,9 @@
                 </div>
                 <div>
                 <span ng-repeat="c in database.contexts">
-                    <span>&nbsp;{{databaseDefinitions[c.context]}}</span>
+                    <span>{{databaseDefinitions[c.context]}}</span>
                     <span ng-if="!$last">
-                        ,
+                        ,<span> </span>
                     </span>
                 </span>
                 </div>
