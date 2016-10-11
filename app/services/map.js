@@ -20,12 +20,15 @@
  */
 
 (function() {
+    'use strict';
+
     ArkeoGIS.service('arkeoMap', ['$http', '$q', 'arkeoProject', '$rootScope', '$translate', function($http, $q, arkeoProject, $rootScope, $translate) {
 
         var self = this,
             mapDefer = $q.defer(),
             clusterRadiusControl,
-            groupRadius = 80;
+            groupRadius = 80,
+            projectCentroid;
 
         // this.queryControls = {};
 

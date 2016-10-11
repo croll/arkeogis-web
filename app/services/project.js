@@ -20,12 +20,14 @@
  */
 
 (function() {
+    'use strict';
+
     ArkeoGIS.service('arkeoProject', ['$cookies', '$http', '$q', 'arkeoLang', function($cookies, $http, $q, arkeoLang) {
 
-        var self = this,
-        chronologyCacheByDates = {};
-        chronologyCacheByStartDate = {};
-        chronologyCacheByEndDate = {};
+        var self = this;
+        var chronologyCacheByDates = {};
+        var chronologyCacheByStartDate = {};
+        var chronologyCacheByEndDate = {};
 
         this.set = function(project) {
             self.project = project;

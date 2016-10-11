@@ -20,6 +20,8 @@
  */
 
 (function() {
+    'use strict';
+
     ArkeoGIS.service('arkeoQuery', ['$http', 'arkeoService', function($http, arkeoService) {
 
         var self = this,

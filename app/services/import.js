@@ -20,6 +20,7 @@
  */
 
 (function() {
+    'use strict';
     ArkeoGIS.service('arkeoImport', ['Upload', 'login', function(Upload, login) {
 
         var self = this;

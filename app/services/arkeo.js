@@ -20,6 +20,7 @@
  */
 
 (function() {
+    'use strict';
     ArkeoGIS.service('arkeoService', ['$http', '$q', '$translate', '$mdToast', function($http, $q, $translate, $mdToast) {
 
         var self = this;

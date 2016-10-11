@@ -20,6 +20,8 @@
  */
 
 (function() {
+    'use strict';
+
     ArkeoGIS.service('layerService', ['$http', '$q', '$resource', '$translate', 'login', function($http, $q, $resource, $translate, login) {
 
         var self = this;
