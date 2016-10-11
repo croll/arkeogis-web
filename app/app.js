@@ -23,6 +23,7 @@ var ArkeoGIS = angular.module('ArkeoGIS', ['md.data.table', 'ngMaterial', 'ngMes
 
 ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', '$translateProvider', '$httpProvider', 'KeepaliveProvider', 'IdleProvider',
     function($mdThemingProvider, $stateProvider, $urlRouterProvider, $locationProvider, $translateProvider, $httpProvider, KeepaliveProvider, IdleProvider) {
+        'use strict';
 
         /*
          * Theme
