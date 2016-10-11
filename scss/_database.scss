@@ -1,7 +1,7 @@
 .database-sheet {
-    section div {
+    section > div {
         margin: 3px 0;
-        div {
+        > div {
             &:first-child {
                 color: rgba(0,0,0,0.60);
                 vertical-align: bottom;
