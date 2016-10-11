@@ -31,7 +31,7 @@
      *              }, { value '2', text: 'Second' } ]
      *  ng-model: the model, an array of active selections
      */
-    ArkeoGIS.directive('arkMenu', function($compile, $timeout) {
+    ArkeoGIS.directive('arkMenu', ['$compile', '$timeout', function($compile, $timeout) {
 
 		return {
 			restrict: 'E',
@@ -64,7 +64,7 @@
                 };
 			},
         };
-    });
+    }]);
 
     /*
      * Directive <ark-menu-item/>
@@ -75,7 +75,7 @@
      *  ark-is-submenu: boolean, used internaly
      *  ng-model: the model
      */
-    ArkeoGIS.directive('arkMenuItem', function($compile) {
+    ArkeoGIS.directive('arkMenuItem', ['$compile', function($compile) {
 
 		return {
 			restrict: 'E',
@@ -206,7 +206,7 @@
                 };
 			},
         };
-    });
+    }]);
 
 
 })();

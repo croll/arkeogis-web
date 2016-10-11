@@ -21,7 +21,7 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.directive('arkLeaflet', function(arkeoMap) {
+    ArkeoGIS.directive('arkLeaflet', ['arkeoMap', function(arkeoMap) {
         return {
             replace: true,
             template: '<div height="mapHeight"></div>',
@@ -41,5 +41,5 @@
 
             }
         };
-    });
+    }]);
 })();

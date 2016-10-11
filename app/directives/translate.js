@@ -21,7 +21,7 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.directive('arkTranslate', function(arkeoLang) {
+    ArkeoGIS.directive('arkTranslate', ['arkeoLang', function(arkeoLang) {
 
 		return {
 			restrict: 'A',
@@ -77,12 +77,12 @@
 			}
 
 		};
-    });
+    }]);
 })();
 
 (function() {
     'use strict';
-    ArkeoGIS.directive('arkGetTranslation', function(arkeoLang, $translate, $parse, $interpolate) {
+    ArkeoGIS.directive('arkGetTranslation', ['arkeoLang', '$translate', '$parse', '$interpolate', function(arkeoLang, $translate, $parse, $interpolate) {
 
 		return {
 			restrict: 'A',
@@ -162,9 +162,9 @@
                 }
 			}
 		};
-    });
+    }]);
 
-    ArkeoGIS.filter('arkTranslate', function (arkeoLang) {
+    ArkeoGIS.filter('arkTranslate', ['arkeoLang', function(arkeoLang) {
         return function(src) {
             if (arkeoLang.userLangs[1] in src)
                 return src[arkeoLang.userLangs[1]];
@@ -178,6 +178,6 @@
                 return src['D'];
             else return "NO TRANSLATION AVAILABLE";
         }
-    });
+    }]);
 
 })();

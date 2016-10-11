@@ -21,7 +21,7 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.directive('arkLangSelector', function(arkeoLang) {
+    ArkeoGIS.directive('arkLangSelector', ['arkeoLang', function(arkeoLang) {
 
 		return {
 			restrict: 'E',
@@ -68,5 +68,5 @@
                 }
 			}
 		};
-    });
+    }]);
 })();
