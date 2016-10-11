@@ -89,7 +89,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
             };
         }]);
 
-        $httpProvider.interceptors.push(function($q) {
+        $httpProvider.interceptors.push(['$q', function($q) {
             return {
                 'request': function(config) {
                     if (!config.silent) {
@@ -114,7 +114,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 }
 
             };
-        });
+        }]);
 
         /***
          * auto logout (idle)
@@ -150,12 +150,12 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 templateUrl: "partials/map.html",
                 controller: "MapCtrl",
                 resolve: {
-                    checkPerm: function(login) {
+                    checkPerm: ['login', function(login) {
                         return login.resolvePermission('request map', 'arkeogis.map');
-                    },
-                    translations: function($translate) {
+                    }],
+                    translations: ['$translate', function($translate) {
                         return $translate(['MAP.QUERY_MENU.T_MODIFY', 'MAP.QUERY_MENU.T_DOWNLOAD_CSV', 'MAP.QUERY_MENU.T_ARCHIVE', 'MAP.QUERY_MENU.T_DELETE', 'MAP.QUERY_MENU.T_PROJECT_LAYERS', 'MAP.QUERY_MENU.T_QUERY']);
-                    }
+                    }]
                 }
             })
             .state('arkeogis.import', {
@@ -163,7 +163,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 templateUrl: "partials/import/import.html",
                 controller: "ImportMainCtrl",
                 resolve: {
-                    database: function($stateParams, arkeoDatabase, arkeoImport, login, $q) {
+                    database: ['$stateParams', 'arkeoDatabase', 'arkeoImport', 'login', '$q', function($stateParams, arkeoDatabase, arkeoImport, login, $q) {
                         var deferred = $q.defer();
                         var id = ($stateParams.database_id) ? $stateParams.database_id : 0;
                         arkeoDatabase.Database.get({
@@ -172,10 +172,10 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                             deferred.resolve(db);
                         });
                         return deferred.promise;
-                    },
-                    checkPerm: function(login) {
+                    }],
+                    checkPerm: ['login', function(login) {
                         return login.resolvePermission('import', 'arkeogis.import.step1');
-                    }
+                    }]
                 }
             })
             .state('arkeogis.import.step1', {
@@ -203,7 +203,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 templateUrl: "partials/database/sheet.html",
                 controller: "DatabaseCtrl",
                 resolve: {
-                    database: function($stateParams, arkeoDatabase, login, $q) {
+                    database: ['$stateParams', 'arkeoDatabase', 'login', '$q', function($stateParams, arkeoDatabase, login, $q) {
                         var deferred = $q.defer();
                             var id = $stateParams.database_id || 0;
                             arkeoDatabase.Database.get({
@@ -212,13 +212,13 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                                 deferred.resolve(db);
                             });
                         return deferred.promise;
-                    },
-                    databaseDefinitions: function(arkeoDatabase) {
+                    }],
+                    databaseDefinitions: ['arkeoDatabase', function(arkeoDatabase) {
                         return arkeoDatabase.translateDefinitions();
-                    },
-                    checkPerm: function(login) {
+                    }],
+                    checkPerm: ['login', function(login) {
                         return login.resolvePermission('request map', 'arkeogis.database-list');
-                    }
+                    }]
                 }
             })
             .state('arkeogis.database-list', {
@@ -226,15 +226,15 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 templateUrl: "partials/database/listing.html",
                 controller: "DatabaseListCtrl",
                 resolve: {
-                    databaseDefinitions: function(arkeoDatabase) {
+                    databaseDefinitions: ['arkeoDatabase', function(arkeoDatabase) {
                         return arkeoDatabase.translateDefinitions();
-                    },
-                    translations: function($translate) {
+                    }],
+                    translations: ['$translate', function($translate) {
                         return $translate(['GENERAL.TABLE_PAGINATION.T_ALL']);
-                    },
-                    checkPerm: function(login) {
+                    }],
+                    checkPerm: ['login', function(login) {
                         return login.resolvePermission('request map', 'arkeogis.database-list');
-                    }
+                    }]
                 }
             })
             .state('arkeogis.user', {
@@ -245,9 +245,9 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 templateUrl: "partials/user/users.html",
                 controller: "UserCtrl",
                 resolve: {
-                    checkPerm: function(login) {
+                    checkPerm: ['login', function(login) {
                         return login.resolvePermission('adminusers', 'arkeogis.user');
-                    }
+                    }]
                 }
             })
             .state('arkeogis.project', {
@@ -255,9 +255,9 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 templateUrl: "partials/project/project.html",
                 controller: "ProjectCtrl",
                 resolve: {
-                    checkPerm: function(login) {
+                    checkPerm: ['login', function(login) {
                         return login.resolvePermission('request map', 'arkeogis.project');
-                    },
+                    }],
                 }
             })
             .state('arkeogis.mapeditor', {
@@ -265,7 +265,7 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 templateUrl: "partials/mapeditor.html",
                 controller: "MapEditorCtrl",
                 resolve: {
-                    layer: function($stateParams, $q, layerService) {
+                    layer: ['$stateParams', '$q', 'layerService', function($stateParams, $q, layerService) {
                         var deferred = $q.defer();
                         if (!$stateParams.id) {
                             deferred.resolve();
@@ -277,10 +277,10 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                             });
                         }
                         return deferred.promise;
-                    },
-                    checkPerm: function(login) {
+                    }],
+                    checkPerm: ['login', function(login) {
                         return login.resolvePermission('manage all wms/wmts', 'arkeogis.mapeditor');
-                    }
+                    }]
                 }
             })
             .state('arkeogis.mapeditor-list', {
@@ -288,12 +288,12 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 templateUrl: "partials/mapeditor-list.html",
                 controller: "MapEditorListCtrl",
                 resolve: {
-                    translations: function($translate) {
+                    translations: ['$translate', function($translate) {
                         return $translate(['GENERAL.TABLE_PAGINATION.T_ALL']);
-                    },
-                    checkPerm: function(login) {
+                    }],
+                    checkPerm: ['login', function(login) {
                         return login.resolvePermission('manage all wms/wmts', 'arkeogis.mapeditor');
-                    }
+                    }]
                 }
             })
             .state('arkeogis.group', {
@@ -301,9 +301,9 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 templateUrl: "partials/user/groups.html",
                 controller: "GroupCtrl",
                 resolve: {
-                    checkPerm: function(login) {
+                    checkPerm: ['login', function(login) {
                         return login.resolvePermission('adminusers', 'arkeogis.group');
-                    },
+                    }]
                 }
             })
             .state('arkeogis.langeditor', {
@@ -311,9 +311,9 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 templateUrl: "partials/langeditor.html",
                 controller: "LangEditorCtrl",
                 resolve: {
-                    checkPerm: function(login) {
+                    checkPerm: ['login', function(login) {
                         return login.resolvePermission('user can use langeditor', 'arkeogis.langeditor');
-                    },
+                    }]
                 }
             })
             .state('arkeogis.chronoditor-list', {
@@ -321,9 +321,9 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 templateUrl: "partials/chronoditor-list.html",
                 controller: "ChronoEditorListCtrl",
                 resolve: {
-                    checkPerm: function(login) {
+                    checkPerm: ['login', function(login) {
                         return login.resolvePermission('user can edit some chronology', 'arkeogis.chronoditor-list');
-                    },
+                    }]
                 }
             })
             .state('arkeogis.chronoditor', {
@@ -331,9 +331,9 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 templateUrl: "partials/chronoditor.html",
                 controller: "ChronoEditorCtrl",
                 resolve: {
-                    checkPerm: function(login) {
+                    checkPerm: ['login', function(login) {
                         return login.resolvePermission('user can edit some chronology', 'arkeogis.chronoditor');
-                    },
+                    }]
                 }
             })
             .state('arkeogis.characeditor-list', {
@@ -341,9 +341,9 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 templateUrl: "partials/characeditor-list.html",
                 controller: "CharacEditorListCtrl",
                 resolve: {
-                    checkPerm: function(login) {
+                    checkPerm: ['login', function(login) {
                         return login.resolvePermission('user can edit some charac', 'arkeogis.characeditor-list');
-                    },
+                    }]
                 }
             })
             .state('arkeogis.characeditor', {
@@ -351,9 +351,9 @@ ArkeoGIS.config(['$mdThemingProvider', '$stateProvider', '$urlRouterProvider', '
                 templateUrl: "partials/characeditor.html",
                 controller: "CharacEditorCtrl",
                 resolve: {
-                    checkPerm: function(login) {
+                    checkPerm: ['login', function(login) {
                         return login.resolvePermission('user can edit some charac', 'arkeogis.characeditor');
-                    },
+                    }]
                 }
             })
             .state('arkeogis.login', {
