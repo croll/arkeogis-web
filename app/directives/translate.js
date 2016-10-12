@@ -166,17 +166,17 @@
 
     ArkeoGIS.filter('arkTranslate', ['arkeoLang', function(arkeoLang) {
         return function(src) {
-            if (arkeoLang.userLangs[1] in src)
+            if (_.has(src, arkeoLang.userLangs[1]))
                 return src[arkeoLang.userLangs[1]];
-            else if (arkeoLang.userLangs[2] in src)
+            else if (_.has(src, arkeoLang.userLangs[2]))
                 return src[arkeoLang.userLangs[2]];
-            else if ('en' in src)
+            else if (_.has(src, 'en'))
                 return src['en'];
-            else if ('fr' in src)
+            else if (_.has(src, 'fr'))
                 return src['fr'];
-            else if ('D' in src)
+            else if (_.has(src, 'D'))
                 return src['D'];
-            else return "NO TRANSLATION AVAILABLE";
+            else return "";
         }
     }]);
 
