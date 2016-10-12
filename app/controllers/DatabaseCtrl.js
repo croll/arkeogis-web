@@ -120,8 +120,10 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('DatabaseListCtrl', ['$scope', '$http', 'databaseDefinitions', 'translations',
-        function($scope, $http, databaseDefinitions, translations) {
+    ArkeoGIS.controller('DatabaseListCtrl', ['$scope', '$http', '$filter', 'databaseDefinitions', 'translations', 'isAdmin',
+        function($scope, $http, $filter, databaseDefinitions, translations, isAdmin) {
+
+            $scope.isAdmin = _.has(isAdmin, 'id');
 
             $http.get('/api/database').then(function(response) {
                 $scope.databaseDefinitions = databaseDefinitions;
@@ -133,9 +135,30 @@
                     } else {
                         db.authors = db.author;
                     }
+                    db.default_language = $filter('uppercase')(db.default_language);
+                    db.type = databaseDefinitions[db.type];
+                    db.scale_resolution = databaseDefinitions[db.scale_resolution];
+                    db.state = databaseDefinitions[db.state];
+                    db.geographical_extent = databaseDefinitions[db.geographical_extent];
+                    db.start_date = $filter('arkYear')(db.start_date);
+                    db.end_date = $filter('arkYear')(db.end_date);
+                    db.subject = $filter('arkTranslate')(db.subject);
+                    db.description = $filter('arkTranslate')(db.description);
                 });
                 $scope.databases = response.data;
             });
+
+            $scope.downloadCSV = function() {
+                var csv = 'LANG;NAME;AUTHORS;SUBJET;TYPE;LINES;SITES;SCALE;START_DATE;END_DATE;STATE;GEOGRAPHICAL_EXTENT;LICENSE;DESCRIPTION\n';
+                angular.forEach($scope.databases, function(db) {
+                    csv += '' + db.default_language + ';' + db.name + ';' + db.authors + ';' + db.subject + ';' + db.type + ';' + db.number_of_lines + ';' + db.number_of_sites + ';' + db.scale_resolution + ';' + db.start_date + ';' + db.end_date + ';' + db.state + ';' + db.geographical_extent + ';' + db.license + ';' + db.description + '\n'
+                });
+                var hiddenElement = document.createElement('a');
+                hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+                hiddenElement.target = '_blank';
+                hiddenElement.download = 'databases.csv';
+                hiddenElement.click();
+            }
 
             $scope.filter = {
                 show: false,
@@ -145,7 +168,12 @@
             $scope.query = {
                 filter: '',
                 order: null,
-                limitOptions: [10, 25, 50, {label: translations['GENERAL.TABLE_PAGINATION.T_ALL'], value: function() {return 10000}}],
+                limitOptions: [10, 25, 50, {
+                    label: translations['GENERAL.TABLE_PAGINATION.T_ALL'],
+                    value: function() {
+                        return 10000
+                    }
+                }],
                 limit: 20,
                 page: 1
             };

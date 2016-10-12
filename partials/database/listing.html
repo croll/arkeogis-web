@@ -70,23 +70,30 @@
         </thead>
         <tbody md-body>
             <tr md-row md-select="item" md-select-id="id" ng-mouseover="preview(item.geographical_extent_geom)" ng-mouseleave="preview(null)" ui-sref="arkeogis.database({database_id: item.id})" ng-repeat="item in databases | filter:query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
-                <td md-cell>{{item.default_language | uppercase }}</td>
-                <td md-cell ark-get-translation ark-translations="item.name"></td>
+                <td md-cell>{{item.default_language}}</td>
+                <!-- <td md-cell ark-get-translation ark-translations="item.name"></td> -->
+                <td md-cell>{{item.name}}</td>
                 <td md-cell>{{item.authors}}</td>
-                <td md-cell ark-get-translation ark-translations="item.subject"></td>
-                <td md-cell>{{databaseDefinitions[item.type]}}</td>
+                <!-- <td md-cell ark-get-translation ark-translations="item.subject"></td> -->
+                <td md-cell>{{item.subject}}</td>
+                <td md-cell>{{item.type}}</td>
                 <td md-cell>{{item.number_of_lines}}</td>
                 <td md-cell>{{item.number_of_sites}}</td>
-                <td md-cell>{{databaseDefinitions[item.scale_resolution]}}</td>
-                <td md-cell>{{item.start_date | arkYear}}</td>
-                <td md-cell>{{item.end_date | arkYear}}</td>
-                <td md-cell>{{databaseDefinitions[item.state]}}</td>
-                <td md-cell>{{databaseDefinitions[item.geographical_extent]}}</td>
+                <td md-cell>{{item.scale_resolution}}</td>
+                <td md-cell>{{item.start_date}}</td>
+                <td md-cell>{{item.end_date}}</td>
+                <td md-cell>{{item.state}}</td>
+                <td md-cell>{{item.geographical_extent}}</td>
                 <td md-cell>{{item.license}}</td>
-                <td md-cell ark-get-translation ark-translations="item.description"></td>
+                <!-- <td md-cell ark-get-translation ark-translations="item.description"></td> -->
+                <td md-cell>{{item.description}}</td>
             </tr>
         </tbody>
     </table>
 </md-table-container>
 
 <md-table-pagination md-label="{page: '{{'GENERAL.TABLE_PAGINATION.T_PAGE' | translate }}', rowsPerPage: '{{'GENERAL.TABLE_PAGINATION.T_ROWSPERPAGE' | translate }}', of: '{{'GENERAL.TABLE_PAGINATION.T_ROWSPERPAGE_OF' | translate }}'}" md-page-select md-page="query.page" md-total="{{databases.length}}" md-limit="query.limit" md-limit-options="query.limitOptions"></md-table-pagination>
+
+<div layout layout-align="end center" ng-show="isAdmin" style="margin: 30px 20px 0 0">
+    <a ng-click="downloadCSV()" translate>DATABASE_LIST.DOWNLOAD_CSV.T_LABEL</a>
+</div>
