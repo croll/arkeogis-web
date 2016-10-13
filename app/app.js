@@ -245,7 +245,7 @@
                             return login.resolvePermission('request map', 'arkeogis.database-list');
                         }],
                         isAdmin: ['login', function(login) {
-                            return login.resolvePermission('manage all databases');
+                            return login.havePermission('manage all databases');
                         }]
                     }
                 })

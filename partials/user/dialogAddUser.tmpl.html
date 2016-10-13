@@ -70,8 +70,8 @@
 
                 <div layout="row">
                     <div flex="20" layout="column">
-                        <div flex>
-                            <md-input-container>
+                        <div flex layout="row">
+                            <md-input-container flex>
                                 <label translate>.FIELD_USERNAME.T_TITLE</label>
                                 <input name="username" ng-change="userForm.username.$setValidity('exists', true); userForm.username.$setValidity('server', true)" ng-model="user.username" required/>
                                 <div ng-messages="userForm.username.$error" role="alert">
@@ -81,8 +81,8 @@
                                 </div>
                             </md-input-container>
                         </div>
-                        <div flex>
-                            <md-input-container>
+                        <div flex layout="row">
+                            <md-input-container flex>
                                 <label translate>.FIELD_PASSWORD.T_TITLE</label>
                                 <input name="password" ng-model="user.password" ng-change="userForm.password.$setValidity('server', true)" type="password" ng-required="user.id == undefined"/>
                                 <div ng-messages="userForm.password.$error" role="alert">
@@ -90,8 +90,8 @@
                                 </div>
                             </md-input-container>
                         </div>
-                        <div flex>
-                            <md-input-container>
+                        <div flex layout="row">
+                            <md-input-container flex>
                                 <label translate>.FIELD_PASSWORD2.T_TITLE</label>
                                 <input name="password2" ng-model="user.password2" type="password" ng-required="user.id == undefined"/>
                                 <div ng-messages="userForm.password2.$error" role="alert">
@@ -103,8 +103,8 @@
 
                     <div flex="20" layout="column">
 
-                        <div flex>
-                            <md-input-container>
+                        <div flex layout="row">
+                            <md-input-container flex>
                                 <label translate>.FIELD_LANG1.T_TITLE</label>
                                 <md-select required name="first_lang_isocode" ng-model="user.first_lang_isocode" ng-change="userForm.first_lang_isocode.$setValidity('server', true)">
                                     <md-option ng-repeat="lang in langs" ng-value="lang.iso_code">{{lang.name || lang.isocode}}</md-option>
@@ -115,8 +115,8 @@
                             </md-input-container>
                         </div>
 
-                        <div flex>
-                            <md-input-container>
+                        <div flex layout="row">
+                            <md-input-container flex>
                                 <label translate>.FIELD_LANG2.T_TITLE</label>
                                 <md-select required name="second_lang_isocode" ng-model="user.second_lang_isocode" ng-change="userForm.second_lang_isocode.$setValidity('server', true)">
                                     <md-option ng-repeat="lang in langs" ng-value="lang.iso_code">{{lang.name || lang.isocode}}</md-option>
@@ -127,8 +127,8 @@
                             </md-input-container>
                         </div>
 
-                        <div flex>
-                            <md-input-container>
+                        <div flex layout="row">
+                            <md-input-container flex>
                                 <label translate>.FIELD_GROUPS.T_TITLE</label>
                                 <md-select ng-model="user.groups_user" required="required" multiple>
                                     <md-option ng-repeat="group in available_groups_user.data" ng-value="group.id" ng-selected="">{{group.name}}</md-option>
@@ -282,15 +282,18 @@
                 <div layout="row">
                     <md-input-container flex>
                         <label translate>.FIELD_PHOTO.T_TITLE</label>
+                        <input style="display: none" value="hack to display float label up"/>
                         <div layout="row">
-                            <input width=10 style="width: 80px" ngf-select="" ngf-accept="'image/*'" ng-model="user.photo" ngf-resize="{width: 240, height: 240, type: 'image/jpeg', quality: .9, centerCrop: true}" name="photo"/>
-                            <img ngf-src="user.photo" style="max-width: 64px; max-height: 64px">
+                            <div width=10 style="width: 80px; margin-top: 6px;" ngf-select="" ngf-accept="'image/*'" ng-model="user.photo" ngf-resize="{width: 240, height: 240, type: 'image/jpeg', quality: .9, centerCrop: true}" name="photo">
+                                <img ngf-src="user.photo" style="max-width: 64px; max-height: 64px">
+                            </div>
                         </div>
                     </md-input-container>
 
                     <md-input-container flex>
                         <label translate>.FIELD_DATABASES.T_TITLE</label>
-                        <textarea rows="3" ng-model="user.databases"></textarea>
+                        <input style="display: none" value="hack to display float label up"/>
+                        <div style="margin-top: 6px;"><span ng-repeat="database in user.databases">{{database.name}}{{$last ? '' : ', '}}</span></div>
                     </md-input-container>
                 </div>
 

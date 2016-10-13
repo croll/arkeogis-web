@@ -230,6 +230,10 @@
 			user.password="";
 			user.password2="";
 
+			// photo
+			if (!('photo_id' in user)) user.photo_id=0;
+			user.photo = 'api/users/photo/'+user.photo_id;
+
 			return user;
 		}
 
