@@ -137,10 +137,12 @@
                         database.id = resp.data.database_id;
                         database.import_id = resp.data.import_id;
                     }
-                    database.authors = [{
-                        id: login.user.id,
-                        fullname: login.user.firstname + ' ' + login.user.lastname
-                    }];
+                    if (!database.authors.length) {
+                        database.authors = [{
+                            id: login.user.id,
+                            fullname: login.user.firstname + ' ' + login.user.lastname
+                        }];
+                    }
                     $state.go('arkeogis.import.step2');
                 }, function(resp) {
                     console.log('Import Error. Status: ' + resp.status);

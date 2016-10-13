@@ -127,9 +127,15 @@
                 $scope.databaseDefinitions = databaseDefinitions;
                 var databases = response.data;
                 angular.forEach(databases, function(db) {
-                    var co = (db.authors) ? db.authors.join(',') : '';
-                    if (co != '') {
-                        db.authors = db.author + ' ' + co;
+                    var co = [];
+                    var i = 0;
+                    if (angular.isObject(db.authors)) {
+                        angular.forEach(db.authors, function(author) {
+                            co.push(author.fullname);
+                        });
+                    }
+                    if (co.length) {
+                        db.authors = co.join(" - ");
                     } else {
                         db.authors = db.author;
                     }
