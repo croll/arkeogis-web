@@ -113,8 +113,8 @@
 				<md-button ng-click="setTheme('grey')" ng-hide="theme == 'grey'">La vie en bleu</md-button>
 				<md-button ng-click="setTheme('pink')" ng-hide="theme == 'pink'">La vie en rose</md-button>
 			</div>
-			<div ng-click="editMyUser()" style="color: white; cursor: pointer">
-				{{user.firstname}} {{user.lastname}}
+			<div ng-if="user.id > 0" ng-click="editMyUser()" style="color: white; cursor: pointer" layout="row" layout-align="center center">
+				<img style="max-height: 32px" src="api/users/photo/{{user.photo_id}}"/>&nbsp;{{user.firstname}} {{user.lastname}}
 			</div>
 			<layout layout="row" layout-align="end center">
 				<!-- fullscreen button -->
