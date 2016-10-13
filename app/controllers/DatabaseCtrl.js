@@ -123,8 +123,6 @@
     ArkeoGIS.controller('DatabaseListCtrl', ['$scope', '$http', '$filter', 'databaseDefinitions', 'translations', 'isAdmin',
         function($scope, $http, $filter, databaseDefinitions, translations, isAdmin) {
 
-            $scope.isAdmin = _.has(isAdmin, 'id');
-
             $http.get('/api/database').then(function(response) {
                 $scope.databaseDefinitions = databaseDefinitions;
                 var databases = response.data;
