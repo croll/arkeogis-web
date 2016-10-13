@@ -32,32 +32,42 @@
 
         this.permissions = [];
 
+        this.login_callback = function(ret, resolve, reject) {
+            self.user = new User(ret.data.User);
+
+            // set langs
+            arkeoLang.setUserLang(1, ret.data.lang1.isocode)
+            arkeoLang.setUserLang(2, ret.data.lang2.isocode)
+
+            // set permissions
+            self.permissions = ret.data.permissions;
+
+            // init idle timeout
+            if ('id' in self.user && self.user.id != 0) Idle.watch();
+
+            // set project
+            arkeoProject.set(ret.data.project);
+            //$cookies.put('project_id', ret.data.project.id);
+
+            if (ret.data.project && ret.data.project.id > 0) {
+                console.log("have a project");
+                arkeoProject.getDetails().then(function(proj) {
+                    resolve(self.user);
+                }, function(err) {
+                    reject(err);
+                });
+            } else {
+                console.log("no project !");
+                resolve(self.user);
+            }
+        };
+
         this.login = function(user) {
             return $q(function(resolve, reject) {
                 $http.post('/api/login', user).then(function(ret) {
                     $cookies.put('arkeogis_session_token', ret.data.Token);
                     //ArkeoGIS.token=ret.data.Token;
-                    self.user = new User(ret.data.User);
-
-                    // set langs
-                    arkeoLang.setUserLang(1, ret.data.lang1.isocode)
-                    arkeoLang.setUserLang(2, ret.data.lang2.isocode)
-
-                    // set permissions
-                    self.permissions = ret.data.permissions;
-
-                    // init idle timeout
-                    if ('id' in self.user && self.user.id != 0) Idle.watch();
-
-                    // set project
-                    arkeoProject.set(ret.data.project);
-                    $cookies.put('project_id', ret.data.project.id);
-
-                    arkeoProject.getDetails().then(function(proj) {
-                        resolve(self.user);
-                    }, function(err) {
-                        reject(err);
-                    });
+                    self.login_callback(ret, resolve, reject);
                 }, function(err) {
                     reject(err);
                 });
@@ -67,27 +77,7 @@
         this.relogin = function() {
             return $q(function(resolve, reject) {
                 $http.get('/api/relogin').then(function(ret) {
-                    self.user = new User(ret.data.User);
-
-                    // set langs
-                    arkeoLang.setUserLang(1, ret.data.lang1.isocode)
-                    arkeoLang.setUserLang(2, ret.data.lang2.isocode)
-
-                    // set permissions
-                    self.permissions = ret.data.permissions;
-
-                    // init idle timeout
-                    if ('id' in self.user && self.user.id != 0) Idle.watch();
-
-                    // set project
-                    arkeoProject.set(ret.data.project);
-                    $cookies.put('project_id', ret.data.project.id);
-
-                    arkeoProject.getDetails().then(function(proj) {
-                        resolve(self.user);
-                    }, function(err) {
-                        reject(err);
-                    });
+                    self.login_callback(ret, resolve, reject);
                 }, function(err) {
                     console.error(err);
                     reject(err);

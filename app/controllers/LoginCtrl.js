@@ -21,8 +21,8 @@
 
 (function () {
     'use strict';
-	ArkeoGIS.controller('LoginCtrl', ['$scope', 'login', 'user', "$state", "$stateParams", "arkeoService", "$mdToast", '$http', '$filter',
-    function ($scope, login, User, $state, $stateParams, arkeoService, $mdToast, $http, $filter) {
+	ArkeoGIS.controller('LoginCtrl', ['$scope', 'login', 'user', "$state", "$stateParams", "arkeoService", "$mdToast", '$http', '$filter', 'arkeoProject',
+    function ($scope, login, User, $state, $stateParams, arkeoService, $mdToast, $http, $filter, arkeoProject) {
 
         $scope.user = login.user;
 
@@ -37,11 +37,18 @@
 		$scope.loginSubmit = function () {
             login.login($scope.user).then(function(ret) {
                 $scope.user = ret;
-                if (($stateParams.redirectTo != "") && ($stateParams.redirectTo != "arkeogis.login")) {
-                  $state.go($stateParams.redirectTo);
-                  $stateParams.redirectTo = "";
+
+                console.log("arkeoProject: ", arkeoProject);
+
+                if (!arkeoProject.project || !('id' in arkeoProject.project) || arkeoProject.project.id==0) {
+                    $state.go("arkeogis.project");
                 } else {
-                  $state.go("arkeogis.map");
+                    if (($stateParams.redirectTo != "") && ($stateParams.redirectTo != "arkeogis.login")) {
+                        $state.go($stateParams.redirectTo);
+                        $stateParams.redirectTo = "";
+                    } else {
+                        $state.go("arkeogis.map");
+                    }
                 }
             }, function(err) {
                 console.log("err ! ", err);
