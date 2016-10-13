@@ -196,5 +196,20 @@
             });
         };
 
+        this.havePermission = function(permname) {
+            return $q(function(resolve, reject) {
+                var user = self.getUser().then(function(user) {
+                    var haveperm = false;
+                    self.permissions.forEach(function(permission) {
+                        if (permission.name == permname)
+                            haveperm = true;
+                    })
+                    resolve(haveperm);
+                }, function(err) {
+                    reject(err);
+                });
+            });
+        };
+
     }]);
 })();
