@@ -71,7 +71,7 @@
             function initProjectLayers(map) {
                 if (project.layers.length) {
                     _.each(project.layers, function(layer) {
-                        var l = addLayer(layer, map);
+                        var l = processLayer(layer);
                         // arkeoMap.layerControl.addOverlay(l.instance, l.name)
                         arkeoMap.layerControl.addOverlay(l.instance, l.name, {
                             groupName: $scope.translations['MAP.QUERY_MENU.T_PROJECT_LAYERS'],
@@ -82,7 +82,7 @@
                 }
             }
 
-            function addLayer(layer, map) {
+            function processLayer(layer) {
 
                 var l;
 
@@ -90,7 +90,7 @@
                     var geojsonFeature = {
                         type: "Feature",
                         properties: {
-                            name: layer.name.en,
+                            name: $filter('arkTranslate')(layer.name),
                             uniq_code: layer.uniq_code,
                             type: layer.type,
                             id: layer.id,
@@ -98,10 +98,14 @@
                         },
                         geometry: angular.fromJson(layer.geographical_extent_geom)
                     };
+                    var instance = new L.geoJson(geojsonFeature);
+                    instance.getAttribution = function() {
+                        return $filter('arkTranslate')(layer.attribution);
+                    }
                     l = {
-                        name: layer.name.en,
+                        name: $filter('arkTranslate')(layer.name),
                         type: 'shp',
-                        instance: new L.geoJson(geojsonFeature)
+                        instance: instance
                     };
                 } else if (layer.type == 'wms') {
                     l = {
@@ -110,16 +114,17 @@
                         instance: L.tileLayer.wms(layer.url, {
                             minZoom: layer.min_scale,
                             maxZoom: layer.max_scale,
-                            layers: layer.identifier
+                            attribution: $filter('arkTranslate')(layer.attribution),
+                            layer: layer.identifier
                         })
                     };
                 } else if (layer.type == 'wmts') {
                     l = {
-                        name: layer.name.en,
+                            name: $filter('arkTranslate')(layer.name),
                         type: 'wmts',
                         instance: L.tileLayer.WMTS(layer.url, {
                             layer: layer.identifier,
-                            attribution: layer.attribution.en,
+                            attribution: $filter('arkTranslate')(layer.attribution),
                             minZoom: layer.min_scale,
                             maxZoom: layer.max_scale
                         })
