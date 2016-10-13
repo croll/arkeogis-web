@@ -101,7 +101,7 @@
 
         this.delete = function(id) {
             var prop = (typeof(id) == 'string') ? 'letter' : 'num';
-            c = this.getCurrent(),
+            var c = this.getCurrent(),
             n = 0;
             _.forOwn(queries, function(q, k) {
                 if (q[prop] == id) {
