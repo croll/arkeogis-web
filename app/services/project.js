@@ -22,7 +22,7 @@
 (function() {
     'use strict';
 
-    ArkeoGIS.service('arkeoProject', ['$cookies', '$http', '$q', 'arkeoLang', function($cookies, $http, $q, arkeoLang) {
+    ArkeoGIS.service('arkeoProject', ['$http', '$q', 'arkeoLang', function($http, $q, arkeoLang) {
 
         var self = this;
         var chronologyCacheByDates = {};
