@@ -80,7 +80,7 @@
 
         <div layout="column" layout-padding class="section" ng-repeat="srange in site.properties.site_ranges">
             <md-card flex>
-                <md-toolbar class="md-hue-2" layout-padding>
+                <md-toolbar class="md-hue-1" layout-padding>
                     <div class="name">
                         <span translate>SITE_DETAILS.SITE_RANGE_STARTING_PERIOD.T_LABEL</span>:
                         <span>{{srange.start_date1 | arkYear}}
@@ -95,24 +95,33 @@
                     <div class="exceptional" ng-show="site.properties.infos.exceptional"><span translate>SITE_DETAILS.FIELD_EXCEPTIONAL.T_EXCEPTIONAL_SITE</span></div>
                 </md-toolbar>
                 <div ng-repeat="charac_section in srange.charac_sections">
-                    <md-toolbar style="min-height: 40px" layout-padding>
+                    <md-toolbar style="min-height: 40px" layout-padding class="md-hue-3">
                         {{charac_section.name}}
                     </md-toolbar>
                     <section ng-repeat="scharac in charac_section.characs" layout-padding>
                         <h4>{{scharac.path}}</h4>
                         <div class="info" layout="row">
                             <label>
-                                <span translate>SITE_DETAILS.CHARAC_KNOWLEGDE_TYPE.T_LABEL</span>:</label>
-                            <div>{{databaseDefinitions[charac.knowledge_type]}}</div>
+                                <span translate>SITE_DETAILS.CHARAC_KNOWLEGDE_TYPE.T_LABEL</span>:
+                            </label>
+                            <div>{{databaseDefinitions[scharac.knowledge_type]}}</div>
+                        </div>
+                        <div class="info" layout="row" ng-show="scharac.exceptional">
+                            <label>
+                                <span translate>SITE_DETAILS.CHARAC_EXCEPTIONAL.T_LABEL</span>:
+                            </label>
+                            <div translate>SITE_DETAILS.CHARAC_EXCEPTIONAL.T_YES</div>
                         </div>
                         <div class="info" layout="row" ng-show="!hideComments && scharac.comment">
                             <label>
-                                <span translate>SITE_DETAILS.CHARAC_COMMENT.T_LABEL</span>:</label>
+                                <span translate>SITE_DETAILS.CHARAC_COMMENT.T_LABEL</span>:
+                            </label>
                             <div>{{scharac.comment}}</div>
                         </div>
                         <div class="info" layout="row" ng-show="!hideComments && scharac.bibliography">
                             <label>
-                                <span translate>SITE_DETAILS.CHARAC_BIBLIOGRAPHY.T_LABEL</span>:</label>
+                                <span translate>SITE_DETAILS.CHARAC_BIBLIOGRAPHY.T_LABEL</span>:
+                            </label>
                             <div>{{scharac.bibliography}}</div>
                         </div>
                         <md-divider ng-hide="$last"></md-divider>
