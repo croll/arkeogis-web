@@ -22,7 +22,7 @@
 (function() {
     'use strict';
 
-    ArkeoGIS.service('arkeoQuery', ['$http', 'arkeoService', function($http, arkeoService) {
+    ArkeoGIS.service('arkeoQuery', ['$http', 'arkeoService', 'arkeoDownload', function($http, arkeoService, arkeoDownload) {
 
         var self = this,
             alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
@@ -43,7 +43,9 @@
         };
 
         this.exportcsv = function(query) {
-            return $http.post("/api/map/searchtocsv", query.params);
+            $http.post("/api/map/searchtocsv", query.params,  {responseType: 'blob'}).then(function(response){
+                arkeoDownload.openAsFile(response);
+            });
         };
 
         this.getSite = function(id) {
