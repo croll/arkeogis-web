@@ -42,6 +42,10 @@
             });
         };
 
+        this.exportcsv = function(query) {
+            return $http.post("/api/map/searchtocsv", query.params);
+        };
+
         this.getSite = function(id) {
             if (angular.isDefined(cachedSites[id])) {
                 return cachedSites[id];
