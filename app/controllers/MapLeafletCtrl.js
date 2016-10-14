@@ -56,7 +56,9 @@
                             method: 'GET',
                             url: '/api/layer/' + e.layer.feature.properties.id + '/geojson'
                         }).then(function(result) {
-                            new L.geoJson(result.data).addTo(map);
+                            console.log("REPLACE");
+                            var layer = L.geoJson(result.data);
+                            arkeoMap.layerControl.replaceOverlay(layer, e.layer.feature.properties.name);
                         }, function(err) {
                             arkeoService.showMessage('MAPQUERY.MESSAGE.T_GETGEOJSON_ERROR')
                             console.log(err);
@@ -72,7 +74,6 @@
                 if (project.layers.length) {
                     _.each(project.layers, function(layer) {
                         var l = processLayer(layer);
-                        // arkeoMap.layerControl.addOverlay(l.instance, l.name)
                         arkeoMap.layerControl.addOverlay(l.instance, l.name, {
                             groupName: $scope.translations['MAP.QUERY_MENU.T_PROJECT_LAYERS'],
                             expanded: true
