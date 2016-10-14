@@ -96,5 +96,13 @@
 			}
 		};
 
+		$scope.hasPerm = function(perm) {
+			var found=false;
+			_.each($scope.permissions, function(p) {
+				if (p.name == perm) found=true;
+			})
+			return found;
+		};
+
 	}]);
 })();
