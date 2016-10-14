@@ -13,17 +13,17 @@
 
                     <md-input-container flex="20">
                         <label translate>.FIELD_LAST_NAME.T_TITLE</label>
-                        <input required ng-model="user.lastname"/>
+                        <input ng-readonly="!canEdit" required ng-model="user.lastname"/>
                     </md-input-container>
 
                     <md-input-container flex="20">
                         <label translate>.FIELD_FIRST_NAME.T_TITLE</label>
-                        <input required ng-model="user.firstname"/>
+                        <input ng-readonly="!canEdit" required ng-model="user.firstname"/>
                     </md-input-container>
 
                     <md-input-container flex="20">
                         <label translate>.FIELD_EMAIL.T_TITLE</label>
-                        <input maxlength="255" minlength="6" name="email" ng-model="user.email" ng-pattern="/^.+@.+\..+$/" required type="email" ng-change="userForm.email.$setValidity('server', true)"/>
+                        <input ng-readonly="!canEdit" maxlength="255" minlength="6" name="email" ng-model="user.email" ng-pattern="/^.+@.+\..+$/" required type="email" ng-change="userForm.email.$setValidity('server', true)"/>
                         <div ng-messages="userForm.email.$error" role="alert">
                             <div ng-if="userForm.email.$dirty" ng-message-exp="['required']">{{ 'USER.FIELD_EMAIL.T_CHECK_MANDATORY' | translate }}</div>
                             <div ng-if="userForm.email.$error.server">{{ userForm.email.$error.server | translate }}</div>
@@ -32,6 +32,7 @@
                     </md-input-container>
 
                     <md-autocomplete flex="20"
+                                     ng-readonly="!canEdit"
                                      required
                                      md-search-text-change="searchTextCity=''"
                                      md-autoselect="true"
@@ -49,6 +50,7 @@
                     </md-autocomplete>
 
                     <md-autocomplete flex="20"
+                                     ng-readonly="!canEdit"
                                      required
                                      name="searchTextCity"
                                      md-autoselect="true"
@@ -73,7 +75,7 @@
                         <div flex layout="row">
                             <md-input-container flex>
                                 <label translate>.FIELD_USERNAME.T_TITLE</label>
-                                <input name="username" ng-change="userForm.username.$setValidity('exists', true); userForm.username.$setValidity('server', true)" ng-model="user.username" required/>
+                                <input ng-readonly="!canEdit" name="username" ng-change="userForm.username.$setValidity('exists', true); userForm.username.$setValidity('server', true)" ng-model="user.username" required/>
                                 <div ng-messages="userForm.username.$error" role="alert">
                                     <div ng-if="userForm.username.$error.server">{{ userForm.username.$error.server | translate }}</div>
                                     <div ng-message="exists">{{ 'USER.FIELD_USERNAME.T_CHECK_ALREADYEXISTS' | translate }}</div>
@@ -81,19 +83,23 @@
                                 </div>
                             </md-input-container>
                         </div>
-                        <div flex layout="row">
+                        <div ng-if="!canEdit" flex="70" layout="row" layout-align="center top">
+                            <img ngf-src="user.photo" style="max-width: 128px; max-height: 128px">
+
+                        </div>
+                        <div ng-if="canEdit" flex layout="row">
                             <md-input-container flex>
                                 <label translate>.FIELD_PASSWORD.T_TITLE</label>
-                                <input name="password" ng-model="user.password" ng-change="userForm.password.$setValidity('server', true)" type="password" ng-required="user.id == undefined"/>
+                                <input ng-readonly="!canEdit" name="password" ng-model="user.password" ng-change="userForm.password.$setValidity('server', true)" type="password" ng-required="user.id == undefined"/>
                                 <div ng-messages="userForm.password.$error" role="alert">
                                     <div ng-if="userForm.password.$error.server">{{ userForm.password.$error.server | translate }}</div>
                                 </div>
                             </md-input-container>
                         </div>
-                        <div flex layout="row">
+                        <div ng-if="canEdit" flex layout="row">
                             <md-input-container flex>
                                 <label translate>.FIELD_PASSWORD2.T_TITLE</label>
-                                <input name="password2" ng-model="user.password2" type="password" ng-required="user.id == undefined"/>
+                                <input ng-readonly="!canEdit" name="password2" ng-model="user.password2" type="password" ng-required="user.id == undefined"/>
                                 <div ng-messages="userForm.password2.$error" role="alert">
                                     <div ng-if="user.password != user.password2">{{ 'USER.FIELD_PASSWORD.T_CHECK_NOTSAME' | translate }}</div>
                                 </div>
@@ -106,7 +112,7 @@
                         <div flex layout="row">
                             <md-input-container flex>
                                 <label translate>.FIELD_LANG1.T_TITLE</label>
-                                <md-select required name="first_lang_isocode" ng-model="user.first_lang_isocode" ng-change="userForm.first_lang_isocode.$setValidity('server', true)">
+                                <md-select ng-disabled="!canEdit" required name="first_lang_isocode" ng-model="user.first_lang_isocode" ng-change="userForm.first_lang_isocode.$setValidity('server', true)">
                                     <md-option ng-repeat="lang in langs" ng-value="lang.iso_code">{{lang.name || lang.isocode}}</md-option>
                                 </md-select>
                                 <div ng-messages="userForm.first_lang_isocode.$error" role="alert">
@@ -118,7 +124,7 @@
                         <div flex layout="row">
                             <md-input-container flex>
                                 <label translate>.FIELD_LANG2.T_TITLE</label>
-                                <md-select required name="second_lang_isocode" ng-model="user.second_lang_isocode" ng-change="userForm.second_lang_isocode.$setValidity('server', true)">
+                                <md-select ng-disabled="!canEdit" required name="second_lang_isocode" ng-model="user.second_lang_isocode" ng-change="userForm.second_lang_isocode.$setValidity('server', true)">
                                     <md-option ng-repeat="lang in langs" ng-value="lang.iso_code">{{lang.name || lang.isocode}}</md-option>
                                 </md-select>
                                 <div ng-messages="userForm.second_lang_isocode.$error" role="alert">
@@ -130,7 +136,7 @@
                         <div flex layout="row">
                             <md-input-container flex>
                                 <label translate>.FIELD_GROUPS.T_TITLE</label>
-                                <md-select ng-model="user.groups_user" required="required" multiple>
+                                <md-select ng-disabled="!canEdit" ng-model="user.groups_user" required="required" multiple>
                                     <md-option ng-repeat="group in available_groups_user.data" ng-value="group.id" ng-selected="">{{group.name}}</md-option>
                                 </md-select>
                             </md-input-container>
@@ -141,6 +147,7 @@
                     <div flex="60" layout="column">
                         <div flex layout="row">
                             <md-autocomplete flex
+                                             ng-readonly="!canEdit"
                                              md-selected-item-change="company_change(0)"
                                              md-select-on-match="true"
                                              md-floating-label="{{ 'USER.FIELD_COMPANY1.T_TITLE' | translate }}"
@@ -157,6 +164,7 @@
                             </md-autocomplete>
 
                             <md-autocomplete flex
+                                             ng-readonly="!canEdit"
                                              md-search-text-change="companies_city_search[0]=''"
                                              md-autoselect="true"
                                              md-floating-label="{{ 'USER.FIELD_COMPANY1_COUNTRY.T_TITLE' | translate }}"
@@ -173,6 +181,7 @@
                             </md-autocomplete>
 
                             <md-autocomplete flex
+                                             ng-readonly="!canEdit"
                                              md-autoselect="true"
                                              md-floating-label="{{ 'USER.FIELD_COMPANY1_CITY.T_TITLE' | translate }}"
                                              md-item-text="item.name"
@@ -190,6 +199,7 @@
 
                         <div flex layout="row">
                             <md-autocomplete flex
+                                             ng-readonly="!canEdit"
                                              md-selected-item-change="company_change(1)"
                                              md-select-on-match="true"
                                              md-floating-label="{{ 'USER.FIELD_COMPANY2.T_TITLE' | translate }}"
@@ -206,6 +216,7 @@
                             </md-autocomplete>
 
                             <md-autocomplete flex
+                                             ng-readonly="!canEdit"
                                              md-search-text-change="companies_city_search[1]=''"
                                              md-autoselect="true"
                                              md-floating-label="{{ 'USER.FIELD_COMPANY2_COUNTRY.T_TITLE' | translate }}"
@@ -222,6 +233,7 @@
                             </md-autocomplete>
 
                             <md-autocomplete flex
+                                             ng-readonly="!canEdit"
                                              md-autoselect="true"
                                              md-floating-label="{{ 'USER.FIELD_COMPANY2_CITY.T_TITLE' | translate }}"
                                              md-item-text="item.name"
@@ -241,7 +253,7 @@
                         <div flex layout="row">
                             <md-input-container flex>
                                 <label translate>.FIELD_DESCRIPTION.T_TITLE</label>
-                                <textarea required name="description" rows="3" ng-model="user.description" ng-change="userForm.description.$setValidity('server', true)"></textarea>
+                                <textarea ng-readonly="!canEdit" required name="description" rows="3" ng-model="user.description" ng-change="userForm.description.$setValidity('server', true)"></textarea>
                                 <div ng-messages="userForm.description.$error" role="alert">
                                     <div ng-if="userForm.description.$error.server">{{ userForm.description.$error.server | translate }}</div>
                                 </div>
@@ -251,24 +263,24 @@
                     </div>
                 </div>
 
-                <div layout="row">
+                <div ng-if="canEdit" layout="row">
                     <md-input-container flex>
                         <label translate>.FIELD_CHRONOGROUP.T_TITLE</label>
-                        <md-select ng-model="user.groups_chronology" multiple>
+                        <md-select ng-readonly="!canEdit" ng-model="user.groups_chronology" multiple>
                             <md-option ng-repeat="group in available_groups_chronology.data" ng-value="group.id">{{group.name}}</md-option>
                         </md-select>
                     </md-input-container>
 
                     <md-input-container flex>
                         <label translate>.FIELD_CARACSGROUP.T_TITLE</label>
-                        <md-select ng-model="user.groups_charac" multiple>
+                        <md-select ng-readonly="!canEdit" ng-model="user.groups_charac" multiple>
                             <md-option ng-repeat="group in available_groups_charac.data" ng-value="group.id">{{group.name}}</md-option>
                         </md-select>
                     </md-input-container>
 
                     <md-input-container flex>
                         <label translate>.FIELD_ACTIVE.T_TITLE</label>
-                        <md-select name="active" ng-model="user.active" required>
+                        <md-select ng-readonly="!canEdit" name="active" ng-model="user.active" required>
                             <md-option translate ng-value="false">.FIELD_ACTIVE.T_ITEM_NO</md-option>
                             <md-option translate ng-value="true">.FIELD_ACTIVE.T_ITEM_YES</md-option>
                         </md-select>
@@ -280,9 +292,9 @@
                 </div>
 
                 <div layout="row">
-                    <md-input-container flex>
+                    <md-input-container ng-if="canEdit" flex>
                         <label translate>.FIELD_PHOTO.T_TITLE</label>
-                        <input style="display: none" value="hack to display float label up"/>
+                        <input ng-readonly="!canEdit" style="display: none" value="hack to display float label up"/>
                         <div layout="row">
                             <div width=10 style="width: 80px; margin-top: 6px;" ngf-select="" ngf-accept="'image/*'" ng-model="user.photo" ngf-resize="{width: 240, height: 240, type: 'image/jpeg', quality: .9, centerCrop: true}" name="photo">
                                 <img ngf-src="user.photo" style="max-width: 64px; max-height: 64px">
@@ -292,13 +304,13 @@
 
                     <md-input-container flex>
                         <label translate>.FIELD_DATABASES.T_TITLE</label>
-                        <input style="display: none" value="hack to display float label up"/>
+                        <input ng-readonly="!canEdit" style="display: none" value="hack to display float label up"/>
                         <div style="margin-top: 6px;"><span ng-repeat="database in user.databases">{{database.name}}{{$last ? '' : ', '}}</span></div>
                     </md-input-container>
                 </div>
 
-                <div layout="row" layout-align="end" layout-wrap>
-                    <md-button ng-show="user.id != undefined" class="md-raised" ng-click="deluser()"><span translate>.BUTTON_DELETE.T_TITLE</span></md-button>
+                <div layout="row" layout-align="end" layout-wrap ng-if="canEdit">
+                    <md-button ng-if="isAdmin" ng-show="user.id != undefined" class="md-raised" ng-click="deluser()"><span translate>.BUTTON_DELETE.T_TITLE</span></md-button>
                     <md-button class="md-raised" ng-click="cancel()"><span translate>.BUTTON_CANCEL.T_TITLE</span></md-button>
                     <md-button class="md-raised md-primary" type="submit"><span translate>.BUTTON_SUBMIT.T_TITLE</span></md-button>
                 </div>

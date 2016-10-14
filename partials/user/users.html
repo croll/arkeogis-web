@@ -33,13 +33,13 @@
                     <th md-column>
                         <span translate>USER.HEADER_USERSLIST.T_PHOTO</span>
                     </th>
-                    <th md-column md-order-by="u.username">
+                    <th ng-if="isAdmin" md-column md-order-by="u.username">
                         <span translate>USER.HEADER_USERSLIST.T_USERNAME</span>
                     </th>
-                    <th md-column md-order-by="u.created_at">
+                    <th ng-if="isAdmin" md-column md-order-by="u.created_at">
                         <span translate>USER.HEADER_USERSLIST.T_CREATEDAT</span>
                     </th>
-                    <th md-column md-order-by="u.updated_at">
+                    <th ng-if="isAdmin" md-column md-order-by="u.updated_at">
                         <span translate>USER.HEADER_USERSLIST.T_UPDATEDAT</span>
                     </th>
                     <th md-column md-order-by="u.lastname">
@@ -48,10 +48,10 @@
                     <th md-column md-order-by="u.email">
                         <span translate>USER.HEADER_USERSLIST.T_EMAIL</span>
                     </th>
-                    <th md-column><span translate>USER.HEADER_USERSLIST.T_GROUPS</span></th>
-                    <th md-column><span translate>USER.HEADER_USERSLIST.T_GROUPS_CHRONO</span></th>
-                    <th md-column><span translate>USER.HEADER_USERSLIST.T_GROUPS_CARACS</span></th>
-                    <th md-column md-order-by="u.active"><span translate>USER.HEADER_USERSLIST.T_ACTIVE</span></th>
+                    <th ng-if="isAdmin" md-column><span translate>USER.HEADER_USERSLIST.T_GROUPS</span></th>
+                    <th ng-if="isAdmin" md-column><span translate>USER.HEADER_USERSLIST.T_GROUPS_CHRONO</span></th>
+                    <th ng-if="isAdmin" md-column><span translate>USER.HEADER_USERSLIST.T_GROUPS_CARACS</span></th>
+                    <th ng-if="isAdmin" md-column md-order-by="u.active"><span translate>USER.HEADER_USERSLIST.T_ACTIVE</span></th>
                     <th md-column><span translate>USER.HEADER_USERSLIST.T_COUNTRY</span></th>
                     <th md-column><span translate>USER.HEADER_USERSLIST.T_COMPANY1</span></th>
                     <th md-column><span translate>USER.HEADER_USERSLIST.T_DATABASES</span></th>
@@ -62,17 +62,17 @@
                     <td md-cell>
                         <img style="max-width: 64px; max-height: 64px" class="user_photo" ng-src='/api/users/photo/{{user.photo_id}}'></img>
                     </td>
-                    <td md-cell>
+                    <td ng-if="isAdmin" md-cell>
                         <a ng-click="openDialogEdit($event, user.id)">{{user.username}}</a>
                     </td>
-                    <td md-cell>{{user.created_at | date:'short'}}</td>
-                    <td md-cell>{{user.updated_at | date:'short'}}</td>
-                    <td md-cell>{{user.lastname}} {{user.firstname}}</td>
+                    <td ng-if="isAdmin" md-cell>{{user.created_at | date:'short'}}</td>
+                    <td ng-if="isAdmin" md-cell>{{user.updated_at | date:'short'}}</td>
+                    <td md-cell><a ng-click="openDialogEdit($event, user.id)">{{user.lastname}} {{user.firstname}}</a></td>
                     <td md-cell>{{user.email}}</td>
-                    <td md-cell><span ng-repeat="group in user.groups_user"><span ark-get-translation ark-translations="group.tr"></span>{{$last ? '' : ', '}}</span></td>
-                    <td md-cell><span ng-repeat="group in user.groups_chronology"><span ark-get-translation ark-translations="group.tr"></span>{{$last ? '' : ', '}}</span></td>
-                    <td md-cell><span ng-repeat="group in user.groups_charac"><span ark-get-translation ark-translations="group.tr"></span>{{$last ? '' : ', '}}</span></td>
-                    <td md-cell>{{(user.active ? 'USER.USERSLIST_ACTIVE.T_TRUE' : 'USER.USERSLIST_ACTIVE.T_FALSE') | translate}}</td>
+                    <td ng-if="isAdmin" md-cell><span ng-repeat="group in user.groups_user"><span ark-get-translation ark-translations="group.tr"></span>{{$last ? '' : ', '}}</span></td>
+                    <td ng-if="isAdmin" md-cell><span ng-repeat="group in user.groups_chronology"><span ark-get-translation ark-translations="group.tr"></span>{{$last ? '' : ', '}}</span></td>
+                    <td ng-if="isAdmin" md-cell><span ng-repeat="group in user.groups_charac"><span ark-get-translation ark-translations="group.tr"></span>{{$last ? '' : ', '}}</span></td>
+                    <td ng-if="isAdmin" md-cell>{{(user.active ? 'USER.USERSLIST_ACTIVE.T_TRUE' : 'USER.USERSLIST_ACTIVE.T_FALSE') | translate}}</td>
                     <td md-cell>{{user.country_and_city.country_name}}</td>
                     <td md-cell><span ng-repeat="company in user.companies">{{company.name}}{{$last ? '' : ', '}}</span></td>
                     <td md-cell><span ng-repeat="db in user.databases"><a href="#/database/{{db.f1}}">{{db.f2}}</a>{{$last ? '' : ', '}}</span></td>
