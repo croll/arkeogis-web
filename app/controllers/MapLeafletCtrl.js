@@ -400,7 +400,7 @@
                                     label: $scope.translations['MAP.QUERY_MENU.T_DOWNLOAD_CSV'],
                                     class: 'download',
                                     callback: function() {
-                                        arkeoQuery.getCSV(query);
+                                        arkeoQuery.exportcsv(query);
                                     }
                                 },
                                 {
