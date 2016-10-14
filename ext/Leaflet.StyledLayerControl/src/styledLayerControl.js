@@ -73,6 +73,17 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
         return this;
     },
 
+    replaceOverlay: function(layer, name) {
+        var id = L.stamp(layer);
+        for (lid in this._layers) {
+          if (this._layers[lid].name == name) {
+            this._map.removeLayer(this._layers[lid].layer);
+            this._layers[lid].layer._layers = layer._layers;
+            this._map.addLayer(this._layers[lid].layer);
+          }
+        }
+    },
+
     removeLayer: function(layer) {
         var id = L.Util.stamp(layer);
         delete this._layers[id];

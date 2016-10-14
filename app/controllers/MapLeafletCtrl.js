@@ -56,7 +56,6 @@
                             method: 'GET',
                             url: '/api/layer/' + e.layer.feature.properties.id + '/geojson'
                         }).then(function(result) {
-                            console.log("REPLACE");
                             var layer = L.geoJson(result.data);
                             arkeoMap.layerControl.replaceOverlay(layer, e.layer.feature.properties.name);
                         }, function(err) {
