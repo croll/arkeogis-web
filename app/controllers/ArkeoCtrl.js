@@ -83,6 +83,7 @@
 			return Login.user;
 		}, function(newval, oldval) {
 			$scope.user = Login.user;
+			$scope.permissions = Login.permissions;
 		})
 
 		$scope.editMyUser = function(ev) {
