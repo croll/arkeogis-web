@@ -21,19 +21,26 @@
 
 (function () {
 	'use strict';
-	ArkeoGIS.controller('UserCtrl', ['$scope', 'user', 'login', 'arkeoLang', "$stateParams", '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", 'EditUser', function ($scope, User, Login, arkeoLang, $stateParams, $mdDialog, $http, $q, arkeoService, $mdToast, EditUser) {
+	ArkeoGIS.controller('UserCtrl', ['$scope', 'user', 'login', 'arkeoLang', "$stateParams", '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", 'EditUser',
+		function ($scope, User, Login, arkeoLang, $stateParams, $mdDialog, $http, $q, arkeoService, $mdToast, EditUser) {
+
+		$scope.promise = Login.havePermission('adminusers').then(function(isAdmin) {
+			$scope.isAdmin = isAdmin;
+		});
 
 		$scope.users_query = {
 			order: '-u.created_at',
 			limit: 10,
 			page: 1,
 			filter: ''
-		}
+		};
+
 		$scope.users_filter = {
 			show: false,
 			options: {
 			}
-		}
+		};
+
 		var users_bookmark_page=1;
 
 		function translate_groups(a) {
@@ -119,7 +126,8 @@
 	}]);
 
 
-	ArkeoGIS.controller('UserEditCtrl', ['$scope', 'Upload', 'user', 'login', 'group', 'arkeoLang', '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", "id_user", function ($scope, Upload, User, Login, Group, arkeoLang, $mdDialog, $http, $q, arkeoService, $mdToast, id_user) {
+	ArkeoGIS.controller('UserEditCtrl', ['$scope', 'Upload', 'user', 'login', 'group', 'arkeoLang', '$mdDialog', "$http", "$q", "arkeoService", "$mdToast", "id_user",
+		function ($scope, Upload, User, Login, Group, arkeoLang, $mdDialog, $http, $q, arkeoService, $mdToast, id_user) {
 
 		arkeoLang.getActiveLangs().then(function(langs) {
 			$scope.langs = langs;
