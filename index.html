@@ -167,9 +167,21 @@
 						</md-menu-item>
 						<md-divider style="margin-bottom: 8px"></md-divider>
 						<md-menu-item>
+							<md-button ng-click="editMyUser()">
+								<md-icon>person</md-icon>
+								<p flex translate>.FIELD_MAINMENU.T_ITEM_MYPROFIL</p>
+							</md-button>
+						</md-menu-item>
+						<md-menu-item ng-if="hasPerm('adminusers')">
 							<md-button ui-sref="arkeogis.user">
 								<md-icon>person</md-icon>
-								<p flex translate>.FIELD_MAINMENU.T_ITEM_USERSMANAGER</p>
+								<p ng-if="hasPerm('adminusers')" flex translate>.FIELD_MAINMENU.T_ITEM_USERSMANAGER</p>
+							</md-button>
+						</md-menu-item>
+						<md-menu-item ng-if="!hasPerm('adminusers')">
+							<md-button ui-sref="arkeogis.user">
+								<md-icon>group</md-icon>
+								<p ng-if="!hasPerm('adminusers')" flex translate>.FIELD_MAINMENU.T_ITEM_USERSLISTING</p>
 							</md-button>
 						</md-menu-item>
 						<md-menu-item>
