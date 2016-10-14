@@ -13,6 +13,9 @@
 		"BUTTON_DOWNLOADCSV": {
 			"T_TITLE": "Télécharger le CSV"
 		},
+		"BUTTON_GOTOLIST": {
+			"T_TITLE": "#!#CHARACEDITOR.BUTTON_GOTOLIST.T_TITLE"
+		},
 		"BUTTON_SAVE": {
 			"T_TITLE": "Enregistrer"
 		},
@@ -86,6 +89,9 @@
 		},
 		"BUTTON_DOWNLOADCSV": {
 			"T_TITLE": "Télécharger le CSV"
+		},
+		"BUTTON_GOTOLIST": {
+			"T_TITLE": "#!#CHRONODITOR.BUTTON_GOTOLIST.T_TITLE"
 		},
 		"BUTTON_SAVE": {
 			"T_TITLE": "Enregistrer"
@@ -213,7 +219,7 @@
 			"T_EDITOR": "Structure éditrice",
 			"T_ENDING_PERIOD": "Date de Fin",
 			"T_GEOGRAPHICAL_EXTENT": "Etendue géographique",
-			"T_GEOGRAPHICAL_LIMITS_DESCRIPTION": "Précision sur l'emprise géographique",
+			"T_GEOGRAPHICAL_LIMITS_DESCRIPTION": "Précision géographique",
 			"T_HANDLE": "Identifiant de la ressource",
 			"T_HANDLE_DECLARED_CREATION_DATE": "Date de dépôt de la ressource de référence",
 			"T_HANDLE_HISTORY": "Historique des ressources",
@@ -319,6 +325,9 @@
 		}
 	},
 	"DATABASE_LIST": {
+		"DOWNLOAD_CSV": {
+			"T_LABEL": "Télécharger un export de la liste"
+		},
 		"LIST_AUTHOR": {
 			"T_LABEL": "Auteurs et co-auteurs"
 		},
@@ -1300,6 +1309,10 @@
 		},
 		"CHARAC_COMMENT": {
 			"T_LABEL": "Commentaire"
+		},
+		"CHARAC_EXCEPTIONAL": {
+			"T_LABEL": "Exceptionnel",
+			"T_YES": "Oui"
 		},
 		"CHARAC_KNOWLEGDE_TYPE": {
 			"T_LABEL": "État des connaissances"
