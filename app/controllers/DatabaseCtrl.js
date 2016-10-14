@@ -21,8 +21,8 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('DatabaseCtrl', ['$scope', '$http', '$state', '$mdDialog', 'database', 'databaseDefinitions', 'arkeoMap', 'arkeoService', 'arkeoLang', 'leafletData',
-        function($scope, $http, $state, $mdDialog, database, databaseDefinitions, arkeoMap, arkeoService, arkeoLang, leafletData) {
+    ArkeoGIS.controller('DatabaseCtrl', ['$scope', '$http', '$state', '$mdDialog', 'database', 'databaseDefinitions', 'arkeoMap', 'arkeoService', 'arkeoLang', 'arkeoDownload', 'leafletData',
+        function($scope, $http, $state, $mdDialog, database, databaseDefinitions, arkeoMap, arkeoService, arkeoLang, arkeoDownload, leafletData) {
 
             $scope.database = database;
 
@@ -82,8 +82,14 @@
             }
 
             $scope.downloadExport = function() {
-                window.open('/api/database/' + database.id + '/export');
+              $http.get('/api/database/' + database.id + '/export', {},  {responseType: 'blob'}).then(function(response){
+                  arkeoDownload.openAsFile(response);
+              });
             }
+
+
+        this.exportcsv = function(query) {
+        };
 
             $scope.showHandleDialog = function(ev) {
                 $mdDialog.show({
