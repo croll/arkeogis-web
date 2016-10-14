@@ -133,6 +133,11 @@
 			$scope.langs = langs;
 		});
 
+		$scope.promise = Login.havePermission('adminusers').then(function(isAdmin) {
+			$scope.isAdmin = isAdmin;
+			$scope.canEdit = isAdmin ? true : Login.user.id == id_user;
+		});
+
 		//$scope.user = id_user != undefined ? User.get({id: id_user}, getUserSuccess) : hackAutocompletes(new User());
 		$scope.companies=[null, null];
 		$scope.companies_search=[null, null];

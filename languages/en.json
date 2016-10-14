@@ -713,7 +713,9 @@
 			"T_ITEM_LOGOUT": "Logout",
 			"T_ITEM_MAP": "Map",
 			"T_ITEM_MAPEDITOR": "Map editor",
+			"T_ITEM_MYPROFIL": "#!#MAIN.FIELD_MAINMENU.T_ITEM_MYPROFIL",
 			"T_ITEM_PREFERENCES": "Project preferences",
+			"T_ITEM_USERSLISTING": "#!#MAIN.FIELD_MAINMENU.T_ITEM_USERSLISTING",
 			"T_ITEM_USERSMANAGER": "Users Manager"
 		},
 		"IDLE": {

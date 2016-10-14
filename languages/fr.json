@@ -713,7 +713,9 @@
 			"T_ITEM_LOGOUT": "Déconnecter",
 			"T_ITEM_MAP": "Carte",
 			"T_ITEM_MAPEDITOR": "Gestion des cartes",
+			"T_ITEM_MYPROFIL": "Mon profile",
 			"T_ITEM_PREFERENCES": "Préférences du projet",
+			"T_ITEM_USERSLISTING": "Annuaire des utilisateurs",
 			"T_ITEM_USERSMANAGER": "Gestion des utilisateurs"
 		},
 		"IDLE": {
