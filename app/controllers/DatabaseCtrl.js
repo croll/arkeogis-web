@@ -78,7 +78,9 @@
                     return false;
                 }
                 id = id || '';
-                window.open('/api/database/' + database.id + '/csv/' + id);
+              $http.get('/api/database/' + database.id + '/csv/' + id, {},  {responseType: 'blob'}).then(function(response){
+                  arkeoDownload.openAsFile(response);
+              });
             }
 
             $scope.downloadExport = function() {
