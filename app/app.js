@@ -258,8 +258,8 @@
                     controller: "UserCtrl",
                     resolve: {
                         checkPerm: ['login', function(login) {
-                            return login.resolvePermission('adminusers', 'arkeogis.user');
-                        }]
+                            return login.resolvePermission('request map', 'arkeogis.user');
+                        }],
                     }
                 })
                 .state('arkeogis.project', {
