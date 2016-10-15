@@ -2,7 +2,8 @@
 
     <md-toolbar class="md-table-toolbar md-default" ng-show="!users_filter.show">
       <div class="md-toolbar-tools">
-        <h2 class="md-title" translate>USER.HEADER_USERS.T_TITLE</h2>
+        <h2 ng-if="isAdmin" class="md-title" translate>USER.HEADER_USERS.T_TITLE</h2>
+        <h2 ng-if="!isAdmin" class="md-title" translate>USER.HEADER_USERS_DIRECTORY.T_TITLE</h2>
         <div flex></div>
         <md-button ng-if="isAdmin" class="md-icon-button" ng-click="users_filter.show = true">
           <md-icon>search</md-icon>
