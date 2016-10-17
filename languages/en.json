@@ -1505,6 +1505,9 @@
 			"T_UPDATEDAT": "Updated",
 			"T_USERNAME": "Username"
 		},
+		"HEADER_USERS_DIRECTORY": {
+			"T_TITLE": "#!#USER.HEADER_USERS_DIRECTORY.T_TITLE"
+		},
 		"USERSLIST_ACTIVE": {
 			"T_FALSE": "no",
 			"T_TRUE": "yes"

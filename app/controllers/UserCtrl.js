@@ -30,7 +30,7 @@
 
 		$scope.users_query = {
 			order: '-u.created_at',
-			limit: 10,
+			limit: 25,
 			page: 1,
 			filter: ''
 		};
@@ -57,6 +57,7 @@
 
 		function getUsers(query) {
 			$scope.promise = User.get(query || $scope.users_query).$promise.then(function(users) {
+				console.log("users : ", users.data);
 				// update groups translations...
 				users.data.forEach(function(row) {
 					row.groups_user = translate_groups(row.groups_user);

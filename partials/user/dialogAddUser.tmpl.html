@@ -136,7 +136,7 @@
                         <div flex layout="row">
                             <md-input-container flex>
                                 <label translate>.FIELD_GROUPS.T_TITLE</label>
-                                <md-select ng-disabled="!canEdit" ng-model="user.groups_user" required="required" multiple>
+                                <md-select ng-disabled="!isAdmin" ng-model="user.groups_user" required="required" multiple>
                                     <md-option ng-repeat="group in available_groups_user.data" ng-value="group.id" ng-selected="">{{group.name}}</md-option>
                                 </md-select>
                             </md-input-container>
@@ -263,7 +263,7 @@
                     </div>
                 </div>
 
-                <div ng-if="canEdit" layout="row">
+                <div ng-if="isAdmin" layout="row">
                     <md-input-container flex>
                         <label translate>.FIELD_CHRONOGROUP.T_TITLE</label>
                         <md-select ng-readonly="!canEdit" ng-model="user.groups_chronology" multiple>
