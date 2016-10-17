@@ -42,13 +42,13 @@
                     <div>
                       <label>
                           <span translate>SITE_DETAILS.FIELD_LATITUDE.T_LABEL</span>:</label>
-                          <span>{site.geometry.coordinates[1]}}</span>
+                          <span>{{site.geometry.coordinates[1]}}</span>
                     </div>
                     <div style="width:20px"></div>
                     <div>
                       <label>
                           <span translate>SITE_DETAILS.FIELD_LONGITUDE.T_LABEL</span>:</label>
-                          <span>{site.geometry.coordinates[0]}}</span>
+                          <span>{{site.geometry.coordinates[0]}}</span>
                     </div>
                     <div class="altitude" ng-show="site.properties.infos.altitude != -999999">
                         <label>
