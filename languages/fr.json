@@ -385,10 +385,10 @@
 			"T_TITLE": "Veuillez confirmer votre demande"
 		},
 		"TABLE_PAGINATION": {
-			"T_ALL": "#!#GENERAL.TABLE_PAGINATION.T_ALL",
-			"T_PAGE": "#!#GENERAL.TABLE_PAGINATION.T_PAGE",
-			"T_ROWSPERPAGE": "#!#GENERAL.TABLE_PAGINATION.T_ROWSPERPAGE",
-			"T_ROWSPERPAGE_OF": "#!#GENERAL.TABLE_PAGINATION.T_ROWSPERPAGE_OF"
+			"T_ALL": "Tous",
+			"T_PAGE": "Page :",
+			"T_ROWSPERPAGE": "Lignes par page :",
+			"T_ROWSPERPAGE_OF": "de"
 		}
 	},
 	"GLOBAL": {
