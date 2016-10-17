@@ -4,7 +4,7 @@
       <div class="md-toolbar-tools">
         <h2 class="md-title" translate>USER.HEADER_USERS.T_TITLE</h2>
         <div flex></div>
-        <md-button class="md-icon-button" ng-click="users_filter.show = true">
+        <md-button ng-if="isAdmin" class="md-icon-button" ng-click="users_filter.show = true">
           <md-icon>search</md-icon>
         </md-button>
         <md-button class="md-icon-button" ng-click="openDialogEdit($event)">
@@ -52,7 +52,7 @@
                     <th ng-if="isAdmin" md-column><span translate>USER.HEADER_USERSLIST.T_GROUPS_CHRONO</span></th>
                     <th ng-if="isAdmin" md-column><span translate>USER.HEADER_USERSLIST.T_GROUPS_CARACS</span></th>
                     <th ng-if="isAdmin" md-column md-order-by="u.active"><span translate>USER.HEADER_USERSLIST.T_ACTIVE</span></th>
-                    <th md-column><span translate>USER.HEADER_USERSLIST.T_COUNTRY</span></th>
+                    <th md-column md-order-by="country"><span translate>USER.HEADER_USERSLIST.T_COUNTRY</span></th>
                     <th md-column><span translate>USER.HEADER_USERSLIST.T_COMPANY1</span></th>
                     <th md-column><span translate>USER.HEADER_USERSLIST.T_DATABASES</span></th>
                 </tr>
