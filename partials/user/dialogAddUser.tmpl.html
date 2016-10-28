@@ -147,6 +147,7 @@
                     <div flex="60" layout="column">
                         <div flex layout="row">
                             <md-autocomplete flex
+                                             required
                                              ng-readonly="!canEdit"
                                              md-selected-item-change="company_change(0)"
                                              md-select-on-match="true"
@@ -164,6 +165,7 @@
                             </md-autocomplete>
 
                             <md-autocomplete flex
+                                             required
                                              ng-readonly="!canEdit"
                                              md-search-text-change="companies_city_search[0]=''"
                                              md-autoselect="true"
@@ -181,6 +183,7 @@
                             </md-autocomplete>
 
                             <md-autocomplete flex
+                                             required
                                              ng-readonly="!canEdit"
                                              md-autoselect="true"
                                              md-floating-label="{{ 'USER.FIELD_COMPANY1_CITY.T_TITLE' | translate }}"
