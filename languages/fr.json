@@ -1222,6 +1222,9 @@
 		"LIST_START_DATE": {
 			"T_LABEL": "Début"
 		},
+		"LIST_TYPE": {
+			"T_LABEL": "Type"
+		},
 		"LIST_UPDATED_AT": {
 			"T_LABEL": "Dernière MàJ"
 		}
