@@ -1221,6 +1221,9 @@
 		},
 		"LIST_START_DATE": {
 			"T_LABEL": "Début"
+		},
+		"LIST_UPDATED_AT": {
+			"T_LABEL": "Dernière MàJ"
 		}
 	},
 	"QUERY_OTHERS": {
@@ -1337,9 +1340,6 @@
 		"FIELD_CITY_NAME": {
 			"T_LABEL": "Nom de la commune"
 		},
-		"FIELD_COORDINATES": {
-			"T_LABEL": "Coordonnées (WGS84)"
-		},
 		"FIELD_CREATION_DATE": {
 			"T_LABEL": "Date de création de la fiche"
 		},
@@ -1351,6 +1351,12 @@
 		},
 		"FIELD_EXCEPTIONAL": {
 			"T_EXCEPTIONAL_SITE": "Site exceptionnel"
+		},
+		"FIELD_LATITUDE": {
+			"T_LABEL": "#!#SITE_DETAILS.FIELD_LATITUDE.T_LABEL"
+		},
+		"FIELD_LONGITUDE": {
+			"T_LABEL": "#!#SITE_DETAILS.FIELD_LONGITUDE.T_LABEL"
 		},
 		"FIELD_OCCUPATION": {
 			"T_LABEL": "Occupation"
@@ -1400,7 +1406,6 @@
 			"T_TITLE": "Groupes Chronologie"
 		},
 		"FIELD_CITY": {
-			"T_CHECK_MANDATORY": "La ville est obligatoire",
 			"T_CHECK_NOMATCH": "Ville introuvable...",
 			"T_TITLE": "Ville"
 		},
@@ -1439,7 +1444,6 @@
 			"T_TITLE": "Base de données"
 		},
 		"FIELD_DESCRIPTION": {
-			"T_CHECK_MANDATORY": "La description est obligatoire",
 			"T_TITLE": "Description"
 		},
 		"FIELD_EMAIL": {
@@ -1463,7 +1467,6 @@
 			"T_TITLE": "Nom"
 		},
 		"FIELD_PASSWORD": {
-			"T_CHECK_INCORRECT": "Le mot de passe est incorrect.",
 			"T_CHECK_NOTSAME": "Les deux mots de passe doivent correspondre, merci.",
 			"T_TITLE": "Mot de passe"
 		},
@@ -1475,7 +1478,6 @@
 		},
 		"FIELD_USERNAME": {
 			"T_CHECK_ALREADYEXISTS": "Cet utilisateur existe déjà",
-			"T_CHECK_INCORRECT": "Le nom d'utilisateur est incorrect.",
 			"T_CHECK_MANDATORY": "Ce champ est obligatoire",
 			"T_TITLE": "Identifiant"
 		},
