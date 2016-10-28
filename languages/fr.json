@@ -1221,6 +1221,12 @@
 		},
 		"LIST_START_DATE": {
 			"T_LABEL": "Début"
+		},
+		"LIST_TYPE": {
+			"T_LABEL": "Type"
+		},
+		"LIST_UPDATED_AT": {
+			"T_LABEL": "Dernière MàJ"
 		}
 	},
 	"QUERY_OTHERS": {
@@ -1467,6 +1473,7 @@
 		},
 		"FIELD_PASSWORD": {
 			"T_CHECK_INCORRECT": "Mot de passe incorrect.",
+			"T_CHECK_LENGTH": "7 caractères mini.",
 			"T_CHECK_NOTSAME": "Les deux mots de passe doivent correspondre, merci.",
 			"T_TITLE": "Mot de passe"
 		},
@@ -1478,7 +1485,7 @@
 		},
 		"FIELD_USERNAME": {
 			"T_CHECK_ALREADYEXISTS": "Cet utilisateur existe déjà",
-			"T_CHECK_INCORRECT": "le champs login est incorrect.",
+			"T_CHECK_INCORRECT": "L'identifiant est incorrect",
 			"T_CHECK_MANDATORY": "Ce champ est obligatoire",
 			"T_TITLE": "Identifiant"
 		},

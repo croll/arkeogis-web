@@ -291,6 +291,13 @@
 					controller: function($scope, $mdDialog, arkeoService) {
 						$scope.databases = arkeoProject.get().databases;
 						$scope.selected_databases = params.database;
+						console.log("databases: ", $scope.databases);
+						$scope.query={
+							filter: '',
+			                limit: 20,
+			                page: 1,
+							order: "(type_tr | translate) + name"
+						}
 
 						$scope.hide = function() {
 							$mdDialog.hide();

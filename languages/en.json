@@ -1221,6 +1221,12 @@
 		},
 		"LIST_START_DATE": {
 			"T_LABEL": "Start"
+		},
+		"LIST_TYPE": {
+			"T_LABEL": "#!#QUERY_DATABASES.LIST_TYPE.T_LABEL"
+		},
+		"LIST_UPDATED_AT": {
+			"T_LABEL": "#!#QUERY_DATABASES.LIST_UPDATED_AT.T_LABEL"
 		}
 	},
 	"QUERY_OTHERS": {
@@ -1354,6 +1360,12 @@
 		},
 		"FIELD_LONGITUDE": {
 			"T_LABEL": "Longitude"
+		},
+		"FIELD_LATITUDE": {
+			"T_LABEL": "#!#SITE_DETAILS.FIELD_LATITUDE.T_LABEL"
+		},
+		"FIELD_LONGITUDE": {
+			"T_LABEL": "#!#SITE_DETAILS.FIELD_LONGITUDE.T_LABEL"
 		},
 		"FIELD_OCCUPATION": {
 			"T_LABEL": "Occupation"

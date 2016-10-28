@@ -53,4 +53,5 @@
     </table>
 </md-table-container>
 
-<md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{project.databases.length}}" md-row-select="query.numRows" md-page-select md-limit-options=""[5, 10, 15, 20]"></md-table-pagination>
+<md-table-pagination md-label="{page: '{{'GENERAL.TABLE_PAGINATION.T_PAGE' | translate }}', rowsPerPage: '{{'GENERAL.TABLE_PAGINATION.T_ROWSPERPAGE' | translate }}', of: '{{'GENERAL.TABLE_PAGINATION.T_ROWSPERPAGE_OF' | translate }}'}"
+    md-limit="query.limit" md-page="query.page" md-total="{{project.databases.length}}" md-row-select="query.numRows" md-page-select md-limit-options="[5, 10, 15, 20]"></md-table-pagination>

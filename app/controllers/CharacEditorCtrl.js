@@ -66,6 +66,10 @@
 			content: [],
 		};
 
+		$scope.gotolist = function() {
+			$state.go('arkeogis.characeditor-list');
+		}
+
 		function check_elem(elem, previous, next, parent) {
 			var ret={
 				errcount: 0,

@@ -402,4 +402,6 @@
         };
 	}]);
 
+	// for translations :
+	// "USER.FIELD_PASSWORD.T_CHECK_LENGTH"
 })(angular);
