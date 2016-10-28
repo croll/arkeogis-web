@@ -1470,6 +1470,7 @@
 			"T_TITLE": "Lastname"
 		},
 		"FIELD_PASSWORD": {
+			"T_CHECK_LENGTH": "#!#USER.FIELD_PASSWORD.T_CHECK_LENGTH",
 			"T_CHECK_NOTSAME": "The two passwords must be the same",
 			"T_TITLE": "Password"
 		},

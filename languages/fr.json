@@ -1409,6 +1409,7 @@
 			"T_TITLE": "Groupes Chronologie"
 		},
 		"FIELD_CITY": {
+			"T_CHECK_MANDATORY": "#!#USER.FIELD_CITY.T_CHECK_MANDATORY",
 			"T_CHECK_NOMATCH": "Ville introuvable...",
 			"T_TITLE": "Ville"
 		},
@@ -1447,6 +1448,7 @@
 			"T_TITLE": "Base de données"
 		},
 		"FIELD_DESCRIPTION": {
+			"T_CHECK_MANDATORY": "#!#USER.FIELD_DESCRIPTION.T_CHECK_MANDATORY",
 			"T_TITLE": "Description"
 		},
 		"FIELD_EMAIL": {
@@ -1470,6 +1472,8 @@
 			"T_TITLE": "Nom"
 		},
 		"FIELD_PASSWORD": {
+			"T_CHECK_INCORRECT": "Incorrect",
+			"T_CHECK_LENGTH": "7 caractères mini.",
 			"T_CHECK_NOTSAME": "Les deux mots de passe doivent correspondre, merci.",
 			"T_TITLE": "Mot de passe"
 		},
@@ -1481,6 +1485,7 @@
 		},
 		"FIELD_USERNAME": {
 			"T_CHECK_ALREADYEXISTS": "Cet utilisateur existe déjà",
+			"T_CHECK_INCORRECT": "L'identifiant est incorrect",
 			"T_CHECK_MANDATORY": "Ce champ est obligatoire",
 			"T_TITLE": "Identifiant"
 		},
