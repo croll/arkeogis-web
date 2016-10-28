@@ -236,7 +236,7 @@
 			"T_PUBLICATION_STATUS": "Statut de publication",
 			"T_PUBLISHED": "Publiée",
 			"T_SCALE": "Échelle",
-			"T_SOURCE_DESCRIPTION": "Description de la ressource",
+			"T_SOURCE_DESCRIPTION": "Source de la base",
 			"T_SOURCE_RELATION": "Lien avec d'autres ressources",
 			"T_STARTING_PERIOD": "Date de début",
 			"T_STATUS": "Avancement",
@@ -344,7 +344,7 @@
 			"T_LABEL": "Langue"
 		},
 		"LIST_LICENSE": {
-			"T_LABEL": "License"
+			"T_LABEL": "Licence"
 		},
 		"LIST_NAME": {
 			"T_LABEL": "Nom"
@@ -374,7 +374,7 @@
 			"T_LABEL": "Type"
 		},
 		"PAGE_TITLE": {
-			"T_TITLE": "Liste des bases de données"
+			"T_TITLE": "Index des bases de données"
 		}
 	},
 	"GENERAL": {
@@ -621,10 +621,10 @@
 			"T_LABEL": "Structure éditrice"
 		},
 		"FIELD_GEOGRAPHICAL_LIMIT_LANG1": {
-			"T_LABEL": "Précision sur l'emprise géographique (langue principale)"
+			"T_LABEL": "Précision géographique (langue principale)"
 		},
 		"FIELD_GEOGRAPHICAL_LIMIT_LANG2": {
-			"T_LABEL": "Précision sur l'emprise géographique (traduction)"
+			"T_LABEL": "Précision géographique (traduction)"
 		},
 		"FIELD_RELATIONS": {
 			"T_LABEL": "Lien avec d'autres ressources."
@@ -651,9 +651,9 @@
 			"T_LINE2": ""
 		},
 		"MESSAGES": {
-			"T_ERROR_BIBLIOGRAPHY_EN_TRANSLATION_CAN_T_BE_EMPTY": "#!#IMPORT_STEP4.MESSAGES.T_ERROR_BIBLIOGRAPHY_EN_TRANSLATION_CAN_T_BE_EMPTY",
-			"T_ERROR_GEOGRAPHICAL_LIMITS_EN_TRANSLATION_CAN_T_BE_EMPTY": "#!#IMPORT_STEP4.MESSAGES.T_ERROR_GEOGRAPHICAL_LIMITS_EN_TRANSLATION_CAN_T_BE_EMPTY",
-			"T_PUBLICATION_INFORMATIONS_SAVED": "#!#IMPORT_STEP4.MESSAGES.T_PUBLICATION_INFORMATIONS_SAVED"
+			"T_ERROR_BIBLIOGRAPHY_EN_TRANSLATION_CAN_T_BE_EMPTY": "Le champs \"bibliographie\" doit être complété en anglais.",
+			"T_ERROR_GEOGRAPHICAL_LIMITS_EN_TRANSLATION_CAN_T_BE_EMPTY": "Le champs \"Précision géographique\" doit être complété en anglais.",
+			"T_PUBLICATION_INFORMATIONS_SAVED": "Les informations sont enregistrées."
 		}
 	},
 	"LANGEDITOR": {
@@ -694,7 +694,7 @@
 		},
 		"HEADER": {
 			"T_LINE1": "Bien que visant à une libre mise en commun des données archéologiques et géographiques, ArkeoGIS met à disposition des données sensibles qui pourraient conduire à un pillage de gisements archéologiques.",
-			"T_LINE2": "C'est pourquoi l'accès aux données n'est possible qu'après identification.",
+			"T_LINE2": "C'est pourquoi l'accès à l'outil est réservé aux professionnels de l'archéologie (établissements de recherche, services régionaux ou nationaux, opérateurs, chercheurs, étudiants avancés..)",
 			"T_LINE3": ""
 		},
 		"HEADER_LOGIN": {
@@ -713,7 +713,7 @@
 			"T_ITEM_LOGOUT": "Déconnecter",
 			"T_ITEM_MAP": "Carte",
 			"T_ITEM_MAPEDITOR": "Gestion des cartes",
-			"T_ITEM_MYPROFIL": "Mon profile",
+			"T_ITEM_MYPROFIL": "Mon profil",
 			"T_ITEM_PREFERENCES": "Préférences du projet",
 			"T_ITEM_USERSLISTING": "Annuaire des utilisateurs",
 			"T_ITEM_USERSMANAGER": "Gestion des utilisateurs"
@@ -791,7 +791,7 @@
 			"T_LABEL": "Description (langue principale)"
 		},
 		"FIELD_DESCRIPTION_LANG2": {
-			"T_LABEL": "Description (traductions)"
+			"T_LABEL": "Description (traduction)"
 		},
 		"FIELD_END_DATE": {
 			"T_LABEL": "Date de fin"
@@ -814,7 +814,7 @@
 			"T_LABEL": "Nom (langue principale)"
 		},
 		"FIELD_NAME_LANG2": {
-			"T_LABEL": "Nom (traductions)"
+			"T_LABEL": "Nom (traduction)"
 		},
 		"FIELD_PUBLISHED": {
 			"T_HELP": "Rendre le calque accessible aux autres utilisateurs",
@@ -872,7 +872,7 @@
 	},
 	"MAPQUERY": {
 		"MESSAGE": {
-			"T_GETGEOJSON_ERROR": "#!#MAPQUERY.MESSAGE.T_GETGEOJSON_ERROR"
+			"T_GETGEOJSON_ERROR": "Requête carte erreur de récupération du GEOJSON"
 		}
 	},
 	"PROJECT_EDITOR": {
@@ -1109,12 +1109,12 @@
 			"T_TITLE": "Ok"
 		},
 		"DIALOG": {
-			"T_CHOOSETOOL": "",
-			"T_FOOTER_BOLD": "",
-			"T_FOOTER_TEXT1": "",
+			"T_CHOOSETOOL": "Un clic sur les intitulés permet de découvrir et d'interroger directement les\nsous-menus présents (\u003e).",
+			"T_FOOTER_BOLD": "Les options successives de la boite à cocher sont :",
+			"T_FOOTER_TEXT1": "1 clic : la caractéristique doit être présente, 2 clic : la caractéristique doit être absente, 3 clic : la caractéristique présente doit être exceptionnelle, 4 clic : remise à zéro",
 			"T_FOOTER_TEXT2": "",
 			"T_INTRO": "",
-			"T_TITLE": "Caractéristiques"
+			"T_TITLE": "Ajout/Edition de filtre(s) caractéristiques"
 		}
 	},
 	"QUERY_CHRONOLOGIES": {
@@ -1168,7 +1168,7 @@
 			"T_TITLE": "Année de fin :"
 		},
 		"PERIOD": {
-			"T_ERROR_INCORRECT": "#!#QUERY_CHRONOLOGIES.PERIOD.T_ERROR_INCORRECT"
+			"T_ERROR_INCORRECT": "Choix de périodes incorrecte."
 		},
 		"SENTENSE": {
 			"T_ALL": "EXISTENCE_INSIDE_INCLUDE les sites ayant EXISTENCE_INSIDE_SURENESS une existence EXISTENCE_INSIDE_PART durant la période PERIOD. Ces sites EXISTENCE_OUTSIDE_INCLUDE EXISTENCE_OUTSIDE_SURENESS avoir existé en dehors de cette période."
@@ -1270,7 +1270,7 @@
 			"T_SINGLE": "Unique"
 		},
 		"PRECISIONS": {
-			"T_INTRO": "Si aucune précision n’est faite sur une des points suivants tous les sites sans distinction sur ce point seront inclus dans la requête.",
+			"T_INTRO": "Si aucune précision n’est faite sur un des points suivants tous les sites sans distinction sur ce point seront inclus dans la requête.",
 			"T_TITLE": "Précision sur les sites à inclure dans la requête :"
 		},
 		"PRECISIONS_KNOWLEDGES": {
@@ -1357,10 +1357,10 @@
 			"T_EXCEPTIONAL_SITE": "Site exceptionnel"
 		},
 		"FIELD_LATITUDE": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_LATITUDE.T_LABEL"
+			"T_LABEL": "Latitude"
 		},
 		"FIELD_LONGITUDE": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_LONGITUDE.T_LABEL"
+			"T_LABEL": "Longitude"
 		},
 		"FIELD_OCCUPATION": {
 			"T_LABEL": "Occupation"
@@ -1410,6 +1410,7 @@
 			"T_TITLE": "Groupes Chronologie"
 		},
 		"FIELD_CITY": {
+			"T_CHECK_MANDATORY": "Le champs ville est obligatoire.",
 			"T_CHECK_NOMATCH": "Ville introuvable...",
 			"T_TITLE": "Ville"
 		},
@@ -1445,9 +1446,10 @@
 			"T_TITLE": "Pays"
 		},
 		"FIELD_DATABASES": {
-			"T_TITLE": "Base de données"
+			"T_TITLE": "Base(s) de données"
 		},
 		"FIELD_DESCRIPTION": {
+			"T_CHECK_MANDATORY": "Le champs description est obligatoire.",
 			"T_TITLE": "Description"
 		},
 		"FIELD_EMAIL": {
@@ -1471,6 +1473,7 @@
 			"T_TITLE": "Nom"
 		},
 		"FIELD_PASSWORD": {
+			"T_CHECK_INCORRECT": "Mot de passe incorrect.",
 			"T_CHECK_LENGTH": "7 caractères mini.",
 			"T_CHECK_NOTSAME": "Les deux mots de passe doivent correspondre, merci.",
 			"T_TITLE": "Mot de passe"
@@ -1511,7 +1514,7 @@
 			"T_GROUPS_CARACS": "Groupes Caractéristiques",
 			"T_GROUPS_CHRONO": "Groupes Chronologie",
 			"T_NAME": "Nom Prénom",
-			"T_PHOTO": "Photo",
+			"T_PHOTO": "Illustration",
 			"T_SEARCH": "chercher...",
 			"T_UPDATEDAT": "Dernière Modification",
 			"T_USERNAME": "Identifiant"

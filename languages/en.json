@@ -1,9 +1,9 @@
 {
 	"CHARACEDITOR": {
 		"BUTTON_CANCEL": {
-			"T_CONFIRM": "#!#CHARACEDITOR.BUTTON_CANCEL.T_CONFIRM",
-			"T_OK": "#!#CHARACEDITOR.BUTTON_CANCEL.T_OK",
-			"T_TITLE": "#!#CHARACEDITOR.BUTTON_CANCEL.T_TITLE"
+			"T_CONFIRM": "Go back to the last saved version ?",
+			"T_OK": "Ok",
+			"T_TITLE": "Cancel"
 		},
 		"BUTTON_DELETE": {
 			"T_CONFIRM": "Do you really wish to delete this category?",
@@ -11,16 +11,16 @@
 			"T_TITLE": "Delete"
 		},
 		"BUTTON_DOWNLOADCSV": {
-			"T_TITLE": "#!#CHARACEDITOR.BUTTON_DOWNLOADCSV.T_TITLE"
+			"T_TITLE": "Download the CSV"
 		},
 		"BUTTON_GOTOLIST": {
-			"T_TITLE": "#!#CHARACEDITOR.BUTTON_GOTOLIST.T_TITLE"
+			"T_TITLE": "Back to the list"
 		},
 		"BUTTON_SAVE": {
 			"T_TITLE": "Save"
 		},
 		"HEADER_CHARACEDITOR": {
-			"T_TITLE": "Caracteristic editor"
+			"T_TITLE": "Characterisations editor"
 		},
 		"INFO_DATEERRORS": {
 			"T_TITLE": "Error in the date"
@@ -46,7 +46,7 @@
 			"T_TITLE": "Name"
 		},
 		"INPUT_ORDER": {
-			"T_TITLE": "#!#CHARACEDITOR.INPUT_ORDER.T_TITLE"
+			"T_TITLE": "Order"
 		},
 		"LIST": {
 			"T_TITLE": "Name"
@@ -58,7 +58,7 @@
 			"T_TITLE": "Description"
 		},
 		"LIST_LANGS": {
-			"T_TITLE": "#!#CHARACEDITOR.LIST_LANGS.T_TITLE"
+			"T_TITLE": "Languages"
 		},
 		"LIST_NAME": {
 			"T_TITLE": "Name"
@@ -75,9 +75,9 @@
 			"T_TITLE": "Geographical extent..."
 		},
 		"BUTTON_CANCEL": {
-			"T_CONFIRM": "#!#CHRONODITOR.BUTTON_CANCEL.T_CONFIRM",
-			"T_OK": "#!#CHRONODITOR.BUTTON_CANCEL.T_OK",
-			"T_TITLE": "#!#CHRONODITOR.BUTTON_CANCEL.T_TITLE"
+			"T_CONFIRM": "Go back to the last saved version ?",
+			"T_OK": "Ok",
+			"T_TITLE": "Cancel"
 		},
 		"BUTTON_CLOSEMAP": {
 			"T_TITLE": "Close the map"
@@ -88,10 +88,10 @@
 			"T_TITLE": "Delete"
 		},
 		"BUTTON_DOWNLOADCSV": {
-			"T_TITLE": "#!#CHRONODITOR.BUTTON_DOWNLOADCSV.T_TITLE"
+			"T_TITLE": "Download the CSV"
 		},
 		"BUTTON_GOTOLIST": {
-			"T_TITLE": "#!#CHRONODITOR.BUTTON_GOTOLIST.T_TITLE"
+			"T_TITLE": "Back to the list"
 		},
 		"BUTTON_SAVE": {
 			"T_TITLE": "Save"
@@ -147,7 +147,7 @@
 			"T_TITLE": "Description"
 		},
 		"LIST_LANGS": {
-			"T_TITLE": "#!#CHRONODITOR.LIST_LANGS.T_TITLE"
+			"T_TITLE": "Languages"
 		},
 		"LIST_NAME": {
 			"T_TITLE": "Name"
@@ -170,16 +170,16 @@
 	},
 	"DATABASE": {
 		"BUTON_DELETE": {
-			"T_LABEL": "#!#DATABASE.BUTON_DELETE.T_LABEL"
+			"T_LABEL": "Delete the database"
 		},
 		"BUTTON_DELETE": {
-			"T_CONFIRM": "#!#DATABASE.BUTTON_DELETE.T_CONFIRM"
+			"T_CONFIRM": "Warning, the database and all the related informations are going to be deleted."
 		},
 		"BUTTON_DOWNLOAD": {
-			"T_TITLE": "#!#DATABASE.BUTTON_DOWNLOAD.T_TITLE"
+			"T_TITLE": "Download an export"
 		},
 		"BUTTON_EDIT": {
-			"T_LABEL": "#!#DATABASE.BUTTON_EDIT.T_LABEL"
+			"T_LABEL": "Edit the database"
 		},
 		"CONTEXT_ACADEMIC_WORK": {
 			"T_TITLE": "Academic work"
@@ -206,43 +206,43 @@
 			"T_TITLE": "World"
 		},
 		"INFORMATIONS": {
-			"T_AUTHOR_AND_CO_AUTHORS": "Author and co-authors",
-			"T_BIBLIOGRAPHY": "#!#DATABASE.INFORMATIONS.T_BIBLIOGRAPHY",
+			"T_AUTHOR_AND_CO_AUTHORS": "Author(s) and co-author(s)",
+			"T_BIBLIOGRAPHY": "Bibliography",
 			"T_CONTEXT": "Realisation's context",
-			"T_CONTEXT_DESCRIPTION": "#!#DATABASE.INFORMATIONS.T_CONTEXT_DESCRIPTION",
+			"T_CONTEXT_DESCRIPTION": "Details about the realisation's context",
 			"T_CONTINENTS": "Continents",
-			"T_CONTRIBUTOR": "#!#DATABASE.INFORMATIONS.T_CONTRIBUTOR",
+			"T_CONTRIBUTOR": "Contributor",
 			"T_COUNTRIES": "Country",
-			"T_DATABASE_LANG": "#!#DATABASE.INFORMATIONS.T_DATABASE_LANG",
-			"T_DATE": "#!#DATABASE.INFORMATIONS.T_DATE",
+			"T_DATABASE_LANG": "Database's language",
+			"T_DATE": "Creation's date",
 			"T_DESCRIPTION": "Description",
-			"T_EDITOR": "#!#DATABASE.INFORMATIONS.T_EDITOR",
+			"T_EDITOR": "Publisher",
 			"T_ENDING_PERIOD": "Ending period",
-			"T_GEOGRAPHICAL_EXTENT": "Geographical extent",
-			"T_GEOGRAPHICAL_LIMITS_DESCRIPTION": "#!#DATABASE.INFORMATIONS.T_GEOGRAPHICAL_LIMITS_DESCRIPTION",
-			"T_HANDLE": "#!#DATABASE.INFORMATIONS.T_HANDLE",
-			"T_HANDLE_DECLARED_CREATION_DATE": "#!#DATABASE.INFORMATIONS.T_HANDLE_DECLARED_CREATION_DATE",
-			"T_HANDLE_HISTORY": "#!#DATABASE.INFORMATIONS.T_HANDLE_HISTORY",
-			"T_HANDLE_URI": "#!#DATABASE.INFORMATIONS.T_HANDLE_URI",
-			"T_HANDLE_URL": "#!#DATABASE.INFORMATIONS.T_HANDLE_URL",
-			"T_IMPORTATION_DATE": "#!#DATABASE.INFORMATIONS.T_IMPORTATION_DATE",
-			"T_IMPORTED_CSV": "#!#DATABASE.INFORMATIONS.T_IMPORTED_CSV",
-			"T_IMPORT_HISTORY": "#!#DATABASE.INFORMATIONS.T_IMPORT_HISTORY",
-			"T_IMPORT_INITIATOR": "#!#DATABASE.INFORMATIONS.T_IMPORT_INITIATOR",
+			"T_GEOGRAPHICAL_EXTENT": "Geographical scope",
+			"T_GEOGRAPHICAL_LIMITS_DESCRIPTION": "Geographical details",
+			"T_HANDLE": "Resource's ID",
+			"T_HANDLE_DECLARED_CREATION_DATE": "Import's date of the original resource",
+			"T_HANDLE_HISTORY": "History of the resources",
+			"T_HANDLE_URI": "Resource's URI",
+			"T_HANDLE_URL": "URL address of the URI",
+			"T_IMPORTATION_DATE": "Importation's date",
+			"T_IMPORTED_CSV": "Imported CSV",
+			"T_IMPORT_HISTORY": "Import's history",
+			"T_IMPORT_INITIATOR": "Initiator",
 			"T_LICENSE": "License",
-			"T_MODIFICATION_DATE": "#!#DATABASE.INFORMATIONS.T_MODIFICATION_DATE",
-			"T_NUMBER_OF_LINES": "Number of lines",
-			"T_NUMBER_OF_SITES": "Number of sites",
-			"T_PUBLICATION_STATUS": "#!#DATABASE.INFORMATIONS.T_PUBLICATION_STATUS",
-			"T_PUBLISHED": "#!#DATABASE.INFORMATIONS.T_PUBLISHED",
-			"T_SCALE": "#!#DATABASE.INFORMATIONS.T_SCALE",
-			"T_SOURCE_DESCRIPTION": "#!#DATABASE.INFORMATIONS.T_SOURCE_DESCRIPTION",
-			"T_SOURCE_RELATION": "#!#DATABASE.INFORMATIONS.T_SOURCE_RELATION",
+			"T_MODIFICATION_DATE": "Last edit's date",
+			"T_NUMBER_OF_LINES": "Total of lines",
+			"T_NUMBER_OF_SITES": "Total of sites",
+			"T_PUBLICATION_STATUS": "Publication's status",
+			"T_PUBLISHED": "Published",
+			"T_SCALE": "Scale",
+			"T_SOURCE_DESCRIPTION": "Base's source",
+			"T_SOURCE_RELATION": "Relations with other resources",
 			"T_STARTING_PERIOD": "Starting period",
-			"T_STATUS": "#!#DATABASE.INFORMATIONS.T_STATUS",
+			"T_STATUS": "State of work",
 			"T_SUBJECT_AND_KEYWORDS": "Subject(s) / Keywords",
 			"T_TYPE": "Type",
-			"T_UNPUBLISHED": "#!#DATABASE.INFORMATIONS.T_UNPUBLISHED"
+			"T_UNPUBLISHED": "Unpublished"
 		},
 		"KNOWLEDGE_TYPE_DIG": {
 			"T_TITLE": "Excavated"
@@ -263,14 +263,14 @@
 			"T_TITLE": "Probed"
 		},
 		"MESSAGE": {
-			"T_DELETE_FAILED": "#!#DATABASE.MESSAGE.T_DELETE_FAILED",
-			"T_DELETE_OK": "#!#DATABASE.MESSAGE.T_DELETE_OK"
+			"T_DELETE_FAILED": "The deletion has failed",
+			"T_DELETE_OK": "The database was successfully deleted."
 		},
 		"POPUP_HANDLE_HISTORY": {
-			"T_TITLE": "#!#DATABASE.POPUP_HANDLE_HISTORY.T_TITLE"
+			"T_TITLE": "ID's history"
 		},
 		"POPUP_IMPORT_HISTORY": {
-			"T_TITLE": "#!#DATABASE.POPUP_IMPORT_HISTORY.T_TITLE"
+			"T_TITLE": "Import's history"
 		},
 		"SCALE_RESOLUTION_COUNTRY": {
 			"T_TITLE": "Country"
@@ -315,66 +315,66 @@
 			"T_TITLE": "Inventory"
 		},
 		"TYPE_LITERARYWORK": {
-			"T_TITLE": "Literary work"
+			"T_TITLE": "Book's transcript"
 		},
 		"TYPE_RESEARCH": {
 			"T_TITLE": "Research"
 		},
 		"UNDEFINED": {
-			"T_TITLE": "#!#DATABASE.UNDEFINED.T_TITLE"
+			"T_TITLE": "Undefined"
 		}
 	},
 	"DATABASE_LIST": {
 		"DOWNLOAD_CSV": {
-			"T_LABEL": "#!#DATABASE_LIST.DOWNLOAD_CSV.T_LABEL"
+			"T_LABEL": "Download a CSV export of the database"
 		},
 		"LIST_AUTHOR": {
-			"T_LABEL": "#!#DATABASE_LIST.LIST_AUTHOR.T_LABEL"
+			"T_LABEL": "Author(s) and co-author(s)"
 		},
 		"LIST_CONTEXT": {
-			"T_LABEL": "#!#DATABASE_LIST.LIST_CONTEXT.T_LABEL"
+			"T_LABEL": "Coverage"
 		},
 		"LIST_DESCRIPTION": {
-			"T_LABEL": "#!#DATABASE_LIST.LIST_DESCRIPTION.T_LABEL"
+			"T_LABEL": "Description"
 		},
 		"LIST_END_DATE": {
-			"T_LABEL": "#!#DATABASE_LIST.LIST_END_DATE.T_LABEL"
+			"T_LABEL": "End"
 		},
 		"LIST_LANG": {
-			"T_LABEL": "#!#DATABASE_LIST.LIST_LANG.T_LABEL"
+			"T_LABEL": "Language"
 		},
 		"LIST_LICENSE": {
-			"T_LABEL": "#!#DATABASE_LIST.LIST_LICENSE.T_LABEL"
+			"T_LABEL": "License"
 		},
 		"LIST_NAME": {
-			"T_LABEL": "#!#DATABASE_LIST.LIST_NAME.T_LABEL"
+			"T_LABEL": "Name"
 		},
 		"LIST_NUMBER_OF_LINES": {
-			"T_LABEL": "#!#DATABASE_LIST.LIST_NUMBER_OF_LINES.T_LABEL"
+			"T_LABEL": "Lines"
 		},
 		"LIST_NUMBER_OF_SITES": {
-			"T_LABEL": "#!#DATABASE_LIST.LIST_NUMBER_OF_SITES.T_LABEL"
+			"T_LABEL": "Sites"
 		},
 		"LIST_SCALE_RESOLUTION": {
-			"T_LABEL": "#!#DATABASE_LIST.LIST_SCALE_RESOLUTION.T_LABEL"
+			"T_LABEL": "Scale"
 		},
 		"LIST_SEARCH_INPUT": {
-			"T_LABEL": "#!#DATABASE_LIST.LIST_SEARCH_INPUT.T_LABEL"
+			"T_LABEL": "Filter"
 		},
 		"LIST_START_DATE": {
-			"T_LABEL": "#!#DATABASE_LIST.LIST_START_DATE.T_LABEL"
+			"T_LABEL": "Start"
 		},
 		"LIST_STATE": {
-			"T_LABEL": "#!#DATABASE_LIST.LIST_STATE.T_LABEL"
+			"T_LABEL": "State of work"
 		},
 		"LIST_SUBJECT": {
-			"T_LABEL": "#!#DATABASE_LIST.LIST_SUBJECT.T_LABEL"
+			"T_LABEL": "Subject(s) / Keywords"
 		},
 		"LIST_TYPE": {
-			"T_LABEL": "#!#DATABASE_LIST.LIST_TYPE.T_LABEL"
+			"T_LABEL": "Type"
 		},
 		"PAGE_TITLE": {
-			"T_TITLE": "#!#DATABASE_LIST.PAGE_TITLE.T_TITLE"
+			"T_TITLE": "Databases' list"
 		}
 	},
 	"GENERAL": {
@@ -385,10 +385,10 @@
 			"T_TITLE": "Please, confirm your request"
 		},
 		"TABLE_PAGINATION": {
-			"T_ALL": "#!#GENERAL.TABLE_PAGINATION.T_ALL",
-			"T_PAGE": "#!#GENERAL.TABLE_PAGINATION.T_PAGE",
-			"T_ROWSPERPAGE": "#!#GENERAL.TABLE_PAGINATION.T_ROWSPERPAGE",
-			"T_ROWSPERPAGE_OF": "#!#GENERAL.TABLE_PAGINATION.T_ROWSPERPAGE_OF"
+			"T_ALL": "All",
+			"T_PAGE": "Page :",
+			"T_ROWSPERPAGE": "Rows per page :",
+			"T_ROWSPERPAGE_OF": "of"
 		}
 	},
 	"GLOBAL": {
@@ -406,7 +406,7 @@
 			"T_ROWSPERPAGE_OF": "of"
 		},
 		"GROUPTYPE_CHARAC": {
-			"T_TITLE": "Group of characs"
+			"T_TITLE": "Group of characterisations"
 		},
 		"GROUPTYPE_CHRONOLOGY": {
 			"T_TITLE": "Group of chronologies"
@@ -418,41 +418,41 @@
 			"T_TITLE": "Group type"
 		},
 		"HEADER_GROUPS": {
-			"T_TITLE": "Group Administration"
+			"T_TITLE": "Groups administration"
 		},
 		"HEADER_GROUPSLIST": {
 			"T_ACTION": "Action",
-			"T_GROUPNAME": "Group name",
+			"T_GROUPNAME": "Group's name",
 			"T_USERS": "Users"
 		}
 	},
 	"IMPORT": {
 		"BUTTON": {
-			"T_CANCEL_AND_GO_TO_SHEET": "#!#IMPORT.BUTTON.T_CANCEL_AND_GO_TO_SHEET"
+			"T_CANCEL_AND_GO_TO_SHEET": "Cancel and go back to the sheet"
 		},
 		"FIELD_ALL": {
-			"T_ENGLISH_TRANSLATION_REQUIRED": "#!#IMPORT.FIELD_ALL.T_ENGLISH_TRANSLATION_REQUIRED",
-			"T_ERROR_NOT_VALID_URL": "#!#IMPORT.FIELD_ALL.T_ERROR_NOT_VALID_URL",
-			"T_ERROR_REQUIRED": "This field is mandatory"
+			"T_ENGLISH_TRANSLATION_REQUIRED": "An English translation for this field is required.",
+			"T_ERROR_NOT_VALID_URL": "The URL address is not valid.",
+			"T_ERROR_REQUIRED": "This field is compulsory."
 		},
 		"HEADER_TAB_CSV_IMPORT_REPORT": {
 			"T_LABEL": "Report"
 		},
 		"HEADER_TAB_GENERAL_INFOS": {
-			"T_LABEL": "General information"
+			"T_LABEL": "General informations"
 		},
 		"HEADER_TAB_MORE_INFOS": {
-			"T_LABEL": "More information"
+			"T_LABEL": "More informations"
 		},
 		"HEADER_TAB_PUBLICATION_INFOS": {
-			"T_LABEL": "Information for the publication"
+			"T_LABEL": "Informations for the publication"
 		}
 	},
 	"IMPORT_STEP1": {
 		"CONDITIONS": {
 			"T_BUTTON_SAVE_CHOICES": "I agree with these conditions",
 			"T_LINE1": "Any data of the uploaded databases on the ArkeoGIS' services are freely available for any user logged in ArkeoGIS.",
-			"T_LINE2": "These datas are downloadable for research purposes (according to the license owned by the user) only by users registered into ArkeoGIS, with different status : student, IT technician, researcher or administrator of the ArkeoGIS' services."
+			"T_LINE2": "These data are downloadable for research purposes (according to the license owned by the user) only by users registered into ArkeoGIS, with different status : student, IT technician, researcher or administrator of the ArkeoGIS' services."
 		},
 		"FIELD_DATABASE_NAME": {
 			"T_ERROR_MAX_LEN": "The database' name can't exceed 50 characters.",
@@ -463,41 +463,41 @@
 			"T_LABEL": "* Escape character"
 		},
 		"FIELD_GEONAMES": {
-			"T_HELP": "Please use the codes for the municipalities provided by geonames.org to geolocalize the sites.",
+			"T_HELP": "Please use the codes for the municipalities provided by geonames.org to geolocalize the sites (P icon).",
 			"T_LABEL": "Using GEONAME"
 		},
 		"FIELD_GEO_CONTINENT": {
-			"T_PLACEHOLDER": "#!#IMPORT_STEP1.FIELD_GEO_CONTINENT.T_PLACEHOLDER"
+			"T_PLACEHOLDER": "Please, choose a continent"
 		},
 		"FIELD_GEO_COUNTRY": {
-			"T_PLACEHOLDER": "#!#IMPORT_STEP1.FIELD_GEO_COUNTRY.T_PLACEHOLDER"
+			"T_PLACEHOLDER": "Please, choose a country"
 		},
 		"FIELD_GEO_EXTENT": {
 			"T_LABEL": "* Geographical coverage of the database"
 		},
 		"FIELD_LANG": {
-			"T_HELP": "Language used to describe the caracterizations Furniture/ Real-Estate/ Production / Landscape / Text or iconography.",
+			"T_HELP": "Language used to describe the characterisations Furniture/ Real-Estate/ Production / Landscape / Media",
 			"T_LABEL": "* Language of the database"
 		},
 		"FIELD_SEPARATOR": {
 			"T_ERROR_LEN": "This field can't have more than one character.",
-			"T_HELP": "Please use /t if your delimiter is a tabulation.",
+			"T_HELP": "Please use \\t if your delimiter is a tabulation.",
 			"T_LABEL": "Delimiter"
 		},
 		"FORM": {
 			"T_HELP": "Please use a .CSV file encoded with the UTF-8 system for your upload.",
 			"T_RESET": "Reset",
 			"T_SUBMIT": "Submit and go to the next step",
-			"T_UPDATE": "Mettre à jour les informations"
+			"T_UPDATE": "Update the informations"
 		},
 		"INFOS": {
-			"T_LINE1": "To upload your database on the ArkeoGIS' plateform, please fill out the following fields.",
-			"T_LINE2": "These information are only required once before the importation. If you chose to re-upload your database, they won't be required again.",
-			"T_LINE3": "These information could be modified later. You will also be able to add information about your work in your personal database' management interface."
+			"T_LINE1": "To upload your database on the ArkeoGIS' platform, please fill out the following fields.",
+			"T_LINE2": "These informations are only required once before the importation. If you chose to re-upload your database, they won't be required again.",
+			"T_LINE3": "These informations could be modified later. You will also be able to add informations about your work in your personal database' management interface."
 		},
 		"MESSAGE": {
-			"T_INFORMATIONS_UPDATED": "Informations mises à jour",
-			"T_UNABLE_TO_UPDATE_DATABASE_INFORMATIONS": "Erreur lors de la mise à jour des informations"
+			"T_INFORMATIONS_UPDATED": "Informations sucessfully updated",
+			"T_UNABLE_TO_UPDATE_DATABASE_INFORMATIONS": "An error occured during the update of the informations"
 		},
 		"TITLE": {
 			"T_BY": "by",
@@ -508,7 +508,7 @@
 		"REPORT_BLOCKS": {
 			"T_BUTTON_CHOOSE_FILE": "Select a file to import",
 			"T_HELP_IMPORT_ANOTHER_FILE": "Reimport the same database after correcting the mistakes.",
-			"T_HELP_MODIFY_IMPORT_OPTIONS": "Modify the database's information, the importation features and submit a new file.",
+			"T_HELP_MODIFY_IMPORT_OPTIONS": "Modify the database's informations, the importation features and submit a new file.",
 			"T_HELP_NB_DETECTED_SITES": "Number of sites detected in the file",
 			"T_HELP_NB_ERRORS_TOTAL": "Detailed list below",
 			"T_HELP_NB_SITES_WITH_ERROR": "Number of sites with a mistake",
@@ -527,10 +527,10 @@
 			"T_LABEL_PREVIOUS_STEP": "Previous step"
 		},
 		"REPORT_TABLE": {
-			"T_HELP_FILTER_RESULTS": "Filter the results",
+			"T_HELP_FILTER_RESULTS": "Search the error report's results",
 			"T_LABEL_COLUMN": "Column",
 			"T_LABEL_ERROR_MESSAGE": "Error message",
-			"T_LABEL_FILTER_RESULTS": "#!#IMPORT_STEP2.REPORT_TABLE.T_LABEL_FILTER_RESULTS",
+			"T_LABEL_FILTER_RESULTS": "Search the error report's results",
 			"T_LABEL_LINE": "Line",
 			"T_LABEL_NO_ERROR": "No error",
 			"T_LABEL_REPORT": "Report",
@@ -543,7 +543,7 @@
 			"T_UNABLE_TO_REMOVE_MAIN_AUTHOR": "It is not possible to change the main author of the import."
 		},
 		"FIELD_AUTHOR": {
-			"T_HELP": "Surname and name of the import's author. You can add as many co-authors as you wish.",
+			"T_HELP": "Surname and name of the import's author. You can add as many co-author(s) as you wish.",
 			"T_LABEL": "Attributed to"
 		},
 		"FIELD_CONTEXT": {
@@ -565,8 +565,8 @@
 			"T_LABEL": "License"
 		},
 		"FIELD_PUBLISHED": {
-			"T_HELP": "#!#IMPORT_STEP3.FIELD_PUBLISHED.T_HELP",
-			"T_LABEL": "#!#IMPORT_STEP3.FIELD_PUBLISHED.T_LABEL"
+			"T_HELP": "Please, move the cursor to publish the database in the mapping interface. This publication allows the users to query your database.",
+			"T_LABEL": "Database published on ArkeoGIS"
 		},
 		"FIELD_SCALE_RESOLUTION": {
 			"T_HELP": "This database relates to objets, site or watershed, etc.",
@@ -591,11 +591,11 @@
 		},
 		"INFOS": {
 			"T_LINE1": "Following your import of the database : \"name of the database\", please fill the following fields about your work. This will allow you to publish your database on ArkeoGIS.",
-			"T_LINE2": "By \"publish\", we mean that you will be able to query your database on the cartographic interface and allow other users to do the same.",
-			"T_LINE3": "These information are only requested once before the import. If you re-upload your database \"name of the database\", they won't be requested again. You will be able to modify these information and add some more in your personal interface that can be found in the index of the databases."
+			"T_LINE2": "By \"publish\", we mean that you will be able to query your database on the mapping interface and allow other users to do the same.",
+			"T_LINE3": "These informations are only required once before the import. If you re-upload your database \"name of the database\", they won't be requested again. You will be able to modify these informations and add some more in your personal interface that can be found in the index of the databases."
 		},
 		"MESSAGES": {
-			"T_PUBLICATION_INFORMATIONS_SAVED": "The mandatory information are saved."
+			"T_PUBLICATION_INFORMATIONS_SAVED": "The compulsory informations are saved."
 		}
 	},
 	"IMPORT_STEP4": {
@@ -614,20 +614,20 @@
 		},
 		"FIELD_DATE_IUR": {
 			"T_HELP": "Date of the deposit of the reference resource",
-			"T_LABEL": "IUR date"
+			"T_LABEL": "URI's date"
 		},
 		"FIELD_EDITOR": {
-			"T_HELP": "#!#IMPORT_STEP4.FIELD_EDITOR.T_HELP",
-			"T_LABEL": "Editorial structure"
+			"T_HELP": "Publisher's name",
+			"T_LABEL": "Editorial or publishing structure"
 		},
 		"FIELD_GEOGRAPHICAL_LIMIT_LANG1": {
-			"T_LABEL": "Details about the geographical frame (main language)"
+			"T_LABEL": "Details about the geographical scope (main language)"
 		},
 		"FIELD_GEOGRAPHICAL_LIMIT_LANG2": {
-			"T_LABEL": "Details about the geographical frame (translation)"
+			"T_LABEL": "Details about the geographical scope (translation)"
 		},
 		"FIELD_RELATIONS": {
-			"T_LABEL": "Link with other resources"
+			"T_LABEL": "Relations with other resources."
 		},
 		"FIELD_RESOURCE": {
 			"T_HELP": "Resources from which the database is derivated.",
@@ -638,7 +638,7 @@
 			"T_LABEL": "Uniform Resource Identifier"
 		},
 		"FIELD_URL": {
-			"T_HELP": "Resources' URL",
+			"T_HELP": "Resource's URL",
 			"T_LABEL": "URL"
 		},
 		"FORM": {
@@ -651,21 +651,21 @@
 			"T_LINE2": "#!#IMPORT_STEP4.INFOS.T_LINE2"
 		},
 		"MESSAGES": {
-			"T_ERROR_BIBLIOGRAPHY_EN_TRANSLATION_CAN_T_BE_EMPTY": "#!#IMPORT_STEP4.MESSAGES.T_ERROR_BIBLIOGRAPHY_EN_TRANSLATION_CAN_T_BE_EMPTY",
-			"T_ERROR_GEOGRAPHICAL_LIMITS_EN_TRANSLATION_CAN_T_BE_EMPTY": "#!#IMPORT_STEP4.MESSAGES.T_ERROR_GEOGRAPHICAL_LIMITS_EN_TRANSLATION_CAN_T_BE_EMPTY",
-			"T_PUBLICATION_INFORMATIONS_SAVED": "#!#IMPORT_STEP4.MESSAGES.T_PUBLICATION_INFORMATIONS_SAVED"
+			"T_ERROR_BIBLIOGRAPHY_EN_TRANSLATION_CAN_T_BE_EMPTY": "The field \"bibliography\" must be filled in English as well.",
+			"T_ERROR_GEOGRAPHICAL_LIMITS_EN_TRANSLATION_CAN_T_BE_EMPTY": "The field \"Geographical details\" must be filled in English as well.",
+			"T_PUBLICATION_INFORMATIONS_SAVED": "The informations are saved"
 		}
 	},
 	"LANGEDITOR": {
 		"BUTTON_CANCEL": {
-			"T_CONFIRM": "Cancel confirm ?",
+			"T_CONFIRM": "Do you really want to cancel the modifications ?",
 			"T_TITLE": "Cancel"
 		},
 		"BUTTON_SAVE": {
 			"T_TITLE": "Save"
 		},
 		"HEADER_LANGEDITOR": {
-			"T_TITLE": "Lang Editor"
+			"T_TITLE": "Translations editor"
 		},
 		"SELECT_DSTLANG": {
 			"T_TITLE": "Language to translate"
@@ -685,16 +685,16 @@
 			"T_TITLE": "Username"
 		},
 		"FOOTER": {
-			"T_CONTACT": "Pour obtenir un identifiant et un mot de passe, merci de prendre CONTACT_LINK",
+			"T_CONTACT": "To get an username and a password, please make CONTACT_LINK",
 			"T_CONTACT_LINKNAME": "contact",
 			"T_CONTACT_LINKURL": "http://www.arkeogis.org/contact",
-			"T_DATE": "Le {{date}} sont consultables :",
-			"T_DBCOUNT": "{{dbcount}} bases de données",
+			"T_DATE": "On the {{date}}, you can consult :",
+			"T_DBCOUNT": "{{dbcount}} databases",
 			"T_SITECOUNT": "{{sitecount}} sites"
 		},
 		"HEADER": {
-			"T_LINE1": "Bien que visant à une libre mise en commun des données archéologiques et géographiques, ArkeoGIS met à disposition des données sensibles qui pourraient conduire à un pillage de gisements archéologiques.",
-			"T_LINE2": "C'est pourquoi l'accès aux données n'est possible qu'après identification.",
+			"T_LINE1": "Altough ArkeoGIS' aim is a pooling of the archaeological and geographical data, we are aware that these data are very sensitive. They could lead to a looting of archaeological heritage.",
+			"T_LINE2": "That's why the access to the ArkeoGIS' application is restricted to archaeological professionals (universities, research institutions, national or regional heritage services, operatives, researchers, graduate students...)",
 			"T_LINE3": ""
 		},
 		"HEADER_LOGIN": {
@@ -703,23 +703,23 @@
 	},
 	"MAIN": {
 		"FIELD_MAINMENU": {
-			"T_ITEM_CHARACEDITOR": "Characteristics' editor",
-			"T_ITEM_CHRONODITOR": "Chronology' editor",
-			"T_ITEM_DATABASE_LIST": "Databases list",
+			"T_ITEM_CHARACEDITOR": "Characterisations' editor",
+			"T_ITEM_CHRONODITOR": "Chronologies' editor",
+			"T_ITEM_DATABASE_LIST": "Databases' list",
 			"T_ITEM_GROUPSMANAGER": "Groups admin",
 			"T_ITEM_IMPORT": "Import",
-			"T_ITEM_LANGEDITOR": "Lang Editor",
+			"T_ITEM_LANGEDITOR": "Translations editor",
 			"T_ITEM_LOGIN": "Login",
 			"T_ITEM_LOGOUT": "Logout",
 			"T_ITEM_MAP": "Map",
 			"T_ITEM_MAPEDITOR": "Map editor",
-			"T_ITEM_MYPROFIL": "#!#MAIN.FIELD_MAINMENU.T_ITEM_MYPROFIL",
-			"T_ITEM_PREFERENCES": "Project preferences",
-			"T_ITEM_USERSLISTING": "#!#MAIN.FIELD_MAINMENU.T_ITEM_USERSLISTING",
-			"T_ITEM_USERSMANAGER": "Users Manager"
+			"T_ITEM_MYPROFIL": "My profile",
+			"T_ITEM_PREFERENCES": "Project's preferences",
+			"T_ITEM_USERSLISTING": "Directory",
+			"T_ITEM_USERSMANAGER": "Users' management"
 		},
 		"IDLE": {
-			"T_TITLE": "#!#MAIN.IDLE.T_TITLE"
+			"T_TITLE": "You seem to be inactive, if you are not using ArkeoGIS, you will be disconnected..."
 		},
 		"LOADING": {
 			"T_TITLE": "Loading..."
@@ -727,41 +727,41 @@
 	},
 	"MAP": {
 		"BUTTON_DISPLAYMAP": {
-			"T_TITLE": "Display the map"
+			"T_TITLE": "DISPLAY THE MAP"
 		},
 		"BUTTON_INITQUERY": {
-			"T_TITLE": "#!#MAP.BUTTON_INITQUERY.T_TITLE"
+			"T_TITLE": "RESET THE QUERIES"
 		},
 		"LAYER_MENU": {
-			"T_ALL": "#!#MAP.LAYER_MENU.T_ALL",
-			"T_BASE_LAYERS": "#!#MAP.LAYER_MENU.T_BASE_LAYERS",
-			"T_TOGGLE_GROUP": "#!#MAP.LAYER_MENU.T_TOGGLE_GROUP",
-			"T_ZOOMIN": "#!#MAP.LAYER_MENU.T_ZOOMIN",
-			"T_ZOOMOUT": "#!#MAP.LAYER_MENU.T_ZOOMOUT"
+			"T_ALL": "All",
+			"T_BASE_LAYERS": "Background maps",
+			"T_TOGGLE_GROUP": "Bundle / Unbundle the icons",
+			"T_ZOOMIN": "Zoom +",
+			"T_ZOOMOUT": "Zoom -"
 		},
 		"MENU_DATABASE": {
 			"T_INVENTORY": "Inventory",
-			"T_LITERARYWORK": "Literary work",
+			"T_LITERARYWORK": "Book's transcript",
 			"T_RESEARCH": "Research",
 			"T_UNDEFINED": "Undefined"
 		},
 		"MESSAGE_QUERY_DELETED": {
-			"T_CONTENT": "#!#MAP.MESSAGE_QUERY_DELETED.T_CONTENT"
+			"T_CONTENT": "Your archived query has been successfully deleted"
 		},
 		"MESSAGE_QUERY_RESULT": {
-			"T_NORESULT": "#!#MAP.MESSAGE_QUERY_RESULT.T_NORESULT",
-			"T_SERVERERROR": "#!#MAP.MESSAGE_QUERY_RESULT.T_SERVERERROR"
+			"T_NORESULT": "This query has no results",
+			"T_SERVERERROR": "Sorry, an internal error occured"
 		},
 		"MESSAGE_QUERY_SAVED": {
-			"T_CONTENT": "#!#MAP.MESSAGE_QUERY_SAVED.T_CONTENT"
+			"T_CONTENT": "Your query has been successfully archived"
 		},
 		"QUERY_MENU": {
-			"T_ARCHIVE": "#!#MAP.QUERY_MENU.T_ARCHIVE",
-			"T_DELETE": "#!#MAP.QUERY_MENU.T_DELETE",
-			"T_DOWNLOAD_CSV": "#!#MAP.QUERY_MENU.T_DOWNLOAD_CSV",
-			"T_MODIFY": "#!#MAP.QUERY_MENU.T_MODIFY",
-			"T_PROJECT_LAYERS": "#!#MAP.QUERY_MENU.T_PROJECT_LAYERS",
-			"T_QUERY": "#!#MAP.QUERY_MENU.T_QUERY"
+			"T_ARCHIVE": "Save",
+			"T_DELETE": "Delete",
+			"T_DOWNLOAD_CSV": "CSV",
+			"T_MODIFY": "Modify",
+			"T_PROJECT_LAYERS": "Layers",
+			"T_QUERY": "Query"
 		}
 	},
 	"MAPEDITOR": {
@@ -777,7 +777,7 @@
 		},
 		"FIELD_AUTHOR": {
 			"T_HELP": "Shapefile's authors",
-			"T_LABEL": "Authors and co-writers"
+			"T_LABEL": "Authors and co-authors"
 		},
 		"FIELD_COPYRIGHT": {
 			"T_HELP": "#!#MAPEDITOR.FIELD_COPYRIGHT.T_HELP",
@@ -791,13 +791,13 @@
 			"T_LABEL": "Description (main language)"
 		},
 		"FIELD_DESCRIPTION_LANG2": {
-			"T_LABEL": "Description (translations)"
+			"T_LABEL": "Description (translation)"
 		},
 		"FIELD_END_DATE": {
 			"T_LABEL": "Ending date"
 		},
 		"FIELD_IDENTIFIER": {
-			"T_LABEL": "Layer's identifier"
+			"T_LABEL": "Layer's id"
 		},
 		"FIELD_LICENSE": {
 			"T_HELP": "Associated license",
@@ -814,7 +814,7 @@
 			"T_LABEL": "Name (main language)"
 		},
 		"FIELD_NAME_LANG2": {
-			"T_LABEL": "Name (translations)"
+			"T_LABEL": "Name (translation)"
 		},
 		"FIELD_PUBLISHED": {
 			"T_HELP": "Allow other users to access this layer",
@@ -840,7 +840,7 @@
 		},
 		"MESSAGE_GET_LAYER_LIST": {
 			"T_ERROR": "Recovery of the layers' list",
-			"T_SUCCESS": "List of the layers that have been successfully recovered."
+			"T_SUCCESS": "The layers' list have been successfully recovered."
 		},
 		"MESSAGE_NOT_ZIP_FILE": {
 			"T_ERROR": "The submitted file is not valid."
@@ -872,7 +872,7 @@
 	},
 	"MAPQUERY": {
 		"MESSAGE": {
-			"T_GETGEOJSON_ERROR": "#!#MAPQUERY.MESSAGE.T_GETGEOJSON_ERROR"
+			"T_GETGEOJSON_ERROR": "Error in the map's query : unable to recover the GEOJSON"
 		}
 	},
 	"PROJECT_EDITOR": {
@@ -880,14 +880,14 @@
 			"T_LABEL": "Save project's preferences"
 		},
 		"CHARACCHOOSER": {
-			"T_INTRO": "#!#PROJECT_EDITOR.CHARACCHOOSER.T_INTRO",
-			"T_TITLE": "#!#PROJECT_EDITOR.CHARACCHOOSER.T_TITLE"
+			"T_INTRO": "If you want to, you can hide some characterisations from your interface. To do so, click on the relevant characterisations below :",
+			"T_TITLE": "Please, pick the characterisation(s) you want to hide"
 		},
 		"CHARACCHOOSER_BUTTON_CANCEL": {
-			"T_TITLE": "#!#PROJECT_EDITOR.CHARACCHOOSER_BUTTON_CANCEL.T_TITLE"
+			"T_TITLE": "Cancel"
 		},
 		"CHARACCHOOSER_BUTTON_SUBMIT": {
-			"T_TITLE": "#!#PROJECT_EDITOR.CHARACCHOOSER_BUTTON_SUBMIT.T_TITLE"
+			"T_TITLE": "Save"
 		},
 		"FIELD_END_DATE": {
 			"T_LABEL": "Ending date"
@@ -896,23 +896,23 @@
 			"T_LABEL": "Starting date"
 		},
 		"FORM_ERROR_NO_CHARAC_SELECTED": {
-			"T_LABEL": "#!#PROJECT_EDITOR.FORM_ERROR_NO_CHARAC_SELECTED.T_LABEL"
+			"T_LABEL": "Please, select at least one characterisation"
 		},
 		"FORM_ERROR_NO_CHRONOLOGY_SELECTED": {
-			"T_LABEL": "#!#PROJECT_EDITOR.FORM_ERROR_NO_CHRONOLOGY_SELECTED.T_LABEL"
+			"T_LABEL": "Please, select a chronological system"
 		},
 		"FORM_ERROR_NO_DATABASE_SELECTED": {
-			"T_LABEL": "#!#PROJECT_EDITOR.FORM_ERROR_NO_DATABASE_SELECTED.T_LABEL"
+			"T_LABEL": "Please, select at least one database"
 		},
 		"FORM_ERROR_OUT_OF_BOUNDS": {
-			"T_LABEL": "#!#PROJECT_EDITOR.FORM_ERROR_OUT_OF_BOUNDS.T_LABEL"
+			"T_LABEL": "Your selection is out of bounds"
 		},
 		"INFORMATIONS_PERIOD_SELECTION": {
 			"T_HELP": "Please, specify the starting and ending dates of your project. The choice of the period has an impact on the chronologies and databases available.",
 			"T_LABEL": "Choice of the period"
 		},
 		"INTERFACE": {
-			"T_TITLE": "#!#PROJECT_EDITOR.INTERFACE.T_TITLE"
+			"T_TITLE": "Description of the project"
 		},
 		"INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA": {
 			"T_LABEL": "Choice of the geographical frame"
@@ -921,7 +921,7 @@
 			"T_LABEL": "The lists bellow are updated in real time according to your choices concerning your geographical and chronological frames. Please, select the elements of your project."
 		},
 		"INTERFACE_RECENTER_THE_MAP_ON_YOUR_WORKING_AREA": {
-			"T_LABEL": "Please, recenter the map on your geographical frame. You can move it or zoom. The choice of period has an impact on the chronologies and databases available. The overview of elements shows their extent on the map."
+			"T_LABEL": "Please, recenter the map on your geographical frame. You can move it or zoom. This choice has an impact on the chronologies and databases available. The overview of the elements shows their extent on the map."
 		},
 		"LIST_AUTHOR": {
 			"T_LABEL": "Author"
@@ -939,7 +939,7 @@
 			"T_LABEL": "Name"
 		},
 		"LIST_SEARCH_INPUT": {
-			"T_LABEL": "Research"
+			"T_LABEL": "Search"
 		},
 		"LIST_START_DATE": {
 			"T_LABEL": "Starting date"
@@ -955,13 +955,13 @@
 			"T_OK": "Successfully saved."
 		},
 		"SELECTION": {
-			"T_TITLE": "#!#PROJECT_EDITOR.SELECTION.T_TITLE"
+			"T_TITLE": "Your selection"
 		},
 		"SELECTION_HAS_ERROR": {
-			"T_LABEL": "#!#PROJECT_EDITOR.SELECTION_HAS_ERROR.T_LABEL"
+			"T_LABEL": "Some of your choices are not compatible with your selection (dates and/or area)"
 		},
 		"TAB_CHARACTERISTICS": {
-			"T_LABEL": "Characteristics"
+			"T_LABEL": "Characterisations"
 		},
 		"TAB_CHRONOLOGIES": {
 			"T_LABEL": "Chronologies"
@@ -973,10 +973,10 @@
 			"T_LABEL": "Maps"
 		},
 		"USER_SELECTION_CHARACS": {
-			"T_TITLE": "The selected characteristics :"
+			"T_TITLE": "The selected characterisations :"
 		},
 		"USER_SELECTION_CHARACS_NONE": {
-			"T_TITLE": "No characteristics."
+			"T_TITLE": "No characterisation."
 		},
 		"USER_SELECTION_CHRONOLOGIES": {
 			"T_TITLE": "The selected chronology :"
@@ -1002,16 +1002,16 @@
 			"T_TITLE": "Area :"
 		},
 		"CENTROID": {
-			"T_TITLE": "#!#QUERY.CENTROID.T_TITLE"
+			"T_TITLE": "Centroid :"
 		},
 		"CHARACS": {
 			"T_EXCEPTIOINAL": "Include exceptional :",
 			"T_EXCLUDE": "Exclude :",
 			"T_INCLUDE": "Include :",
-			"T_TITLE": "characterizations :"
+			"T_TITLE": "Characterisations :"
 		},
 		"CHARACS_LINKED": {
-			"T_TITLE": "#!#QUERY.CHARACS_LINKED.T_TITLE"
+			"T_TITLE": "Relation between the characterisations :"
 		},
 		"CHRONOLOGIES": {
 			"T_BUTTON_ADD": "#!#QUERY.CHRONOLOGIES.T_BUTTON_ADD",
@@ -1021,157 +1021,157 @@
 			"T_TITLE": "Databases :"
 		},
 		"DELETE_SAVED_QUERY": {
-			"T_CONFIRM": "#!#QUERY.DELETE_SAVED_QUERY.T_CONFIRM",
-			"T_OK": "#!#QUERY.DELETE_SAVED_QUERY.T_OK"
+			"T_CONFIRM": "Do you really want to delete this archived query ?",
+			"T_OK": "Yes, delete !"
 		},
 		"KNOWLEDGES": {
-			"T_TITLE": "#!#QUERY.KNOWLEDGES.T_TITLE"
+			"T_TITLE": "Knowledge :"
 		},
 		"OCCUPATION": {
-			"T_TITLE": "#!#QUERY.OCCUPATION.T_TITLE"
+			"T_TITLE": "Occupation :"
 		},
 		"OTHERS": {
 			"T_TITLE": "Precisions :"
 		},
 		"QUERY_NAME": {
-			"T_TITLE": "#!#QUERY.QUERY_NAME.T_TITLE"
+			"T_TITLE": "Query"
 		},
 		"TEXT_SEARCH": {
-			"T_SEARCH_FOR": "#!#QUERY.TEXT_SEARCH.T_SEARCH_FOR",
-			"T_SEARCH_IN": "#!#QUERY.TEXT_SEARCH.T_SEARCH_IN",
-			"T_TITLE": "#!#QUERY.TEXT_SEARCH.T_TITLE"
+			"T_SEARCH_FOR": "Search for :",
+			"T_SEARCH_IN": "in :",
+			"T_TITLE": "Text search :"
 		}
 	},
 	"QUERY_AREA": {
 		"BUTTON": {
-			"T_CANCEL_DRAW": "#!#QUERY_AREA.BUTTON.T_CANCEL_DRAW",
-			"T_REDO": "#!#QUERY_AREA.BUTTON.T_REDO",
-			"T_VALID": "#!#QUERY_AREA.BUTTON.T_VALID"
+			"T_CANCEL_DRAW": "Cancel",
+			"T_REDO": "Re-do",
+			"T_VALID": "Valid"
 		},
 		"BUTTON_DRAW": {
-			"T_TITLE": "#!#QUERY_AREA.BUTTON_DRAW.T_TITLE"
+			"T_TITLE": "Draw the selection area on the map"
 		},
 		"BUTTON_OK": {
-			"T_TITLE": "#!#QUERY_AREA.BUTTON_OK.T_TITLE"
+			"T_TITLE": "Ok"
 		},
 		"CUSTOM_LAT": {
-			"T_DEG": "#!#QUERY_AREA.CUSTOM_LAT.T_DEG",
-			"T_HELP": "#!#QUERY_AREA.CUSTOM_LAT.T_HELP",
-			"T_MIN": "#!#QUERY_AREA.CUSTOM_LAT.T_MIN",
-			"T_NUMERIC": "#!#QUERY_AREA.CUSTOM_LAT.T_NUMERIC",
-			"T_OR": "#!#QUERY_AREA.CUSTOM_LAT.T_OR",
-			"T_SEC": "#!#QUERY_AREA.CUSTOM_LAT.T_SEC",
-			"T_TITLE": "#!#QUERY_AREA.CUSTOM_LAT.T_TITLE"
+			"T_DEG": "degrees",
+			"T_HELP": "For instance : Strasbourg : 48°35'N or decimal : 48.583",
+			"T_MIN": "minutes",
+			"T_NUMERIC": "decimal",
+			"T_OR": "or",
+			"T_SEC": "seconds",
+			"T_TITLE": "Latitude"
 		},
 		"CUSTOM_LNG": {
-			"T_DEG": "#!#QUERY_AREA.CUSTOM_LNG.T_DEG",
-			"T_HELP": "#!#QUERY_AREA.CUSTOM_LNG.T_HELP",
-			"T_MIN": "#!#QUERY_AREA.CUSTOM_LNG.T_MIN",
-			"T_NUMERIC": "#!#QUERY_AREA.CUSTOM_LNG.T_NUMERIC",
-			"T_OR": "#!#QUERY_AREA.CUSTOM_LNG.T_OR",
-			"T_SEC": "#!#QUERY_AREA.CUSTOM_LNG.T_SEC",
-			"T_TITLE": "#!#QUERY_AREA.CUSTOM_LNG.T_TITLE"
+			"T_DEG": "degrees",
+			"T_HELP": "For instance : Strasbourg : 7°45'E or decimal : 7.750",
+			"T_MIN": "minutes",
+			"T_NUMERIC": "decimal",
+			"T_OR": "or",
+			"T_SEC": "seconds",
+			"T_TITLE": "Longitude"
 		},
 		"CUSTOM_RADIUS": {
-			"T_HELP": "#!#QUERY_AREA.CUSTOM_RADIUS.T_HELP",
-			"T_TITLE": "#!#QUERY_AREA.CUSTOM_RADIUS.T_TITLE"
+			"T_HELP": "Defined the radius (in km) from the center of the query",
+			"T_TITLE": "Distance"
 		},
 		"DIALOG": {
-			"T_CHOOSETOOL": "#!#QUERY_AREA.DIALOG.T_CHOOSETOOL",
-			"T_FOOTER_BOLD": "#!#QUERY_AREA.DIALOG.T_FOOTER_BOLD",
-			"T_FOOTER_TEXT1": "#!#QUERY_AREA.DIALOG.T_FOOTER_TEXT1",
-			"T_FOOTER_TEXT2": "#!#QUERY_AREA.DIALOG.T_FOOTER_TEXT2",
-			"T_INTRO": "#!#QUERY_AREA.DIALOG.T_INTRO",
-			"T_TITLE": "#!#QUERY_AREA.DIALOG.T_TITLE"
+			"T_CHOOSETOOL": "Selection tool",
+			"T_FOOTER_BOLD": "nota :",
+			"T_FOOTER_TEXT1": "Usually, the longitudes increase towards the East from an original meridian. This meridian can be the International Meridian of Greenwich or can be specific to a country's own geodesy (for instance, the Paris' meridian for France).",
+			"T_FOOTER_TEXT2": "Each original meridian is defined by its longitude in relation to the International Meridian of Greenwich. The Paris' meridian is at 2°20' 14.025\" East from Greenwich (Source : IGN). ArkeoGIS uses the Greenwich meridian as the original meridian.",
+			"T_INTRO": "Selection of the query area",
+			"T_TITLE": "Area"
 		},
 		"ERROR_CUSTOM_AREA": {
-			"T_MISSING_INFORMATIONS": "#!#QUERY_AREA.ERROR_CUSTOM_AREA.T_MISSING_INFORMATIONS"
+			"T_MISSING_INFORMATIONS": "Please, enter the latitude, the longitude and the radius."
 		},
 		"LABEL_LATITUDE": {
-			"T_SHORT": "#!#QUERY_AREA.LABEL_LATITUDE.T_SHORT"
+			"T_SHORT": "Lat (WGS 84)"
 		},
 		"LABEL_LONGITUDE": {
-			"T_SHORT": "#!#QUERY_AREA.LABEL_LONGITUDE.T_SHORT"
+			"T_SHORT": "Long (WGS 84)"
 		},
 		"LABEL_RADIUS": {
-			"T_SHORT": "#!#QUERY_AREA.LABEL_RADIUS.T_SHORT"
+			"T_SHORT": "Radius (km)"
 		},
 		"RADIOBUTTON": {
-			"T_ALLMAP": "#!#QUERY_AREA.RADIOBUTTON.T_ALLMAP",
-			"T_CUSTOM": "#!#QUERY_AREA.RADIOBUTTON.T_CUSTOM",
-			"T_DISC": "#!#QUERY_AREA.RADIOBUTTON.T_DISC",
-			"T_FREE": "#!#QUERY_AREA.RADIOBUTTON.T_FREE",
-			"T_RECT": "#!#QUERY_AREA.RADIOBUTTON.T_RECT"
+			"T_ALLMAP": "Map",
+			"T_CUSTOM": "Coordinates",
+			"T_DISC": "Disc",
+			"T_FREE": "Free",
+			"T_RECT": "Rectangle"
 		}
 	},
 	"QUERY_CHARAC": {
 		"BUTTON_OK": {
-			"T_TITLE": "#!#QUERY_CHARAC.BUTTON_OK.T_TITLE"
+			"T_TITLE": "Ok"
 		},
 		"DIALOG": {
-			"T_CHOOSETOOL": "#!#QUERY_CHARAC.DIALOG.T_CHOOSETOOL",
-			"T_FOOTER_BOLD": "#!#QUERY_CHARAC.DIALOG.T_FOOTER_BOLD",
-			"T_FOOTER_TEXT1": "#!#QUERY_CHARAC.DIALOG.T_FOOTER_TEXT1",
-			"T_FOOTER_TEXT2": "#!#QUERY_CHARAC.DIALOG.T_FOOTER_TEXT2",
-			"T_INTRO": "#!#QUERY_CHARAC.DIALOG.T_INTRO",
-			"T_TITLE": "#!#QUERY_CHARAC.DIALOG.T_TITLE"
+			"T_CHOOSETOOL": "A click on the titles will allow you to discover and examinate the sub-menus directly (\u003e).",
+			"T_FOOTER_BOLD": "The subsequent options of the box to check are :",
+			"T_FOOTER_TEXT1": "1 click : the characterisation MUST be present, 2 clicks : the characterisation MUST be absent, 3 clicks : the present characterisation MUST be exceptional, 4 clicks : reset",
+			"T_FOOTER_TEXT2": "",
+			"T_INTRO": "",
+			"T_TITLE": "Characterisations"
 		}
 	},
 	"QUERY_CHRONOLOGIES": {
 		"ADVANCED": {
-			"T_TITLE": "#!#QUERY_CHRONOLOGIES.ADVANCED.T_TITLE"
+			"T_TITLE": "Advanced selection :"
 		},
 		"BUTTON_OK": {
-			"T_TITLE": "#!#QUERY_CHRONOLOGIES.BUTTON_OK.T_TITLE"
+			"T_TITLE": "Ok"
 		},
 		"BUTTON_REMOVE": {
-			"T_TITLE": "#!#QUERY_CHRONOLOGIES.BUTTON_REMOVE.T_TITLE"
+			"T_TITLE": "Delete"
 		},
 		"DIALOG": {
-			"T_FOOTER_BOLD": "#!#QUERY_CHRONOLOGIES.DIALOG.T_FOOTER_BOLD",
-			"T_FOOTER_TEXT1": "#!#QUERY_CHRONOLOGIES.DIALOG.T_FOOTER_TEXT1",
-			"T_FOOTER_TEXT2": "#!#QUERY_CHRONOLOGIES.DIALOG.T_FOOTER_TEXT2",
-			"T_TITLE": "#!#QUERY_CHRONOLOGIES.DIALOG.T_TITLE"
+			"T_FOOTER_BOLD": "T_FOOTER_BOLD",
+			"T_FOOTER_TEXT1": "T_FOOTER_TEXT1",
+			"T_FOOTER_TEXT2": "T_FOOTER_TEXT2",
+			"T_TITLE": "Addition/Modification of a period filter"
 		},
 		"EXISTENCE_INSIDE_INCLUDE": {
-			"T_EXCLUDE": "#!#QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_INCLUDE.T_EXCLUDE",
-			"T_INCLUDE": "#!#QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_INCLUDE.T_INCLUDE",
-			"T_TITLE": "#!#QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_INCLUDE.T_TITLE"
+			"T_EXCLUDE": "Exclude",
+			"T_INCLUDE": "Include",
+			"T_TITLE": "The sites existing during this period are :"
 		},
 		"EXISTENCE_INSIDE_PART": {
-			"T_FULL": "#!#QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_PART.T_FULL",
-			"T_PARTLY": "#!#QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_PART.T_PARTLY",
-			"T_TITLE": "#!#QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_PART.T_TITLE"
+			"T_FULL": "Full",
+			"T_PARTLY": "Partial",
+			"T_TITLE": "The existence of the site during this period is :"
 		},
 		"EXISTENCE_INSIDE_SURENESS": {
-			"T_CERTAINLY": "#!#QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_SURENESS.T_CERTAINLY",
-			"T_POTENTIALLY": "#!#QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_SURENESS.T_POTENTIALLY",
-			"T_POTENTIALLY_ONLY": "#!#QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_SURENESS.T_POTENTIALLY_ONLY",
-			"T_TITLE": "#!#QUERY_CHRONOLOGIES.EXISTENCE_INSIDE_SURENESS.T_TITLE"
+			"T_CERTAINLY": "Certain (exclude the potential existences)",
+			"T_POTENTIALLY": "Potential or Certain (include the potential existences)",
+			"T_POTENTIALLY_ONLY": "Only Potential (potential existence)",
+			"T_TITLE": "And :"
 		},
 		"EXISTENCE_OUTSIDE_INCLUDE": {
-			"T_MUST": "#!#QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_INCLUDE.T_MUST",
-			"T_MUSTNOT": "#!#QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_INCLUDE.T_MUSTNOT",
-			"T_POSSIBLY": "#!#QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_INCLUDE.T_POSSIBLY",
-			"T_TITLE": "#!#QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_INCLUDE.T_TITLE"
+			"T_MUST": "Yes, the site MUST have existed also apart from this period",
+			"T_MUSTNOT": "No, the site must not have existed apart from this period",
+			"T_POSSIBLY": "Yes, the site can possibly have existed apart from this period",
+			"T_TITLE": "Could have the site also existed apart from this period ?"
 		},
 		"EXISTENCE_OUTSIDE_SURENESS": {
-			"T_CERTAINLY": "#!#QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_SURENESS.T_CERTAINLY",
-			"T_POTENTIALLY": "#!#QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_SURENESS.T_POTENTIALLY",
-			"T_POTENTIALLY_ONLY": "#!#QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_SURENESS.T_POTENTIALLY_ONLY",
-			"T_TITLE": "#!#QUERY_CHRONOLOGIES.EXISTENCE_OUTSIDE_SURENESS.T_TITLE"
+			"T_CERTAINLY": "Certainly (exclude the unknown)",
+			"T_POTENTIALLY": "Potentially or Certainly (include the unknown)",
+			"T_POTENTIALLY_ONLY": "Only Potentially (unknown)",
+			"T_TITLE": "And :"
 		},
 		"INPUT_ELEM_BEGIN": {
-			"T_TITLE": "#!#QUERY_CHRONOLOGIES.INPUT_ELEM_BEGIN.T_TITLE"
+			"T_TITLE": "Starting year :"
 		},
 		"INPUT_ELEM_END": {
-			"T_TITLE": "#!#QUERY_CHRONOLOGIES.INPUT_ELEM_END.T_TITLE"
+			"T_TITLE": "Ending year :"
 		},
 		"PERIOD": {
-			"T_ERROR_INCORRECT": "#!#QUERY_CHRONOLOGIES.PERIOD.T_ERROR_INCORRECT"
+			"T_ERROR_INCORRECT": "Your choice of period is not correct."
 		},
 		"SENTENSE": {
-			"T_ALL": "EXISTENCE_INSIDE_INCLUDE sites that have EXISTENCE_INSIDE_SURENESS an existence EXISTENCE_INSIDE_PART during the period PERIOD. Theses sites EXISTENCE_OUTSIDE_INCLUDE EXISTENCE_OUTSIDE_SURENESS been exists outside of this period."
+			"T_ALL": "EXISTENCE_INSIDE_INCLUDE the sites that have EXISTENCE_INSIDE_SURENESS an existence EXISTENCE_INSIDE_PART during the period PERIOD. Theses sites EXISTENCE_OUTSIDE_INCLUDE EXISTENCE_OUTSIDE_SURENESS have existed outside of this period."
 		},
 		"SENTENSE_EXISTENCE_INSIDE_INCLUDE": {
 			"T_EXCLUDE": "Exclude",
@@ -1189,7 +1189,7 @@
 		"SENTENSE_EXISTENCE_OUTSIDE_INCLUDE": {
 			"T_MUST": "must",
 			"T_MUSTNOT": "must not",
-			"T_POSSIBLY": "possibly"
+			"T_POSSIBLY": "could"
 		},
 		"SENTENSE_EXISTENCE_OUTSIDE_SURENESS": {
 			"T_CERTAINLY": "certainly",
@@ -1199,29 +1199,29 @@
 	},
 	"QUERY_DATABASES": {
 		"BUTTON_OK": {
-			"T_TITLE": "#!#QUERY_DATABASES.BUTTON_OK.T_TITLE"
+			"T_TITLE": "Ok"
 		},
 		"DIALOG": {
-			"T_INTRO": "#!#QUERY_DATABASES.DIALOG.T_INTRO",
-			"T_TITLE": "#!#QUERY_DATABASES.DIALOG.T_TITLE"
+			"T_INTRO": "Please, select the databases you want to query",
+			"T_TITLE": "Databases"
 		},
 		"LIST_AUTHOR": {
-			"T_LABEL": "#!#QUERY_DATABASES.LIST_AUTHOR.T_LABEL"
+			"T_LABEL": "Author(s)"
 		},
 		"LIST_DESCRIPTION": {
-			"T_LABEL": "#!#QUERY_DATABASES.LIST_DESCRIPTION.T_LABEL"
+			"T_LABEL": "Description"
 		},
 		"LIST_END_DATE": {
-			"T_LABEL": "#!#QUERY_DATABASES.LIST_END_DATE.T_LABEL"
+			"T_LABEL": "End"
 		},
 		"LIST_LANG": {
-			"T_LABEL": "#!#QUERY_DATABASES.LIST_LANG.T_LABEL"
+			"T_LABEL": "Languages"
 		},
 		"LIST_NAME": {
-			"T_LABEL": "#!#QUERY_DATABASES.LIST_NAME.T_LABEL"
+			"T_LABEL": "Name"
 		},
 		"LIST_START_DATE": {
-			"T_LABEL": "#!#QUERY_DATABASES.LIST_START_DATE.T_LABEL"
+			"T_LABEL": "Start"
 		},
 		"LIST_TYPE": {
 			"T_LABEL": "#!#QUERY_DATABASES.LIST_TYPE.T_LABEL"
@@ -1232,78 +1232,78 @@
 	},
 	"QUERY_OTHERS": {
 		"BUTTON_DRAW": {
-			"T_TITLE": "#!#QUERY_OTHERS.BUTTON_DRAW.T_TITLE"
+			"T_TITLE": "T_TITLE"
 		},
 		"BUTTON_OK": {
-			"T_TITLE": "#!#QUERY_OTHERS.BUTTON_OK.T_TITLE"
+			"T_TITLE": "Ok"
 		},
 		"CENTROID": {
-			"T_ALL": "#!#QUERY_OTHERS.CENTROID.T_ALL",
-			"T_ONLY_WITHOUD_CENTROID": "#!#QUERY_OTHERS.CENTROID.T_ONLY_WITHOUD_CENTROID",
-			"T_ONLY_WITH_CENTROID": "#!#QUERY_OTHERS.CENTROID.T_ONLY_WITH_CENTROID",
-			"T_TITLE": "#!#QUERY_OTHERS.CENTROID.T_TITLE"
+			"T_ALL": "All",
+			"T_ONLY_WITHOUD_CENTROID": "Only without centroids",
+			"T_ONLY_WITH_CENTROID": "Only with centroids",
+			"T_TITLE": "Sites localised by a centroid :"
 		},
 		"CHARACS": {
-			"T_TITLE": "#!#QUERY_OTHERS.CHARACS.T_TITLE"
+			"T_TITLE": "Characterisations :"
 		},
 		"CHARACS_LINKED": {
-			"T_ALL": "#!#QUERY_OTHERS.CHARACS_LINKED.T_ALL",
-			"T_AT_LEAST_ONE": "#!#QUERY_OTHERS.CHARACS_LINKED.T_AT_LEAST_ONE",
-			"T_TITLE": "#!#QUERY_OTHERS.CHARACS_LINKED.T_TITLE"
+			"T_ALL": "All",
+			"T_AT_LEAST_ONE": "At least one",
+			"T_TITLE": "The logical link used between the characterisations' categories (real-estate/furniture/landscape/production) is :"
 		},
 		"DIALOG": {
-			"T_INTRO": "#!#QUERY_OTHERS.DIALOG.T_INTRO",
-			"T_TITLE": "#!#QUERY_OTHERS.DIALOG.T_TITLE"
+			"T_INTRO": "T_INTRO",
+			"T_TITLE": "Details"
 		},
 		"KNOWLEDGE": {
-			"T_DIG": "#!#QUERY_OTHERS.KNOWLEDGE.T_DIG",
-			"T_LITERATURE": "#!#QUERY_OTHERS.KNOWLEDGE.T_LITERATURE",
-			"T_NOTDOCUMENTED": "#!#QUERY_OTHERS.KNOWLEDGE.T_NOTDOCUMENTED",
-			"T_PROSPECTED_AERIAL": "#!#QUERY_OTHERS.KNOWLEDGE.T_PROSPECTED_AERIAL",
-			"T_PROSPECTED_PEDESTRIAN": "#!#QUERY_OTHERS.KNOWLEDGE.T_PROSPECTED_PEDESTRIAN",
-			"T_SURVEYED": "#!#QUERY_OTHERS.KNOWLEDGE.T_SURVEYED"
+			"T_DIG": "Excavated",
+			"T_LITERATURE": "Literature",
+			"T_NOTDOCUMENTED": "Not documented",
+			"T_PROSPECTED_AERIAL": "Airborne survey",
+			"T_PROSPECTED_PEDESTRIAN": "Foot survey",
+			"T_SURVEYED": "Probed"
 		},
 		"OCCUPATION": {
-			"T_CONTINUOUS": "#!#QUERY_OTHERS.OCCUPATION.T_CONTINUOUS",
-			"T_MULTIPLE": "#!#QUERY_OTHERS.OCCUPATION.T_MULTIPLE",
-			"T_NOTDOCUMENTED": "#!#QUERY_OTHERS.OCCUPATION.T_NOTDOCUMENTED",
-			"T_SINGLE": "#!#QUERY_OTHERS.OCCUPATION.T_SINGLE"
+			"T_CONTINUOUS": "Continuous",
+			"T_MULTIPLE": "Multiple",
+			"T_NOTDOCUMENTED": "Not documented",
+			"T_SINGLE": "Single"
 		},
 		"PRECISIONS": {
-			"T_INTRO": "#!#QUERY_OTHERS.PRECISIONS.T_INTRO",
-			"T_TITLE": "#!#QUERY_OTHERS.PRECISIONS.T_TITLE"
+			"T_INTRO": "If no choice is made about the following precisions, all the possibilities will be selected in the query.",
+			"T_TITLE": "Precisions about the sites you want to include in your query :"
 		},
 		"PRECISIONS_KNOWLEDGES": {
-			"T_TITLE": "#!#QUERY_OTHERS.PRECISIONS_KNOWLEDGES.T_TITLE"
+			"T_TITLE": "Sites whose state of knowledge is (multiple choices possible) :"
 		},
 		"PRECISIONS_OCCUPATION": {
-			"T_TITLE": "#!#QUERY_OTHERS.PRECISIONS_OCCUPATION.T_TITLE"
+			"T_TITLE": "Sites whose occupation is (multiple choices possible) :"
 		},
 		"TEXTSEARCH": {
-			"T_INTRO": "#!#QUERY_OTHERS.TEXTSEARCH.T_INTRO",
-			"T_TITLE": "#!#QUERY_OTHERS.TEXTSEARCH.T_TITLE"
+			"T_INTRO": "The query can include the following signs : \"%\" (which replaces anything) et \"_\" (which replaces only one character by anything). The query can concern the fields : Site's name, City, Comments and Bibliography for every site's sheet of the selected databases.",
+			"T_TITLE": "Text search"
 		},
 		"TEXTSEARCH_INPUT": {
-			"T_BIBLIOGRAPHY": "#!#QUERY_OTHERS.TEXTSEARCH_INPUT.T_BIBLIOGRAPHY",
-			"T_CITY_NAME": "#!#QUERY_OTHERS.TEXTSEARCH_INPUT.T_CITY_NAME",
-			"T_COMMENT": "#!#QUERY_OTHERS.TEXTSEARCH_INPUT.T_COMMENT",
-			"T_SITE_NAME": "#!#QUERY_OTHERS.TEXTSEARCH_INPUT.T_SITE_NAME",
-			"T_TITLE": "#!#QUERY_OTHERS.TEXTSEARCH_INPUT.T_TITLE"
+			"T_BIBLIOGRAPHY": "Bibliography",
+			"T_CITY_NAME": "City",
+			"T_COMMENT": "Comments",
+			"T_SITE_NAME": "Site's name",
+			"T_TITLE": "Search"
 		}
 	},
 	"QUERY_SAVE": {
 		"BUTTON_CANCEL": {
-			"T_TITLE": "#!#QUERY_SAVE.BUTTON_CANCEL.T_TITLE"
+			"T_TITLE": "Cancel"
 		},
 		"BUTTON_OK": {
-			"T_TITLE": "#!#QUERY_SAVE.BUTTON_OK.T_TITLE"
+			"T_TITLE": "Ok"
 		},
 		"DIALOG": {
-			"T_INTRO": "#!#QUERY_SAVE.DIALOG.T_INTRO",
-			"T_TITLE": "#!#QUERY_SAVE.DIALOG.T_TITLE"
+			"T_INTRO": "Please, choose a name in order to archive this query :",
+			"T_TITLE": "Saving..."
 		},
 		"INPUT_QUERYNAME": {
-			"T_TITLE": "#!#QUERY_SAVE.INPUT_QUERYNAME.T_TITLE"
+			"T_TITLE": "Name of the archived query :"
 		}
 	},
 	"SELECT_SHP_WMS_WMTS": {
@@ -1314,47 +1314,53 @@
 	},
 	"SITE_DETAILS": {
 		"CHARAC_BIBLIOGRAPHY": {
-			"T_LABEL": "#!#SITE_DETAILS.CHARAC_BIBLIOGRAPHY.T_LABEL"
+			"T_LABEL": "Bibliography"
 		},
 		"CHARAC_COMMENT": {
-			"T_LABEL": "#!#SITE_DETAILS.CHARAC_COMMENT.T_LABEL"
+			"T_LABEL": "Comments"
 		},
 		"CHARAC_EXCEPTIONAL": {
-			"T_LABEL": "#!#SITE_DETAILS.CHARAC_EXCEPTIONAL.T_LABEL",
-			"T_YES": "#!#SITE_DETAILS.CHARAC_EXCEPTIONAL.T_YES"
+			"T_LABEL": "Exceptional",
+			"T_YES": "Yes"
 		},
 		"CHARAC_KNOWLEGDE_TYPE": {
-			"T_LABEL": "#!#SITE_DETAILS.CHARAC_KNOWLEGDE_TYPE.T_LABEL"
+			"T_LABEL": "State of knowledge"
 		},
 		"FIELD_ACCURACY": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_ACCURACY.T_LABEL"
+			"T_LABEL": "Coordinates' accuracy"
 		},
 		"FIELD_ACCURACY_CENTROID": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_ACCURACY_CENTROID.T_LABEL"
+			"T_LABEL": "Centroid"
 		},
 		"FIELD_ACCURACY_FINE": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_ACCURACY_FINE.T_LABEL"
+			"T_LABEL": "Accurate"
 		},
 		"FIELD_ALTITUDE": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_ALTITUDE.T_LABEL"
+			"T_LABEL": "Height"
 		},
 		"FIELD_AUTHORS": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_AUTHORS.T_LABEL"
+			"T_LABEL": "Authors"
 		},
 		"FIELD_CITY_NAME": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_CITY_NAME.T_LABEL"
+			"T_LABEL": "City name"
 		},
 		"FIELD_CREATION_DATE": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_CREATION_DATE.T_LABEL"
+			"T_LABEL": "Creation's date"
 		},
 		"FIELD_DATABASE": {
-			"T_LABEL_SHORT": "#!#SITE_DETAILS.FIELD_DATABASE.T_LABEL_SHORT"
+			"T_LABEL_SHORT": "DB"
 		},
 		"FIELD_ENDING_PERIOD": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_ENDING_PERIOD.T_LABEL"
+			"T_LABEL": "Ending period"
 		},
 		"FIELD_EXCEPTIONAL": {
-			"T_EXCEPTIONAL_SITE": "#!#SITE_DETAILS.FIELD_EXCEPTIONAL.T_EXCEPTIONAL_SITE"
+			"T_EXCEPTIONAL_SITE": "Exceptional site"
+		},
+		"FIELD_LATITUDE": {
+			"T_LABEL": "Latitude"
+		},
+		"FIELD_LONGITUDE": {
+			"T_LABEL": "Longitude"
 		},
 		"FIELD_LATITUDE": {
 			"T_LABEL": "#!#SITE_DETAILS.FIELD_LATITUDE.T_LABEL"
@@ -1363,28 +1369,28 @@
 			"T_LABEL": "#!#SITE_DETAILS.FIELD_LONGITUDE.T_LABEL"
 		},
 		"FIELD_OCCUPATION": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_OCCUPATION.T_LABEL"
+			"T_LABEL": "Occupation"
 		},
 		"FIELD_QUERY": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_QUERY.T_LABEL"
+			"T_LABEL": "Query"
 		},
 		"FIELD_STARTING_PERIOD": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_STARTING_PERIOD.T_LABEL"
+			"T_LABEL": "Starting period"
 		},
 		"INTERFACE_HIDE_DESCRIPTIONS_AND_LABELS": {
-			"T_LABEL": "#!#SITE_DETAILS.INTERFACE_HIDE_DESCRIPTIONS_AND_LABELS.T_LABEL"
+			"T_LABEL": "Hide the comments and the bibliography"
 		},
 		"INTERFACE_SHOW_DESCRIPTIONS_AND_LABELS": {
-			"T_LABEL": "#!#SITE_DETAILS.INTERFACE_SHOW_DESCRIPTIONS_AND_LABELS.T_LABEL"
+			"T_LABEL": "Show the comments and the bibliography"
 		},
 		"SITE_RANGE_ENDING_PERIOD": {
-			"T_LABEL": "#!#SITE_DETAILS.SITE_RANGE_ENDING_PERIOD.T_LABEL"
+			"T_LABEL": "Ending period"
 		},
 		"SITE_RANGE_STARTING_PERIOD": {
-			"T_LABEL": "#!#SITE_DETAILS.SITE_RANGE_STARTING_PERIOD.T_LABEL"
+			"T_LABEL": "Starting period"
 		},
 		"SITE_RANGE_TO": {
-			"T_LABEL": "#!#SITE_DETAILS.SITE_RANGE_TO.T_LABEL"
+			"T_LABEL": "to"
 		}
 	},
 	"USER": {
@@ -1404,12 +1410,13 @@
 			"T_TITLE": "Active"
 		},
 		"FIELD_CARACSGROUP": {
-			"T_TITLE": "Caracterisation Groups"
+			"T_TITLE": "Characterisation Groups"
 		},
 		"FIELD_CHRONOGROUP": {
-			"T_TITLE": "Chrono Groups"
+			"T_TITLE": "Chronology Groups"
 		},
 		"FIELD_CITY": {
+			"T_CHECK_MANDATORY": "The field \"city\" is compulsory.",
 			"T_CHECK_NOMATCH": "No match...",
 			"T_TITLE": "City"
 		},
@@ -1448,6 +1455,7 @@
 			"T_TITLE": "Databases"
 		},
 		"FIELD_DESCRIPTION": {
+			"T_CHECK_MANDATORY": "The field \"description\" is compulsory.",
 			"T_TITLE": "Description"
 		},
 		"FIELD_EMAIL": {
@@ -1471,8 +1479,8 @@
 			"T_TITLE": "Lastname"
 		},
 		"FIELD_PASSWORD": {
-			"T_CHECK_LENGTH": "#!#USER.FIELD_PASSWORD.T_CHECK_LENGTH",
-			"T_CHECK_NOTSAME": "The two passwords must be the same",
+			"T_CHECK_INCORRECT": "Wrong password.",
+			"T_CHECK_NOTSAME": "The two passwords must be the same.",
 			"T_TITLE": "Password"
 		},
 		"FIELD_PASSWORD2": {
@@ -1483,6 +1491,7 @@
 		},
 		"FIELD_USERNAME": {
 			"T_CHECK_ALREADYEXISTS": "This user already exists",
+			"T_CHECK_INCORRECT": "Wrong username.",
 			"T_CHECK_MANDATORY": "This field is mandatory",
 			"T_TITLE": "Username"
 		},
@@ -1509,7 +1518,7 @@
 			"T_EMAIL": "Email",
 			"T_GROUPS": "Groups",
 			"T_GROUPS_CARACS": "Caracterisation Groups",
-			"T_GROUPS_CHRONO": "Chrono Groups",
+			"T_GROUPS_CHRONO": "Chronology Groups",
 			"T_NAME": "Name",
 			"T_PHOTO": "Photo",
 			"T_SEARCH": "Search",
@@ -1517,7 +1526,7 @@
 			"T_USERNAME": "Username"
 		},
 		"HEADER_USERS_DIRECTORY": {
-			"T_TITLE": "#!#USER.HEADER_USERS_DIRECTORY.T_TITLE"
+			"T_TITLE": "Directory"
 		},
 		"USERSLIST_ACTIVE": {
 			"T_FALSE": "no",
