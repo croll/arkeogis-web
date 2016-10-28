@@ -14,7 +14,7 @@
 			"T_TITLE": "Télécharger le CSV"
 		},
 		"BUTTON_GOTOLIST": {
-			"T_TITLE": "#!#CHARACEDITOR.BUTTON_GOTOLIST.T_TITLE"
+			"T_TITLE": "Retour à la liste"
 		},
 		"BUTTON_SAVE": {
 			"T_TITLE": "Enregistrer"
@@ -91,7 +91,7 @@
 			"T_TITLE": "Télécharger le CSV"
 		},
 		"BUTTON_GOTOLIST": {
-			"T_TITLE": "#!#CHRONODITOR.BUTTON_GOTOLIST.T_TITLE"
+			"T_TITLE": "Retour à la liste"
 		},
 		"BUTTON_SAVE": {
 			"T_TITLE": "Enregistrer"
