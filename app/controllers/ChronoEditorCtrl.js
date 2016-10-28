@@ -272,8 +272,8 @@
 		$scope.add_arbo = function(elem, parent, idx1, idx, level) {
 			elem.content.push({
 				name: {},
-				start_date: -1,
-				end_date: +1,
+				start_date: parent.start_date,
+				end_date: parent.end_date,
 				//color: buildcolor(idx1, level+1),
 				content: [],
 			});
