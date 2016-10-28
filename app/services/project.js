@@ -133,6 +133,15 @@
 
                         // make a string of authors array of objects
                         db.author = Array.isArray(db.authors) ? db.authors.map(function(elem){ return elem.fullname }).join(",") : '';
+
+                        // translate type
+                        db.type_tr = 'MAP.MENU_DATABASE.T_UNDEFINED';
+                        switch(db.type) {
+                            case 'inventory': db.type_tr = 'MAP.MENU_DATABASE.T_INVENTORY'; break;
+                            case 'research': db.type_tr = 'MAP.MENU_DATABASE.T_RESEARCH'; break;
+                            case 'literary-work': db.type_tr = 'MAP.MENU_DATABASE.T_LITERARYWORK'; break;
+                        }
+
                     });
                 }));
             });
