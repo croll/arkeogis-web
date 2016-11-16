@@ -26,18 +26,14 @@
                 <th md-column md-order-by="description">
                     <span translate>PROJECT_EDITOR.LIST_DESCRIPTION.T_LABEL</span>
                 </th>
-                <th md-column md-order-by="author">
-                    <span translate>PROJECT_EDITOR.LIST_AUTHOR.T_LABEL</span>
-                </th>
-                <th>hiddens</th>
-                <th></th>
+                <th md-column><span translate>PROJECT_EDITOR.LIST_NUMBER_OF_CUSTOMIZED_CHARACS</span></th>
+                <th md-column><span translate>PROJECT_EDITOR.LIST_CUSTOMIZE</span></th>
             </tr>
         </thead>
         <tbody md-body>
             <tr md-row md-select="item" md-select-id="id" ng-click="toggleItem(item, 'characs')" ng-repeat="item in characs| filter:query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
                 <td md-cell ark-get-translation ark-translations="item.name"></td>
                 <td md-cell ark-get-translation ark-translations="item.description"></td>
-                <td md-cell>{{item.author.firstname}} {{item.author.lastname}}</td>
                 <td md-cell>{{item.hiddens_count}}</td>
                 <td md-cell>
                     <md-button ng-click="showCharacChooserDialog(item.id, project.id);$event.stopPropagation();" ng-show="checkCharac(item.id)">
