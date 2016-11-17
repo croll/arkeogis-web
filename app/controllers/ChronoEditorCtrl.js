@@ -419,6 +419,13 @@
 			});
 		}
 
+		$scope.download_csv = function() {
+			var downloadLink = angular.element('<a></a>');
+                        downloadLink.attr('href', '/api/chronologies/csv?id='+$scope.arbo.id+'&isocode='+arkeoLang.getTranslationLang()+'&dl=1');
+                        downloadLink.attr('download', $scope.arbo.name_cur+'.csv');
+			downloadLink[0].click();
+		}
+
 
 		function init() {
 			$scope.load();
