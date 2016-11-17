@@ -96,6 +96,23 @@
 		"BUTTON_SAVE": {
 			"T_TITLE": "Save"
 		},
+		"CSVEXPORT": {
+			"T_CREDITS": "#!#CHRONODITOR.CSVEXPORT.T_CREDITS",
+			"T_DESCRIPTION": "#!#CHRONODITOR.CSVEXPORT.T_DESCRIPTION",
+			"T_NAME": "#!#CHRONODITOR.CSVEXPORT.T_NAME",
+			"T_PERIOD_END_L1": "#!#CHRONODITOR.CSVEXPORT.T_PERIOD_END_L1",
+			"T_PERIOD_END_L2": "#!#CHRONODITOR.CSVEXPORT.T_PERIOD_END_L2",
+			"T_PERIOD_END_L3": "#!#CHRONODITOR.CSVEXPORT.T_PERIOD_END_L3",
+			"T_PERIOD_END_L4": "#!#CHRONODITOR.CSVEXPORT.T_PERIOD_END_L4",
+			"T_PERIOD_NAME_L1": "#!#CHRONODITOR.CSVEXPORT.T_PERIOD_NAME_L1",
+			"T_PERIOD_NAME_L2": "#!#CHRONODITOR.CSVEXPORT.T_PERIOD_NAME_L2",
+			"T_PERIOD_NAME_L3": "#!#CHRONODITOR.CSVEXPORT.T_PERIOD_NAME_L3",
+			"T_PERIOD_NAME_L4": "#!#CHRONODITOR.CSVEXPORT.T_PERIOD_NAME_L4",
+			"T_PERIOD_START_L1": "#!#CHRONODITOR.CSVEXPORT.T_PERIOD_START_L1",
+			"T_PERIOD_START_L2": "#!#CHRONODITOR.CSVEXPORT.T_PERIOD_START_L2",
+			"T_PERIOD_START_L3": "#!#CHRONODITOR.CSVEXPORT.T_PERIOD_START_L3",
+			"T_PERIOD_START_L4": "#!#CHRONODITOR.CSVEXPORT.T_PERIOD_START_L4"
+		},
 		"HEADER_CHRONODITOR": {
 			"T_TITLE": "Chronology editor"
 		},
@@ -1410,7 +1427,6 @@
 			"T_TITLE": "Chronology Groups"
 		},
 		"FIELD_CITY": {
-			"T_CHECK_MANDATORY": "The field \"city\" is compulsory.",
 			"T_CHECK_NOMATCH": "No match...",
 			"T_TITLE": "City"
 		},
@@ -1449,7 +1465,6 @@
 			"T_TITLE": "Databases"
 		},
 		"FIELD_DESCRIPTION": {
-			"T_CHECK_MANDATORY": "The field \"description\" is compulsory.",
 			"T_TITLE": "Description"
 		},
 		"FIELD_EMAIL": {
@@ -1473,7 +1488,7 @@
 			"T_TITLE": "Lastname"
 		},
 		"FIELD_PASSWORD": {
-			"T_CHECK_INCORRECT": "Wrong password.",
+			"T_CHECK_LENGTH": "#!#USER.FIELD_PASSWORD.T_CHECK_LENGTH",
 			"T_CHECK_NOTSAME": "The two passwords must be the same.",
 			"T_TITLE": "Password"
 		},
@@ -1485,7 +1500,6 @@
 		},
 		"FIELD_USERNAME": {
 			"T_CHECK_ALREADYEXISTS": "This user already exists",
-			"T_CHECK_INCORRECT": "Wrong username.",
 			"T_CHECK_MANDATORY": "This field is mandatory",
 			"T_TITLE": "Username"
 		},
