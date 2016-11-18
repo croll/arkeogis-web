@@ -1014,7 +1014,7 @@
 			"T_TITLE": "Relation between the characterisations :"
 		},
 		"CHRONOLOGIES": {
-			"T_BUTTON_ADD": "#!#QUERY.CHRONOLOGIES.T_BUTTON_ADD",
+			"T_BUTTON_ADD": "Add a period",
 			"T_TITLE": "Period :"
 		},
 		"DATABASES": {
@@ -1224,10 +1224,10 @@
 			"T_LABEL": "Start"
 		},
 		"LIST_TYPE": {
-			"T_LABEL": "#!#QUERY_DATABASES.LIST_TYPE.T_LABEL"
+			"T_LABEL": "Type"
 		},
 		"LIST_UPDATED_AT": {
-			"T_LABEL": "#!#QUERY_DATABASES.LIST_UPDATED_AT.T_LABEL"
+			"T_LABEL": "Last update"
 		}
 	},
 	"QUERY_OTHERS": {
@@ -1336,10 +1336,10 @@
 			"T_LABEL": "Accurate"
 		},
 		"FIELD_ALTITUDE": {
-			"T_LABEL": "Height"
+			"T_LABEL": "Altitude"
 		},
 		"FIELD_AUTHORS": {
-			"T_LABEL": "Authors"
+			"T_LABEL": "Author(s)"
 		},
 		"FIELD_CITY_NAME": {
 			"T_LABEL": "City name"
@@ -1357,10 +1357,10 @@
 			"T_EXCEPTIONAL_SITE": "Exceptional site"
 		},
 		"FIELD_LATITUDE": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_LATITUDE.T_LABEL"
+			"T_LABEL": "Latitude"
 		},
 		"FIELD_LONGITUDE": {
-			"T_LABEL": "#!#SITE_DETAILS.FIELD_LONGITUDE.T_LABEL"
+			"T_LABEL": "Longitude"
 		},
 		"FIELD_OCCUPATION": {
 			"T_LABEL": "Occupation"
