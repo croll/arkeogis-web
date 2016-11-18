@@ -562,21 +562,3 @@
 	}]); // controller ChronoEditorMapCtrl
 
 })(); // all
-
-/* help translates from go
-		translate.T(params.Isocode, "CHRONODITOR.CSVEXPORT.T_PERIOD_NAME_L1"),
-		translate.T(params.Isocode, "CHRONODITOR.CSVEXPORT.T_PERIOD_START_L1"),
-		translate.T(params.Isocode, "CHRONODITOR.CSVEXPORT.T_PERIOD_END_L1"),
-		translate.T(params.Isocode, "CHRONODITOR.CSVEXPORT.T_PERIOD_NAME_L2"),
-		translate.T(params.Isocode, "CHRONODITOR.CSVEXPORT.T_PERIOD_START_L2"),
-		translate.T(params.Isocode, "CHRONODITOR.CSVEXPORT.T_PERIOD_END_L2"),
-		translate.T(params.Isocode, "CHRONODITOR.CSVEXPORT.T_PERIOD_NAME_L3"),
-		translate.T(params.Isocode, "CHRONODITOR.CSVEXPORT.T_PERIOD_START_L3"),
-		translate.T(params.Isocode, "CHRONODITOR.CSVEXPORT.T_PERIOD_END_L3"),
-		translate.T(params.Isocode, "CHRONODITOR.CSVEXPORT.T_PERIOD_NAME_L4"),
-		translate.T(params.Isocode, "CHRONODITOR.CSVEXPORT.T_PERIOD_START_L4"),
-		translate.T(params.Isocode, "CHRONODITOR.CSVEXPORT.T_PERIOD_END_L4"),
-		translate.T(params.Isocode, "CHRONODITOR.CSVEXPORT.T_NAME") + ": " + answer.Name[params.Isocode],
-		translate.T(params.Isocode, "CHRONODITOR.CSVEXPORT.T_DESCRIPTION") + ": " + answer.Description[params.Isocode],
-		translate.T(params.Isocode, "CHRONODITOR.CSVEXPORT.T_CREDITS"),
-*/
