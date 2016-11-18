@@ -96,23 +96,6 @@
 		"BUTTON_SAVE": {
 			"T_TITLE": "Enregistrer"
 		},
-		"CSVEXPORT": {
-			"T_CREDITS": "Credits: ArkeoGIS 2016",
-			"T_DESCRIPTION": "Description",
-			"T_NAME": "Nom",
-			"T_PERIOD_END_L1": "Fin niveau 1",
-			"T_PERIOD_END_L2": "Fin niveau 2",
-			"T_PERIOD_END_L3": "Fin niveau 3",
-			"T_PERIOD_END_L4": "Fin niveau 4",
-			"T_PERIOD_NAME_L1": "Nom de la période Niveau 1",
-			"T_PERIOD_NAME_L2": "Nom de la période Niveau 2",
-			"T_PERIOD_NAME_L3": "Nom de la période Niveau 3",
-			"T_PERIOD_NAME_L4": "Nom de la période Niveau 4",
-			"T_PERIOD_START_L1": "Début niveau 1",
-			"T_PERIOD_START_L2": "Début niveau 2",
-			"T_PERIOD_START_L3": "Début niveau 3",
-			"T_PERIOD_START_L4": "Début niveau 4"
-		},
 		"HEADER_CHRONODITOR": {
 			"T_TITLE": "Éditeur de chronologie"
 		},
