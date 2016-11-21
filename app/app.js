@@ -282,7 +282,7 @@
                             if (!$stateParams.id) {
                                 deferred.resolve();
                             } else {
-                                layerService.getLayer(parseInt($stateParams.id), $stateParams.type).then(function(layer) {
+                                layerService.getLayer(parseInt($stateParams.id), $stateParams.type, true).then(function(layer) {
                                     deferred.resolve(layer);
                                 }, function(err) {
                                     deferred.reject(err);

@@ -32,7 +32,14 @@
                 fullname: login.user.firstname + ' ' + login.user.lastname,
                 id: login.user.id
             }],
-            translations: {}
+            translations: {
+              name: {
+                en: ''
+              },
+              description: {
+                en: ''
+              }
+            }
         }
 
         if (angular.isDefined(layer)) {
