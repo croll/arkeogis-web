@@ -270,6 +270,12 @@
 		}
 
 		$scope.add_arbo = function(elem, parent, idx1, idx, level) {
+			if (!parent) {
+				parent={
+					start_date: 0,
+					end_date: 1,
+				}
+			}
 			elem.content.push({
 				name: {},
 				start_date: parent.start_date,
