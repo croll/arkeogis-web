@@ -69,7 +69,7 @@
         };
 
         this.getLayer = function(id, type) {
-            d = $q.defer();
+            var d = $q.defer();
             $http({
                 url: '/api/layer',
                 method: 'GET',
