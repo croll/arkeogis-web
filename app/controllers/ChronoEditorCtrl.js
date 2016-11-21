@@ -270,6 +270,12 @@
 		}
 
 		$scope.add_arbo = function(elem, parent, idx1, idx, level) {
+			if (!parent) {
+				parent={
+					start_date: 0,
+					end_date: 1,
+				}
+			}
 			elem.content.push({
 				name: {},
 				start_date: parent.start_date,
@@ -515,9 +521,9 @@
 				 	curlayer = e.layer;
 				 	drawnItems.addLayer(curlayer);
 				 	curlayer.editing.enable();
-					console.log("curlayer", curlayer);
+					//console.log("curlayer", curlayer);
 
-				 	console.log(JSON.stringify(curlayer.toGeoJSON()));
+				 	//console.log(JSON.stringify(curlayer.toGeoJSON()));
   		 		 	$rootScope.$broadcast('EmpriseMapChoosen', curlayer.toGeoJSON());
 				 	//$rootScope.$broadcast('EmpriseMapClose');
 			   });
@@ -525,7 +531,7 @@
 			   map.on('draw:edited', function (e) {
 				 	var layer = e.layer;
 
-				 	console.log(JSON.stringify(layer.toGeoJSON()));
+				 	//console.log(JSON.stringify(layer.toGeoJSON()));
   		 		 	$rootScope.$broadcast('EmpriseMapChoosen', layer.toGeoJSON());
 				 	//$rootScope.$broadcast('EmpriseMapClose');
 			   });
@@ -544,18 +550,16 @@
  				   }
 
 				   geom = angular.fromJson(geom);
-				   console.log("a...", geom);
 			   		curlayer = L.geoJson(geom).addTo(drawnItems);
-					console.log("curlayer", curlayer);
 					//curlayer.editing.enable();
-					console.log("b...", geom);
 
 				});
 			});
 		});
 
 		$scope.close = function() {
-			$rootScope.$broadcast('EmpriseMapChoosen', curlayer.toGeoJSON());
+			if (curlayer)
+				$rootScope.$broadcast('EmpriseMapChoosen', curlayer.toGeoJSON());
 			$rootScope.$broadcast('EmpriseMapClose');
 		};
 

@@ -190,6 +190,7 @@
                 },
                 overlays: {}
             },
+/* remove it from there, it is not anymore used, and make chronoditor area chooser hide it's controls
             controls: {
                 scale: {
                     imperial: false,
@@ -198,7 +199,7 @@
                 fullscreen: {
                     position: 'topright'
                 }
-            },
+            },*/
             layercontrol: {
                 icons: {
                     uncheck: "fa fa-toggle-off",

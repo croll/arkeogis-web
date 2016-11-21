@@ -78,6 +78,12 @@
             $httpProvider.interceptors.push(['$q', '$location', '$cookies', function($q, $location, $cookies) {
                 return {
                     'request': function(config) {
+
+                        // do not add Authorization token header on external urls
+                        if (config.url.startsWith("http://") || config.url.startsWith("https://")) {
+                            return config;
+                        }
+
                         config.headers = config.headers || {};
                         var token = $cookies.get('arkeogis_session_token');
                         if (token) {
@@ -86,6 +92,10 @@
                         return config;
                     },
                     'responseError': function(response) {
+                        // do not go to login path if this is an external url
+                        if (response.config.url.startsWith("http://") || response.config.url.startsWith("https://")) {
+                            return $q.reject(response);
+                        }
                         if (response.status === 403) {
                             $location.path('/login');
                         }
