@@ -1209,14 +1209,14 @@
 			"T_INTRO": "Please, select the databases you want to query",
 			"T_TITLE": "Databases"
 		},
-		"LIST_AUTHOR": {
-			"T_LABEL": "Author(s)"
-		},
-		"LIST_DESCRIPTION": {
-			"T_LABEL": "Description"
-		},
 		"LIST_END_DATE": {
 			"T_LABEL": "End"
+		},
+		"LIST_IMPORT_LINES": {
+			"T_LABEL": "#!#QUERY_DATABASES.LIST_IMPORT_LINES.T_LABEL"
+		},
+		"LIST_IMPORT_SITES": {
+			"T_LABEL": "#!#QUERY_DATABASES.LIST_IMPORT_SITES.T_LABEL"
 		},
 		"LIST_LANG": {
 			"T_LABEL": "Languages"

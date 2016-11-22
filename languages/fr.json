@@ -1209,14 +1209,14 @@
 			"T_INTRO": "Sélection des base de données à requéter sur la carte",
 			"T_TITLE": "Base de données"
 		},
-		"LIST_AUTHOR": {
-			"T_LABEL": "Autheur(s)"
-		},
-		"LIST_DESCRIPTION": {
-			"T_LABEL": "Description"
-		},
 		"LIST_END_DATE": {
 			"T_LABEL": "Fin"
+		},
+		"LIST_IMPORT_LINES": {
+			"T_LABEL": "lignes"
+		},
+		"LIST_IMPORT_SITES": {
+			"T_LABEL": "sites"
 		},
 		"LIST_LANG": {
 			"T_LABEL": "Langues"
