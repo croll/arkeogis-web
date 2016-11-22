@@ -22,7 +22,7 @@
 (function() {
     'use strict';
 
-    ArkeoGIS.service('arkeoQuery', ['$http', 'arkeoService', 'arkeoDownload', function($http, arkeoService, arkeoDownload) {
+    ArkeoGIS.service('arkeoQuery', ['$http', 'arkeoService', 'arkeoDownload', '$q', function($http, arkeoService, arkeoDownload, $q) {
 
         var self = this,
             alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
@@ -34,6 +34,9 @@
         this.current = undefined;
 
         this.do = function(query) {
+            if (query.letter == undefined) {
+                return $q.reject("MAP.MESSAGE_QUERY_RESULT.T_NOMORELETTERS");
+            }
             return $http.post("/api/map/search", query.params).then(function(result) {
                 query.data = result.data;
                 query.done = true;

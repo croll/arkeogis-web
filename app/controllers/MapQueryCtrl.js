@@ -200,7 +200,10 @@
 						$mdSidenav('sidenav-left').open();
 					}
 				}, function(err) {
-					arkeoService.showMessage('MAP.MESSAGE_QUERY_RESULT.T_SERVERERROR');
+					if (typeof err === 'string' || err instanceof String)
+						arkeoService.showMessage(err);
+					else
+						arkeoService.showMessage('MAP.MESSAGE_QUERY_RESULT.T_SERVERERROR');
 					$mdSidenav('sidenav-left').open();
 				})
 		};
