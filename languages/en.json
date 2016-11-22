@@ -749,6 +749,7 @@
 			"T_CONTENT": "Your archived query has been successfully deleted"
 		},
 		"MESSAGE_QUERY_RESULT": {
+			"T_NOMORELETTERS": "#!#MAP.MESSAGE_QUERY_RESULT.T_NOMORELETTERS",
 			"T_NORESULT": "This query has no results",
 			"T_SERVERERROR": "Sorry, an internal error occured"
 		},
@@ -928,6 +929,9 @@
 		},
 		"LIST_DESCRIPTION": {
 			"T_LABEL": "Description"
+		},
+		"LIST_DOWNLOAD": {
+			"T_LABEL": "#!#PROJECT_EDITOR.LIST_DOWNLOAD.T_LABEL"
 		},
 		"LIST_END_DATE": {
 			"T_LABEL": "Ending date"

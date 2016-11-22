@@ -38,17 +38,21 @@
                 <th md-column md-order-by="author">
                     <span translate>PROJECT_EDITOR.LIST_AUTHOR.T_LABEL</span>
                 </th>
+                <th md-column>
+                    <span translate>PROJECT_EDITOR.LIST_DOWNLOAD.T_LABEL</span>
+                </th>
             </tr>
         </thead>
         <tbody md-body>
             <tr md-row md-select="item" md-select-id="id" ng-mouseover="preview(item.geom)" ng-mouseleave="preview(null)" ng-click="toggleItem(item, 'chronologies')" ng-repeat="item in chronologies | filter:query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
-                <td md-cell>{{item.lang}}</td>
+                <td md-cell>{{item.cached_langs}}</td>
                 <td md-cell ark-get-translation ark-translations="item.name"></td>
                 <td md-cell>{{item.start_date | arkYear}}</td>
                 <td md-cell>{{item.end_date | arkYear}}</td>
                 <td md-cell ark-get-translation ark-translations="item.description"></td>
                 <td md-cell>{{item.author.firstname}}
                     {{item.author.lastname}}</td>
+                <td md-cell><i style="cursor: pointer" ng-click="download_csv($event, item)" class="material-icons md-dark">file_download</i></td>
             </tr>
         </tbody>
     </table>
