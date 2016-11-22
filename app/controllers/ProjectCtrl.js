@@ -356,8 +356,8 @@
 
     ]);
 
-    ArkeoGIS.controller('ProjectChronosCtrl', ['$scope',
-        function($scope) {
+    ArkeoGIS.controller('ProjectChronosCtrl', ['$scope', 'arkeoLang',
+        function($scope, arkeoLang) {
 
             $scope.filter = {
                 show: false,
@@ -384,6 +384,15 @@
                     $scope.filter.form.$setPristine();
                 }
             };
+
+            $scope.download_csv = function($event, item) {
+                $event.stopPropagation();
+                var downloadLink = angular.element('<a></a>');
+                            downloadLink.attr('href', '/api/chronologies/csv?id='+item.id+'&isocode='+arkeoLang.getTranslationLang()+'&dl=1');
+                            downloadLink.attr('download', arkeoLang.getMappedTranslation(item.name)+'.csv');
+                downloadLink[0].click();
+            }
+
         }
     ]);
 

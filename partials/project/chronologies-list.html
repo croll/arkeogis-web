@@ -38,6 +38,9 @@
                 <th md-column md-order-by="author">
                     <span translate>PROJECT_EDITOR.LIST_AUTHOR.T_LABEL</span>
                 </th>
+                <th md-column>
+                    <span translate>PROJECT_EDITOR.LIST_DOWNLOAD.T_LABEL</span>
+                </th>
             </tr>
         </thead>
         <tbody md-body>
@@ -49,6 +52,7 @@
                 <td md-cell ark-get-translation ark-translations="item.description"></td>
                 <td md-cell>{{item.author.firstname}}
                     {{item.author.lastname}}</td>
+                <td md-cell><i style="cursor: pointer" ng-click="download_csv($event, item)" class="material-icons md-dark">file_download</i></td>
             </tr>
         </tbody>
     </table>
