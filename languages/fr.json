@@ -930,6 +930,9 @@
 		"LIST_DESCRIPTION": {
 			"T_LABEL": "Description"
 		},
+		"LIST_DOWNLOAD": {
+			"T_LABEL": ""
+		},
 		"LIST_END_DATE": {
 			"T_LABEL": "Date de fin"
 		},
