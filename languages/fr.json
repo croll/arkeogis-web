@@ -1471,7 +1471,6 @@
 			"T_TITLE": "Nom"
 		},
 		"FIELD_PASSWORD": {
-			"T_CHECK_INCORRECT": "Mot de passe incorrect.",
 			"T_CHECK_LENGTH": "7 caractères mini.",
 			"T_CHECK_NOTSAME": "Les deux mots de passe doivent correspondre, merci.",
 			"T_TITLE": "Mot de passe"
@@ -1484,7 +1483,6 @@
 		},
 		"FIELD_USERNAME": {
 			"T_CHECK_ALREADYEXISTS": "Cet utilisateur existe déjà",
-			"T_CHECK_INCORRECT": "Le champs identifiant est incorrecte.",
 			"T_CHECK_MANDATORY": "Ce champ est obligatoire",
 			"T_TITLE": "Identifiant"
 		},
