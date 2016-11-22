@@ -68,14 +68,15 @@
             return d.promise
         };
 
-        this.getLayer = function(id, type) {
+        this.getLayer = function(id, type, getGeojson) {
             var d = $q.defer();
             $http({
                 url: '/api/layer',
                 method: 'GET',
                 params: {
                     type: type,
-                    id: id
+                    id: id,
+                    geojson: getGeojson || false
                 },
                 transformResponse: function(data) {
                     return processLayerInfos(angular.fromJson(data));
