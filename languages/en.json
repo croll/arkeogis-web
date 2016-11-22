@@ -749,6 +749,7 @@
 			"T_CONTENT": "Your archived query has been successfully deleted"
 		},
 		"MESSAGE_QUERY_RESULT": {
+			"T_NOMORELETTERS": "#!#MAP.MESSAGE_QUERY_RESULT.T_NOMORELETTERS",
 			"T_NORESULT": "This query has no results",
 			"T_SERVERERROR": "Sorry, an internal error occured"
 		},
