@@ -33,11 +33,11 @@
                         <th md-column numeric>
                             <span translate>QUERY_DATABASES.LIST_END_DATE.T_LABEL</span>
                         </th>
-                        <th md-column md-order-by="description">
-                            <span translate>QUERY_DATABASES.LIST_DESCRIPTION.T_LABEL</span>
+                        <th md-column md-order-by="imports[0].number_of_lines">
+                            <span translate>QUERY_DATABASES.LIST_IMPORT_LINES.T_LABEL</span>
                         </th>
-                        <th md-column md-order-by="author">
-                            <span translate>QUERY_DATABASES.LIST_AUTHOR.T_LABEL</span>
+                        <th md-column md-order-by="imports[0].number_of_sites">
+                            <span translate>QUERY_DATABASES.LIST_IMPORT_SITES.T_LABEL</span>
                         </th>
                         <th md-column md-order-by="updated_at">
                             <span translate>QUERY_DATABASES.LIST_UPDATED_AT.T_LABEL</span>
@@ -51,8 +51,8 @@
                         <td md-cell ark-get-translation ark-translations="item.name"></td>
                         <td md-cell>{{item.start_date | arkYear}}</td>
                         <td md-cell>{{item.end_date | arkYear}}</td>
-                        <td md-cell ark-get-translation ark-translations="item.description"></td>
-                        <td md-cell>{{item.author}}</td>
+                        <td md-cell>{{item.imports[0].number_of_lines}}</td>
+                        <td md-cell>{{item.imports[0].number_of_sites}}</td>
                         <td md-cell>{{item.updated_at | date:'short'}}</td>
                     </tr>
                 </tbody>
