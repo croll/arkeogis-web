@@ -36,7 +36,12 @@ ArkeoGIS.factory('arkeoDownload', [function() {
                 link.href = downloadUrl;
                 link.download = proposedFileName;
                 document.body.appendChild(link);
-                link.click();
+                var event = new MouseEvent('click', {
+                  'view': window,
+                  'bubbles': true,
+                  'cancelable': true
+                });
+                link.dispatchEvent(event);
                 document.body.removeChild(link);
             }
         }
