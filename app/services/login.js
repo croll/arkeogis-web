@@ -38,6 +38,7 @@
             // set langs
             arkeoLang.setUserLang(1, ret.data.lang1.isocode)
             arkeoLang.setUserLang(2, ret.data.lang2.isocode)
+            arkeoLang.init();
 
             // set permissions
             self.permissions = ret.data.permissions;
