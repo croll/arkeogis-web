@@ -22,7 +22,7 @@
 (function () {
     'use strict';
 
-    ArkeoGIS.service('arkeoLang', ['$http', '$rootScope', '$cookies', '$translate', '$q', 'arkeoService', function ($http, $rootScope, $cookies, $translate, $q, arkeoService) {
+    ArkeoGIS.service('arkeoLang', ['$http', '$rootScope', '$cookies', '$translate', '$q', '$window', 'arkeoService', function ($http, $rootScope, $cookies, $translate, $q, $window, arkeoService) {
 
     var self = this;
 
@@ -31,14 +31,21 @@
     self.translationLangs = [];
 
     this.init = function() {
-        self.setTranslationLang(1, self.getUserLang(1));
-        self.setTranslationLang(2, self.getUserLang(2));
-        return self.getLangs(true, true).then(function(langs) {
+        var deferred = $q.defer();
+        var browserLang = $window.navigator.language || $window.navigator.userLanguage;
+        if (browserLang.match(/[a-z]{2}-[A-Z]{2}/)) {
+          browserLang = browserLang.split('-')[0];
+        }
+        self.setTranslationLang(1, browserLang);
+        self.setTranslationLang(2, 'en');
+        self.getLangs(true, true).then(function(langs) {
             self.langs = langs;
             $rootScope.langs = langs;
             $rootScope.userLangs = self.userLangs;
             $rootScope.translationLangs = self.translationLangs;
+            deferred.resolve()
         });
+        return deferred.promise;
     }
 
     this.getLangs = function(onlyActive, reload) {
@@ -98,6 +105,7 @@
     };
 
     this.setTranslationLang = function(num, iso_code) {
+      console.log("SET LANG", num, iso_code);
         if ([1,2].indexOf(num) == -1) {
             console.log("Error with setTranslationLang(): Wrong value lang num. Should be 1 or 2");
             return false;
