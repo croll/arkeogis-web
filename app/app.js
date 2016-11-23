@@ -277,6 +277,9 @@
                     templateUrl: "partials/project/project.html",
                     controller: "ProjectCtrl",
                     resolve: {
+                        translations: ['$translate', function($translate) {
+                            return $translate(['GENERAL.TABLE_PAGINATION.T_ALL']);
+                        }],
                         checkPerm: ['login', function(login) {
                             return login.resolvePermission('request map', 'arkeogis.project');
                         }],
