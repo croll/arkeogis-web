@@ -1,4 +1,4 @@
-<div translate-namespace="LOGIN">
+<div translate-namespace="LOGIN" class="login-page">
     <form name="loginForm" ng-submit="loginSubmit()">
         <md-toolbar class="md-primary md-hue-3">
             <div class="md-toolbar-tools">
@@ -37,10 +37,10 @@
                 <span id='LOGIN_FOOTER_T_CONTACT_LINKNAME' style="display: none" translate>LOGIN.FOOTER.T_CONTACT_LINKNAME</span>
                 <span id='LOGIN_FOOTER_T_CONTACT_LINKURL' style="display: none" translate>LOGIN.FOOTER.T_CONTACT_LINKURL</span>
             </div>
+            <div class="buttons-container">
+              <md-button class="md-primary md-raised"><span translate>.BUTTON_OK.T_TITLE</span></md-button>
+            </div>
         </md-content>
 
-        <md-toolbar class="md-theme-dark">
-            <button class="btn btn-ok" translate>.BUTTON_OK.T_TITLE</button>
-        </md-toolbar>
     </form>
 </div>
