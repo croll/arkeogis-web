@@ -137,6 +137,8 @@
 		$scope.promise = Login.havePermission('adminusers').then(function(isAdmin) {
 			$scope.isAdmin = isAdmin;
 			$scope.canEdit = isAdmin ? true : Login.user.id == id_user;
+			$scope.isMyself = Login.user.id == id_user;
+			console.log("scope: ", $scope);
 		});
 
 		//$scope.user = id_user != undefined ? User.get({id: id_user}, getUserSuccess) : hackAutocompletes(new User());

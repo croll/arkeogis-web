@@ -96,6 +96,7 @@
 	<script type="text/javascript" src="app/services/query.js"></script> -->
 
 	<script type="text/javascript" src="app/arkeo.all.min.js"></script>
+	<!--<script type="text/javascript" src="app/app.js"></script>-->
 </head>
 
 <body ng-app="ArkeoGIS" ng-controller="ArkeoCtrl as arkeo" layout="row" ng-cloak translate-namespace="MAIN">
@@ -136,7 +137,7 @@
 				</md-menu>
 
 				<!-- Main Menu -->
-				<md-menu md-position-mode="target-right target" id="mainMenu" style="z-index:10000">
+				<md-menu ng-if="user.id > 0" md-position-mode="target-right target" id="mainMenu" style="z-index:10000">
 					<md-button class="md-icon-button" aria-label="Toggle Menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
 						<md-icon md-svg-icon="img/icons/menu.svg" class="light"></md-icon>
 					</md-button>

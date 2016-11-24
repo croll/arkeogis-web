@@ -1507,6 +1507,12 @@
 		"HEADER_EDITUSER": {
 			"T_TITLE": "Edit User..."
 		},
+		"HEADER_MYSELFUSER": {
+			"T_TITLE": "#!#USER.HEADER_MYSELFUSER.T_TITLE"
+		},
+		"HEADER_SHOWUSER": {
+			"T_TITLE": "#!#USER.HEADER_SHOWUSER.T_TITLE"
+		},
 		"HEADER_USERS": {
 			"T_TITLE": "Users Administration"
 		},

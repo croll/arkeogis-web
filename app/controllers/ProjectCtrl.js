@@ -22,9 +22,11 @@
 (function() {
     'use strict';
 
-    ArkeoGIS.controller('ProjectCtrl', ['$scope', '$q', '$http', '$state', 'arkeoService', 'arkeoMap', 'layerService', 'arkeoProject', 'arkeoDatabase', 'login', 'leafletData',
-        function($scope, $q, $http, $state, arkeoService, arkeoMap, layerService, arkeoProject, arkeoDatabase, login, leafletData) {
+    ArkeoGIS.controller('ProjectCtrl', ['$scope', '$q', '$http', '$state', 'arkeoService', 'arkeoMap', 'layerService', 'arkeoProject', 'arkeoDatabase', 'login', 'leafletData', 'translations',
+        function($scope, $q, $http, $state, arkeoService, arkeoMap, layerService, arkeoProject, arkeoDatabase, login, leafletData, translations) {
             var self = this, outOfBounds = {};
+
+            $scope.translations = translations;
 
             angular.extend($scope, angular.extend(arkeoMap.config, {
                 defaults: {
@@ -334,10 +336,15 @@
 
             $scope.query = {
                 filter: '',
-                order: 'line',
+                order: null,
+                limitOptions: [10, 25, 50, {
+                    label: $scope.translations['GENERAL.TABLE_PAGINATION.T_ALL'],
+                    value: function() {
+                        return 10000
+                    }
+                }],
                 limit: 20,
-                page: 1,
-                numRows: ['All', 10, 20, 30]
+                page: 1
             };
 
             $scope.onOrderChange = function(order) {
@@ -366,10 +373,15 @@
 
             $scope.query = {
                 filter: '',
-                order: 'line',
+                order: null,
+                limitOptions: [10, 25, 50, {
+                    label: $scope.translations['GENERAL.TABLE_PAGINATION.T_ALL'],
+                    value: function() {
+                        return 10000
+                    }
+                }],
                 limit: 20,
-                page: 1,
-                numRows: ['All', 10, 20, 30]
+                page: 1
             };
 
             $scope.onOrderChange = function(order) {
@@ -411,10 +423,15 @@
 
             $scope.query = {
                 filter: '',
-                order: 'line',
+                order: null,
+                limitOptions: [10, 25, 50, {
+                    label: $scope.translations['GENERAL.TABLE_PAGINATION.T_ALL'],
+                    value: function() {
+                        return 10000
+                    }
+                }],
                 limit: 20,
-                page: 1,
-                numRows: ['All', 10, 20, 30]
+                page: 1
             };
 
             $scope.onOrderChange = function(order) {
@@ -442,10 +459,15 @@
 
             $scope.query = {
                 filter: '',
-                order: 'line',
+                order: null,
+                limitOptions: [10, 25, 50, {
+                    label: $scope.translations['GENERAL.TABLE_PAGINATION.T_ALL'],
+                    value: function() {
+                        return 10000
+                    }
+                }],
                 limit: 20,
-                page: 1,
-                numRows: ['All', 10, 20, 30]
+                page: 1
             };
 
             $scope.onOrderChange = function(order) {
