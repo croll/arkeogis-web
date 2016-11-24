@@ -124,8 +124,8 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('DatabaseListCtrl', ['$scope', '$http', '$filter', 'databaseDefinitions', 'translations', 'isAdmin',
-        function($scope, $http, $filter, databaseDefinitions, translations, isAdmin) {
+    ArkeoGIS.controller('DatabaseListCtrl', ['$scope', '$http', '$filter', 'databaseDefinitions', 'translations', 'isAdmin', 'arkeoLang',
+        function($scope, $http, $filter, databaseDefinitions, translations, isAdmin, arkeoLang) {
 
             $scope.isAdmin = isAdmin;
 
@@ -145,17 +145,17 @@
                     } else {
                         db.authors = db.author;
                     }
-                    db.default_language = $filter('uppercase')(db.default_language);
                     db.type = databaseDefinitions[db.type];
                     db.scale_resolution = databaseDefinitions[db.scale_resolution];
                     db.state = databaseDefinitions[db.state];
                     db.geographical_extent = databaseDefinitions[db.geographical_extent];
                     db.start_date = $filter('arkYear')(db.start_date);
                     db.end_date = $filter('arkYear')(db.end_date);
-                    db.subject = $filter('arkTranslate')(db.subject);
-                    db.description = $filter('arkTranslate')(db.description);
+                    db.lang = arkeoLang.getLangByIsoCode(db.default_language);
+                    // next fields are not translatable, get field in database default language
+                    db.subject = db.subject[db.default_language];
                 });
-                $scope.databases = response.data;
+                $scope.databases = databases;
             });
 
             $scope.downloadCSV = function() {
@@ -168,13 +168,14 @@
                 var blob = new Blob([csv], {type: "text/csv"});
                 var event = new MouseEvent('click', {
                   'view': window,
-                  'bubbles': true,
-                  'cancelable': true
-                });
+                    'bubbles': true,
+                    'cancelable': true
+                  });
                 var hiddenElement = document.createElement('a');
-                hiddenElement.href = URL.createObjectURL(blob);
-                hiddenElement.target = '_blank';
-                hiddenElement.download = 'databases.csv';
+                 hiddenElement.href = URL.createObjectURL(blob);
+                 hiddenElement.target = '_blank';
+                 hiddenElement.download = 'databases.csv';
+                 console.log(blob);
                 hiddenElement.dispatchEvent(event);
             }
 

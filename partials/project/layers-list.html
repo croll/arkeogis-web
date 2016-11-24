@@ -7,7 +7,7 @@
         <i class="material-icons md-dark">search</i>
         <form flex name="filter.form" style="margin: 39px 0 0 15px;">
             <md-input-container>
-                <input type="text" ng-model="query.filter" ng-model-options="filter.options" placeholder="{{'PROJECT_EDITOR.LIST_SEARCH_INPUT.T_LABEL'}}">
+                <input type="text" ng-model="query.filter" ng-model-options="filter.options" placeholder="{{'PROJECT_EDITOR.LIST_SEARCH_INPUT.T_LABEL' | translate}}">
             </md-input-container>
         </form>
         <md-button class="md-icon-button" ng-click="removeFilter()">
@@ -56,4 +56,4 @@
     </table>
 </md-table-container>
 
-<md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{layerList.length}}" md-row-select="query.numRows" md-page-select></md-table-pagination>
+<md-table-pagination md-label="{page: '{{'GENERAL.TABLE_PAGINATION.T_PAGE' | translate }}', rowsPerPage: '{{'GENERAL.TABLE_PAGINATION.T_ROWSPERPAGE' | translate }}', of: '{{'GENERAL.TABLE_PAGINATION.T_ROWSPERPAGE_OF' | translate }}'}" md-page-select md-row-select="query.numRows" md-page="query.page" md-total="{{layerList.length}}" md-limit="query.limit" md-limit-options="query.limitOptions"></md-table-pagination>

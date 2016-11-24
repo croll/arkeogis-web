@@ -3,7 +3,7 @@
         <div class="md-toolbar-tools">
             <h2 class="md-title" translate>MAPEDITOR.TABLE_LIST.T_TITLE</h2>
             <div flex></div>
-            <md-button class="md-icon-button" ui-sref="arkeogis.mapeditor" aria-label="{{'MAPEDITOR.INTERFACE_BUTTON.ADD_LAYER'}}">
+            <md-button class="md-icon-button" ui-sref="arkeogis.mapeditor" aria-label="{{'MAPEDITOR.INTERFACE_BUTTON.ADD_LAYER' | translate}}">
               <md-icon>add</md-icon>
             </md-button>
             <md-button class="md-icon-button" ng-click="filter.show = true">
@@ -78,5 +78,5 @@
             </tbody>
         </table>
     </md-table-container>
-    <md-table-pagination md-label="{page: '{{'GENERAL.TABLE_PAGINATION.T_PAGE' | translate }}', rowsPerPage: '{{'GENERAL.TABLE_PAGINATION.T_ROWSPERPAGE' | translate }}', of: '{{'GENERAL.TABLE_PAGINATION.T_ROWSPERPAGE_OF' | translate }}'}" md-page-select md-page="query.page" md-total="{{databases.length}}" md-limit="query.limit" md-limit-options="query.limitOptions"></md-table-pagination>
+    <md-table-pagination md-label="{page: '{{'GENERAL.TABLE_PAGINATION.T_PAGE' | translate }}', rowsPerPage: '{{'GENERAL.TABLE_PAGINATION.T_ROWSPERPAGE' | translate }}', of: '{{'GENERAL.TABLE_PAGINATION.T_ROWSPERPAGE_OF' | translate }}'}" md-page-select md-page="query.page" md-total="{{mapLayers.length}}" md-limit="query.limit" md-limit-options="query.limitOptions"></md-table-pagination>
 </md-content>

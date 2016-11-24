@@ -7,7 +7,7 @@
         <i class="material-icons md-dark">search</i>
         <form flex name="filter.form" style="margin: 39px 0 0 15px;">
             <md-input-container>
-                <input type="text" ng-model="query.filter" ng-model-options="filter.options" placeholder="{{'PROJECT_EDITOR.LIST_SEARCH_INPUT.T_LABEL'}}">
+                <input type="text" ng-model="query.filter" ng-model-options="filter.options" placeholder="{{'PROJECT_EDITOR.LIST_SEARCH_INPUT.T_LABEL' | translate}}">
             </md-input-container>
         </form>
         <md-button class="md-icon-button" ng-click="removeFilter()">
@@ -26,8 +26,12 @@
                 <th md-column md-order-by="description">
                     <span translate>PROJECT_EDITOR.LIST_DESCRIPTION.T_LABEL</span>
                 </th>
-                <th md-column><span translate>PROJECT_EDITOR.LIST_NUMBER_OF_CUSTOMIZED_CHARACS</span></th>
-                <th md-column><span translate>PROJECT_EDITOR.LIST_CUSTOMIZE</span></th>
+                <th md-column>
+                  <span translate>PROJECT_EDITOR.LIST_NUMBER_OF_CUSTOMIZED_CHARACS.T_LABEL</span>
+                </th>
+                <th md-column>
+                  <span translate>PROJECT_EDITOR.LIST_CUSTOMIZE.T_LABEL</span>
+                </th>
             </tr>
         </thead>
         <tbody md-body>
@@ -45,4 +49,4 @@
     </table>
 </md-table-container>
 
-<md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{characs.length}}" md-row-select="query.numRows" md-page-select></md-table-pagination>
+<md-table-pagination md-label="{page: '{{'GENERAL.TABLE_PAGINATION.T_PAGE' | translate }}', rowsPerPage: '{{'GENERAL.TABLE_PAGINATION.T_ROWSPERPAGE' | translate }}', of: '{{'GENERAL.TABLE_PAGINATION.T_ROWSPERPAGE_OF' | translate }}'}" md-page-select md-row-select="query.numRows" md-page="query.page" md-total="{{characs.length}}" md-limit="query.limit" md-limit-options="query.limitOptions"></md-table-pagination>
