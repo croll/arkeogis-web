@@ -1414,6 +1414,7 @@
 			"T_TITLE": "Groupes Chronologie"
 		},
 		"FIELD_CITY": {
+			"T_CHECK_MANDATORY": "La ville est obligatoire",
 			"T_CHECK_NOMATCH": "Ville introuvable...",
 			"T_TITLE": "Ville"
 		},
@@ -1452,6 +1453,7 @@
 			"T_TITLE": "Base(s) de données"
 		},
 		"FIELD_DESCRIPTION": {
+			"T_CHECK_MANDATORY": "La description est obligatoire",
 			"T_TITLE": "Description"
 		},
 		"FIELD_EMAIL": {
@@ -1475,6 +1477,7 @@
 			"T_TITLE": "Nom"
 		},
 		"FIELD_PASSWORD": {
+			"T_CHECK_INCORRECT": "Mot de passe incorrect",
 			"T_CHECK_LENGTH": "7 caractères mini.",
 			"T_CHECK_NOTSAME": "Les deux mots de passe doivent correspondre, merci.",
 			"T_TITLE": "Mot de passe"
@@ -1487,6 +1490,7 @@
 		},
 		"FIELD_USERNAME": {
 			"T_CHECK_ALREADYEXISTS": "Cet utilisateur existe déjà",
+			"T_CHECK_INCORRECT": "Nom d'utilisateur incorrect",
 			"T_CHECK_MANDATORY": "Ce champ est obligatoire",
 			"T_TITLE": "Identifiant"
 		},
@@ -1500,6 +1504,12 @@
 		},
 		"HEADER_EDITUSER": {
 			"T_TITLE": "Édition de l'utlisateur..."
+		},
+		"HEADER_MYSELFUSER": {
+			"T_TITLE": "Mon profile utilisateur"
+		},
+		"HEADER_SHOWUSER": {
+			"T_TITLE": "Fiche utilisateur"
 		},
 		"HEADER_USERS": {
 			"T_TITLE": "Administration des Utilisateurs"
