@@ -72,6 +72,7 @@
 				$('div#arkeo_loading').show();
 				$timeout(function() {
 					$('div#arkeo_loading').hide();
+					$scope.reload();
 				}, 6000);
             }, function(err) {
 				$('div#arkeo_loading').show();
