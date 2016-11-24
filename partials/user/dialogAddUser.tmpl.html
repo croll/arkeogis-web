@@ -2,7 +2,9 @@
     <form name="userForm" ng-submit="userAddSubmit(this.userForm)">
         <md-toolbar>
             <div class='md-toolbar-tools'>
-                <h2>{{user.id != undefined ? 'USER.HEADER_EDITUSER.T_TITLE' : 'USER.HEADER_ADDUSER.T_TITLE' | translate}}</h2>
+                <h2 ng-if="isAdmin">{{user.id != undefined ? 'USER.HEADER_EDITUSER.T_TITLE' : 'USER.HEADER_ADDUSER.T_TITLE' | translate}}</h2>
+                <h2 ng-if="!isAdmin && user.id != undefined && !canEdit" translate>USER.HEADER_SHOWUSER.T_TITLE</h2>
+                <h2 ng-if="!isAdmin && user.id != undefined && isMyself" translate>USER.HEADER_MYSELFUSER.T_TITLE</h2>
                 <span flex></span>
                 <md-button class="md-icon-button" ng-click="cancel()"><md-icon>close</md-icon></md-button>
             </div>
