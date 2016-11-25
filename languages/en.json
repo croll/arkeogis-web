@@ -775,7 +775,7 @@
 			"T_CONFIRM": "#!#MAPEDITOR.BUTTON_DELETE.T_CONFIRM"
 		},
 		"BUTTON_SHP_FILE": {
-			"T_LABEL": "Submit ZIP file"
+			"T_LABEL": "Submit ZIP folder"
 		},
 		"FIELD_ATTRIBUTION": {
 			"T_HELP": "#!#MAPEDITOR.FIELD_ATTRIBUTION.T_HELP",
@@ -1217,17 +1217,17 @@
 			"T_TITLE": "Ok"
 		},
 		"DIALOG": {
-			"T_INTRO": "Please, select the databases you want to query",
+			"T_INTRO": "Please, select the database(s) you want to query",
 			"T_TITLE": "Databases"
 		},
 		"LIST_END_DATE": {
 			"T_LABEL": "End"
 		},
 		"LIST_IMPORT_LINES": {
-			"T_LABEL": "#!#QUERY_DATABASES.LIST_IMPORT_LINES.T_LABEL"
+			"T_LABEL": "Lines"
 		},
 		"LIST_IMPORT_SITES": {
-			"T_LABEL": "#!#QUERY_DATABASES.LIST_IMPORT_SITES.T_LABEL"
+			"T_LABEL": "Sites"
 		},
 		"LIST_LANG": {
 			"T_LABEL": "Languages"

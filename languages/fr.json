@@ -772,13 +772,13 @@
 	},
 	"MAPEDITOR": {
 		"BUTTON_DELETE": {
-			"T_CONFIRM": "#!#MAPEDITOR.BUTTON_DELETE.T_CONFIRM"
+			"T_CONFIRM": "Voulez vous vraiment supprimer ?"
 		},
 		"BUTTON_SHP_FILE": {
-			"T_LABEL": "Envoyer le fichier zip"
+			"T_LABEL": "Envoyer le dossier zip"
 		},
 		"FIELD_ATTRIBUTION": {
-			"T_HELP": "#!#MAPEDITOR.FIELD_ATTRIBUTION.T_HELP",
+			"T_HELP": "Crédits visibles en bas de la carte.",
 			"T_LABEL": "Attribution"
 		},
 		"FIELD_AUTHOR": {
@@ -786,7 +786,7 @@
 			"T_LABEL": "Auteurs et co-auteurs"
 		},
 		"FIELD_COPYRIGHT": {
-			"T_HELP": "#!#MAPEDITOR.FIELD_COPYRIGHT.T_HELP",
+			"T_HELP": "Crédits à citer si le document est utilisé dans une publication.",
 			"T_LABEL": "Copyright"
 		},
 		"FIELD_CREATION_DATE": {
@@ -823,7 +823,7 @@
 			"T_LABEL": "Nom (traduction)"
 		},
 		"FIELD_PUBLISHED": {
-			"T_HELP": "Rendre le calque accessible aux autres utilisateurs",
+			"T_HELP": "Rendre le calque accessible aux utilisateurs",
 			"T_LABEL": "Publié"
 		},
 		"FIELD_SELECT_LAYER": {
@@ -841,8 +841,8 @@
 			"T_SUBMIT": "Envoyer"
 		},
 		"MESSAGE": {
-			"T_DELETE_FAILED": "#!#MAPEDITOR.MESSAGE.T_DELETE_FAILED",
-			"T_DELETE_OK": "#!#MAPEDITOR.MESSAGE.T_DELETE_OK"
+			"T_DELETE_FAILED": "Suppression impossible",
+			"T_DELETE_OK": "Suppression réalisée"
 		},
 		"MESSAGE_GET_LAYER_LIST": {
 			"T_ERROR": "Récupération de la liste des calques",
@@ -933,13 +933,13 @@
 			"T_LABEL": "Auteur"
 		},
 		"LIST_CUSTOMIZE": {
-			"T_LABEL": "#!#PROJECT_EDITOR.LIST_CUSTOMIZE.T_LABEL"
+			"T_LABEL": "Modifier"
 		},
 		"LIST_DESCRIPTION": {
 			"T_LABEL": "Description"
 		},
 		"LIST_DOWNLOAD": {
-			"T_LABEL": ""
+			"T_LABEL": "Télécharger"
 		},
 		"LIST_END_DATE": {
 			"T_LABEL": "Date de fin"
@@ -951,7 +951,7 @@
 			"T_LABEL": "Nom"
 		},
 		"LIST_NUMBER_OF_CUSTOMIZED_CHARACS": {
-			"T_LABEL": "#!#PROJECT_EDITOR.LIST_NUMBER_OF_CUSTOMIZED_CHARACS.T_LABEL"
+			"T_LABEL": "Modification(s)"
 		},
 		"LIST_SEARCH_INPUT": {
 			"T_LABEL": "Recherche"
@@ -1217,17 +1217,17 @@
 			"T_TITLE": "Ok"
 		},
 		"DIALOG": {
-			"T_INTRO": "Sélection des base de données à requéter sur la carte",
+			"T_INTRO": "Sélection de la ou des base(s) de données à interroger sur la carte",
 			"T_TITLE": "Base de données"
 		},
 		"LIST_END_DATE": {
 			"T_LABEL": "Fin"
 		},
 		"LIST_IMPORT_LINES": {
-			"T_LABEL": "lignes"
+			"T_LABEL": "Lignes"
 		},
 		"LIST_IMPORT_SITES": {
-			"T_LABEL": "sites"
+			"T_LABEL": "Sites"
 		},
 		"LIST_LANG": {
 			"T_LABEL": "Langues"
@@ -1314,7 +1314,7 @@
 			"T_TITLE": "Ok"
 		},
 		"DIALOG": {
-			"T_INTRO": "Choisissez un nom pour archiver cette reqûete :",
+			"T_INTRO": "Choisissez un nom pour archiver cette requête :",
 			"T_TITLE": "Archivage..."
 		},
 		"INPUT_QUERYNAME": {
