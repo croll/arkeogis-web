@@ -21,8 +21,8 @@
 
 (function() {
 	'use strict';
-	ArkeoGIS.controller('ArkeoCtrl', ['$scope', 'arkeoService', 'arkeoLang', 'Idle', 'Keepalive', 'login', '$state', '$rootScope', '$http', 'EditUser',
-	function($scope, Arkeo, arkeoLang, Idle, Keepalive, Login, $state, $rootScope, $http, EditUser) {
+	ArkeoGIS.controller('ArkeoCtrl', ['$scope', 'arkeoService', 'arkeoLang', 'Idle', 'Keepalive', 'login', '$state', '$rootScope', '$http', '$filter', 'EditUser',
+	function($scope, Arkeo, arkeoLang, Idle, Keepalive, Login, $state, $rootScope, $http, $filter, EditUser) {
 
 		$scope.theme = Arkeo.theme;
 
@@ -107,6 +107,7 @@
 		$http.get('/api/stats').then(function(data) {
             $scope.stats = data.data;
             $scope.stats.date = $filter('date')(new Date());
+			console.log("stats: ", $scope.stats);
         });
 
 	}]);
