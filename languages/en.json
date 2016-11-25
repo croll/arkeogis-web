@@ -718,6 +718,11 @@
 			"T_ITEM_USERSLISTING": "Directory",
 			"T_ITEM_USERSMANAGER": "Users' management"
 		},
+		"FOOTER": {
+			"T_DATE": "#!#MAIN.FOOTER.T_DATE",
+			"T_DBCOUNT": "#!#MAIN.FOOTER.T_DBCOUNT",
+			"T_SITECOUNT": "#!#MAIN.FOOTER.T_SITECOUNT"
+		},
 		"IDLE": {
 			"T_TITLE": "You seem to be inactive, if you are not using ArkeoGIS, you will be disconnected..."
 		},
@@ -927,6 +932,9 @@
 		"LIST_AUTHOR": {
 			"T_LABEL": "Author"
 		},
+		"LIST_CUSTOMIZE": {
+			"T_LABEL": "#!#PROJECT_EDITOR.LIST_CUSTOMIZE.T_LABEL"
+		},
 		"LIST_DESCRIPTION": {
 			"T_LABEL": "Description"
 		},
@@ -941,6 +949,9 @@
 		},
 		"LIST_NAME": {
 			"T_LABEL": "Name"
+		},
+		"LIST_NUMBER_OF_CUSTOMIZED_CHARACS": {
+			"T_LABEL": "#!#PROJECT_EDITOR.LIST_NUMBER_OF_CUSTOMIZED_CHARACS.T_LABEL"
 		},
 		"LIST_SEARCH_INPUT": {
 			"T_LABEL": "Search"
