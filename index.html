@@ -115,6 +115,7 @@
 				<div translate translate-value-dbcount="{{stats.dbcount}}">.FOOTER.T_DBCOUNT</div>
 				<div translate translate-value-sitecount="{{stats.sitecount}}">.FOOTER.T_SITECOUNT</div>
 			</div>
+			<div flex ng-if="!user.id"></div>
 			<div ng-hide="true">
 				<md-button ng-click="setTheme('grey')" ng-hide="theme == 'grey'">La vie en bleu</md-button>
 				<md-button ng-click="setTheme('pink')" ng-hide="theme == 'pink'">La vie en rose</md-button>
