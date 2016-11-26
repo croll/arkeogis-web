@@ -407,10 +407,10 @@
                             infos: Upload.json(dbObj)
                         }
                     }).then(function() {
-                        arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE_SUCCESS')
+                        arkeoService.showMessage('MAPEDITOR.MESSAGE.SAVE_T_SUCCESS')
                         $state.go('arkeogis.mapeditor-list');
                     }, function(err) {
-                        arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE_FAILED')
+                        arkeoService.showMessage('MAPEDITOR.MESSAGE.SAVE_T_FAILED')
                         console.log(err);
                     }, function(evt) {
                         $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total);
@@ -421,10 +421,10 @@
                         method: 'POST',
                         data: dbObj
                     }).then(function() {
-                        arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE_SUCCESS')
+                        arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE.T_SUCCESS')
                         $state.go('arkeogis.mapeditor-list');
                     }, function(err) {
-                        arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE_FAILED')
+                        arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE.T_FAILED')
                         console.log(err);
                     })
 

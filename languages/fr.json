@@ -718,6 +718,11 @@
 			"T_ITEM_USERSLISTING": "Annuaire des utilisateurs",
 			"T_ITEM_USERSMANAGER": "Gestion des utilisateurs"
 		},
+		"FOOTER": {
+			"T_DATE": "Le {{date}}, {{name}} peut consulter :",
+			"T_DBCOUNT": "{{dbcount}} bases de données",
+			"T_SITECOUNT": "{{sitecount}} sites"
+		},
 		"IDLE": {
 			"T_TITLE": "Vous semblez inactif, si vous ne faites rien, vous allez être déconnecté..."
 		},
@@ -1420,7 +1425,6 @@
 			"T_TITLE": "Groupes Chronologie"
 		},
 		"FIELD_CITY": {
-			"T_CHECK_MANDATORY": "La ville est obligatoire",
 			"T_CHECK_NOMATCH": "Ville introuvable...",
 			"T_TITLE": "Ville"
 		},
@@ -1459,7 +1463,6 @@
 			"T_TITLE": "Base(s) de données"
 		},
 		"FIELD_DESCRIPTION": {
-			"T_CHECK_MANDATORY": "La description est obligatoire",
 			"T_TITLE": "Description"
 		},
 		"FIELD_EMAIL": {
@@ -1483,7 +1486,6 @@
 			"T_TITLE": "Nom"
 		},
 		"FIELD_PASSWORD": {
-			"T_CHECK_INCORRECT": "Mot de passe incorrect",
 			"T_CHECK_LENGTH": "7 caractères mini.",
 			"T_CHECK_NOTSAME": "Les deux mots de passe doivent correspondre, merci.",
 			"T_TITLE": "Mot de passe"
@@ -1496,7 +1498,6 @@
 		},
 		"FIELD_USERNAME": {
 			"T_CHECK_ALREADYEXISTS": "Cet utilisateur existe déjà",
-			"T_CHECK_INCORRECT": "Nom d'utilisateur incorrect",
 			"T_CHECK_MANDATORY": "Ce champ est obligatoire",
 			"T_TITLE": "Identifiant"
 		},

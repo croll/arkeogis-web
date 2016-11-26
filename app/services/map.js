@@ -140,11 +140,15 @@
                 }).addTo(map);
                 // Attribution
                 new L.control.attribution({prefix: 'Made by <a href="http://www.croll.fr" target="_blank">CROLL</a>'}).addTo(map);
-                return mapDefer.resolve(map);
                 // Scale control
                 new L.control.scale({
                     position: 'bottomright'
                 }).addTo(map);
+                    // Mouse position
+                L.control.mousePosition({
+                    emptyString: ''
+                }).addTo(map);
+                return mapDefer.resolve(map);
             });
         }
 

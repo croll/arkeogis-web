@@ -109,7 +109,13 @@
 
 	<div layout="column" flex md-theme="{{theme}}">
 		<md-toolbar id="arkeo-main-toolbar" class="md-toolbar-tools">
-			<h1 flex><img src="img/logo.png"/></h1>
+			<h1><img src="img/logo.png"/></h1>
+			<div flex ng-if="user.id > 0" class="header-stats">
+				<div translate translate-value-date="{{stats.date}}" translate-value-name="{{user.firstname}} {{user.lastname}}">.FOOTER.T_DATE</div>
+				<div translate translate-value-dbcount="{{stats.dbcount}}">.FOOTER.T_DBCOUNT</div>
+				<div translate translate-value-sitecount="{{stats.sitecount}}">.FOOTER.T_SITECOUNT</div>
+			</div>
+			<div flex ng-if="!user.id"></div>
 			<div ng-hide="true">
 				<md-button ng-click="setTheme('grey')" ng-hide="theme == 'grey'">La vie en bleu</md-button>
 				<md-button ng-click="setTheme('pink')" ng-hide="theme == 'pink'">La vie en rose</md-button>
