@@ -86,7 +86,7 @@
     </md-card-content>
     <div style="color: #555; padding: 15px 0px; text-align: center;" translate>PROJECT_EDITOR.INTERFACE_INFOS_USAGE.T_LABEL</div>
 </md-card>
-<md-tabs class="md-hue-2" layout-fill style="min-height: 470px!important">
+<md-tabs class="md-hue-2" layout-fill style="min-height: 460px!important;max-height: 460px!important">
     <md-tab label="{{'PROJECT_EDITOR.TAB_CHRONOLOGIES.T_LABEL' | translate}}">
         <p style="margin: 20px" ng-include="'partials/project/chronologies-list.html'" ng-controller="ProjectChronosCtrl"></p>
     </md-tab>
@@ -100,7 +100,7 @@
         <p ng-include="'partials/project/characs-list.html'" ng-controller="ProjectCharacsCtrl"></p>
     </md-tab>
 </md-tabs>
-<div style="text-align: center; margin: -20px 0 50px 0">
+<div style="text-align: center; margin: 0 0 50px 0">
     <md-button class="md-primary md-raised" aria-label="{{'PROJECT_EDITOR.BUTTON_SUBMIT.T_LABEL' | translate}}" md-ripple-size="full" ng-disabled="selectionHasError" ng-click="savePreferences()">
         <span translate>PROJECT_EDITOR.BUTTON_SUBMIT.T_LABEL</span>
     </md-button>
