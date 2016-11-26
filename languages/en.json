@@ -933,13 +933,13 @@
 			"T_LABEL": "Author"
 		},
 		"LIST_CUSTOMIZE": {
-			"T_LABEL": "#!#PROJECT_EDITOR.LIST_CUSTOMIZE.T_LABEL"
+			"T_LABEL": "Customize"
 		},
 		"LIST_DESCRIPTION": {
 			"T_LABEL": "Description"
 		},
 		"LIST_DOWNLOAD": {
-			"T_LABEL": "#!#PROJECT_EDITOR.LIST_DOWNLOAD.T_LABEL"
+			"T_LABEL": "Download"
 		},
 		"LIST_END_DATE": {
 			"T_LABEL": "Ending date"
@@ -951,7 +951,7 @@
 			"T_LABEL": "Name"
 		},
 		"LIST_NUMBER_OF_CUSTOMIZED_CHARACS": {
-			"T_LABEL": "#!#PROJECT_EDITOR.LIST_NUMBER_OF_CUSTOMIZED_CHARACS.T_LABEL"
+			"T_LABEL": "Custom"
 		},
 		"LIST_SEARCH_INPUT": {
 			"T_LABEL": "Search"
@@ -1143,9 +1143,9 @@
 			"T_TITLE": "Delete"
 		},
 		"DIALOG": {
-			"T_FOOTER_BOLD": "T_FOOTER_BOLD",
-			"T_FOOTER_TEXT1": "T_FOOTER_TEXT1",
-			"T_FOOTER_TEXT2": "T_FOOTER_TEXT2",
+			"T_FOOTER_BOLD": "",
+			"T_FOOTER_TEXT1": "",
+			"T_FOOTER_TEXT2": "",
 			"T_TITLE": "Addition/Modification of a period filter"
 		},
 		"EXISTENCE_INSIDE_INCLUDE": {
@@ -1165,7 +1165,7 @@
 			"T_TITLE": "And :"
 		},
 		"EXISTENCE_OUTSIDE_INCLUDE": {
-			"T_MUST": "Yes, the site MUST have existed also apart from this period",
+			"T_MUST": "Yes, the site must have existed also apart from this period",
 			"T_MUSTNOT": "No, the site must not have existed apart from this period",
 			"T_POSSIBLY": "Yes, the site can possibly have existed apart from this period",
 			"T_TITLE": "Could have the site also existed apart from this period ?"
@@ -1267,7 +1267,7 @@
 			"T_TITLE": "The logical link used between the characterisations' categories (real-estate/furniture/landscape/production) is :"
 		},
 		"DIALOG": {
-			"T_INTRO": "T_INTRO",
+			"T_INTRO": "",
 			"T_TITLE": "Details"
 		},
 		"KNOWLEDGE": {
