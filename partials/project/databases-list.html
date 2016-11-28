@@ -20,16 +20,16 @@
     <table md-table md-row-select multiple ng-model="project.databases">
         <thead md-head md-order="query.order" md-trigger="onOrderChange">
             <tr>
-                <th md-column md-numeric md-order-by="default_language">
+                <th md-column md-order-by="default_language">
                     <span translate>PROJECT_EDITOR.LIST_LANG.T_LABEL</span>
                 </th>
-                <th md-column md-numeric md-order-by="name">
+                <th md-column md-order-by="name">
                     <span translate>PROJECT_EDITOR.LIST_NAME.T_LABEL</span>
                 </th>
-                <th md-column numeric>
+                <th md-column numeric md-order-by="start_date">
                     <span translate>PROJECT_EDITOR.LIST_START_DATE.T_LABEL</span>
                 </th>
-                <th md-column numeric>
+                <th md-column numeric md-order-by="end_date">
                     <span translate>PROJECT_EDITOR.LIST_END_DATE.T_LABEL</span>
                 </th>
                 <th md-column md-order-by="description">

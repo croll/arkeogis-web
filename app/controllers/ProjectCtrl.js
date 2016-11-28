@@ -29,9 +29,9 @@
             $scope.translations = translations;
 
             angular.extend($scope, angular.extend(arkeoMap.config, {
-                defaults: {
-                    minZoom: 2
-                }
+                // defaults: {
+                //     minZoom: 2
+                // }
             }));
 
             $scope.project = angular.copy(arkeoProject.get());
