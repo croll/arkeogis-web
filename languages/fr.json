@@ -851,6 +851,10 @@
 		"MESSAGE_NOT_ZIP_FILE": {
 			"T_ERROR": "Le fichier envoyé n'est pas valide."
 		},
+		"MESSAGE_SAVE": {
+			"T_FAILED": "Enregistrement impossible",
+			"T_SUCCESS": "Enregistrement effectué."
+		},
 		"MESSAGE_SHP_LOADING": {
 			"T_ERROR": "Traitement des fichiers"
 		},
@@ -858,9 +862,13 @@
 			"T_LABEL": "Choix du type de calque"
 		},
 		"SELECT_SHP_WMS_WMTS": {
-			"T_OPTION_SHP": "Shapefile",
-			"T_OPTION_WMS": "Calque WMS",
-			"T_OPTION_WMTS": "Calque WMTS"
+			"T_OPTION_NONE_HELP": "Choisir un des types de calque à partager.",
+			"T_OPTION_SHP": "SHP",
+			"T_OPTION_SHP_HELP": "Le dossier ZIP doit contenir les fichiers .dbf .prj .shp .shx",
+			"T_OPTION_WMS": "WMS",
+			"T_OPTION_WMS_HELP": "",
+			"T_OPTION_WMTS": "WMTS",
+			"T_OPTION_WMTS_HELP": ""
 		},
 		"TABLE_LIST": {
 			"T_FILTER_RESULTS_LABEL": "Filtrer",
@@ -1320,12 +1328,6 @@
 		"INPUT_QUERYNAME": {
 			"T_TITLE": "Nom de la requête archivée :"
 		}
-	},
-	"SELECT_SHP_WMS_WMTS": {
-		"T_OPTION_NONE_HELP": "#!#SELECT_SHP_WMS_WMTS.T_OPTION_NONE_HELP",
-		"T_OPTION_SHP_HELP": "#!#SELECT_SHP_WMS_WMTS.T_OPTION_SHP_HELP",
-		"T_OPTION_WMS_HELP": "#!#SELECT_SHP_WMS_WMTS.T_OPTION_WMS_HELP",
-		"T_OPTION_WMTS_HELP": "#!#SELECT_SHP_WMS_WMTS.T_OPTION_WMTS_HELP"
 	},
 	"SITE_DETAILS": {
 		"CHARAC_BIBLIOGRAPHY": {
