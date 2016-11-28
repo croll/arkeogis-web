@@ -148,32 +148,32 @@
 						<md-icon md-svg-icon="img/icons/menu.svg" class="light"></md-icon>
 					</md-button>
 					<md-menu-content width="4">
-						<md-menu-item>
+						<md-menu-item ng-if="hasPerm('request map')">
 							<md-button ui-sref="arkeogis.map">
 								<md-icon md-svg-icon="img/icons/map.svg" md-menu-align-target></md-icon>
 								<p flex translate>.FIELD_MAINMENU.T_ITEM_MAP</p>
 							</md-button>
 						</md-menu-item>
-						<md-menu-item>
+						<md-menu-item ng-if="hasPerm('import')">
 							<md-button ui-sref="arkeogis.import.step1({database_id: 0})">
 								<md-icon>cloud_upload</md-icon>
 								<p flex translate>.FIELD_MAINMENU.T_ITEM_IMPORT</p>
 							</md-button>
 						</md-menu-item>
-						<md-menu-item>
+						<md-menu-item ng-if="hasPerm('request map')">
 							<md-button ui-sref="arkeogis.database-list">
 								<md-icon>view_list</md-icon>
 								<p flex translate>.FIELD_MAINMENU.T_ITEM_DATABASE_LIST</p>
 							</md-button>
 						</md-menu-item>
-						<md-menu-item>
+						<md-menu-item ng-if="hasPerm('request map')">
 							<md-button ui-sref="arkeogis.project">
 								<md-icon>card_travel</md-icon>
 								<p flex translate>.FIELD_MAINMENU.T_ITEM_PREFERENCES</p>
 							</md-button>
 						</md-menu-item>
 						<md-divider style="margin-bottom: 8px"></md-divider>
-						<md-menu-item>
+						<md-menu-item ng-if="hasPerm('request map')">
 							<md-button ng-click="editMyUser()">
 								<md-icon>person</md-icon>
 								<p flex translate>.FIELD_MAINMENU.T_ITEM_MYPROFIL</p>
@@ -191,31 +191,31 @@
 								<p ng-if="!hasPerm('adminusers')" flex translate>.FIELD_MAINMENU.T_ITEM_USERSLISTING</p>
 							</md-button>
 						</md-menu-item>
-						<md-menu-item>
+						<md-menu-item ng-if="hasPerm('adminusers')">
 							<md-button ui-sref="arkeogis.group">
 								<md-icon>group</md-icon>
 								<p flex translate>.FIELD_MAINMENU.T_ITEM_GROUPSMANAGER</p>
 							</md-button>
 						</md-menu-item>
-						<md-menu-item>
+						<md-menu-item ng-if="hasPerm('manage all wms/wmts')">
 							<md-button ui-sref="arkeogis.mapeditor-list">
 								<md-icon>layers</md-icon>
 								<p flex translate>.FIELD_MAINMENU.T_ITEM_MAPEDITOR</p>
 							</md-button>
 						</md-menu-item>
-						<md-menu-item>
+						<md-menu-item ng-if="hasPerm('user can edit some chronology')">
 							<md-button ui-sref="arkeogis.chronoditor-list">
 								<md-icon>schedule</md-icon>
 								<p flex translate>.FIELD_MAINMENU.T_ITEM_CHRONODITOR</p>
 							</md-button>
 						</md-menu-item>
-						<md-menu-item>
+						<md-menu-item ng-if="hasPerm('user can edit some characuser can edit some charac')">
 							<md-button ui-sref="arkeogis.characeditor-list">
 								<md-icon>label</md-icon>
 								<p flex translate>.FIELD_MAINMENU.T_ITEM_CHARACEDITOR</p>
 							</md-button>
 						</md-menu-item>
-						<md-menu-item>
+						<md-menu-item ng-if="hasPerm('user can use langeditor')">
 							<md-button ui-sref="arkeogis.langeditor">
 								<md-icon>translate</md-icon>
 								<p flex translate>.FIELD_MAINMENU.T_ITEM_LANGEDITOR</p>
