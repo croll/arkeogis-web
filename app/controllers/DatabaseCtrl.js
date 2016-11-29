@@ -162,7 +162,7 @@
                 var csv = 'LANG;NAME;AUTHORS;SUBJET;TYPE;LINES;SITES;SCALE;START_DATE;END_DATE;STATE;GEOGRAPHICAL_EXTENT;LICENSE;DESCRIPTION\n';
                 angular.forEach(angular.copy($scope.databases), function(db) {
                     db.subject = db.subject.replace(/"/g, '""');
-                    db.description = db.description.replace(/"/g, '""');
+                    db.description = $filter('arkTranslate')(db.description).replace(/"/g, '""');
                     csv += '"' + db.default_language + '";"' + db.name + '";"' + db.authors + '";"' + db.subject + '";"' + db.type + '";' + db.number_of_lines + ';' + db.number_of_sites + ';"' + db.scale_resolution + '";' + db.start_date + ';' + db.end_date + ';"' + db.state + '";"' + db.geographical_extent + '";"' + db.license + '";"' + db.description + '"\n';
                 });
                 var blob = new Blob([csv], {type: "text/csv"});

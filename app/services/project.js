@@ -147,7 +147,6 @@
             });
             _.each(this.project.layers, function(l) {
                 // Get wms layers list and shp layers list
-                console.log(l);
 
                 promises.push($http.get('/api/layer', {
                     params: {
