@@ -115,7 +115,7 @@
                     url: '/api/import/update-step1',
                     method: 'POST',
                     data: database
-                }).then(function() {
+                }).then(function(resp) {
                     $state.go('arkeogis.import.step3');
                     arkeoService.showMessage('IMPORT_STEP1.MESSAGE.T_INFORMATIONS_UPDATED');
                 }, function(err) {
@@ -128,8 +128,6 @@
                 if (database.editMode) {
                     arkeoImport.enableReportTab();
                 }
-                console.log($scope.importChoices);
-                console.log(angular.copy($scope.database));
 
                 arkeoImport.uploadCSV($scope.file, $scope.importChoices, $scope.database).then(function(resp) {
                     arkeoImport.data = resp.data;
@@ -162,8 +160,8 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('ImportStep2Ctrl', ['$scope', 'arkeoImport', 'login',
-        function($scope, arkeoImport, login) {
+    ArkeoGIS.controller('ImportStep2Ctrl', ['$scope', 'arkeoImport', 'login', 'database',
+        function($scope, arkeoImport, login, database) {
 
             var self = this;
 
@@ -177,6 +175,16 @@
             $scope.uploadCSV = function() {
                 arkeoImport.uploadCSV($scope.file, $scope.importChoices, $scope.database).then(function(resp) {
                     arkeoImport.data = resp.data;
+                    if (!database.id && (angular.isDefined(resp.data.database_id) && resp.data.database_id)) {
+                        database.id = resp.data.database_id;
+                        database.import_id = resp.data.import_id;
+                    }
+                    if (!database.authors.length) {
+                        database.authors = [{
+                            id: login.user.id,
+                            fullname: login.user.firstname + ' ' + login.user.lastname
+                        }];
+                    }
                     //$state.go($state.current, {database_id: -1}, {reload: true});
                     $scope.file = undefined;
                     $scope.formUpload.$setPristine();
