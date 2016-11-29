@@ -237,6 +237,9 @@
                         }],
                         checkPerm: ['login', function(login) {
                             return login.resolvePermission('request map', 'arkeogis.database-list');
+                        }],
+                        isAdmin: ['login', function(login) {
+                            return login.havePermission('manage all databases');
                         }]
                     }
                 })

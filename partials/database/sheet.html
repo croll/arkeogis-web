@@ -218,13 +218,13 @@
         </section>
     </md-content>
     <md-content layout="row" layout-padding layout-align="center center" style="padding-top: 50px; padding-bottom: 20px">
-        <md-button class="md-primary md-raised" ui-sref="arkeogis.import.step1({database_id: database.id})">
+        <md-button class="md-primary md-raised" ui-sref="arkeogis.import.step1({database_id: database.id})" ng-show="isAdmin || isOwner">
             <span translate>DATABASE.BUTTON_EDIT.T_LABEL</span>
         </md-button>
-        <md-button class="md-raised md-hue-1" ng-click="downloadExport()">
+        <md-button class="md-raised md-hue-1" ng-click="downloadExport()" ng-show="isAdmin || isOwner">
             <span translate>DATABASE.BUTTON_DOWNLOAD.T_TITLE</span>
         </md-button>
-        <md-button class="md-raised md-warn" ng-click="delete()" ark-confirm="DATABASE.BUTTON_DELETE.T_CONFIRM">
+        <md-button class="md-raised md-warn" ng-click="delete()" ark-confirm="DATABASE.BUTTON_DELETE.T_CONFIRM" ng-show="isAdmin || isOwner">
             <span translate>DATABASE.BUTON_DELETE.T_LABEL</span>
         </md-button>
     </md-content>

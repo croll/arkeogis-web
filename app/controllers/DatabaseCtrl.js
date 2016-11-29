@@ -21,10 +21,14 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('DatabaseCtrl', ['$scope', '$http', '$state', '$mdDialog', 'database', 'databaseDefinitions', 'arkeoMap', 'arkeoService', 'arkeoLang', 'arkeoDownload', 'leafletData',
-        function($scope, $http, $state, $mdDialog, database, databaseDefinitions, arkeoMap, arkeoService, arkeoLang, arkeoDownload, leafletData) {
+    ArkeoGIS.controller('DatabaseCtrl', ['$scope', '$http', '$state', '$mdDialog', 'database', 'databaseDefinitions', 'arkeoMap', 'arkeoService', 'arkeoLang', 'arkeoDownload', 'leafletData', 'isAdmin', 'login',
+        function($scope, $http, $state, $mdDialog, database, databaseDefinitions, arkeoMap, arkeoService, arkeoLang, arkeoDownload, leafletData, isAdmin, login) {
 
             $scope.database = database;
+
+            $scope.isAdmin = isAdmin;
+
+            $scope.isOwner = (login.user.id == database.owner);
 
             $scope.databaseDefinitions = databaseDefinitions;
 
