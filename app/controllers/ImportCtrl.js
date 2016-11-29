@@ -26,9 +26,6 @@
 
             var self = this;
 
-            if (!login.requirePermission('import', 'arkeogis.import.step1'))
-                return;
-
             if (database.id > 0) {
                 database.editMode = true;
             }
@@ -88,9 +85,6 @@
         function($scope, $state, $http, arkeoService, arkeoDatabase, arkeoImport, login, arkeoLang, database) {
 
             var self = this;
-
-            if (!login.requirePermission('import', 'arkeogis.import.step1'))
-                return;
 
             $scope.reset = function() {
                 $scope.tabs.enabled[2] = arkeoImport.tabs.enabled[2];
@@ -164,9 +158,6 @@
         function($scope, arkeoImport, login, database) {
 
             var self = this;
-
-            if (!login.requirePermission('import', 'arkeogis.import.step1'))
-                return;
 
             if (!angular.isDefined(arkeoImport.data)) {
                 return;
@@ -316,9 +307,6 @@
     ArkeoGIS.controller('ImportStep3Ctrl', ['$scope', '$state', 'arkeoService', 'arkeoImport', 'arkeoLang', 'arkeoDatabase', 'arkeoProject', 'database', 'login', '$translate', '$q', '$http',
         function($scope, $state, arkeoService, arkeoImport, arkeoLang, arkeoDatabase, arkeoProject, database, login, $translate, $q, $http) {
 
-            if (!login.requirePermission('import', 'arkeogis.import.step1'))
-                return;
-
             if (!angular.isDefined(arkeoImport.data)) {
                 return;
             }
@@ -443,9 +431,6 @@
     'use strict';
     ArkeoGIS.controller('ImportStep4Ctrl', ['$scope', '$state', '$stateParams', 'arkeoService', 'arkeoImport', 'arkeoLang', 'login', 'database', '$http',
         function($scope, $state, $stateParams, arkeoService, arkeoImport, arkeoLang, login, database, $http) {
-
-            if (!login.requirePermission('import', 'arkeogis.import.step1'))
-                return;
 
             if (!angular.isDefined(arkeoImport.data)) {
                 return;
