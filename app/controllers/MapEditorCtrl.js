@@ -221,6 +221,8 @@
                         if (angular.isDefined(capas.Capabilities) && angular.isDefined(capas.Capabilities.Contents.Layer)) {
                             angular.forEach(capas.Capabilities.Contents.Layer, function(layer) {
                                 var l = {
+                                    style: "normal",
+                                    tilematrixSet: "PM",
                                     title: layer.Title.toString(),
                                     identifier: layer.Identifier.toString(),
                                     format: layer.Format.toString(),

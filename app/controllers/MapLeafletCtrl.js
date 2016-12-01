@@ -123,6 +123,8 @@
                             name: $filter('arkTranslate')(layer.name),
                         type: 'wmts',
                         instance: L.tileLayer.WMTS(layer.url, {
+                            style: "normal",
+                            tilematrixSet: "PM",
                             layer: layer.identifier,
                             attribution: $filter('arkTranslate')(layer.attribution),
                             minZoom: layer.min_scale,
