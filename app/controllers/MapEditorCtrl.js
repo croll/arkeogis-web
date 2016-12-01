@@ -291,7 +291,7 @@
 
         var setWMTSPreview = function() {
             var layer = new L.TileLayer.WMTS($scope.infos.url, {
-                layer: $scope.infos.identifier
+                layer: $scope.infos.identifier,
                         style: "normal",
                         tilematrixSet: "PM",
                         format: "image/jpeg"
