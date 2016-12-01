@@ -292,9 +292,9 @@
         var setWMTSPreview = function() {
             var layer = new L.TileLayer.WMTS($scope.infos.url, {
                 layer: $scope.infos.identifier
-                    //    style: "normal",
-                    //    tilematrixSet: "PM",
-                    //    format: "image/jpeg",
+                        style: "normal",
+                        tilematrixSet: "PM",
+                        format: "image/jpeg"
             });
             leafletData.getMap().then(function(map) {
                 map.addLayer(layer);
