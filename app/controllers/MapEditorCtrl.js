@@ -21,11 +21,15 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('MapEditorCtrl', ['$scope', '$state', 'arkeoService', 'arkeoMap', 'login', '$http', 'X2JS', '$q', 'leafletData', 'Upload', 'layer', 'arkeoLang', function($scope, $state, arkeoService, arkeoMap, login, $http, X2JS, $q, leafletData, Upload, layer, arkeoLang) {
+    ArkeoGIS.controller('MapEditorCtrl', ['$scope', '$state', '$filter', 'arkeoService', 'arkeoMap', 'login', '$http', 'X2JS', '$q', 'leafletData', 'Upload', 'layer', 'arkeoLang', function($scope, $state, $filter, arkeoService, arkeoMap, login, $http, X2JS, $q, leafletData, Upload, layer, arkeoLang) {
 
         var self = this;
 
         angular.extend($scope, arkeoMap.config);
+
+        if ($scope.layers.overlays.hasOwnProperty('preview')) {
+          delete $scope.layers.overlays.preview;
+        }
 
         this.defaultInfos = {
             authors: [{
@@ -42,9 +46,53 @@
             }
         }
 
+        var setWMSPreview = function() {
+            if ($scope.layers.overlays.hasOwnProperty('preview')) {
+                delete $scope.layers.overlays.preview;
+            }
+            setTimeout(function() {
+                $scope.layers.overlays.preview = {
+                    name: $scope.selectedLayer.title,
+                    type: 'wms',
+                    url: $scope.infos.url,
+                    visible: true,
+                    layerOptions: {
+                        layers: $scope.infos.identifier,
+                        opacity: 0.70
+                    }
+                };
+                leafletData.getMap().then(function(map) {
+                    $scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON().geometry;
+                    map.fitBounds($scope.selectedLayer.boundingBox);
+                });
+            }, 0);
+        }
+
+        var setWMTSPreview = function() {
+            if ($scope.layers.overlays.hasOwnProperty('preview')) {
+                delete $scope.layers.overlays.preview;
+            }
+            var layer = new L.TileLayer.WMTS($scope.infos.url, {
+                layer: $scope.infos.identifier,
+                        style: "normal",
+                        tilematrixSet: "PM",
+                        format: "image/jpeg"
+            });
+            leafletData.getMap().then(function(map) {
+                map.addLayer(layer);
+                $scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON().geometry;
+                map.fitBounds($scope.selectedLayer.boundingBox);
+            });
+        }
+
         if (angular.isDefined(layer)) {
             $scope.infos = angular.copy(layer)
             $scope.hideFields = false;
+	    $scope.selectedLayer = layer;
+	    $scope.selectedLayer.title = $filter('arkTranslate')(layer.translations.name);
+	    if (angular.isDefined(layer.geographical_extent_geom.coordinates)) {
+		$scope.selectedLayer.boundingBox = layer.geographical_extent_geom.coordinates[0];
+	    }
             $scope.type = layer.type;
             if (layer.type == 'shp') {
                 leafletData.getMap().then(function(map) {
@@ -53,19 +101,12 @@
                     map.fitBounds(bounds);
                 });
             } else if (layer.type == 'wms') {
-                $scope.layers.overlays.preview = {
-                    name: 'WMS',
-                    type: 'wms',
-                    url: layer.url,
-                    visible: true,
-                    layerOptions: {
-                        layers: layer.identifier,
-                        opacity: 0.70
-                    }
-                };
-                leafletData.getMap().then(function(map) {
-                    map.fitBounds(L.geoJson(layer.geographical_extent_geom).getBounds());
-                });
+		setWMSPreview()
+                //leafletData.getMap().then(function(map) {
+                //    map.fitBounds(L.geoJson(layer.geographical_extent_geom).getBounds());
+                //});
+            } else if (layer.type == 'wmts') {
+		setWMTSPreview()
             }
         } else {
             $scope.infos = angular.copy(this.defaultInfos);
@@ -274,42 +315,6 @@
             $scope.hideFields = false;
         }
 
-        var setWMSPreview = function() {
-            if ($scope.layers.overlays.hasOwnProperty('preview')) {
-                delete $scope.layers.overlays.preview;
-            }
-            setTimeout(function() {
-                $scope.layers.overlays.preview = {
-                    name: $scope.selectedLayer.title,
-                    type: 'wms',
-                    url: $scope.infos.url,
-                    visible: true,
-                    layerOptions: {
-                        layers: $scope.infos.identifier,
-                        opacity: 0.70
-                    }
-                };
-                leafletData.getMap().then(function(map) {
-                    $scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON().geometry;
-                    map.fitBounds($scope.selectedLayer.boundingBox);
-                });
-            }, 0);
-        }
-
-        var setWMTSPreview = function() {
-            var layer = new L.TileLayer.WMTS($scope.infos.url, {
-                layer: $scope.infos.identifier,
-                        style: "normal",
-                        tilematrixSet: "PM",
-                        format: "image/jpeg"
-            });
-            leafletData.getMap().then(function(map) {
-                map.addLayer(layer);
-                $scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON().geometry;
-                map.fitBounds($scope.selectedLayer.boundingBox);
-            });
-        }
-
         $scope.processSHP = function(file) {
             $scope.shpProcessingProgress = 0;
             if (!file) {
@@ -477,7 +482,7 @@
                     if (!bbox._minx || !bbox._miny || !bbox._maxx || !bbox._maxy) {
                         return [
                             [-90,- 180],
-                            [89.99999, 179.999999]
+                            [89.999999, 179.999999]
                         ];
                     } else {
                         return arkeoMap.getValidBoundingBox(bbox._minx, bbox._maxy, bbox._maxx, bbox._miny);
