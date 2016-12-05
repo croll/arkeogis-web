@@ -1,6 +1,17 @@
 .content-map {
     padding: 0;
 }
+
+md-sidenav {
+    md-toolbar { 
+      background: #fff!important;
+    }
+    .md-button:nth-child(2) {
+      margin-top: 20px;
+      border: 1px solid #f0e0e0;
+    }
+}
+
 .arkeomap {
     .md-button {
         font-size: 0.55em;
@@ -9,7 +20,7 @@
     .query {
         .md-button {
             padding: 0;
-            margin: 0;
+            margin: 10px 0 0 0;
             min-width: 0;
         }
     }
