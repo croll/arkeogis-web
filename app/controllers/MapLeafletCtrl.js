@@ -109,7 +109,7 @@
                     };
                 } else if (layer.type == 'wms') {
                     l = {
-                        name: layer.name.en,
+                        name: $filter('arkTranslate')(layer.name),
                         type: 'wms',
                         instance: L.tileLayer.wms(layer.url, {
                             minZoom: layer.min_scale,
@@ -120,16 +120,17 @@
                     };
                 } else if (layer.type == 'wmts') {
                     l = {
-                            name: $filter('arkTranslate')(layer.name),
+                        name: $filter('arkTranslate')(layer.name),
                         type: 'wmts',
-                        instance: L.tileLayer.WMTS(layer.url, {
-                            style: "normal",
-                            tilematrixSet: "PM",
-                            layer: layer.identifier,
-                            attribution: $filter('arkTranslate')(layer.attribution),
-                            minZoom: layer.min_scale,
-                            maxZoom: layer.max_scale
-                        })
+			instance: new L.TileLayer.WMTS(layer.url, {
+                		layer: layer.identifier,
+                        	style: "normal",
+                        	tilematrixSet: "PM",
+                        	format: "image/jpeg",
+                            	attribution: $filter('arkTranslate')(layer.attribution),
+                            	minZoom: layer.min_scale,
+                            	maxZoom: layer.max_scale
+            		})
                     };
                 }
 
