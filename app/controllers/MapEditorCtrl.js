@@ -47,18 +47,21 @@
 
 	// Remove all layers except OSM tiles
         function removeAllLayers() {
+           if (typeof($scope.layers.overlays) == 'object' && typeof($scope.layers.overlays.preview) == 'object') {
+             $scope.layers.overlays.preview = {};
+	   }
+	   /*
            leafletData.getMap().then(function(map) {
               map.eachLayer(function (layer) {
                 if (layer._url.indexOf('tile.openstreetmap.org') == -1) {
-		 console.log(layer);
-               	 //map.removeLayer(layer);
+               	  map.removeLayer(layer);
 		}
 	      }); 
            });
+	   */
         }
 
         function setWMSPreview() {
-            removeAllLayers();
             setTimeout(function() {
                 $scope.layers.overlays.preview = {
                     name: $scope.selectedLayer.title,
@@ -79,8 +82,6 @@
         }
 
         function setWMTSPreview() {
-            removeAllLayers();
-	    console.log("IMAGE FORMAT: ", $scope.image_format);
             setTimeout(function() {
 		    var layer = new L.TileLayer.WMTS($scope.infos.url, {
 			layer: $scope.infos.identifier,
