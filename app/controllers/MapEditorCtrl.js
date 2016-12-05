@@ -69,9 +69,6 @@
             }
         } else {
             $scope.infos = angular.copy(this.defaultInfos);
-            //$scope.infos.url = 'http://demo.opengeo.org/geoserver/wms';
-            //$scope.infos.url = 'http://wxs.ign.fr/wr0m9178wrn6s55o8a46u8dd/geoportail/r/wms';
-            $scope.infos.url = 'http://wxs.ign.fr/bfmer9u7qh0mmhdyqj2z0wst/wmts';
             $scope.hideFields = true;
         }
 
@@ -94,6 +91,14 @@
             } else {
                 $scope.lang2SelectDisabled = false;
                 $scope.mapEditorForm.description2.$setValidity('english_required', true)
+            }
+        }, true);
+
+        $scope.$watch('type', function(newVal, oldVal) {
+            if (newVal && newVal == 'wmts') {
+            	$scope.infos.url = 'http://wxs.ign.fr/bfmer9u7qh0mmhdyqj2z0wst/wmts';
+            } else {
+            	$scope.infos.url = 'http://demo.opengeo.org/geoserver/wms';
             }
         }, true);
 
