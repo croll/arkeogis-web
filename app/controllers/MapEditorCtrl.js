@@ -69,7 +69,9 @@
             }
         } else {
             $scope.infos = angular.copy(this.defaultInfos);
-            $scope.infos.url = 'http://demo.opengeo.org/geoserver/wms';
+            //$scope.infos.url = 'http://demo.opengeo.org/geoserver/wms';
+            //$scope.infos.url = 'http://wxs.ign.fr/wr0m9178wrn6s55o8a46u8dd/geoportail/r/wms';
+            $scope.infos.url = 'http://wxs.ign.fr/bfmer9u7qh0mmhdyqj2z0wst/wmts';
             $scope.hideFields = true;
         }
 
@@ -464,6 +466,7 @@
             var processFuncs = {
                 wms: function(bbox) {
                     if (bbox._CRS != '' && bbox._CRS.indexOf("EPSG:4326") == -1 && bbox._CRS.indexOf("CRS:84")) {
+			console.log("Wrong CRS detected: "+ bbox._CRS);
                         return false;
                     }
                     if (!bbox._minx || !bbox._miny || !bbox._maxx || !bbox._maxy) {
@@ -481,7 +484,7 @@
                     }
                     var upper = bbox.UpperCorner.toString().split(' ');
                     var lower = bbox.LowerCorner.toString().split(' ');
-                    return arkeoMap.getValidBoundingBox(upper[0], lower[1], upper[1], lower[0]);
+                    return arkeoMap.getValidBoundingBox(lower[1], upper[0], upper[1], lower[0]);
                 }
             }
 
