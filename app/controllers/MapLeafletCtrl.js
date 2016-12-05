@@ -115,7 +115,7 @@
                             minZoom: layer.min_scale,
                             maxZoom: layer.max_scale,
                             attribution: $filter('arkTranslate')(layer.attribution),
-                            layer: layer.identifier
+                            layers: layer.identifier
                         })
                     };
                 } else if (layer.type == 'wmts') {
