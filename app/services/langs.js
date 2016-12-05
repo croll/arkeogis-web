@@ -105,7 +105,6 @@
     };
 
     this.setTranslationLang = function(num, iso_code) {
-      console.log("SET LANG", num, iso_code);
         if ([1,2].indexOf(num) == -1) {
             console.log("Error with setTranslationLang(): Wrong value lang num. Should be 1 or 2");
             return false;
