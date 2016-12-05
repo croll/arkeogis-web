@@ -106,7 +106,7 @@
 
 		$http.get('/api/stats').then(function(data) {
             $scope.stats = data.data;
-            $scope.stats.date = $filter('date')(new Date());
+            $scope.stats.date = $filter('date')(new Date(), 'shortDate');
 			console.log("stats: ", $scope.stats);
         });
 
