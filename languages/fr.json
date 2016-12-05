@@ -805,9 +805,15 @@
 		"FIELD_IDENTIFIER": {
 			"T_LABEL": "Identifiant du calque"
 		},
+		"FIELD_IMAGE_FORMAT": {
+			"T_LABEL": "Format d'image"
+		},
 		"FIELD_LICENSE": {
 			"T_HELP": "Licence associée",
 			"T_LABEL": "Nom de la licence"
+		},
+		"FIELD_MAX_SCALE": {
+			"T_LABEL": "Échelle maximale"
 		},
 		"FIELD_MAX_USAGE_DATE": {
 			"T_HELP": "Date limite d’utilisation du calque",

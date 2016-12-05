@@ -805,9 +805,15 @@
 		"FIELD_IDENTIFIER": {
 			"T_LABEL": "Layer's id"
 		},
+		"FIELD_IMAGE_FORMAT": {
+			"T_LABEL": "#!#MAPEDITOR.FIELD_IMAGE_FORMAT.T_LABEL"
+		},
 		"FIELD_LICENSE": {
 			"T_HELP": "Associated license",
 			"T_LABEL": "License's name"
+		},
+		"FIELD_MAX_SCALE": {
+			"T_LABEL": "#!#MAPEDITOR.FIELD_MAX_SCALE.T_LABEL"
 		},
 		"FIELD_MAX_USAGE_DATE": {
 			"T_HELP": "Use-by date of the layer",
