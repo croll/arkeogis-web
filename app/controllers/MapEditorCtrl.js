@@ -27,9 +27,7 @@
 
         angular.extend($scope, arkeoMap.config);
 
-        if ($scope.layers.overlays.hasOwnProperty('preview')) {
-          delete $scope.layers.overlays.preview;
-        }
+        removeAllLayers();
 
         this.defaultInfos = {
             authors: [{
@@ -43,13 +41,24 @@
               description: {
                 en: ''
               }
-            }
+            },
+	    image_format: 'image/jpeg'
         }
 
-        var setWMSPreview = function() {
-            if ($scope.layers.overlays.hasOwnProperty('preview')) {
-                delete $scope.layers.overlays.preview;
-            }
+	// Remove all layers except OSM tiles
+        function removeAllLayers() {
+           leafletData.getMap().then(function(map) {
+              map.eachLayer(function (layer) {
+                if (layer._url.indexOf('tile.openstreetmap.org') == -1) {
+		 console.log(layer);
+               	 //map.removeLayer(layer);
+		}
+	      }); 
+           });
+        }
+
+        function setWMSPreview() {
+            removeAllLayers();
             setTimeout(function() {
                 $scope.layers.overlays.preview = {
                     name: $scope.selectedLayer.title,
@@ -58,6 +67,7 @@
                     visible: true,
                     layerOptions: {
                         layers: $scope.infos.identifier,
+			format: $scope.image_format,
                         opacity: 0.70
                     }
                 };
@@ -68,27 +78,30 @@
             }, 0);
         }
 
-        var setWMTSPreview = function() {
-            if ($scope.layers.overlays.hasOwnProperty('preview')) {
-                delete $scope.layers.overlays.preview;
-            }
-            var layer = new L.TileLayer.WMTS($scope.infos.url, {
-                layer: $scope.infos.identifier,
-                        style: "normal",
-                        tilematrixSet: "PM",
-                        format: "image/jpeg"
-            });
-            leafletData.getMap().then(function(map) {
-                map.addLayer(layer);
-                $scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON().geometry;
-                map.fitBounds($scope.selectedLayer.boundingBox);
-            });
+        function setWMTSPreview() {
+            removeAllLayers();
+	    console.log("IMAGE FORMAT: ", $scope.image_format);
+            setTimeout(function() {
+		    var layer = new L.TileLayer.WMTS($scope.infos.url, {
+			layer: $scope.infos.identifier,
+				style: "normal",
+				tilematrixSet: "PM",
+				format: $scope.image_format,
+                        	opacity: 0.70
+		    });
+		    leafletData.getMap().then(function(map) {
+			map.addLayer(layer);
+			$scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON().geometry;
+			map.fitBounds($scope.selectedLayer.boundingBox);
+		    });
+	    }, 0);
         }
 
         if (angular.isDefined(layer)) {
             $scope.infos = angular.copy(layer)
             $scope.hideFields = false;
 	    $scope.selectedLayer = layer;
+            $scope.image_format = (layer.image_format != '') ? layer.image_format : self.defaultInfos.image_format;
 	    $scope.selectedLayer.title = $filter('arkTranslate')(layer.translations.name);
 	    if (angular.isDefined(layer.geographical_extent_geom.coordinates)) {
 		$scope.selectedLayer.boundingBox = layer.geographical_extent_geom.coordinates[0];
@@ -216,6 +229,7 @@
                     }
                 }).then(function(res) {
                     arkeoService.showMessage('MAPEDITOR.MESSAGE.T_DELETE_OK')
+                    removeAllLayers();
                     $state.go('arkeogis.mapeditor-list')
                 }, function(err) {
                     arkeoService.showMessage('MAPEDITOR.MESSAGE.T_DELETE_FAILED', 'error')
@@ -273,7 +287,7 @@
                                     tilematrixSet: "PM",
                                     title: layer.Title.toString(),
                                     identifier: layer.Identifier.toString(),
-                                    format: layer.Format.toString(),
+                                    //format: layer.Format.toString()
                                 }
                                 l.boundingBox = processBoundingBox(layer.WGS84BoundingBox, 'wmts');
                                 $scope.wmsLayers.push(l);
@@ -303,6 +317,12 @@
                 }
             });
 
+	    $scope.refreshPreview();
+
+            $scope.hideFields = false;
+        }
+
+        $scope.refreshPreview = function() {
             switch ($scope.type) {
                 case 'wms':
                     setWMSPreview();
@@ -311,8 +331,6 @@
                     setWMTSPreview();
                     break;
             }
-
-            $scope.hideFields = false;
         }
 
         $scope.processSHP = function(file) {
@@ -404,8 +422,7 @@
                 dbObj.type = $scope.type;
                 dbObj.identifier = $scope.infos.identifier;
                 dbObj.url = $scope.infos.url;
-                // TODO: remove this field is unused
-                dbObj.image_format = '';
+                dbObj.image_format = $scope.image_format;
             }
             // translations
             delete dbObj.translations;
@@ -422,6 +439,7 @@
                         }
                     }).then(function() {
                         arkeoService.showMessage('MAPEDITOR.MESSAGE.SAVE_T_SUCCESS')
+                        removeAllLayers();
                         $state.go('arkeogis.mapeditor-list');
                     }, function(err) {
                         arkeoService.showMessage('MAPEDITOR.MESSAGE.SAVE_T_FAILED')
@@ -436,6 +454,7 @@
                         data: dbObj
                     }).then(function() {
                         arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE.T_SUCCESS')
+                        removeAllLayers();
                         $state.go('arkeogis.mapeditor-list');
                     }, function(err) {
                         arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE.T_FAILED')
@@ -508,7 +527,6 @@
             } else {
                 result = processFuncs[type](boundingBox);
             }
-
 
             return result;
         }

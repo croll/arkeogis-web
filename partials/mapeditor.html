@@ -36,11 +36,20 @@
                     <span translate>MAPEDITOR.FIELD_WMS_URL.T_LABEL</span>
                 </label>
                 <input type="text" ng-model="infos.url" flex>
-            </md-input-container>
             <md-button type="button" class="md-icon-button" ng-click="getLayers()">
                 <md-icon>search</md-icon>
             </md-button>
+        </ark-form-block>
+        <ark-form-block>
+            </md-input-container>
             <!-- WMS and WMTS layers list -->
+	    <md-input-container ng-hide="getCapabilities != true && !infos.identifier">
+                <md-select name="image_format" ng-model="image_format" placeholder="{{'MAPEDITOR.FIELD_IMAGE_FORMAT.T_LABEL' | translate}}" md-on-close="refreshPreview()">
+                    <md-option value="image/png">PNG</md-option>
+                    <md-option value="image/jpeg">JPEG</md-option>
+                    <md-option value="image/jpg">JPG</md-option>
+                </md-select>
+            </md-input-container>
             <md-input-container ng-hide="getCapabilities != true">
                 <md-select name="identifier" ng-model="infos.identifier" placeholder="{{'MAPEDITOR.FIELD_SELECT_LAYER.T_LABEL' | translate}}" md-on-close="onLayerSelected();hideIdentifier = true">
                     <md-option value="{{layer.identifier}}" ng-repeat="layer in wmsLayers">{{layer.title}}</md-option>
@@ -73,7 +82,7 @@
                 <div style="margin-left: 40px">
                     <md-input-container style="width:150px">
                         <label>
-                            <span translate>MAPEDITOR.FIELD_MIN_SCALE.T_LABEL</span>
+                            <span translate>MAPEDITOR.FIELD_MAX_SCALE.T_LABEL</span>
                         </label>
                         <input type="text" ng-model="infos.max_scale" disabled>
                     </md-input-container>

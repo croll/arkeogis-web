@@ -115,6 +115,7 @@
                             minZoom: layer.min_scale,
                             maxZoom: layer.max_scale,
                             attribution: $filter('arkTranslate')(layer.attribution),
+                       	    format: layer.image_format,
                             layers: layer.identifier
                         })
                     };
@@ -126,7 +127,7 @@
                 		layer: layer.identifier,
                         	style: "normal",
                         	tilematrixSet: "PM",
-                        	format: "image/jpeg",
+                        	format: layer.image_format,
                             	attribution: $filter('arkTranslate')(layer.attribution),
                             	minZoom: layer.min_scale,
                             	maxZoom: layer.max_scale

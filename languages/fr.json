@@ -719,7 +719,7 @@
 			"T_ITEM_USERSMANAGER": "Gestion des utilisateurs"
 		},
 		"FOOTER": {
-			"T_DATE": "Le {{date}}, {{name}} peut consulter :",
+			"T_DATE": "Le {{date}}, sont consultables :",
 			"T_DBCOUNT": "{{dbcount}} bases de données",
 			"T_SITECOUNT": "{{sitecount}} sites"
 		},
