@@ -221,10 +221,10 @@
         }
 
         this.getValidBoundingBox = function(north, east, south, west) {
-            north = parseFloat(north);
-            east = parseFloat(east);
-            south = parseFloat(south);
-            west = parseFloat(west);
+            north = parseFloat(north).toFixed(6);
+            east = parseFloat(east).toFixed(6);
+            south = parseFloat(south).toFixed(6);
+            west = parseFloat(west).toFixed(6);
             if (north > 90) {
                 north = 89.999999;
             }
