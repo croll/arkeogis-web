@@ -64,7 +64,7 @@
 
         $http.get('/api/stats').then(function(data) {
             $scope.stats = data.data;
-            $scope.stats.date = $filter('date')(new Date());
+            $scope.stats.date = $filter('date')(new Date(), 'shortDate');
 
             var contactstr = $('#LOGIN_FOOTER_T_CONTACT').text();
             contactstr = contactstr.replace("CONTACT_LINK", "<a href='"+$('#LOGIN_FOOTER_T_CONTACT_LINKURL').html()+"'>"+$('#LOGIN_FOOTER_T_CONTACT_LINKNAME').text()+"</a>");
