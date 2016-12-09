@@ -173,7 +173,7 @@
 			"T_LABEL": "Delete the database"
 		},
 		"BUTTON_DELETE": {
-			"T_CONFIRM": "Warning, the database and all the related informations are going to be deleted."
+			"T_CONFIRM": "Warning, the database and all the related information are going to be deleted."
 		},
 		"BUTTON_DOWNLOAD": {
 			"T_TITLE": "Download an export"
@@ -332,7 +332,7 @@
 			"T_LABEL": "Author(s) and co-author(s)"
 		},
 		"LIST_CONTEXT": {
-			"T_LABEL": "Coverage"
+			"T_LABEL": "Scope"
 		},
 		"LIST_DESCRIPTION": {
 			"T_LABEL": "Description"
@@ -439,13 +439,13 @@
 			"T_LABEL": "Report"
 		},
 		"HEADER_TAB_GENERAL_INFOS": {
-			"T_LABEL": "General informations"
+			"T_LABEL": "General information"
 		},
 		"HEADER_TAB_MORE_INFOS": {
-			"T_LABEL": "More informations"
+			"T_LABEL": "More information"
 		},
 		"HEADER_TAB_PUBLICATION_INFOS": {
-			"T_LABEL": "Informations for the publication"
+			"T_LABEL": "Information for the publication"
 		}
 	},
 	"IMPORT_STEP1": {
@@ -488,16 +488,16 @@
 			"T_HELP": "Please use a .CSV file encoded with the UTF-8 system for your upload.",
 			"T_RESET": "Reset",
 			"T_SUBMIT": "Submit and go to the next step",
-			"T_UPDATE": "Update the informations"
+			"T_UPDATE": "Update the information"
 		},
 		"INFOS": {
 			"T_LINE1": "To upload your database on the ArkeoGIS' platform, please fill out the following fields.",
-			"T_LINE2": "These informations are only required once before the importation. If you chose to re-upload your database, they won't be required again.",
-			"T_LINE3": "These informations could be modified later. You will also be able to add informations about your work in your personal database' management interface."
+			"T_LINE2": "This information is only required once before the importation. If you chose to re-upload your database, it won't be required again.",
+			"T_LINE3": "This information could be modified later. You will also be able to add information about your work in your personal database' management interface."
 		},
 		"MESSAGE": {
-			"T_INFORMATIONS_UPDATED": "Informations sucessfully updated",
-			"T_UNABLE_TO_UPDATE_DATABASE_INFORMATIONS": "An error occured during the update of the informations"
+			"T_INFORMATIONS_UPDATED": "Information sucessfully updated",
+			"T_UNABLE_TO_UPDATE_DATABASE_INFORMATIONS": "An error occured during the update of the information"
 		},
 		"TITLE": {
 			"T_BY": "by",
@@ -508,7 +508,7 @@
 		"REPORT_BLOCKS": {
 			"T_BUTTON_CHOOSE_FILE": "Select a file to import",
 			"T_HELP_IMPORT_ANOTHER_FILE": "Reimport the same database after correcting the mistakes.",
-			"T_HELP_MODIFY_IMPORT_OPTIONS": "Modify the database's informations, the importation features and submit a new file.",
+			"T_HELP_MODIFY_IMPORT_OPTIONS": "Modify the database's information, the importation features and submit a new file.",
 			"T_HELP_NB_DETECTED_SITES": "Number of sites detected in the file",
 			"T_HELP_NB_ERRORS_TOTAL": "Detailed list below",
 			"T_HELP_NB_SITES_WITH_ERROR": "Number of sites with a mistake",
@@ -592,10 +592,10 @@
 		"INFOS": {
 			"T_LINE1": "Following your import of the database : \"name of the database\", please fill the following fields about your work. This will allow you to publish your database on ArkeoGIS.",
 			"T_LINE2": "By \"publish\", we mean that you will be able to query your database on the mapping interface and allow other users to do the same.",
-			"T_LINE3": "These informations are only required once before the import. If you re-upload your database \"name of the database\", they won't be requested again. You will be able to modify these informations and add some more in your personal interface that can be found in the index of the databases."
+			"T_LINE3": "These pieces information are only required once before the import. If you re-upload your database \"name of the database\", they won't be requested again. You will be able to modify these pieces of information and add some more in your personal interface that can be found in the index of the databases."
 		},
 		"MESSAGES": {
-			"T_PUBLICATION_INFORMATIONS_SAVED": "The compulsory informations are saved."
+			"T_PUBLICATION_INFORMATIONS_SAVED": "The compulsory information is saved."
 		}
 	},
 	"IMPORT_STEP4": {
@@ -653,7 +653,7 @@
 		"MESSAGES": {
 			"T_ERROR_BIBLIOGRAPHY_EN_TRANSLATION_CAN_T_BE_EMPTY": "The field \"bibliography\" must be filled in English as well.",
 			"T_ERROR_GEOGRAPHICAL_LIMITS_EN_TRANSLATION_CAN_T_BE_EMPTY": "The field \"Geographical details\" must be filled in English as well.",
-			"T_PUBLICATION_INFORMATIONS_SAVED": "The informations are saved"
+			"T_PUBLICATION_INFORMATIONS_SAVED": "The information is saved"
 		}
 	},
 	"LANGEDITOR": {
@@ -719,9 +719,9 @@
 			"T_ITEM_USERSMANAGER": "Users' management"
 		},
 		"FOOTER": {
-			"T_DATE": "#!#MAIN.FOOTER.T_DATE",
-			"T_DBCOUNT": "#!#MAIN.FOOTER.T_DBCOUNT",
-			"T_SITECOUNT": "#!#MAIN.FOOTER.T_SITECOUNT"
+			"T_DATE": "On the {{date}}, you can consult :",
+			"T_DBCOUNT": "{{dbcount}} databases",
+			"T_SITECOUNT": "{{sitecount}} sites"
 		},
 		"IDLE": {
 			"T_TITLE": "You seem to be inactive, if you are not using ArkeoGIS, you will be disconnected..."
@@ -735,7 +735,7 @@
 			"T_TITLE": "DISPLAY THE MAP"
 		},
 		"BUTTON_INITQUERY": {
-			"T_TITLE": "RESET THE QUERIES"
+			"T_TITLE": "RESET THE FILTERS"
 		},
 		"LAYER_MENU": {
 			"T_ALL": "All",
@@ -754,7 +754,7 @@
 			"T_CONTENT": "Your archived query has been successfully deleted"
 		},
 		"MESSAGE_QUERY_RESULT": {
-			"T_NOMORELETTERS": "#!#MAP.MESSAGE_QUERY_RESULT.T_NOMORELETTERS",
+			"T_NOMORELETTERS": "You've reached the maximum number of queries, please reset.",
 			"T_NORESULT": "This query has no results",
 			"T_SERVERERROR": "Sorry, an internal error occured"
 		},
@@ -772,13 +772,13 @@
 	},
 	"MAPEDITOR": {
 		"BUTTON_DELETE": {
-			"T_CONFIRM": "#!#MAPEDITOR.BUTTON_DELETE.T_CONFIRM"
+			"T_CONFIRM": "Do you really wish to delete ?"
 		},
 		"BUTTON_SHP_FILE": {
 			"T_LABEL": "Submit ZIP folder"
 		},
 		"FIELD_ATTRIBUTION": {
-			"T_HELP": "#!#MAPEDITOR.FIELD_ATTRIBUTION.T_HELP",
+			"T_HELP": "Credits displayed at the bottom of the map.",
 			"T_LABEL": "Attribution"
 		},
 		"FIELD_AUTHOR": {
@@ -786,7 +786,7 @@
 			"T_LABEL": "Authors and co-authors"
 		},
 		"FIELD_COPYRIGHT": {
-			"T_HELP": "#!#MAPEDITOR.FIELD_COPYRIGHT.T_HELP",
+			"T_HELP": "Credits to quote if the document is used in a publication.",
 			"T_LABEL": "Copyright"
 		},
 		"FIELD_CREATION_DATE": {
@@ -806,14 +806,14 @@
 			"T_LABEL": "Layer's id"
 		},
 		"FIELD_IMAGE_FORMAT": {
-			"T_LABEL": "#!#MAPEDITOR.FIELD_IMAGE_FORMAT.T_LABEL"
+			"T_LABEL": "Image format"
 		},
 		"FIELD_LICENSE": {
 			"T_HELP": "Associated license",
 			"T_LABEL": "License's name"
 		},
 		"FIELD_MAX_SCALE": {
-			"T_LABEL": "#!#MAPEDITOR.FIELD_MAX_SCALE.T_LABEL"
+			"T_LABEL": "Maximal scale"
 		},
 		"FIELD_MAX_USAGE_DATE": {
 			"T_HELP": "Use-by date of the layer",
@@ -847,8 +847,8 @@
 			"T_SUBMIT": "Submit"
 		},
 		"MESSAGE": {
-			"T_DELETE_FAILED": "#!#MAPEDITOR.MESSAGE.T_DELETE_FAILED",
-			"T_DELETE_OK": "#!#MAPEDITOR.MESSAGE.T_DELETE_OK"
+			"T_DELETE_FAILED": "Failed to delete",
+			"T_DELETE_OK": "Successfully deleted"
 		},
 		"MESSAGE_GET_LAYER_LIST": {
 			"T_ERROR": "Recovery of the layers' list",
@@ -858,8 +858,8 @@
 			"T_ERROR": "The submitted file is not valid."
 		},
 		"MESSAGE_SAVE": {
-			"T_FAILED": "#!#MAPEDITOR.MESSAGE_SAVE.T_FAILED",
-			"T_SUCCESS": "#!#MAPEDITOR.MESSAGE_SAVE.T_SUCCESS"
+			"T_FAILED": "Failed to save",
+			"T_SUCCESS": "Successfully saved."
 		},
 		"MESSAGE_SHP_LOADING": {
 			"T_ERROR": "File's processing"
@@ -868,12 +868,12 @@
 			"T_LABEL": "Choice of the layer's type"
 		},
 		"SELECT_SHP_WMS_WMTS": {
-			"T_OPTION_NONE_HELP": "#!#MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_NONE_HELP",
-			"T_OPTION_SHP": "#!#MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_SHP",
-			"T_OPTION_SHP_HELP": "#!#MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_SHP_HELP",
-			"T_OPTION_WMS": "#!#MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_WMS",
+			"T_OPTION_NONE_HELP": "Please, chose the format of the layer you wish to share.",
+			"T_OPTION_SHP": "SHP",
+			"T_OPTION_SHP_HELP": "The ZIP folder must contain .dbd, .prj, .shp and .shx files.",
+			"T_OPTION_WMS": "WMS",
 			"T_OPTION_WMS_HELP": "#!#MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_WMS_HELP",
-			"T_OPTION_WMTS": "#!#MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_WMTS",
+			"T_OPTION_WMTS": "WMTS",
 			"T_OPTION_WMTS_HELP": "#!#MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_WMTS_HELP"
 		},
 		"TABLE_LIST": {
@@ -1278,7 +1278,7 @@
 		"CHARACS_LINKED": {
 			"T_ALL": "All",
 			"T_AT_LEAST_ONE": "At least one",
-			"T_TITLE": "The logical link used between the characterisations' categories (real-estate/furniture/landscape/production) is :"
+			"T_TITLE": "The logical link used between the characterisations' categories (realestate/furniture/landscape/production) is :"
 		},
 		"DIALOG": {
 			"T_INTRO": "",
@@ -1433,6 +1433,7 @@
 			"T_TITLE": "Chronology Groups"
 		},
 		"FIELD_CITY": {
+			"T_CHECK_MANDATORY": "The field \"City\" is mandatory.",
 			"T_CHECK_NOMATCH": "No match...",
 			"T_TITLE": "City"
 		},
@@ -1471,6 +1472,7 @@
 			"T_TITLE": "Databases"
 		},
 		"FIELD_DESCRIPTION": {
+			"T_CHECK_MANDATORY": "The field \"Description\" is mandatory.",
 			"T_TITLE": "Description"
 		},
 		"FIELD_EMAIL": {
@@ -1494,7 +1496,8 @@
 			"T_TITLE": "Lastname"
 		},
 		"FIELD_PASSWORD": {
-			"T_CHECK_LENGTH": "#!#USER.FIELD_PASSWORD.T_CHECK_LENGTH",
+			"T_CHECK_INCORRECT": "The field \"Password\" is not correct.",
+			"T_CHECK_LENGTH": "At least 7 characters",
 			"T_CHECK_NOTSAME": "The two passwords must be the same.",
 			"T_TITLE": "Password"
 		},
@@ -1506,6 +1509,7 @@
 		},
 		"FIELD_USERNAME": {
 			"T_CHECK_ALREADYEXISTS": "This user already exists",
+			"T_CHECK_INCORRECT": "The field \"Username\" is not correct.",
 			"T_CHECK_MANDATORY": "This field is mandatory",
 			"T_TITLE": "Username"
 		},
@@ -1521,10 +1525,10 @@
 			"T_TITLE": "Edit User..."
 		},
 		"HEADER_MYSELFUSER": {
-			"T_TITLE": "#!#USER.HEADER_MYSELFUSER.T_TITLE"
+			"T_TITLE": "My user profile"
 		},
 		"HEADER_SHOWUSER": {
-			"T_TITLE": "#!#USER.HEADER_SHOWUSER.T_TITLE"
+			"T_TITLE": "User's sheet"
 		},
 		"HEADER_USERS": {
 			"T_TITLE": "Users Administration"
