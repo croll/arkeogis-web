@@ -50,7 +50,7 @@
 			console.log("idle timeout");
 			$('div#arkeo_idle').hide();
 			Login.logout().then(function() {
-				window.location.href="http://arkeo4.dev.rhack.net/";
+				window.location.href="http://arkeogis.org/";
 			});
 		});
 
