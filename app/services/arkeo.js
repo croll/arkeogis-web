@@ -42,7 +42,7 @@
                 console.error("call to setFormErrorFromServer with form = undefined !");
                 return;
             }
-            if (error.field_path.startsWith(startswith)) {
+            if (error.field_path.indexOf(startswith) == 0) {
                 var path = error.field_path.substr(startswith.length);
                 console.log("field error from server : ", path, error.error_string)
                 var elems = path.split(".");

@@ -80,7 +80,7 @@
                     'request': function(config) {
 
                         // do not add Authorization token header on external urls
-                        if (config.url.startsWith("http://") || config.url.startsWith("https://")) {
+                        if (config.url.indexOf("http://") == 0 || config.url.indexOf("https://") == 0) {
                             return config;
                         }
 
@@ -93,7 +93,7 @@
                     },
                     'responseError': function(response) {
                         // do not go to login path if this is an external url
-                        if (response.config.url.startsWith("http://") || response.config.url.startsWith("https://")) {
+                        if (response.config.url.indexOf("http://") == 0 || response.config.url.indexOf("https://") == 0) {
                             return $q.reject(response);
                         }
                         if (response.status === 403) {
