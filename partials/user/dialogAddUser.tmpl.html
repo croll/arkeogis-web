@@ -134,9 +134,9 @@
           </ark-form-block>
 
           <!-- LINE 3 -->
-          <ark-form-block>
+          <ark-form-block ng-if="canEdit">
             <!-- Password -->
-            <md-input-container ng-if="canEdit" flex>
+            <md-input-container>
                 <label translate>.FIELD_PASSWORD.T_TITLE</label>
                 <input ng-readonly="!canEdit" name="password" ng-model="user.password" ng-change="userForm.password.$setValidity('server', true)" type="password" ng-required="user.id == undefined"/>
                 <div ng-messages="userForm.password.$error" role="alert">
@@ -144,7 +144,7 @@
                 </div>
             </md-input-container>
             <!-- Repeat password -->
-            <md-input-container ng-if="canEdit" flex>
+            <md-input-container>
                 <label translate>.FIELD_PASSWORD2.T_TITLE</label>
                 <input ng-readonly="!canEdit" name="password2" ng-model="user.password2" type="password" ng-required="user.id == undefined"/>
                 <div ng-messages="userForm.password2.$error" role="alert">
@@ -154,9 +154,9 @@
           </ark-form-block>
 
           <!-- LINE 4 -->
-          <ark-form-block>
+          <ark-form-block class="line4">
             <!-- Lang 1 -->
-            <md-input-container flex>
+            <md-input-container>
                 <label translate>.FIELD_LANG1.T_TITLE</label>
                 <md-select ng-disabled="!canEdit" required name="first_lang_isocode" ng-model="user.first_lang_isocode" ng-change="userForm.first_lang_isocode.$setValidity('server', true)">
                     <md-option ng-repeat="lang in langs" ng-value="lang.iso_code">{{lang.name || lang.isocode}}</md-option>
@@ -166,7 +166,7 @@
                 </div>
             </md-input-container>
             <!-- Lang 2 -->
-            <md-input-container flex>
+            <md-input-container>
                 <label translate>.FIELD_LANG2.T_TITLE</label>
                 <md-select ng-disabled="!canEdit" required name="second_lang_isocode" ng-model="user.second_lang_isocode" ng-change="userForm.second_lang_isocode.$setValidity('server', true)">
                     <md-option ng-repeat="lang in langs" ng-value="lang.iso_code">{{lang.name || lang.isocode}}</md-option>
