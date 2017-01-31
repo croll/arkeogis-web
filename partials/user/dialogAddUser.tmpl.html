@@ -83,6 +83,16 @@
                           </md-autocomplete>
                         </md-input-container>
                         </ark-form-block>
+                        <ark-form-block ng-if="user.description">
+                          <!-- Description -->
+                          <md-input-container class="description-container">
+                              <label translate>.FIELD_DESCRIPTION.T_TITLE</label>
+                              <textarea ng-readonly="!canEdit" required name="description" row="4" ng-model="user.description" ng-change="userForm.description.$setValidity('server', true)"></textarea>
+                              <div ng-messages="userForm.description.$error" role="alert">
+                                  <div ng-if="userForm.description.$error.server">{{ userForm.description.$error.server | translate }}</div>
+                              </div>
+                          </md-input-container>
+                        </ark-form-block>
                         <ark-form-block ng-if="user.databases.length">
                           <md-input-container width="400px">
                             <!-- Databases -->
@@ -312,18 +322,6 @@
                 <md-select ng-readonly="!canEdit" ng-model="user.groups_charac" multiple>
                     <md-option ng-repeat="group in available_groups_charac.data" ng-value="group.id">{{group.name}}</md-option>
                 </md-select>
-            </md-input-container>
-          </ark-form-block>
-
-          <!-- LINE 7 -->
-          <ark-form-block ng-if="isAdmin">
-            <!-- Description -->
-            <md-input-container class="description-container">
-                <label translate>.FIELD_DESCRIPTION.T_TITLE</label>
-                <textarea ng-readonly="!canEdit" required name="description" row="4" ng-model="user.description" ng-change="userForm.description.$setValidity('server', true)"></textarea>
-                <div ng-messages="userForm.description.$error" role="alert">
-                    <div ng-if="userForm.description.$error.server">{{ userForm.description.$error.server | translate }}</div>
-                </div>
             </md-input-container>
           </ark-form-block>
 
