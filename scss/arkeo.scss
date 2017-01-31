@@ -12,10 +12,13 @@
 @import '_map.scss';
 @import '_icons.scss';
 @import '_site.scss';
+@import '_user.scss';
+@import '_user.scss';
 @import '_leaflet-controls.scss';
 
 html, body {
 	background-color: rgb(238, 238, 238);
+	height: 100vh;
 }
 
 html,
@@ -288,17 +291,4 @@ div#arkeo_idle {
 /*** leaflet z-index conflict with z-indexs of angular 1000 -> 15 ***/
 .leaflet-top, .leaflet-bottom {
 	z-index: 15;
-}
-
-.login-page {
-
-	form {
-		margin: 50px auto 0 auto;
-		max-width: 600px;
-	}
-
-	.buttons-container {
-		margin: 50px;
-		text-align: center
-	}
 }

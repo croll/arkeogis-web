@@ -17,6 +17,14 @@
 }
 
 .ark-database-list {
+    .name-desc {
+      div:first-child {
+      }
+      div:last-child {
+        font-size: 0.8em;
+        color: #555
+      }
+    }
     table.md-table tbody.md-body>tr.md-row, table.md-table tfoot.md-foot>tr.md-row {
         cursor: pointer;
     }
