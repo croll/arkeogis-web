@@ -56,7 +56,7 @@
                 if (layer._url.indexOf('tile.openstreetmap.org') == -1) {
                	  map.removeLayer(layer);
 		}
-	      }); 
+	      });
            });
 	   */
         }
@@ -151,7 +151,7 @@
 
         $scope.$watch('type', function(newVal, oldVal) {
             if (newVal && newVal == 'wmts') {
-            	$scope.infos.url = 'http://wxs.ign.fr/bfmer9u7qh0mmhdyqj2z0wst/wmts';
+            	$scope.infos.url = 'http://wxs.ign.fr/b648puasvhkm1f46dk8hft4i/wmts';
             } else {
             	$scope.infos.url = 'http://demo.opengeo.org/geoserver/wms';
             }
