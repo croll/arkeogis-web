@@ -20,7 +20,7 @@
  */
 
 (function() {
-    'use strict';
+    //'use strict';
 
     ArkeoGIS.service('arkeoProject', ['$http', '$q', 'arkeoLang', function($http, $q, arkeoLang) {
 
@@ -215,7 +215,7 @@
         }
 
 		var chronologies_by_id = null;
-        this.getChronologyById = function(id) {
+      this.getChronologyById = function(id) {
 			if (chronologies_by_id == null) {
 				chronologies_by_id = {};
 				var chronologiesAll = self.project.chronologies;

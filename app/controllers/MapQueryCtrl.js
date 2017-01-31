@@ -21,7 +21,7 @@
 
 (function() {
 
-	'use strict';
+	//'use strict';
 	ArkeoGIS.controller('MapQueryCtrl', ['$scope', '$http', '$location', '$mdSidenav', '$mdComponentRegistry', '$q', '$timeout', '$mdDialog', '$translate', '$filter', '$rootScope', 'arkeoService', 'arkeoProject', 'arkeoQuery', 'arkeoMap',
 	function($scope, $http, $location, $mdSidenav, $mdComponentRegistry, $q, $timeout, $mdDialog, $translate, $filter, $rootScope, arkeoService, arkeoProject, arkeoQuery, arkeoMap) {
             /*
