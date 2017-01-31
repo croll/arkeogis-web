@@ -9,37 +9,44 @@
         </md-toolbar>
 
         <md-content layout-padding>
-            <div layout="column">
 
-                <div translate>.HEADER.T_LINE1</div>
-                <div translate>.HEADER.T_LINE2</div>
-                <div translate>.HEADER.T_LINE3</div>
+            <div translate>.HEADER.T_LINE1</div>
+            <div translate>.HEADER.T_LINE2</div>
+            <div translate>.HEADER.T_LINE3</div>
 
-                <md-input-container flex>
+              <div class="fields-container">
+                <ark-form-block>
+                  <md-input-container>
                     <label translate>.FIELD_USERNAME.T_TITLE</label>
                     <input name="username" ng-model="user.Username"/>
                     <div ng-messages="loginForm.username.$error" role="alert">
-            		 <div ng-if="loginForm.username.$error.server">{{ loginForm.username.$error.server | translate }}</div>
-            		</div>
-                </md-input-container>
-                <md-input-container flex>
-                    <label translate>.FIELD_PASSWORD.T_TITLE</label>
-                    <input ng-model="user.Password" type="password"/>
-                </md-input-container>
+              		    <div ng-if="loginForm.username.$error.server">{{ loginForm.username.$error.server | translate }}</div>
+                    </div>
+                  </md-input-container>
+                </ark-form-block>
+                <ark-form-block>
+                  <md-input-container>
+                      <label translate>.FIELD_PASSWORD.T_TITLE</label>
+                      <input ng-model="user.Password" type="password"/>
+                  </md-input-container>
+                </ark-form-block>
+                <ark-form-block>
+                  <div class="buttons-container">
+                    <md-button type="submit" class="md-primary md-raised"><span translate>.BUTTON_OK.T_TITLE</span></md-button>
+                  </div>
+                </ark-form-block>
+              </div>
 
-                <div translate translate-value-date="{{stats.date}}">.FOOTER.T_DATE</div>
-                <div translate translate-value-dbcount="{{stats.dbcount}}">.FOOTER.T_DBCOUNT</div>
-                <div translate translate-value-sitecount="{{stats.sitecount}}">.FOOTER.T_SITECOUNT</div>
+            <div translate translate-value-date="{{stats.date}}">.FOOTER.T_DATE</div>
+            <div translate translate-value-dbcount="{{stats.dbcount}}">.FOOTER.T_DBCOUNT</div>
+            <div translate translate-value-sitecount="{{stats.sitecount}}">.FOOTER.T_SITECOUNT</div>
 
-                <div id="contactstr"></div>
+            <div id="contactstr"></div>
 
-                <span id="LOGIN_FOOTER_T_CONTACT" style="display: none" translate>LOGIN.FOOTER.T_CONTACT</span>
-                <span id='LOGIN_FOOTER_T_CONTACT_LINKNAME' style="display: none" translate>LOGIN.FOOTER.T_CONTACT_LINKNAME</span>
-                <span id='LOGIN_FOOTER_T_CONTACT_LINKURL' style="display: none" translate>LOGIN.FOOTER.T_CONTACT_LINKURL</span>
-            </div>
-            <div class="buttons-container">
-              <md-button type="submit" class="md-primary md-raised"><span translate>.BUTTON_OK.T_TITLE</span></md-button>
-            </div>
+            <span id="LOGIN_FOOTER_T_CONTACT" style="display: none" translate>LOGIN.FOOTER.T_CONTACT</span>
+            <span id='LOGIN_FOOTER_T_CONTACT_LINKNAME' style="display: none" translate>LOGIN.FOOTER.T_CONTACT_LINKNAME</span>
+            <span id='LOGIN_FOOTER_T_CONTACT_LINKURL' style="display: none" translate>LOGIN.FOOTER.T_CONTACT_LINKURL</span>
+
         </md-content>
 
     </form>

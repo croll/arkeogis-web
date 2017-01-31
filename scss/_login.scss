@@ -1,0 +1,26 @@
+.login-page {
+
+  .fields-container {
+    margin: 50px 0;
+  }
+
+  ark-form-block {
+    text-align: center;
+    margin: 0;
+  }
+
+	form {
+		margin: 20px auto 0 auto;
+    padding-top: 40px;
+		max-width: 600px;
+	}
+
+  md-input-container {
+    text-align: left!important;
+  }
+
+	.buttons-container {
+		margin: 0 0 20px 0;
+		text-align: center
+	}
+}
