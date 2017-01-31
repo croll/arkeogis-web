@@ -1,0 +1,36 @@
+.dialog-user {
+  min-width: 840px;
+  md-card {
+    padding: 30 30 10px 10px;
+    .user-infos {
+      padding: 0 0 0 30px;
+    }
+    min-height: 200px;
+    .photo-container {
+      min-width: 184px;
+      padding: 20px;
+      img {
+        width: 184px;
+        height: 184px;
+      }
+    }
+    .databases {
+      div {
+        padding: 4px 0;
+        font-size: 0.9em;
+      }
+    }
+  }
+  md-input-container {
+    width: 250px;
+    input {
+      color: #000!important;
+    }
+    &.description-container {
+      width: 100%;
+    }
+  }
+  .line2 {
+    margin-top: 30px;
+  }
+}
