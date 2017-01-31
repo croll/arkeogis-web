@@ -72,7 +72,10 @@
             <tr md-row md-select="item" md-select-id="id" ng-mouseover="preview(item.geographical_extent_geom)" ng-mouseleave="preview(null)" ui-sref="arkeogis.database({database_id: item.id})" ng-repeat="item in databases | filter:query.filter | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
                 <td md-cell>{{item.lang.name}}</td>
                 <!-- <td md-cell ark-get-translation ark-translations="item.name"></td> -->
-                <td md-cell>{{item.name}}</td>
+                <td md-cell class="name-desc">
+                  <div><a>{{item.name}}</a></div>
+                  <div>{{item.description}}</div>
+                </td>
                 <td md-cell>{{item.authors}}</td>
                 <!-- <td md-cell ark-get-translation ark-translations="item.subject"></td> -->
                 <td md-cell>{{item.subject}}</td>
