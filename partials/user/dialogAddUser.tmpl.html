@@ -41,6 +41,26 @@
                           </md-input-container>
                         </ark-form-block>
                         <ark-form-block>
+                          <!-- Country -->
+                          <md-input-container>
+                            <md-autocomplete
+                                             ng-readonly="!canEdit"
+                                             required
+                                             md-search-text-change="searchTextCity=''"
+                                             md-autoselect="true"
+                                             md-floating-label="{{ 'USER.FIELD_COUNTRY.T_TITLE' | translate }}"
+                                             md-item-text="item.name"
+                                             md-items="item in autocompleteCountry(searchTextCountry)"
+                                             md-min-length="1"
+                                             md-no-cache="1"
+                                             md-search-text="searchTextCountry"
+                                             md-selected-item="user.city_and_country.country">
+                                <md-item-template>
+                                    <span md-highlight-text="searchTextCountry">{{item.name}}</span>
+                                </md-item-template>
+                                <md-not-found>{{ 'USER.FIELD_COUNTRY.T_CHECK_NOMATCH' | translate }}</md-not-found>
+                            </md-autocomplete>
+                          </md-input-container>
                           <!-- City -->
                           <md-input-container>
                             <md-autocomplete
@@ -62,28 +82,8 @@
                               <md-not-found>{{ 'USER.FIELD_CITY.T_CHECK_NOMATCH' | translate }}</md-not-found>
                             </md-autocomplete>
                           </md-input-container>
-                        <!-- Country -->
-                        <md-input-container>
-                          <md-autocomplete
-                                           ng-readonly="!canEdit"
-                                           required
-                                           md-search-text-change="searchTextCity=''"
-                                           md-autoselect="true"
-                                           md-floating-label="{{ 'USER.FIELD_COUNTRY.T_TITLE' | translate }}"
-                                           md-item-text="item.name"
-                                           md-items="item in autocompleteCountry(searchTextCountry)"
-                                           md-min-length="1"
-                                           md-no-cache="1"
-                                           md-search-text="searchTextCountry"
-                                           md-selected-item="user.city_and_country.country">
-                              <md-item-template>
-                                  <span md-highlight-text="searchTextCountry">{{item.name}}</span>
-                              </md-item-template>
-                              <md-not-found>{{ 'USER.FIELD_COUNTRY.T_CHECK_NOMATCH' | translate }}</md-not-found>
-                          </md-autocomplete>
-                        </md-input-container>
                         </ark-form-block>
-                        <ark-form-block ng-if="user.description">
+                        <ark-form-block ng-if="canEdit || user.description">
                           <!-- Description -->
                           <md-input-container class="description-container">
                               <label translate>.FIELD_DESCRIPTION.T_TITLE</label>
@@ -199,25 +199,6 @@
                   <md-not-found>{{ 'USER.FIELD_COMPANY.T_CHECK_NOMATCH' | translate }}</md-not-found>
               </md-autocomplete>
             </md-input-container>
-            <!-- Company 1 city -->
-            <md-input-container>
-              <md-autocomplete flex
-                               required
-                               ng-readonly="!canEdit"
-                               md-autoselect="true"
-                               md-floating-label="{{ 'USER.FIELD_COMPANY1_CITY.T_TITLE' | translate }}"
-                               md-item-text="item.name"
-                               md-items="item in autocompleteCity(companies_country[0] ? companies_country[0].geonameid : null, companies_city_search[0])"
-                               md-min-length="2"
-                               md-no-cache="1"
-                               md-search-text="companies_city_search[0]"
-                               md-selected-item="companies_city[0]">
-                  <md-item-template>
-                      <span md-highlight-text="companies_city_search[0]">{{item.name}}</span>
-                  </md-item-template>
-                  <md-not-found>{{ 'USER.FIELD_COMPANY_CITY.T_CHECK_NOMATCH' | translate }}</md-not-found>
-              </md-autocomplete>
-            </md-input-container>
             <!-- Company 1 country -->
             <md-input-container>
               <md-autocomplete flex
@@ -236,6 +217,25 @@
                       <span md-highlight-text="companies_country_search[0]">{{item.name}}</span>
                   </md-item-template>
                   <md-not-found>{{ 'USER.FIELD_COMPANY_COUNTRY.T_CHECK_NOMATCH' | translate }}</md-not-found>
+                </md-autocomplete>
+              </md-input-container>
+              <!-- Company 1 city -->
+              <md-input-container>
+                <md-autocomplete flex
+                                 required
+                                 ng-readonly="!canEdit"
+                                 md-autoselect="true"
+                                 md-floating-label="{{ 'USER.FIELD_COMPANY1_CITY.T_TITLE' | translate }}"
+                                 md-item-text="item.name"
+                                 md-items="item in autocompleteCity(companies_country[0] ? companies_country[0].geonameid : null, companies_city_search[0])"
+                                 md-min-length="2"
+                                 md-no-cache="1"
+                                 md-search-text="companies_city_search[0]"
+                                 md-selected-item="companies_city[0]">
+                    <md-item-template>
+                        <span md-highlight-text="companies_city_search[0]">{{item.name}}</span>
+                    </md-item-template>
+                    <md-not-found>{{ 'USER.FIELD_COMPANY_CITY.T_CHECK_NOMATCH' | translate }}</md-not-found>
                 </md-autocomplete>
               </md-input-container>
             </ark-form-block>
@@ -261,24 +261,6 @@
                     <md-not-found>{{ 'USER.FIELD_COMPANY.T_CHECK_NOMATCH' | translate }}</md-not-found>
                 </md-autocomplete>
               </md-input-container>
-              <!-- Company 2 city -->
-              <md-input-container>
-                <md-autocomplete flex
-                                 ng-readonly="!canEdit"
-                                 md-autoselect="true"
-                                 md-floating-label="{{ 'USER.FIELD_COMPANY2_CITY.T_TITLE' | translate }}"
-                                 md-item-text="item.name"
-                                 md-items="item in autocompleteCity(companies_country[1] ? companies_country[1].geonameid : null, companies_city_search[1])"
-                                 md-min-length="2"
-                                 md-no-cache="1"
-                                 md-search-text="companies_city_search[1]"
-                                 md-selected-item="companies_city[1]">
-                    <md-item-template>
-                        <span md-highlight-text="companies_city_search[1]">{{item.name}}</span>
-                    </md-item-template>
-                    <md-not-found>{{ 'USER.FIELD_COMPANY_CITY.T_CHECK_NOMATCH' | translate }}</md-not-found>
-                </md-autocomplete>
-              </md-input-container>
               <!-- Company 2 country -->
               <md-input-container>
                 <md-autocomplete flex
@@ -296,6 +278,24 @@
                         <span md-highlight-text="companies_country_search[1]">{{item.name}}</span>
                     </md-item-template>
                     <md-not-found>{{ 'USER.FIELD_COMPANY_COUNTRY.T_CHECK_NOMATCH' | translate }}</md-not-found>
+                </md-autocomplete>
+              </md-input-container>
+              <!-- Company 2 city -->
+              <md-input-container>
+                <md-autocomplete flex
+                                 ng-readonly="!canEdit"
+                                 md-autoselect="true"
+                                 md-floating-label="{{ 'USER.FIELD_COMPANY2_CITY.T_TITLE' | translate }}"
+                                 md-item-text="item.name"
+                                 md-items="item in autocompleteCity(companies_country[1] ? companies_country[1].geonameid : null, companies_city_search[1])"
+                                 md-min-length="2"
+                                 md-no-cache="1"
+                                 md-search-text="companies_city_search[1]"
+                                 md-selected-item="companies_city[1]">
+                    <md-item-template>
+                        <span md-highlight-text="companies_city_search[1]">{{item.name}}</span>
+                    </md-item-template>
+                    <md-not-found>{{ 'USER.FIELD_COMPANY_CITY.T_CHECK_NOMATCH' | translate }}</md-not-found>
                 </md-autocomplete>
               </md-input-container>
           </ark-form-block>
