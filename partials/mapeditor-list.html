@@ -38,7 +38,7 @@
                 <th md-column md-numeric md-order-by="name">
                     <span translate>MAPEDITOR.TABLE_LIST.T_NAME_AND_DESCRIPTION</span>
                 </th>
-                <th md-column md-order-by="created_at">
+                <th md-column md-order-by="author">
                     <span translate>MAPEDITOR.TABLE_LIST.T_LABEL_AUTHOR</span>
                 </th>
                 <th md-column md-order-by="start_date">
@@ -80,7 +80,7 @@
                     <md-icon ng-show="{{layer.published}}">done</md-icon>
                     <md-icon ng-hide="{{layer.published}}">clear</md-icon>
                 </td>
-                <td md-cell>{{layer.created_at | date:'short'}}</td>
+                <td md-cell>{{layer.created_at | date:'shortDate'}}</td>
             </tr>
         </tbody>
     </table>
