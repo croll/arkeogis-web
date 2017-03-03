@@ -43,7 +43,7 @@
                         <ark-form-block>
                           <!-- Country -->
                           <md-input-container>
-                            <md-autocomplete
+                            <md-autocomplete md-require-match="true"
                                              ng-readonly="!canEdit"
                                              required
                                              md-search-text-change="searchTextCity=''"
@@ -63,7 +63,7 @@
                           </md-input-container>
                           <!-- City -->
                           <md-input-container>
-                            <md-autocomplete
+                            <md-autocomplete md-require-match="true"
                                              ng-readonly="!canEdit"
                                              required
                                              name="searchTextCity"
@@ -203,6 +203,7 @@
             <md-input-container>
               <md-autocomplete flex
                                required
+			       md-require-match="true"
                                ng-readonly="!canEdit"
                                md-search-text-change="companies_city_search[0]=''"
                                md-autoselect="true"
@@ -223,6 +224,7 @@
               <md-input-container>
                 <md-autocomplete flex
                                  required
+				 md-require-match="true"
                                  ng-readonly="!canEdit"
                                  md-autoselect="true"
                                  md-floating-label="{{ 'USER.FIELD_COMPANY1_CITY.T_TITLE' | translate }}"
@@ -264,6 +266,7 @@
               <!-- Company 2 country -->
               <md-input-container>
                 <md-autocomplete flex
+				 md-require-match="true"
                                  ng-readonly="!canEdit"
                                  md-search-text-change="companies_city_search[1]=''"
                                  md-autoselect="true"
@@ -283,6 +286,7 @@
               <!-- Company 2 city -->
               <md-input-container>
                 <md-autocomplete flex
+				 md-require-match="true"
                                  ng-readonly="!canEdit"
                                  md-autoselect="true"
                                  md-floating-label="{{ 'USER.FIELD_COMPANY2_CITY.T_TITLE' | translate }}"
@@ -343,7 +347,7 @@
           <div layout="row" layout-align="end" layout-wrap ng-if="canEdit">
               <md-button ng-if="isAdmin" ng-show="user.id != undefined" class="md-raised" ng-click="deluser()"><span translate>.BUTTON_DELETE.T_TITLE</span></md-button>
               <md-button class="md-raised" ng-click="cancel()"><span translate>.BUTTON_CANCEL.T_TITLE</span></md-button>
-              <md-button class="md-raised md-primary" type="submit"><span translate>.BUTTON_SUBMIT.T_TITLE</span></md-button>
+              <md-button class="md-raised md-primary" type="submit" ng-disabled="!userForm.$valid"><span translate>.BUTTON_SUBMIT.T_TITLE</span></md-button>
           </div>
 
         </md-dialog-content>
