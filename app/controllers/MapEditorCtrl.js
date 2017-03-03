@@ -568,6 +568,7 @@
         };
 
         layerService.getLayers().then(function(layers) {
+          console.log(layers);
             $scope.mapLayers = layers;
         })
 
