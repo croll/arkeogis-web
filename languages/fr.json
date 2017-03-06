@@ -334,9 +334,6 @@
 		"LIST_CONTEXT": {
 			"T_LABEL": "Couverture"
 		},
-		"LIST_DESCRIPTION": {
-			"T_LABEL": "Description"
-		},
 		"LIST_END_DATE": {
 			"T_LABEL": "Fin"
 		},
@@ -726,6 +723,9 @@
 		"IDLE": {
 			"T_TITLE": "Vous semblez inactif, si vous ne faites rien, vous allez être déconnecté..."
 		},
+		"LABEL": {
+			"T_UNDETERMINED": "#!#MAIN.LABEL.T_UNDETERMINED"
+		},
 		"LOADING": {
 			"T_TITLE": "Traitement en cours merci de patienter..."
 		}
@@ -887,6 +887,7 @@
 			"T_LABEL_START_DATE": "Date de début",
 			"T_LABEL_TYPE": "Type",
 			"T_LABEL_ZOOM_LEVEL": "Niveaux de zoom",
+			"T_NAME_AND_DESCRIPTION": "#!#MAPEDITOR.TABLE_LIST.T_NAME_AND_DESCRIPTION",
 			"T_TITLE": "Liste des calques disponibles"
 		}
 	},
@@ -1433,7 +1434,6 @@
 			"T_TITLE": "Groupes Chronologie"
 		},
 		"FIELD_CITY": {
-			"T_CHECK_MANDATORY": "Le champ ville de l'utilisateur est obligatoire.",
 			"T_CHECK_NOMATCH": "Ville introuvable...",
 			"T_TITLE": "Ville"
 		},
@@ -1472,7 +1472,6 @@
 			"T_TITLE": "Base(s) de données"
 		},
 		"FIELD_DESCRIPTION": {
-			"T_CHECK_MANDATORY": "Le champ description est obligatoire.",
 			"T_TITLE": "Description"
 		},
 		"FIELD_EMAIL": {
@@ -1496,7 +1495,6 @@
 			"T_TITLE": "Nom"
 		},
 		"FIELD_PASSWORD": {
-			"T_CHECK_INCORRECT": "Le champs mot de passe est incorrect.",
 			"T_CHECK_LENGTH": "7 caractères mini.",
 			"T_CHECK_NOTSAME": "Les deux mots de passe doivent correspondre, merci.",
 			"T_TITLE": "Mot de passe"
@@ -1509,7 +1507,6 @@
 		},
 		"FIELD_USERNAME": {
 			"T_CHECK_ALREADYEXISTS": "Cet utilisateur existe déjà",
-			"T_CHECK_INCORRECT": "Le champs nom d'utilisateur est incorrect.",
 			"T_CHECK_MANDATORY": "Ce champ est obligatoire",
 			"T_TITLE": "Identifiant"
 		},

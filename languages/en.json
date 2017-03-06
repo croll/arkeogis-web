@@ -334,9 +334,6 @@
 		"LIST_CONTEXT": {
 			"T_LABEL": "Scope"
 		},
-		"LIST_DESCRIPTION": {
-			"T_LABEL": "Description"
-		},
 		"LIST_END_DATE": {
 			"T_LABEL": "End"
 		},
@@ -726,6 +723,9 @@
 		"IDLE": {
 			"T_TITLE": "You seem to be inactive, if you are not using ArkeoGIS, you will be disconnected..."
 		},
+		"LABEL": {
+			"T_UNDETERMINED": "#!#MAIN.LABEL.T_UNDETERMINED"
+		},
 		"LOADING": {
 			"T_TITLE": "Loading..."
 		}
@@ -887,6 +887,7 @@
 			"T_LABEL_START_DATE": "Starting date",
 			"T_LABEL_TYPE": "Type",
 			"T_LABEL_ZOOM_LEVEL": "Zoom level",
+			"T_NAME_AND_DESCRIPTION": "#!#MAPEDITOR.TABLE_LIST.T_NAME_AND_DESCRIPTION",
 			"T_TITLE": "List of the available layers"
 		}
 	},
@@ -1433,7 +1434,6 @@
 			"T_TITLE": "Chronology Groups"
 		},
 		"FIELD_CITY": {
-			"T_CHECK_MANDATORY": "The field \"City\" is mandatory.",
 			"T_CHECK_NOMATCH": "No match...",
 			"T_TITLE": "City"
 		},
@@ -1472,7 +1472,6 @@
 			"T_TITLE": "Databases"
 		},
 		"FIELD_DESCRIPTION": {
-			"T_CHECK_MANDATORY": "The field \"Description\" is mandatory.",
 			"T_TITLE": "Description"
 		},
 		"FIELD_EMAIL": {
@@ -1496,7 +1495,6 @@
 			"T_TITLE": "Lastname"
 		},
 		"FIELD_PASSWORD": {
-			"T_CHECK_INCORRECT": "The field \"Password\" is not correct.",
 			"T_CHECK_LENGTH": "At least 7 characters",
 			"T_CHECK_NOTSAME": "The two passwords must be the same.",
 			"T_TITLE": "Password"
@@ -1509,7 +1507,6 @@
 		},
 		"FIELD_USERNAME": {
 			"T_CHECK_ALREADYEXISTS": "This user already exists",
-			"T_CHECK_INCORRECT": "The field \"Username\" is not correct.",
 			"T_CHECK_MANDATORY": "This field is mandatory",
 			"T_TITLE": "Username"
 		},
