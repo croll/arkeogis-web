@@ -66,7 +66,7 @@
                 $scope.layers.overlays.preview = {
                     name: $scope.selectedLayer.title,
                     type: 'wms',
-                    url: $scope.infos.url,
+                    url: '/proxy/?'+$scope.infos.url,
                     visible: true,
                     layerOptions: {
                         layers: $scope.infos.identifier,
@@ -83,7 +83,7 @@
 
         function setWMTSPreview() {
             setTimeout(function() {
-		    var layer = new L.TileLayer.WMTS($scope.infos.url, {
+		    var layer = new L.TileLayer.WMTS('/proxy/?'+$scope.infos.url, {
 			layer: $scope.infos.identifier,
 				style: "normal",
 				tilematrixSet: "PM",
@@ -252,6 +252,11 @@
             } else {
                 url = $scope.infos.url
             }
+
+            // add proxy
+            if (url.substring(0, 8) != '/proxy/?')
+                url = '/proxy/?'+url;
+
             var d = $q.defer();
             $http.get(url).then(function(res) {
                     var x2js = new X2JS();
