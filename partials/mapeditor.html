@@ -43,22 +43,32 @@
         <ark-form-block>
             </md-input-container>
             <!-- WMS and WMTS layers list -->
-	    <md-input-container ng-hide="getCapabilities != true && !infos.identifier">
+	    <md-input-container ng-hide="showWMInputs != true && !infos.identifier">
                 <md-select name="image_format" ng-model="image_format" placeholder="{{'MAPEDITOR.FIELD_IMAGE_FORMAT.T_LABEL' | translate}}" md-on-close="refreshPreview()">
                     <md-option value="image/png">PNG</md-option>
                     <md-option value="image/jpeg">JPEG</md-option>
                     <md-option value="image/jpg">JPG</md-option>
                 </md-select>
             </md-input-container>
-            <md-input-container ng-hide="getCapabilities != true">
-                <md-select name="identifier" ng-model="infos.identifier" placeholder="{{'MAPEDITOR.FIELD_SELECT_LAYER.T_LABEL' | translate}}" md-on-close="onLayerSelected();hideIdentifier = true">
+            <md-input-container ng-hide="showWMInputs != true">
+                <md-menu>
+                  <md-button ng-click="$mdMenu.open($event)" aria-label="Layer menu">OPEN</md-button>
+                  <md-menu-content>
+                    <md-menu-item ng-repeat="wmsLayer in wmsLayers" ng-include="'layersTree'">{{wmsLayer.title}}<md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+
+                <!-- <md-select name="identifier" ng-model="infos.identifier" placeholder="{{'MAPEDITOR.FIELD_SELECT_LAYER.T_LABEL' | translate}}" md-on-close="onLayerSelected();hideIdentifier = true">
                     <md-option value="{{layer.identifier}}" ng-repeat="layer in wmsLayers">{{layer.title}}</md-option>
-                </md-select>
+                    <md-option ng-repeat="layer in wmsLayers">{{layer.title}}</md-option>
+                </md-select> -->
+
+                <!-- Tree -->
             </md-input-container>
         </ark-form-block>
         <ark-form-block ng-hide="!type || type == 'shp'" style="margin-top: -10px">
             <!-- Identifier -->
-            <md-input-container ng-show="getCapabilities == true || infos.id" style="margin: 15px 0 -10px 0" ng-hide = "wmsLayers.length || hideIdentifier || hideFields">
+            <md-input-container ng-show="showWMInputs == true || infos.id" style="margin: 15px 0 -10px 0" ng-hide = "wmsLayers.length || hideIdentifier || hideFields">
                     <label>
                         <span translate>MAPEDITOR.FIELD_IDENTIFIER.T_LABEL</span>
                     </label>
@@ -238,3 +248,10 @@
     <md-progress-linear md-mode="determinate" value="{{uploadProgress}}" md-buffer-value="100" ng-hide="!uploadProgress || uploadProgress == 100"></md-progress-linear>
 </md-content>
 </form>
+
+ <script type="text/ng-template" id="layersTree">
+  {{wmsLayer.title}}
+  <ul>
+    <li ng-repeat="wmsLayer in wmsLayers.layer" ng-include="'layersTree'"></li>
+  </ul>
+</script>
