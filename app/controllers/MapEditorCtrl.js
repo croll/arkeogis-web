@@ -205,7 +205,6 @@
     $scope.reset = function() {
       $scope.wmsLayers = [];
       $scope.hideFields = true;
-      $scope.getCapabilities = null;
       $scope.file = null;
       if ($scope.geojsonLayer) {
         leafletData.getMap().then(function(map) {
@@ -299,7 +298,6 @@
             }
           }
           arkeoService.showMessage('MAPEDITOR.MESSAGE_GET_LAYER_LIST.T_SUCCESS', 'error')
-          $scope.getCapabilities = true;
           d.resolve()
         },
         function(err) {

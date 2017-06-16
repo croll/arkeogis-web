@@ -29,7 +29,7 @@
 
     var computedCapabilities = {
       abstract: '',
-      layers: [],
+      layers: {},
       error: {
         code: null,
         msg: null
@@ -80,7 +80,7 @@
 
     this.parseWMSCapabilities = function(capabilities) {
 
-      function _getLayerRecursive(layer, lvl) {
+      function _getLayerRecursive(layer, final) {
 
         if (angular.isObject(layer)) {
 
@@ -98,18 +98,20 @@
           } */
 
           var l = {
-            title: ' '.repeat(lvl)+layer.Title.toString(),
+            title: layer.Title.toString(),
             name: layer.Name,
             crs: layer.CRS
           };
-          computedCapabilities.layers.push(l);
+
+          if (angular.isArray(layer.Layer) && layer.Layer.length) {
+            angular.forEach(layer.Layer, function(l) {
+              _getLayerRecursive(l, final.layers);
+            });
+          }
+
+          final.layers.push(l);
         }
 
-        if (angular.isArray(layer.Layer) && layer.Layer.length) {
-          angular.forEach(layer.Layer, function(l) {
-            _getLayerRecursive(l, lvl+1);
-          });
-        }
       }
 
       if (!capabilities || !angular.isObject(capabilities) || !capabilities.WMS_Capabilities) {
@@ -123,7 +125,7 @@
         computedCapabilities.description = capabilities.WMS_Capabilities.Service.Abstract;
       }
 
-      _getLayerRecursive(capabilities.WMS_Capabilities.Capability.Layer, 0);
+      _getLayerRecursive(capabilities.WMS_Capabilities.Capability.Layer, computedCapabilities.layers);
 
       console.log(computedCapabilities);
 
