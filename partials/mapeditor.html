@@ -1,255 +1,259 @@
 <form name="mapEditorForm" ng-submit="submit(this.mapEditorForm)" novalidate>
-    <div layout>
-        <md-content flex="50" layout-padding>
-            <!-- Select WMS or Shapefile -->
-            <ark-form-block>
-                <md-input-container>
-                    <md-select name="type" ng-model="type" style="min-width:250px" placeholder="{{'MAPEDITOR.SELECT_SHP_OR_WMS.T_LABEL' | translate}}" md-on-close="reset(type)">
-                        <md-option value="shp">
-                            <span translate>MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_SHP</span>
-                        </md-option>
-                        <md-option value="wms">
-                            <span translate>MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_WMS</span>
-                        </md-option>
-                        <md-option value="wmts">
-                            <span translate>MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_WMTS</span>
-                        </md-option>
-                    </md-select>
-                    <ark-help translate ng-show="!type">MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_NONE_HELP</ark-help>
-                    <ark-help translate ng-show="type == 'shp'">MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_SHP_HELP</ark-help>
-                    <ark-help translate ng-show="type == 'wms'">MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_WMS_HELP</ark-help>
-                    <ark-help translate ng-show="type == 'wmts'">MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_WMTS_HELP</ark-help>
-                </md-input-container>
-            </ark-form-block>
-            <!-- SHP FILE -->
-            <ark-form-block ng-hide="type != 'shp' || infos.id" style="margin-top: 30px">
-                <md-button class="md-raised" ngf-select="processSHP(file)" ng-model="file" name="file" ngf-pattern="'.zip'" accept=".zip" ngf-max-size="100MB">
-                    <span translate>MAPEDITOR.BUTTON_SHP_FILE.T_LABEL</span>
-                </md-button>
-                <md-progress-linear md-mode="determinate" value="{{shpProcessingProgress}}" md-buffer-value="100" ng-hide="!file || shpProcessingProgress == 100"></md-progress-linear>
-            </ark-form-block>
-        </ark-form-block>
-        <!-- WMS URL -->
-        <ark-form-block layout="row" ng-hide="!type || type == 'shp'" style="margin-top: 30px">
-            <md-input-container style="width:75%">
-                <label>
-                    <span translate>MAPEDITOR.FIELD_WMS_URL.T_LABEL</span>
-                </label>
-                <input type="text" ng-model="infos.url" flex>
-            <md-button type="button" class="md-icon-button" ng-click="getLayers()">
-                <md-icon>search</md-icon>
-            </md-button>
-        </ark-form-block>
-        <ark-form-block>
-            </md-input-container>
-            <!-- WMS and WMTS layers list -->
-	    <md-input-container ng-hide="showWMInputs != true && !infos.identifier">
-                <md-select name="image_format" ng-model="image_format" placeholder="{{'MAPEDITOR.FIELD_IMAGE_FORMAT.T_LABEL' | translate}}" md-on-close="refreshPreview()">
-                    <md-option value="image/png">PNG</md-option>
-                    <md-option value="image/jpeg">JPEG</md-option>
-                    <md-option value="image/jpg">JPG</md-option>
-                </md-select>
-            </md-input-container>
-            <md-input-container ng-hide="showWMInputs != true">
-                <md-menu>
-                  <md-button ng-click="$mdMenu.open($event)" aria-label="Layer menu">OPEN</md-button>
-                  <md-menu-content>
-                    <md-menu-item ng-repeat="wmsLayer in wmsLayers" ng-include="'layersTree'">{{wmsLayer.title}}<md-menu-item>
-                  </md-menu-content>
-                </md-menu>
+  <div layout>
+    <md-content flex="50" layout-padding>
+      <!-- Select WMS or Shapefile -->
+      <ark-form-block>
+        <md-input-container>
+          <md-select name="type" ng-model="type" style="min-width:250px" placeholder="{{'MAPEDITOR.SELECT_SHP_OR_WMS.T_LABEL' | translate}}" md-on-close="reset(type)">
+            <md-option value="shp">
+              <span translate>MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_SHP</span>
+            </md-option>
+            <md-option value="wms">
+              <span translate>MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_WMS</span>
+            </md-option>
+            <md-option value="wmts">
+              <span translate>MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_WMTS</span>
+            </md-option>
+          </md-select>
+          <ark-help translate ng-show="!type">MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_NONE_HELP</ark-help>
+          <ark-help translate ng-show="type == 'shp'">MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_SHP_HELP</ark-help>
+          <ark-help translate ng-show="type == 'wms'">MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_WMS_HELP</ark-help>
+          <ark-help translate ng-show="type == 'wmts'">MAPEDITOR.SELECT_SHP_WMS_WMTS.T_OPTION_WMTS_HELP</ark-help>
+        </md-input-container>
+      </ark-form-block>
+      <!-- SHP FILE -->
+      <ark-form-block ng-hide="type != 'shp' || infos.id" style="margin-top: 30px">
+        <md-button class="md-raised" ngf-select="processSHP(file)" ng-model="file" name="file" ngf-pattern="'.zip'" accept=".zip" ngf-max-size="100MB">
+          <span translate>MAPEDITOR.BUTTON_SHP_FILE.T_LABEL</span>
+        </md-button>
+        <md-progress-linear md-mode="determinate" value="{{shpProcessingProgress}}" md-buffer-value="100" ng-hide="!file || shpProcessingProgress == 100"></md-progress-linear>
+      </ark-form-block>
+      </ark-form-block>
+      <!-- WMS URL -->
+      <ark-form-block layout="row" ng-hide="!type || type == 'shp'" style="margin-top: 30px">
+        <md-input-container style="width:75%">
+          <label>
+            <span translate>MAPEDITOR.FIELD_WMS_URL.T_LABEL</span>
+          </label>
+          <input type="text" ng-model="infos.url" flex>
+          <md-button type="button" class="md-icon-button" ng-click="getLayers()">
+            <md-icon>search</md-icon>
+          </md-button>
+          <div style="color: red;font-weight: bold" ng-hide="!errorMsg">
+            {{errorMsg}}
+          </div>
+      </ark-form-block>
+      <ark-form-block>
+        </md-input-container>
+        <!-- WMS and WMTS layers list -->
+        <md-input-container ng-hide="showWMInputs != true && !infos.identifier">
+          <md-select name="image_format" ng-model="image_format" placeholder="{{'MAPEDITOR.FIELD_IMAGE_FORMAT.T_LABEL' | translate}}" md-on-close="refreshPreview()">
+            <md-option value="image/png">PNG</md-option>
+            <md-option value="image/jpeg">JPEG</md-option>
+            <md-option value="image/jpg">JPG</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container ng-hide="showWMInputs != true">
+          <md-menu>
+            <md-button ng-click="$mdMenu.open($event)" aria-label="Layer menu">OPEN</md-button>
+            <md-menu-content>
+              <md-menu-item ng-repeat="wmsLayer in wmsLayers" ng-include="'layersTree'">{{wmsLayer.title}}
+                <md-menu-item>
+            </md-menu-content>
+          </md-menu>
 
-                <!-- <md-select name="identifier" ng-model="infos.identifier" placeholder="{{'MAPEDITOR.FIELD_SELECT_LAYER.T_LABEL' | translate}}" md-on-close="onLayerSelected();hideIdentifier = true">
+          <!-- <md-select name="identifier" ng-model="infos.identifier" placeholder="{{'MAPEDITOR.FIELD_SELECT_LAYER.T_LABEL' | translate}}" md-on-close="onLayerSelected();hideIdentifier = true">
                     <md-option value="{{layer.identifier}}" ng-repeat="layer in wmsLayers">{{layer.title}}</md-option>
                     <md-option ng-repeat="layer in wmsLayers">{{layer.title}}</md-option>
                 </md-select> -->
 
-                <!-- Tree -->
-            </md-input-container>
-        </ark-form-block>
-        <ark-form-block ng-hide="!type || type == 'shp'" style="margin-top: -10px">
-            <!-- Identifier -->
-            <md-input-container ng-show="showWMInputs == true || infos.id" style="margin: 15px 0 -10px 0" ng-hide = "wmsLayers.length || hideIdentifier || hideFields">
-                    <label>
+          <!-- Tree -->
+        </md-input-container>
+      </ark-form-block>
+      <ark-form-block ng-hide="!type || type == 'shp'" style="margin-top: -10px">
+        <!-- Identifier -->
+        <md-input-container ng-show="showWMInputs == true || infos.id" style="margin: 15px 0 -10px 0" ng-hide="wmsLayers.length || hideIdentifier || hideFields">
+          <label>
                         <span translate>MAPEDITOR.FIELD_IDENTIFIER.T_LABEL</span>
                     </label>
-                    <input type="text" ng-model="infos.identifier" flex>
-            </md-input-container>
-        </ark-form-block>
-        <!-- Set zoom -->
-        <ark-form-block ng-hide="hideFields || type == 'shp'" style="margin-top: 30px;">
-            <div layout="row">
-                <div>
-                    <md-input-container style="width:150px">
-                        <label>
+          <input type="text" ng-model="infos.identifier" flex>
+        </md-input-container>
+      </ark-form-block>
+      <!-- Set zoom -->
+      <ark-form-block ng-hide="hideFields || type == 'shp'" style="margin-top: 30px;">
+        <div layout="row">
+          <div>
+            <md-input-container style="width:150px">
+              <label>
                             <span translate>MAPEDITOR.FIELD_MIN_SCALE.T_LABEL</span>
                         </label>
-                        <input type="text" ng-model="infos.min_scale" disabled>
-                    </md-input-container>
-                    <md-button type="button" class="md-icon-button" ng-click="setScale('min')">
-                        <md-icon>gps_fixed</md-icon>
-                    </md-button>
-                </div>
-                <div style="margin-left: 40px">
-                    <md-input-container style="width:150px">
-                        <label>
+              <input type="text" ng-model="infos.min_scale" disabled>
+            </md-input-container>
+            <md-button type="button" class="md-icon-button" ng-click="setScale('min')">
+              <md-icon>gps_fixed</md-icon>
+            </md-button>
+          </div>
+          <div style="margin-left: 40px">
+            <md-input-container style="width:150px">
+              <label>
                             <span translate>MAPEDITOR.FIELD_MAX_SCALE.T_LABEL</span>
                         </label>
-                        <input type="text" ng-model="infos.max_scale" disabled>
-                    </md-input-container>
-                    <md-button type="button" class="md-icon-button" ng-click="setScale('max')">
-                        <md-icon>gps_fixed</md-icon>
-                    </md-button>
-                </div>
-            </div>
-        </ark-form-block>
-        <!-- SHP creation date -->
-        <div ng-hide="type != 'shp' || hideFields">
-            <md-datepicker name="declared_creation_date" ng-model="infos.declared_creation_date" md-placeholder="* {{ 'MAPEDITOR.FIELD_CREATION_DATE.T_LABEL' | translate}}" flex></md-datepicker>
-            <ark-help translate>MAPEDITOR.FIELD_CREATION_DATE.T_HELP</ark-help>
+              <input type="text" ng-model="infos.max_scale" disabled>
+            </md-input-container>
+            <md-button type="button" class="md-icon-button" ng-click="setScale('max')">
+              <md-icon>gps_fixed</md-icon>
+            </md-button>
+          </div>
         </div>
-        <!-- WMS usage limit date -->
-        <div ng-hide="hideFields || type.indexOf('wm') == -1">
-            <md-datepicker name="max_usage_date" ng-model="infos.max_usage_date" md-placeholder="* {{ 'MAPEDITOR.FIELD_MAX_USAGE_DATE.T_LABEL' | translate}}" flex></md-datepicker>
-            <ark-help translate>MAPEDITOR.FIELD_MAX_USAGE_DATE.T_HELP</ark-help>
-        </div>
+      </ark-form-block>
+      <!-- SHP creation date -->
+      <div ng-hide="type != 'shp' || hideFields">
+        <md-datepicker name="declared_creation_date" ng-model="infos.declared_creation_date" md-placeholder="* {{ 'MAPEDITOR.FIELD_CREATION_DATE.T_LABEL' | translate}}" flex></md-datepicker>
+        <ark-help translate>MAPEDITOR.FIELD_CREATION_DATE.T_HELP</ark-help>
+      </div>
+      <!-- WMS usage limit date -->
+      <div ng-hide="hideFields || type.indexOf('wm') == -1">
+        <md-datepicker name="max_usage_date" ng-model="infos.max_usage_date" md-placeholder="* {{ 'MAPEDITOR.FIELD_MAX_USAGE_DATE.T_LABEL' | translate}}" flex></md-datepicker>
+        <ark-help translate>MAPEDITOR.FIELD_MAX_USAGE_DATE.T_HELP</ark-help>
+      </div>
     </md-content>
     <md-content flex="50" layout-padding>
-        <leaflet controls="controls" defaults="defaults" layers="layers" flex height="400px" lf-center="center" width="100%" geojson="geojson"></leaflet>
+      <leaflet controls="controls" defaults="defaults" layers="layers" flex height="400px" lf-center="center" width="100%" geojson="geojson"></leaflet>
     </md-content>
-</div>
+  </div>
 
-<md-content ng-hide="hideFields" layout-padding>
+  <md-content ng-hide="hideFields" layout-padding>
     <!-- Start/End dates -->
     <ark-form-block>
-        <md-input-container flex="50">
-            <label translate>MAPEDITOR.FIELD_START_DATE.T_LABEL</label>
-            <input name="end_date" ng-model="infos.start_date" ark-year required="true">
-        </md-input-container>
-        <md-input-container flex="50">
-            <label translate>MAPEDITOR.FIELD_END_DATE.T_LABEL</label>
-            <input name="start_date" ng-model="infos.end_date" ark-year required="true"/>
-        </md-input-container>
+      <md-input-container flex="50">
+        <label translate>MAPEDITOR.FIELD_START_DATE.T_LABEL</label>
+        <input name="end_date" ng-model="infos.start_date" ark-year required="true">
+      </md-input-container>
+      <md-input-container flex="50">
+        <label translate>MAPEDITOR.FIELD_END_DATE.T_LABEL</label>
+        <input name="start_date" ng-model="infos.end_date" ark-year required="true" />
+      </md-input-container>
     </ark-form-block>
     <!-- Authors -->
     <ark-form-block ng-hide="type != 'shp'">
-        <md-chips ng-model="infos.authors" md-autocomplete-snap md-require-match="true" md-allow-repeats="false" md-on-remove="removeAuthor($chip)">
-            <md-autocomplete md-search-text="userName" md-items="user in searchUser(userName)" md-item-text="user.fullname" placeholder="* {{ 'MAPEDITOR.FIELD_AUTHOR.T_LABEL' | translate}}">
-                <span md-highlight-text="userName">{{user.fullname}}</span>
-            </md-autocomplete>
-            <md-chip-template>
-                <strong>{{$chip.fullname}}</strong>
-            </md-chip-template>
-        </md-chips>
-        <ark-help translate>MAPEDITOR.FIELD_AUTHOR.T_HELP</ark-help>
+      <md-chips ng-model="infos.authors" md-autocomplete-snap md-require-match="true" md-allow-repeats="false" md-on-remove="removeAuthor($chip)">
+        <md-autocomplete md-search-text="userName" md-items="user in searchUser(userName)" md-item-text="user.fullname" placeholder="* {{ 'MAPEDITOR.FIELD_AUTHOR.T_LABEL' | translate}}">
+          <span md-highlight-text="userName">{{user.fullname}}</span>
+        </md-autocomplete>
+        <md-chip-template>
+          <strong>{{$chip.fullname}}</strong>
+        </md-chip-template>
+      </md-chips>
+      <ark-help translate>MAPEDITOR.FIELD_AUTHOR.T_HELP</ark-help>
     </ark-form-block>
     <!-- Attribution -->
     <ark-form-block>
-        <md-input-container style="width: 100%">
-            <label translate>MAPEDITOR.FIELD_ATTRIBUTION.T_LABEL</label>
-            <input name="attribution" ng-model="infos.attribution" required="true">
-        </md-input-container>
-        <ark-help translate>MAPEDITOR.FIELD_ATTRIBUTION.T_HELP</ark-help>
+      <md-input-container style="width: 100%">
+        <label translate>MAPEDITOR.FIELD_ATTRIBUTION.T_LABEL</label>
+        <input name="attribution" ng-model="infos.attribution" required="true">
+      </md-input-container>
+      <ark-help translate>MAPEDITOR.FIELD_ATTRIBUTION.T_HELP</ark-help>
     </ark-form-block>
     <!-- Copyright -->
     <ark-form-block>
-        <md-input-container style="width: 100%">
-            <label translate>MAPEDITOR.FIELD_COPYRIGHT.T_LABEL</label>
-            <textarea name="copyright" ng-model="infos.copyright" required="true"></textarea>
-        </md-input-container>
-        <ark-help translate>MAPEDITOR.FIELD_COPYRIGHT.T_HELP</ark-help>
+      <md-input-container style="width: 100%">
+        <label translate>MAPEDITOR.FIELD_COPYRIGHT.T_LABEL</label>
+        <textarea name="copyright" ng-model="infos.copyright" required="true"></textarea>
+      </md-input-container>
+      <ark-help translate>MAPEDITOR.FIELD_COPYRIGHT.T_HELP</ark-help>
     </ark-form-block>
     <!-- License -->
     <ark-form-block layout="row">
-        <div>
-            <md-input-container>
-                <md-select name="license_id" ng-model="infos.license_id" ng-init="loadLicenses()" placeholder="* {{'MAPEDITOR.FIELD_LICENSE.T_LABEL' | translate}}">
-                    <md-option ng-value="license.id" ng-repeat="license in licenses">{{license.name}}</md-option>
-                </md-select>
-            </md-input-container>
-            <ark-help translate>MAPEDITOR.FIELD_LICENSE.T_HELP</ark-help>
-        </div>
-        <div>
-            <md-input-container style="width: 400px">
-                <label translate>MAPEDITOR.FIELD_LICENSE.T_LABEL</label>
-                <input name="license" ng-model="infos.license">
-            </md-input-container>
-        </div>
+      <div>
+        <md-input-container>
+          <md-select name="license_id" ng-model="infos.license_id" ng-init="loadLicenses()" placeholder="* {{'MAPEDITOR.FIELD_LICENSE.T_LABEL' | translate}}">
+            <md-option ng-value="license.id" ng-repeat="license in licenses">{{license.name}}</md-option>
+          </md-select>
+        </md-input-container>
+        <ark-help translate>MAPEDITOR.FIELD_LICENSE.T_HELP</ark-help>
+      </div>
+      <div>
+        <md-input-container style="width: 400px">
+          <label translate>MAPEDITOR.FIELD_LICENSE.T_LABEL</label>
+          <input name="license" ng-model="infos.license">
+        </md-input-container>
+      </div>
     </ark-form-block>
 
     <!-- Description blocks -->
     <div layout="column" layout-gt-sm="row" class="description-blocks" flex>
-        <div class="md-padding" flex="50">
-            <ark-form-block layout="column">
-                <md-input-container>
-                    <ark-lang-selector ark-set-as-translation-lang="1" ng-disabled="true"></ark-lang-selector>
-                </md-input-container>
-            </ark-form-block flex>
-            <ark-form-block flex>
-                <md-input-container style="width: 400px">
-                    <label translate>MAPEDITOR.FIELD_NAME_LANG1.T_LABEL</label>
-                    <input name="name" ng-model="name_lang1" ark-translations="infos.translations.name" ark-translate ark-translate-bind-lang="1" aria-label="-" required></input>
-                </md-input-container>
-            </ark-form-block>
-            <ark-form-block flex>
-                <md-input-container style="margin-top: 25px">
-                    <label translate>MAPEDITOR.FIELD_DESCRIPTION_LANG1.T_LABEL</label>
-                    <textarea name="description" ng-model="desc_lang1" ark-translations="infos.translations.description" ark-translate ark-translate-bind-lang="1" aria-label="-" required style="min-width: 500px; min-height:30px" flex></textarea>
-                </md-input-container>
-            </ark-form-block>
-        </div>
-        <div class="md-padding" flex-offset-gt-md="5" flex="50">
-            <ark-form-block flex layout="column">
-                <md-input-container>
-                    <ark-lang-selector ark-set-as-translation-lang="2" ng-disabled="lang2SelectDisabled"></ark-lang-selector>
-                </md-input-container>
-            </ark-form-block>
-            <ark-form-block flex>
-                <md-input-container style="width: 400px">
-                    <label translate>MAPEDITOR.FIELD_NAME_LANG2.T_LABEL</label>
-                    <input name="name2" ng-model="name_lang2" ark-translations="infos.translations.name" ark-translate ark-translate-bind-lang="2" aria-label="-"></input>
-                    <div ng-messages="mapEditorForm.name2.$error">
-                        <div ng-message="english_required" translate>IMPORT.FIELD_ALL.T_ENGLISH_TRANSLATION_REQUIRED</div>
-                    </div>
-                </md-input-container>
-            </ark-form-block>
-            <ark-form-block flex>
-                <md-input-container style="margin-top: 25px">
-                    <label translate>MAPEDITOR.FIELD_DESCRIPTION_LANG2.T_LABEL</label>
-                    <textarea name="description2" ng-model="desc_lang2" ark-translations="infos.translations.description" ark-translate ark-translate-bind-lang="2" aria-label="-" style="min-width: 500px; min-height:30px"></textarea>
-                    <div ng-messages="mapEditorForm.description2.$error">
-                        <div ng-message="english_required" translate>IMPORT.FIELD_ALL.T_ENGLISH_TRANSLATION_REQUIRED</div>
-                    </div>
-                </md-input-container>
-            </ark-form-block>
-        </div>
+      <div class="md-padding" flex="50">
+        <ark-form-block layout="column">
+          <md-input-container>
+            <ark-lang-selector ark-set-as-translation-lang="1" ng-disabled="true"></ark-lang-selector>
+          </md-input-container>
+        </ark-form-block flex>
+        <ark-form-block flex>
+          <md-input-container style="width: 400px">
+            <label translate>MAPEDITOR.FIELD_NAME_LANG1.T_LABEL</label>
+            <input name="name" ng-model="name_lang1" ark-translations="infos.translations.name" ark-translate ark-translate-bind-lang="1" aria-label="-" required></input>
+          </md-input-container>
+        </ark-form-block>
+        <ark-form-block flex>
+          <md-input-container style="margin-top: 25px">
+            <label translate>MAPEDITOR.FIELD_DESCRIPTION_LANG1.T_LABEL</label>
+            <textarea name="description" ng-model="desc_lang1" ark-translations="infos.translations.description" ark-translate ark-translate-bind-lang="1" aria-label="-" required style="min-width: 500px; min-height:30px" flex></textarea>
+          </md-input-container>
+        </ark-form-block>
+      </div>
+      <div class="md-padding" flex-offset-gt-md="5" flex="50">
+        <ark-form-block flex layout="column">
+          <md-input-container>
+            <ark-lang-selector ark-set-as-translation-lang="2" ng-disabled="lang2SelectDisabled"></ark-lang-selector>
+          </md-input-container>
+        </ark-form-block>
+        <ark-form-block flex>
+          <md-input-container style="width: 400px">
+            <label translate>MAPEDITOR.FIELD_NAME_LANG2.T_LABEL</label>
+            <input name="name2" ng-model="name_lang2" ark-translations="infos.translations.name" ark-translate ark-translate-bind-lang="2" aria-label="-"></input>
+            <div ng-messages="mapEditorForm.name2.$error">
+              <div ng-message="english_required" translate>IMPORT.FIELD_ALL.T_ENGLISH_TRANSLATION_REQUIRED</div>
+            </div>
+          </md-input-container>
+        </ark-form-block>
+        <ark-form-block flex>
+          <md-input-container style="margin-top: 25px">
+            <label translate>MAPEDITOR.FIELD_DESCRIPTION_LANG2.T_LABEL</label>
+            <textarea name="description2" ng-model="desc_lang2" ark-translations="infos.translations.description" ark-translate ark-translate-bind-lang="2" aria-label="-" style="min-width: 500px; min-height:30px"></textarea>
+            <div ng-messages="mapEditorForm.description2.$error">
+              <div ng-message="english_required" translate>IMPORT.FIELD_ALL.T_ENGLISH_TRANSLATION_REQUIRED</div>
+            </div>
+          </md-input-container>
+        </ark-form-block>
+      </div>
     </div>
     <!-- Published -->
     <ark-form-block style="padding-left: 30px">
-        <md-switch aria-label="{{'MAPEDITOR.FIELD_PUBLISHED.T_LABEL' | translate}}" ng-model="infos.published">
-            <span translate>MAPEDITOR.FIELD_PUBLISHED.T_LABEL</span>
-        </md-switch>
-        <ark-help flex translate>MAPEDITOR.FIELD_PUBLISHED.T_HELP</ark-help>
+      <md-switch aria-label="{{'MAPEDITOR.FIELD_PUBLISHED.T_LABEL' | translate}}" ng-model="infos.published">
+        <span translate>MAPEDITOR.FIELD_PUBLISHED.T_LABEL</span>
+      </md-switch>
+      <ark-help flex translate>MAPEDITOR.FIELD_PUBLISHED.T_HELP</ark-help>
     </ark-form-block>
-</md-content>
+  </md-content>
 
-<!-- Buttons -->
-<md-content layout layout-sm="column" layout-padding layout-align="center center" ng-hide="hideFields" style="margin-top: 10px">
+  <!-- Buttons -->
+  <md-content layout layout-sm="column" layout-padding layout-align="center center" ng-hide="hideFields" style="margin-top: 10px">
     <md-button type="submit" class="md-primary md-raised" ng-disabled2="!mapEditorForm.$valid">
-        <span translate>MAPEDITOR.INTERFACE_BUTTON.T_SUBMIT</span>
+      <span translate>MAPEDITOR.INTERFACE_BUTTON.T_SUBMIT</span>
     </md-button>
     <md-button class="md-raised md-hue-1" ng-click="reset()" ng-hide="infos.id">
-        <span translate>MAPEDITOR.INTERFACE_BUTTON.T_RESET</span>
+      <span translate>MAPEDITOR.INTERFACE_BUTTON.T_RESET</span>
     </md-button>
     <md-button class="md-raised md-hue-1" ng-click="delete()" ng-show="infos.id" ark-confirm="MAPEDITOR.BUTTON_DELETE.T_CONFIRM">
-        <span translate>MAPEDITOR.INTERFACE_BUTTON.T_DELETE</span>
+      <span translate>MAPEDITOR.INTERFACE_BUTTON.T_DELETE</span>
     </md-button>
-</md-content>
-<md-content>
+  </md-content>
+  <md-content>
     <md-progress-linear md-mode="determinate" value="{{uploadProgress}}" md-buffer-value="100" ng-hide="!uploadProgress || uploadProgress == 100"></md-progress-linear>
-</md-content>
+  </md-content>
 </form>
 
- <script type="text/ng-template" id="layersTree">
+<script type="text/ng-template" id="layersTree">
   {{wmsLayer.title}}
   <ul>
     <li ng-repeat="wmsLayer in wmsLayers.layer" ng-include="'layersTree'"></li>

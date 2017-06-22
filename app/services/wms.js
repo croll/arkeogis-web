@@ -21,64 +21,30 @@
 
 (function() {
   'use strict';
-  ArkeoGIS.service('wmsService', ['$http', '$q', 'X2JS', 'arkeoMap', function($http, $q, X2JS, arkeoMap) {
+  ArkeoGIS.service('arkeoWMS', ['$http', '$q', 'arkeoMapTiles', function($http, $q, arkeoMapTiles) {
 
     var self = this;
 
-    var x2js = new X2JS();
-
-    var computedCapabilities = {
+    var serverCapabilities = {
       abstract: '',
-      layers: {},
-      error: {
-        code: null,
-        msg: null
-      }
+      layers: {}
     };
+
+    var imageFormats = [];
 
     this.setURL = function(url) {
       self.url = url;
     };
 
-    this.getCapabilities = function() {
-      var d = $q.defer();
-      if (!this.url) {
-        d.reject();
-      } else {
-        var url = self.url + "?request=GetCapabilities&service=WMS&version=1.3.0";
-        $http.get(url).then(function(res) {
-          var capas = x2js.xml_str2json(res.data);
-          if (!capas) {
-            d.reject(666);
-          } else {
-            d.resolve(capas);
-          }
-        }, function(err) {
-          d.reject(err.status);
-        });
-      }
-      return d.promise;
-    };
-
-    this.getLayers = function(url) {
-      var d = $q.defer();
-      if (url) {
-        self.url = url;
-      }
-      this.getCapabilities().then(function(capabilities) {
-        computedCapabilities = self.parseWMSCapabilities(capabilities);
-        if (computedCapabilities.error.code) {
-          d.reject(computedCapabilities.error.code);
-        } else {
-          d.resolve(computedCapabilities);
-        }
-      }, function(errorCode) {
-        d.reject(errorCode);
+    this.getCapabilities = function(url) {
+      return arkeoMapTiles.getCapabilities('WMS', url).then(self.parseCapabilities, function(rejection) {
+        return rejection;
       });
-      return d.promise;
     };
 
-    this.parseWMSCapabilities = function(capabilities) {
+    this.parseCapabilities = function(capabilities) {
+
+      var d = $q.defer();
 
       function _getLayerRecursive(layer, final) {
 
@@ -103,77 +69,32 @@
             crs: layer.CRS
           };
 
+          final.layers.push(l);
+
           if (angular.isArray(layer.Layer) && layer.Layer.length) {
             angular.forEach(layer.Layer, function(l) {
-              _getLayerRecursive(l, final.layers);
+              _getLayerRecursive(l, final);
             });
           }
 
-          final.layers.push(l);
         }
 
-      }
-
-      if (!capabilities || !angular.isObject(capabilities) || !capabilities.WMS_Capabilities) {
-        computedCapabilities.error.code = -1;
-        return computedCapabilities;
       }
 
       console.log(capabilities);
 
       if (capabilities.WMS_Capabilities.Service.Abstract) {
-        computedCapabilities.description = capabilities.WMS_Capabilities.Service.Abstract;
+        serverCapabilities.abstract = capabilities.WMS_Capabilities.Service.Abstract;
       }
 
-      _getLayerRecursive(capabilities.WMS_Capabilities.Capability.Layer, computedCapabilities.layers);
+      _getLayerRecursive(capabilities.WMS_Capabilities.Capability.Layer, serverCapabilities.layers);
 
-      console.log(computedCapabilities);
+      console.log(serverCapabilities);
 
-      return computedCapabilities;
+      d.resolve(serverCapabilities);
+
+      return d.promise;
     };
-
-    function processBoundingBox(boundingBox, type) {
-
-      var result = null;
-
-      var processFuncs = {
-        wms: function(bbox) {
-          if (bbox._CRS !== '' && bbox._CRS.indexOf("EPSG:4326") === -1 && bbox._CRS.indexOf("CRS:84")) {
-            console.log("Wrong CRS detected: " + bbox._CRS);
-            return false;
-          }
-          if (!bbox._minx || !bbox._miny || !bbox._maxx || !bbox._maxy) {
-            return [
-              [-90, -180],
-              [89.999999, 179.999999]
-            ];
-          } else {
-            return arkeoMap.getValidBoundingBox(bbox._minx, bbox._maxy, bbox._maxx, bbox._miny);
-          }
-        },
-        wmts: function(bbox) {
-          if (!bbox) {
-            return false;
-          }
-          var upper = bbox.UpperCorner.toString().split(' ');
-          var lower = bbox.LowerCorner.toString().split(' ');
-          return arkeoMap.getValidBoundingBox(lower[1], upper[0], upper[1], lower[0]);
-        }
-      };
-
-      if (angular.isArray(boundingBox)) {
-        angular.forEach(boundingBox, function(bbox) {
-          result = processFuncs[type](bbox);
-          if (result) {
-            return;
-          }
-        });
-      } else {
-        result = processFuncs[type](boundingBox);
-      }
-
-      return result;
-    }
 
   }]);
 
