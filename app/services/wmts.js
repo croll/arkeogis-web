@@ -21,17 +21,15 @@
 
 (function() {
   'use strict';
-  ArkeoGIS.service('arkeoWMTS', ['$http', '$q', 'arkeoMapTiles', function($http, $q, arkeoMapTiles) {
+  ArkeoGIS.service('arkeoWMTS', ['$http', '$q', 'arkeoMap', 'arkeoMapTiles', function($http, $q, arkeoMap, arkeoMapTiles) {
 
     var self = this;
 
     var tilematrixSets = [];
 
-    var serverCapabilities = angular.merge(angular.copy(arkeoMapTiles.serverCapabilities, {
-      dimension: [],
-      tileMatrixSetLink: null,
-      infoFormat: []
-    }));
+    var serverCapabilities = angular.merge(angular.copy(arkeoMapTiles.serverCapabilitiesStruct), {
+      themes: angular.copy(arkeoMapTiles.themeStruct)
+    });
 
     this.setURL = function(url) {
       self.url = url;
@@ -43,41 +41,33 @@
       });
     };
 
-    this.parseCapabilities = function(capabilities) {
+    this.parseCapabilities = function(fetchedServerCapabilities) {
+
+      var capabilities = fetchedServerCapabilities.Capabilities;
 
       var d = $q.defer();
 
       // Check exceptions
-      if (capabilities.ExceptionReport && angular.isObject(capabilities.ExceptionReport.Exception)) {
-        d.reject(arkeoMapTiles.newError(2003, capabilities.ExceptionReport.Exception.toString()));
+      if (fetchedServerCapabilities.ExceptionReport) {
+        var exception = arkeoMapTiles.getValue(fetchedServerCapabilities.ExceptionReport.Exception);
+        d.reject(arkeoMapTiles.newError(2003, exception));
       } else {
-
-
-
-            /* {
-              name: '',
-              title: '',
-              url: '',
-              MetadataURL: '',
-              description: '', // Abstract
-              attribution: '', // Attribution.title + Attribution.OnlineResource
-              crs: '',
-              queryable: false,
-              styles: [],
-              disabled: false
-            } */
 
         console.log(capabilities);
 
         // Fetch abstract from server
-        serverCapabilities.abstract = arkeoMapTiles.getValue(capabilities.Capabilities.ServiceIdentification.Abstract);
+        serverCapabilities.title = arkeoMapTiles.getValue(capabilities.ServiceIdentification.Title);
+        serverCapabilities.abstract = arkeoMapTiles.getValue(capabilities.ServiceIdentification.Abstract);
+
+        // Cycle trough layers
+
+        angular.forEach(capabilities.Contents.Layer, function(layer) {
+          var computedLayer = processLayer(layer);
+          serverCapabilities.themes.layerRef.push(layer);
+          // Link layer to theme
+        });
 
         // Get server content
-
-        // var layer = angular.merge(angular.copy(arkeoMapTiles.layerStruct), {
-        //   identifier: arkeoMapTiles.getValue(layer.Title),
-        //   title: layer.Name
-        // });
 
         console.log(serverCapabilities);
 
@@ -88,6 +78,59 @@
       return d.promise;
     };
 
+    function processLayer(fetchedLayer) {
+
+      // console.log(fetchedLayer);
+
+        var layer = angular.merge(angular.copy(arkeoMapTiles.layerStruct), {
+          identifier: arkeoMapTiles.getValue(fetchedLayer.Identifier),
+          title: arkeoMapTiles.getValue(fetchedLayer.Title),
+          abstract: arkeoMapTiles.getValue(fetchedLayer.Abstract),
+          format: arkeoMapTiles.getAsArray(fetchedLayer.Format, true),
+          infoFormat: arkeoMapTiles.getAsArray(fetchedLayer.InfoFormat, true),
+          style: parseStyle(arkeoMapTiles.getAsArray(fetchedLayer.Style, true))
+        });
+
+        // Keywords
+        if (fetchedLayer.Keywords) {
+          layer.keywords = arkeoMapTiles.getAsArray(fetchedLayer.Keywords.Keyword);
+        }
+
+        // WGS84BoundingBox
+        var upper = fetchedLayer.WGS84BoundingBox.UpperCorner.toString().split(' ');
+        var lower = fetchedLayer.WGS84BoundingBox.LowerCorner.toString().split(' ');
+        layer.boundingBox = arkeoMap.getValidBoundingBox(lower[1], upper[0], upper[1], lower[0]);
+
+        // Queryable
+        if (layer.infoFormat.length) {
+          layer.queryable = true;
+        }
+        // console.log(layer);
+    }
+
+    function parseStyle(fetchedStyle) {
+
+      var styles = [];
+
+      angular.forEach(fetchedStyle, function(s) {
+        var style = angular.merge(angular.copy(arkeoMapTiles.styleStruct), {
+          identifier: arkeoMapTiles.getValue(s.Identifier),
+          title: arkeoMapTiles.getValue(s.Title),
+          legendURL: {
+            format: arkeoMapTiles.getValue(s.LegendURL._format),
+            width: arkeoMapTiles.getValue(s.LegendURL._width),
+            height: arkeoMapTiles.getValue(s.LegendURL._height),
+            href: arkeoMapTiles.getValue(s.LegendURL._href) || arkeoMapTiles.getValue(s.LegendURL['_xlink:href']),
+          },
+          isDefault: arkeoMapTiles.getValue(s._isDefault)
+        });
+
+        styles.push(style);
+      });
+
+      return styles;
+
+    }
   }]);
 
 })();

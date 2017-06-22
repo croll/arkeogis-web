@@ -50,12 +50,17 @@
       msg: null
     };
 
-    var layerStruct = {
+    this.serverCapabilitiesStruct = {
+      title: '',
+      abstract: '',
+      themes: {}
+    };
+
+    this.layerStruct = {
       identifier: '',
       title: '',
       abstract: '',
       keywords: '',
-      wgs84BoundingBox: {},
       boundingBox:{},
       style: [],
       format: [],
@@ -63,12 +68,7 @@
       queryable: false // In WMTS layer.infoFormat shall have at least one entry
     };
 
-    var serverCapabilitiesStruct = {
-      abstract: '',
-      layers: {}
-    };
-
-    var styleStruct = {
+    this.styleStruct = {
       identifier: '',
       title: '',
       legendURL: {
@@ -82,7 +82,7 @@
       isDefault: false
     };
 
-    var themeStruct = {
+    this.themeStruct = {
       identifier: 'MAPEDITOR.FIELD_ROOT_THEME.T_LABEL',
       title: 'MAPEDITOR.FIELD_ROOT_THEME.T_LABEL',
       abstract: '',
@@ -101,6 +101,9 @@
       if (angular.isUndefined(o)) {
         return null;
       }
+      if (angular.isString(o)) {
+        return o;
+      }
       if (angular.isObject(o)) {
         if (preserveObject) {
           return o;
@@ -108,13 +111,32 @@
           return o.toString();
         }
       }
-      if (angular.isString(o)) {
-        return [o];
-      }
       if (angular.isArray(o)) {
         return o;
       }
+      if (typeof o === 'boolean') {
+        return o;
+      }
       return this.newError(-666, "Unable to identify this thing");
+    };
+
+    this.getAsArray = function(o, preserveObject) {
+      var val = this.getValue(o, preserveObject);
+      if (!val) {
+        return [];
+      } else {
+        return [val];
+      }
+    };
+
+    this.asBool = function(o) {
+      switch(o) {
+        case 'true':
+          return true;
+        case 'false':
+          return false;
+      }
+      return false;
     };
 
     function processBoundingBox(boundingBox, type) {

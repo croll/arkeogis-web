@@ -245,7 +245,7 @@
         var service = ($scope.type === 'wms') ? eval('arkeoWMS') : eval('arkeoWMTS');
         service.getCapabilities($scope.infos.url).then(function(capas) {
           console.log(capas);
-          $scope.wmsLayers = capas.layers;
+          $scope.wmsLayers = capas.themes;
           $scope.showWMInputs = true;
         }, function(err) {
           $scope.errorMsg = err.msg;
