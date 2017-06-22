@@ -25,10 +25,7 @@
 
     var self = this;
 
-    var serverCapabilities = {
-      abstract: '',
-      layers: {}
-    };
+    var serverCapabilities = angular.copy(arkeoMapTiles.serverCapabilities);
 
     var imageFormats = [];
 

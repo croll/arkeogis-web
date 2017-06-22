@@ -25,22 +25,13 @@
 
     var self = this;
 
-    var layerStruct = {
-      identifier: '',
-      title: '',
-      abstract: '',
-      keywords: '',
-      wgs84BoundingBox: '',
-      style: [],
-      format: []
-    };
-
-    var serverCapabilities = {
-      abstract: '',
-      layers: {}
-    };
-
     var tilematrixSets = [];
+
+    var serverCapabilities = angular.merge(angular.copy(arkeoMapTiles.serverCapabilities, {
+      dimension: [],
+      tileMatrixSetLink: null,
+      infoFormat: []
+    }));
 
     this.setURL = function(url) {
       self.url = url;
@@ -80,7 +71,7 @@
           serverCapabilities.abstract = capabilities.Capabilities.Service.Abstract;
         }
 
-        var layer = angular.merge(angular.copy(layerStruct), {
+        var layer = angular.merge(angular.copy(arkeoMapTiles.layerStruct), {
           identifier: layer.Title.toString(),
           title: layer.Name
         });

@@ -50,6 +50,46 @@
       msg: null
     };
 
+    var layerStruct = {
+      identifier: '',
+      title: '',
+      abstract: '',
+      keywords: '',
+      wgs84BoundingBox: {},
+      boundingBox:{},
+      style: [],
+      format: [],
+      resourceURL: '',
+      queryable: false // In WMTS layer.infoFormat shall have at least one entry
+    };
+
+    var serverCapabilitiesStruct = {
+      abstract: '',
+      layers: {}
+    };
+
+    var styleStruct = {
+      identifier: '',
+      title: '',
+      legendURL: {
+        format: 'png',
+        minScale: 0,
+        maxScale: 14,
+        href: '',
+        width: null,
+        height: null
+      },
+      isDefault: false
+    };
+
+    var themeStruct = {
+      identifier: 'MAPEDITOR.FIELD_ROOT_THEME.T_LABEL',
+      title: 'MAPEDITOR.FIELD_ROOT_THEME.T_LABEL',
+      abstract: '',
+      theme: null,
+      layerRef: []
+    };
+
     this.newError = function(code, msg) {
       return angular.merge(angular.copy(errorStruct), {
         code: code,
