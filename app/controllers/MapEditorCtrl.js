@@ -21,7 +21,7 @@
 
 (function() {
   'use strict';
-  ArkeoGIS.controller('MapEditorCtrl', ['$scope', '$state', '$filter', 'arkeoService', 'arkeoMap', 'wmsService', 'login', '$http', 'X2JS', '$q', 'leafletData', 'Upload', 'layer', 'arkeoLang', function($scope, $state, $filter, arkeoService, arkeoMap, wmsService, login, $http, X2JS, $q, leafletData, Upload, layer, arkeoLang) {
+  ArkeoGIS.controller('MapEditorCtrl', ['$scope', '$state', '$filter', 'arkeoService', 'arkeoMap', 'arkeoWMS', 'arkeoWMTS', 'login', '$http', '$q', 'leafletData', 'Upload', 'layer', 'arkeoLang', function($scope, $state, $filter, arkeoService, arkeoMap, arkeoWMS, arkeoWMTS, login, $http, $q, leafletData, Upload, layer, arkeoLang) {
 
     var self = this;
 
@@ -242,20 +242,14 @@
       $scope.showWMInputs = false;
 
       if ($scope.infos.url.indexOf('?') === -1) {
-        if ($scope.type === 'wmts') {
-          console.log('avirer');
-      //    $scope.infos.url + "?request=GetCapabilities&SERVICE=WMTS&version=1.0.0";
-        } else if ($scope.type === 'wms') {
-          wmsService.getLayers($scope.infos.url).then(function(capas) {
-            if (capas.error.code) {
-              console.log(capas);
-              alert(capas.error.msg);
-            } else {
-              $scope.wmsLayers = capas.layers;
-              $scope.showWMInputs = true;
-            }
-          });
-        }
+        var service = ($scope.type === 'wms') ? eval('arkeoWMS') : eval('arkeoWMTS');
+        service.getCapabilities($scope.infos.url).then(function(capas) {
+          console.log(capas);
+          $scope.wmsLayers = capas.layers;
+          $scope.showWMInputs = true;
+        }, function(err) {
+          $scope.errorMsg = err.msg;
+        });
       }
 
       /*
