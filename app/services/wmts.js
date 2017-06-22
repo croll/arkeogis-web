@@ -67,14 +67,17 @@
               disabled: false
             } */
 
-        if (capabilities.Capabilities.Service.Abstract) {
-          serverCapabilities.abstract = capabilities.Capabilities.Service.Abstract;
-        }
+        console.log(capabilities);
 
-        var layer = angular.merge(angular.copy(arkeoMapTiles.layerStruct), {
-          identifier: layer.Title.toString(),
-          title: layer.Name
-        });
+        // Fetch abstract from server
+        serverCapabilities.abstract = arkeoMapTiles.getValue(capabilities.Capabilities.ServiceIdentification.Abstract);
+
+        // Get server content
+
+        // var layer = angular.merge(angular.copy(arkeoMapTiles.layerStruct), {
+        //   identifier: arkeoMapTiles.getValue(layer.Title),
+        //   title: layer.Name
+        // });
 
         console.log(serverCapabilities);
 

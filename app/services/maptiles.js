@@ -97,6 +97,26 @@
       });
     };
 
+    this.getValue = function(o, preserveObject) {
+      if (angular.isUndefined(o)) {
+        return null;
+      }
+      if (angular.isObject(o)) {
+        if (preserveObject) {
+          return o;
+        } else {
+          return o.toString();
+        }
+      }
+      if (angular.isString(o)) {
+        return [o];
+      }
+      if (angular.isArray(o)) {
+        return o;
+      }
+      return this.newError(-666, "Unable to identify this thing");
+    };
+
     function processBoundingBox(boundingBox, type) {
 
       var result = null;
