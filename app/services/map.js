@@ -26,7 +26,6 @@
 
         var self = this,
             mapDefer = $q.defer(),
-            clusterRadiusControl,
             groupRadius = 80,
             projectCentroid;
 
@@ -39,16 +38,15 @@
             projectCentroid = {
                 lat: 48.58476,
                 lng: 7.750576
-            }
+            };
 
             if (this.project.geojson) {
-                console.log(this.project.geojson);
                 var c = L.geoJson(this.project.geojson).getBounds().getCenter();
                 projectCentroid.lat = c.lat;
                 projectCentroid.lng = c.lng;
             }
 
-        }
+        };
 
         this.setProject();
 
@@ -75,12 +73,12 @@
                             "Google Terrain": new L.Google('TERRAIN')
                         }
                     }]
-                }
+                };
 
                 // Init leaflet
                 var map = new L.Map(el, {
                     center: new L.LatLng(projectCentroid.lat, projectCentroid.lng),
-                    layers: [layers.baseMaps[0].layers["OpenStreetMap"]],
+                    layers: [layers.baseMaps[0].layers.OpenStreetMap],
                     zoomControl: false,
                     maxZoom: 18,
                     worldCopyJump: true,
@@ -132,7 +130,7 @@
                         enabled: true,
                         togglable: true,
                         callback: function(button, layerControl) {
-                            groupRadius = (groupRadius == 0) ? 80 : 0;
+                            groupRadius = (groupRadius === 0) ? 80 : 0;
                             $rootScope.$apply();
                         }
                     }]
@@ -150,19 +148,19 @@
                 }).addTo(map);
                 return mapDefer.resolve(map);
             });
-        }
+        };
 
         this.getMap = function() {
             return mapDefer.promise;
-        }
+        };
 
         this.initPromise = function() {
             mapDefer = $q.defer();
-        }
+        };
 
         this.getRadius = function() {
             return groupRadius;
-        }
+        };
 
         this.config = {
             defaults: {
@@ -218,7 +216,7 @@
                     }
                 }
             }
-        }
+        };
 
         this.getValidBoundingBox = function(north, east, south, west) {
             north = parseFloat(north).toFixed(6);
@@ -240,8 +238,8 @@
             return [
                 [north, east],
                 [south, west]
-            ]
-        }
+            ];
+        };
 
         this.getBoundsAsGeoJSON = function(bbox) {
             var bounds = angular.fromJson(L.rectangle(bbox).toGeoJSON());
@@ -250,9 +248,9 @@
                 properties: {
                     name: "EPSG:4326"
                 }
-            }
+            };
             return bounds;
-        }
+        };
 
     }]);
 })();
