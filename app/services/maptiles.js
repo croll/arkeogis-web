@@ -53,7 +53,16 @@
     this.serverCapabilitiesStruct = {
       title: '',
       abstract: '',
-      themes: {}
+      content: {
+        theme: []
+      }
+    };
+
+    this.themeStruct = {
+      identifier: null,
+      title: 'MAPEDITOR.FIELD_ROOT_THEME.T_LABEL',
+      layers: [],
+      theme: null
     };
 
     this.layerStruct = {
@@ -65,7 +74,8 @@
       style: [],
       format: [],
       resourceURL: '',
-      queryable: false // In WMTS layer.infoFormat shall have at least one entry
+      queryable: false, // In WMTS layer.infoFormat shall have at least one entry
+      layers: null // Store layer tree
     };
 
     this.styleStruct = {
@@ -80,14 +90,6 @@
         height: null
       },
       isDefault: false
-    };
-
-    this.themeStruct = {
-      identifier: 'MAPEDITOR.FIELD_ROOT_THEME.T_LABEL',
-      title: 'MAPEDITOR.FIELD_ROOT_THEME.T_LABEL',
-      abstract: '',
-      theme: null,
-      layerRef: []
     };
 
     this.newError = function(code, msg) {

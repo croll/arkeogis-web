@@ -57,8 +57,9 @@
           <md-menu>
             <md-button ng-click="$mdMenu.open($event)" aria-label="Layer menu">OPEN</md-button>
             <md-menu-content>
-              <md-menu-item ng-repeat="wmsLayer in wmsLayers" ng-include="'layersTree'">{{wmsLayer.title}}
-                <md-menu-item>
+              <md-menu-item ng-repeat="theme in remoteServerThemes" ng-include="'themeTree'">
+                {{remoteServerThemes}}
+              </md-menu-item>
             </md-menu-content>
           </md-menu>
 
@@ -72,7 +73,7 @@
       </ark-form-block>
       <ark-form-block ng-hide="!type || type == 'shp'" style="margin-top: -10px">
         <!-- Identifier -->
-        <md-input-container ng-show="showWMInputs == true || infos.id" style="margin: 15px 0 -10px 0" ng-hide="wmsLayers.length || hideIdentifier || hideFields">
+        <md-input-container ng-show="showWMInputs == true || infos.id" style="margin: 15px 0 -10px 0" ng-hide="remoteServerThemes.layers.length || hideIdentifier || hideFields">
           <label>
                         <span translate>MAPEDITOR.FIELD_IDENTIFIER.T_LABEL</span>
                     </label>
@@ -253,9 +254,19 @@
   </md-content>
 </form>
 
-<script type="text/ng-template" id="layersTree">
-  {{wmsLayer.title}}
-  <ul>
-    <li ng-repeat="wmsLayer in wmsLayers.layer" ng-include="'layersTree'"></li>
+<ul>
+              <li ng-repeat="theme in remoteServerThemes" ng-include="'themeTree'">
+                 -- {{theme}}
+              </li>
+</ul>
+
+<!-- Template -->
+<script type="text/ng-template" id="themeTree">
+  {{theme.title}}
+  <ul ng-if="theme.theme">
+    <li ng-repeat="theme in theme.theme" ng-include="'themeTree'">-- {{theme}}</li>
+  </ul>
+  <ul ng-if="theme.layers">
+    <li ng-repeat="layer in theme.layers">-- {{layer.title}}</li>
   </ul>
 </script>

@@ -195,7 +195,7 @@
 
     // Fin debug
 
-    $scope.wmsLayers = [];
+    $scope.remoteServerThemes = [];
 
     $scope.showWMInputs = false;
 
@@ -203,7 +203,7 @@
     // $scope.infos.url = 'http://wxs.ign.fr/bfmer9u7qh0mmhdyqj2z0wst/geoportail/wmts';
 
     $scope.reset = function() {
-      $scope.wmsLayers = [];
+      $scope.remoteServerThemes = [];
       $scope.hideFields = true;
       $scope.file = null;
       if ($scope.geojsonLayer) {
@@ -237,7 +237,7 @@
 
     $scope.getLayers = function() {
 
-      $scope.wmsLayers = [];
+      $scope.remoteServerThemes = [];
 
       $scope.showWMInputs = false;
 
@@ -245,7 +245,7 @@
         var service = ($scope.type === 'wms') ? eval('arkeoWMS') : eval('arkeoWMTS');
         service.getCapabilities($scope.infos.url).then(function(capas) {
           console.log(capas);
-          $scope.wmsLayers = capas.themes;
+          $scope.remoteServerThemes = capas.content;
           $scope.showWMInputs = true;
         }, function(err) {
           $scope.errorMsg = err.msg;
@@ -302,7 +302,7 @@
     };
 
     $scope.onLayerSelected = function() {
-      angular.forEach($scope.wmsLayers, function(wl) {
+      angular.forEach($scope.remoteServerThemes, function(wl) {
         if ($scope.infos.identifier === wl.identifier) {
           $scope.selectedLayer = wl;
         }

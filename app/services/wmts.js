@@ -28,7 +28,9 @@
     var tilematrixSets = [];
 
     var serverCapabilities = angular.merge(angular.copy(arkeoMapTiles.serverCapabilitiesStruct), {
-      themes: angular.copy(arkeoMapTiles.themeStruct)
+      content: {
+        theme: angular.copy(arkeoMapTiles.themeStruct)
+      }
     });
 
     this.setURL = function(url) {
@@ -62,8 +64,9 @@
         // Cycle trough layers
 
         angular.forEach(capabilities.Contents.Layer, function(layer) {
+          console.log(layer);
           var computedLayer = processLayer(layer);
-          serverCapabilities.themes.layerRef.push(layer);
+          serverCapabilities.content.theme.layers.push(computedLayer);
           // Link layer to theme
         });
 
@@ -105,7 +108,10 @@
         if (layer.infoFormat.length) {
           layer.queryable = true;
         }
+
         // console.log(layer);
+
+        return layer;
     }
 
     function parseStyle(fetchedStyle) {

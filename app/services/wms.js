@@ -26,7 +26,9 @@
     var self = this;
 
     var serverCapabilities = angular.merge(angular.copy(arkeoMapTiles.serverCapabilitiesStruct), {
-      themes: angular.copy(arkeoMapTiles.themeStruct)
+      content: {
+        theme: angular.copy(arkeoMapTiles.themeStruct)
+      }
     });
 
     var imageFormats = [];
