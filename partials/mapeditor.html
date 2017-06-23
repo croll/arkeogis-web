@@ -53,22 +53,21 @@
             <md-option value="image/jpg">JPG</md-option>
           </md-select>
         </md-input-container>
+
         <md-input-container ng-hide="showWMInputs != true">
           <md-menu>
-            <md-button ng-click="$mdMenu.open($event)" aria-label="Layer menu">OPEN</md-button>
+            <md-button ng-click="$mdOpenMenu()">Liste des calques</md-button>
             <md-menu-content>
-              <md-menu-item ng-repeat="theme in remoteServerThemes" ng-include="'themeTree'">
-                {{remoteServerThemes}}
-              </md-menu-item>
-            </md-menu-content>
+              <md-menu-item class="ark-nested-menu-item" ng-repeat="theme in remoteServerThemes" ng-include="'themeTree'"></md-menu-item>
+            <md-menu-content>
           </md-menu>
+        </md-menu>
+<!--
+          <md-select name="identifier" ng-model="infos.identifier" placeholder="{{'MAPEDITOR.FIELD_SELECT_LAYER.T_LABEL' | translate}}" md-on-close="onLayerSelected();hideIdentifier = true">
+                    <md-option ng-repeat="theme in remoteServerThemes" ng-include="'themeTree'"></md-option>
+                    <md-option value="{{layer.title}}" ng-repeat="layer in remoteServerThemes.layers">{{layer.title}}</md-option>
+          </md-select> -->
 
-          <!-- <md-select name="identifier" ng-model="infos.identifier" placeholder="{{'MAPEDITOR.FIELD_SELECT_LAYER.T_LABEL' | translate}}" md-on-close="onLayerSelected();hideIdentifier = true">
-                    <md-option value="{{layer.identifier}}" ng-repeat="layer in wmsLayers">{{layer.title}}</md-option>
-                    <md-option ng-repeat="layer in wmsLayers">{{layer.title}}</md-option>
-                </md-select> -->
-
-          <!-- Tree -->
         </md-input-container>
       </ark-form-block>
       <ark-form-block ng-hide="!type || type == 'shp'" style="margin-top: -10px">
@@ -254,19 +253,40 @@
   </md-content>
 </form>
 
-<ul>
-              <li ng-repeat="theme in remoteServerThemes" ng-include="'themeTree'">
-                 -- {{theme}}
-              </li>
-</ul>
-
-<!-- Template -->
 <script type="text/ng-template" id="themeTree">
-  {{theme.title}}
-  <ul ng-if="theme.theme">
-    <li ng-repeat="theme in theme.theme" ng-include="'themeTree'">-- {{theme}}</li>
-  </ul>
-  <ul ng-if="theme.layers">
-    <li ng-repeat="layer in theme.layers">-- {{layer.title}}</li>
-  </ul>
+    <md-menu-item ng-repeat="layer in theme.layers"><md-button>{{layer.title}}</md-button></md-menu-item>
+    <md-menu-item ng-if="theme.theme">
+      <md-menu md-offset="330 0" class="ark-md-menu-nested">
+        <md-button ng-click="$mdOpenMenu()">{{theme.title}} ></md-button>
+        <md-menu-content style="height: {{((theme.theme.length)*48)+((theme.layers.length-1)*48)}}px">
+          <md-menu-item ng-if="theme.theme">
+            <div ng-repeat="theme in theme.theme" ng-include="'themeTree'"></div>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </md-menu-item>
 </script>
+
+
+<!-- <md-menu>
+  <md-button ng-click="$mdOpenMenu()">open</md-button>
+  <md-menu-content>
+    <md-menu-item>item 1</md-menu-item>
+    <md-menu-item>item 2</md-menu-item>
+    <md-menu-item>
+      <md-menu md-offset="10 -10 0">
+        <div ng-click="$mdOpenMenu()">open</div>
+        <md-menu-content>
+          <md-menu-item>item 1</md-menu-item>
+          <md-menu-item>item 2</md-menu-item>
+          <md-menu-item>item 3</md-menu-item>
+          <md-menu-item>item 4</md-menu-item>
+          <md-menu-item>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </md-menu-item>
+    <md-menu-item>item 3</md-menu-item>
+    <md-menu-item>item 4</md-menu-item>
+  </md-menu-content>
+</md-menu> -->

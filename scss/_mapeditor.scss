@@ -15,3 +15,16 @@
         background: #ddd;
     }
 }
+
+.ark-nested-menu-item {
+  flex-direction: column;
+  height: auto;
+  width: auto;
+  width: 370px;
+}
+
+.ark-md-menu-nested {
+  &.md-menu {
+    height: auto;
+  }
+}
