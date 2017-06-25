@@ -31,8 +31,6 @@
       }
     });
 
-    var imageFormats = [];
-
     this.setURL = function(url) {
       self.url = url;
     };

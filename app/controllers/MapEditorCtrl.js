@@ -23,8 +23,6 @@
   'use strict';
   ArkeoGIS.controller('MapEditorCtrl', ['$scope', '$state', '$filter', 'arkeoService', 'arkeoMap', 'arkeoWMS', 'arkeoWMTS', 'login', '$http', '$q', 'leafletData', 'Upload', 'layer', 'arkeoLang', function($scope, $state, $filter, arkeoService, arkeoMap, arkeoWMS, arkeoWMTS, login, $http, $q, leafletData, Upload, layer, arkeoLang) {
 
-    var self = this;
-
     angular.extend($scope, arkeoMap.config);
 
     removeAllLayers();
@@ -41,68 +39,13 @@
         description: {
           en: ''
         }
-      },
-      image_format: 'image/jpeg'
-    };
-
-    // Remove all layers except OSM tiles
-    function removeAllLayers() {
-      if (typeof($scope.layers.overlays) === 'object' && typeof($scope.layers.overlays.preview) === 'object') {
-        $scope.layers.overlays.preview = {};
       }
-      /*
-           leafletData.getMap().then(function(map) {
-              map.eachLayer(function (layer) {
-                if (layer._url.indexOf('tile.openstreetmap.org') == -1) {
-               	  map.removeLayer(layer);
-		}
-	      });
-           });
-	   */
-    }
-
-    function setWMSPreview() {
-      setTimeout(function() {
-        $scope.layers.overlays.preview = {
-          name: $scope.selectedLayer.title,
-          type: 'wms',
-          url: $scope.infos.url,
-          visible: true,
-          layerOptions: {
-            layers: $scope.infos.identifier,
-            format: $scope.image_format,
-            opacity: 0.70
-          }
-        };
-        leafletData.getMap().then(function(map) {
-          $scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON().geometry;
-          map.fitBounds($scope.selectedLayer.boundingBox);
-        });
-      }, 0);
-    }
-
-    function setWMTSPreview() {
-      setTimeout(function() {
-        var layer = new L.TileLayer.WMTS($scope.infos.url, {
-          layer: $scope.infos.identifier,
-          style: "normal",
-          tilematrixSet: "PM",
-          format: $scope.image_format,
-          opacity: 0.70
-        });
-        leafletData.getMap().then(function(map) {
-          map.addLayer(layer);
-          $scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON().geometry;
-          map.fitBounds($scope.selectedLayer.boundingBox);
-        });
-      }, 0);
-    }
+    };
 
     if (angular.isDefined(layer)) {
       $scope.infos = angular.copy(layer);
       $scope.hideFields = false;
       $scope.selectedLayer = layer;
-      $scope.image_format = (layer.image_format !== '') ? layer.image_format : self.defaultInfos.image_format;
       $scope.selectedLayer.title = $filter('arkTranslate')(layer.translations.name);
       if (angular.isDefined(layer.geographical_extent_geom.coordinates)) {
         $scope.selectedLayer.boundingBox = layer.geographical_extent_geom.coordinates[0];
@@ -148,7 +91,8 @@
 
     $scope.$watch('type', function(newVal) {
       if (newVal && newVal === 'wmts') {
-        $scope.infos.url = 'http://wxs.ign.fr/b648puasvhkm1f46dk8hft4i/wmts';
+      //  $scope.infos.url = 'http://wxs.ign.fr/b648puasvhkm1f46dk8hft4i/wmts';
+        $scope.infos.url = 'https://www.cigalsace.org/geoserver/gwc/service/wmts';
       } else {
         // $scope.infos.url = 'http://demo.opengeo.org/geoserver/wms';
 
@@ -199,8 +143,16 @@
 
     $scope.showWMInputs = false;
 
-    // $scope.type = 'wmts';
-    // $scope.infos.url = 'http://wxs.ign.fr/bfmer9u7qh0mmhdyqj2z0wst/geoportail/wmts';
+    $scope.type = 'wmts';
+
+    $scope.selectLayer = function(layer) {
+      $scope.infos.identifier = layer.identifier;
+      $scope.infos.selectedFormat = layer.selectedFormat;
+      $scope.hideFields = false;
+      $scope.selectedLayer = layer;
+      $scope.refreshPreview();
+      // Select best image format
+    };
 
     $scope.reset = function() {
       $scope.remoteServerThemes = [];
@@ -244,8 +196,8 @@
       if ($scope.infos.url.indexOf('?') === -1) {
         var service = ($scope.type === 'wms') ? eval('arkeoWMS') : eval('arkeoWMTS');
         service.getCapabilities($scope.infos.url).then(function(capas) {
-          console.log(capas);
           $scope.remoteServerThemes = capas.content;
+
           $scope.showWMInputs = true;
         }, function(err) {
           $scope.errorMsg = err.msg;
@@ -299,18 +251,6 @@
           d.reject(err);
         });
         */
-    };
-
-    $scope.onLayerSelected = function() {
-      angular.forEach($scope.remoteServerThemes, function(wl) {
-        if ($scope.infos.identifier === wl.identifier) {
-          $scope.selectedLayer = wl;
-        }
-      });
-
-      $scope.refreshPreview();
-
-      $scope.hideFields = false;
     };
 
     $scope.refreshPreview = function() {
@@ -414,7 +354,7 @@
         dbObj.type = $scope.type;
         dbObj.identifier = $scope.infos.identifier;
         dbObj.url = $scope.infos.url;
-        dbObj.image_format = $scope.image_format;
+        dbObj.image_format = $scope.infos.selectedFormat;
       }
       // translations
       delete dbObj.translations;
@@ -478,6 +418,58 @@
         }
       }
       return outp;
+    }
+
+    // Remove all layers except OSM tiles
+    function removeAllLayers() {
+      if (typeof($scope.layers.overlays) === 'object' && typeof($scope.layers.overlays.preview) === 'object') {
+        $scope.layers.overlays.preview = {};
+      }
+    }
+
+    function setWMSPreview() {
+      setTimeout(function() {
+        $scope.layers.overlays.preview = {
+          name: $scope.selectedLayer.title,
+          type: 'wms',
+          url: $scope.infos.url,
+          visible: true,
+          layerOptions: {
+            layers: $scope.infos.identifier,
+            format: $scope.infos.selectedFormat,
+            opacity: 0.70
+          }
+        };
+        leafletData.getMap().then(function(map) {
+          $scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON().geometry;
+          map.fitBounds($scope.selectedLayer.boundingBox);
+        });
+      }, 0);
+    }
+
+    function setWMTSPreview() {
+      setTimeout(function() {
+
+        console.log($scope.selectedLayer);
+
+        var layer = new L.TileLayer.WMTS($scope.infos.url, {
+          layer: $scope.infos.identifier,
+          style: "normal",
+          format: $scope.infos.selectedFormat,
+          tilematrixSet: $scope.selectedLayer.tileMatrixSet.identifier,
+          matrixIds: arkeoWMTS.formatTileMatrixStringForLeaflet($scope.selectedLayer.tileMatrixSet.tileMatrixString),
+          opacity: 0.70
+        });
+
+        console.log(layer);
+
+
+        leafletData.getMap().then(function(map) {
+          map.addLayer(layer);
+          $scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON().geometry;
+          map.fitBounds($scope.selectedLayer.boundingBox);
+        });
+      }, 0);
     }
 
   }]);

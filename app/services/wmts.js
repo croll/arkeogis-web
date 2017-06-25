@@ -25,8 +25,6 @@
 
     var self = this;
 
-    var tilematrixSets = [];
-
     var serverCapabilities = angular.merge(angular.copy(arkeoMapTiles.serverCapabilitiesStruct), {
       content: {
         theme: angular.copy(arkeoMapTiles.themeStruct)
@@ -57,21 +55,27 @@
 
         console.log(capabilities);
 
+        var tms = processTileMatrixSets(capabilities.Contents.TileMatrixSet);
+
+        if (!tms) {
+          d.reject(arkeoMapTiles.newError(2004, 'Server does not offer tileMatrixSet in EPSG:3857'));
+        }
+
         // Fetch abstract from server
         serverCapabilities.title = arkeoMapTiles.getValue(capabilities.ServiceIdentification.Title);
         serverCapabilities.abstract = arkeoMapTiles.getValue(capabilities.ServiceIdentification.Abstract);
 
         // Cycle trough layers
-
         angular.forEach(capabilities.Contents.Layer, function(layer) {
-          console.log(layer);
-          var computedLayer = processLayer(layer);
-          serverCapabilities.content.theme.layers.push(computedLayer);
+          var computedLayer = processLayer(layer, tms);
+          if (computedLayer) {
+            serverCapabilities.content.theme.layers.push(computedLayer);
+          }
           // Link layer to theme
+          // TODO
         });
 
         // Get server content
-
         console.log(serverCapabilities);
 
         d.resolve(serverCapabilities);
@@ -81,55 +85,112 @@
       return d.promise;
     };
 
-    function processLayer(fetchedLayer) {
+    function processLayer(fetchedLayer, tileMatrixSet) {
 
       // console.log(fetchedLayer);
 
-        var layer = angular.merge(angular.copy(arkeoMapTiles.layerStruct), {
-          identifier: arkeoMapTiles.getValue(fetchedLayer.Identifier),
-          title: arkeoMapTiles.getValue(fetchedLayer.Title),
-          abstract: arkeoMapTiles.getValue(fetchedLayer.Abstract),
-          format: arkeoMapTiles.getAsArray(fetchedLayer.Format, true),
-          infoFormat: arkeoMapTiles.getAsArray(fetchedLayer.InfoFormat, true),
-          style: parseStyle(arkeoMapTiles.getAsArray(fetchedLayer.Style, true))
-        });
+      // Check if layer offers supported web image format
 
-        // Keywords
-        if (fetchedLayer.Keywords) {
-          layer.keywords = arkeoMapTiles.getAsArray(fetchedLayer.Keywords.Keyword);
+      var selectedFormat = null;
+
+      var format = arkeoMapTiles.getAsArray(fetchedLayer.Format);
+
+      format.forEach(function(imageFormat) {
+        // Prefer png imgage
+        if (imageFormat.match(/png/)) {
+          selectedFormat = 'image/png';
+        } else if (imageFormat.match(/jpeg/)) {
+          selectedFormat = 'image/jpeg';
+        } else if (imageFormat.match(/jpg/)) {
+          selectedFormat = 'image/jpg';
         }
+      });
 
-        // WGS84BoundingBox
-        var upper = fetchedLayer.WGS84BoundingBox.UpperCorner.toString().split(' ');
-        var lower = fetchedLayer.WGS84BoundingBox.LowerCorner.toString().split(' ');
-        layer.boundingBox = arkeoMap.getValidBoundingBox(lower[1], upper[0], upper[1], lower[0]);
+      if (!selectedFormat) {
+        return null;
+      }
 
-        // Queryable
-        if (layer.infoFormat.length) {
-          layer.queryable = true;
+      // Verify if layer purposes a valid TileMatrixSetLink
+
+      var tileMatrixSetLinks = arkeoMapTiles.getAsArray(fetchedLayer.TileMatrixSetLink, true);
+
+      if (!tileMatrixSetLinks) {
+        return null;
+      }
+
+      var foundValidTMSL = false;
+
+      tileMatrixSetLinks.forEach(function(tmsl){
+        if (arkeoMapTiles.getValue(tmsl.TileMatrixSet) === tileMatrixSet.identifier) {
+          foundValidTMSL = true;
         }
+      });
 
-        // console.log(layer);
+      if (!foundValidTMSL) {
+        return null;
+      }
 
-        return layer;
+      // console.log(tileMatrixSetIdentifier);
+      // console.log(fetchedLayer);
+
+      var layer = angular.merge(angular.copy(arkeoMapTiles.layerStruct), {
+        identifier: arkeoMapTiles.getValue(fetchedLayer.Identifier),
+        title: arkeoMapTiles.getValue(fetchedLayer.Title),
+        abstract: arkeoMapTiles.getValue(fetchedLayer.Abstract),
+        format: format,
+        selectedFormat: selectedFormat,
+        infoFormat: arkeoMapTiles.getAsArray(fetchedLayer.InfoFormat, true),
+        style: processStyle(arkeoMapTiles.getAsArray(fetchedLayer.Style, true)),
+        tileMatrixSet: {
+          identifier: tileMatrixSet.identifier,
+          tileMatrixString: tileMatrixSet.tileMatrixString
+        }
+      });
+
+      // Keywords
+      if (fetchedLayer.Keywords) {
+        layer.keywords = arkeoMapTiles.getAsArray(fetchedLayer.Keywords.Keyword);
+      }
+
+      // WGS84BoundingBox
+      var upper = fetchedLayer.WGS84BoundingBox.UpperCorner.toString().split(' ');
+      var lower = fetchedLayer.WGS84BoundingBox.LowerCorner.toString().split(' ');
+      layer.boundingBox = arkeoMap.getValidBoundingBox(lower[1], upper[0], upper[1], lower[0]);
+
+      // Queryable
+      if (layer.infoFormat.length) {
+        layer.queryable = true;
+      }
+
+      // console.log(layer);
+
+      return layer;
     }
 
-    function parseStyle(fetchedStyle) {
+    function processStyle(fetchedStyle) {
 
       var styles = [];
 
       angular.forEach(fetchedStyle, function(s) {
+
+        // Style default properties
+
         var style = angular.merge(angular.copy(arkeoMapTiles.styleStruct), {
           identifier: arkeoMapTiles.getValue(s.Identifier),
           title: arkeoMapTiles.getValue(s.Title),
-          legendURL: {
+          isDefault: arkeoMapTiles.getValue(s._isDefault)
+        });
+
+        // Legend URL
+
+        if (s.LegendURL) {
+          style.legendURL = {
             format: arkeoMapTiles.getValue(s.LegendURL._format),
             width: arkeoMapTiles.getValue(s.LegendURL._width),
             height: arkeoMapTiles.getValue(s.LegendURL._height),
             href: arkeoMapTiles.getValue(s.LegendURL._href) || arkeoMapTiles.getValue(s.LegendURL['_xlink:href']),
-          },
-          isDefault: arkeoMapTiles.getValue(s._isDefault)
-        });
+          };
+        }
 
         styles.push(style);
       });
@@ -137,6 +198,56 @@
       return styles;
 
     }
+
+    function processTileMatrixSets(tileMatrixSets) {
+
+      var selectedTileMatrixSet = null;
+
+      tileMatrixSets.forEach(function(tms) {
+
+        var supportedCRS = arkeoMapTiles.getValue(tms.SupportedCRS);
+
+        var tileMatrixArray = [];
+
+        // Only get EPSG:3857 tiles to be able to overlays them with OSM and Google ones
+        if (supportedCRS.match(/3857/)) {
+          selectedTileMatrixSet = {
+            identifier: arkeoMapTiles.getValue(tms.Identifier),
+            tileMatrixString: ''
+          };
+          tms.TileMatrix.forEach(function(tm) {
+            // Get only tilematrix with size of 256 px
+            if (tm.TileWidth === '256' && tm.TileHeight === '256') {
+              tileMatrixArray.push(arkeoMapTiles.getValue(tm.Identifier));
+            }
+          });
+          selectedTileMatrixSet.tileMatrixString = tileMatrixArray.join(',');
+          return selectedTileMatrixSet;
+        }
+
+      });
+
+      return selectedTileMatrixSet;
+
+    }
+
+    this.formatTileMatrixStringForLeaflet = function(tileMatrixString) {
+
+      var outp = [];
+
+      tileMatrixString.split(',').forEach(function(id) {
+
+        outp.push({
+          identifier: id,
+          topLeftCorner : new L.LatLng(20037508.3428,-20037508.3428)
+        });
+
+      });
+
+      return outp;
+
+    };
+
   }]);
 
 })();

@@ -46,24 +46,24 @@
       <ark-form-block>
         </md-input-container>
         <!-- WMS and WMTS layers list -->
-        <md-input-container ng-hide="showWMInputs != true && !infos.identifier">
+        <!-- <md-input-container ng-hide="showWMInputs != true && !infos.identifier">
           <md-select name="image_format" ng-model="image_format" placeholder="{{'MAPEDITOR.FIELD_IMAGE_FORMAT.T_LABEL' | translate}}" md-on-close="refreshPreview()">
             <md-option value="image/png">PNG</md-option>
             <md-option value="image/jpeg">JPEG</md-option>
             <md-option value="image/jpg">JPG</md-option>
           </md-select>
-        </md-input-container>
+        </md-input-container> -->
 
         <md-input-container ng-hide="showWMInputs != true">
           <md-menu>
-            <md-button ng-click="$mdOpenMenu()">Liste des calques</md-button>
-            <md-menu-content>
+            <md-button ng-click="$mdOpenMenu()">{{'MAPEDITOR.FIELD_SELECT_LAYER.T_LABEL' | translate}}</md-button>
+            <md-menu-content class="ark-md-menu-content-nested">
               <md-menu-item class="ark-nested-menu-item" ng-repeat="theme in remoteServerThemes" ng-include="'themeTree'"></md-menu-item>
             <md-menu-content>
           </md-menu>
         </md-menu>
 <!--
-          <md-select name="identifier" ng-model="infos.identifier" placeholder="{{'MAPEDITOR.FIELD_SELECT_LAYER.T_LABEL' | translate}}" md-on-close="onLayerSelected();hideIdentifier = true">
+          <md-select name="identifier" ng-model="infos.identifier" placeholder="" md-on-close="onLayerSelected();hideIdentifier = true">
                     <md-option ng-repeat="theme in remoteServerThemes" ng-include="'themeTree'"></md-option>
                     <md-option value="{{layer.title}}" ng-repeat="layer in remoteServerThemes.layers">{{layer.title}}</md-option>
           </md-select> -->
@@ -72,7 +72,7 @@
       </ark-form-block>
       <ark-form-block ng-hide="!type || type == 'shp'" style="margin-top: -10px">
         <!-- Identifier -->
-        <md-input-container ng-show="showWMInputs == true || infos.id" style="margin: 15px 0 -10px 0" ng-hide="remoteServerThemes.layers.length || hideIdentifier || hideFields">
+        <md-input-container ng-show="showWMInputs == true || infos.id" style="margin: 15px 0 -10px 0" ng-hide="remoteServerThemes.layers.length || hideFields">
           <label>
                         <span translate>MAPEDITOR.FIELD_IDENTIFIER.T_LABEL</span>
                     </label>
@@ -254,11 +254,13 @@
 </form>
 
 <script type="text/ng-template" id="themeTree">
-    <md-menu-item ng-repeat="layer in theme.layers"><md-button>{{layer.title}}</md-button></md-menu-item>
+    <md-menu-item ng-repeat="layer in theme.layers"><md-button ng-click="selectLayer(layer)">{{layer.title}}</md-button></md-menu-item>
     <md-menu-item ng-if="theme.theme">
       <md-menu md-offset="330 0" class="ark-md-menu-nested">
-        <md-button ng-click="$mdOpenMenu()">{{theme.title}} ></md-button>
-        <md-menu-content style="height: {{((theme.theme.length)*48)+((theme.layers.length-1)*48)}}px">
+        <md-button ng-click="$mdOpenMenu()">
+          <b>{{theme.title}}</b>
+        </md-button>
+        <md-menu-content class="ark-md-menu-content-nested" style="height: {{((theme.theme.length)*48)+((theme.layers.length-1)*48)}}px">
           <md-menu-item ng-if="theme.theme">
             <div ng-repeat="theme in theme.theme" ng-include="'themeTree'"></div>
           </md-menu-item>

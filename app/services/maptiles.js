@@ -73,6 +73,11 @@
       boundingBox:{},
       style: [],
       format: [],
+      selectedFormat: '',
+      tileMatrixSet: {
+        identifier: null,
+        tileMatrixString: ''
+      },
       resourceURL: '',
       queryable: false, // In WMTS layer.infoFormat shall have at least one entry
       layers: null // Store layer tree
@@ -127,7 +132,7 @@
       if (!val) {
         return [];
       } else {
-        return [val];
+        return (angular.isArray(val)) ? val : [val];
       }
     };
 
