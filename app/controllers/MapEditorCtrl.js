@@ -195,7 +195,7 @@
 
       if ($scope.infos.url.indexOf('?') === -1) {
         var service = ($scope.type === 'wms') ? eval('arkeoWMS') : eval('arkeoWMTS');
-        service.getCapabilities($scope.infos.url).then(function(capas) {
+        service.getCapabilities('/proxy/?'+$scope.infos.url).then(function(capas) {
           $scope.remoteServerThemes = capas.content;
 
           $scope.showWMInputs = true;
@@ -432,7 +432,7 @@
         $scope.layers.overlays.preview = {
           name: $scope.selectedLayer.title,
           type: 'wms',
-          url: $scope.infos.url,
+          url: '/proxy/?'+$scope.infos.url,
           visible: true,
           layerOptions: {
             layers: $scope.infos.identifier,
@@ -452,7 +452,7 @@
 
         console.log($scope.selectedLayer);
 
-        var layer = new L.TileLayer.WMTS($scope.infos.url, {
+        var layer = new L.TileLayer.WMTS('/proxy/?'+$scope.infos.url, {
           layer: $scope.infos.identifier,
           style: "normal",
           format: $scope.infos.selectedFormat,
