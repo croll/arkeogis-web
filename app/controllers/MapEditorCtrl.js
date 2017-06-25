@@ -194,8 +194,12 @@
       $scope.showWMInputs = false;
 
       if ($scope.infos.url.indexOf('?') === -1) {
-        var service = ($scope.type === 'wms') ? eval('arkeoWMS') : eval('arkeoWMTS');
-        service.getCapabilities('/proxy/?'+$scope.infos.url).then(function(capas) {
+      var service = ($scope.type === 'wms') ? eval('arkeoWMS') : eval('arkeoWMTS');
+       var url = $scope.infos.url;
+       if (url.substring(0, 8) !== '/proxy/?') {
+         url = '/proxy/?'+url;
+       }
+        service.getCapabilities(url).then(function(capas) {
           $scope.remoteServerThemes = capas.content;
 
           $scope.showWMInputs = true;
