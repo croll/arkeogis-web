@@ -28,6 +28,8 @@
         </md-button>
         <md-progress-linear md-mode="determinate" value="{{shpProcessingProgress}}" md-buffer-value="100" ng-hide="!file || shpProcessingProgress == 100"></md-progress-linear>
       </ark-form-block>
+          <span>Proxy</span>
+          <md-checkbox ng-model="infos.use_proxy" name="use_proxy"></md-checkbox>
       </ark-form-block>
       <!-- WMS URL -->
       <ark-form-block layout="row" ng-hide="!type || type == 'shp'" style="margin-top: 30px">
@@ -43,16 +45,9 @@
             {{errorMsg}}
           </div>
       </ark-form-block>
+      <!-- Use proxy -->
       <ark-form-block>
         </md-input-container>
-        <!-- WMS and WMTS layers list -->
-        <!-- <md-input-container ng-hide="showWMInputs != true && !infos.identifier">
-          <md-select name="image_format" ng-model="image_format" placeholder="{{'MAPEDITOR.FIELD_IMAGE_FORMAT.T_LABEL' | translate}}" md-on-close="refreshPreview()">
-            <md-option value="image/png">PNG</md-option>
-            <md-option value="image/jpeg">JPEG</md-option>
-            <md-option value="image/jpg">JPG</md-option>
-          </md-select>
-        </md-input-container> -->
 
         <md-input-container ng-hide="showWMInputs != true">
           <md-menu>
@@ -62,11 +57,6 @@
             <md-menu-content>
           </md-menu>
         </md-menu>
-<!--
-          <md-select name="identifier" ng-model="infos.identifier" placeholder="" md-on-close="onLayerSelected();hideIdentifier = true">
-                    <md-option ng-repeat="theme in remoteServerThemes" ng-include="'themeTree'"></md-option>
-                    <md-option value="{{layer.title}}" ng-repeat="layer in remoteServerThemes.layers">{{layer.title}}</md-option>
-          </md-select> -->
 
         </md-input-container>
       </ark-form-block>

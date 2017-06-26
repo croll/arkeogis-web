@@ -196,7 +196,7 @@
       if ($scope.infos.url.indexOf('?') === -1) {
       var service = ($scope.type === 'wms') ? eval('arkeoWMS') : eval('arkeoWMTS');
        var url = $scope.infos.url;
-       if (url.substring(0, 8) !== '/proxy/?') {
+       if ($scope.infos.use_proxy && url.substring(0, 8) !== '/proxy/?') {
          url = '/proxy/?'+url;
        }
         service.getCapabilities(url).then(function(capas) {
@@ -359,6 +359,9 @@
         dbObj.identifier = $scope.infos.identifier;
         dbObj.url = $scope.infos.url;
         dbObj.image_format = $scope.infos.selectedFormat;
+        dbObj.Tile_matrix_set = $scope.infos.tileMatrixSet;
+        dbObj.Tile_matrix_string = $scope.infos.tileMatrixString;
+        dbObj.Use_proxy = $scope.infos.useProxy;
       }
       // translations
       delete dbObj.translations;
@@ -432,11 +435,12 @@
     }
 
     function setWMSPreview() {
+      var url = ($scope.infos.use_proxy) ? '/proxy/?'+$scope.infos.url : $scope.infos.url;
       setTimeout(function() {
         $scope.layers.overlays.preview = {
           name: $scope.selectedLayer.title,
           type: 'wms',
-          url: '/proxy/?'+$scope.infos.url,
+          url: url,
           visible: true,
           layerOptions: {
             layers: $scope.infos.identifier,
@@ -454,9 +458,9 @@
     function setWMTSPreview() {
       setTimeout(function() {
 
-        console.log($scope.selectedLayer);
+        var url = ($scope.infos.use_proxy) ? '/proxy/?'+$scope.infos.url : $scope.infos.url;
 
-        var layer = new L.TileLayer.WMTS('/proxy/?'+$scope.infos.url, {
+        var layer = new L.TileLayer.WMTS(url, {
           layer: $scope.infos.identifier,
           style: "normal",
           format: $scope.infos.selectedFormat,
