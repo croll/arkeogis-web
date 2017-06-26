@@ -392,6 +392,16 @@
       if (typeof($scope.layers.overlays) === 'object' && typeof($scope.layers.overlays.preview) === 'object') {
         $scope.layers.overlays.preview = {};
       }
+
+      leafletData.getMap().then(function(map) {
+        var i = 0;
+        map.eachLayer(function (layer) {
+          if (i > 0) {
+            map.removeLayer(layer);
+          }
+          i++;
+        });
+      });
     }
 
     function setWMSPreview() {
