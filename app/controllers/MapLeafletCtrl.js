@@ -21,8 +21,8 @@
 
 (function() {
   'use strict';
-  ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', '$compile', '$filter', '$mdDialog', '$mdSidenav', '$translate', 'arkeoService', 'arkeoProject', 'arkeoMap', 'arkeoQuery', 'arkeoLang', 'arkeoDatabase',
-    function($scope, $http, $compile, $filter, $mdDialog, $mdSidenav, $translate, arkeoService, arkeoProject, arkeoMap, arkeoQuery, arkeoLang, arkeoDatabase) {
+  ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', '$compile', '$filter', '$mdDialog', '$mdSidenav', '$translate', 'arkeoService', 'arkeoWMTS', 'arkeoProject', 'arkeoMap', 'arkeoQuery', 'arkeoLang', 'arkeoDatabase',
+    function($scope, $http, $compile, $filter, $mdDialog, $mdSidenav, $translate, arkeoService, arkeoWMTS, arkeoProject, arkeoMap, arkeoQuery, arkeoLang, arkeoDatabase) {
 
       /*
        * Leaflet Map
@@ -88,6 +88,8 @@
 
         var l;
 
+        var url = (layer.use_proxy) ? '/proxy/?'+layer.url : layer.url;
+
         if (layer.type == 'shp') {
           var geojsonFeature = {
             type: "Feature",
@@ -113,7 +115,7 @@
           l = {
             name: $filter('arkTranslate')(layer.name),
             type: 'wms',
-            instance: L.tileLayer.wms(layer.url, {
+            instance: L.tileLayer.wms(url, {
               minZoom: layer.min_scale,
               maxZoom: layer.max_scale,
               attribution: $filter('arkTranslate')(layer.attribution),
@@ -125,10 +127,11 @@
           l = {
             name: $filter('arkTranslate')(layer.name),
             type: 'wmts',
-            instance: new L.TileLayer.WMTS(layer.url, {
+            instance: new L.TileLayer.WMTS(url, {
               layer: layer.identifier,
               style: "normal",
-              tilematrixSet: layer.tilematrixSet,
+              tilematrixSet: layer.tile_matrix_set,
+              matrixIds: arkeoWMTS.formatTileMatrixStringForLeaflet(layer.tile_matrix_string),
               format: layer.image_format,
               attribution: $filter('arkTranslate')(layer.attribution),
               minZoom: layer.min_scale,
