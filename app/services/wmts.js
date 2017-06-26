@@ -138,13 +138,11 @@
         title: arkeoMapTiles.getValue(fetchedLayer.Title),
         abstract: arkeoMapTiles.getValue(fetchedLayer.Abstract),
         format: format,
-        selectedFormat: selectedFormat,
+        image_format: selectedFormat,
         infoFormat: arkeoMapTiles.getAsArray(fetchedLayer.InfoFormat, true),
         style: processStyle(arkeoMapTiles.getAsArray(fetchedLayer.Style, true)),
-        tileMatrixSet: {
-          identifier: tileMatrixSet.identifier,
-          tileMatrixString: tileMatrixSet.tileMatrixString
-        }
+        tile_matrix_set: tileMatrixSet.identifier,
+        tile_matrix_string: tileMatrixSet.tileMatrixString
       });
 
       // Keywords
@@ -155,7 +153,7 @@
       // WGS84BoundingBox
       var upper = fetchedLayer.WGS84BoundingBox.UpperCorner.toString().split(' ');
       var lower = fetchedLayer.WGS84BoundingBox.LowerCorner.toString().split(' ');
-      layer.boundingBox = arkeoMap.getValidBoundingBox(lower[1], upper[0], upper[1], lower[0]);
+      layer.bounding_box = arkeoMap.getValidBoundingBox(lower[1], upper[0], upper[1], lower[0]);
 
       // Queryable
       if (layer.infoFormat.length) {

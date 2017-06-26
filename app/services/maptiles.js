@@ -70,15 +70,13 @@
       title: '',
       abstract: '',
       keywords: '',
-      boundingBox:{},
+      bounding_box:{},
       style: [],
       format: [],
-      selectedFormat: '',
-      tileMatrixSet: {
-        identifier: null,
-        tileMatrixString: ''
-      },
-      resourceURL: '',
+      image_format: '',
+      tile_matrix_set: null,
+      tile_matrix_string: '',
+      resource_url: '',
       queryable: false, // In WMTS layer.infoFormat shall have at least one entry
       layers: null // Store layer tree
     };

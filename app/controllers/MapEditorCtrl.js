@@ -48,9 +48,10 @@
       $scope.selectedLayer = layer;
       $scope.selectedLayer.title = $filter('arkTranslate')(layer.translations.name);
       if (angular.isDefined(layer.geographical_extent_geom.coordinates)) {
-        $scope.selectedLayer.boundingBox = layer.geographical_extent_geom.coordinates[0];
+        $scope.selectedLayer.bounding_box = layer.geographical_extent_geom.coordinates[0];
       }
       $scope.type = layer.type;
+      console.log($scope.infos);
       if (layer.type === 'shp') {
         leafletData.getMap().then(function(map) {
           $scope.geojsonLayer = L.geoJson($scope.infos.geojson).addTo(map);
@@ -100,45 +101,6 @@
       }
     }, true);
 
-    // Debug
-
-    /*
-    $scope.infos = angular.copy({
-            authors: [{
-                fullname: login.user.firstname + ' ' + login.user.lastname,
-                id: login.user.id
-            }],
-            url: 'http://demo.opengeo.org/geoserver/wms',
-            min_scale: 0,
-            max_scale: 14,
-            declared_creation_date: new Date(),
-            max_usage_date: new Date(),
-            start_date: -1200,
-            end_date: 300,
-            license: 'pouet license',
-            attribution: 'atribution pouet',
-            copyright: 'copyright pouet',
-            translations: {
-                description: {
-                    fr: 'desc fr',
-                    en: 'desc en',
-                    es: 'desc es'
-                },
-                name: {
-                    fr: 'name fr',
-                    en: 'name en',
-                    es: 'name es'
-                }
-            }
-        },
-        $scope.infos);
-
-    $scope.type = 'wms';
-
-    */
-
-    // Fin debug
-
     $scope.remoteServerThemes = [];
 
     $scope.showWMInputs = false;
@@ -147,7 +109,9 @@
 
     $scope.selectLayer = function(layer) {
       $scope.infos.identifier = layer.identifier;
-      $scope.infos.selectedFormat = layer.selectedFormat;
+      $scope.infos.image_format = layer.image_format;
+      $scope.infos.tile_matrix_set = layer.tile_matrix_set;
+      $scope.infos.tile_matrix_string = layer.tile_matrix_string;
       $scope.hideFields = false;
       $scope.selectedLayer = layer;
       $scope.refreshPreview();
@@ -258,6 +222,7 @@
     };
 
     $scope.refreshPreview = function() {
+      removeAllLayers();
       switch ($scope.type) {
         case 'wms':
           setWMSPreview();
@@ -355,19 +320,16 @@
         dbObj.geojson = JSON.stringify(removeGeoJSONDatas($scope.infos.geojson));
         // Type of wm(t)s layer
       } else {
-        dbObj.type = $scope.type;
-        dbObj.identifier = $scope.infos.identifier;
-        dbObj.url = $scope.infos.url;
-        dbObj.image_format = $scope.infos.selectedFormat;
-        dbObj.Tile_matrix_set = $scope.infos.tileMatrixSet;
-        dbObj.Tile_matrix_string = $scope.infos.tileMatrixString;
-        dbObj.Use_proxy = $scope.infos.useProxy;
+        // dbObj.type = $scope.type;
+        // dbObj.identifier = $scope.infos.identifier;
+        // dbObj.url = $scope.infos.url;
       }
       // translations
       delete dbObj.translations;
       angular.extend(dbObj, formatTranslation('description', $scope.infos.translations.description));
       angular.extend(dbObj, formatTranslation('name', $scope.infos.translations.name));
       var url = ($scope.type === 'shp') ? '/api/shpLayer' : '/api/wmLayer';
+      console.warn(dbObj);
       if (form.$valid) {
         if ($scope.file) {
           Upload.upload({
@@ -444,13 +406,13 @@
           visible: true,
           layerOptions: {
             layers: $scope.infos.identifier,
-            format: $scope.infos.selectedFormat,
+            format: $scope.infos.image_format,
             opacity: 0.70
           }
         };
         leafletData.getMap().then(function(map) {
-          $scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON().geometry;
-          map.fitBounds($scope.selectedLayer.boundingBox);
+          $scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.bounding_box).toGeoJSON().geometry;
+          map.fitBounds($scope.selectedLayer.bounding_box);
         });
       }, 0);
     }
@@ -463,19 +425,16 @@
         var layer = new L.TileLayer.WMTS(url, {
           layer: $scope.infos.identifier,
           style: "normal",
-          format: $scope.infos.selectedFormat,
-          tilematrixSet: $scope.selectedLayer.tileMatrixSet.identifier,
-          matrixIds: arkeoWMTS.formatTileMatrixStringForLeaflet($scope.selectedLayer.tileMatrixSet.tileMatrixString),
+          format: $scope.infos.image_format,
+          tilematrixSet: $scope.selectedLayer.tile_matrix_set,
+          matrixIds: arkeoWMTS.formatTileMatrixStringForLeaflet($scope.selectedLayer.tile_matrix_string),
           opacity: 0.70
         });
 
-        console.log(layer);
-
-
         leafletData.getMap().then(function(map) {
           map.addLayer(layer);
-          $scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON().geometry;
-          map.fitBounds($scope.selectedLayer.boundingBox);
+          $scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.bounding_box).toGeoJSON().geometry;
+          map.fitBounds($scope.selectedLayer.bounding_box);
         });
       }, 0);
     }

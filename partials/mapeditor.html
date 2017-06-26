@@ -29,7 +29,7 @@
         <md-progress-linear md-mode="determinate" value="{{shpProcessingProgress}}" md-buffer-value="100" ng-hide="!file || shpProcessingProgress == 100"></md-progress-linear>
       </ark-form-block>
           <span>Proxy</span>
-          <md-checkbox ng-model="infos.use_proxy" name="use_proxy"></md-checkbox>
+          <md-checkbox ng-model="infos.use_proxy" name="use_proxy" aria-label="Use proxy"></md-checkbox>
       </ark-form-block>
       <!-- WMS URL -->
       <ark-form-block layout="row" ng-hide="!type || type == 'shp'" style="margin-top: 30px">

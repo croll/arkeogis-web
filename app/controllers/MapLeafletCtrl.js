@@ -128,11 +128,11 @@
             instance: new L.TileLayer.WMTS(layer.url, {
               layer: layer.identifier,
               style: "normal",
-              tilematrixSet: "PM",
+              tilematrixSet: layer.tilematrixSet,
               format: layer.image_format,
               attribution: $filter('arkTranslate')(layer.attribution),
               minZoom: layer.min_scale,
-              maxZoom: layer.max_scale
+              maxZoom: layer.max_scale,
             })
           };
         }
