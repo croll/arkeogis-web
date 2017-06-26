@@ -114,6 +114,7 @@
       $scope.infos.tile_matrix_set = layer.tile_matrix_set;
       $scope.infos.tile_matrix_string = layer.tile_matrix_string;
       $scope.hideFields = false;
+      $scope.selectedLayer = layer;
       $scope.refreshPreview();
       // Select best image format
     };
@@ -406,8 +407,8 @@
     }
 
     function setWMSPreview() {
-      var url = ($scope.infos.use_proxy) ? '/proxy/?'+$scope.infos.url : $scope.infos.url;
       setTimeout(function() {
+        var url = ($scope.infos.use_proxy) ? '/proxy/?'+$scope.infos.url : $scope.infos.url;
         $scope.layers.overlays.preview = {
           name: $scope.selectedLayer.identifier,
           type: 'wms',
