@@ -51,7 +51,6 @@
         $scope.selectedLayer.bounding_box = layer.geographical_extent_geom.coordinates[0];
       }
       $scope.type = layer.type;
-      console.log($scope.infos);
       if (layer.type === 'shp') {
         leafletData.getMap().then(function(map) {
           $scope.geojsonLayer = L.geoJson($scope.infos.geojson).addTo(map);
@@ -97,7 +96,9 @@
       } else {
         // $scope.infos.url = 'http://demo.opengeo.org/geoserver/wms';
 
-        $scope.infos.url = 'https://neo.sci.gsfc.nasa.gov/wms/wms';
+        // $scope.infos.url = 'https://neo.sci.gsfc.nasa.gov/wms/wms';
+
+        $scope.infos.url = 'https://www.cigalsace.org/geoserver/cigal/ows';
       }
     }, true);
 
@@ -105,7 +106,7 @@
 
     $scope.showWMInputs = false;
 
-    $scope.type = 'wmts';
+    $scope.type = 'wms';
 
     $scope.selectLayer = function(layer) {
       $scope.infos.identifier = layer.identifier;
@@ -131,7 +132,7 @@
 
     $scope.delete = function() {
       if (!layer.id) {
-        console.log("No layer id specified, unable to delete");
+        console.error("No layer id specified, unable to delete");
         return false;
       }
       $http({
@@ -147,7 +148,7 @@
         $state.go('arkeogis.mapeditor-list');
       }, function(err) {
         arkeoService.showMessage('MAPEDITOR.MESSAGE.T_DELETE_FAILED', 'error');
-        console.log(err);
+        console.error(err);
       });
     };
 
@@ -164,8 +165,8 @@
          url = '/proxy/?'+url;
        }
         service.getCapabilities(url).then(function(capas) {
+          $scope.abstract = capas.abstract;
           $scope.remoteServerThemes = capas.content;
-
           $scope.showWMInputs = true;
         }, function(err) {
           $scope.errorMsg = err.msg;
@@ -308,28 +309,25 @@
       if (!dbObj.license_id) {
         dbObj.license_id = 0;
       }
+      // Authors
       dbObj.authors = [];
       angular.forEach($scope.infos.authors, function(author) {
         dbObj.authors.push(author.id);
       });
       dbObj.geographical_extent_geom = JSON.stringify($scope.infos.geographical_extent_geom);
       if ($scope.type === 'shp') {
-        // Authors
         // geojson
         dbObj.geojson_with_data = JSON.stringify($scope.infos.geojson);
         dbObj.geojson = JSON.stringify(removeGeoJSONDatas($scope.infos.geojson));
         // Type of wm(t)s layer
       } else {
-        // dbObj.type = $scope.type;
-        // dbObj.identifier = $scope.infos.identifier;
-        // dbObj.url = $scope.infos.url;
+        dbObj.type = $scope.type;
       }
       // translations
       delete dbObj.translations;
       angular.extend(dbObj, formatTranslation('description', $scope.infos.translations.description));
       angular.extend(dbObj, formatTranslation('name', $scope.infos.translations.name));
       var url = ($scope.type === 'shp') ? '/api/shpLayer' : '/api/wmLayer';
-      console.warn(dbObj);
       if (form.$valid) {
         if ($scope.file) {
           Upload.upload({
@@ -344,7 +342,7 @@
             $state.go('arkeogis.mapeditor-list');
           }, function(err) {
             arkeoService.showMessage('MAPEDITOR.MESSAGE.SAVE_T_FAILED');
-            console.log(err);
+            console.error(err);
           }, function(evt) {
             $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total);
           });
@@ -358,7 +356,7 @@
             removeAllLayers();
             $state.go('arkeogis.mapeditor-list');
           }, function(err) {
-            console.log(err);
+            console.error(err);
             arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE.T_FAILED');
           });
 
@@ -400,7 +398,7 @@
       var url = ($scope.infos.use_proxy) ? '/proxy/?'+$scope.infos.url : $scope.infos.url;
       setTimeout(function() {
         $scope.layers.overlays.preview = {
-          name: $scope.selectedLayer.title,
+          name: $scope.selectedLayer.identifier,
           type: 'wms',
           url: url,
           visible: true,
@@ -419,9 +417,7 @@
 
     function setWMTSPreview() {
       setTimeout(function() {
-
         var url = ($scope.infos.use_proxy) ? '/proxy/?'+$scope.infos.url : $scope.infos.url;
-
         var layer = new L.TileLayer.WMTS(url, {
           layer: $scope.infos.identifier,
           style: "normal",
@@ -480,7 +476,7 @@
     layerService.getLayers().then(function(layers) {
       $scope.mapLayers = layers;
     }, function(errorCode) {
-      console.log("ERROR CODE: "+errorCode);
+      console.error("ERROR CODE: "+errorCode);
     });
 
     $scope.edit = function(type, id) {

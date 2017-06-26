@@ -41,14 +41,14 @@
           <md-button type="button" class="md-icon-button" ng-click="getLayers()">
             <md-icon>search</md-icon>
           </md-button>
+          <div class="ark-abstract">{{abstract}}</div>
           <div style="color: red;font-weight: bold" ng-hide="!errorMsg">
             {{errorMsg}}
           </div>
       </ark-form-block>
-      <!-- Use proxy -->
+      <!-- Layers -->
       <ark-form-block>
         </md-input-container>
-
         <md-input-container ng-hide="showWMInputs != true">
           <md-menu>
             <md-button ng-click="$mdOpenMenu()">{{'MAPEDITOR.FIELD_SELECT_LAYER.T_LABEL' | translate}}</md-button>
@@ -57,7 +57,6 @@
             <md-menu-content>
           </md-menu>
         </md-menu>
-
         </md-input-container>
       </ark-form-block>
       <ark-form-block ng-hide="!type || type == 'shp'" style="margin-top: -10px">
@@ -245,9 +244,9 @@
 
 <script type="text/ng-template" id="themeTree">
     <md-menu-item ng-repeat="layer in theme.layers"><md-button ng-click="selectLayer(layer)">{{layer.title}}</md-button></md-menu-item>
-    <md-menu-item ng-if="theme.theme">
+    <md-menu-item ng-if="theme.theme" style="background:red">
       <md-menu md-offset="330 0" class="ark-md-menu-nested">
-        <md-button ng-click="$mdOpenMenu()">
+        <md-button ng-mouseover="$mdOpenMenu()">
           <b>{{theme.title}}</b>
         </md-button>
         <md-menu-content class="ark-md-menu-content-nested" style="height: {{((theme.theme.length)*48)+((theme.layers.length-1)*48)}}px">
@@ -258,27 +257,3 @@
       </md-menu>
     </md-menu-item>
 </script>
-
-
-<!-- <md-menu>
-  <md-button ng-click="$mdOpenMenu()">open</md-button>
-  <md-menu-content>
-    <md-menu-item>item 1</md-menu-item>
-    <md-menu-item>item 2</md-menu-item>
-    <md-menu-item>
-      <md-menu md-offset="10 -10 0">
-        <div ng-click="$mdOpenMenu()">open</div>
-        <md-menu-content>
-          <md-menu-item>item 1</md-menu-item>
-          <md-menu-item>item 2</md-menu-item>
-          <md-menu-item>item 3</md-menu-item>
-          <md-menu-item>item 4</md-menu-item>
-          <md-menu-item>
-          </md-menu-item>
-        </md-menu-content>
-      </md-menu>
-    </md-menu-item>
-    <md-menu-item>item 3</md-menu-item>
-    <md-menu-item>item 4</md-menu-item>
-  </md-menu-content>
-</md-menu> -->

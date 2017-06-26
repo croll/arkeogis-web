@@ -59,7 +59,6 @@
     };
 
     this.themeStruct = {
-      identifier: null,
       title: 'MAPEDITOR.FIELD_ROOT_THEME.T_LABEL',
       layers: [],
       theme: null
@@ -106,6 +105,9 @@
       if (angular.isUndefined(o)) {
         return null;
       }
+      if (angular.isArray(o)) {
+        return o;
+      }
       if (angular.isString(o)) {
         return o;
       }
@@ -115,9 +117,6 @@
         } else {
           return o.toString();
         }
-      }
-      if (angular.isArray(o)) {
-        return o;
       }
       if (typeof o === 'boolean') {
         return o;
@@ -143,49 +142,6 @@
       }
       return false;
     };
-
-    function processBoundingBox(boundingBox, type) {
-
-      var result = null;
-
-      var processFuncs = {
-        wms: function(bbox) {
-          if (bbox._CRS !== '' && bbox._CRS.indexOf("EPSG:4326") === -1 && bbox._CRS.indexOf("CRS:84")) {
-            console.log("Wrong CRS detected: " + bbox._CRS);
-            return false;
-          }
-          if (!bbox._minx || !bbox._miny || !bbox._maxx || !bbox._maxy) {
-            return [
-              [-90, -180],
-              [89.999999, 179.999999]
-            ];
-          } else {
-            return arkeoMap.getValidBoundingBox(bbox._minx, bbox._maxy, bbox._maxx, bbox._miny);
-          }
-        },
-        wmts: function(bbox) {
-          if (!bbox) {
-            return false;
-          }
-          var upper = bbox.UpperCorner.toString().split(' ');
-          var lower = bbox.LowerCorner.toString().split(' ');
-          return arkeoMap.getValidBoundingBox(lower[1], upper[0], upper[1], lower[0]);
-        }
-      };
-
-      if (angular.isArray(boundingBox)) {
-        angular.forEach(boundingBox, function(bbox) {
-          result = processFuncs[type](bbox);
-          if (result) {
-            return;
-          }
-        });
-      } else {
-        result = processFuncs[type](boundingBox);
-      }
-
-      return result;
-    }
 
   }]);
 

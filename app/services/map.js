@@ -192,16 +192,6 @@
                 },
                 overlays: {}
             },
-/* remove it from there, it is not anymore used, and make chronoditor area chooser hide it's controls
-            controls: {
-                scale: {
-                    imperial: false,
-                    position: 'bottomright'
-                },
-                fullscreen: {
-                    position: 'topright'
-                }
-            },*/
             layercontrol: {
                 icons: {
                     uncheck: "fa fa-toggle-off",
@@ -219,6 +209,9 @@
         };
 
         this.getValidBoundingBox = function(north, east, south, west) {
+            if (!north || !east || !south || !west) {
+              return null;
+            }
             north = parseFloat(north).toFixed(6);
             east = parseFloat(east).toFixed(6);
             south = parseFloat(south).toFixed(6);

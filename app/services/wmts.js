@@ -75,8 +75,7 @@
           // TODO
         });
 
-        // Get server content
-        console.log(serverCapabilities);
+        // console.log(serverCapabilities);
 
         d.resolve(serverCapabilities);
 
