@@ -106,7 +106,7 @@
 
     $scope.showWMInputs = false;
 
-    $scope.type = 'wms';
+    // $scope.type = 'wms';
 
     $scope.selectLayer = function(layer) {
       $scope.infos.identifier = layer.identifier;
