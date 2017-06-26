@@ -48,7 +48,7 @@
       $scope.selectedLayer = layer;
       $scope.selectedLayer.title = $filter('arkTranslate')(layer.translations.name);
       if (angular.isDefined(layer.geographical_extent_geom.coordinates)) {
-        $scope.selectedLayer.bounding_box = layer.geographical_extent_geom.coordinates[0];
+        $scope.selectedLayer.bounding_box = L.geoJson(layer.geographical_extent_geom).getBounds();
       }
       $scope.type = layer.type;
       if (layer.type === 'shp') {
@@ -114,7 +114,6 @@
       $scope.infos.tile_matrix_set = layer.tile_matrix_set;
       $scope.infos.tile_matrix_string = layer.tile_matrix_string;
       $scope.hideFields = false;
-      $scope.selectedLayer = layer;
       $scope.refreshPreview();
       // Select best image format
     };
@@ -258,11 +257,11 @@
             $scope.infos.geographical_extent_geom = L.rectangle(bounds).toGeoJSON().geometry;
             $scope.hideFields = false;
           }, function(err) {
-            console.log(err);
+            console.error(err);
             arkeoService.showMessage('MAPEDITOR.MESSAGE_SHP_LOADING.T_ERROR', 'error');
           });
         }, function(err) {
-            console.log(err);
+            console.error(err);
           arkeoService.showMessage('MAPEDITOR.MESSAGE_SHP_LOADING.T_ERROR', 'error');
         });
       };
@@ -314,7 +313,9 @@
       angular.forEach($scope.infos.authors, function(author) {
         dbObj.authors.push(author.id);
       });
+      console.log("LA", dbObj.geographical_extent_geom);
       dbObj.geographical_extent_geom = JSON.stringify($scope.infos.geographical_extent_geom);
+      console.log("LA2", JSON.stringify(dbObj.geographical_extent_geom));
       if ($scope.type === 'shp') {
         // geojson
         dbObj.geojson_with_data = JSON.stringify($scope.infos.geojson);

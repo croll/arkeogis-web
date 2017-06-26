@@ -45,7 +45,6 @@
                 projectCentroid.lat = c.lat;
                 projectCentroid.lng = c.lng;
             }
-
         };
 
         this.setProject();

@@ -47,11 +47,11 @@
           </div>
       </ark-form-block>
       <!-- Layers -->
-      <ark-form-block>
+      <ark-form-block style="padding: 0">
         </md-input-container>
         <md-input-container ng-hide="showWMInputs != true">
           <md-menu>
-            <md-button ng-click="$mdOpenMenu()">{{'MAPEDITOR.FIELD_SELECT_LAYER.T_LABEL' | translate}}</md-button>
+            <md-button class="md-primary md-raised" ng-click="$mdOpenMenu()">{{'MAPEDITOR.FIELD_SELECT_LAYER.T_LABEL' | translate}}</md-button>
             <md-menu-content class="ark-md-menu-content-nested">
               <md-menu-item class="ark-nested-menu-item" ng-repeat="theme in remoteServerThemes" ng-include="'themeTree'"></md-menu-item>
             <md-menu-content>
