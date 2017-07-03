@@ -39,7 +39,8 @@
         description: {
           en: ''
         }
-      }
+      },
+      use_proxy: true
     };
 
     if (angular.isDefined(layer)) {
@@ -99,6 +100,8 @@
         // $scope.infos.url = 'https://neo.sci.gsfc.nasa.gov/wms/wms';
 
         $scope.infos.url = 'https://www.cigalsace.org/geoserver/cigal/ows';
+
+        $scope.infos.url = 'http://ogc.bgs.ac.uk/cgi-bin/BGS_GSI_EN_Bedrock_and_Structural_Geology/ows';
       }
     }, true);
 

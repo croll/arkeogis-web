@@ -25,20 +25,24 @@
 
     var self = this;
 
-    var serverCapabilities = angular.merge(angular.copy(arkeoMapTiles.serverCapabilitiesStruct), {
-      content: {
-        theme: angular.copy(arkeoMapTiles.themeStruct)
-      }
-    });
+    var serverCapabilities;
 
     this.setURL = function(url) {
       self.url = url;
     };
 
     this.getCapabilities = function(url) {
+
+      serverCapabilities = angular.merge(angular.copy(arkeoMapTiles.serverCapabilitiesStruct), {
+        content: {
+          theme: angular.copy(arkeoMapTiles.themeStruct)
+        }
+      });
+
       return arkeoMapTiles.getCapabilities('WMTS', url).then(self.parseCapabilities, function(rejection) {
         return rejection;
       });
+      
     };
 
     this.parseCapabilities = function(fetchedServerCapabilities) {

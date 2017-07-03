@@ -25,11 +25,7 @@
 
     var self = this;
 
-    var serverCapabilities = angular.merge(angular.copy(arkeoMapTiles.serverCapabilitiesStruct), {
-      content: {
-        theme: angular.copy(arkeoMapTiles.themeStruct)
-      }
-    });
+    var serverCapabilities;
 
     var selectedImageFormat = null;
 
@@ -38,6 +34,11 @@
     };
 
     this.getCapabilities = function(url) {
+      serverCapabilities = angular.merge(angular.copy(arkeoMapTiles.serverCapabilitiesStruct), {
+        content: {
+          theme: angular.copy(arkeoMapTiles.themeStruct)
+        }
+      });
       return arkeoMapTiles.getCapabilities('WMS', url).then(self.parseCapabilities, function(rejection) {
         return rejection;
       });

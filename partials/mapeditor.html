@@ -28,12 +28,13 @@
         </md-button>
         <md-progress-linear md-mode="determinate" value="{{shpProcessingProgress}}" md-buffer-value="100" ng-hide="!file || shpProcessingProgress == 100"></md-progress-linear>
       </ark-form-block>
+      <!-- <ark-form-block>
           <span>Proxy</span>
           <md-checkbox ng-model="infos.use_proxy" name="use_proxy" aria-label="Use proxy"></md-checkbox>
-      </ark-form-block>
+      </ark-form-block> -->
       <!-- WMS URL -->
       <ark-form-block layout="row" ng-hide="!type || type == 'shp'" style="margin-top: 30px">
-        <md-input-container style="width:75%">
+        <md-input-container style="width:85%">
           <label>
             <span translate>MAPEDITOR.FIELD_WMS_URL.T_LABEL</span>
           </label>
@@ -41,14 +42,16 @@
           <md-button type="button" class="md-icon-button" ng-click="getLayers()">
             <md-icon>search</md-icon>
           </md-button>
-          <div class="ark-abstract">{{abstract}}</div>
-          <div style="color: red;font-weight: bold" ng-hide="!errorMsg">
-            {{errorMsg}}
-          </div>
+        </md-input-container>
+      </ark-form-block>
+      <ark-form-block style="margin:-50px 5px 0 5px">
+        <div class="ark-abstract">{{abstract}}</div>
+        <div style="color: red;font-weight: bold" ng-hide="!errorMsg">
+          {{errorMsg}}
+        </div>
       </ark-form-block>
       <!-- Layers -->
       <ark-form-block style="padding: 0">
-        </md-input-container>
         <md-input-container ng-hide="showWMInputs != true">
           <md-menu>
             <md-button class="md-primary md-raised" ng-click="$mdOpenMenu()">{{'MAPEDITOR.FIELD_SELECT_LAYER.T_LABEL' | translate}}</md-button>
@@ -61,10 +64,10 @@
       </ark-form-block>
       <ark-form-block ng-hide="!type || type == 'shp'" style="margin-top: -10px">
         <!-- Identifier -->
-        <md-input-container ng-show="showWMInputs == true || infos.id" style="margin: 15px 0 -10px 0" ng-hide="remoteServerThemes.layers.length || hideFields">
+        <md-input-container ng-show="showWMInputs == true || infos.id" style="margin: 15px 0 -10px 0;width:85%" ng-hide="remoteServerThemes.layers.length || hideFields">
           <label>
-                        <span translate>MAPEDITOR.FIELD_IDENTIFIER.T_LABEL</span>
-                    </label>
+            <span translate>MAPEDITOR.FIELD_IDENTIFIER.T_LABEL</span>
+          </label>
           <input type="text" ng-model="infos.identifier" flex>
         </md-input-container>
       </ark-form-block>
