@@ -101,7 +101,7 @@
 
         $scope.infos.url = 'https://www.cigalsace.org/geoserver/cigal/ows';
 
-        $scope.infos.url = 'http://ogc.bgs.ac.uk/cgi-bin/BGS_GSI_EN_Bedrock_and_Structural_Geology/ows';
+        // $scope.infos.url = 'http://ogc.bgs.ac.uk/cgi-bin/BGS_GSI_EN_Bedrock_and_Structural_Geology/ows';
       }
     }, true);
 
