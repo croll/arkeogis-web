@@ -90,20 +90,20 @@
       }
     }, true);
 
-    $scope.$watch('type', function(newVal) {
-      if (newVal && newVal === 'wmts') {
-      //  $scope.infos.url = 'http://wxs.ign.fr/b648puasvhkm1f46dk8hft4i/wmts';
-        $scope.infos.url = 'https://www.cigalsace.org/geoserver/gwc/service/wmts';
-      } else {
-        // $scope.infos.url = 'http://demo.opengeo.org/geoserver/wms';
-
-        // $scope.infos.url = 'https://neo.sci.gsfc.nasa.gov/wms/wms';
-
-        $scope.infos.url = 'https://www.cigalsace.org/geoserver/cigal/ows';
-
-        // $scope.infos.url = 'http://ogc.bgs.ac.uk/cgi-bin/BGS_GSI_EN_Bedrock_and_Structural_Geology/ows';
-      }
-    }, true);
+    // $scope.$watch('type', function(newVal) {
+    //   if (newVal && newVal === 'wmts') {
+    //   //  $scope.infos.url = 'http://wxs.ign.fr/b648puasvhkm1f46dk8hft4i/wmts';
+    //       $scope.infos.url = 'https://www.cigalsace.org/geoserver/gwc/service/wmts';
+    //   } else {
+    //     // $scope.infos.url = 'http://demo.opengeo.org/geoserver/wms';
+    //
+    //     // $scope.infos.url = 'https://neo.sci.gsfc.nasa.gov/wms/wms';
+    //
+    //     $scope.infos.url = 'https://www.cigalsace.org/geoserver/cigal/ows';
+    //
+    //     // $scope.infos.url = 'http://ogc.bgs.ac.uk/cgi-bin/BGS_GSI_EN_Bedrock_and_Structural_Geology/ows';
+    //   }
+    // }, true);
 
     $scope.remoteServerThemes = [];
 
@@ -126,6 +126,15 @@
       $scope.remoteServerThemes = [];
       $scope.hideFields = true;
       $scope.file = null;
+      if ($scope.type === 'wms') {
+        // $scope.infos.url = 'http://demo.opengeo.org/geoserver/wms';
+        // $scope.infos.url = 'https://neo.sci.gsfc.nasa.gov/wms/wms';
+        $scope.infos.url = 'https://www.cigalsace.org/geoserver/cigal/ows';
+        // $scope.infos.url = 'http://ogc.bgs.ac.uk/cgi-bin/BGS_GSI_EN_Bedrock_and_Structural_Geology/ows';
+      } else if ($scope.type === 'wmts') {
+      //  $scope.infos.url = 'http://wxs.ign.fr/b648puasvhkm1f46dk8hft4i/wmts';
+          $scope.infos.url = 'https://www.cigalsace.org/geoserver/gwc/service/wmts';
+      }
       if ($scope.geojsonLayer) {
         leafletData.getMap().then(function(map) {
           map.removeLayer($scope.geojsonLayer);
