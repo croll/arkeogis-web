@@ -70,7 +70,6 @@
 			"T_TITLE": "Category"
 		}
 	},
-	"CHRONO": {},
 	"CHRONODITOR": {
 		"BUTTON_AREA": {
 			"T_TITLE": "Geographical extent..."
@@ -345,7 +344,7 @@
 			"T_LABEL": "License"
 		},
 		"LIST_NAME": {
-			"T_LABEL": "Name"
+			"T_LABEL": "Name-Description"
 		},
 		"LIST_NUMBER_OF_LINES": {
 			"T_LABEL": "Lines"
@@ -685,7 +684,7 @@
 		"FOOTER": {
 			"T_CONTACT": "To get an username and a password, please make CONTACT_LINK",
 			"T_CONTACT_LINKNAME": "contact",
-			"T_CONTACT_LINKURL": "http://www.arkeogis.org/contact",
+			"T_CONTACT_LINKURL": "http://arkeogis.org/fr/demande-dacces/",
 			"T_DATE": "On the {{date}}, you can consult :",
 			"T_DBCOUNT": "{{dbcount}} databases",
 			"T_SITECOUNT": "{{sitecount}} sites"
@@ -725,7 +724,7 @@
 			"T_TITLE": "You seem to be inactive, if you are not using ArkeoGIS, you will be disconnected..."
 		},
 		"LABEL": {
-			"T_UNDETERMINED": "#!#MAIN.LABEL.T_UNDETERMINED"
+			"T_UNDETERMINED": "undetermined"
 		},
 		"LOADING": {
 			"T_TITLE": "Loading..."
@@ -888,7 +887,7 @@
 			"T_LABEL_START_DATE": "Starting date",
 			"T_LABEL_TYPE": "Type",
 			"T_LABEL_ZOOM_LEVEL": "Zoom level",
-			"T_NAME_AND_DESCRIPTION": "#!#MAPEDITOR.TABLE_LIST.T_NAME_AND_DESCRIPTION",
+			"T_NAME_AND_DESCRIPTION": "Name - description",
 			"T_TITLE": "List of the available layers"
 		}
 	},
@@ -1553,6 +1552,38 @@
 		"USERSLIST_ACTIVE": {
 			"T_FALSE": "no",
 			"T_TRUE": "yes"
+		}
+	},
+	"USER_PREFERENCES": {
+		"BUTTON_SUBMIT": {
+			"T_LABEL": "#!#USER_PREFERENCES.BUTTON_SUBMIT.T_LABEL"
+		},
+		"FIELD_END_DATE": {
+			"T_LABEL": "#!#USER_PREFERENCES.FIELD_END_DATE.T_LABEL"
+		},
+		"FIELD_START_DATE": {
+			"T_LABEL": "#!#USER_PREFERENCES.FIELD_START_DATE.T_LABEL"
+		},
+		"INFORMATIONS": {
+			"T_TILE": "#!#USER_PREFERENCES.INFORMATIONS.T_TILE"
+		},
+		"INFORMATIONS_PERIOD_SELECTION": {
+			"T_LABEL": "#!#USER_PREFERENCES.INFORMATIONS_PERIOD_SELECTION.T_LABEL"
+		},
+		"INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA": {
+			"T_LABEL": "#!#USER_PREFERENCES.INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA.T_LABEL"
+		},
+		"INTERFACE_INFOS_USAGE": {
+			"T_LABEL": "#!#USER_PREFERENCES.INTERFACE_INFOS_USAGE.T_LABEL"
+		},
+		"TAB_CHRONOLOGIES": {
+			"T_LABEL": "#!#USER_PREFERENCES.TAB_CHRONOLOGIES.T_LABEL"
+		},
+		"TAB_DATABASES": {
+			"T_LABEL": "#!#USER_PREFERENCES.TAB_DATABASES.T_LABEL"
+		},
+		"TAB_MAPS": {
+			"T_LABEL": "#!#USER_PREFERENCES.TAB_MAPS.T_LABEL"
 		}
 	}
 }

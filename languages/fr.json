@@ -344,7 +344,7 @@
 			"T_LABEL": "Licence"
 		},
 		"LIST_NAME": {
-			"T_LABEL": "Nom"
+			"T_LABEL": "Nom-Description"
 		},
 		"LIST_NUMBER_OF_LINES": {
 			"T_LABEL": "Lignes"
@@ -682,9 +682,9 @@
 			"T_TITLE": "Nom d'utilisateur"
 		},
 		"FOOTER": {
-			"T_CONTACT": "Pour obtenir un identifiant et un mot de passe, merci de prendre CONTACT_LINK",
-			"T_CONTACT_LINKNAME": "contact",
-			"T_CONTACT_LINKURL": "http://www.arkeogis.org/contact",
+			"T_CONTACT": "Pour obtenir un identifiant et un mot de passe, merci de compléter CONTACT_LINK",
+			"T_CONTACT_LINKNAME": "le formulaire de demande d'accès.",
+			"T_CONTACT_LINKURL": "http://arkeogis.org/fr/demande-dacces/",
 			"T_DATE": "Le {{date}} sont consultables :",
 			"T_DBCOUNT": "{{dbcount}} bases de données",
 			"T_SITECOUNT": "{{sitecount}} sites"
@@ -724,7 +724,7 @@
 			"T_TITLE": "Vous semblez inactif, si vous ne faites rien, vous allez être déconnecté..."
 		},
 		"LABEL": {
-			"T_UNDETERMINED": "#!#MAIN.LABEL.T_UNDETERMINED"
+			"T_UNDETERMINED": "indéterminé"
 		},
 		"LOADING": {
 			"T_TITLE": "Traitement en cours merci de patienter..."
@@ -887,7 +887,7 @@
 			"T_LABEL_START_DATE": "Date de début",
 			"T_LABEL_TYPE": "Type",
 			"T_LABEL_ZOOM_LEVEL": "Niveaux de zoom",
-			"T_NAME_AND_DESCRIPTION": "#!#MAPEDITOR.TABLE_LIST.T_NAME_AND_DESCRIPTION",
+			"T_NAME_AND_DESCRIPTION": "Nom - description",
 			"T_TITLE": "Liste des calques disponibles"
 		}
 	},
@@ -1174,8 +1174,8 @@
 			"T_TITLE": "L'existence durant cette période est :"
 		},
 		"EXISTENCE_INSIDE_SURENESS": {
-			"T_CERTAINLY": "Assurément (exclure les zones d'existence potentielle)",
-			"T_POTENTIALLY": "Potentiellement ou Assurément (inclure les zones d'existence potentielle)",
+			"T_CERTAINLY": "Assurément (exclure les phases d'existence potentielle)",
+			"T_POTENTIALLY": "Potentiellement ou Assurément (inclure les phases d'existence potentielle)",
 			"T_POTENTIALLY_ONLY": "Uniquement Potentiellement (existence potentielle)",
 			"T_TITLE": "Et ce :"
 		},
@@ -1186,8 +1186,8 @@
 			"T_TITLE": "Le site a aussi pu exister en dehors de cette période ?"
 		},
 		"EXISTENCE_OUTSIDE_SURENESS": {
-			"T_CERTAINLY": "Assurément (exclure les zones indéterminés)",
-			"T_POTENTIALLY": "Potentiellement ou Assurément (inclure les zones indéterminés)",
+			"T_CERTAINLY": "Assurément (exclure les phases indéterminées)",
+			"T_POTENTIALLY": "Potentiellement ou Assurément (inclure les phases indéterminées)",
 			"T_POTENTIALLY_ONLY": "Uniquement Potentiellement (indéterminés)",
 			"T_TITLE": "Et ce :"
 		},
@@ -1198,7 +1198,7 @@
 			"T_TITLE": "Année de fin :"
 		},
 		"PERIOD": {
-			"T_ERROR_INCORRECT": "Choix de périodes incorrecte."
+			"T_ERROR_INCORRECT": "Choix de périodes incorrect."
 		},
 		"SENTENSE": {
 			"T_ALL": "EXISTENCE_INSIDE_INCLUDE les sites ayant EXISTENCE_INSIDE_SURENESS une existence EXISTENCE_INSIDE_PART durant la période PERIOD. Ces sites EXISTENCE_OUTSIDE_INCLUDE EXISTENCE_OUTSIDE_SURENESS avoir existé en dehors de cette période."
@@ -1552,6 +1552,38 @@
 		"USERSLIST_ACTIVE": {
 			"T_FALSE": "non",
 			"T_TRUE": "oui"
+		}
+	},
+	"USER_PREFERENCES": {
+		"BUTTON_SUBMIT": {
+			"T_LABEL": "#!#USER_PREFERENCES.BUTTON_SUBMIT.T_LABEL"
+		},
+		"FIELD_END_DATE": {
+			"T_LABEL": "#!#USER_PREFERENCES.FIELD_END_DATE.T_LABEL"
+		},
+		"FIELD_START_DATE": {
+			"T_LABEL": "#!#USER_PREFERENCES.FIELD_START_DATE.T_LABEL"
+		},
+		"INFORMATIONS": {
+			"T_TILE": "#!#USER_PREFERENCES.INFORMATIONS.T_TILE"
+		},
+		"INFORMATIONS_PERIOD_SELECTION": {
+			"T_LABEL": "#!#USER_PREFERENCES.INFORMATIONS_PERIOD_SELECTION.T_LABEL"
+		},
+		"INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA": {
+			"T_LABEL": "#!#USER_PREFERENCES.INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA.T_LABEL"
+		},
+		"INTERFACE_INFOS_USAGE": {
+			"T_LABEL": "#!#USER_PREFERENCES.INTERFACE_INFOS_USAGE.T_LABEL"
+		},
+		"TAB_CHRONOLOGIES": {
+			"T_LABEL": "#!#USER_PREFERENCES.TAB_CHRONOLOGIES.T_LABEL"
+		},
+		"TAB_DATABASES": {
+			"T_LABEL": "#!#USER_PREFERENCES.TAB_DATABASES.T_LABEL"
+		},
+		"TAB_MAPS": {
+			"T_LABEL": "#!#USER_PREFERENCES.TAB_MAPS.T_LABEL"
 		}
 	}
 }

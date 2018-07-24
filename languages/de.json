@@ -726,9 +726,6 @@
 		"LABEL": {
 			"T_UNDETERMINED": "unbestimmt"
 		},
-		"LABEL": {
-			"T_UNDETERMINED": "#!#MAIN.LABEL.T_UNDETERMINED"
-		},
 		"LOADING": {
 			"T_TITLE": "Bearbeitung... Bitte warten"
 		}
