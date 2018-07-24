@@ -70,6 +70,7 @@
 			"T_TITLE": "Category"
 		}
 	},
+	"CHRONO": {},
 	"CHRONODITOR": {
 		"BUTTON_AREA": {
 			"T_TITLE": "Geographical extent..."

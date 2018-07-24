@@ -36,6 +36,8 @@
 
             $scope.project = angular.copy(arkeoProject.get());
 
+            console.log($scope.project);
+
             outOfBounds = {
                 chronologies: [],
                 layers: [],

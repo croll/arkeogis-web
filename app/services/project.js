@@ -155,6 +155,7 @@
                     },
                     silent: true
                 }).then(function(res) {
+                    // res.data.infos.url = "/proxy/?"+res.data.infos.url;
                     _.each(self.project.layers, function(lay) {
                         if (res.data.infos) {
                             _.merge(res.data, res.data.infos)

@@ -20,564 +20,468 @@
  */
 
 (function() {
-    'use strict';
-    ArkeoGIS.controller('MapEditorCtrl', ['$scope', '$state', '$filter', 'arkeoService', 'arkeoMap', 'login', '$http', 'X2JS', '$q', 'leafletData', 'Upload', 'layer', 'arkeoLang', function($scope, $state, $filter, arkeoService, arkeoMap, login, $http, X2JS, $q, leafletData, Upload, layer, arkeoLang) {
+  'use strict';
+  ArkeoGIS.controller('MapEditorCtrl', ['$scope', '$state', '$filter', 'arkeoService', 'arkeoMap', 'arkeoWMS', 'arkeoWMTS', 'login', '$http', '$q', 'leafletData', 'Upload', 'layer', 'arkeoLang', function($scope, $state, $filter, arkeoService, arkeoMap, arkeoWMS, arkeoWMTS, login, $http, $q, leafletData, Upload, layer, arkeoLang) {
 
-        var self = this;
+    angular.extend($scope, arkeoMap.config);
 
-        angular.extend($scope, arkeoMap.config);
+    removeAllLayers();
 
+    this.defaultInfos = {
+      authors: [{
+        fullname: login.user.firstname + ' ' + login.user.lastname,
+        id: login.user.id
+      }],
+      translations: {
+        name: {
+          en: ''
+        },
+        description: {
+          en: ''
+        }
+      },
+      use_proxy: true
+    };
+
+    if (angular.isDefined(layer)) {
+      $scope.infos = angular.copy(layer);
+      $scope.hideFields = false;
+      $scope.selectedLayer = layer;
+      $scope.selectedLayer.title = $filter('arkTranslate')(layer.translations.name);
+
+			// Force proxy
+			$scope.infos.use_proxy = true;
+
+      if (angular.isDefined(layer.geographical_extent_geom.coordinates)) {
+        $scope.selectedLayer.bounding_box = L.geoJson(layer.geographical_extent_geom).getBounds();
+      }
+      $scope.type = layer.type;
+
+      if (layer.type === 'shp') {
+        leafletData.getMap().then(function(map) {
+          $scope.geojsonLayer = L.geoJson($scope.infos.geojson).addTo(map);
+          var bounds = $scope.geojsonLayer.getBounds();
+          map.fitBounds(bounds);
+        });
+      } else if (layer.type === 'wms') {
+        setWMSPreview();
+      } else if (layer.type === 'wmts') {
+        setWMTSPreview();
+      }
+    } else {
+      $scope.infos = angular.copy(this.defaultInfos);
+      $scope.hideFields = true;
+    }
+
+    arkeoLang.autoSetTranslationLang2FromDatas([$scope.infos.translations.description, $scope.infos.translations.name]);
+
+    $scope.$watch('infos.translations.name.en', function(newVal) {
+      if (!newVal || (newVal && newVal === '')) {
+        $scope.lang2SelectDisabled = true;
+        $scope.mapEditorForm.name2.$setValidity('english_required', false);
+      } else {
+        $scope.lang2SelectDisabled = false;
+        $scope.mapEditorForm.name2.$setValidity('english_required', true);
+      }
+    }, true);
+
+    $scope.$watch('infos.translations.description.en', function(newVal) {
+      if (!newVal || (newVal && newVal === '')) {
+        $scope.lang2SelectDisabled = true;
+        $scope.mapEditorForm.description2.$setValidity('english_required', false);
+      } else {
+        $scope.lang2SelectDisabled = false;
+        $scope.mapEditorForm.description2.$setValidity('english_required', true);
+      }
+    }, true);
+
+    // $scope.$watch('type', function(newVal) {
+    //   if (newVal && newVal === 'wmts') {
+    //   //  $scope.infos.url = 'http://wxs.ign.fr/b648puasvhkm1f46dk8hft4i/wmts';
+    //       $scope.infos.url = 'https://www.cigalsace.org/geoserver/gwc/service/wmts';
+    //   } else {
+    //     // $scope.infos.url = 'http://demo.opengeo.org/geoserver/wms';
+    //
+    //     // $scope.infos.url = 'https://neo.sci.gsfc.nasa.gov/wms/wms';
+    //
+    //     $scope.infos.url = 'https://www.cigalsace.org/geoserver/cigal/ows';
+    //
+    //     // $scope.infos.url = 'http://ogc.bgs.ac.uk/cgi-bin/BGS_GSI_EN_Bedrock_and_Structural_Geology/ows';
+    //   }
+    // }, true);
+
+    $scope.remoteServerThemes = [];
+
+    $scope.showWMInputs = false;
+
+		// debug
+		$scope.type = 'wms';
+		//$scope.infos.url = 'https://www.cigalsace.org/geoserver/PAIR/ows';
+		//$scope.infos.url = 'https://www.cigalsace.org/geoserver/ARAA/ows';
+		$scope.infos.url = 'http://geoservices.crige-paca.org/geoserver/cd84/wms';
+		// debug
+
+    $scope.selectLayer = function(layer) {
+      //console.log('%c MapEditor::selectLayer', 'color: #000; background: yellow', layer);
+      $scope.infos.identifier = layer.identifier;
+      $scope.infos.image_format = layer.image_format;
+      $scope.infos.tile_matrix_set = layer.tile_matrix_set;
+      $scope.infos.tile_matrix_string = layer.tile_matrix_string;
+      $scope.hideFields = false;
+      $scope.selectedLayer = layer;
+      $scope.refreshPreview();
+    };
+
+    $scope.reset = function() {
+      $scope.remoteServerThemes = [];
+      $scope.hideFields = true;
+      $scope.file = null;
+      if ($scope.type === 'wms') {
+        // $scope.infos.url = 'http://demo.opengeo.org/geoserver/wms';
+        // $scope.infos.url = 'https://neo.sci.gsfc.nasa.gov/wms/wms';
+        // $scope.infos.url = 'http://ogc.bgs.ac.uk/cgi-bin/BGS_GSI_EN_Bedrock_and_Structural_Geology/ows';
+        $scope.infos.url = 'https://www.cigalsace.org/geoserver/cigal/ows';
+      } else if ($scope.type === 'wmts') {
+      //  $scope.infos.url = 'http://wxs.ign.fr/b648puasvhkm1f46dk8hft4i/wmts';
+          $scope.infos.url = 'https://www.cigalsace.org/geoserver/gwc/service/wmts';
+      }
+      if ($scope.geojsonLayer) {
+        leafletData.getMap().then(function(map) {
+          map.removeLayer($scope.geojsonLayer);
+        });
+      }
+    };
+
+    $scope.delete = function() {
+      if (!layer.id) {
+        console.error("No layer id specified, unable to delete");
+        return false;
+      }
+      $http({
+        method: 'POST',
+        url: '/api/layer/delete',
+        data: {
+          id: layer.id,
+          type: layer.type
+        }
+      }).then(function() {
+        arkeoService.showMessage('MAPEDITOR.MESSAGE.T_DELETE_OK');
         removeAllLayers();
+        $state.go('arkeogis.mapeditor-list');
+      }, function(err) {
+        arkeoService.showMessage('MAPEDITOR.MESSAGE.T_DELETE_FAILED', 'error');
+        console.error(err);
+      });
+    };
 
-        this.defaultInfos = {
-            authors: [{
-                fullname: login.user.firstname + ' ' + login.user.lastname,
-                id: login.user.id
-            }],
-            translations: {
-              name: {
-                en: ''
-              },
-              description: {
-                en: ''
-              }
-            },
-	    image_format: 'image/jpeg'
-        }
+    $scope.getLayers = function() {
 
-	// Remove all layers except OSM tiles
-        function removeAllLayers() {
-           if (typeof($scope.layers.overlays) == 'object' && typeof($scope.layers.overlays.preview) == 'object') {
-             $scope.layers.overlays.preview = {};
-	   }
-	   /*
-           leafletData.getMap().then(function(map) {
-              map.eachLayer(function (layer) {
-                if (layer._url.indexOf('tile.openstreetmap.org') == -1) {
-               	  map.removeLayer(layer);
-		}
-	      });
-           });
-	   */
-        }
+      $scope.remoteServerThemes = [];
 
-        function setWMSPreview() {
-            setTimeout(function() {
-                $scope.layers.overlays.preview = {
-                    name: $scope.selectedLayer.title,
-                    type: 'wms',
-                    url: $scope.infos.url,
-                    visible: true,
-                    layerOptions: {
-                        layers: $scope.infos.identifier,
-			format: $scope.image_format,
-                        opacity: 0.70
-                    }
-                };
-                leafletData.getMap().then(function(map) {
-                    $scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON().geometry;
-                    map.fitBounds($scope.selectedLayer.boundingBox);
-                });
-            }, 0);
-        }
+      $scope.showWMInputs = false;
 
-        function setWMTSPreview() {
-            setTimeout(function() {
-		    var layer = new L.TileLayer.WMTS($scope.infos.url, {
-			layer: $scope.infos.identifier,
-				style: "normal",
-				tilematrixSet: "PM",
-				format: $scope.image_format,
-                        	opacity: 0.70
-		    });
-		    leafletData.getMap().then(function(map) {
-			map.addLayer(layer);
-			$scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.boundingBox).toGeoJSON().geometry;
-			map.fitBounds($scope.selectedLayer.boundingBox);
-		    });
-	    }, 0);
-        }
+      if ($scope.infos.url.indexOf('?') === -1) {
+      var service = ($scope.type === 'wms') ? eval('arkeoWMS') : eval('arkeoWMTS');
+       var url = $scope.infos.url;
+       if ($scope.infos.use_proxy && url.substring(0, 8) !== '/proxy/?') {
+         url = '/proxy/?'+url;
+       }
+        service.getCapabilities(url).then(function(capas) {
+          $scope.attribution = capas.attribution;
+					$scope.infos.attribution = capas.attribution;
+          $scope.remoteServerThemes = capas.content;
+          $scope.showWMInputs = true;
+        }, function(err) {
+          $scope.errorMsg = err.msg;
+        });
+      }
 
-        if (angular.isDefined(layer)) {
-            $scope.infos = angular.copy(layer)
-            $scope.hideFields = false;
-	    $scope.selectedLayer = layer;
-            $scope.image_format = (layer.image_format != '') ? layer.image_format : self.defaultInfos.image_format;
-	    $scope.selectedLayer.title = $filter('arkTranslate')(layer.translations.name);
-	    if (angular.isDefined(layer.geographical_extent_geom.coordinates)) {
-		$scope.selectedLayer.boundingBox = layer.geographical_extent_geom.coordinates[0];
-	    }
-            $scope.type = layer.type;
-            if (layer.type == 'shp') {
-                leafletData.getMap().then(function(map) {
-                    $scope.geojsonLayer = L.geoJson($scope.infos.geojson).addTo(map)
-                    var bounds = $scope.geojsonLayer.getBounds();
-                    map.fitBounds(bounds);
-                });
-            } else if (layer.type == 'wms') {
-		setWMSPreview()
-                //leafletData.getMap().then(function(map) {
-                //    map.fitBounds(L.geoJson(layer.geographical_extent_geom).getBounds());
-                //});
-            } else if (layer.type == 'wmts') {
-		setWMTSPreview()
-            }
-        } else {
-            $scope.infos = angular.copy(this.defaultInfos);
-            $scope.hideFields = true;
-        }
+    };
 
-        arkeoLang.autoSetTranslationLang2FromDatas([$scope.infos.translations.description, $scope.infos.translations.name]);
+    $scope.refreshPreview = function() {
+      removeAllLayers();
+      switch ($scope.type) {
+        case 'wms':
+          setWMSPreview();
+          break;
+        case 'wmts':
+          setWMTSPreview();
+          break;
+      }
+    };
 
-        $scope.$watch('infos.translations.name.en', function(newVal, oldVal) {
-            if (!newVal || (newVal && newVal == '')) {
-                $scope.lang2SelectDisabled = true;
-                $scope.mapEditorForm.name2.$setValidity('english_required', false)
-            } else {
-                $scope.lang2SelectDisabled = false;
-                $scope.mapEditorForm.name2.$setValidity('english_required', true)
-            }
-        }, true);
-
-        $scope.$watch('infos.translations.description.en', function(newVal, oldVal) {
-            if (!newVal || (newVal && newVal == '')) {
-                $scope.lang2SelectDisabled = true;
-                $scope.mapEditorForm.description2.$setValidity('english_required', false)
-            } else {
-                $scope.lang2SelectDisabled = false;
-                $scope.mapEditorForm.description2.$setValidity('english_required', true)
-            }
-        }, true);
-
-        $scope.$watch('type', function(newVal, oldVal) {
-            if (newVal && newVal == 'wmts') {
-            	$scope.infos.url = 'http://wxs.ign.fr/b648puasvhkm1f46dk8hft4i/wmts';
-            } else {
-            	$scope.infos.url = 'http://demo.opengeo.org/geoserver/wms';
-            }
-        }, true);
-
-        // Debug
-
-        /*
-        $scope.infos = angular.copy({
-                authors: [{
-                    fullname: login.user.firstname + ' ' + login.user.lastname,
-                    id: login.user.id
-                }],
-                url: 'http://demo.opengeo.org/geoserver/wms',
-                min_scale: 0,
-                max_scale: 14,
-                declared_creation_date: new Date(),
-                max_usage_date: new Date(),
-                start_date: -1200,
-                end_date: 300,
-                license: 'pouet license',
-                attribution: 'atribution pouet',
-                copyright: 'copyright pouet',
-                translations: {
-                    description: {
-                        fr: 'desc fr',
-                        en: 'desc en',
-                        es: 'desc es'
-                    },
-                    name: {
-                        fr: 'name fr',
-                        en: 'name en',
-                        es: 'name es'
-                    }
-                }
-            },
-            $scope.infos);
-
-        $scope.type = 'wms';
-
-        */
-
-        // Fin debug
-
-        $scope.wmsLayers = [];
-
-        $scope.getCapabilities = null;
-
-        // $scope.type = 'wmts';
-        // $scope.infos.url = 'http://wxs.ign.fr/bfmer9u7qh0mmhdyqj2z0wst/geoportail/wmts';
-
-        $scope.reset = function(type) {
-            //gt$scope.infos = angular.copy(this.defaultInfos);
-            $scope.wmsLayers = [];
-            $scope.hideFields = true;
-            $scope.getCapabilities = null;
-            $scope.file = null;
+    $scope.processSHP = function(file) {
+      $scope.shpProcessingProgress = 0;
+      if (!file) {
+        return;
+      }
+      if (file.type.indexOf('zip') !== -1) {
+        arkeoService.showMessage('MAPEDITOR.MESSAGE_NOT_ZIP_FILE.T_ERROR', 'error');
+        return;
+      }
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        shp(e.target.result).then(function(geojson) {
+          $scope.infos.geojson = geojson;
+          leafletData.getMap().then(function(map) {
             if ($scope.geojsonLayer) {
-                leafletData.getMap().then(function(map) {
-                    map.removeLayer($scope.geojsonLayer);
-                });
+              map.removeLayer($scope.geojsonLayer);
             }
-        }
-
-        $scope.delete = function() {
-            if (!layer.id) {
-                console.log("No layer id specified, unable to delete");
-                return false;
-            }
-            $http({
-                    method: 'POST',
-                    url: '/api/layer/delete',
-                    data: {
-                        id: layer.id,
-                        type: layer.type
-                    }
-                }).then(function(res) {
-                    arkeoService.showMessage('MAPEDITOR.MESSAGE.T_DELETE_OK')
-                    removeAllLayers();
-                    $state.go('arkeogis.mapeditor-list')
-                }, function(err) {
-                    arkeoService.showMessage('MAPEDITOR.MESSAGE.T_DELETE_FAILED', 'error')
-                    console.log(err)
-                })
-        }
-
-        $scope.getLayers = function(url) {
-
-            $scope.wmsLayers = [];
-
-            $scope.getCapabilities = false;
-            if ($scope.infos.url.indexOf('?') == -1) {
-                if ($scope.type == 'wmts') {
-                    url = $scope.infos.url + "?request=GetCapabilities&SERVICE=WMTS&version=1.0.0";
-                } else {
-                    url = $scope.infos.url + "?request=GetCapabilities&service=WMS&version=1.3.0";
-                }
-            } else {
-                url = $scope.infos.url
-            }
-            var d = $q.defer();
-            $http.get(url).then(function(res) {
-                    var x2js = new X2JS();
-                    var capas = x2js.xml_str2json(res.data);
-                    if (!capas) {
-                        d.reject();
-                        arkeoService.showMessage('MAPEDITOR.MESSAGE_GET_LAYER_LIST.T_ERROR', 'error')
-                        $scope.hideFields = false;
-                        return;
-                    }
-                    if ($scope.type == 'wms') {
-                        if (angular.isDefined(capas.WMS_Capabilities.Capability.Layer.Layer) && angular.isDefined(capas.WMS_Capabilities.Capability.Layer.Layer)) {
-                            angular.forEach(capas.WMS_Capabilities.Capability.Layer.Layer, function(layer) {
-                                var l = {
-                                    title: layer.Title.toString(),
-                                    identifier: layer.Name.toString(),
-                                    boundingBox: processBoundingBox(layer.BoundingBox, 'wms')
-                                }
-                                if (l.boundingBox) {
-                                    $scope.wmsLayers.push(l);
-                                }
-                            });
-                        } else {
-                            d.reject();
-                            arkeoService.showMessage('MAPEDITOR.MESSAGE_GET_LAYER_LIST.T_ERROR', 'error')
-                            $scope.hideFields = false;
-                            return;
-                        }
-                    } else if ($scope.type == 'wmts') {
-                        if (angular.isDefined(capas.Capabilities) && angular.isDefined(capas.Capabilities.Contents.Layer)) {
-                            angular.forEach(capas.Capabilities.Contents.Layer, function(layer) {
-                                var l = {
-                                    style: "normal",
-                                    tilematrixSet: "PM",
-                                    title: layer.Title.toString(),
-                                    identifier: layer.Identifier.toString(),
-                                    //format: layer.Format.toString()
-                                }
-                                l.boundingBox = processBoundingBox(layer.WGS84BoundingBox, 'wmts');
-                                $scope.wmsLayers.push(l);
-                            });
-                        } else {
-                            d.reject("WMTS server returned bad answer");
-                            $scope.hideFields = false;
-                            arkeoService.showMessage('MAPEDITOR.MESSAGE_GET_LAYER_LIST.T_ERROR', 'error')
-                            return;
-                        }
-                    }
-                    arkeoService.showMessage('MAPEDITOR.MESSAGE_GET_LAYER_LIST.T_SUCCESS', 'error')
-                    $scope.getCapabilities = true;
-                    d.resolve()
-                },
-                function(err) {
-                    $scope.GetCapabilities = false;
-                    d.reject(err);
-                });
-            return d.promise;
-        }
-
-        $scope.onLayerSelected = function() {
-            angular.forEach($scope.wmsLayers, function(wl) {
-                if ($scope.infos.identifier == wl.identifier) {
-                    $scope.selectedLayer = wl;
-                }
-            });
-
-	    $scope.refreshPreview();
-
+            $scope.geojsonLayer = L.geoJson().addTo(map);
+            $scope.geojsonLayer.addData($scope.infos.geojson);
+            var bounds = $scope.geojsonLayer.getBounds();
+            map.fitBounds(bounds);
+            $scope.infos.geographical_extent_geom = L.rectangle(bounds).toGeoJSON().geometry;
             $scope.hideFields = false;
-        }
+          }, function(err) {
+            console.error(err);
+            arkeoService.showMessage('MAPEDITOR.MESSAGE_SHP_LOADING.T_ERROR', 'error');
+          });
+        }, function(err) {
+            console.error(err);
+          arkeoService.showMessage('MAPEDITOR.MESSAGE_SHP_LOADING.T_ERROR', 'error');
+        });
+      };
+      reader.onprogress = function(e) {
+        $scope.shpProcessingProgress = parseInt(100.0 * e.loaded / e.total);
+      };
+      reader.readAsArrayBuffer(file);
+    };
 
-        $scope.refreshPreview = function() {
-            switch ($scope.type) {
-                case 'wms':
-                    setWMSPreview();
-                    break;
-                case 'wmts':
-                    setWMTSPreview();
-                    break;
-            }
-        }
+    $scope.setScale = function(lvl) {
+      var level = lvl || 'min';
+      leafletData.getMap().then(function(map) {
+        $scope.infos[level + '_scale'] = map.getZoom();
+      });
+    };
 
-        $scope.processSHP = function(file) {
-            $scope.shpProcessingProgress = 0;
-            if (!file) {
-                return;
+    $scope.removeAuthor = function(user) {
+      if (user.id === login.user.id) {
+        arkeoService.showMessage('IMPORT_STEP3.AUTHORS.T_UNABLE_TO_REMOVE_MAIN_AUTHOR');
+        $scope.infos.authors.unshift(user);
+      }
+    };
+
+    $scope.searchUser = function(txt) {
+      return $http.get('/api/users/' + txt).then(function(result) {
+        return result.data;
+      });
+    };
+
+    $scope.loadLicenses = function() {
+      arkeoService.loadLicenses(true).then(function(l) {
+        var licenses = [];
+        angular.forEach(l, function(license) {
+          licenses.push(license);
+        });
+        $scope.licenses = licenses;
+      });
+    };
+
+    $scope.submit = function(form) {
+      $scope.uploadProgress = 0;
+      var dbObj = angular.copy($scope.infos);
+      // License id
+      if (!dbObj.license_id) {
+        dbObj.license_id = 0;
+      }
+      // Authors
+      dbObj.authors = [];
+      angular.forEach($scope.infos.authors, function(author) {
+        dbObj.authors.push(author.id);
+      });
+      dbObj.geographical_extent_geom = JSON.stringify($scope.infos.geographical_extent_geom);
+      if ($scope.type === 'shp') {
+        // geojson
+        dbObj.geojson_with_data = JSON.stringify($scope.infos.geojson);
+        dbObj.geojson = JSON.stringify(removeGeoJSONDatas($scope.infos.geojson));
+        // Type of wm(t)s layer
+      } else {
+        dbObj.type = $scope.type;
+      }
+      // translations
+      delete dbObj.translations;
+      angular.extend(dbObj, formatTranslation('description', $scope.infos.translations.description));
+      angular.extend(dbObj, formatTranslation('name', $scope.infos.translations.name));
+      var url = ($scope.type === 'shp') ? '/api/shpLayer' : '/api/wmLayer';
+      if (form.$valid) {
+        if ($scope.file) {
+          Upload.upload({
+            url: url,
+            data: {
+              csv: $scope.file,
+              infos: Upload.json(dbObj)
             }
-            if (!file.type.indexOf('zip') == -1) {
-                arkeoService.showMessage('MAPEDITOR.MESSAGE_NOT_ZIP_FILE.T_ERROR', 'error');
-                return;
-            }
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                shp(e.target.result).then(function(geojson) {
-                    $scope.infos.geojson = geojson;
-                    leafletData.getMap().then(function(map) {
-                        if ($scope.geojsonLayer) {
-                            map.removeLayer($scope.geojsonLayer);
-                        }
-                        $scope.geojsonLayer = L.geoJson().addTo(map)
-                        $scope.geojsonLayer.addData($scope.infos.geojson);
-                        var bounds = $scope.geojsonLayer.getBounds();
-                        map.fitBounds(bounds);
-                        $scope.infos.geographical_extent_geom = L.rectangle(bounds).toGeoJSON().geometry;
-                        $scope.hideFields = false;
-                    }, function(err) {
-                        console.log("err");
-                        arkeoService.showMessage('MAPEDITOR.MESSAGE_SHP_LOADING.T_ERROR', 'error')
-                    });
-                }, function(err) {
-                    arkeoService.showMessage('MAPEDITOR.MESSAGE_SHP_LOADING.T_ERROR', 'error')
-                });
-            }
-            reader.onprogress = function(e) {
-                $scope.shpProcessingProgress = parseInt(100.0 * e.loaded / e.total);
-            }
-            reader.readAsArrayBuffer(file);
+          }).then(function() {
+            arkeoService.showMessage('MAPEDITOR.MESSAGE.SAVE_T_SUCCESS');
+            removeAllLayers();
+            $state.go('arkeogis.mapeditor-list');
+          }, function(err) {
+            arkeoService.showMessage('MAPEDITOR.MESSAGE.SAVE_T_FAILED');
+            console.error(err);
+          }, function(evt) {
+            $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total);
+          });
+        } else {
+          $http({
+            url: url,
+            method: 'POST',
+            data: dbObj
+          }).then(function() {
+            arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE.T_SUCCESS');
+            removeAllLayers();
+            $state.go('arkeogis.mapeditor-list');
+          }, function(err) {
+            console.error(err);
+            arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE.T_FAILED');
+          });
+
+        }
+      }
+    };
+
+    function removeGeoJSONDatas(geojson) {
+      for (var i = 0; i < geojson.features.length; i++) {
+        delete geojson.features[i].properties;
+      }
+      return geojson;
+    }
+
+    function formatTranslation(property, container) {
+      var outp = {};
+      outp[property] = [];
+      for (var iso_code in container) {
+        if (container.hasOwnProperty(iso_code)) {
+          if (iso_code && container[iso_code]) {
+            outp[property].push({
+              lang_isocode: iso_code,
+              text: container[iso_code]
+            });
+          }
+        }
+      }
+      return outp;
+    }
+
+    // Remove all layers except OSM tiles
+    function removeAllLayers() {
+      if (typeof($scope.layers.overlays) === 'object' && typeof($scope.layers.overlays.preview) === 'object') {
+        $scope.layers.overlays.preview = {};
+      }
+
+      leafletData.getMap().then(function(map) {
+        var i = 0;
+        map.eachLayer(function (layer) {
+          if (i > 0) {
+            map.removeLayer(layer);
+          }
+          i++;
+        });
+      });
+    }
+
+    function setWMSPreview() {
+      setTimeout(function() {
+        var url = ($scope.infos.use_proxy) ? '/proxy/?'+$scope.infos.url : $scope.infos.url;
+        $scope.layers.overlays.preview = {
+          name: $scope.selectedLayer.identifier,
+          type: 'wms',
+          url: url,
+          visible: true,
+          layerOptions: {
+            layers: $scope.infos.identifier,
+            format: $scope.infos.image_format,
+            opacity: 0.70
+          }
         };
+        leafletData.getMap().then(function(map) {
+          $scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.bounding_box).toGeoJSON().geometry;
+          map.fitBounds($scope.selectedLayer.bounding_box);
+        });
+      }, 0);
+    }
 
-        $scope.setScale = function(lvl) {
-            var level = lvl || 'min';
-            leafletData.getMap().then(function(map) {
-                $scope.infos[level + '_scale'] = map.getZoom();
-            });
-        }
+    function setWMTSPreview() {
+      setTimeout(function() {
+        var url = ($scope.infos.use_proxy) ? '/proxy/?'+$scope.infos.url : $scope.infos.url;
+        var layer = new L.TileLayer.WMTS(url, {
+          layer: $scope.infos.identifier,
+          style: "normal",
+          format: $scope.infos.image_format,
+          tilematrixSet: $scope.selectedLayer.tile_matrix_set,
+          matrixIds: arkeoWMTS.formatTileMatrixStringForLeaflet($scope.selectedLayer.tile_matrix_string),
+          opacity: 0.70
+        });
 
-        $scope.removeAuthor = function(user) {
-            if (user.id == login.user.id) {
-                arkeoService.showMessage('IMPORT_STEP3.AUTHORS.T_UNABLE_TO_REMOVE_MAIN_AUTHOR');
-                infos.authors.unshift(user);
-            }
-        }
+        leafletData.getMap().then(function(map) {
+          map.addLayer(layer);
+          $scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.bounding_box).toGeoJSON().geometry;
+          map.fitBounds($scope.selectedLayer.bounding_box);
+        });
+      }, 0);
+    }
 
-        $scope.searchUser = function(txt) {
-            return $http.get('/api/users/' + txt).then(function(result) {
-                return result.data;
-            });
-        }
-
-        $scope.loadLicenses = function() {
-            arkeoService.loadLicenses(true).then(function(l) {
-                var licenses = [];
-                angular.forEach(l, function(license) {
-                    licenses.push(license)
-                });
-                $scope.licenses = licenses;
-            });
-        };
-
-        $scope.submit = function(form) {
-            $scope.uploadProgress = 0;
-            var dbObj = angular.copy($scope.infos);
-            // License id
-            if (!dbObj.license_id) {
-                dbObj.license_id = 0;
-            }
-            dbObj.authors = [];
-            angular.forEach($scope.infos.authors, function(author) {
-                dbObj.authors.push(author.id);
-            });
-            dbObj.geographical_extent_geom = JSON.stringify($scope.infos.geographical_extent_geom);
-            if ($scope.type == 'shp') {
-                // Authors
-                // geojson
-                dbObj.geojson_with_data = JSON.stringify($scope.infos.geojson);
-                dbObj.geojson = JSON.stringify(removeGeoJSONDatas($scope.infos.geojson));
-                // Type of wm(t)s layer
-            } else {
-                dbObj.type = $scope.type;
-                dbObj.identifier = $scope.infos.identifier;
-                dbObj.url = $scope.infos.url;
-                dbObj.image_format = $scope.image_format;
-            }
-            // translations
-            delete dbObj.translations;
-            angular.extend(dbObj, formatTranslation('description', $scope.infos.translations.description));
-            angular.extend(dbObj, formatTranslation('name', $scope.infos.translations.name));
-            var url = ($scope.type == 'shp') ? '/api/shpLayer' : '/api/wmLayer';
-            if (form.$valid) {
-                if ($scope.file) {
-                    Upload.upload({
-                        url: url,
-                        data: {
-                            csv: $scope.file,
-                            infos: Upload.json(dbObj)
-                        }
-                    }).then(function() {
-                        arkeoService.showMessage('MAPEDITOR.MESSAGE.SAVE_T_SUCCESS')
-                        removeAllLayers();
-                        $state.go('arkeogis.mapeditor-list');
-                    }, function(err) {
-                        arkeoService.showMessage('MAPEDITOR.MESSAGE.SAVE_T_FAILED')
-                        console.log(err);
-                    }, function(evt) {
-                        $scope.uploadProgress = parseInt(100.0 * evt.loaded / evt.total);
-                    });
-                } else {
-                    $http({
-                        url: url,
-                        method: 'POST',
-                        data: dbObj
-                    }).then(function() {
-                        arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE.T_SUCCESS')
-                        removeAllLayers();
-                        $state.go('arkeogis.mapeditor-list');
-                    }, function(err) {
-                        arkeoService.showMessage('MAPEDITOR.MESSAGE_SAVE.T_FAILED')
-                        console.log(err);
-                    })
-
-                }
-            }
-        };
-
-        function removeGeoJSONDatas(geojson) {
-            for (var i = 0; i < geojson.features.length; i++) {
-                delete geojson.features[i].properties
-            }
-            return geojson;
-        }
-
-        function formatTranslation(property, container) {
-            var outp = {};
-            outp[property] = [];
-            for (var iso_code in container) {
-                if (container.hasOwnProperty(iso_code)) {
-                    if (iso_code && container[iso_code]) {
-                        outp[property].push({
-                            lang_isocode: iso_code,
-                            text: container[iso_code]
-                        });
-                    }
-                }
-            }
-            return outp;
-        }
-
-        function processBoundingBox(boundingBox, type) {
-
-            var result = null;
-
-            var processFuncs = {
-                wms: function(bbox) {
-                    if (bbox._CRS != '' && bbox._CRS.indexOf("EPSG:4326") == -1 && bbox._CRS.indexOf("CRS:84")) {
-			console.log("Wrong CRS detected: "+ bbox._CRS);
-                        return false;
-                    }
-                    if (!bbox._minx || !bbox._miny || !bbox._maxx || !bbox._maxy) {
-                        return [
-                            [-90,- 180],
-                            [89.999999, 179.999999]
-                        ];
-                    } else {
-                        return arkeoMap.getValidBoundingBox(bbox._minx, bbox._maxy, bbox._maxx, bbox._miny);
-                    }
-                },
-                wmts: function(bbox) {
-                    if (!bbox) {
-                        return false;
-                    }
-                    var upper = bbox.UpperCorner.toString().split(' ');
-                    var lower = bbox.LowerCorner.toString().split(' ');
-                    return arkeoMap.getValidBoundingBox(lower[1], upper[0], upper[1], lower[0]);
-                }
-            }
-
-            if (angular.isArray(boundingBox)) {
-                angular.forEach(boundingBox, function(bbox) {
-                    result = processFuncs[type](bbox);
-                    if (result) {
-                            return;
-                    }
-                });
-            } else {
-                result = processFuncs[type](boundingBox);
-            }
-
-            return result;
-        }
-
-    }]);
+  }]);
 })();
 
 (function() {
-    'use strict';
-    ArkeoGIS.controller('MapEditorListCtrl', ['$scope', 'layerService', 'arkeoMap', 'login', '$http', '$state', 'translations', function($scope, layerService, arkeoMap, login, $http, $state, translations) {
+  'use strict';
+  ArkeoGIS.controller('MapEditorListCtrl', ['$scope', 'layerService', 'arkeoMap', 'login', '$http', '$state', 'translations', function($scope, layerService, arkeoMap, login, $http, $state, translations) {
 
-        var self = this;
+    $scope.filter = {
+      show: false,
+      options: {}
+    };
 
-        $scope.filter = {
-            show: false,
-            options: {}
-        };
-
-        $scope.query = {
-            filter: '',
-            order: null,
-            limitOptions: [10, 25, 50, {label: translations['GENERAL.TABLE_PAGINATION.T_ALL'], value: function() {return 10000}}],
-            limit: 20,
-            page: 1
-        };
-
-        $scope.onOrderChange = function(order) {
-            $scope.order = order;
-        };
-
-        $scope.removeFilter = function() {
-            $scope.filter.show = false;
-            $scope.query.filter = '';
-
-            if ($scope.filter.form.$dirty) {
-                $scope.filter.form.$setPristine();
-            }
-        };
-
-        layerService.getLayers().then(function(layers) {
-          console.log(layers);
-            $scope.mapLayers = layers;
-        })
-
-        $scope.edit = function(type, id) {
-            $state.go('arkeogis.mapeditor', {
-                type: type,
-                id: id
-            });
+    $scope.query = {
+      filter: '',
+      order: '',
+      limitOptions: [10, 25, 50, {
+        label: translations['GENERAL.TABLE_PAGINATION.T_ALL'],
+        value: function() {
+          return 10000;
         }
+      }],
+      limit: 20,
+      page: 1
+    };
 
-    }]);
+    function compare(a,b) {
+      if (a.id > b.id)
+    	  return -1;
+      if (a.id < b.id)
+        return 1;
+      return 0;
+    }
+
+    $scope.onOrderChange = function(order) {
+      $scope.order = order;
+    };
+
+    $scope.removeFilter = function() {
+      $scope.filter.show = false;
+      $scope.query.filter = '';
+
+      if ($scope.filter.form.$dirty) {
+        $scope.filter.form.$setPristine();
+      }
+    };
+
+    layerService.getLayers().then(function(layers) {
+      $scope.mapLayers = layers.sort(compare);
+       console.table(layers);
+
+       // Add key to enable reorder in list
+    }, function(errorCode) {
+      console.error("ERROR CODE: "+errorCode);
+    });
+
+    $scope.edit = function(type, id) {
+      $state.go('arkeogis.mapeditor', {
+        type: type,
+        id: id
+      });
+    };
+
+  }]);
 })();
