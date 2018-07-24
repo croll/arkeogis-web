@@ -91,7 +91,11 @@
         return d.promise;
       }
 
+
+/*
       function _getLayerRecursive(layer, final) {
+        
+        console.log('%c Wms::_getLayerRecursive', 'color: #000; background: yellow', layer);
         if (angular.isObject(layer)) {
 
           var pl = processLayer(layer);
@@ -104,6 +108,34 @@
               _getLayerRecursive(l, final);
             });
           }
+        }
+      }
+*/
+
+      function _getLayerRecursive(layer, final) {
+        
+        //console.log('%c Wms::_getLayerRecursive', 'color: #000; background: yellow', layer);
+        if (angular.isObject(layer)) {
+					// If layer is an object process it
+         	if (!angular.isObject(layer.Layer)) {
+					// Else add it
+          	var pl = processLayer(layer);
+          	if (pl) {
+        			//console.log('%c Wms::_getLayerRecursive final', 'color: red; background: yellow', layer);
+            	final.layers.push(pl);
+          	}
+					} else if (angular.isObject(layer.Layer) && !angular.isArray(layer.Layer)) {
+						var t = typeof(layer.Layer);
+          	var pl = processLayer(layer.Layer);
+          	if (pl) {
+            	final.layers.push(pl);
+						}
+					// Is layer is an array, recurse
+          } else if (angular.isArray(layer.Layer) && layer.Layer.length) {
+            angular.forEach(layer.Layer, function(l) {
+              _getLayerRecursive(l, final);
+            });
+					}
         }
       }
 
@@ -134,7 +166,7 @@
       //
       // }
 
-      // console.log(capabilities);
+       //console.log('%c Wms::parseCapabilities', 'color: #000; background: yellow', capabilities);
 
       if (capabilities.Service.Abstract) {
         serverCapabilities.abstract = capabilities.Service.Abstract;
@@ -151,6 +183,8 @@
 
     function processLayer(fetchedLayer) {
 
+      //console.log('%c Wms::processLayer var fetchedLayer', 'color: #000; background: yellow', fetchedLayer);
+
       var layer = angular.merge(angular.copy(arkeoMapTiles.layerStruct), {
         identifier: arkeoMapTiles.getValue(fetchedLayer.Name),
         title: arkeoMapTiles.getValue(fetchedLayer.Title),
@@ -164,10 +198,15 @@
 
       var b;
       boundingBox.forEach(function(bbox) {
-        if (bbox._CRS.match(/4326/)) {
+				var crs = bbox._CRS.toLowerCase();
+        //if (bbox._CRS.match(/P4326/)) {
+				if (crs == 'epsg:4326' || crs == 'crs:84') {
           b = arkeoMap.getValidBoundingBox(bbox._minx, bbox._maxy, bbox._maxx, bbox._miny);
           return;
-        }
+        } else {
+					console.error("The layer "+layer.title+" does not offer WGS84 projection. Skipping");
+					return;
+				}
       });
 
       if (!b) {
@@ -181,6 +220,8 @@
       if (fetchedLayer._queryable === 1) {
          layer.queryable = true;
       }
+
+      //console.log('%c Wms::processLayer return', 'color: red; background: yellow', layer);
 
       return layer;
     }
