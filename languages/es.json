@@ -1,171 +1,171 @@
 {
 	"CHARACEDITOR": {
 		"BUTTON_CANCEL": {
-			"T_CONFIRM": "#!#CHARACEDITOR.BUTTON_CANCEL.T_CONFIRM",
-			"T_OK": "#!#CHARACEDITOR.BUTTON_CANCEL.T_OK",
-			"T_TITLE": "#!#CHARACEDITOR.BUTTON_CANCEL.T_TITLE"
+			"T_CONFIRM": "¿Retornar a la última versión registrada?",
+			"T_OK": "De acuerdo",
+			"T_TITLE": "Anular"
 		},
 		"BUTTON_DELETE": {
-			"T_CONFIRM": "#!#CHARACEDITOR.BUTTON_DELETE.T_CONFIRM",
-			"T_OK": "#!#CHARACEDITOR.BUTTON_DELETE.T_OK",
-			"T_TITLE": "#!#CHARACEDITOR.BUTTON_DELETE.T_TITLE"
+			"T_CONFIRM": "¿Dese Ud. realmente suprimir esta categoría?",
+			"T_OK": "Si",
+			"T_TITLE": "Suprimir"
 		},
 		"BUTTON_DOWNLOADCSV": {
-			"T_TITLE": "#!#CHARACEDITOR.BUTTON_DOWNLOADCSV.T_TITLE"
+			"T_TITLE": "Descargar el CSV"
 		},
 		"BUTTON_GOTOLIST": {
-			"T_TITLE": "#!#CHARACEDITOR.BUTTON_GOTOLIST.T_TITLE"
+			"T_TITLE": "Retornar a la lista"
 		},
 		"BUTTON_SAVE": {
-			"T_TITLE": "enregistrar??"
+			"T_TITLE": "Registrar"
 		},
 		"HEADER_CHARACEDITOR": {
-			"T_TITLE": "#!#CHARACEDITOR.HEADER_CHARACEDITOR.T_TITLE"
+			"T_TITLE": "Editar de carcaterísticas"
 		},
 		"INFO_DATEERRORS": {
-			"T_TITLE": "#!#CHARACEDITOR.INFO_DATEERRORS.T_TITLE"
+			"T_TITLE": "Error de fecha."
 		},
 		"INFO_MEMBERS": {
-			"T_TITLE": "#!#CHARACEDITOR.INFO_MEMBERS.T_TITLE"
+			"T_TITLE": "Miembro del grupo editor"
 		},
 		"INFO_PUBLISHABLE": {
-			"T_NO": "#!#CHARACEDITOR.INFO_PUBLISHABLE.T_NO",
-			"T_TITLE": "#!#CHARACEDITOR.INFO_PUBLISHABLE.T_TITLE",
-			"T_YES": "#!#CHARACEDITOR.INFO_PUBLISHABLE.T_YES"
+			"T_NO": "",
+			"T_TITLE": "¿Pronto para registrar?",
+			"T_YES": "Si"
 		},
 		"INPUT_DESCRIPTION": {
-			"T_TITLE": "#!#CHARACEDITOR.INPUT_DESCRIPTION.T_TITLE"
+			"T_TITLE": "Descripción"
 		},
 		"INPUT_ELEM_ORDER": {
-			"T_TITLE": "#!#CHARACEDITOR.INPUT_ELEM_ORDER.T_TITLE"
+			"T_TITLE": "Orden"
 		},
 		"INPUT_ELEM_TITLE": {
-			"T_TITLE": "#!#CHARACEDITOR.INPUT_ELEM_TITLE.T_TITLE"
+			"T_TITLE": "Nombre"
 		},
 		"INPUT_NAME": {
-			"T_TITLE": "#!#CHARACEDITOR.INPUT_NAME.T_TITLE"
+			"T_TITLE": "Nombre"
 		},
 		"INPUT_ORDER": {
-			"T_TITLE": "#!#CHARACEDITOR.INPUT_ORDER.T_TITLE"
+			"T_TITLE": "Orden"
 		},
 		"LIST": {
-			"T_TITLE": "#!#CHARACEDITOR.LIST.T_TITLE"
+			"T_TITLE": "Nombre"
 		},
 		"LIST_DATECREATED": {
-			"T_TITLE": "#!#CHARACEDITOR.LIST_DATECREATED.T_TITLE"
+			"T_TITLE": "Fecha de creación"
 		},
 		"LIST_DESCRIPTION": {
-			"T_TITLE": "#!#CHARACEDITOR.LIST_DESCRIPTION.T_TITLE"
+			"T_TITLE": "Descripción"
 		},
 		"LIST_LANGS": {
-			"T_TITLE": "#!#CHARACEDITOR.LIST_LANGS.T_TITLE"
+			"T_TITLE": "Idioma"
 		},
 		"LIST_NAME": {
-			"T_TITLE": "#!#CHARACEDITOR.LIST_NAME.T_TITLE"
+			"T_TITLE": "Nombre"
 		},
 		"LIST_ORDER": {
-			"T_TITLE": "#!#CHARACEDITOR.LIST_ORDER.T_TITLE"
+			"T_TITLE": "Orden"
 		},
 		"SIDENAV": {
-			"T_TITLE": "#!#CHARACEDITOR.SIDENAV.T_TITLE"
+			"T_TITLE": "Catgoría"
 		}
 	},
 	"CHRONODITOR": {
 		"BUTTON_AREA": {
-			"T_TITLE": "#!#CHRONODITOR.BUTTON_AREA.T_TITLE"
+			"T_TITLE": "Mantener"
 		},
 		"BUTTON_CANCEL": {
-			"T_CONFIRM": "#!#CHRONODITOR.BUTTON_CANCEL.T_CONFIRM",
-			"T_OK": "#!#CHRONODITOR.BUTTON_CANCEL.T_OK",
-			"T_TITLE": "#!#CHRONODITOR.BUTTON_CANCEL.T_TITLE"
+			"T_CONFIRM": "Volver a la última versión registrada?",
+			"T_OK": "De acuerdo",
+			"T_TITLE": "Anular"
 		},
 		"BUTTON_CLOSEMAP": {
-			"T_TITLE": "#!#CHRONODITOR.BUTTON_CLOSEMAP.T_TITLE"
+			"T_TITLE": "Cerrar el mapa"
 		},
 		"BUTTON_DELETE": {
-			"T_CONFIRM": "#!#CHRONODITOR.BUTTON_DELETE.T_CONFIRM",
-			"T_OK": "#!#CHRONODITOR.BUTTON_DELETE.T_OK",
-			"T_TITLE": "#!#CHRONODITOR.BUTTON_DELETE.T_TITLE"
+			"T_CONFIRM": "Esta seguro que desea borrar esta cronología?",
+			"T_OK": "Si, borraar",
+			"T_TITLE": "Suprimir"
 		},
 		"BUTTON_DOWNLOADCSV": {
-			"T_TITLE": "#!#CHRONODITOR.BUTTON_DOWNLOADCSV.T_TITLE"
+			"T_TITLE": "Cargar el CSV"
 		},
 		"BUTTON_GOTOLIST": {
-			"T_TITLE": "#!#CHRONODITOR.BUTTON_GOTOLIST.T_TITLE"
+			"T_TITLE": "Retorno a la lista"
 		},
 		"BUTTON_SAVE": {
-			"T_TITLE": "#!#CHRONODITOR.BUTTON_SAVE.T_TITLE"
+			"T_TITLE": "Grabar"
 		},
 		"HEADER_CHRONODITOR": {
-			"T_TITLE": "#!#CHRONODITOR.HEADER_CHRONODITOR.T_TITLE"
+			"T_TITLE": "Editor de la cronología"
 		},
 		"INFO_DATEERRORS": {
-			"T_TITLE": "#!#CHRONODITOR.INFO_DATEERRORS.T_TITLE"
+			"T_TITLE": "Errores de fecha"
 		},
 		"INFO_MEMBERS": {
-			"T_TITLE": "#!#CHRONODITOR.INFO_MEMBERS.T_TITLE"
+			"T_TITLE": "Miembros del grupo de trabajo"
 		},
 		"INFO_PUBLISHABLE": {
-			"T_NO": "#!#CHRONODITOR.INFO_PUBLISHABLE.T_NO",
-			"T_TITLE": "#!#CHRONODITOR.INFO_PUBLISHABLE.T_TITLE",
-			"T_YES": "#!#CHRONODITOR.INFO_PUBLISHABLE.T_YES"
+			"T_NO": "Nombre",
+			"T_TITLE": "Publicable",
+			"T_YES": "Si"
 		},
 		"INPUT_AUTHOR": {
-			"T_TITLE": "#!#CHRONODITOR.INPUT_AUTHOR.T_TITLE"
+			"T_TITLE": "Aiutor"
 		},
 		"INPUT_CREDITS": {
-			"T_TITLE": "#!#CHRONODITOR.INPUT_CREDITS.T_TITLE"
+			"T_TITLE": "Créditos"
 		},
 		"INPUT_DESCRIPTION": {
-			"T_TITLE": "#!#CHRONODITOR.INPUT_DESCRIPTION.T_TITLE"
+			"T_TITLE": "Descripción"
 		},
 		"INPUT_ELEM_BEGIN": {
-			"T_TITLE": "#!#CHRONODITOR.INPUT_ELEM_BEGIN.T_TITLE"
+			"T_TITLE": "Inicio"
 		},
 		"INPUT_ELEM_END": {
-			"T_TITLE": "#!#CHRONODITOR.INPUT_ELEM_END.T_TITLE"
+			"T_TITLE": "Fin"
 		},
 		"INPUT_ELEM_TITLE": {
-			"T_TITLE": "#!#CHRONODITOR.INPUT_ELEM_TITLE.T_TITLE"
+			"T_TITLE": "Nonbre del periodo"
 		},
 		"INPUT_NAME": {
-			"T_TITLE": "#!#CHRONODITOR.INPUT_NAME.T_TITLE"
+			"T_TITLE": "Nombre de la cronología (100 caracteres máximo)"
 		},
 		"LIST": {
-			"T_TITLE": "#!#CHRONODITOR.LIST.T_TITLE"
+			"T_TITLE": "Lista de las cronologías"
 		},
 		"LIST_AUTHOR": {
-			"T_TITLE": "#!#CHRONODITOR.LIST_AUTHOR.T_TITLE"
+			"T_TITLE": "Autor"
 		},
 		"LIST_CREDITS": {
-			"T_TITLE": "#!#CHRONODITOR.LIST_CREDITS.T_TITLE"
+			"T_TITLE": "Créditos"
 		},
 		"LIST_DATECREATED": {
-			"T_TITLE": "#!#CHRONODITOR.LIST_DATECREATED.T_TITLE"
+			"T_TITLE": "Fecha de creación"
 		},
 		"LIST_DESCRIPTION": {
-			"T_TITLE": "#!#CHRONODITOR.LIST_DESCRIPTION.T_TITLE"
+			"T_TITLE": "Descripción"
 		},
 		"LIST_LANGS": {
-			"T_TITLE": "#!#CHRONODITOR.LIST_LANGS.T_TITLE"
+			"T_TITLE": "Idiomas"
 		},
 		"LIST_NAME": {
-			"T_TITLE": "#!#CHRONODITOR.LIST_NAME.T_TITLE"
+			"T_TITLE": "Nombre"
 		},
 		"LIST_PERIOD": {
-			"T_TITLE": "#!#CHRONODITOR.LIST_PERIOD.T_TITLE",
-			"T_TO": "#!#CHRONODITOR.LIST_PERIOD.T_TO"
+			"T_TITLE": "Periodo",
+			"T_TO": "hasta"
 		},
 		"LIST_PUBLISHED": {
-			"T_NO": "#!#CHRONODITOR.LIST_PUBLISHED.T_NO",
-			"T_TITLE": "#!#CHRONODITOR.LIST_PUBLISHED.T_TITLE",
-			"T_YES": "#!#CHRONODITOR.LIST_PUBLISHED.T_YES"
+			"T_NO": "Nonbre",
+			"T_TITLE": "Publicado",
+			"T_YES": "Si"
 		},
 		"SIDENAV": {
-			"T_TITLE": "#!#CHRONODITOR.SIDENAV.T_TITLE"
+			"T_TITLE": "Parámetros"
 		},
 		"SWITCH_PUBLISHED": {
-			"T_TITLE": "#!#CHRONODITOR.SWITCH_PUBLISHED.T_TITLE"
+			"T_TITLE": "Publicado"
 		}
 	},
 	"DATABASE": {
@@ -376,51 +376,51 @@
 	},
 	"GENERAL": {
 		"CONFIRM_DIALOG": {
-			"T_CANCEL": "#!#GENERAL.CONFIRM_DIALOG.T_CANCEL",
-			"T_CONTENT": "#!#GENERAL.CONFIRM_DIALOG.T_CONTENT",
-			"T_OK": "#!#GENERAL.CONFIRM_DIALOG.T_OK",
-			"T_TITLE": "#!#GENERAL.CONFIRM_DIALOG.T_TITLE"
+			"T_CANCEL": "Anular",
+			"T_CONTENT": "¿Està Ud. seguro?",
+			"T_OK": "De acuerdo",
+			"T_TITLE": "Por favor confirme su solicitud"
 		},
 		"TABLE_PAGINATION": {
-			"T_ALL": "#!#GENERAL.TABLE_PAGINATION.T_ALL",
-			"T_PAGE": "#!#GENERAL.TABLE_PAGINATION.T_PAGE",
-			"T_ROWSPERPAGE": "#!#GENERAL.TABLE_PAGINATION.T_ROWSPERPAGE",
-			"T_ROWSPERPAGE_OF": "#!#GENERAL.TABLE_PAGINATION.T_ROWSPERPAGE_OF"
+			"T_ALL": "Todos",
+			"T_PAGE": "Página",
+			"T_ROWSPERPAGE": "Líneas por página",
+			"T_ROWSPERPAGE_OF": "De"
 		}
 	},
 	"GLOBAL": {
 		"TOASTER": {
-			"T_OK": "#!#GLOBAL.TOASTER.T_OK"
+			"T_OK": "De acuerdo"
 		}
 	},
 	"GROUP": {
 		"BUTTON_GROUPSAVE": {
-			"T_TITLE": "#!#GROUP.BUTTON_GROUPSAVE.T_TITLE"
+			"T_TITLE": "Registrar"
 		},
 		"FOOTER_GROUPSLIST": {
-			"T_PAGE": "#!#GROUP.FOOTER_GROUPSLIST.T_PAGE",
-			"T_ROWSPERPAGE": "#!#GROUP.FOOTER_GROUPSLIST.T_ROWSPERPAGE",
-			"T_ROWSPERPAGE_OF": "#!#GROUP.FOOTER_GROUPSLIST.T_ROWSPERPAGE_OF"
+			"T_PAGE": "Página",
+			"T_ROWSPERPAGE": "Líneas por página",
+			"T_ROWSPERPAGE_OF": "de"
 		},
 		"GROUPTYPE_CHARAC": {
-			"T_TITLE": "#!#GROUP.GROUPTYPE_CHARAC.T_TITLE"
+			"T_TITLE": "Grupo de categorías"
 		},
 		"GROUPTYPE_CHRONOLOGY": {
-			"T_TITLE": "#!#GROUP.GROUPTYPE_CHRONOLOGY.T_TITLE"
+			"T_TITLE": "Grupo de cronologías"
 		},
 		"GROUPTYPE_USER": {
-			"T_TITLE": "#!#GROUP.GROUPTYPE_USER.T_TITLE"
+			"T_TITLE": "Grupo de usuarios"
 		},
 		"HEADER_DOMAIN": {
-			"T_TITLE": "#!#GROUP.HEADER_DOMAIN.T_TITLE"
+			"T_TITLE": "Tipo de grupo"
 		},
 		"HEADER_GROUPS": {
-			"T_TITLE": "#!#GROUP.HEADER_GROUPS.T_TITLE"
+			"T_TITLE": "Administración de grupos"
 		},
 		"HEADER_GROUPSLIST": {
-			"T_ACTION": "#!#GROUP.HEADER_GROUPSLIST.T_ACTION",
-			"T_GROUPNAME": "#!#GROUP.HEADER_GROUPSLIST.T_GROUPNAME",
-			"T_USERS": "#!#GROUP.HEADER_GROUPSLIST.T_USERS"
+			"T_ACTION": "Acción",
+			"T_GROUPNAME": "Nombre del grupo",
+			"T_USERS": "Miembros del grupo"
 		}
 	},
 	"IMPORT": {
@@ -447,58 +447,58 @@
 	},
 	"IMPORT_STEP1": {
 		"CONDITIONS": {
-			"T_BUTTON_SAVE_CHOICES": "#!#IMPORT_STEP1.CONDITIONS.T_BUTTON_SAVE_CHOICES",
+			"T_BUTTON_SAVE_CHOICES": "Acepto las condiciones",
 			"T_LINE1": "Los usuarios identificados en ArkeoGIS (mediante contraseña) pueden acceder libremente a las bases importadas.",
 			"T_LINE2": "Estos datos pueden ser descargados (según la licencia elegida) para un uso de investigación por los usuarios (estudiantes, investigadores, administradores, técnicos…)."
 		},
 		"FIELD_DATABASE_NAME": {
-			"T_ERROR_MAX_LEN": "#!#IMPORT_STEP1.FIELD_DATABASE_NAME.T_ERROR_MAX_LEN",
-			"T_LABEL": "#!#IMPORT_STEP1.FIELD_DATABASE_NAME.T_LABEL"
+			"T_ERROR_MAX_LEN": "El nombre de la base de datos no puede exceder los 50 carácteres",
+			"T_LABEL": "* Nombre de la base de datos"
 		},
 		"FIELD_ECHAP_CHARACTER": {
-			"T_ERROR_LEN": "#!#IMPORT_STEP1.FIELD_ECHAP_CHARACTER.T_ERROR_LEN",
-			"T_LABEL": "#!#IMPORT_STEP1.FIELD_ECHAP_CHARACTER.T_LABEL"
+			"T_ERROR_LEN": "Error de  carácter de escape",
+			"T_LABEL": "* Carácter de escape"
 		},
 		"FIELD_GEONAMES": {
-			"T_HELP": "#!#IMPORT_STEP1.FIELD_GEONAMES.T_HELP",
-			"T_LABEL": "#!#IMPORT_STEP1.FIELD_GEONAMES.T_LABEL"
+			"T_HELP": "Desplazar el cursor que esta arriba para utilizar los códigos ciudad/pueblo suministrados por Geonombres.org para geolocalizar los sitios (ícono P)",
+			"T_LABEL": "Utilización de los Geonombres"
 		},
 		"FIELD_GEO_CONTINENT": {
-			"T_PLACEHOLDER": "#!#IMPORT_STEP1.FIELD_GEO_CONTINENT.T_PLACEHOLDER"
+			"T_PLACEHOLDER": "Indicar un continente"
 		},
 		"FIELD_GEO_COUNTRY": {
-			"T_PLACEHOLDER": "#!#IMPORT_STEP1.FIELD_GEO_COUNTRY.T_PLACEHOLDER"
+			"T_PLACEHOLDER": "Indicar un país"
 		},
 		"FIELD_GEO_EXTENT": {
-			"T_LABEL": "#!#IMPORT_STEP1.FIELD_GEO_EXTENT.T_LABEL"
+			"T_LABEL": "Extensión geográfica de la base de datos"
 		},
 		"FIELD_LANG": {
-			"T_HELP": "#!#IMPORT_STEP1.FIELD_LANG.T_HELP",
-			"T_LABEL": "#!#IMPORT_STEP1.FIELD_LANG.T_LABEL"
+			"T_HELP": "Idioma utilizado en la base de datos para escribir las caracterizaciones Mueble/Inmueble/Producción/Paisaje/Medios",
+			"T_LABEL": "* Idioma de la base de datos"
 		},
 		"FIELD_SEPARATOR": {
-			"T_ERROR_LEN": "#!#IMPORT_STEP1.FIELD_SEPARATOR.T_ERROR_LEN",
-			"T_HELP": "#!#IMPORT_STEP1.FIELD_SEPARATOR.T_HELP",
-			"T_LABEL": "#!#IMPORT_STEP1.FIELD_SEPARATOR.T_LABEL"
+			"T_ERROR_LEN": "Este campo puede tener sólo un carácter",
+			"T_HELP": "Utilice \\t si su separador es una tabulación",
+			"T_LABEL": "Separador"
 		},
 		"FORM": {
-			"T_HELP": "#!#IMPORT_STEP1.FORM.T_HELP",
-			"T_RESET": "#!#IMPORT_STEP1.FORM.T_RESET",
-			"T_SUBMIT": "#!#IMPORT_STEP1.FORM.T_SUBMIT",
-			"T_UPDATE": "#!#IMPORT_STEP1.FORM.T_UPDATE"
+			"T_HELP": "Utilizar un fichero de tipo  csv con formato de cófigo UTF8 para vuestra importación, el separador debe ser un \",\"",
+			"T_RESET": "Reiniciar",
+			"T_SUBMIT": "Envíe el fichero y pase a la etapa siguiente",
+			"T_UPDATE": "Actualicelas informaciones"
 		},
 		"INFOS": {
-			"T_LINE1": "#!#IMPORT_STEP1.INFOS.T_LINE1",
-			"T_LINE2": "#!#IMPORT_STEP1.INFOS.T_LINE2",
-			"T_LINE3": "#!#IMPORT_STEP1.INFOS.T_LINE3"
+			"T_LINE1": "Con el fin de importar vuestra base de datos sobre la plataforma ArkeoGIS, solicitamos informar los campos siguientes para poder importar",
+			"T_LINE2": "Estas informaciones son solicitadas solo una vez antes de importar, cuando haya posibles re importaciones de la base de datos estas informaciones no volverán a ser re solicitadas",
+			"T_LINE3": "A continuación será posible modificar esas informaciones e informar de otros campos relativos a la presentación de vuestro trabajo en vuestra inter fase personal de gestión de informaciones relativas a la base de datos"
 		},
 		"MESSAGE": {
-			"T_INFORMATIONS_UPDATED": "#!#IMPORT_STEP1.MESSAGE.T_INFORMATIONS_UPDATED",
-			"T_UNABLE_TO_UPDATE_DATABASE_INFORMATIONS": "#!#IMPORT_STEP1.MESSAGE.T_UNABLE_TO_UPDATE_DATABASE_INFORMATIONS"
+			"T_INFORMATIONS_UPDATED": "Informaciones actualizadas",
+			"T_UNABLE_TO_UPDATE_DATABASE_INFORMATIONS": "Error durante la actualización de las informaciones"
 		},
 		"TITLE": {
-			"T_BY": "#!#IMPORT_STEP1.TITLE.T_BY",
-			"T_IMPORT_YOUR_DB": "#!#IMPORT_STEP1.TITLE.T_IMPORT_YOUR_DB"
+			"T_BY": "por",
+			"T_IMPORT_YOUR_DB": "Importación de la base de datos"
 		}
 	},
 	"IMPORT_STEP2": {
@@ -673,7 +673,7 @@
 	},
 	"LOGIN": {
 		"BUTTON_OK": {
-			"T_TITLE": "OK"
+			"T_TITLE": "De acuerdo"
 		},
 		"FIELD_PASSWORD": {
 			"T_TITLE": "Contraseña"
@@ -682,20 +682,20 @@
 			"T_TITLE": "Nombre de usuario"
 		},
 		"FOOTER": {
-			"T_CONTACT": "#!#LOGIN.FOOTER.T_CONTACT",
-			"T_CONTACT_LINKNAME": "#!#LOGIN.FOOTER.T_CONTACT_LINKNAME",
-			"T_CONTACT_LINKURL": "http://arkeogis.org/fr/demande-dacces/",
-			"T_DATE": "#!#LOGIN.FOOTER.T_DATE",
-			"T_DBCOUNT": "#!#LOGIN.FOOTER.T_DBCOUNT",
-			"T_SITECOUNT": "#!#LOGIN.FOOTER.T_SITECOUNT"
+			"T_CONTACT": "Para obtener un identificación y una contraseña, por favor tomar CONTACT_LINK",
+			"T_CONTACT_LINKNAME": "contacto",
+			"T_CONTACT_LINKURL": "http://www.arkeogis.org/contact",
+			"T_DATE": "La {{date}} son consultables",
+			"T_DBCOUNT": "{{dbcount}} base de datos",
+			"T_SITECOUNT": "{{sitecount}} sitios"
 		},
 		"HEADER": {
-			"T_LINE1": "#!#LOGIN.HEADER.T_LINE1",
-			"T_LINE2": "#!#LOGIN.HEADER.T_LINE2",
-			"T_LINE3": "#!#LOGIN.HEADER.T_LINE3"
+			"T_LINE1": "Buscando un acceso común a los datos arqueológicos et geográficos, Arkeogis pone a disposición datos sensibles que podrían conducir al pillaje de sitios arqueológicos",
+			"T_LINE2": "Por esta razón el acceso a la herramienta esta reservado a profesionales de arqueología (establecimientos de investigación, servicios regionales o nacionales,operadores, investigadores, estudiantes avanzados)",
+			"T_LINE3": ""
 		},
 		"HEADER_LOGIN": {
-			"T_TITLE": "Definición"
+			"T_TITLE": "Identificación"
 		}
 	},
 	"MAIN": {
@@ -1136,15 +1136,15 @@
 	},
 	"QUERY_CHARAC": {
 		"BUTTON_OK": {
-			"T_TITLE": "#!#QUERY_CHARAC.BUTTON_OK.T_TITLE"
+			"T_TITLE": "De acuerdo"
 		},
 		"DIALOG": {
-			"T_CHOOSETOOL": "#!#QUERY_CHARAC.DIALOG.T_CHOOSETOOL",
-			"T_FOOTER_BOLD": "#!#QUERY_CHARAC.DIALOG.T_FOOTER_BOLD",
-			"T_FOOTER_TEXT1": "#!#QUERY_CHARAC.DIALOG.T_FOOTER_TEXT1",
-			"T_FOOTER_TEXT2": "#!#QUERY_CHARAC.DIALOG.T_FOOTER_TEXT2",
-			"T_INTRO": "#!#QUERY_CHARAC.DIALOG.T_INTRO",
-			"T_TITLE": "#!#QUERY_CHARAC.DIALOG.T_TITLE"
+			"T_CHOOSETOOL": "Un clik sobre los títulos permite descubrir y consultar directamente los sub menús presentes",
+			"T_FOOTER_BOLD": "Las opciones sucesivas de la casilla de verificación son:",
+			"T_FOOTER_TEXT1": "1 clik: la característica debe estar presente, 2 clik: la característica debe estar ausente, 3clik: la característica presente debe ser excepcional, 4clik: retorno a cero:",
+			"T_FOOTER_TEXT2": "",
+			"T_INTRO": "",
+			"T_TITLE": "Agregar/Editar filtro(s) característicos"
 		}
 	},
 	"QUERY_CHRONOLOGIES": {
@@ -1326,7 +1326,7 @@
 			"T_TITLE": "#!#QUERY_SAVE.BUTTON_CANCEL.T_TITLE"
 		},
 		"BUTTON_OK": {
-			"T_TITLE": "#!#QUERY_SAVE.BUTTON_OK.T_TITLE"
+			"T_TITLE": "De acuerdo"
 		},
 		"DIALOG": {
 			"T_INTRO": "#!#QUERY_SAVE.DIALOG.T_INTRO",
@@ -1419,7 +1419,7 @@
 			"T_TITLE": "#!#USER.BUTTON_DELETE.T_TITLE"
 		},
 		"BUTTON_SUBMIT": {
-			"T_TITLE": "#!#USER.BUTTON_SUBMIT.T_TITLE"
+			"T_TITLE": "De acuerdo"
 		},
 		"FIELD_ACTIVE": {
 			"T_CHECK_MANDATORY": "#!#USER.FIELD_ACTIVE.T_CHECK_MANDATORY",
@@ -1434,6 +1434,7 @@
 			"T_TITLE": "#!#USER.FIELD_CHRONOGROUP.T_TITLE"
 		},
 		"FIELD_CITY": {
+			"T_CHECK_MANDATORY": "#!#USER.FIELD_CITY.T_CHECK_MANDATORY",
 			"T_CHECK_NOMATCH": "#!#USER.FIELD_CITY.T_CHECK_NOMATCH",
 			"T_TITLE": "#!#USER.FIELD_CITY.T_TITLE"
 		},
@@ -1472,6 +1473,7 @@
 			"T_TITLE": "#!#USER.FIELD_DATABASES.T_TITLE"
 		},
 		"FIELD_DESCRIPTION": {
+			"T_CHECK_MANDATORY": "#!#USER.FIELD_DESCRIPTION.T_CHECK_MANDATORY",
 			"T_TITLE": "#!#USER.FIELD_DESCRIPTION.T_TITLE"
 		},
 		"FIELD_EMAIL": {
@@ -1495,6 +1497,7 @@
 			"T_TITLE": "#!#USER.FIELD_LAST_NAME.T_TITLE"
 		},
 		"FIELD_PASSWORD": {
+			"T_CHECK_INCORRECT": "#!#USER.FIELD_PASSWORD.T_CHECK_INCORRECT",
 			"T_CHECK_LENGTH": "#!#USER.FIELD_PASSWORD.T_CHECK_LENGTH",
 			"T_CHECK_NOTSAME": "#!#USER.FIELD_PASSWORD.T_CHECK_NOTSAME",
 			"T_TITLE": "#!#USER.FIELD_PASSWORD.T_TITLE"
@@ -1507,6 +1510,7 @@
 		},
 		"FIELD_USERNAME": {
 			"T_CHECK_ALREADYEXISTS": "#!#USER.FIELD_USERNAME.T_CHECK_ALREADYEXISTS",
+			"T_CHECK_INCORRECT": "#!#USER.FIELD_USERNAME.T_CHECK_INCORRECT",
 			"T_CHECK_MANDATORY": "#!#USER.FIELD_USERNAME.T_CHECK_MANDATORY",
 			"T_TITLE": "#!#USER.FIELD_USERNAME.T_TITLE"
 		},
@@ -1552,38 +1556,6 @@
 		"USERSLIST_ACTIVE": {
 			"T_FALSE": "#!#USER.USERSLIST_ACTIVE.T_FALSE",
 			"T_TRUE": "#!#USER.USERSLIST_ACTIVE.T_TRUE"
-		}
-	},
-	"USER_PREFERENCES": {
-		"BUTTON_SUBMIT": {
-			"T_LABEL": "#!#USER_PREFERENCES.BUTTON_SUBMIT.T_LABEL"
-		},
-		"FIELD_END_DATE": {
-			"T_LABEL": "#!#USER_PREFERENCES.FIELD_END_DATE.T_LABEL"
-		},
-		"FIELD_START_DATE": {
-			"T_LABEL": "#!#USER_PREFERENCES.FIELD_START_DATE.T_LABEL"
-		},
-		"INFORMATIONS": {
-			"T_TILE": "#!#USER_PREFERENCES.INFORMATIONS.T_TILE"
-		},
-		"INFORMATIONS_PERIOD_SELECTION": {
-			"T_LABEL": "#!#USER_PREFERENCES.INFORMATIONS_PERIOD_SELECTION.T_LABEL"
-		},
-		"INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA": {
-			"T_LABEL": "#!#USER_PREFERENCES.INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA.T_LABEL"
-		},
-		"INTERFACE_INFOS_USAGE": {
-			"T_LABEL": "#!#USER_PREFERENCES.INTERFACE_INFOS_USAGE.T_LABEL"
-		},
-		"TAB_CHRONOLOGIES": {
-			"T_LABEL": "#!#USER_PREFERENCES.TAB_CHRONOLOGIES.T_LABEL"
-		},
-		"TAB_DATABASES": {
-			"T_LABEL": "#!#USER_PREFERENCES.TAB_DATABASES.T_LABEL"
-		},
-		"TAB_MAPS": {
-			"T_LABEL": "#!#USER_PREFERENCES.TAB_MAPS.T_LABEL"
 		}
 	}
 }
