@@ -200,11 +200,13 @@
       boundingBox.forEach(function(bbox) {
 				var crs = bbox._CRS.toLowerCase();
         //if (bbox._CRS.match(/P4326/)) {
-				if (crs == 'epsg:4326' || crs == 'crs:84') {
+				if (crs == 'epsg:4326') {
           b = arkeoMap.getValidBoundingBox(bbox._minx, bbox._maxy, bbox._maxx, bbox._miny);
+				} else if (crs == 'crs:84') {
+          b = arkeoMap.getValidBoundingBox(bbox._maxy, bbox._maxx, bbox._miny, bbox._miny);
           return;
         } else {
-					console.error("The layer "+layer.title+" does not offer WGS84 projection. Skipping");
+					console.error("The layer "+layer.title+" does not offer CRS:84 or WGS84 projection. Skipping");
 					return;
 				}
       });
