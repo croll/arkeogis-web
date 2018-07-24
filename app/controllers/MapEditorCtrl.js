@@ -48,10 +48,15 @@
       $scope.hideFields = false;
       $scope.selectedLayer = layer;
       $scope.selectedLayer.title = $filter('arkTranslate')(layer.translations.name);
+
+			// Force proxy
+			$scope.infos.use_proxy = true;
+
       if (angular.isDefined(layer.geographical_extent_geom.coordinates)) {
         $scope.selectedLayer.bounding_box = L.geoJson(layer.geographical_extent_geom).getBounds();
       }
       $scope.type = layer.type;
+
       if (layer.type === 'shp') {
         leafletData.getMap().then(function(map) {
           $scope.geojsonLayer = L.geoJson($scope.infos.geojson).addTo(map);
@@ -109,9 +114,15 @@
 
     $scope.showWMInputs = false;
 
-    // $scope.type = 'wms';
+		// debug
+		$scope.type = 'wms';
+		//$scope.infos.url = 'https://www.cigalsace.org/geoserver/PAIR/ows';
+		//$scope.infos.url = 'https://www.cigalsace.org/geoserver/ARAA/ows';
+		$scope.infos.url = 'http://geoservices.crige-paca.org/geoserver/cd84/wms';
+		// debug
 
     $scope.selectLayer = function(layer) {
+      //console.log('%c MapEditor::selectLayer', 'color: #000; background: yellow', layer);
       $scope.infos.identifier = layer.identifier;
       $scope.infos.image_format = layer.image_format;
       $scope.infos.tile_matrix_set = layer.tile_matrix_set;
@@ -119,7 +130,6 @@
       $scope.hideFields = false;
       $scope.selectedLayer = layer;
       $scope.refreshPreview();
-      // Select best image format
     };
 
     $scope.reset = function() {
@@ -129,8 +139,8 @@
       if ($scope.type === 'wms') {
         // $scope.infos.url = 'http://demo.opengeo.org/geoserver/wms';
         // $scope.infos.url = 'https://neo.sci.gsfc.nasa.gov/wms/wms';
-        $scope.infos.url = 'https://www.cigalsace.org/geoserver/cigal/ows';
         // $scope.infos.url = 'http://ogc.bgs.ac.uk/cgi-bin/BGS_GSI_EN_Bedrock_and_Structural_Geology/ows';
+        $scope.infos.url = 'https://www.cigalsace.org/geoserver/cigal/ows';
       } else if ($scope.type === 'wmts') {
       //  $scope.infos.url = 'http://wxs.ign.fr/b648puasvhkm1f46dk8hft4i/wmts';
           $scope.infos.url = 'https://www.cigalsace.org/geoserver/gwc/service/wmts';
@@ -177,7 +187,8 @@
          url = '/proxy/?'+url;
        }
         service.getCapabilities(url).then(function(capas) {
-          $scope.abstract = capas.abstract;
+          $scope.attribution = capas.attribution;
+					$scope.infos.attribution = capas.attribution;
           $scope.remoteServerThemes = capas.content;
           $scope.showWMInputs = true;
         }, function(err) {
@@ -185,53 +196,6 @@
         });
       }
 
-      /*
-      if ($scope.type == 'wms') {
-        if (angular.isDefined(capas.WMS_Capabilities.Capability.Layer.Layer) && angular.isDefined(capas.WMS_Capabilities.Capability.Layer.Layer)) {
-            angular.forEach(capas.WMS_Capabilities.Capability.Layer.Layer, function(layer) {
-                var l = {
-                  title: layer.Title.toString(),
-                  identifier: layer.Name.toString(),
-                  boundingBox: processBoundingBox(layer.BoundingBox, 'wms')
-                }
-                if (l.boundingBox) {
-                  $scope.wmsLayers.push(l);
-                }
-              });
-            } else {
-              d.reject();
-              arkeoService.showMessage('MAPEDITOR.MESSAGE_GET_LAYER_LIST.T_ERROR', 'error')
-              $scope.hideFields = false;
-              return;
-            }
-          } else if ($scope.type == 'wmts') {
-            if (angular.isDefined(capas.Capabilities) && angular.isDefined(capas.Capabilities.Contents.Layer)) {
-              angular.forEach(capas.Capabilities.Contents.Layer, function(layer) {
-                var l = {
-                  style: "normal",
-                  tilematrixSet: "PM",
-                  title: layer.Title.toString(),
-                  identifier: layer.Identifier.toString(),
-                  //format: layer.Format.toString()
-                }
-                l.boundingBox = processBoundingBox(layer.WGS84BoundingBox, 'wmts');
-                $scope.wmsLayers.push(l);
-              });
-            } else {
-              d.reject("WMTS server returned bad answer");
-              $scope.hideFields = false;
-              arkeoService.showMessage('MAPEDITOR.MESSAGE_GET_LAYER_LIST.T_ERROR', 'error')
-              return;
-            }
-          }
-          arkeoService.showMessage('MAPEDITOR.MESSAGE_GET_LAYER_LIST.T_SUCCESS', 'error')
-          d.resolve()
-        },
-        function(err) {
-          $scope.GetCapabilities = false;
-          d.reject(err);
-        });
-        */
     };
 
     $scope.refreshPreview = function() {
@@ -326,9 +290,7 @@
       angular.forEach($scope.infos.authors, function(author) {
         dbObj.authors.push(author.id);
       });
-      console.log("LA", dbObj.geographical_extent_geom);
       dbObj.geographical_extent_geom = JSON.stringify($scope.infos.geographical_extent_geom);
-      console.log("LA2", JSON.stringify(dbObj.geographical_extent_geom));
       if ($scope.type === 'shp') {
         // geojson
         dbObj.geojson_with_data = JSON.stringify($scope.infos.geojson);
@@ -473,7 +435,7 @@
 
     $scope.query = {
       filter: '',
-      order: null,
+      order: '',
       limitOptions: [10, 25, 50, {
         label: translations['GENERAL.TABLE_PAGINATION.T_ALL'],
         value: function() {
@@ -483,6 +445,14 @@
       limit: 20,
       page: 1
     };
+
+    function compare(a,b) {
+      if (a.id > b.id)
+    	  return -1;
+      if (a.id < b.id)
+        return 1;
+      return 0;
+    }
 
     $scope.onOrderChange = function(order) {
       $scope.order = order;
@@ -498,7 +468,10 @@
     };
 
     layerService.getLayers().then(function(layers) {
-      $scope.mapLayers = layers;
+      $scope.mapLayers = layers.sort(compare);
+       console.table(layers);
+
+       // Add key to enable reorder in list
     }, function(errorCode) {
       console.error("ERROR CODE: "+errorCode);
     });
