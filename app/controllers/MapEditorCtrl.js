@@ -426,7 +426,7 @@
 
 (function() {
   'use strict';
-  ArkeoGIS.controller('MapEditorListCtrl', ['$scope', 'layerService', 'arkeoMap', 'login', '$http', '$state', 'translations', function($scope, layerService, arkeoMap, login, $http, $state, translations) {
+  ArkeoGIS.controller('MapEditorListCtrl', ['$scope', 'layerService', 'arkeoMap', 'arkeoLang', 'login', '$http', '$state', 'translations', function($scope, layerService, arkeoMap, arkeoLang, login, $http, $state, translations) {
 
     $scope.filter = {
       show: false,
@@ -454,6 +454,7 @@
       return 0;
     }
 
+
     $scope.onOrderChange = function(order) {
       $scope.order = order;
     };
@@ -469,8 +470,12 @@
 
     layerService.getLayers().then(function(layers) {
       $scope.mapLayers = layers.sort(compare);
-       console.table(layers);
-
+				layers.forEach(function(layer) {
+					layer.name = arkeoLang.getMappedTranslation(layer.name);
+					layer.attribution = arkeoLang.getMappedTranslation(layer.attribution);
+					layer.copyright = arkeoLang.getMappedTranslation(layer.copyright);
+					layer.description = arkeoLang.getMappedTranslation(layer.description);
+				});
        // Add key to enable reorder in list
     }, function(errorCode) {
       console.error("ERROR CODE: "+errorCode);
