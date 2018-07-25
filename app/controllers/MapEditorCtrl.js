@@ -21,7 +21,7 @@
 
 (function() {
   'use strict';
-  ArkeoGIS.controller('MapEditorCtrl', ['$scope', '$state', '$filter', 'arkeoService', 'arkeoMap', 'arkeoWMS', 'arkeoWMTS', 'login', '$http', '$q', 'leafletData', 'Upload', 'layer', 'arkeoLang', function($scope, $state, $filter, arkeoService, arkeoMap, arkeoWMS, arkeoWMTS, login, $http, $q, leafletData, Upload, layer, arkeoLang) {
+  ArkeoGIS.controller('MapEditorCtrl', ['$scope', '$state', '$filter', 'arkeoService', 'arkeoMap', 'arkeoWMS', 'arkeoWMTS', 'arkeoLang', 'login', '$http', '$q', 'leafletData', 'Upload', 'layer', function($scope, $state, $filter, arkeoService, arkeoMap, arkeoWMS, arkeoWMTS, arkeoLang, login, $http, $q, leafletData, Upload, layer) {
 
     angular.extend($scope, arkeoMap.config);
 
@@ -130,6 +130,18 @@
       $scope.hideFields = false;
       $scope.selectedLayer = layer;
       $scope.refreshPreview();
+
+      // If it's a new layer
+      if (!$scope.infos.id) {
+        $scope.infos.translations.description[arkeoLang.getUserLang(1)] = {description: layer.title};
+        var translatedDescription = {};
+        translatedDescription[arkeoLang.getUserLang(1)] = layer.title;
+        //var lang2 = (arkeoLang.getUserLang(1) === 'en') ? arkeoLang.getUserLang(2) : 'en';
+        //translatedDescription[lang2] = layer.title;
+
+        angular.extend($scope.infos.translations, {description: translatedDescription});
+      }
+
     };
 
     $scope.reset = function() {
@@ -187,8 +199,8 @@
          url = '/proxy/?'+url;
        }
         service.getCapabilities(url).then(function(capas) {
-          $scope.attribution = capas.attribution;
-					$scope.infos.attribution = capas.attribution;
+          $scope.attribution = capas.abstract || capas.title;
+					$scope.infos.attribution = $scope.attribution || $scope.infos.attribution;
           $scope.remoteServerThemes = capas.content;
           $scope.showWMInputs = true;
         }, function(err) {

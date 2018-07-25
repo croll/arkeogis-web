@@ -62,7 +62,7 @@
         }
     };
 
-    this.getActiveLangs = function(force) {
+    this.getActiveLangs = function() {
         return self.getLangs(true);
     };
 
