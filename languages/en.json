@@ -193,48 +193,6 @@
 		"CONTEXT_RESEARCH_TEAM": {
 			"T_TITLE": "Research team"
 		},
-		"EXPORT_AUTHORS": {
-			"T_HEADER": "#!#DATABASE.EXPORT_AUTHORS.T_HEADER"
-		},
-		"EXPORT_DESCRIPTION": {
-			"T_HEADER": "#!#DATABASE.EXPORT_DESCRIPTION.T_HEADER"
-		},
-		"EXPORT_END_DATE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_END_DATE.T_HEADER"
-		},
-		"EXPORT_GEOGRAPHICAL_EXTENT": {
-			"T_HEADER": "#!#DATABASE.EXPORT_GEOGRAPHICAL_EXTENT.T_HEADER"
-		},
-		"EXPORT_LANG": {
-			"T_HEADER": "#!#DATABASE.EXPORT_LANG.T_HEADER"
-		},
-		"EXPORT_LICENSE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_LICENSE.T_HEADER"
-		},
-		"EXPORT_LINES": {
-			"T_HEADER": "#!#DATABASE.EXPORT_LINES.T_HEADER"
-		},
-		"EXPORT_NAME": {
-			"T_HEADER": "#!#DATABASE.EXPORT_NAME.T_HEADER"
-		},
-		"EXPORT_SCALE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_SCALE.T_HEADER"
-		},
-		"EXPORT_SITES": {
-			"T_HEADER": "#!#DATABASE.EXPORT_SITES.T_HEADER"
-		},
-		"EXPORT_START_DATE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_START_DATE.T_HEADER"
-		},
-		"EXPORT_STATE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_STATE.T_HEADER"
-		},
-		"EXPORT_SUBJECT": {
-			"T_HEADER": "#!#DATABASE.EXPORT_SUBJECT.T_HEADER"
-		},
-		"EXPORT_TYPE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_TYPE.T_HEADER"
-		},
 		"GEOGRAPHICAL_EXTENT_CONTINENT": {
 			"T_TITLE": "Continent"
 		},
@@ -847,6 +805,9 @@
 		"FIELD_IDENTIFIER": {
 			"T_LABEL": "Layer's id"
 		},
+		"FIELD_IMAGE_FORMAT": {
+			"T_LABEL": "Image format"
+		},
 		"FIELD_LICENSE": {
 			"T_HELP": "Associated license",
 			"T_LABEL": "License's name"
@@ -871,9 +832,6 @@
 			"T_HELP": "Allow other users to access this layer",
 			"T_LABEL": "Published"
 		},
-		"FIELD_ROOT_THEME": {
-			"T_LABEL": "#!#MAPEDITOR.FIELD_ROOT_THEME.T_LABEL"
-		},
 		"FIELD_SELECT_LAYER": {
 			"T_LABEL": "Layer's choice"
 		},
@@ -891,6 +849,10 @@
 		"MESSAGE": {
 			"T_DELETE_FAILED": "Failed to delete",
 			"T_DELETE_OK": "Successfully deleted"
+		},
+		"MESSAGE_GET_LAYER_LIST": {
+			"T_ERROR": "Recovery of the layers' list",
+			"T_SUCCESS": "The layers' list have been successfully recovered."
 		},
 		"MESSAGE_NOT_ZIP_FILE": {
 			"T_ERROR": "The submitted file is not valid."
@@ -925,7 +887,7 @@
 			"T_LABEL_START_DATE": "Starting date",
 			"T_LABEL_TYPE": "Type",
 			"T_LABEL_ZOOM_LEVEL": "Zoom level",
-			"T_NAME_AND_COPYRIGHT": "#!#MAPEDITOR.TABLE_LIST.T_NAME_AND_COPYRIGHT",
+			"T_NAME_AND_DESCRIPTION": "Name - description",
 			"T_TITLE": "List of the available layers"
 		}
 	},
@@ -1590,6 +1552,38 @@
 		"USERSLIST_ACTIVE": {
 			"T_FALSE": "no",
 			"T_TRUE": "yes"
+		}
+	},
+	"USER_PREFERENCES": {
+		"BUTTON_SUBMIT": {
+			"T_LABEL": "#!#USER_PREFERENCES.BUTTON_SUBMIT.T_LABEL"
+		},
+		"FIELD_END_DATE": {
+			"T_LABEL": "#!#USER_PREFERENCES.FIELD_END_DATE.T_LABEL"
+		},
+		"FIELD_START_DATE": {
+			"T_LABEL": "#!#USER_PREFERENCES.FIELD_START_DATE.T_LABEL"
+		},
+		"INFORMATIONS": {
+			"T_TILE": "#!#USER_PREFERENCES.INFORMATIONS.T_TILE"
+		},
+		"INFORMATIONS_PERIOD_SELECTION": {
+			"T_LABEL": "#!#USER_PREFERENCES.INFORMATIONS_PERIOD_SELECTION.T_LABEL"
+		},
+		"INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA": {
+			"T_LABEL": "#!#USER_PREFERENCES.INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA.T_LABEL"
+		},
+		"INTERFACE_INFOS_USAGE": {
+			"T_LABEL": "#!#USER_PREFERENCES.INTERFACE_INFOS_USAGE.T_LABEL"
+		},
+		"TAB_CHRONOLOGIES": {
+			"T_LABEL": "#!#USER_PREFERENCES.TAB_CHRONOLOGIES.T_LABEL"
+		},
+		"TAB_DATABASES": {
+			"T_LABEL": "#!#USER_PREFERENCES.TAB_DATABASES.T_LABEL"
+		},
+		"TAB_MAPS": {
+			"T_LABEL": "#!#USER_PREFERENCES.TAB_MAPS.T_LABEL"
 		}
 	}
 }

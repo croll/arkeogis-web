@@ -193,48 +193,6 @@
 		"CONTEXT_RESEARCH_TEAM": {
 			"T_TITLE": "Forschungsteam"
 		},
-		"EXPORT_AUTHORS": {
-			"T_HEADER": "#!#DATABASE.EXPORT_AUTHORS.T_HEADER"
-		},
-		"EXPORT_DESCRIPTION": {
-			"T_HEADER": "#!#DATABASE.EXPORT_DESCRIPTION.T_HEADER"
-		},
-		"EXPORT_END_DATE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_END_DATE.T_HEADER"
-		},
-		"EXPORT_GEOGRAPHICAL_EXTENT": {
-			"T_HEADER": "#!#DATABASE.EXPORT_GEOGRAPHICAL_EXTENT.T_HEADER"
-		},
-		"EXPORT_LANG": {
-			"T_HEADER": "#!#DATABASE.EXPORT_LANG.T_HEADER"
-		},
-		"EXPORT_LICENSE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_LICENSE.T_HEADER"
-		},
-		"EXPORT_LINES": {
-			"T_HEADER": "#!#DATABASE.EXPORT_LINES.T_HEADER"
-		},
-		"EXPORT_NAME": {
-			"T_HEADER": "#!#DATABASE.EXPORT_NAME.T_HEADER"
-		},
-		"EXPORT_SCALE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_SCALE.T_HEADER"
-		},
-		"EXPORT_SITES": {
-			"T_HEADER": "#!#DATABASE.EXPORT_SITES.T_HEADER"
-		},
-		"EXPORT_START_DATE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_START_DATE.T_HEADER"
-		},
-		"EXPORT_STATE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_STATE.T_HEADER"
-		},
-		"EXPORT_SUBJECT": {
-			"T_HEADER": "#!#DATABASE.EXPORT_SUBJECT.T_HEADER"
-		},
-		"EXPORT_TYPE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_TYPE.T_HEADER"
-		},
 		"GEOGRAPHICAL_EXTENT_CONTINENT": {
 			"T_TITLE": "Kontinent"
 		},
@@ -847,6 +805,9 @@
 		"FIELD_IDENTIFIER": {
 			"T_LABEL": "Layer ID"
 		},
+		"FIELD_IMAGE_FORMAT": {
+			"T_LABEL": "Bildformat"
+		},
 		"FIELD_LICENSE": {
 			"T_HELP": "Lizenz",
 			"T_LABEL": "Name der Lizenz"
@@ -871,9 +832,6 @@
 			"T_HELP": "Den Layer für alle Benutzer freischalten",
 			"T_LABEL": "Publiziert"
 		},
-		"FIELD_ROOT_THEME": {
-			"T_LABEL": "#!#MAPEDITOR.FIELD_ROOT_THEME.T_LABEL"
-		},
 		"FIELD_SELECT_LAYER": {
 			"T_LABEL": "Layerwahl"
 		},
@@ -891,6 +849,10 @@
 		"MESSAGE": {
 			"T_DELETE_FAILED": "unmöglich zu löschen",
 			"T_DELETE_OK": "gelöscht"
+		},
+		"MESSAGE_GET_LAYER_LIST": {
+			"T_ERROR": "Layers Einziehung",
+			"T_SUCCESS": "Layers erfolgreich eingezogen"
 		},
 		"MESSAGE_NOT_ZIP_FILE": {
 			"T_ERROR": "die gesandte File ist ungültig"
@@ -925,7 +887,7 @@
 			"T_LABEL_START_DATE": "Anfangsdatum",
 			"T_LABEL_TYPE": "Typ",
 			"T_LABEL_ZOOM_LEVEL": "Zoomlevel",
-			"T_NAME_AND_COPYRIGHT": "#!#MAPEDITOR.TABLE_LIST.T_NAME_AND_COPYRIGHT",
+			"T_NAME_AND_DESCRIPTION": "Name - Beschreibung",
 			"T_TITLE": "Liste der verfügbaen Layer"
 		}
 	},
@@ -1472,6 +1434,7 @@
 			"T_TITLE": "Gruppe Chronologie"
 		},
 		"FIELD_CITY": {
+			"T_CHECK_MANDATORY": "Benutzer Stadt ist einen Pflichtfeld",
 			"T_CHECK_NOMATCH": "unbekannt Stadt",
 			"T_TITLE": "Stadt"
 		},
@@ -1510,6 +1473,7 @@
 			"T_TITLE": "Datenbank(en)"
 		},
 		"FIELD_DESCRIPTION": {
+			"T_CHECK_MANDATORY": "Beschreibung ist einen Pflichtfeld",
 			"T_TITLE": "Beschreibung"
 		},
 		"FIELD_EMAIL": {
@@ -1533,6 +1497,7 @@
 			"T_TITLE": "Name"
 		},
 		"FIELD_PASSWORD": {
+			"T_CHECK_INCORRECT": "Passwort Fehlerhaft",
 			"T_CHECK_LENGTH": "7 Zeichen minimum",
 			"T_CHECK_NOTSAME": "beide Passwörter müssen identisch sein",
 			"T_TITLE": "Passwort"
@@ -1545,6 +1510,7 @@
 		},
 		"FIELD_USERNAME": {
 			"T_CHECK_ALREADYEXISTS": "Dieser Benutzer existiert schon",
+			"T_CHECK_INCORRECT": "Benutzername Fehlerhaft",
 			"T_CHECK_MANDATORY": "Pflichtfeld",
 			"T_TITLE": "Benutzername"
 		},
@@ -1590,6 +1556,38 @@
 		"USERSLIST_ACTIVE": {
 			"T_FALSE": "nein",
 			"T_TRUE": "ja"
+		}
+	},
+	"USER_PREFERENCES": {
+		"BUTTON_SUBMIT": {
+			"T_LABEL": "#!#USER_PREFERENCES.BUTTON_SUBMIT.T_LABEL"
+		},
+		"FIELD_END_DATE": {
+			"T_LABEL": "#!#USER_PREFERENCES.FIELD_END_DATE.T_LABEL"
+		},
+		"FIELD_START_DATE": {
+			"T_LABEL": "#!#USER_PREFERENCES.FIELD_START_DATE.T_LABEL"
+		},
+		"INFORMATIONS": {
+			"T_TILE": "#!#USER_PREFERENCES.INFORMATIONS.T_TILE"
+		},
+		"INFORMATIONS_PERIOD_SELECTION": {
+			"T_LABEL": "#!#USER_PREFERENCES.INFORMATIONS_PERIOD_SELECTION.T_LABEL"
+		},
+		"INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA": {
+			"T_LABEL": "#!#USER_PREFERENCES.INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA.T_LABEL"
+		},
+		"INTERFACE_INFOS_USAGE": {
+			"T_LABEL": "#!#USER_PREFERENCES.INTERFACE_INFOS_USAGE.T_LABEL"
+		},
+		"TAB_CHRONOLOGIES": {
+			"T_LABEL": "#!#USER_PREFERENCES.TAB_CHRONOLOGIES.T_LABEL"
+		},
+		"TAB_DATABASES": {
+			"T_LABEL": "#!#USER_PREFERENCES.TAB_DATABASES.T_LABEL"
+		},
+		"TAB_MAPS": {
+			"T_LABEL": "#!#USER_PREFERENCES.TAB_MAPS.T_LABEL"
 		}
 	}
 }

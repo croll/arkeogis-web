@@ -193,48 +193,6 @@
 		"CONTEXT_RESEARCH_TEAM": {
 			"T_TITLE": "Équipe de recherche"
 		},
-		"EXPORT_AUTHORS": {
-			"T_HEADER": "#!#DATABASE.EXPORT_AUTHORS.T_HEADER"
-		},
-		"EXPORT_DESCRIPTION": {
-			"T_HEADER": "#!#DATABASE.EXPORT_DESCRIPTION.T_HEADER"
-		},
-		"EXPORT_END_DATE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_END_DATE.T_HEADER"
-		},
-		"EXPORT_GEOGRAPHICAL_EXTENT": {
-			"T_HEADER": "#!#DATABASE.EXPORT_GEOGRAPHICAL_EXTENT.T_HEADER"
-		},
-		"EXPORT_LANG": {
-			"T_HEADER": "#!#DATABASE.EXPORT_LANG.T_HEADER"
-		},
-		"EXPORT_LICENSE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_LICENSE.T_HEADER"
-		},
-		"EXPORT_LINES": {
-			"T_HEADER": "#!#DATABASE.EXPORT_LINES.T_HEADER"
-		},
-		"EXPORT_NAME": {
-			"T_HEADER": "#!#DATABASE.EXPORT_NAME.T_HEADER"
-		},
-		"EXPORT_SCALE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_SCALE.T_HEADER"
-		},
-		"EXPORT_SITES": {
-			"T_HEADER": "#!#DATABASE.EXPORT_SITES.T_HEADER"
-		},
-		"EXPORT_START_DATE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_START_DATE.T_HEADER"
-		},
-		"EXPORT_STATE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_STATE.T_HEADER"
-		},
-		"EXPORT_SUBJECT": {
-			"T_HEADER": "#!#DATABASE.EXPORT_SUBJECT.T_HEADER"
-		},
-		"EXPORT_TYPE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_TYPE.T_HEADER"
-		},
 		"GEOGRAPHICAL_EXTENT_CONTINENT": {
 			"T_TITLE": "Continent"
 		},
@@ -847,6 +805,9 @@
 		"FIELD_IDENTIFIER": {
 			"T_LABEL": "Identifiant du calque"
 		},
+		"FIELD_IMAGE_FORMAT": {
+			"T_LABEL": "Format d'image"
+		},
 		"FIELD_LICENSE": {
 			"T_HELP": "Licence associée",
 			"T_LABEL": "Nom de la licence"
@@ -871,9 +832,6 @@
 			"T_HELP": "Rendre le calque accessible aux utilisateurs",
 			"T_LABEL": "Publié"
 		},
-		"FIELD_ROOT_THEME": {
-			"T_LABEL": "#!#MAPEDITOR.FIELD_ROOT_THEME.T_LABEL"
-		},
 		"FIELD_SELECT_LAYER": {
 			"T_LABEL": "Choix du calque"
 		},
@@ -891,6 +849,10 @@
 		"MESSAGE": {
 			"T_DELETE_FAILED": "Suppression impossible",
 			"T_DELETE_OK": "Suppression réalisée"
+		},
+		"MESSAGE_GET_LAYER_LIST": {
+			"T_ERROR": "Récupération de la liste des calques",
+			"T_SUCCESS": "Liste des calques récupérée avec succès."
 		},
 		"MESSAGE_NOT_ZIP_FILE": {
 			"T_ERROR": "Le fichier envoyé n'est pas valide."
@@ -925,7 +887,7 @@
 			"T_LABEL_START_DATE": "Date de début",
 			"T_LABEL_TYPE": "Type",
 			"T_LABEL_ZOOM_LEVEL": "Niveaux de zoom",
-			"T_NAME_AND_COPYRIGHT": "#!#MAPEDITOR.TABLE_LIST.T_NAME_AND_COPYRIGHT",
+			"T_NAME_AND_DESCRIPTION": "Nom - description",
 			"T_TITLE": "Liste des calques disponibles"
 		}
 	},
@@ -1590,6 +1552,38 @@
 		"USERSLIST_ACTIVE": {
 			"T_FALSE": "non",
 			"T_TRUE": "oui"
+		}
+	},
+	"USER_PREFERENCES": {
+		"BUTTON_SUBMIT": {
+			"T_LABEL": "#!#USER_PREFERENCES.BUTTON_SUBMIT.T_LABEL"
+		},
+		"FIELD_END_DATE": {
+			"T_LABEL": "#!#USER_PREFERENCES.FIELD_END_DATE.T_LABEL"
+		},
+		"FIELD_START_DATE": {
+			"T_LABEL": "#!#USER_PREFERENCES.FIELD_START_DATE.T_LABEL"
+		},
+		"INFORMATIONS": {
+			"T_TILE": "#!#USER_PREFERENCES.INFORMATIONS.T_TILE"
+		},
+		"INFORMATIONS_PERIOD_SELECTION": {
+			"T_LABEL": "#!#USER_PREFERENCES.INFORMATIONS_PERIOD_SELECTION.T_LABEL"
+		},
+		"INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA": {
+			"T_LABEL": "#!#USER_PREFERENCES.INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA.T_LABEL"
+		},
+		"INTERFACE_INFOS_USAGE": {
+			"T_LABEL": "#!#USER_PREFERENCES.INTERFACE_INFOS_USAGE.T_LABEL"
+		},
+		"TAB_CHRONOLOGIES": {
+			"T_LABEL": "#!#USER_PREFERENCES.TAB_CHRONOLOGIES.T_LABEL"
+		},
+		"TAB_DATABASES": {
+			"T_LABEL": "#!#USER_PREFERENCES.TAB_DATABASES.T_LABEL"
+		},
+		"TAB_MAPS": {
+			"T_LABEL": "#!#USER_PREFERENCES.TAB_MAPS.T_LABEL"
 		}
 	}
 }
