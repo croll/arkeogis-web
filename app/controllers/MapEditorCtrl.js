@@ -75,6 +75,33 @@
 
     arkeoLang.autoSetTranslationLang2FromDatas([$scope.infos.translations.description, $scope.infos.translations.name]);
 
+    $scope.$watch('infos.url', function(url) {
+      if (!url || (url && url === '')) {
+        return;
+      }
+      if (url.indexOf('?') === -1) {
+        return url;
+      }
+      var queryString = url.split('?')[1];
+      if (!queryString) return;
+      var query = {};
+      var pairs = (queryString[0] === '?' ? queryString.substr(1) : queryString).split('&');
+      for (var i = 0; i < pairs.length; i++) {
+        var pair = pairs[i].split('=');
+        query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+      }
+      var finalUrl = '';
+      for (var prop in query) {
+        if (query.hasOwnProperty(prop)) {
+          var concatChar = (finalUrl === '') ? '?' : '&';
+          if (['REQUEST'].indexOf(prop.toUpperCase()) !== -1) continue;
+          finalUrl += concatChar + prop.toUpperCase() + '=' + query[prop];
+        }
+      }
+      $scope.infos.url = url.split('?')[0] + finalUrl;
+
+    }, true);
+
     $scope.$watch('infos.translations.name.en', function(newVal) {
       if (!newVal || (newVal && newVal === '')) {
         $scope.lang2SelectDisabled = true;
@@ -192,7 +219,6 @@
 
       $scope.showWMInputs = false;
 
-      if ($scope.infos.url.indexOf('?') === -1) {
       var service = ($scope.type === 'wms') ? eval('arkeoWMS') : eval('arkeoWMTS');
        var url = $scope.infos.url;
        if ($scope.infos.use_proxy && url.substring(0, 8) !== '/proxy/?') {
@@ -206,7 +232,6 @@
         }, function(err) {
           $scope.errorMsg = err.msg;
         });
-      }
 
     };
 

@@ -29,6 +29,8 @@
 
     var selectedImageFormat = null;
 
+    var d = $q.defer();
+
     this.setURL = function(url) {
       self.url = url;
     };
@@ -46,29 +48,49 @@
 
     this.parseCapabilities = function(fetchedServerCapabilities) {
 
-      var capabilities = fetchedServerCapabilities.WMS_Capabilities;
+      var capabilities;
 
-      var d = $q.defer();
+      for (var c in fetchedServerCapabilities) {
+        if (fetchedServerCapabilities.hasOwnProperty(c)) {
+          if (c.indexOf('Capabilities') !== -1) {
+            var capabilities = fetchedServerCapabilities[c];
+          }
+        }
+      }
+
+      if (!capabilities) {
+        d.reject(arkeoMapTiles.newError(3001, 'This server does not offer a capability object'));
+        return (d.promise)        
+      }
 
       // Check if server offer data in CRS:3857
 
-      var foundCRS3857 = false;
+      var found3857 = false;
 
       var crsList = arkeoMapTiles.getAsArray(capabilities.Capability.Layer.CRS);
+      var srsList = arkeoMapTiles.getAsArray(capabilities.Capability.Layer.SRS);
 
-      if (!angular.isArray(crsList)) {
-        d.reject(arkeoMapTiles.newError(3001, 'This server does not offert a list of valid CRS'));
+      /*if (!angular.isArray(crsList) || crsList.lenght == 0) {
         return d.promise;
-      }
+      }*/
 
       crsList.forEach(function(crs) {
         if (crs.match(/3857/)) {
-          foundCRS3857 = true;
+          found3857 = true;
         }
       });
 
-      if (!foundCRS3857) {
-        d.reject(arkeoMapTiles.newError(3002, 'This server does not offert maps with EPSG:3857 CRS'));
+      srsList.forEach(function(srs) {
+        if (srs.match(/3857/)) {
+          found3857 = true;
+        }
+      });
+
+
+
+
+      if (!found3857) {
+        d.reject(arkeoMapTiles.newError(3002, 'This server does not offers maps with EPSG:3857 CRS'));
         return d.promise;
       }
 
@@ -198,8 +220,7 @@
 
       var b;
       boundingBox.forEach(function(bbox) {
-				var crs = bbox._CRS.toLowerCase();
-        //if (bbox._CRS.match(/P4326/)) {
+        var crs = (bbox._CRS) ? bbox._CRS.toLowerCase() : bbox._SRS.toLowerCase();
 				if (crs == 'epsg:4326') {
           b = arkeoMap.getValidBoundingBox(bbox._minx, bbox._maxy, bbox._maxx, bbox._miny);
 				} else if (crs == 'crs:84') {

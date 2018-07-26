@@ -27,11 +27,16 @@
 
     this.getCapabilities = function(protocol, url) {
       var d = $q.defer();
-      var request = (protocol.toLowerCase() === 'wms') ? '?request=GetCapabilities&service=WMS&version=1.3.0' : '?request=GetCapabilities&SERVICE=WMTS&version=1.0.0';
+      var finalUrl = '';
+      if (url.indexOf('?') === -1) {
+        finalUrl = url + (protocol.toLowerCase() === 'wms') ? '?request=GetCapabilities&service=WMS&version=1.3.0' : '?request=GetCapabilities&SERVICE=WMTS&version=1.0.0';
+      } else {
+        finalUrl = url + '&REQUEST=GetCapabilities'; 
+      }
       if (!url) {
         d.reject();
       } else {
-        $http.get(url+request).then(function(res) {
+        $http.get(finalUrl).then(function(res) {
           var capas = x2js.xml_str2json(res.data);
           if (!capas) {
             d.reject(self.newError(2001, 'Unable to parse XML capabilities'));
