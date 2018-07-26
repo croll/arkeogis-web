@@ -128,8 +128,8 @@
 
 (function() {
     'use strict';
-    ArkeoGIS.controller('DatabaseListCtrl', ['$scope', '$http', '$filter', 'databaseDefinitions', 'translations', 'isAdmin', 'arkeoLang',
-        function($scope, $http, $filter, databaseDefinitions, translations, isAdmin, arkeoLang) {
+    ArkeoGIS.controller('DatabaseListCtrl', ['$scope', '$http', '$filter', 'databaseDefinitions', 'translations', 'isAdmin', 'arkeoLang', 'arkeoDownload',
+        function($scope, $http, $filter, databaseDefinitions, translations, isAdmin, arkeoLang, arkeoDownload) {
 
             $scope.isAdmin = isAdmin;
 
@@ -164,32 +164,9 @@
             });
 
             $scope.downloadCSV = function() {
-                var csv = 'LANG;NAME;AUTHORS;SUBJET;TYPE;LINES;SITES;SCALE;START_DATE;END_DATE;STATE;GEOGRAPHICAL_EXTENT;LICENSE;DESCRIPTION\n';
-                angular.forEach(angular.copy($scope.databases), function(db) {
-        		    if (typeof(db.subject) != 'undefined') {
-                  db.subject = db.subject.replace(/"/g, '""');
-        		    } else {
-        			    db.subject = '';
-        		    }
-        		    if (typeof(db.description) != 'undefined') {
-                 	db.description.replace(/"/g, '""');
-        		    } else {
-        			    db.description = '';
-        		    }
-                csv += '"' + db.default_language + '";"' + db.name + '";"' + db.authors + '";"' + db.subject + '";"' + db.type + '";' + db.number_of_lines + ';' + db.number_of_sites + ';"' + db.scale_resolution + '";' + db.start_date + ';' + db.end_date + ';"' + db.state + '";"' + db.geographical_extent + '";"' + db.license + '";"' + db.description + '"\n';
+                $http.get('/api/database/export', {},  {responseType: 'blob'}).then(function(response){
+                    arkeoDownload.openAsFile(response);
                 });
-                var blob = new Blob([csv], {type: "text/csv"});
-                var event = new MouseEvent('click', {
-                  'view': window,
-                    'bubbles': true,
-                    'cancelable': true
-                  });
-                var hiddenElement = document.createElement('a');
-                 hiddenElement.href = URL.createObjectURL(blob);
-                 hiddenElement.target = '_blank';
-                 hiddenElement.download = 'databases.csv';
-                 console.log(blob);
-                hiddenElement.dispatchEvent(event);
             }
 
             $scope.filter = {
