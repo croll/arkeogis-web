@@ -142,10 +142,10 @@
     $scope.showWMInputs = false;
 
 		// debug
-		$scope.type = 'wms';
+    // $scope.type = 'wms';
 		//$scope.infos.url = 'https://www.cigalsace.org/geoserver/PAIR/ows';
 		//$scope.infos.url = 'https://www.cigalsace.org/geoserver/ARAA/ows';
-		$scope.infos.url = 'http://geoservices.crige-paca.org/geoserver/cd84/wms';
+    // $scope.infos.url = 'http://geoservices.crige-paca.org/geoserver/cd84/wms';
 		// debug
 
     $scope.selectLayer = function(layer) {
