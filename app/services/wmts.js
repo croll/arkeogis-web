@@ -47,7 +47,20 @@
 
     this.parseCapabilities = function(fetchedServerCapabilities) {
 
-      var capabilities = fetchedServerCapabilities.Capabilities;
+      var capabilities;
+
+      for (var c in fetchedServerCapabilities) {
+        if (fetchedServerCapabilities.hasOwnProperty(c)) {
+          if (c.indexOf('Capabilities') !== -1) {
+            var capabilities = fetchedServerCapabilities[c];
+          }
+        }
+      }
+
+      if (!capabilities) {
+        d.reject(arkeoMapTiles.newError(3001, 'This server does not offer a capability object'));
+        return (d.promise)        
+      }
 
       var d = $q.defer();
 
