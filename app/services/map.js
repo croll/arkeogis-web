@@ -73,10 +73,9 @@
                                 id: 'isawnyu.map-knmctlkh',
                                 accessToken: 'pk.eyJ1IjoiaXNhd255dSIsImEiOiJBWEh1dUZZIn0.SiiexWxHHESIegSmW8wedQ'
                             }),
-
-                            "Google Roadmap": new L.Google('ROADMAP'),
-                            "Google Sat": new L.Google('SATELLITE'),
-                            "Google Terrain": new L.Google('TERRAIN')
+                            "NASA GIBS Sat": new L.GIBSLayer('BlueMarble_ShadedRelief_Bathymetry', {
+                              transparent: false 
+                            }),
                         }
                     }]
                 };
@@ -180,21 +179,6 @@
             },
             layers: {
                 baselayers: {
-                    osm: {
-                        name: 'OpenStreetMap',
-                        url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                        type: 'xyz'
-                    },
-                    googleHybrid: {
-                        name: 'Google Hybrid',
-                        layerType: 'HYBRID',
-                        type: 'google'
-                    },
-                    googleRoadmap: {
-                        name: 'Google Streets',
-                        layerType: 'ROADMAP',
-                        type: 'google'
-                    }
                 },
                 overlays: {}
             },
