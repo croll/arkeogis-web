@@ -76,6 +76,50 @@
             id: 'undefined'
         }]};
 
+        this.definitions.databaseExportHeaders = [{
+            tr: 'DATABASE.EXPORT_LANG.T_HEADER',
+            id: 'LANG'
+        }, {
+            tr: 'DATABASE.EXPORT_NAME.T_HEADER',
+            id: 'NAME'
+        }, {
+            tr: 'DATABASE.EXPORT_AUTHORS.T_HEADER',
+            id: 'AUTHORS'
+        }, {
+            tr: 'DATABASE.EXPORT_SUBJECT.T_HEADER',
+            id: 'SUBJECT'
+        }, {
+            tr: 'DATABASE.EXPORT_TYPE.T_HEADER',
+            id: 'TYPE'
+        }, {
+            tr: 'DATABASE.EXPORT_LINES.T_HEADER',
+            id: 'LINES'
+        }, {
+            tr: 'DATABASE.EXPORT_SITES.T_HEADER',
+            id: 'SITES'
+        }, {
+            tr: 'DATABASE.EXPORT_SCALE.T_HEADER',
+            id: 'SCALE'
+        }, {
+            tr: 'DATABASE.EXPORT_START_DATE.T_HEADER',
+            id: 'START_DATE'
+        }, {
+            tr: 'DATABASE.EXPORT_END_DATE.T_HEADER',
+            id: 'END_DATE'
+        }, {
+            tr: 'DATABASE.EXPORT_STATE.T_HEADER',
+            id: 'STATE'
+        }, {
+            tr: 'DATABASE.EXPORT_GEOGRAPHICAL_EXTENT.T_HEADER',
+            id: 'GEOGRAPHICAL_EXTENT'
+        }, {
+            tr: 'DATABASE.EXPORT_LICENSE.T_HEADER',
+            id: 'LICENSE'
+        }, {
+            tr: 'DATABASE.EXPORT_DESCRIPTION.T_HEADER',
+            id: 'DESCRIPTION'
+        }];
+
         this.definitions.scaleResolutions = [{
             tr: 'DATABASE.SCALE_RESOLUTION_OBJECT.T_TITLE',
             id: 'object'
