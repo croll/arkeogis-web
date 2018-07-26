@@ -194,46 +194,46 @@
 			"T_TITLE": "Équipe de recherche"
 		},
 		"EXPORT_AUTHORS": {
-			"T_HEADER": "#!#DATABASE.EXPORT_AUTHORS.T_HEADER"
+			"T_HEADER": "Auteurs"
 		},
 		"EXPORT_DESCRIPTION": {
-			"T_HEADER": "#!#DATABASE.EXPORT_DESCRIPTION.T_HEADER"
+			"T_HEADER": "Description"
 		},
 		"EXPORT_END_DATE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_END_DATE.T_HEADER"
+			"T_HEADER": "Date fin"
 		},
 		"EXPORT_GEOGRAPHICAL_EXTENT": {
-			"T_HEADER": "#!#DATABASE.EXPORT_GEOGRAPHICAL_EXTENT.T_HEADER"
+			"T_HEADER": "Étendue géographique"
 		},
 		"EXPORT_LANG": {
-			"T_HEADER": "#!#DATABASE.EXPORT_LANG.T_HEADER"
+			"T_HEADER": "Langue"
 		},
 		"EXPORT_LICENSE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_LICENSE.T_HEADER"
+			"T_HEADER": "Licence"
 		},
 		"EXPORT_LINES": {
-			"T_HEADER": "#!#DATABASE.EXPORT_LINES.T_HEADER"
+			"T_HEADER": "Lignes"
 		},
 		"EXPORT_NAME": {
-			"T_HEADER": "#!#DATABASE.EXPORT_NAME.T_HEADER"
+			"T_HEADER": "Nom"
 		},
 		"EXPORT_SCALE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_SCALE.T_HEADER"
+			"T_HEADER": "Échelle"
 		},
 		"EXPORT_SITES": {
-			"T_HEADER": "#!#DATABASE.EXPORT_SITES.T_HEADER"
+			"T_HEADER": "Sites"
 		},
 		"EXPORT_START_DATE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_START_DATE.T_HEADER"
+			"T_HEADER": "Date début"
 		},
 		"EXPORT_STATE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_STATE.T_HEADER"
+			"T_HEADER": "Etat"
 		},
 		"EXPORT_SUBJECT": {
-			"T_HEADER": "#!#DATABASE.EXPORT_SUBJECT.T_HEADER"
+			"T_HEADER": "Sujet"
 		},
 		"EXPORT_TYPE": {
-			"T_HEADER": "#!#DATABASE.EXPORT_TYPE.T_HEADER"
+			"T_HEADER": "Type"
 		},
 		"GEOGRAPHICAL_EXTENT_CONTINENT": {
 			"T_TITLE": "Continent"
