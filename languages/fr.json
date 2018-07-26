@@ -925,7 +925,7 @@
 			"T_LABEL_START_DATE": "Date de début",
 			"T_LABEL_TYPE": "Type",
 			"T_LABEL_ZOOM_LEVEL": "Niveaux de zoom",
-			"T_NAME_AND_COPYRIGHT": "#!#MAPEDITOR.TABLE_LIST.T_NAME_AND_COPYRIGHT",
+			"T_NAME_AND_COPYRIGHT": "Nom et Éditeur",
 			"T_TITLE": "Liste des calques disponibles"
 		}
 	},

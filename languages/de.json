@@ -925,7 +925,7 @@
 			"T_LABEL_START_DATE": "Anfangsdatum",
 			"T_LABEL_TYPE": "Typ",
 			"T_LABEL_ZOOM_LEVEL": "Zoomlevel",
-			"T_NAME_AND_COPYRIGHT": "#!#MAPEDITOR.TABLE_LIST.T_NAME_AND_COPYRIGHT",
+			"T_NAME_AND_COPYRIGHT": "Name und Herausgeber",
 			"T_TITLE": "Liste der verfügbaen Layer"
 		}
 	},
