@@ -67,6 +67,13 @@
                             "OpenTopoMap": new L.TileLayer('http://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
                                 attribution: '<a href="http://opentopomap.org/credits">OpenTopoMap</a>'
                             }),
+                            "AWMC Map Tiles": new L.TileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiaXNhd255dSIsImEiOiJBWEh1dUZZIn0.SiiexWxHHESIegSmW8wedQ', {
+                                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                                maxZoom: 10,
+                                id: 'isawnyu.map-knmctlkh',
+                                accessToken: 'pk.eyJ1IjoiaXNhd255dSIsImEiOiJBWEh1dUZZIn0.SiiexWxHHESIegSmW8wedQ'
+                            }),
+
                             "Google Roadmap": new L.Google('ROADMAP'),
                             "Google Sat": new L.Google('SATELLITE'),
                             "Google Terrain": new L.Google('TERRAIN')
