@@ -28,8 +28,8 @@
     this.getCapabilities = function(protocol, url) {
       var d = $q.defer();
       var finalUrl = '';
-      if (url.indexOf('?') === -1) {
-        finalUrl = url + (protocol.toLowerCase() === 'wms') ? '?request=GetCapabilities&service=WMS&version=1.3.0' : '?request=GetCapabilities&SERVICE=WMTS&version=1.0.0';
+      if (url.replace('/proxy/?', '').indexOf('?') === -1) {
+        finalUrl = url + ((protocol.toLowerCase() === 'wms') ? '?request=GetCapabilities&service=WMS&version=1.3.0' : '?request=GetCapabilities&SERVICE=WMTS&version=1.0.0');
       } else {
         finalUrl = url + '&REQUEST=GetCapabilities'; 
       }

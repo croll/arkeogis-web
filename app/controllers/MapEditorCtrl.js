@@ -215,6 +215,7 @@
 
     $scope.getLayers = function() {
 
+      removeAllLayers();
       $scope.remoteServerThemes = [];
 
       $scope.showWMInputs = false;
@@ -224,7 +225,7 @@
        if ($scope.infos.use_proxy && url.substring(0, 8) !== '/proxy/?') {
          url = '/proxy/?'+url;
        }
-        service.getCapabilities(url).then(function(capas) {
+        service.getCapabilities(url).then(function(capas, err) {
           $scope.attribution = capas.abstract || capas.title;
 					$scope.infos.attribution = $scope.attribution || $scope.infos.attribution;
           $scope.remoteServerThemes = capas.content;
@@ -418,9 +419,20 @@
     }
 
     function setWMSPreview() {
+
       setTimeout(function() {
         var url = ($scope.infos.use_proxy) ? '/proxy/?'+$scope.infos.url : $scope.infos.url;
-        $scope.layers.overlays.preview = {
+
+        var preview = L.tileLayer.wms(url, {
+          layers: $scope.selectedLayer.identifier,
+          tiled: true,
+          format: 'image/png',
+          transparent: true,
+          continuousWorld: true
+        });
+
+        /*
+        var preview = L.tileLayer(url, {
           name: $scope.selectedLayer.identifier,
           type: 'wms',
           url: url,
@@ -430,8 +442,14 @@
             format: $scope.infos.image_format,
             opacity: 0.70
           }
-        };
+        });
+        var toBeMerged = {overlays: {preview: preview}};
+
+        $scope.layers = angular.merge($scope.layers, toBeMerged);
+        */
+
         leafletData.getMap().then(function(map) {
+          map.addLayer(preview);
           $scope.infos.geographical_extent_geom = L.rectangle($scope.selectedLayer.bounding_box).toGeoJSON().geometry;
           map.fitBounds($scope.selectedLayer.bounding_box);
         });
@@ -513,7 +531,6 @@
 					layer.copyright = arkeoLang.getMappedTranslation(layer.copyright);
 					layer.description = arkeoLang.getMappedTranslation(layer.description);
 				});
-       // Add key to enable reorder in list
     }, function(errorCode) {
       console.error("ERROR CODE: "+errorCode);
     });

@@ -70,8 +70,6 @@
         d.reject(arkeoMapTiles.newError(2003, exception));
       } else {
 
-        console.log(capabilities);
-
         var tms = processTileMatrixSets(capabilities.Contents.TileMatrixSet);
 
         if (!tms) {

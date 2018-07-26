@@ -29,8 +29,6 @@
 
     var selectedImageFormat = null;
 
-    var d = $q.defer();
-
     this.setURL = function(url) {
       self.url = url;
     };
@@ -49,6 +47,7 @@
     this.parseCapabilities = function(fetchedServerCapabilities) {
 
       var capabilities;
+      var d = $q.defer();
 
       for (var c in fetchedServerCapabilities) {
         if (fetchedServerCapabilities.hasOwnProperty(c)) {
@@ -86,9 +85,6 @@
         }
       });
 
-
-
-
       if (!found3857) {
         d.reject(arkeoMapTiles.newError(3002, 'This server does not offers maps with EPSG:3857 CRS'));
         return d.promise;
@@ -97,6 +93,8 @@
       // Image format
       var formats = arkeoMapTiles.getAsArray(capabilities.Capability.Request.GetMap.Format);
 
+
+      
       formats.forEach(function(imageFormat) {
         // Prefer png imgage
         if (imageFormat.match(/png/)) {
@@ -196,10 +194,8 @@
 
       _getLayerRecursive(capabilities.Capability.Layer, serverCapabilities.content.theme);
 
-      // console.log(serverCapabilities);
-
+      //console.log("%c retour", "background: yellow", serverCapabilities);
       d.resolve(serverCapabilities);
-
       return d.promise;
     };
 
@@ -227,13 +223,13 @@
           b = arkeoMap.getValidBoundingBox(bbox._maxy, bbox._maxx, bbox._miny, bbox._miny);
           return;
         } else {
-					console.error("The layer "+layer.title+" does not offer CRS:84 or WGS84 projection. Skipping");
+					console.warn("The layer "+layer.title+" does not offer CRS:84 or WGS84 projection. Skipping");
 					return;
 				}
       });
 
       if (!b) {
-        console.error("No bounding box found for layer "+layer.title);
+        console.warn("No bounding box found for layer "+layer.title);
         return null;
       } else {
         layer.bounding_box = b;
