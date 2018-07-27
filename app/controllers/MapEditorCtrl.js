@@ -181,9 +181,10 @@
         // $scope.infos.url = 'http://ogc.bgs.ac.uk/cgi-bin/BGS_GSI_EN_Bedrock_and_Structural_Geology/ows';
         $scope.infos.url = 'https://www.cigalsace.org/geoserver/cigal/ows';
       } else if ($scope.type === 'wmts') {
-      //  $scope.infos.url = 'http://wxs.ign.fr/b648puasvhkm1f46dk8hft4i/wmts';
       //    $scope.infos.url = 'https://www.cigalsace.org/geoserver/gwc/service/wmts';
-          $scope.infos.url = 'https://wxs.ign.fr/bfmer9u7qh0mmhdyqj2z0wst/geoportail/wmts';
+          //$scope.infos.url = 'https://wxs.ign.fr/bfmer9u7qh0mmhdyqj2z0wst/geoportail/wmts';
+          //$scope.infos.url = 'https://wxs.ign.fr/bfmer9u7qh0mmhdyqj2z0wst/geoportail/wmts';
+          $scope.infos.url = 'https://wxs.ign.fr/b648puasvhkm1f46dk8hft4i/geoportail/wmts';
       }
       if ($scope.geojsonLayer) {
         leafletData.getMap().then(function(map) {
