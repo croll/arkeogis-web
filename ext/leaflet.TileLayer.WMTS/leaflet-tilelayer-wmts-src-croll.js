@@ -46,7 +46,6 @@ L.TileLayer.WMTS = L.TileLayer.extend({
         tilewidth = se.x-nw.x;
         //zoom = this._map.getZoom();
         var ident = this.matrixIds[zoom].identifier;
-	console.log(this._url);
 	if (this._url.indexOf('ign.fr') !== -1) {
         	var tilematrix = ident;
 	} else {

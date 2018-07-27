@@ -102,7 +102,6 @@
 						hack_inhibit_watch_params = true;
 						$scope.params = angular.copy(new_query.params);
 					} else {
-						console.log("helllllllllllooo !!! am i really here !?")
 						$scope.params = new_query.params;
 					}
 				}
