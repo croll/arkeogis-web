@@ -247,10 +247,10 @@
 
       var outp = [];
 
-      tileMatrixString.split(',').forEach(function(id) {
+      tileMatrixString.split(',').forEach(function(id, i) {
 
         outp.push({
-          identifier: id,
+          identifier: i,
           topLeftCorner : new L.LatLng(20037508.3428,-20037508.3428)
         });
 
