@@ -50,7 +50,7 @@
       $scope.selectedLayer.title = $filter('arkTranslate')(layer.translations.name);
 
 			// Force proxy
-			$scope.infos.use_proxy = true;
+      // $scope.infos.use_proxy = true;
 
       if (angular.isDefined(layer.geographical_extent_geom.coordinates)) {
         $scope.selectedLayer.bounding_box = L.geoJson(layer.geographical_extent_geom).getBounds();
@@ -183,7 +183,7 @@
       } else if ($scope.type === 'wmts') {
       //  $scope.infos.url = 'http://wxs.ign.fr/b648puasvhkm1f46dk8hft4i/wmts';
       //    $scope.infos.url = 'https://www.cigalsace.org/geoserver/gwc/service/wmts';
-          $scope.infos.url = 'https://wxs.ign.fr/bfmer9u7qh0mmhdyqj2z0wst/wmts>';
+          $scope.infos.url = 'https://wxs.ign.fr/bfmer9u7qh0mmhdyqj2z0wst/wmts';
       }
       if ($scope.geojsonLayer) {
         leafletData.getMap().then(function(map) {
