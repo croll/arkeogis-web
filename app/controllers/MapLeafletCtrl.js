@@ -112,22 +112,24 @@
             instance: instance
           };
         } else if (layer.type == 'wms') {
-          l = {
-            name: $filter('arkTranslate')(layer.name),
-            type: 'wms',
-            instance: L.tileLayer.wms(url, {
+	  var instanceObj = {
               minZoom: layer.min_scale,
               attribution: $filter('arkTranslate')(layer.attribution),
               format: layer.image_format,
               layers: layer.identifier,
 	      transparent: true
-            })
-          };
-        } else if (layer.type == 'wmts') {
+            };
+	  if (layer.max_scale) {
+	    instanceObj.maxZoom = layer.max_scale;
+	  }
           l = {
             name: $filter('arkTranslate')(layer.name),
-            type: 'wmts',
-            instance: new L.TileLayer.WMTS(url, {
+            type: 'wms',
+            instance: L.tileLayer.wms(url, instanceObj)
+          };
+        } else if (layer.type == 'wmts') {
+
+	  var instanceObj = {
               layer: layer.identifier,
               style: "normal",
               tilematrixSet: layer.tile_matrix_set,
@@ -136,13 +138,16 @@
               attribution: $filter('arkTranslate')(layer.attribution),
               minZoom: layer.min_scale,
 	      transparent: true
-            })
+            };
+	  if (layer.max_scale) {
+	    instanceObj.maxZoom = layer.max_scale;
+	  }
+          l = {
+            name: $filter('arkTranslate')(layer.name),
+            type: 'wmts',
+            instance: new L.TileLayer.WMTS(url, instanceObj)
           };
         }
-
-	if (layer.max_scale) {
-		l.maxZoom = layer.max_scale;
-	}
 
         return l;
       }
