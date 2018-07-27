@@ -125,8 +125,7 @@ L.Control.QueriesOld = L.Control.Layers.extend({
 		} else {
 			this._expand();
 		}
-
-        var titleContainer = L.DomUtil.create('div', 'className' + '-base', form);
+var titleContainer = L.DomUtil.create('div', 'className' + '-base', form);
         titleContainer.innerHTML = "<a style='padding: 3px'>"+this.options.title+"</a>";
         L.DomEvent
             .addListener(titleContainer, 'click', L.DomEvent.stopPropagation)
@@ -202,7 +201,6 @@ L.Control.Queries = L.Control.Layers.extend({
 	},
 
 	_addItem: function (obj) {
-        console.log(obj);
 		var label = document.createElement('label'),
 		    input,
 		    checked = this._map.hasLayer(obj.layer);

@@ -117,10 +117,10 @@
             type: 'wms',
             instance: L.tileLayer.wms(url, {
               minZoom: layer.min_scale,
-              maxZoom: layer.max_scale,
               attribution: $filter('arkTranslate')(layer.attribution),
               format: layer.image_format,
-              layers: layer.identifier
+              layers: layer.identifier,
+	      transparent: true
             })
           };
         } else if (layer.type == 'wmts') {
@@ -135,10 +135,14 @@
               format: layer.image_format,
               attribution: $filter('arkTranslate')(layer.attribution),
               minZoom: layer.min_scale,
-              maxZoom: layer.max_scale,
+	      transparent: true
             })
           };
         }
+
+	if (layer.max_scale) {
+		l.maxZoom = layer.max_scale;
+	}
 
         return l;
       }
