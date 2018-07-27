@@ -183,7 +183,7 @@
       } else if ($scope.type === 'wmts') {
       //  $scope.infos.url = 'http://wxs.ign.fr/b648puasvhkm1f46dk8hft4i/wmts';
       //    $scope.infos.url = 'https://www.cigalsace.org/geoserver/gwc/service/wmts';
-          $scope.infos.url = 'https://wxs.ign.fr/bfmer9u7qh0mmhdyqj2z0wst/wmts';
+          $scope.infos.url = 'https://wxs.ign.fr/bfmer9u7qh0mmhdyqj2z0wst/geoportail/wmts';
       }
       if ($scope.geojsonLayer) {
         leafletData.getMap().then(function(map) {
@@ -465,7 +465,7 @@
           style: "normal",
           format: $scope.infos.image_format,
           tilematrixSet: $scope.selectedLayer.tile_matrix_set,
-          matrixIds: arkeoWMTS.formatTileMatrixStringForLeaflet($scope.selectedLayer.tile_matrix_string),
+          //matrixIds: arkeoWMTS.formatTileMatrixStringForLeaflet($scope.selectedLayer.tile_matrix_string),
           opacity: 0.70
         });
 
