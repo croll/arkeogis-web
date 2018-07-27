@@ -179,6 +179,11 @@
             },
             layers: {
                 baselayers: {
+                    osm: {
+                        name: 'OpenStreetMap',
+                        url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                        type: 'xyz'
+                    },
                 },
                 overlays: {}
             },
