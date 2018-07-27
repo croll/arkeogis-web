@@ -50,7 +50,7 @@
       $scope.selectedLayer.title = $filter('arkTranslate')(layer.translations.name);
 
 			// Force proxy
-      // $scope.infos.use_proxy = true;
+      $scope.infos.use_proxy = true;
 
       if (angular.isDefined(layer.geographical_extent_geom.coordinates)) {
         $scope.selectedLayer.bounding_box = L.geoJson(layer.geographical_extent_geom).getBounds();
