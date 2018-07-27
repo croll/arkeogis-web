@@ -200,10 +200,10 @@
 			"T_HEADER": "Description"
 		},
 		"EXPORT_END_DATE": {
-			"T_HEADER": "End Date"
+			"T_HEADER": "End"
 		},
 		"EXPORT_GEOGRAPHICAL_EXTENT": {
-			"T_HEADER": "Geographical Extent"
+			"T_HEADER": "Coverage"
 		},
 		"EXPORT_LANG": {
 			"T_HEADER": "Lang"
@@ -224,13 +224,13 @@
 			"T_HEADER": "Sites"
 		},
 		"EXPORT_START_DATE": {
-			"T_HEADER": "Start Date"
+			"T_HEADER": "Start"
 		},
 		"EXPORT_STATE": {
 			"T_HEADER": "State"
 		},
 		"EXPORT_SUBJECT": {
-			"T_HEADER": "Subject"
+			"T_HEADER": "Subjects, Key-words"
 		},
 		"EXPORT_TYPE": {
 			"T_HEADER": "Type"
@@ -878,7 +878,7 @@
 			"T_LABEL": "Layer's choice"
 		},
 		"FIELD_START_DATE": {
-			"T_LABEL": "Starting date"
+			"T_LABEL": "Start date"
 		},
 		"FIELD_WMS_URL": {
 			"T_LABEL": "URL of the WMS layer"
@@ -920,9 +920,9 @@
 			"T_LABEL_AUTHOR": "Author",
 			"T_LABEL_CREATION_DATE": "Creation's date",
 			"T_LABEL_DESCRIPTION": "Description",
-			"T_LABEL_END_DATE": "Ending date",
+			"T_LABEL_END_DATE": "End date",
 			"T_LABEL_PUBLISHED": "Published",
-			"T_LABEL_START_DATE": "Starting date",
+			"T_LABEL_START_DATE": "Start date",
 			"T_LABEL_TYPE": "Type",
 			"T_LABEL_ZOOM_LEVEL": "Zoom level",
 			"T_NAME_AND_COPYRIGHT": "Name and Publisher",
