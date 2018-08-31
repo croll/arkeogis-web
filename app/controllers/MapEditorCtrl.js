@@ -255,7 +255,7 @@
       if (!file) {
         return;
       }
-      if (file.type.indexOf('zip') !== -1) {
+      if (file.type.indexOf('zip') === -1) {
         arkeoService.showMessage('MAPEDITOR.MESSAGE_NOT_ZIP_FILE.T_ERROR', 'error');
         return;
       }
@@ -278,6 +278,7 @@
             arkeoService.showMessage('MAPEDITOR.MESSAGE_SHP_LOADING.T_ERROR', 'error');
           });
         }, function(err) {
+		console.log("ICI");
             console.error(err);
           arkeoService.showMessage('MAPEDITOR.MESSAGE_SHP_LOADING.T_ERROR', 'error');
         });
