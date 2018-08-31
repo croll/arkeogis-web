@@ -184,7 +184,8 @@
       //    $scope.infos.url = 'https://www.cigalsace.org/geoserver/gwc/service/wmts';
           //$scope.infos.url = 'https://wxs.ign.fr/bfmer9u7qh0mmhdyqj2z0wst/geoportail/wmts';
           //$scope.infos.url = 'https://wxs.ign.fr/bfmer9u7qh0mmhdyqj2z0wst/geoportail/wmts';
-          $scope.infos.url = 'https://wxs.ign.fr/b648puasvhkm1f46dk8hft4i/geoportail/wmts';
+          //$scope.infos.url = 'https://wxs.ign.fr/b648puasvhkm1f46dk8hft4i/geoportail/wmts';
+          $scope.infos.url = 'https://wxs.ign.fr/gz9mb711t1smlzutpqiu87zc/geoportail/wmts';
       }
       if ($scope.geojsonLayer) {
         leafletData.getMap().then(function(map) {
