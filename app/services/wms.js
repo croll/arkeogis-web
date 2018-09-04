@@ -223,7 +223,7 @@
           b = arkeoMap.getValidBoundingBox(bbox._maxy, bbox._maxx, bbox._miny, bbox._miny);
           return;
         } else {
-					console.warn("The layer "+layer.title+" does not offer CRS:84 or WGS84 projection. Skipping");
+					console.warn("The layer "+layer.title+" does not offer CRS:84 or WGS84 projection. Skipping. EPSG: ", crs);
 					return;
 				}
       });
