@@ -920,13 +920,13 @@
 			"T_LABEL_AUTHOR": "Auteur",
 			"T_LABEL_CREATION_DATE": "Date de création",
 			"T_LABEL_DESCRIPTION": "Description",
-			"T_LABEL_END_DATE": "Date de fin",
+			"T_LABEL_END_DATE": "Fin",
 			"T_LABEL_PUBLISHED": "Publié",
-			"T_LABEL_START_DATE": "Date de début",
+			"T_LABEL_START_DATE": "Début",
 			"T_LABEL_TYPE": "Type",
-			"T_LABEL_ZOOM_LEVEL": "Niveaux de zoom",
+			"T_LABEL_ZOOM_LEVEL": "Zoom",
 			"T_NAME_AND_COPYRIGHT": "Nom et Éditeur",
-			"T_TITLE": "Liste des calques disponibles"
+			"T_TITLE": "Liste des couches disponibles"
 		}
 	},
 	"MAPQUERY": {
