@@ -460,3 +460,8 @@ arkeo-popup {
   color: #333;
   font: 11px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
+
+
+.leaflet-pane {
+    z-index: 0;
+}
