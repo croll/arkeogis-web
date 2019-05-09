@@ -421,18 +421,18 @@ arkeo-popup {
 }
 
 .ac-container {
-  width: 300px!important;
+  width: 300px !important;
   .section-label {
     display: block;
     min-width: 280px;
   }
 
   .group-buttons-container {
-      text-align: left;
-      padding-top: 0;
-      padding-bottom: 0;
-      margin-top: -5px;
-      margin-bottom: 8px;
+    text-align: left;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: -5px;
+    margin-bottom: 8px;
   }
 
   .section-label:after,
@@ -449,6 +449,77 @@ arkeo-popup {
     transform: rotate(45deg);
     -webkit-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
+  }
+}
+
+// Style checkbox / radio
+.leaflet-control-layers-base article > div,
+.leaflet-control-layers-overlays article > div {
+  input[type="radio"] + label,
+  input[type="checkbox"] + label {
+    display: block;
+    margin: 5px 0 5px 3px;
+    cursor: pointer;
+  }
+
+  input[type="radio"],
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  input[type="radio"] + label,
+  input[type="checkbox"] + label {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  input[type="radio"] + label:before,
+  input[type="checkbox"] + label:before {
+    content: "\2714";
+    border: 2px solid rgba(0, 0, 0, 0.54);
+    border-radius: 0.2em;
+    display: inline-flex;
+    width: 12px;
+    height: 12px;
+    padding-top: 1px;
+    padding-left: 1px;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0.4em;
+    color: transparent;
+    transition: 0.2s;
+  }
+
+  input[type="radio"] + label:before {
+    height: 0.85em;
+    border-radius: 50%;
+  }
+
+  input[type="radio"] + label:active:before,
+  input[type="checkbox"] + label:active:before {
+    transform: scale(0);
+  }
+
+  input[type="radio"]:checked + label:before,
+  input[type="checkbox"]:checked + label:before {
+    background-color: orange;
+    border-color: orange;
+    color: #000;
+  }
+
+  input[type="radio"]:disabled + label:before,
+  input[type="checkbox"]:disabled + label:before {
+    transform: scale(1);
+    border-color: #aaa;
+  }
+
+  input[type="radio"]:checked:disabled + label:before,
+  input[type="checkbox"]:checked:disabled + label:before {
+    transform: scale(1);
+    border-color: orange;
+    color: #000;
+    opacity: 0.6;
   }
 }
 
