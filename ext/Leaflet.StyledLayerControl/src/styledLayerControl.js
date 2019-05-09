@@ -485,40 +485,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
 
             groupContainer.innerHTML = inputElement + inputLabel;
 
-            groupContainer.appendChild(article);
-
-            // Link to toggle all layers
-            if (obj.overlay && obj.group.togglable && this.options.group_toggler.show) {
-
-                // Toggler container
-                var togglerContainer = L.DomUtil.create('div', 'group-toggle-container gtc' + obj.group.id);
-
-                // Link All
-                checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.className = 'leaflet-toggler-checkbox';
-                checkbox.id = 'checkboxAll' + obj.group.id;
-
-                //L.DomEvent.on(togglerContainer, 'click', this._onToggleGroup, this);
-                var self = this;
-                checkbox.addEventListener("click", function() {
-                    self._onToggleGroup(this, obj.group.name)
-                }, false);
-
-                togglerContainer.appendChild(checkbox);
-
-                checkboxLabel = document.createElement('label');
-                checkboxLabel.innerHTML = this.options.group_toggler.label;
-                checkboxLabel.setAttribute('for', 'checkboxAll' + obj.group.id)
-                togglerContainer.appendChild(checkboxLabel);
-
-                article.appendChild(togglerContainer);
-            }
-
-            // Add the layer
-            article.appendChild(label);
-
-            // Link to toggle all layers
+            // Buttons 
             if (obj.overlay && obj.group.buttons && obj.group.buttons.length) {
 
                 var bn = 0;
@@ -562,6 +529,39 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                     bn++;
                 });
             }
+
+            groupContainer.appendChild(article);
+
+            // Link to toggle all layers
+            if (obj.overlay && obj.group.togglable && this.options.group_toggler.show) {
+
+                // Toggler container
+                var togglerContainer = L.DomUtil.create('div', 'group-toggle-container gtc' + obj.group.id);
+
+                // Link All
+                checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'leaflet-toggler-checkbox';
+                checkbox.id = 'checkboxAll' + obj.group.id;
+
+                //L.DomEvent.on(togglerContainer, 'click', this._onToggleGroup, this);
+                var self = this;
+                checkbox.addEventListener("click", function() {
+                    self._onToggleGroup(this, obj.group.name)
+                }, false);
+
+                togglerContainer.appendChild(checkbox);
+
+                checkboxLabel = document.createElement('label');
+                checkboxLabel.innerHTML = this.options.group_toggler.label;
+                checkboxLabel.setAttribute('for', 'checkboxAll' + obj.group.id)
+                togglerContainer.appendChild(checkboxLabel);
+
+                article.appendChild(togglerContainer);
+            }
+
+            // Add the layer
+            article.appendChild(label);
 
             container.appendChild(groupContainer);
 

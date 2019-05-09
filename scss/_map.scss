@@ -426,6 +426,15 @@ arkeo-popup {
     display: block;
     min-width: 280px;
   }
+
+  .group-buttons-container {
+      text-align: left;
+      padding-top: 0;
+      padding-bottom: 0;
+      margin-top: -5px;
+      margin-bottom: 8px;
+  }
+
   .section-label:after,
   input.menu:checked + .section-label:after {
     background-image: url(../img/icons/up.svg) !important;
