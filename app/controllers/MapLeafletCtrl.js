@@ -19,10 +19,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-(function() {
+(function () {
   'use strict';
   ArkeoGIS.controller('MapLeafletCtrl', ['$scope', '$http', '$compile', '$filter', '$mdDialog', '$mdSidenav', '$translate', 'arkeoService', 'arkeoWMTS', 'arkeoProject', 'arkeoMap', 'arkeoQuery', 'arkeoLang', 'arkeoDatabase',
-    function($scope, $http, $compile, $filter, $mdDialog, $mdSidenav, $translate, arkeoService, arkeoWMTS, arkeoProject, arkeoMap, arkeoQuery, arkeoLang, arkeoDatabase) {
+    function ($scope, $http, $compile, $filter, $mdDialog, $mdSidenav, $translate, arkeoService, arkeoWMTS, arkeoProject, arkeoMap, arkeoQuery, arkeoLang, arkeoDatabase) {
 
       /*
        * Leaflet Map
@@ -32,35 +32,35 @@
       var project = arkeoProject.get();
 
       // Get map area to fit full screen
-      angular.element(window).on('resize', function() {
+      angular.element(window).on('resize', function () {
         $scope.mapHeight = $(window).height() + $("#arkeo-main-toolbar").height() - 145 + "px";
-        arkeoMap.getMap().then(function(map) {
+        arkeoMap.getMap().then(function (map) {
           map._onResize();
         });
       });
 
-      arkeoMap.getMap().then(function(map) {
+      arkeoMap.getMap().then(function (map) {
 
         if (project.geom != '') {
           map.fitBounds(L.geoJson(project.geom).getBounds());
         }
 
         // Cluster radius
-        $scope.$watch(function() {
+        $scope.$watch(function () {
           return arkeoMap.getRadius()
-        }, function() {
+        }, function () {
           $scope.redrawMarkers();
         });
 
-        map.on('layeradd', function(e) {
+        map.on('layeradd', function (e) {
           if (e.layer.feature && e.layer.feature.properties && e.layer.feature.properties.init === false) {
             $http({
               method: 'GET',
               url: '/api/layer/' + e.layer.feature.properties.id + '/geojson'
-            }).then(function(result) {
+            }).then(function (result) {
               var layer = L.geoJson(result.data);
               arkeoMap.layerControl.replaceOverlay(layer, e.layer.feature.properties.name);
-            }, function(err) {
+            }, function (err) {
               arkeoService.showMessage('MAPQUERY.MESSAGE.T_GETGEOJSON_ERROR')
               console.log(err);
             })
@@ -73,7 +73,12 @@
 
       function initProjectLayers(map) {
         if (project.layers.length) {
-          _.each(project.layers, function(layer) {
+          var lang = arkeoLang.getTranslationLang() || 'en';
+          project.layers = _.sortBy(project.layers, function (l) {
+            return l.name[lang];
+          })
+          // Order layers by name
+          _.each(project.layers, function (layer) {
             var l = processLayer(layer);
             arkeoMap.layerControl.addOverlay(l.instance, l.name, {
               groupName: $scope.translations['MAP.QUERY_MENU.T_PROJECT_LAYERS'],
@@ -88,7 +93,7 @@
 
         var l;
 
-        var url = (layer.use_proxy) ? '/proxy/?'+layer.url : layer.url;
+        var url = (layer.use_proxy) ? '/proxy/?' + layer.url : layer.url;
 
         if (layer.type == 'shp') {
           var geojsonFeature = {
@@ -103,7 +108,7 @@
             geometry: angular.fromJson(layer.geographical_extent_geom)
           };
           var instance = new L.geoJson(geojsonFeature);
-          instance.getAttribution = function() {
+          instance.getAttribution = function () {
             return $filter('arkTranslate')(layer.attribution);
           }
           l = {
@@ -112,16 +117,16 @@
             instance: instance
           };
         } else if (layer.type == 'wms') {
-	  var instanceObj = {
-              minZoom: layer.min_scale,
-              attribution: $filter('arkTranslate')(layer.attribution),
-              format: layer.image_format,
-              layers: layer.identifier,
-	      transparent: true
-            };
-	  if (layer.max_scale) {
-	    instanceObj.maxZoom = layer.max_scale;
-	  }
+          var instanceObj = {
+            minZoom: layer.min_scale,
+            attribution: $filter('arkTranslate')(layer.attribution),
+            format: layer.image_format,
+            layers: layer.identifier,
+            transparent: true
+          };
+          if (layer.max_scale) {
+            instanceObj.maxZoom = layer.max_scale;
+          }
           l = {
             name: $filter('arkTranslate')(layer.name),
             type: 'wms',
@@ -129,19 +134,19 @@
           };
         } else if (layer.type == 'wmts') {
 
-	  var instanceObj = {
-              layer: layer.identifier,
-              style: "normal",
-              tilematrixSet: layer.tile_matrix_set,
-              matrixIds: arkeoWMTS.formatTileMatrixStringForLeaflet(layer.tile_matrix_string),
-              format: layer.image_format,
-              attribution: $filter('arkTranslate')(layer.attribution),
-              minZoom: layer.min_scale,
-	      transparent: true
-            };
-	  if (layer.max_scale) {
-	    instanceObj.maxZoom = layer.max_scale;
-	  }
+          var instanceObj = {
+            layer: layer.identifier,
+            style: "normal",
+            tilematrixSet: layer.tile_matrix_set,
+            matrixIds: arkeoWMTS.formatTileMatrixStringForLeaflet(layer.tile_matrix_string),
+            format: layer.image_format,
+            attribution: $filter('arkTranslate')(layer.attribution),
+            minZoom: layer.min_scale,
+            transparent: true
+          };
+          if (layer.max_scale) {
+            instanceObj.maxZoom = layer.max_scale;
+          }
           l = {
             name: $filter('arkTranslate')(layer.name),
             type: 'wmts',
@@ -152,7 +157,7 @@
         return l;
       }
 
-      var generateIcon = function(feature, letter) {
+      var generateIcon = function (feature, letter) {
 
         // Debug icon position
         //  arkeoMap.getMap().then(function(map) {
@@ -195,7 +200,7 @@
 
       }
 
-      var analyzeFeature = function(feature) {
+      var analyzeFeature = function (feature) {
         var currentSize = 0;
         var end_date1 = -2147483648;
         var end_date2 = 2147483647;
@@ -205,13 +210,13 @@
           iconSize: 7,
           iconColor: 'rgba(255, 255, 255, 0.4)'
         };
-        angular.forEach(feature.properties.site_ranges, function(site_range) {
+        angular.forEach(feature.properties.site_ranges, function (site_range) {
           // Get icon color
           if (site_range.end_date1 > end_date1) {
             end_date1 = site_range.end_date1;
             end_date2 = site_range.end_date2;
           }
-          angular.forEach(site_range.characs, function(c) {
+          angular.forEach(site_range.characs, function (c) {
             if (c.exceptional) {
               ret.exceptional = true;
             }
@@ -290,7 +295,7 @@
 
         query.done = true;
 
-        arkeoMap.getMap().then(function(map) {
+        arkeoMap.getMap().then(function (map) {
 
           var start, end,
             start = new Date().getTime(),
@@ -304,7 +309,7 @@
               endDate: -2147483648
             };
 
-          _.each(query.data.features, function(feature) {
+          _.each(query.data.features, function (feature) {
             // Marker
             var marker = L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {
               icon: generateIcon(feature, query.letter)
@@ -312,8 +317,8 @@
             marker.feature = feature;
             // For each site range
             var divsCharacs = {};
-            _.each(feature.properties.site_ranges, function(sr) {
-              _.each(sr.characs, function(charac) {
+            _.each(feature.properties.site_ranges, function (sr) {
+              _.each(sr.characs, function (charac) {
                 var characInfos = arkeoProject.getCharacById(charac.charac_id);
                 if (characInfos) {
                   divsCharacs[charac.charac_id] = "<div>" + characInfos.hierarchy.join('/') + "</div>";
@@ -337,7 +342,7 @@
             html += "<div class='content'>";
             // For reach site range get characs
             // Store charac divs and order them later
-            Object.keys(divsCharacs).reverse().forEach(function(key) {
+            Object.keys(divsCharacs).reverse().forEach(function (key) {
               html += divsCharacs[key];
             });
             html += '<div class="more"><md-icon ng-click="toggleSiteDetailsDialog(' + feature.properties.infos.id + ')" class="md-18" style="cursor: pointer">info</md-icon></div>';
@@ -349,10 +354,10 @@
               maxWidth: '500'
             });
 
-            marker.on("mouseover", function() {
+            marker.on("mouseover", function () {
               marker.openPopup();
               // Cannot get the popup element until it's been created
-              $('.leaflet-popup').on('mouseleave', function() {
+              $('.leaflet-popup').on('mouseleave', function () {
                 marker.closePopup();
               });
             });
@@ -373,15 +378,15 @@
 
       }
 
-      var drawQueryMarkers = function(query) {
+      var drawQueryMarkers = function (query) {
 
         if (!query) {
           return;
         }
 
-        arkeoMap.getMap().then(function(map) {
+        arkeoMap.getMap().then(function (map) {
 
-          _.each(query.markersByDatabase, function(markerGroup, dbID) {
+          _.each(query.markersByDatabase, function (markerGroup, dbID) {
 
             // var radius = arkeoMap.clusterRadiusControl.getCurrentRadius();
 
@@ -394,7 +399,7 @@
               markerGroup.cluster.addLayers(markerGroup.markers).addTo(map)
             } else {
               markerGroup.cluster = new L.layerGroup();
-              _.each(markerGroup.markers, function(marker) {
+              _.each(markerGroup.markers, function (marker) {
                 markerGroup.cluster.addLayer(marker).addTo(map)
               });
             }
@@ -409,39 +414,39 @@
               removable: true,
               togglable: true,
               buttons: [{
-                  label: $scope.translations['MAP.QUERY_MENU.T_MODIFY'],
-                  class: 'edit',
-                  callback: function() {
-                    arkeoQuery.setCurrent(query);
-                    $scope.$parent.$apply();
-                    $mdSidenav('sidenav-left').open();
-                  }
-                },
-                {
-                  label: $scope.translations['MAP.QUERY_MENU.T_DOWNLOAD_CSV'],
-                  class: 'download',
-                  callback: function() {
-                    arkeoQuery.exportcsv(query);
-                  }
-                },
-                {
-                  label: $scope.translations['MAP.QUERY_MENU.T_ARCHIVE'],
-                  class: 'save',
-                  callback: function() {
-                    $mdSidenav('sidenav-left').open();
-                    $scope.$parent.showQuerySaveDialog(query).finally(function() {
-                      $mdSidenav('sidenav-left').close();
-                    });
-                  }
-                },
-                {
-                  label: $scope.translations['MAP.QUERY_MENU.T_DELETE'],
-                  class: 'delete',
-                  trigger: 'removeGroup',
-                  callback: function() {
-                    arkeoQuery.delete(query.letter);
-                  }
+                label: $scope.translations['MAP.QUERY_MENU.T_MODIFY'],
+                class: 'edit',
+                callback: function () {
+                  arkeoQuery.setCurrent(query);
+                  $scope.$parent.$apply();
+                  $mdSidenav('sidenav-left').open();
                 }
+              },
+              {
+                label: $scope.translations['MAP.QUERY_MENU.T_DOWNLOAD_CSV'],
+                class: 'download',
+                callback: function () {
+                  arkeoQuery.exportcsv(query);
+                }
+              },
+              {
+                label: $scope.translations['MAP.QUERY_MENU.T_ARCHIVE'],
+                class: 'save',
+                callback: function () {
+                  $mdSidenav('sidenav-left').open();
+                  $scope.$parent.showQuerySaveDialog(query).finally(function () {
+                    $mdSidenav('sidenav-left').close();
+                  });
+                }
+              },
+              {
+                label: $scope.translations['MAP.QUERY_MENU.T_DELETE'],
+                class: 'delete',
+                trigger: 'removeGroup',
+                callback: function () {
+                  arkeoQuery.delete(query.letter);
+                }
+              }
               ]
             });
 
@@ -450,26 +455,26 @@
 
       }
 
-      $scope.displayMarkers = function() {
+      $scope.displayMarkers = function () {
 
         var label = "Query";
 
-        $translate('SITE_DETAILS.FIELD_QUERY.T_LABEL').then(function(trans) {
+        $translate('SITE_DETAILS.FIELD_QUERY.T_LABEL').then(function (trans) {
           label = trans;
-        }, function() {}).then(function() {
+        }, function () { }).then(function () {
           var query = arkeoQuery.getCurrent();
 
           drawQueryMarkers(query);
         });
       };
 
-      $scope.redrawMarkers = function() {
+      $scope.redrawMarkers = function () {
 
         var label = "Query";
 
-        $translate('SITE_DETAILS.FIELD_QUERY.T_LABEL').then(function(trans) {
+        $translate('SITE_DETAILS.FIELD_QUERY.T_LABEL').then(function (trans) {
           label = trans;
-        }, function() {}).then(function() {
+        }, function () { }).then(function () {
           var queries = arkeoQuery.getQueries();
 
           if (!queries) {
@@ -478,105 +483,105 @@
 
           arkeoMap.layerControl.removeAllGroups(true);
 
-          _.forOwn(queries, function(q, k) {
+          _.forOwn(queries, function (q, k) {
             drawQueryMarkers(q);
           });
 
         });
       };
 
-      $scope.toggleSiteDetailsDialog = function(id) {
-        arkeoDatabase.translateDefinitions().then(function(databaseDefinitions) {
-          arkeoQuery.getSite(id).then(function(siteInfos) {
+      $scope.toggleSiteDetailsDialog = function (id) {
+        arkeoDatabase.translateDefinitions().then(function (databaseDefinitions) {
+          arkeoQuery.getSite(id).then(function (siteInfos) {
             $mdDialog.show({
-                controller: function($scope, $mdDialog, $filter, arkeoProject) {
+              controller: function ($scope, $mdDialog, $filter, arkeoProject) {
 
-                  var project = arkeoProject.get();
-                  $scope.databaseDefinitions = databaseDefinitions;
-                  $scope.id = id;
-                  $scope.hide = function() {
-                    $mdDialog.hide();
-                  };
-                  var characCache = {};
-                  $scope.site = siteInfos.features[0];
-                  $scope.site.properties.infos.exceptional = false;
-                  $scope.site.properties.infos.startingPeriod = {
-                    name: null,
-                    color: null,
-                    startDate: null,
-                    endDate: null
-                  };
-                  $scope.site.properties.infos.endingPeriod = {
-                    name: null,
-                    color: null,
-                    startDate: null,
-                    endDate: null
-                  };
-                  _.each($scope.site.properties.site_ranges, function(sr) {
-                    // Periods
-                    if ($scope.site.properties.infos.startingPeriod.startDate == null || $scope.site.properties.infos.startingPeriod.startDate > sr.start_date1) {
-                      $scope.site.properties.infos.startingPeriod.startDate = sr.start_date1;
-                      $scope.site.properties.infos.startingPeriod.endDate = sr.start_date2;
-                      var chrono = arkeoProject.getChronologyByDates(sr.start_date1, sr.start_date2);
-                      if (chrono) {
-                        $scope.site.properties.infos.startingPeriod.color = chrono.color;
-                        $scope.site.properties.infos.startingPeriod.name = chrono.name;
-                      }
-                      // Hack to undefined period color
-                      if (sr.start_date1 == -2147483648 && sr.start_date2 == 2147483647) {
-                        $scope.site.properties.infos.startingPeriod.isUndefined = true;
-                      }
+                var project = arkeoProject.get();
+                $scope.databaseDefinitions = databaseDefinitions;
+                $scope.id = id;
+                $scope.hide = function () {
+                  $mdDialog.hide();
+                };
+                var characCache = {};
+                $scope.site = siteInfos.features[0];
+                $scope.site.properties.infos.exceptional = false;
+                $scope.site.properties.infos.startingPeriod = {
+                  name: null,
+                  color: null,
+                  startDate: null,
+                  endDate: null
+                };
+                $scope.site.properties.infos.endingPeriod = {
+                  name: null,
+                  color: null,
+                  startDate: null,
+                  endDate: null
+                };
+                _.each($scope.site.properties.site_ranges, function (sr) {
+                  // Periods
+                  if ($scope.site.properties.infos.startingPeriod.startDate == null || $scope.site.properties.infos.startingPeriod.startDate > sr.start_date1) {
+                    $scope.site.properties.infos.startingPeriod.startDate = sr.start_date1;
+                    $scope.site.properties.infos.startingPeriod.endDate = sr.start_date2;
+                    var chrono = arkeoProject.getChronologyByDates(sr.start_date1, sr.start_date2);
+                    if (chrono) {
+                      $scope.site.properties.infos.startingPeriod.color = chrono.color;
+                      $scope.site.properties.infos.startingPeriod.name = chrono.name;
                     }
-                    if ($scope.site.properties.infos.endingPeriod.endDate == null || $scope.site.properties.infos.endingPeriod.endDate < sr.end_date2) {
-                      $scope.site.properties.infos.endingPeriod.startDate = sr.end_date1;
-                      $scope.site.properties.infos.endingPeriod.endDate = sr.end_date2;
-                      var chrono = arkeoProject.getChronologyByDates(sr.end_date1, sr.end_date2);
-                      if (chrono) {
-                        $scope.site.properties.infos.endingPeriod.color = chrono.color;
-                        $scope.site.properties.infos.endingPeriod.name = chrono.name;
-                      }
-                      // Hack to undefined period color
-                      if (sr.end_date1 == -2147483648 && sr.end_date2 == 2147483647) {
-                        $scope.site.properties.infos.endingPeriod.isUndefined = true;
-                      }
+                    // Hack to undefined period color
+                    if (sr.start_date1 == -2147483648 && sr.start_date2 == 2147483647) {
+                      $scope.site.properties.infos.startingPeriod.isUndefined = true;
                     }
-                    // Organise characs
-                    var cachedIds = [];
-                    _.each(sr.characs, function(charac) {
-                      if (cachedIds.indexOf(charac.id) == 1) {
-                        return;
-                      }
-                      cachedIds.push(charac.id);
-                      if (!sr.charac_sections) {
-                        sr.charac_sections = {};
-                      }
-                      var characInfos = _.assign(charac, arkeoProject.getCharacById(charac.id));
-                      if (characInfos.exceptional) {
-                        $scope.site.properties.infos.exceptional = true;
-                      }
-                      if (characInfos.hierarchy && angular.isArray(characInfos.hierarchy) && characInfos.hierarchy.length) {
-                        var characRoot = characInfos.hierarchy[0];
-                        if (!_.has(sr.charac_sections, characRoot)) {
-                          sr.charac_sections[characRoot] = {
-                            name: characRoot,
-                            characs: []
-                          }
+                  }
+                  if ($scope.site.properties.infos.endingPeriod.endDate == null || $scope.site.properties.infos.endingPeriod.endDate < sr.end_date2) {
+                    $scope.site.properties.infos.endingPeriod.startDate = sr.end_date1;
+                    $scope.site.properties.infos.endingPeriod.endDate = sr.end_date2;
+                    var chrono = arkeoProject.getChronologyByDates(sr.end_date1, sr.end_date2);
+                    if (chrono) {
+                      $scope.site.properties.infos.endingPeriod.color = chrono.color;
+                      $scope.site.properties.infos.endingPeriod.name = chrono.name;
+                    }
+                    // Hack to undefined period color
+                    if (sr.end_date1 == -2147483648 && sr.end_date2 == 2147483647) {
+                      $scope.site.properties.infos.endingPeriod.isUndefined = true;
+                    }
+                  }
+                  // Organise characs
+                  var cachedIds = [];
+                  _.each(sr.characs, function (charac) {
+                    if (cachedIds.indexOf(charac.id) == 1) {
+                      return;
+                    }
+                    cachedIds.push(charac.id);
+                    if (!sr.charac_sections) {
+                      sr.charac_sections = {};
+                    }
+                    var characInfos = _.assign(charac, arkeoProject.getCharacById(charac.id));
+                    if (characInfos.exceptional) {
+                      $scope.site.properties.infos.exceptional = true;
+                    }
+                    if (characInfos.hierarchy && angular.isArray(characInfos.hierarchy) && characInfos.hierarchy.length) {
+                      var characRoot = characInfos.hierarchy[0];
+                      if (!_.has(sr.charac_sections, characRoot)) {
+                        sr.charac_sections[characRoot] = {
+                          name: characRoot,
+                          characs: []
                         }
-                        sr.charac_sections[characRoot].characs.push(_.assign(characInfos, {
-                          path: characInfos.hierarchy.join(' / ')
-                        }));
                       }
-                    });
+                      sr.charac_sections[characRoot].characs.push(_.assign(characInfos, {
+                        path: characInfos.hierarchy.join(' / ')
+                      }));
+                    }
                   });
-                },
-                templateUrl: 'partials/site-details.html',
-                parent: angular.element(document.body),
-                clickOutsideToClose: true,
-                fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-              })
-              .then(function(answer) {
+                });
+              },
+              templateUrl: 'partials/site-details.html',
+              parent: angular.element(document.body),
+              clickOutsideToClose: true,
+              fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+            })
+              .then(function (answer) {
                 $scope.status = 'You said the information was "' + answer + '".';
-              }, function() {
+              }, function () {
                 $scope.status = 'You cancelled the dialog.';
               });
           });
@@ -584,8 +589,8 @@
         });
       };
 
-      $scope.reset = function() {
-        arkeoMap.getMap().then(function(map) {
+      $scope.reset = function () {
+        arkeoMap.getMap().then(function (map) {
 
           arkeoMap.layerControl.removeAllGroups(true);
 
@@ -598,9 +603,9 @@
        * watch on results
        */
 
-      $scope.$watch(function() {
+      $scope.$watch(function () {
         return arkeoQuery.getNumQueries(true);
-      }, function(newNum, oldNum) {
+      }, function (newNum, oldNum) {
         if (newNum == 0) {
           return;
         }

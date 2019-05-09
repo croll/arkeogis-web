@@ -401,19 +401,15 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             container,
             self = this;
 
-
         if (obj.overlay) {
             input = document.createElement('input');
             input.type = 'checkbox';
             input.className = 'leaflet-control-layers-selector';
             input.defaultChecked = checked;
-
             label.className = "menu-item-checkbox";
             input.id = id;
-
         } else {
             input = this._createRadioElement('leaflet-base-layers', checked);
-
             label.className = "menu-item-radio";
             input.id = id;
         }
@@ -483,6 +479,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                 article.style.maxHeight = this.options.group_maxHeight;
             }
 
+            // Group label
             groupContainer.innerHTML = inputElement + inputLabel;
 
             // Buttons 
