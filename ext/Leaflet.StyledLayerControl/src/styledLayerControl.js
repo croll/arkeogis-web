@@ -12,7 +12,8 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             j;
         L.Util.setOptions(this, options);
 
-        this._layers = {};
+        this._layerControlInputs = [];
+        this._layers = [];
         this._lastZIndex = 0;
         this._handlingClick = false;
         this._groupList = [];
@@ -37,6 +38,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
 
     onAdd: function(map) {
         this._initLayout();
+        this._initCustomLayout();
 
         // Create top buttons
         if (this.options.buttons.length) {
@@ -168,7 +170,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
     },
 
 
-    _initLayout: function() {
+    _initCustomLayout: function() {
         var className = 'leaflet-control-layers',
             container = this._container = L.DomUtil.create('div', className);
 
@@ -233,7 +235,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
 
             // set the max-height of control to y value of map object
             this._default_maxHeight = this.options.container_maxHeight ? this.options.container_maxHeight : (this._map.getSize().y - 70);
-            containers[c].style.maxHeight = this._default_maxHeight + "px";
+            containers[c].style.maxHeight = this._default_maxHeight;
 
         }
 
@@ -313,6 +315,8 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
         this._overlaysList.innerHTML = '';
 
         this._domGroups.length = 0;
+
+        this._layerControlInputs = [];
 
         var baseLayersPresent = false,
             overlaysPresent = false,
@@ -414,7 +418,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             input.id = id;
         }
 
-
+        this._layerControlInputs.push(input);
         input.layerId = L.Util.stamp(obj.layer);
 
         L.DomEvent.on(input, 'click', this._onInputClick, this);
@@ -673,10 +677,6 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
 
     _onRemoveGroup: function(e) {
         this.removeGroup(e.target.getAttribute("data-group-name"), true);
-    },
-
-    _onModifyGroup: function(e) {
-        console.log('select');
     },
 
     _expand: function() {
