@@ -435,7 +435,8 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
         L.DomEvent.on(input, 'click', this._onInputClick, this);
 
         var name = document.createElement('label');
-        name.innerHTML = '<label for="' + id + '">' + obj.name + '</label>';
+        name.setAttribute('for', id);
+        name.innerHTML = '<span>' + obj.name + '</span>';
 
         label.appendChild(input);
         label.appendChild(name);
