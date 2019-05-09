@@ -399,7 +399,11 @@
               });
             }
 
-            arkeoMap.layerControl.addOverlay(markerGroup.cluster, markerGroup.database, {
+            // Display num of sites in database
+
+            var databaseName = markerGroup.database + ' (' + markerGroup.markers.length + ')';
+
+            arkeoMap.layerControl.addOverlay(markerGroup.cluster, databaseName, {
               groupName: $scope.translations['MAP.QUERY_MENU.T_QUERY'] + ' ' + query.letter + (angular.isDefined(query.name) && query.name.length > 0 ? ' (' + query.name + ')' : ''),
               expanded: true,
               removable: true,
