@@ -25,7 +25,7 @@
     "leaflet-plugins": "3.0.3",
     "leaflet-draw": "0.3.2",
     "angular-xml": "2.2.1",
-    "shp": "3.3.1",
+    "shp": "3.4.2",
     "angular-promise-extras": "0.1.7",
     "lodash": "4.5",
     "leaflet.markercluster": "1.4.1",
