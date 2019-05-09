@@ -80,9 +80,10 @@
           // Order layers by name
           _.each(project.layers, function (layer) {
             var l = processLayer(layer);
+            // Add in menu
             arkeoMap.layerControl.addOverlay(l.instance, l.name, {
               groupName: $scope.translations['MAP.QUERY_MENU.T_PROJECT_LAYERS'],
-              expanded: true
+              expanded: false 
             });
           });
 
@@ -405,7 +406,6 @@
             }
 
             // Display num of sites in database
-
             var databaseName = markerGroup.database + ' (' + markerGroup.markers.length + ')';
 
             arkeoMap.layerControl.addOverlay(markerGroup.cluster, databaseName, {
@@ -449,7 +449,6 @@
               }
               ]
             });
-
           });
         });
 
