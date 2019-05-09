@@ -88,6 +88,7 @@
                     maxZoom: 18,
                     worldCopyJump: true,
                     attributionControl: false,
+                    zoomSnap: 0.5,
                 });
 
                 self.layerControl = L.Control.styledLayerControl(layers.baseMaps, null, {
