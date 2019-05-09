@@ -83,7 +83,7 @@
             // Add in menu
             arkeoMap.layerControl.addOverlay(l.instance, l.name, {
               groupName: $scope.translations['MAP.QUERY_MENU.T_PROJECT_LAYERS'],
-              expanded: false 
+              expanded: true 
             });
           });
 

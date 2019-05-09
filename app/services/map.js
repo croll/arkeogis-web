@@ -59,7 +59,7 @@
                 var layers = {
                     baseMaps: [{
                         groupName: translations['MAP.LAYER_MENU.T_BASE_LAYERS'],
-                        expanded: false,
+                        expanded: true,
                         layers: {
                             "OpenStreetMap": new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                                 attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a>'

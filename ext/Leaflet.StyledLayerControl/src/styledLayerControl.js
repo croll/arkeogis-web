@@ -73,13 +73,15 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
         this._addLayer(layer, name, group, true);
         this._update();
         // only open last query and toggle other groups
-        // .ac-container input.menu
+        // Close main layers
+        document.getElementById('ac0').checked = false;
         var groupElements = document.querySelectorAll('.leaflet-control-layers-overlays > div');
         _.each(groupElements, function(el) {
             // Do not evaluate first element, it's project layers group
             var id = parseInt(el.id.split('-').pop());
             var inputID = 'ac'+id;
-            if (id > 1 && id < groupElements.length) {
+
+            if (id < groupElements.length) {
                 if (document.getElementById('ac'+id).checked) {
                     document.getElementById('ac'+id).checked = false;
                 }
