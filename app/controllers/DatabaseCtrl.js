@@ -104,16 +104,6 @@
                   arkeoDownload.openAsFile(response);
               });
             }
-
-            $scope.downloadExportOmeka = function() {
-                $http.get('/api/database/' + database.id + '/exportOmeka', {
-                    params: {
-                        id_chronology: $scope.chronoselected,
-                    }
-                },  {responseType: 'blob'}).then(function(response){
-                    arkeoDownload.openAsFile(response);
-                });
-            }
   
             $scope.showHandleDialog = function(ev) {
                 $mdDialog.show({
@@ -127,7 +117,7 @@
 
             $scope.showExportDialog = function(ev) {
                 $mdDialog.show({
-                    controller: DialogExportController,
+                    controller: DialogController,
                     contentElement: '#exportDialog',
                     parent: angular.element(document.body),
                     targetEvent: ev,
@@ -152,17 +142,6 @@
                 $scope.cancel = function() {
                     $mdDialog.cancel();
                 };
-            }
-
-            function DialogExportController($scope, $mdDialog) {
-                $scope.hide = function() {
-                    $mdDialog.hide();
-                };
-                $scope.cancel = function() {
-                    $mdDialog.cancel();
-                };
-
-        
             }
 
         }
