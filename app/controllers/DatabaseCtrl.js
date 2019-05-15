@@ -34,6 +34,7 @@
 
             database.lang = arkeoLang.getLangByIsoCode(database.default_language)
 
+            $scope.chronoselected = 0;
             $http.get('/api/chronologies').then(function(data) {
                 data.data.forEach(function(row) {
                     row.nameTranslated = arkeoLang.getMappedTranslation(row.name)
@@ -41,7 +42,7 @@
                 $scope.chronolist = data.data;
             }, function(err) {
                 arkeoService.showMessage("load failed : "+err.status+", "+err.statusText);
-                console.error("loaded", err);
+                console.error("loading chrono list error", err);
             })
 
 
@@ -98,12 +99,22 @@
               });
             }
 
-            $scope.downloadExport = function() {
+            $scope.downloadExportArkeogis = function() {
               $http.get('/api/database/' + database.id + '/export', {},  {responseType: 'blob'}).then(function(response){
                   arkeoDownload.openAsFile(response);
               });
             }
 
+            $scope.downloadExportOmeka = function() {
+                $http.get('/api/database/' + database.id + '/exportOmeka', {
+                    params: {
+                        id_chronology: $scope.chronoselected,
+                    }
+                },  {responseType: 'blob'}).then(function(response){
+                    arkeoDownload.openAsFile(response);
+                });
+            }
+  
             $scope.showHandleDialog = function(ev) {
                 $mdDialog.show({
                     controller: DialogController,
