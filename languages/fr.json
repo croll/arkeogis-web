@@ -178,6 +178,12 @@
 		"BUTTON_DOWNLOAD": {
 			"T_TITLE": "Télécharger un export"
 		},
+		"BUTTON_DOWNLOAD_ARKEOGIS": {
+			"T_TITLE": "Télécharger au format ARKEOGIS"
+		},
+		"BUTTON_DOWNLOAD_OMEKA": {
+			"T_TITLE": "Télécharger au format OMEKA"
+		},
 		"BUTTON_EDIT": {
 			"T_LABEL": "Modifier la base"
 		},
@@ -307,6 +313,19 @@
 		"MESSAGE": {
 			"T_DELETE_FAILED": "La suppression a échoué",
 			"T_DELETE_OK": "La base de donnée a été supprimée avec succès"
+		},
+		"POPUP_EXPORT": {
+			"T_TITLE": "Export..."
+		},
+		"POPUP_EXPORT_ARKEOGIS": {
+			"T_TITLE": "Téléchargement au format Arkeogis (CSV)"
+		},
+		"POPUP_EXPORT_OMEKA": {
+			"T_TITLE": "Téléchargement au format Omeka (CSV)"
+		},
+		"POPUP_EXPORT_OMEKA_CHOOSECHRONO": {
+			"T_NOCHRONO": "Pas de chronologie",
+			"T_TITLE": "Choisissez une chronologie :"
 		},
 		"POPUP_HANDLE_HISTORY": {
 			"T_TITLE": "Historique des identifiants crées"
