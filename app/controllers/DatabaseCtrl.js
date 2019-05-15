@@ -34,6 +34,17 @@
 
             database.lang = arkeoLang.getLangByIsoCode(database.default_language)
 
+            $http.get('/api/chronologies').then(function(data) {
+                data.data.forEach(function(row) {
+                    row.nameTranslated = arkeoLang.getMappedTranslation(row.name)
+                });
+                $scope.chronolist = data.data;
+            }, function(err) {
+                arkeoService.showMessage("load failed : "+err.status+", "+err.statusText);
+                console.error("loaded", err);
+            })
+
+
             angular.extend($scope, angular.extend(arkeoMap.config, {
                 center: {
                     zoom: 8
@@ -103,6 +114,16 @@
                 });
             };
 
+            $scope.showExportDialog = function(ev) {
+                $mdDialog.show({
+                    controller: DialogExportController,
+                    contentElement: '#exportDialog',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose: true
+                });
+            };
+
             $scope.showImportDialog = function(ev) {
                 $mdDialog.show({
                     controller: DialogController,
@@ -120,6 +141,17 @@
                 $scope.cancel = function() {
                     $mdDialog.cancel();
                 };
+            }
+
+            function DialogExportController($scope, $mdDialog) {
+                $scope.hide = function() {
+                    $mdDialog.hide();
+                };
+                $scope.cancel = function() {
+                    $mdDialog.cancel();
+                };
+
+        
             }
 
         }
