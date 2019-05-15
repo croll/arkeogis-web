@@ -288,9 +288,9 @@
                             <md-option ng-value="0" translate>DATABASE.POPUP_EXPORT_OMEKA_CHOOSECHRONO.T_NOCHRONO</md-option>
                             <md-option ng-repeat="chrono in chronolist" ng-value="chrono.id">{{chrono.nameTranslated}}</md-option>
                         </md-select>
-                        <md-button class="md-raised md-hue-1" ng-click="downloadExportOmeka()" ng-show="isAdmin || isOwner">
-                            <span translate>DATABASE.BUTTON_DOWNLOAD_OMEKA.T_TITLE</span>
-                        </md-button>
+                        <a ng-show="isAdmin || isOwner" class="md-button md-raised md-hue-1"
+                            translate
+                            href="/api/database/{{database.id}}/exportOmeka?chronology_id={{chronoselected}}">DATABASE.BUTTON_DOWNLOAD_OMEKA.T_TITLE</a>
                     </p>
                 </p>
 
