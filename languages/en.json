@@ -939,11 +939,11 @@
 			"T_LABEL_AUTHOR": "Author",
 			"T_LABEL_CREATION_DATE": "Creation's date",
 			"T_LABEL_DESCRIPTION": "Description",
-			"T_LABEL_END_DATE": "End date",
+			"T_LABEL_END_DATE": "End",
 			"T_LABEL_PUBLISHED": "Published",
-			"T_LABEL_START_DATE": "Start date",
+			"T_LABEL_START_DATE": "Start",
 			"T_LABEL_TYPE": "Type",
-			"T_LABEL_ZOOM_LEVEL": "Zoom level",
+			"T_LABEL_ZOOM_LEVEL": "Zoom",
 			"T_NAME_AND_COPYRIGHT": "Name and Publisher",
 			"T_TITLE": "List of the available layers"
 		}

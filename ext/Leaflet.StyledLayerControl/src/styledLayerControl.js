@@ -12,7 +12,8 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             j;
         L.Util.setOptions(this, options);
 
-        this._layers = {};
+        this._layerControlInputs = [];
+        this._layers = [];
         this._lastZIndex = 0;
         this._handlingClick = false;
         this._groupList = [];
@@ -37,6 +38,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
 
     onAdd: function(map) {
         this._initLayout();
+        this._initCustomLayout();
 
         // Create top buttons
         if (this.options.buttons.length) {
@@ -70,6 +72,21 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
     addOverlay: function(layer, name, group) {
         this._addLayer(layer, name, group, true);
         this._update();
+        // only open last query and toggle other groups
+        // Close main layers
+        document.getElementById('ac0').checked = false;
+        var groupElements = document.querySelectorAll('.leaflet-control-layers-overlays > div');
+        _.each(groupElements, function(el) {
+            // Do not evaluate first element, it's project layers group
+            var id = parseInt(el.id.split('-').pop());
+            var inputID = 'ac'+id;
+
+            if (id < groupElements.length) {
+                if (document.getElementById('ac'+id).checked) {
+                    document.getElementById('ac'+id).checked = false;
+                }
+            }
+        });
         return this;
     },
 
@@ -168,7 +185,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
     },
 
 
-    _initLayout: function() {
+    _initCustomLayout: function() {
         var className = 'leaflet-control-layers',
             container = this._container = L.DomUtil.create('div', className);
 
@@ -233,7 +250,7 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
 
             // set the max-height of control to y value of map object
             this._default_maxHeight = this.options.container_maxHeight ? this.options.container_maxHeight : (this._map.getSize().y - 70);
-            containers[c].style.maxHeight = this._default_maxHeight + "px";
+            containers[c].style.maxHeight = this._default_maxHeight;
 
         }
 
@@ -313,6 +330,8 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
         this._overlaysList.innerHTML = '';
 
         this._domGroups.length = 0;
+
+        this._layerControlInputs = [];
 
         var baseLayersPresent = false,
             overlaysPresent = false,
@@ -397,30 +416,27 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             container,
             self = this;
 
-
         if (obj.overlay) {
             input = document.createElement('input');
             input.type = 'checkbox';
             input.className = 'leaflet-control-layers-selector';
             input.defaultChecked = checked;
-
             label.className = "menu-item-checkbox";
             input.id = id;
-
         } else {
             input = this._createRadioElement('leaflet-base-layers', checked);
-
             label.className = "menu-item-radio";
             input.id = id;
         }
 
-
+        this._layerControlInputs.push(input);
         input.layerId = L.Util.stamp(obj.layer);
 
         L.DomEvent.on(input, 'click', this._onInputClick, this);
 
         var name = document.createElement('label');
-        name.innerHTML = '<label for="' + id + '">' + obj.name + '</label>';
+        name.setAttribute('for', id);
+        name.innerHTML = '<span>' + obj.name + '</span>';
 
         label.appendChild(input);
         label.appendChild(name);
@@ -442,7 +458,6 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
             }
 
         }
-
 
         if (obj.overlay) {
             container = this._overlaysList;
@@ -479,42 +494,10 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                 article.style.maxHeight = this.options.group_maxHeight;
             }
 
+            // Group label
             groupContainer.innerHTML = inputElement + inputLabel;
 
-            groupContainer.appendChild(article);
-
-            // Link to toggle all layers
-            if (obj.overlay && obj.group.togglable && this.options.group_toggler.show) {
-
-                // Toggler container
-                var togglerContainer = L.DomUtil.create('div', 'group-toggle-container gtc' + obj.group.id);
-
-                // Link All
-                checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.className = 'leaflet-toggler-checkbox';
-                checkbox.id = 'checkboxAll' + obj.group.id;
-
-                //L.DomEvent.on(togglerContainer, 'click', this._onToggleGroup, this);
-                var self = this;
-                checkbox.addEventListener("click", function() {
-                    self._onToggleGroup(this, obj.group.name)
-                }, false);
-
-                togglerContainer.appendChild(checkbox);
-
-                checkboxLabel = document.createElement('label');
-                checkboxLabel.innerHTML = this.options.group_toggler.label;
-                checkboxLabel.setAttribute('for', 'checkboxAll' + obj.group.id)
-                togglerContainer.appendChild(checkboxLabel);
-
-                article.appendChild(togglerContainer);
-            }
-
-            // Add the layer
-            article.appendChild(label);
-
-            // Link to toggle all layers
+            // Buttons 
             if (obj.overlay && obj.group.buttons && obj.group.buttons.length) {
 
                 var bn = 0;
@@ -558,6 +541,39 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
                     bn++;
                 });
             }
+
+            groupContainer.appendChild(article);
+
+            // Link to toggle all layers
+            if (obj.overlay && obj.group.togglable && this.options.group_toggler.show) {
+
+                // Toggler container
+                var togglerContainer = L.DomUtil.create('div', 'group-toggle-container gtc' + obj.group.id);
+
+                // Link All
+                checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'leaflet-toggler-checkbox';
+                checkbox.id = 'checkboxAll' + obj.group.id;
+
+                //L.DomEvent.on(togglerContainer, 'click', this._onToggleGroup, this);
+                var self = this;
+                checkbox.addEventListener("click", function() {
+                    self._onToggleGroup(this, obj.group.name)
+                }, false);
+
+                togglerContainer.appendChild(checkbox);
+
+                checkboxLabel = document.createElement('label');
+                checkboxLabel.innerHTML = this.options.group_toggler.label;
+                checkboxLabel.setAttribute('for', 'checkboxAll' + obj.group.id)
+                togglerContainer.appendChild(checkboxLabel);
+
+                article.appendChild(togglerContainer);
+            }
+
+            // Add the layer
+            article.appendChild(label);
 
             container.appendChild(groupContainer);
 
@@ -673,10 +689,6 @@ L.Control.StyledLayerControl = L.Control.Layers.extend({
 
     _onRemoveGroup: function(e) {
         this.removeGroup(e.target.getAttribute("data-group-name"), true);
-    },
-
-    _onModifyGroup: function(e) {
-        console.log('select');
     },
 
     _expand: function() {

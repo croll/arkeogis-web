@@ -88,6 +88,7 @@
                     maxZoom: 18,
                     worldCopyJump: true,
                     attributionControl: false,
+                    zoomSnap: 0.5,
                 });
 
                 self.layerControl = L.Control.styledLayerControl(layers.baseMaps, null, {
@@ -143,13 +144,13 @@
                 }).addTo(map);
                 // Attribution
                 new L.control.attribution({prefix: 'Made by <a href="http://www.croll.fr" target="_blank">CROLL</a>'}).addTo(map);
-                // Scale control
-                new L.control.scale({
-                    position: 'bottomright'
-                }).addTo(map);
                     // Mouse position
                 L.control.mousePosition({
                     emptyString: ''
+                }).addTo(map);
+                // Scale control
+                new L.control.scale({
+                    position: 'bottomleft'
                 }).addTo(map);
                 return mapDefer.resolve(map);
             });
