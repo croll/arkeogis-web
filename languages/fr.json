@@ -324,6 +324,7 @@
 			"T_TITLE": "Téléchargement au format Omeka (CSV)"
 		},
 		"POPUP_EXPORT_OMEKA_CHOOSECHRONO": {
+			"T_CHOOSECHRONO": "#!#DATABASE.POPUP_EXPORT_OMEKA_CHOOSECHRONO.T_CHOOSECHRONO",
 			"T_NOCHRONO": "Pas de chronologie",
 			"T_TITLE": "Choisissez une chronologie :"
 		},
