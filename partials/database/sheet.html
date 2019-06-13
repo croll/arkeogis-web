@@ -285,10 +285,11 @@
                     <p>
                         <label translate>DATABASE.POPUP_EXPORT_OMEKA_CHOOSECHRONO.T_TITLE</label>
                         <md-select required name="chronology" ng-model="chronoselected">
+                            <md-option ng-value="-1" translate>DATABASE.POPUP_EXPORT_OMEKA_CHOOSECHRONO.T_CHOOSECHRONO</md-option>
                             <md-option ng-value="0" translate>DATABASE.POPUP_EXPORT_OMEKA_CHOOSECHRONO.T_NOCHRONO</md-option>
                             <md-option ng-repeat="chrono in chronolist" ng-value="chrono.id">{{chrono.nameTranslated}}</md-option>
                         </md-select>
-                        <a ng-show="isAdmin || isOwner" class="md-button md-raised md-hue-1"
+                        <a ng-show="isAdmin || isOwner" class="md-button md-raised md-hue-1" ng-disabled="chronoselected < 0"
                             translate
                             href="/api/database/{{database.id}}/exportOmeka?chronologyid={{chronoselected}}">DATABASE.BUTTON_DOWNLOAD_OMEKA.T_TITLE</a>
                     </p>

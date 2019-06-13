@@ -34,7 +34,7 @@
 
             database.lang = arkeoLang.getLangByIsoCode(database.default_language)
 
-            $scope.chronoselected = 0;
+            $scope.chronoselected = -1;
             $http.get('/api/chronologies').then(function(data) {
                 data.data.forEach(function(row) {
                     row.nameTranslated = arkeoLang.getMappedTranslation(row.name)
