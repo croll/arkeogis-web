@@ -17,7 +17,7 @@
 			"T_TITLE": "Back to the list"
 		},
 		"BUTTON_IMPORTCSV": {
-			"T_TITLE": "#!#CHARACEDITOR.BUTTON_IMPORTCSV.T_TITLE"
+			"T_TITLE": "CSV Import..."
 		},
 		"BUTTON_SAVE": {
 			"T_TITLE": "Save"
@@ -40,7 +40,7 @@
 			"T_TITLE": "Description"
 		},
 		"INPUT_ELEM_ARKID": {
-			"T_TITLE": "#!#CHARACEDITOR.INPUT_ELEM_ARKID.T_TITLE"
+			"T_TITLE": "ArkID"
 		},
 		"INPUT_ELEM_ORDER": {
 			"T_TITLE": "Order"
