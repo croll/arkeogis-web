@@ -16,6 +16,9 @@
 		"BUTTON_GOTOLIST": {
 			"T_TITLE": "Back to the list"
 		},
+		"BUTTON_IMPORTCSV": {
+			"T_TITLE": "#!#CHARACEDITOR.BUTTON_IMPORTCSV.T_TITLE"
+		},
 		"BUTTON_SAVE": {
 			"T_TITLE": "Save"
 		},
@@ -35,6 +38,9 @@
 		},
 		"INPUT_DESCRIPTION": {
 			"T_TITLE": "Description"
+		},
+		"INPUT_ELEM_ARKID": {
+			"T_TITLE": "#!#CHARACEDITOR.INPUT_ELEM_ARKID.T_TITLE"
 		},
 		"INPUT_ELEM_ORDER": {
 			"T_TITLE": "Order"
@@ -179,10 +185,10 @@
 			"T_TITLE": "Download an export"
 		},
 		"BUTTON_DOWNLOAD_ARKEOGIS": {
-			"T_TITLE": "#!#DATABASE.BUTTON_DOWNLOAD_ARKEOGIS.T_TITLE"
+			"T_TITLE": "Download as ARKEOGIS Format"
 		},
 		"BUTTON_DOWNLOAD_OMEKA": {
-			"T_TITLE": "#!#DATABASE.BUTTON_DOWNLOAD_OMEKA.T_TITLE"
+			"T_TITLE": "Download as OMEKA Format"
 		},
 		"BUTTON_EDIT": {
 			"T_LABEL": "Edit the database"

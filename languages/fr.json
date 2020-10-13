@@ -16,6 +16,9 @@
 		"BUTTON_GOTOLIST": {
 			"T_TITLE": "Retour à la liste"
 		},
+		"BUTTON_IMPORTCSV": {
+			"T_TITLE": "#!#CHARACEDITOR.BUTTON_IMPORTCSV.T_TITLE"
+		},
 		"BUTTON_SAVE": {
 			"T_TITLE": "Enregistrer"
 		},
@@ -35,6 +38,9 @@
 		},
 		"INPUT_DESCRIPTION": {
 			"T_TITLE": "Description"
+		},
+		"INPUT_ELEM_ARKID": {
+			"T_TITLE": "#!#CHARACEDITOR.INPUT_ELEM_ARKID.T_TITLE"
 		},
 		"INPUT_ELEM_ORDER": {
 			"T_TITLE": "Ordre"
@@ -179,7 +185,7 @@
 			"T_TITLE": "Télécharger un export"
 		},
 		"BUTTON_DOWNLOAD_ARKEOGIS": {
-			"T_TITLE": "Télécharger au format ARKEOGIS"
+			"T_TITLE": "Télécharger au format ArkeoGIS"
 		},
 		"BUTTON_DOWNLOAD_OMEKA": {
 			"T_TITLE": "Télécharger au format OMEKA"
@@ -315,18 +321,18 @@
 			"T_DELETE_OK": "La base de donnée a été supprimée avec succès"
 		},
 		"POPUP_EXPORT": {
-			"T_TITLE": "Export..."
+			"T_TITLE": "Exportation des données et méta-données"
 		},
 		"POPUP_EXPORT_ARKEOGIS": {
-			"T_TITLE": "Téléchargement au format Arkeogis (CSV)"
+			"T_TITLE": "Téléchargement au format ArkeoGIS (CSV)"
 		},
 		"POPUP_EXPORT_OMEKA": {
-			"T_TITLE": "Téléchargement au format Omeka (CSV)"
+			"T_TITLE": "Téléchargement au format OMEKA (CSV)"
 		},
 		"POPUP_EXPORT_OMEKA_CHOOSECHRONO": {
 			"T_CHOOSECHRONO": "Choix possibles",
 			"T_NOCHRONO": "Pas de chronologie",
-			"T_TITLE": "Choisissez une chronologie :"
+			"T_TITLE": "Quelle Chronologie doit être utilisée par ArkeoGIS pour l'expression sémantique des périodes à l'exportation ?"
 		},
 		"POPUP_HANDLE_HISTORY": {
 			"T_TITLE": "Historique des identifiants crées"
