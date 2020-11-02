@@ -17,7 +17,7 @@
 			"T_TITLE": "Retour à la liste"
 		},
 		"BUTTON_IMPORTCSV": {
-			"T_TITLE": "Importer un CSV..."
+			"T_TITLE": "Importer un ZIP de CSV..."
 		},
 		"BUTTON_SAVE": {
 			"T_TITLE": "Enregistrer"
