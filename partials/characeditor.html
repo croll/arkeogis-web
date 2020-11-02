@@ -48,6 +48,7 @@
                 </md-input-container>
                 <md-toolbar class="md-theme-indigo">
                     <md-button class="md-raised" aria-label="Download CSV" ng-click="download_csv()"><span translate>CHARACEDITOR.BUTTON_DOWNLOADCSV.T_TITLE</span></md-button>
+                    <md-button class="md-raised" aria-label="Import CSVs zip" ngf-select ng-model="file" ngf-multiple="false" ngf-accept="'application/zip, application/x-zip-compressed'"><span translate>CHARACEDITOR.BUTTON_IMPORTCSV.T_TITLE</span></md-button>
                     <md-button class="md-raised" aria-label="Save" ng-click="save()" ng-disabled="!publishable"><span translate>CHARACEDITOR.BUTTON_SAVE.T_TITLE</span></md-button>
                     <md-button class="md-raised" aria-label="Retour liste" ng-click="gotolist()"><span translate>CHARACEDITOR.BUTTON_GOTOLIST.T_TITLE</span></md-button>
                     <md-button class="md-raised" aria-label="Cancel" ng-click="load()" ark-confirm="CHARACEDITOR.BUTTON_CANCEL.T_CONFIRM" ark-confirm-ok="CHARACEDITOR.BUTTON_CANCEL.T_OK"><span translate>CHARACEDITOR.BUTTON_CANCEL.T_TITLE</span></md-button>
@@ -65,6 +66,7 @@
             <table class="arbo-content arbo-content-n1">
                 <tr ng-repeat="(idx1, n1) in arbo.content">
                     <td class="arbo-title" style="background-color: #{{n1.color}}">
+                        <div style="position: absolute">{{n1.id}}</div>
                         <md-input-container class='title'>
                             <label translate>CHARACEDITOR.INPUT_ELEM_TITLE.T_TITLE</label>
                             <input name="" ng-model="n1.name_cur" ark-translate ark-translate-bind-lang="1" ark-translations="n1.name" ng-change="check_all()" placeholder="" required maxlength="255" minlength="1"/>
@@ -92,6 +94,7 @@
                         <table class="arbo-content arbo-content-n2">
                             <tr ng-repeat="(idx2, n2) in n1.content">
                                 <td class="arbo-title" style="background-color: #{{n2.color}}">
+                                    <div style="position: absolute">{{n2.id}}</div>
                                     <md-input-container class='title'>
                                         <label translate>CHARACEDITOR.INPUT_ELEM_TITLE.T_TITLE</label>
                                         <input name="" ng-model="n2.name_cur" ark-translate ark-translate-bind-lang="1" ark-translations="n2.name" ng-change="check_all()" placeholder="" required maxlength="255" minlength="1"/>
@@ -114,6 +117,7 @@
                                     <table class="arbo-content arbo-content-n3">
                                         <tr ng-repeat="(idx3, n3) in n2.content">
                                             <td class="arbo-title" style="background-color: #{{n3.color}}">
+                                                <div style="position: absolute">{{n3.id}}</div>
                                                 <md-input-container class='title'>
                                                     <label translate>CHARACEDITOR.INPUT_ELEM_TITLE.T_TITLE</label>
                                                     <input name="" ng-model="n3.name_cur" ark-translate ark-translate-bind-lang="1" ark-translations="n3.name" ng-change="check_all()" placeholder="" required maxlength="255" minlength="1"/>
@@ -136,9 +140,14 @@
                                                 <table class="arbo-content arbo-content-n4">
                                                     <tr ng-repeat="(idx4, n4) in n3.content">
                                                         <td class="arbo-title" style="background-color: #{{n4.color}}">
+                                                            <div style="position: absolute">{{n4.id}}</div>
                                                             <md-input-container class='title'>
                                                                 <label translate>CHARACEDITOR.INPUT_ELEM_TITLE.T_TITLE</label>
                                                                 <input name="" ng-model="n4.name_cur" ark-translate ark-translate-bind-lang="1" ark-translations="n4.name" ng-change="check_all()" placeholder="" required maxlength="255" minlength="1"/>
+                                                            </md-input-container>
+                                                            <md-input-container class='title'>
+                                                                <label translate>CHARACEDITOR.INPUT_ELEM_ARKID.T_TITLE</label>
+                                                                <input name="" ng-model="n4.arkid" placeholder="" required maxlength="255" minlength="0"/>
                                                             </md-input-container>
                                                             <md-input-container class='order'>
                                                                 <label translate>CHARACEDITOR.INPUT_ELEM_ORDER.T_TITLE</label>

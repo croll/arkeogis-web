@@ -155,6 +155,7 @@
 
 		$scope.remove_arbo = function(elem, parent, idx1, idx, level) {
 			parent.content.splice(idx, 1);
+			$scope.check_all();
 		};
 
 		$scope.openLeftMenu = function() {
@@ -239,8 +240,9 @@
 
 		$scope.download_csv = function() {
 			var downloadLink = angular.element('<a></a>');
-                        downloadLink.attr('href', '/api/characs/csv?name='+$scope.arbo.name_cur+'&isocode='+arkeoLang.getTranslationLang()+'&dl=1');
-                        downloadLink.attr('download', $scope.arbo.name_cur+'.csv');
+            //downloadLink.attr('href', '/api/characs/csv?name='+$scope.arbo.name_cur+'&isocode='+arkeoLang.getTranslationLang()+'&dl=1');
+            downloadLink.attr('href', '/api/characs/csv?id='+$scope.arbo.id+'&isocode='+arkeoLang.getTranslationLang()+'&dl=1');
+            downloadLink.attr('download', $scope.arbo.name_cur+'.csv');
                 var event = new MouseEvent('click', {
                   'view': window,
                   'bubbles': true,
@@ -248,6 +250,99 @@
                 });
                 downloadLink[0].dispatchEvent(event);
 		}
+
+		$scope.$watch('file', function () {
+			if ($scope.file == null) return;
+			arkeoService.showMessage("uploading...");
+
+			$scope.file.arrayBuffer().then(buf => {
+				var url = '/api/characszip';
+
+				var data={
+					characId: $scope.arbo.id,
+					zipContent: Array.from(new Uint8Array(buf)),
+				};
+	
+				$http.post(url, data).then(function(data) {
+					arkeoService.showMessage("ok !");
+					$scope.arbo = data.data;
+					$scope.check_all();
+				}, function(err) {
+					console.log("err status : ", err.status);
+					if (err.status == 400) {
+						arkeoService.showMessage("save failed : "+err.data.errors[0].error_string);
+					} else {
+						arkeoService.showMessage("save failed : "+err.status+", "+err.statusText);
+						console.error("not saved :", err);	
+					}
+				});
+			});
+
+		});
+
+/*
+		$scope.$watch('file', function () {
+			if ($scope.file != null) {
+				$scope.file.arrayBuffer().then(buf => {
+					if (!("TextDecoder" in window)) {
+						alert("Sorry, this browser does not support TextDecoder...");
+						return;
+					}
+					var enc = new TextDecoder("utf-8");
+					var characs = enc.decode(buf);
+
+					characs.split("\n").forEach((line, i) => {
+						if (i==0) {
+							// header
+						} else {
+							var elems = line.split(";");
+							importCsvLine(elems, arkeoLang.getTranslationLang());
+						}
+					});
+					//$scope.arbo = arbo;
+				});
+			}
+		});
+
+		function importCsvLine(line, lang) {
+			var elem = {
+				id: parseInt(line[0]),
+				ark_id: line[1],
+				author_user_id: 0,
+				name: { },
+			};
+
+			if (elem.id > 0) {
+				var path=[];
+				var found=getArboElemById(elem.id, path);
+				if (found) {
+					console.log("path: ", path);
+				} else {
+					console.log("ELEM NOUT FOUND : ", elem);
+				}
+			} else {
+				console.log("import: elem without id : ", elem);
+			}
+		}
+
+		// recursive search arbo element by id
+		function getArboElemById(id, path, content = $scope.arbo.content) {
+			return content.find(elem => {
+				if (parseInt(elem.id) == id) {
+					path.push(elem);
+					return true;
+				}
+				if (elem.content) {
+					var found = getArboElemById(id, path, elem.content);
+					if (found) {
+						path.push(elem);
+					}
+					return found;
+				}
+				return false;
+			});
+		}
+*/
 
 		function lock_header() {
 			var fixmeTop = $('.fixme').offset().top;       // get initial position of the element
