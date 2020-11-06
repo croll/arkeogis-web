@@ -66,7 +66,6 @@
             <table class="arbo-content arbo-content-n1">
                 <tr ng-repeat="(idx1, n1) in arbo.content">
                     <td class="arbo-title" style="background-color: #{{n1.color}}">
-                        <div style="position: absolute">{{n1.id}}</div>
                         <md-input-container class='title'>
                             <label translate>CHARACEDITOR.INPUT_ELEM_TITLE.T_TITLE</label>
                             <input name="" ng-model="n1.name_cur" ark-translate ark-translate-bind-lang="1" ark-translations="n1.name" ng-change="check_all()" placeholder="" required maxlength="255" minlength="1"/>
@@ -94,7 +93,6 @@
                         <table class="arbo-content arbo-content-n2">
                             <tr ng-repeat="(idx2, n2) in n1.content">
                                 <td class="arbo-title" style="background-color: #{{n2.color}}">
-                                    <div style="position: absolute">{{n2.id}}</div>
                                     <md-input-container class='title'>
                                         <label translate>CHARACEDITOR.INPUT_ELEM_TITLE.T_TITLE</label>
                                         <input name="" ng-model="n2.name_cur" ark-translate ark-translate-bind-lang="1" ark-translations="n2.name" ng-change="check_all()" placeholder="" required maxlength="255" minlength="1"/>
@@ -117,7 +115,6 @@
                                     <table class="arbo-content arbo-content-n3">
                                         <tr ng-repeat="(idx3, n3) in n2.content">
                                             <td class="arbo-title" style="background-color: #{{n3.color}}">
-                                                <div style="position: absolute">{{n3.id}}</div>
                                                 <md-input-container class='title'>
                                                     <label translate>CHARACEDITOR.INPUT_ELEM_TITLE.T_TITLE</label>
                                                     <input name="" ng-model="n3.name_cur" ark-translate ark-translate-bind-lang="1" ark-translations="n3.name" ng-change="check_all()" placeholder="" required maxlength="255" minlength="1"/>
@@ -140,7 +137,6 @@
                                                 <table class="arbo-content arbo-content-n4">
                                                     <tr ng-repeat="(idx4, n4) in n3.content">
                                                         <td class="arbo-title" style="background-color: #{{n4.color}}">
-                                                            <div style="position: absolute">{{n4.id}}</div>
                                                             <md-input-container class='title'>
                                                                 <label translate>CHARACEDITOR.INPUT_ELEM_TITLE.T_TITLE</label>
                                                                 <input name="" ng-model="n4.name_cur" ark-translate ark-translate-bind-lang="1" ark-translations="n4.name" ng-change="check_all()" placeholder="" required maxlength="255" minlength="1"/>
