@@ -629,6 +629,10 @@
 			"T_HELP": "Please, choose one of the Creative Commons licenses that are compatible with ArkeoGIS to protect your work.",
 			"T_LABEL": "License"
 		},
+		"FIELD_PUBLIC": {
+			"T_HELP": "#!#IMPORT_STEP3.FIELD_PUBLIC.T_HELP",
+			"T_LABEL": "#!#IMPORT_STEP3.FIELD_PUBLIC.T_LABEL"
+		},
 		"FIELD_PUBLISHED": {
 			"T_HELP": "Please, move the cursor to publish the database in the mapping interface. This publication allows the users to query your database.",
 			"T_LABEL": "Database published on ArkeoGIS"
