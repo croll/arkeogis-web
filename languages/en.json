@@ -630,8 +630,8 @@
 			"T_LABEL": "License"
 		},
 		"FIELD_PUBLIC": {
-			"T_HELP": "#!#IMPORT_STEP3.FIELD_PUBLIC.T_HELP",
-			"T_LABEL": "#!#IMPORT_STEP3.FIELD_PUBLIC.T_LABEL"
+			"T_HELP": "Please, move the cursor to make the database as publicly available",
+			"T_LABEL": "Public"
 		},
 		"FIELD_PUBLISHED": {
 			"T_HELP": "Please, move the cursor to publish the database in the mapping interface. This publication allows the users to query your database.",

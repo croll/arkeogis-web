@@ -630,8 +630,8 @@
 			"T_LABEL": "Licence"
 		},
 		"FIELD_PUBLIC": {
-			"T_HELP": "#!#IMPORT_STEP3.FIELD_PUBLIC.T_HELP",
-			"T_LABEL": "#!#IMPORT_STEP3.FIELD_PUBLIC.T_LABEL"
+			"T_HELP": "Déplacer le curseur ci-dessus pour que la base soit public",
+			"T_LABEL": "Public"
 		},
 		"FIELD_PUBLISHED": {
 			"T_HELP": "Déplacer le curseur ci-dessus pour publier la base de données dans l'interface cartographique. Cette publication permet de rendre la base de donnée interrogeable par les utilisateurs d'ArkeoGIS.",
@@ -1620,6 +1620,38 @@
 		"USERSLIST_ACTIVE": {
 			"T_FALSE": "non",
 			"T_TRUE": "oui"
+		}
+	},
+	"USER_PREFERENCES": {
+		"BUTTON_SUBMIT": {
+			"T_LABEL": "#!#USER_PREFERENCES.BUTTON_SUBMIT.T_LABEL"
+		},
+		"FIELD_END_DATE": {
+			"T_LABEL": "#!#USER_PREFERENCES.FIELD_END_DATE.T_LABEL"
+		},
+		"FIELD_START_DATE": {
+			"T_LABEL": "#!#USER_PREFERENCES.FIELD_START_DATE.T_LABEL"
+		},
+		"INFORMATIONS": {
+			"T_TILE": "#!#USER_PREFERENCES.INFORMATIONS.T_TILE"
+		},
+		"INFORMATIONS_PERIOD_SELECTION": {
+			"T_LABEL": "#!#USER_PREFERENCES.INFORMATIONS_PERIOD_SELECTION.T_LABEL"
+		},
+		"INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA": {
+			"T_LABEL": "#!#USER_PREFERENCES.INTERFACE_CHOOSE_WORKING_GEOGRAPHICAL_AREA.T_LABEL"
+		},
+		"INTERFACE_INFOS_USAGE": {
+			"T_LABEL": "#!#USER_PREFERENCES.INTERFACE_INFOS_USAGE.T_LABEL"
+		},
+		"TAB_CHRONOLOGIES": {
+			"T_LABEL": "#!#USER_PREFERENCES.TAB_CHRONOLOGIES.T_LABEL"
+		},
+		"TAB_DATABASES": {
+			"T_LABEL": "#!#USER_PREFERENCES.TAB_DATABASES.T_LABEL"
+		},
+		"TAB_MAPS": {
+			"T_LABEL": "#!#USER_PREFERENCES.TAB_MAPS.T_LABEL"
 		}
 	}
 }
