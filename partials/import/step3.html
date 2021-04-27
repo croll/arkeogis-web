@@ -155,6 +155,15 @@
                     <ark-help flex translate>IMPORT_STEP3.FIELD_PUBLISHED.T_HELP</ark-help>
                 </ark-form-block>
             </md-content>
+            <!-- Database public -->
+            <md-content layout-padding style="margin-top: -45px">
+                <ark-form-block>
+                    <md-switch aria-label="{{'IMPORT_STEP3.FIELD_PUBLIC.T_LABEL' | translate}}" ng-model="database.public" style="margin: 15px 0 25px 0">
+                        <span translate>IMPORT_STEP3.FIELD_PUBLIC.T_LABEL</span>
+                    </md-switch>
+                    <ark-help flex translate>IMPORT_STEP3.FIELD_PUBLIC.T_HELP</ark-help>
+                </ark-form-block>
+            </md-content>
             <!-- Actions -->
             <md-content layout layout-sm="column" layout-padding layout-align="center center">
                 <md-button type="submit" class="md-primary md-raised md-hue-2" ng-disabled="!publicationForm.$valid">
