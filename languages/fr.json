@@ -638,8 +638,8 @@
 			"T_LABEL": "Base de données publiée sur ArkeoGIS"
 		},
 		"FIELD_RE_USE": {
-			"T_HELP": "#!#IMPORT_STEP3.FIELD_RE_USE.T_HELP",
-			"T_LABEL": "#!#IMPORT_STEP3.FIELD_RE_USE.T_LABEL"
+			"T_HELP": "Conditions de réutilisation de cette base de donnée",
+			"T_LABEL": "Réutilisation"
 		},
 		"FIELD_SCALE_RESOLUTION": {
 			"T_HELP": "Cette base de données concerne des objets, ou des sites ou des bassins versants etc.",
