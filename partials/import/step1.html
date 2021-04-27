@@ -27,7 +27,7 @@
       <ark-form-block>
         <md-input-container>
           <label translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_LABEL</label>
-          <input name="databaseName" md-minlength="3" md-maxlength="50" ng-model="database.name" required="" ng-disabled="database.id"></input>
+          <input name="databaseName" md-minlength="3" md-maxlength="75" ng-model="database.name" required="" ng-disabled="database.id"></input>
           <div ng-messages="importForm.databaseName.$error">
             <div ng-message="md-maxlength" translate>IMPORT_STEP1.FIELD_DATABASE_NAME.T_ERROR_MAX_LEN</div>
             <div ng-message="required" translate>IMPORT.FIELD_ALL.T_ERROR_REQUIRED</div>
