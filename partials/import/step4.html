@@ -127,7 +127,27 @@
                     </ark-form-block>
                 </div>
             </md-content>
-      <!-- Actions -->
+            <!-- Re_use -->
+            <md-content layout="row" class="description-blocks">
+              <div class="md-padding" flex>
+                  <ark-form-block>
+                      <md-input-container style="margin-top: 25px">
+                          <textarea name="re_use1" ng-model="re_use_lang1" ark-translations="database.re_use" ark-translate ark-translate-bind-lang="1" aria-label="-" placeholder="{{ 'IMPORT_STEP4.RE_USE_LANG1.T_LABEL' | translate}}" ></textarea>
+                      </md-input-container>
+                  </ark-form-block>
+              </div>
+              <div class="md-padding" flex-offset-gt-md="5" flex>
+                  <ark-form-block>
+                      <md-input-container style="margin-top: 25px">
+                          <textarea name="re_use2" ng-model="re_use_lang2" ark-translations="database.re_use" ark-translate ark-translate-bind-lang="2" aria-label="-" placeholder="{{ 'IMPORT_STEP4.RE_USE_LANG2.T_LABEL' | translate}}"   ></textarea>
+                          <div ng-messages="moreInfosForm.re_use2.$error">
+                              <div ng-message="english_required" translate>IMPORT.FIELD_ALL.T_ENGLISH_TRANSLATION_REQUIRED</div>
+                          </div>
+                      </md-input-container>
+                  </ark-form-block>
+              </div>
+          </md-content>
+    <!-- Actions -->
       <md-content layout layout-sm="column" layout-padding layout-align="center center">
         <md-button type="submit" class="md-primary md-raised md-hue-2" ng-disabled="!moreInfosForm.$valid"><span translate>IMPORT_STEP4.FORM.T_BUTTON_SUBMIT</span></md-button>
         <md-button class="md-raised" ui-sref="arkeogis.import.step3"><span translate>IMPORT_STEP4.FORM.T_BUTTON_BACK</span></md-button>
