@@ -79,6 +79,16 @@
             </div>
             <div layout="row">
                 <div>
+                    <span translate>DATABASE.INFORMATIONS.T_PUBLIC</span>:</div>
+                <div ng-show="database.public">
+                    <span style="color: #9ad49a" translate>DATABASE.INFORMATIONS.T_ISPUBLIC</span>
+                </div>
+                <div ng-hide="database.public">
+                    <span style="color: #FB7378" translate>DATABASE.INFORMATIONS.T_ISNOTPUBLIC</span>
+                </div>
+            </div>
+            <div layout="row">
+                <div>
                     <span translate>DATABASE.INFORMATIONS.T_DATE</span>:</div>
                 <div>{{database.declared_creation_date | date:'short'}}</div>
             </div>
@@ -178,6 +188,11 @@
                 <div>
                     <span translate>DATABASE.INFORMATIONS.T_BIBLIOGRAPHY</span>:</div>
                 <div ark-force-lang="database.default_language" ark-get-translation ark-translations="database.bibliography"></div>
+            </div>
+            <div layout="row" ng-show="database.re_use.en != ''">
+                <div>
+                    <span translate>DATABASE.INFORMATIONS.T_RE_USE</span>:</div>
+                <div ark-force-lang="database.default_language" ark-get-translation ark-translations="database.re_use"></div>
             </div>
             <div layout="row">
                 <div>
