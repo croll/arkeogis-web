@@ -637,10 +637,6 @@
 			"T_HELP": "Déplacer le curseur ci-dessus pour publier la base de données dans l'interface cartographique. Cette publication permet de rendre la base de donnée interrogeable par les utilisateurs d'ArkeoGIS.",
 			"T_LABEL": "Base de données publiée sur ArkeoGIS"
 		},
-		"FIELD_RE_USE": {
-			"T_HELP": "Conditions de réutilisation de cette base de donnée",
-			"T_LABEL": "Réutilisation"
-		},
 		"FIELD_SCALE_RESOLUTION": {
 			"T_HELP": "Cette base de données concerne des objets, ou des sites ou des bassins versants etc.",
 			"T_LABEL": "Echelle des points"
@@ -727,6 +723,12 @@
 			"T_ERROR_BIBLIOGRAPHY_EN_TRANSLATION_CAN_T_BE_EMPTY": "Le champs \"bibliographie\" doit être complété en anglais.",
 			"T_ERROR_GEOGRAPHICAL_LIMITS_EN_TRANSLATION_CAN_T_BE_EMPTY": "Le champs \"Précision géographique\" doit être complété en anglais.",
 			"T_PUBLICATION_INFORMATIONS_SAVED": "Les informations sont enregistrées."
+		},
+		"RE_USE_LANG1": {
+			"T_LABEL": "#!#IMPORT_STEP4.RE_USE_LANG1.T_LABEL"
+		},
+		"RE_USE_LANG2": {
+			"T_LABEL": "#!#IMPORT_STEP4.RE_USE_LANG2.T_LABEL"
 		}
 	},
 	"LANGEDITOR": {
