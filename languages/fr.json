@@ -725,10 +725,10 @@
 			"T_PUBLICATION_INFORMATIONS_SAVED": "Les informations sont enregistrées."
 		},
 		"RE_USE_LANG1": {
-			"T_LABEL": "#!#IMPORT_STEP4.RE_USE_LANG1.T_LABEL"
+			"T_LABEL": "Réutilisation"
 		},
 		"RE_USE_LANG2": {
-			"T_LABEL": "#!#IMPORT_STEP4.RE_USE_LANG2.T_LABEL"
+			"T_LABEL": "Réutilisation (traduction)"
 		}
 	},
 	"LANGEDITOR": {
