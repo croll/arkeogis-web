@@ -439,7 +439,7 @@
             //    arkeoImport.selectTab(4, database.editMode)
 
             // Force lang to english for translatables fields if necessary
-            arkeoLang.autoSetTranslationLang2FromDatas([database.geographical_limit, database.bibliography]);
+            arkeoLang.autoSetTranslationLang2FromDatas([database.geographical_limit, database.bibliography, database.re_use]);
 
             // $scope.$watch('database.geographical_limit.en', function(newVal, oldVal) {
             //     if (!newVal || (newVal && newVal == '')) {
@@ -487,6 +487,15 @@
                             dbObj.geographical_limit.push({
                                 lang_isocode: iso_code,
                                 text: database.geographical_limit[iso_code]
+                            });
+                        }
+                    }
+                    dbObj.re_use = [];
+                    for (var iso_code in database.re_use) {
+                        if (database.re_use.hasOwnProperty(iso_code)) {
+                            dbObj.re_use.push({
+                                lang_isocode: iso_code,
+                                text: database.re_use[iso_code]
                             });
                         }
                     }
