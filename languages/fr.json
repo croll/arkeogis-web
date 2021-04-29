@@ -693,6 +693,10 @@
 			"T_HELP": "Nom de la structure éditrice",
 			"T_LABEL": "Structure éditrice"
 		},
+		"FIELD_EDITOR_URL": {
+			"T_HELP": "#!#IMPORT_STEP4.FIELD_EDITOR_URL.T_HELP",
+			"T_LABEL": "#!#IMPORT_STEP4.FIELD_EDITOR_URL.T_LABEL"
+		},
 		"FIELD_GEOGRAPHICAL_LIMIT_LANG1": {
 			"T_LABEL": "Précision géographique (langue principale)"
 		},

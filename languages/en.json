@@ -693,6 +693,10 @@
 			"T_HELP": "Publisher's name",
 			"T_LABEL": "Editorial or publishing structure"
 		},
+		"FIELD_EDITOR_URL": {
+			"T_HELP": "#!#IMPORT_STEP4.FIELD_EDITOR_URL.T_HELP",
+			"T_LABEL": "#!#IMPORT_STEP4.FIELD_EDITOR_URL.T_LABEL"
+		},
 		"FIELD_GEOGRAPHICAL_LIMIT_LANG1": {
 			"T_LABEL": "Details about the geographical scope (main language)"
 		},
