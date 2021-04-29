@@ -291,8 +291,19 @@
                 <p>
                     <h3 translate>DATABASE.POPUP_EXPORT_ARKEOGIS.T_TITLE</h3>
                     <p>
-                        <md-button class="md-raised md-hue-1" ng-click="downloadExportArkeogis()" ng-show="isAdmin || isOwner">
+                        <md-button class="md-raised md-hue-1" ng-click="downloadExportArkeogis(false)" ng-show="isAdmin || isOwner">
                             <span translate>DATABASE.BUTTON_DOWNLOAD_ARKEOGIS.T_TITLE</span>
+                        </md-button>
+                    </p>
+                </p>
+
+                <br />
+
+                <p>
+                    <h3 translate>DATABASE.POPUP_EXPORT_ARKEOGIS_INTEROPERABLE.T_TITLE</h3>
+                    <p>
+                        <md-button class="md-raised md-hue-1" ng-click="downloadExportArkeogis(true)" ng-show="isAdmin || isOwner">
+                            <span translate>DATABASE.BUTTON_DOWNLOAD_ARKEOGIS_INTEROPERABLE.T_TITLE</span>
                         </md-button>
                     </p>
                 </p>
@@ -314,6 +325,17 @@
                             href="/api/database/{{database.id}}/exportOmeka?chronologyid={{chronoselected}}">DATABASE.BUTTON_DOWNLOAD_OMEKA.T_TITLE</a>
                     </p>
                 </p>
+
+                <p>
+                    <h3 translate>DATABASE.POPUP_EXPORT_ARKEOGIS_XML.T_TITLE</h3>
+                    <p>
+                        <md-button class="md-raised md-hue-1" ng-click="downloadExportArkeogisXML()" ng-show="isAdmin || isOwner">
+                            <span translate>DATABASE.BUTTON_DOWNLOAD_ARKEOGIS_XML.T_TITLE</span>
+                        </md-button>
+                    </p>
+                </p>
+
+                <br />
 
             </md-dialog-content>
         </md-dialog>
