@@ -21,6 +21,16 @@
           </ark-form-block>
           <ark-form-block>
             <md-input-container>
+              <label translate>IMPORT_STEP4.FIELD_EDITOR_URL.T_LABEL</label>
+              <input name="editor_url" type="url" ng-model="database.editor_url">
+              <div ng-messages="moreInfosForm.editor_url.$error">
+                <div ng-message="url" translate>IMPORT.FIELD_ALL.T_ERROR_NOT_VALID_URL</div>
+              </div>
+            </md-input-container>
+            <ark-help translate>IMPORT_STEP4.FIELD_EDITOR_URL.T_HELP</ark-help>
+          </ark-form-block>
+          <ark-form-block>
+            <md-input-container>
               <label translate>IMPORT_STEP4.FIELD_CONTRIBUTOR.T_LABEL</label>
               <input name="contributor" ng-model="database.contributor">
             </md-input-container>
