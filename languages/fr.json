@@ -524,8 +524,8 @@
 			"T_LINE2": "Ces données sont exportables à des fins de recherche (selon la licence retenue) par des personnes identifiées par le service ArkeoGIS comme étudiant(e)s, technicien(ne)s, chercheur(e)s ou administrateur(e)s du service ArkeoGIS."
 		},
 		"FIELD_DATABASE_NAME": {
-			"T_ERROR_MAX_LEN": "Le nom de la base de donnée ne peut dépasser les 50 caractères.",
-			"T_LABEL": "* Nom de la base de données"
+			"T_ERROR_MAX_LEN": "Nom du dataset présentant en 75 caractères maximum le thème l'époque et le lieu (exemple Cruches gallo-romaines en Alsace).",
+			"T_LABEL": "* Nom du dataset (dc:title)"
 		},
 		"FIELD_ECHAP_CHARACTER": {
 			"T_ERROR_LEN": "Erreur de caractère d'échappement.",
@@ -546,7 +546,7 @@
 		},
 		"FIELD_LANG": {
 			"T_HELP": "Langue utilisée dans la base de données pour décrire les caractérisations Mobilier / Immobilier / Production / Paysage / Médias",
-			"T_LABEL": "* Langue de la base de données"
+			"T_LABEL": "* Langue de la base de données (dc:language)"
 		},
 		"FIELD_SEPARATOR": {
 			"T_ERROR_LEN": "Ce champ ne peut comporter qu'un caractère maximum.",
