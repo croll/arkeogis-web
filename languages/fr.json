@@ -524,8 +524,8 @@
 			"T_LINE2": "Ces données sont exportables à des fins de recherche (selon la licence retenue) par des personnes identifiées par le service ArkeoGIS comme étudiant(e)s, technicien(ne)s, chercheur(e)s ou administrateur(e)s du service ArkeoGIS."
 		},
 		"FIELD_DATABASE_NAME": {
-			"T_ERROR_MAX_LEN": "Nom du dataset présentant en 75 caractères maximum le thème l'époque et le lieu (exemple Cruches gallo-romaines en Alsace).",
-			"T_LABEL": "* Nom du dataset (dc:title)"
+			"T_ERROR_MAX_LEN": "Titre - Nom du dataset présentant en 75 caractères maximum le thème l'époque et le lieu (exemple Cruches gallo-romaines en Alsace).",
+			"T_LABEL": "* Titre du dataset (dc:title)"
 		},
 		"FIELD_ECHAP_CHARACTER": {
 			"T_ERROR_LEN": "Erreur de caractère d'échappement.",
@@ -542,7 +542,7 @@
 			"T_PLACEHOLDER": "Indiquer un pays"
 		},
 		"FIELD_GEO_EXTENT": {
-			"T_LABEL": "* Étendue géographique de la base de données."
+			"T_LABEL": "* Étendue géographique de la base de données (dc:coverage)"
 		},
 		"FIELD_LANG": {
 			"T_HELP": "Langue utilisée dans la base de données pour décrire les caractérisations Mobilier / Immobilier / Production / Paysage / Médias",
@@ -612,34 +612,34 @@
 			"T_UNABLE_TO_REMOVE_MAIN_AUTHOR": "Il est impossible de modifier l'auteur(e) de l'importation."
 		},
 		"FIELD_AUTHOR": {
-			"T_HELP": "Prénom et nom d l'auteur(e) de l’importation. Il n’y a pas de nombre maximum de co-auteur(e)s.",
+			"T_HELP": "Prénom et nom de(s) auteur(e-s) du dataset, c'est à dire de l'alignement de la base de données source. Il n’y a pas de nombre maximum de co-auteur(e)s. (dc:creator)",
 			"T_LABEL": "Attribuée à"
 		},
 		"FIELD_CONTEXT": {
-			"T_HELP": "Travail réalisé dans le ou les cadre (s) de : Travail universitaire / Contrat / Équipe de recherche / Autres (plusieurs choix possibles)",
+			"T_HELP": "Travail réalisé dans le ou les cadre(s) de : Travail universitaire / Contrat / Équipe de recherche / Autres (plusieurs choix possibles)",
 			"T_LABEL": "Cadre de réalisation"
 		},
 		"FIELD_CREATION_DATE": {
-			"T_HELP": "De la base de données, non la date de l’importation.",
-			"T_LABEL": "Date de création"
+			"T_HELP": "Date de création du dataset non la date de l’importation.",
+			"T_LABEL": "Date de création (dc:date)"
 		},
 		"FIELD_DESCRIPTION_LANG1": {
-			"T_LABEL": "Description (langue principale)"
+			"T_LABEL": "Description dans la langue d'importation de la base de données (dc:description)"
 		},
 		"FIELD_DESCRIPTION_LANG2": {
-			"T_LABEL": "Description (traduction)"
+			"T_LABEL": "Description (dc:description traduction)"
 		},
 		"FIELD_LICENSE": {
-			"T_HELP": "Merci de choisir une des licences Creative Commons compatibles avec la plate-forme ArkeoGIS pour protéger votre travail.",
-			"T_LABEL": "Licence"
+			"T_HELP": "Merci de choisir une des licences compatibles avec la plate-forme ArkeoGIS pour protéger votre travail.",
+			"T_LABEL": "* Licence (dc:rights)"
 		},
 		"FIELD_PUBLIC": {
-			"T_HELP": "Déplacer le curseur ci-dessus pour que la base soit public",
-			"T_LABEL": "Public"
+			"T_HELP": "Le dataset et les métadonnées sont accessibles pour tous, déplacer le curseur ci-dessus pour que la base soit public",
+			"T_LABEL": "Publication ouverte"
 		},
 		"FIELD_PUBLISHED": {
 			"T_HELP": "Déplacer le curseur ci-dessus pour publier la base de données dans l'interface cartographique. Cette publication permet de rendre la base de donnée interrogeable par les utilisateurs d'ArkeoGIS.",
-			"T_LABEL": "Base de données publiée sur ArkeoGIS"
+			"T_LABEL": "Publication ArkeoGIS"
 		},
 		"FIELD_SCALE_RESOLUTION": {
 			"T_HELP": "Cette base de données concerne des objets, ou des sites ou des bassins versants etc.",
@@ -650,11 +650,11 @@
 			"T_LABEL": "État"
 		},
 		"FIELD_SUBJECT": {
-			"T_HELP": "Résumé, texte de présentation, mots-clés complémentaires table des matières etc.",
-			"T_LABEL": "Sujet(s) / Mots clés"
+			"T_HELP": "Mot clés séparés par une virgule, Il n'y a pas de maximum soyez exhaustif avec votre travail.",
+			"T_LABEL": "Mots clés (dc:subject)"
 		},
 		"FIELD_TYPE": {
-			"T_HELP": "Travail issu d’un inventaire, d’une recherche ou de la transcription d’un ouvrage.",
+			"T_HELP": "Dataset issu d’un inventaire, d’une recherche ou de la transcription d’un ouvrage.",
 			"T_LABEL": "Type"
 		},
 		"FORM": {
@@ -673,50 +673,50 @@
 	},
 	"IMPORT_STEP4": {
 		"BIBLIOGRAPHY_LANG1": {
-			"T_LABEL": "Bibliographie (langue principale)"
+			"T_LABEL": "Cet espace permet à l’auteur de définir comment il souhaite être cité dans la langue d'importation de la base de données. (dcterms:bibliographicCitation)"
 		},
 		"BIBLIOGRAPHY_LANG2": {
-			"T_LABEL": "Bibliographie (traduction)"
+			"T_LABEL": "Citation (traduction) Citation traduction (dcterms:bibliographicCitation-en)"
 		},
 		"FIELD_CONTEXT_DESCRIPTION": {
 			"T_LABEL": "Précision du cadre de réalisation"
 		},
 		"FIELD_CONTRIBUTOR": {
 			"T_HELP": "Nom de l'organisation ou du service qui contribue ou a contribué  à l’élaboration du document.",
-			"T_LABEL": "Contributeur"
+			"T_LABEL": "Contributeur (dc:contributor)"
 		},
 		"FIELD_DATE_IUR": {
 			"T_HELP": "Date de dépôt de la ressource de référence (URI).",
 			"T_LABEL": "Date de la ressource"
 		},
 		"FIELD_EDITOR": {
-			"T_HELP": "Nom de la structure éditrice",
-			"T_LABEL": "Structure éditrice"
+			"T_HELP": "Structure éditrice",
+			"T_LABEL": "Nom de la structure éditrice (dc:publisher)"
 		},
 		"FIELD_EDITOR_URL": {
-			"T_HELP": "#!#IMPORT_STEP4.FIELD_EDITOR_URL.T_HELP",
-			"T_LABEL": "#!#IMPORT_STEP4.FIELD_EDITOR_URL.T_LABEL"
+			"T_HELP": "URL du site web de l'organisation ou du service responsable de la mise à disposition ou de la diffusion du dataset.",
+			"T_LABEL": "Adresse du site web de l'éditeur (dc:publisher-URL)"
 		},
 		"FIELD_GEOGRAPHICAL_LIMIT_LANG1": {
-			"T_LABEL": "Précision géographique (langue principale)"
+			"T_LABEL": "Précision géographique langue principale (dc:coverage)"
 		},
 		"FIELD_GEOGRAPHICAL_LIMIT_LANG2": {
-			"T_LABEL": "Précision géographique (traduction)"
+			"T_LABEL": "Précision géographique traduction (dc:coverage-en)"
 		},
 		"FIELD_RELATIONS": {
-			"T_LABEL": "Lien avec d'autres ressources."
+			"T_LABEL": "Dataset en relation avec (dc:relation)"
 		},
 		"FIELD_RESOURCE": {
-			"T_HELP": "Ressource dont dérive la base de données.",
-			"T_LABEL": "Ressource"
+			"T_HELP": "Adresse URL de l'URI de la base de données à l'origine du dataset.",
+			"T_LABEL": "URL de la Source (dc:source-URL)"
 		},
 		"FIELD_RESOURCE_ID": {
-			"T_HELP": "Identifiant Uniforme de la Ressource (URI).",
-			"T_LABEL": "Identifiant Uniforme de la Ressource"
+			"T_HELP": "L'URI l'Identifiant Uniforme et pérenne de la Ressource est obligatoire pour l'interopérabilité.",
+			"T_LABEL": "Identifiant Uniforme de la Ressource URI (dc:identifier)"
 		},
 		"FIELD_URL": {
-			"T_HELP": "Adresse de la ressource (URI).",
-			"T_LABEL": "URL"
+			"T_HELP": "Adresse URL de l'URI",
+			"T_LABEL": "Adresse de l'URI (dc:identifier-URL)"
 		},
 		"FORM": {
 			"T_BUTTON_BACK": "Retour vers le formulaire de publication",
@@ -733,10 +733,10 @@
 			"T_PUBLICATION_INFORMATIONS_SAVED": "Les informations sont enregistrées."
 		},
 		"RE_USE_LANG1": {
-			"T_LABEL": "Réutilisation"
+			"T_LABEL": "Réutilisation (dcterms:audience)"
 		},
 		"RE_USE_LANG2": {
-			"T_LABEL": "Réutilisation (traduction)"
+			"T_LABEL": "Réutilisation traduction (dcterms:audience-en)"
 		}
 	},
 	"LANGEDITOR": {
