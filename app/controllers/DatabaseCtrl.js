@@ -100,11 +100,18 @@
             }
 
             $scope.downloadExportArkeogis = function(includesiteid=false) {
-              $http.get('/api/database/' + database.id + '/export?includesiteid='+includesiteid,  {responseType: 'blob'}).then(function(response){
-                  arkeoDownload.openAsFile(response);
-              });
+                $http.get('/api/database/' + database.id + '/export?includesiteid='+includesiteid,  {responseType: 'blob'}).then(function(response){
+                    arkeoDownload.openAsFile(response);
+                });
             }
-  
+
+            $scope.downloadExportArkeogisXML = function() {
+                $http.get('/api/database/' + database.id + '/exportxml',  {responseType: 'blob'}).then(function(response){
+                    arkeoDownload.openAsFile(response);
+                });
+            }
+
+    
             $scope.showHandleDialog = function(ev) {
                 $mdDialog.show({
                     controller: DialogController,
