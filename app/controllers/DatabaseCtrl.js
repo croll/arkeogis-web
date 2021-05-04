@@ -99,8 +99,8 @@
               });
             }
 
-            $scope.downloadExportArkeogis = function(includesiteid=false) {
-                $http.get('/api/database/' + database.id + '/export?includesiteid='+includesiteid,  {responseType: 'blob'}).then(function(response){
+            $scope.downloadExportArkeogis = function(includesiteid=false, includeinterop=false) {
+                $http.get('/api/database/' + database.id + '/export?includesiteid='+includesiteid+'&includeinterop='+includeinterop,  {responseType: 'blob'}).then(function(response){
                     arkeoDownload.openAsFile(response);
                 });
             }
