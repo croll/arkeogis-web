@@ -15,6 +15,8 @@ ArkeoGIS.factory('arkeoDownload', [function() {
             var contentDispStr = response.headers('Content-Disposition');
             var proposedFileName = contentDispStr ? contentDispStr.split('=')[1] : 'data.'+contentType.subtype;
 
+            if (proposedFileName.startsWith("utf-8''")) proposedFileName=decodeURIComponent(proposedFileName.substr(7));
+
             // build blob containing response data
             var blob = new Blob([response.data], {type : contentTypeStr});
 
