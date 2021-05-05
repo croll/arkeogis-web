@@ -187,6 +187,12 @@
 		"BUTTON_DOWNLOAD_ARKEOGIS": {
 			"T_TITLE": "Télécharger au format ArkeoGIS"
 		},
+		"BUTTON_DOWNLOAD_ARKEOGIS_INTEROPERABLE": {
+			"T_TITLE": "#!#DATABASE.BUTTON_DOWNLOAD_ARKEOGIS_INTEROPERABLE.T_TITLE"
+		},
+		"BUTTON_DOWNLOAD_ARKEOGIS_XML": {
+			"T_TITLE": "#!#DATABASE.BUTTON_DOWNLOAD_ARKEOGIS_XML.T_TITLE"
+		},
 		"BUTTON_DOWNLOAD_OMEKA": {
 			"T_TITLE": "Télécharger au format OMEKA"
 		},
@@ -242,7 +248,7 @@
 			"T_HEADER": "Etat"
 		},
 		"EXPORT_SUBJECT": {
-			"T_HEADER": "Sujets, Mots-clés"
+			"T_HEADER": "Mots-clés"
 		},
 		"EXPORT_TYPE": {
 			"T_HEADER": "Type"
@@ -271,6 +277,7 @@
 			"T_DATE": "Date de réalisation",
 			"T_DESCRIPTION": "Description",
 			"T_EDITOR": "Structure éditrice",
+			"T_EDITOR_URL": "#!#DATABASE.INFORMATIONS.T_EDITOR_URL",
 			"T_ENDING_PERIOD": "Date de Fin",
 			"T_GEOGRAPHICAL_EXTENT": "Etendue géographique",
 			"T_GEOGRAPHICAL_LIMITS_DESCRIPTION": "Précision géographique",
@@ -283,16 +290,16 @@
 			"T_IMPORTED_CSV": "Fichier CSV importé",
 			"T_IMPORT_HISTORY": "Historique des imports",
 			"T_IMPORT_INITIATOR": "Initiateur",
-			"T_ISNOTPUBLIC": "#!#DATABASE.INFORMATIONS.T_ISNOTPUBLIC",
-			"T_ISPUBLIC": "#!#DATABASE.INFORMATIONS.T_ISPUBLIC",
+			"T_ISNOTPUBLIC": "non ouverte",
+			"T_ISPUBLIC": "ouverte",
 			"T_LICENSE": "Licence",
 			"T_MODIFICATION_DATE": "Date de dernière modification",
 			"T_NUMBER_OF_LINES": "Nombre de lignes",
 			"T_NUMBER_OF_SITES": "Nombre de sites",
-			"T_PUBLIC": "#!#DATABASE.INFORMATIONS.T_PUBLIC",
+			"T_PUBLIC": "Publication ouvertes",
 			"T_PUBLICATION_STATUS": "Statut de publication",
 			"T_PUBLISHED": "Publiée",
-			"T_RE_USE": "#!#DATABASE.INFORMATIONS.T_RE_USE",
+			"T_RE_USE": "Réutilisation",
 			"T_SCALE": "Échelle",
 			"T_SOURCE_DESCRIPTION": "Source de la base",
 			"T_SOURCE_RELATION": "Lien avec d'autres ressources",
@@ -329,6 +336,12 @@
 		},
 		"POPUP_EXPORT_ARKEOGIS": {
 			"T_TITLE": "Téléchargement au format ArkeoGIS (CSV)"
+		},
+		"POPUP_EXPORT_ARKEOGIS_INTEROPERABLE": {
+			"T_TITLE": "#!#DATABASE.POPUP_EXPORT_ARKEOGIS_INTEROPERABLE.T_TITLE"
+		},
+		"POPUP_EXPORT_ARKEOGIS_XML": {
+			"T_TITLE": "#!#DATABASE.POPUP_EXPORT_ARKEOGIS_XML.T_TITLE"
 		},
 		"POPUP_EXPORT_OMEKA": {
 			"T_TITLE": "Téléchargement au format OMEKA (CSV)"
