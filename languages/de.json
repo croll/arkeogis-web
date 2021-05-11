@@ -185,16 +185,16 @@
 			"T_TITLE": "export herunterladen"
 		},
 		"BUTTON_DOWNLOAD_ARKEOGIS": {
-			"T_TITLE": "#!#DATABASE.BUTTON_DOWNLOAD_ARKEOGIS.T_TITLE"
+			"T_TITLE": "Laden Sie die CSV der Daten im ArkeoGIS-Format herunter"
 		},
 		"BUTTON_DOWNLOAD_ARKEOGIS_INTEROPERABLE": {
-			"T_TITLE": "#!#DATABASE.BUTTON_DOWNLOAD_ARKEOGIS_INTEROPERABLE.T_TITLE"
+			"T_TITLE": "Laden Sie die CSV der Daten im interoperablen Format herunter"
 		},
 		"BUTTON_DOWNLOAD_ARKEOGIS_XML": {
-			"T_TITLE": "#!#DATABASE.BUTTON_DOWNLOAD_ARKEOGIS_XML.T_TITLE"
+			"T_TITLE": "Laden Sie das XML der Metadaten im interoperablen Format herunter"
 		},
 		"BUTTON_DOWNLOAD_OMEKA": {
-			"T_TITLE": "#!#DATABASE.BUTTON_DOWNLOAD_OMEKA.T_TITLE"
+			"T_TITLE": "CSV der Daten im OMEKA-Format herunterladen"
 		},
 		"BUTTON_EDIT": {
 			"T_LABEL": "Datenbank ändern"
@@ -267,7 +267,7 @@
 		},
 		"INFORMATIONS": {
 			"T_AUTHOR_AND_CO_AUTHORS": "Autor(in-en) und co-Autor(in-en)",
-			"T_BIBLIOGRAPHY": "Literatur",
+			"T_BIBLIOGRAPHY": "Zitat",
 			"T_CONTEXT": "Durchführungsrahmen",
 			"T_CONTEXT_DESCRIPTION": "Ergänzungen zum Durchführungsrahmen",
 			"T_CONTINENTS": "Kontinen",
@@ -277,7 +277,7 @@
 			"T_DATE": "Fertigstellungstermin",
 			"T_DESCRIPTION": "Beschreibung",
 			"T_EDITOR": "Herausgeber",
-			"T_EDITOR_URL": "#!#DATABASE.INFORMATIONS.T_EDITOR_URL",
+			"T_EDITOR_URL": "URL des Herausgebers",
 			"T_ENDING_PERIOD": "Enddatum",
 			"T_GEOGRAPHICAL_EXTENT": "Umfang",
 			"T_GEOGRAPHICAL_LIMITS_DESCRIPTION": "geographische Genauigkeit",
@@ -290,16 +290,16 @@
 			"T_IMPORTED_CSV": "importierte CSV Datei",
 			"T_IMPORT_HISTORY": "Geschichte der Importe",
 			"T_IMPORT_INITIATOR": "Initiator",
-			"T_ISNOTPUBLIC": "#!#DATABASE.INFORMATIONS.T_ISNOTPUBLIC",
-			"T_ISPUBLIC": "#!#DATABASE.INFORMATIONS.T_ISPUBLIC",
+			"T_ISNOTPUBLIC": "Nicht offen",
+			"T_ISPUBLIC": "Offen",
 			"T_LICENSE": "Lizenz",
 			"T_MODIFICATION_DATE": "Datum der letzte Änderung",
 			"T_NUMBER_OF_LINES": "Anzahl der Linien",
 			"T_NUMBER_OF_SITES": "Anzahl der Fundstellen",
-			"T_PUBLIC": "#!#DATABASE.INFORMATIONS.T_PUBLIC",
+			"T_PUBLIC": "Offene Publikation",
 			"T_PUBLICATION_STATUS": "Veröffentlichung Status",
 			"T_PUBLISHED": "veröffentlicht",
-			"T_RE_USE": "#!#DATABASE.INFORMATIONS.T_RE_USE",
+			"T_RE_USE": "Möglichkeit der Wiederverwendung",
 			"T_SCALE": "Skala",
 			"T_SOURCE_DESCRIPTION": "Quellen zur Datenbank",
 			"T_SOURCE_RELATION": "Zusammenhang mit anderen Quellen",
@@ -332,24 +332,24 @@
 			"T_DELETE_OK": "Die Datenbankwurde gelöscht"
 		},
 		"POPUP_EXPORT": {
-			"T_TITLE": "#!#DATABASE.POPUP_EXPORT.T_TITLE"
+			"T_TITLE": "Exportieren von Daten und Metadaten"
 		},
 		"POPUP_EXPORT_ARKEOGIS": {
-			"T_TITLE": "#!#DATABASE.POPUP_EXPORT_ARKEOGIS.T_TITLE"
+			"T_TITLE": "Daten im ArkeoGIS-Format (CSV) herunterladen"
 		},
 		"POPUP_EXPORT_ARKEOGIS_INTEROPERABLE": {
-			"T_TITLE": "#!#DATABASE.POPUP_EXPORT_ARKEOGIS_INTEROPERABLE.T_TITLE"
+			"T_TITLE": "Herunterladen von Daten in einem interoperablen Format (CSV)"
 		},
 		"POPUP_EXPORT_ARKEOGIS_XML": {
-			"T_TITLE": "#!#DATABASE.POPUP_EXPORT_ARKEOGIS_XML.T_TITLE"
+			"T_TITLE": "Hochladen von Metadaten in einem interoperablen Format (XML)"
 		},
 		"POPUP_EXPORT_OMEKA": {
-			"T_TITLE": "#!#DATABASE.POPUP_EXPORT_OMEKA.T_TITLE"
+			"T_TITLE": "Herunterladen von Daten im OMEKA-Format (CSV)"
 		},
 		"POPUP_EXPORT_OMEKA_CHOOSECHRONO": {
-			"T_CHOOSECHRONO": "#!#DATABASE.POPUP_EXPORT_OMEKA_CHOOSECHRONO.T_CHOOSECHRONO",
-			"T_NOCHRONO": "#!#DATABASE.POPUP_EXPORT_OMEKA_CHOOSECHRONO.T_NOCHRONO",
-			"T_TITLE": "#!#DATABASE.POPUP_EXPORT_OMEKA_CHOOSECHRONO.T_TITLE"
+			"T_CHOOSECHRONO": "Mögliche Auswahlen",
+			"T_NOCHRONO": "Keine Chronologie",
+			"T_TITLE": "Welche Chronologie soll ArkeoGIS für den semantischen Ausdruck von Exportzeiträumen verwenden?"
 		},
 		"POPUP_HANDLE_HISTORY": {
 			"T_TITLE": "Geschichte der Identifier"
@@ -394,7 +394,7 @@
 			"T_TITLE": "Beendet"
 		},
 		"STATE_INPROGRESS": {
-			"T_TITLE": "in Bearbeitung"
+			"T_TITLE": "In Arbeit"
 		},
 		"TYPE_INVENTORY": {
 			"T_TITLE": "Inventar"
@@ -406,7 +406,7 @@
 			"T_TITLE": "Forschung"
 		},
 		"UNDEFINED": {
-			"T_TITLE": "unbestimmt"
+			"T_TITLE": "Unbestimmt"
 		}
 	},
 	"DATABASE_LIST": {

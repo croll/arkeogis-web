@@ -185,16 +185,16 @@
 			"T_TITLE": "Download an export"
 		},
 		"BUTTON_DOWNLOAD_ARKEOGIS": {
-			"T_TITLE": "Download as ARKEOGIS Format"
+			"T_TITLE": "Download CSV of data in ARKEOGIS Format"
 		},
 		"BUTTON_DOWNLOAD_ARKEOGIS_INTEROPERABLE": {
-			"T_TITLE": "#!#DATABASE.BUTTON_DOWNLOAD_ARKEOGIS_INTEROPERABLE.T_TITLE"
+			"T_TITLE": "Download CSV of data in interoperable format"
 		},
 		"BUTTON_DOWNLOAD_ARKEOGIS_XML": {
-			"T_TITLE": "#!#DATABASE.BUTTON_DOWNLOAD_ARKEOGIS_XML.T_TITLE"
+			"T_TITLE": "Download the XML of the metadata in interoperable format"
 		},
 		"BUTTON_DOWNLOAD_OMEKA": {
-			"T_TITLE": "Download as OMEKA Format"
+			"T_TITLE": "Download CSV of data in OMEKA Format"
 		},
 		"BUTTON_EDIT": {
 			"T_LABEL": "Edit the database"
@@ -267,7 +267,7 @@
 		},
 		"INFORMATIONS": {
 			"T_AUTHOR_AND_CO_AUTHORS": "Author(s) and co-author(s)",
-			"T_BIBLIOGRAPHY": "Bibliography",
+			"T_BIBLIOGRAPHY": "Citation",
 			"T_CONTEXT": "Realisation's context",
 			"T_CONTEXT_DESCRIPTION": "Details about the realisation's context",
 			"T_CONTINENTS": "Continents",
@@ -277,7 +277,7 @@
 			"T_DATE": "Creation's date",
 			"T_DESCRIPTION": "Description",
 			"T_EDITOR": "Publisher",
-			"T_EDITOR_URL": "#!#DATABASE.INFORMATIONS.T_EDITOR_URL",
+			"T_EDITOR_URL": "Publisher's URL",
 			"T_ENDING_PERIOD": "Ending period",
 			"T_GEOGRAPHICAL_EXTENT": "Geographical scope",
 			"T_GEOGRAPHICAL_LIMITS_DESCRIPTION": "Geographical details",
@@ -290,16 +290,16 @@
 			"T_IMPORTED_CSV": "Imported CSV",
 			"T_IMPORT_HISTORY": "Import's history",
 			"T_IMPORT_INITIATOR": "Initiator",
-			"T_ISNOTPUBLIC": "#!#DATABASE.INFORMATIONS.T_ISNOTPUBLIC",
-			"T_ISPUBLIC": "#!#DATABASE.INFORMATIONS.T_ISPUBLIC",
+			"T_ISNOTPUBLIC": "Not open",
+			"T_ISPUBLIC": "Open",
 			"T_LICENSE": "License",
 			"T_MODIFICATION_DATE": "Last edit's date",
 			"T_NUMBER_OF_LINES": "Total of lines",
 			"T_NUMBER_OF_SITES": "Total of sites",
-			"T_PUBLIC": "#!#DATABASE.INFORMATIONS.T_PUBLIC",
+			"T_PUBLIC": "Open publication",
 			"T_PUBLICATION_STATUS": "Publication's status",
 			"T_PUBLISHED": "Published",
-			"T_RE_USE": "#!#DATABASE.INFORMATIONS.T_RE_USE",
+			"T_RE_USE": "Potential for reuse",
 			"T_SCALE": "Scale",
 			"T_SOURCE_DESCRIPTION": "Base's source",
 			"T_SOURCE_RELATION": "Relations with other resources",
@@ -332,24 +332,24 @@
 			"T_DELETE_OK": "The database was successfully deleted."
 		},
 		"POPUP_EXPORT": {
-			"T_TITLE": "#!#DATABASE.POPUP_EXPORT.T_TITLE"
+			"T_TITLE": "Exporting data and metadata"
 		},
 		"POPUP_EXPORT_ARKEOGIS": {
-			"T_TITLE": "#!#DATABASE.POPUP_EXPORT_ARKEOGIS.T_TITLE"
+			"T_TITLE": "Downloading data in ArkeoGIS (CSV) format"
 		},
 		"POPUP_EXPORT_ARKEOGIS_INTEROPERABLE": {
-			"T_TITLE": "#!#DATABASE.POPUP_EXPORT_ARKEOGIS_INTEROPERABLE.T_TITLE"
+			"T_TITLE": "Downloading data in an interoperable format (CSV)"
 		},
 		"POPUP_EXPORT_ARKEOGIS_XML": {
-			"T_TITLE": "#!#DATABASE.POPUP_EXPORT_ARKEOGIS_XML.T_TITLE"
+			"T_TITLE": "Uploading metadata in an interoperable format (XML)"
 		},
 		"POPUP_EXPORT_OMEKA": {
-			"T_TITLE": "#!#DATABASE.POPUP_EXPORT_OMEKA.T_TITLE"
+			"T_TITLE": "Downloading data in OMEKA (CSV) format"
 		},
 		"POPUP_EXPORT_OMEKA_CHOOSECHRONO": {
-			"T_CHOOSECHRONO": "#!#DATABASE.POPUP_EXPORT_OMEKA_CHOOSECHRONO.T_CHOOSECHRONO",
-			"T_NOCHRONO": "#!#DATABASE.POPUP_EXPORT_OMEKA_CHOOSECHRONO.T_NOCHRONO",
-			"T_TITLE": "#!#DATABASE.POPUP_EXPORT_OMEKA_CHOOSECHRONO.T_TITLE"
+			"T_CHOOSECHRONO": "Possible choices",
+			"T_NOCHRONO": "No chronology",
+			"T_TITLE": "Which Chronology should be used by ArkeoGIS for the semantic expression of export periods?"
 		},
 		"POPUP_HANDLE_HISTORY": {
 			"T_TITLE": "ID's history"

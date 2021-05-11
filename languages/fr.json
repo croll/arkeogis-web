@@ -185,16 +185,16 @@
 			"T_TITLE": "Télécharger un export"
 		},
 		"BUTTON_DOWNLOAD_ARKEOGIS": {
-			"T_TITLE": "Télécharger au format ArkeoGIS"
+			"T_TITLE": "Télécharger le CSV des données au format ArkeoGIS"
 		},
 		"BUTTON_DOWNLOAD_ARKEOGIS_INTEROPERABLE": {
-			"T_TITLE": "#!#DATABASE.BUTTON_DOWNLOAD_ARKEOGIS_INTEROPERABLE.T_TITLE"
+			"T_TITLE": "Télécharger le CSV des données au format interopérable"
 		},
 		"BUTTON_DOWNLOAD_ARKEOGIS_XML": {
-			"T_TITLE": "#!#DATABASE.BUTTON_DOWNLOAD_ARKEOGIS_XML.T_TITLE"
+			"T_TITLE": "Télécharger le XML des métadonnées au format interopérable"
 		},
 		"BUTTON_DOWNLOAD_OMEKA": {
-			"T_TITLE": "Télécharger au format OMEKA"
+			"T_TITLE": "Télécharger les CSV des données au format OMEKA"
 		},
 		"BUTTON_EDIT": {
 			"T_LABEL": "Modifier la base"
@@ -267,7 +267,7 @@
 		},
 		"INFORMATIONS": {
 			"T_AUTHOR_AND_CO_AUTHORS": "Auteur (e-s) et co-auteur(e-s)",
-			"T_BIBLIOGRAPHY": "Bibliographie",
+			"T_BIBLIOGRAPHY": "Citation",
 			"T_CONTEXT": "Cadre(s) de réalisation",
 			"T_CONTEXT_DESCRIPTION": "Précision Cadre(s) de réalisation",
 			"T_CONTINENTS": "Continents",
@@ -276,8 +276,8 @@
 			"T_DATABASE_LANG": "Langue de la base de données",
 			"T_DATE": "Date de réalisation",
 			"T_DESCRIPTION": "Description",
-			"T_EDITOR": "Structure éditrice",
-			"T_EDITOR_URL": "#!#DATABASE.INFORMATIONS.T_EDITOR_URL",
+			"T_EDITOR": "Editeur",
+			"T_EDITOR_URL": "URL de l'éditeur",
 			"T_ENDING_PERIOD": "Date de Fin",
 			"T_GEOGRAPHICAL_EXTENT": "Etendue géographique",
 			"T_GEOGRAPHICAL_LIMITS_DESCRIPTION": "Précision géographique",
@@ -290,16 +290,16 @@
 			"T_IMPORTED_CSV": "Fichier CSV importé",
 			"T_IMPORT_HISTORY": "Historique des imports",
 			"T_IMPORT_INITIATOR": "Initiateur",
-			"T_ISNOTPUBLIC": "non ouverte",
-			"T_ISPUBLIC": "ouverte",
+			"T_ISNOTPUBLIC": "Non ouverte",
+			"T_ISPUBLIC": "Ouverte",
 			"T_LICENSE": "Licence",
 			"T_MODIFICATION_DATE": "Date de dernière modification",
 			"T_NUMBER_OF_LINES": "Nombre de lignes",
 			"T_NUMBER_OF_SITES": "Nombre de sites",
-			"T_PUBLIC": "Publication ouvertes",
+			"T_PUBLIC": "Publication ouverte",
 			"T_PUBLICATION_STATUS": "Statut de publication",
 			"T_PUBLISHED": "Publiée",
-			"T_RE_USE": "Réutilisation",
+			"T_RE_USE": "Possibilité de réutilisation",
 			"T_SCALE": "Échelle",
 			"T_SOURCE_DESCRIPTION": "Source de la base",
 			"T_SOURCE_RELATION": "Lien avec d'autres ressources",
@@ -335,16 +335,16 @@
 			"T_TITLE": "Exportation des données et méta-données"
 		},
 		"POPUP_EXPORT_ARKEOGIS": {
-			"T_TITLE": "Téléchargement au format ArkeoGIS (CSV)"
+			"T_TITLE": "Téléchargement des données au format ArkeoGIS (CSV)"
 		},
 		"POPUP_EXPORT_ARKEOGIS_INTEROPERABLE": {
-			"T_TITLE": "#!#DATABASE.POPUP_EXPORT_ARKEOGIS_INTEROPERABLE.T_TITLE"
+			"T_TITLE": "Téléchargement des données dans un format interopérable (CSV)"
 		},
 		"POPUP_EXPORT_ARKEOGIS_XML": {
-			"T_TITLE": "#!#DATABASE.POPUP_EXPORT_ARKEOGIS_XML.T_TITLE"
+			"T_TITLE": "Téléchargement des métadonnées dans un format interopérable (XML)"
 		},
 		"POPUP_EXPORT_OMEKA": {
-			"T_TITLE": "Téléchargement au format OMEKA (CSV)"
+			"T_TITLE": "Téléchargement  des données au format OMEKA (CSV)"
 		},
 		"POPUP_EXPORT_OMEKA_CHOOSECHRONO": {
 			"T_CHOOSECHRONO": "Choix possibles",

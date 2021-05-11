@@ -176,40 +176,40 @@
 	},
 	"DATABASE": {
 		"BUTON_DELETE": {
-			"T_LABEL": "#!#DATABASE.BUTON_DELETE.T_LABEL"
+			"T_LABEL": "Borrar la base de datos"
 		},
 		"BUTTON_DELETE": {
-			"T_CONFIRM": "#!#DATABASE.BUTTON_DELETE.T_CONFIRM"
+			"T_CONFIRM": "Atención, la base de datos y toda la información asociada a ella será eliminada."
 		},
 		"BUTTON_DOWNLOAD": {
-			"T_TITLE": "#!#DATABASE.BUTTON_DOWNLOAD.T_TITLE"
+			"T_TITLE": "Descargar una exportación"
 		},
 		"BUTTON_DOWNLOAD_ARKEOGIS": {
-			"T_TITLE": "#!#DATABASE.BUTTON_DOWNLOAD_ARKEOGIS.T_TITLE"
+			"T_TITLE": "Descargue el CSV de los datos en formato ArkeoGIS"
 		},
 		"BUTTON_DOWNLOAD_ARKEOGIS_INTEROPERABLE": {
-			"T_TITLE": "#!#DATABASE.BUTTON_DOWNLOAD_ARKEOGIS_INTEROPERABLE.T_TITLE"
+			"T_TITLE": "Descargar el CSV de los datos en formato interoperable"
 		},
 		"BUTTON_DOWNLOAD_ARKEOGIS_XML": {
-			"T_TITLE": "#!#DATABASE.BUTTON_DOWNLOAD_ARKEOGIS_XML.T_TITLE"
+			"T_TITLE": "Descargar el XML de los metadatos en formato interoperable"
 		},
 		"BUTTON_DOWNLOAD_OMEKA": {
-			"T_TITLE": "#!#DATABASE.BUTTON_DOWNLOAD_OMEKA.T_TITLE"
+			"T_TITLE": "Descargar CSV de datos en formato OMEKA"
 		},
 		"BUTTON_EDIT": {
-			"T_LABEL": "#!#DATABASE.BUTTON_EDIT.T_LABEL"
+			"T_LABEL": "Modificar la base"
 		},
 		"CONTEXT_ACADEMIC_WORK": {
-			"T_TITLE": "#!#DATABASE.CONTEXT_ACADEMIC_WORK.T_TITLE"
+			"T_TITLE": "Trabajo académico"
 		},
 		"CONTEXT_CONTRACT": {
-			"T_TITLE": "#!#DATABASE.CONTEXT_CONTRACT.T_TITLE"
+			"T_TITLE": "Contrato"
 		},
 		"CONTEXT_OTHER": {
-			"T_TITLE": "#!#DATABASE.CONTEXT_OTHER.T_TITLE"
+			"T_TITLE": "Otros"
 		},
 		"CONTEXT_RESEARCH_TEAM": {
-			"T_TITLE": "#!#DATABASE.CONTEXT_RESEARCH_TEAM.T_TITLE"
+			"T_TITLE": "Equipo de investigadores"
 		},
 		"EXPORT_AUTHORS": {
 			"T_HEADER": "Autores"
@@ -260,25 +260,25 @@
 			"T_TITLE": "País"
 		},
 		"GEOGRAPHICAL_EXTENT_INTERNATIONAL_WATERS": {
-			"T_TITLE": "#!#DATABASE.GEOGRAPHICAL_EXTENT_INTERNATIONAL_WATERS.T_TITLE"
+			"T_TITLE": "Alta mar"
 		},
 		"GEOGRAPHICAL_EXTENT_WORLD": {
 			"T_TITLE": "Mundo"
 		},
 		"INFORMATIONS": {
 			"T_AUTHOR_AND_CO_AUTHORS": "Autores y coautores",
-			"T_BIBLIOGRAPHY": "#!#DATABASE.INFORMATIONS.T_BIBLIOGRAPHY",
-			"T_CONTEXT": "#!#DATABASE.INFORMATIONS.T_CONTEXT",
-			"T_CONTEXT_DESCRIPTION": "#!#DATABASE.INFORMATIONS.T_CONTEXT_DESCRIPTION",
-			"T_CONTINENTS": "#!#DATABASE.INFORMATIONS.T_CONTINENTS",
-			"T_CONTRIBUTOR": "#!#DATABASE.INFORMATIONS.T_CONTRIBUTOR",
-			"T_COUNTRIES": "#!#DATABASE.INFORMATIONS.T_COUNTRIES",
-			"T_DATABASE_LANG": "#!#DATABASE.INFORMATIONS.T_DATABASE_LANG",
-			"T_DATE": "#!#DATABASE.INFORMATIONS.T_DATE",
+			"T_BIBLIOGRAPHY": "Cita",
+			"T_CONTEXT": "Marco(s) de aplicación",
+			"T_CONTEXT_DESCRIPTION": "Marco(s) de precisión",
+			"T_CONTINENTS": "Continentes",
+			"T_CONTRIBUTOR": "Colaborador",
+			"T_COUNTRIES": "Pais",
+			"T_DATABASE_LANG": "Idioma de la base de datos",
+			"T_DATE": "Fecha de finalización",
 			"T_DESCRIPTION": "Descripción",
-			"T_EDITOR": "#!#DATABASE.INFORMATIONS.T_EDITOR",
-			"T_EDITOR_URL": "#!#DATABASE.INFORMATIONS.T_EDITOR_URL",
-			"T_ENDING_PERIOD": "#!#DATABASE.INFORMATIONS.T_ENDING_PERIOD",
+			"T_EDITOR": "Editorial",
+			"T_EDITOR_URL": "URL del editor",
+			"T_ENDING_PERIOD": "Fecha de finalización",
 			"T_GEOGRAPHICAL_EXTENT": "Cobertura",
 			"T_GEOGRAPHICAL_LIMITS_DESCRIPTION": "#!#DATABASE.INFORMATIONS.T_GEOGRAPHICAL_LIMITS_DESCRIPTION",
 			"T_HANDLE": "#!#DATABASE.INFORMATIONS.T_HANDLE",
@@ -298,16 +298,16 @@
 			"T_NUMBER_OF_SITES": "#!#DATABASE.INFORMATIONS.T_NUMBER_OF_SITES",
 			"T_PUBLIC": "#!#DATABASE.INFORMATIONS.T_PUBLIC",
 			"T_PUBLICATION_STATUS": "#!#DATABASE.INFORMATIONS.T_PUBLICATION_STATUS",
-			"T_PUBLISHED": "#!#DATABASE.INFORMATIONS.T_PUBLISHED",
-			"T_RE_USE": "#!#DATABASE.INFORMATIONS.T_RE_USE",
-			"T_SCALE": "#!#DATABASE.INFORMATIONS.T_SCALE",
-			"T_SOURCE_DESCRIPTION": "#!#DATABASE.INFORMATIONS.T_SOURCE_DESCRIPTION",
-			"T_SOURCE_RELATION": "#!#DATABASE.INFORMATIONS.T_SOURCE_RELATION",
+			"T_PUBLISHED": "Publicado",
+			"T_RE_USE": "Posibilidad de reutilización",
+			"T_SCALE": "Escala",
+			"T_SOURCE_DESCRIPTION": "Fuente de la base de datos",
+			"T_SOURCE_RELATION": "Enlace a otros recursos",
 			"T_STARTING_PERIOD": "Inicio",
 			"T_STATUS": "Avance",
 			"T_SUBJECT_AND_KEYWORDS": "Asunto(s) / Palabras clave",
 			"T_TYPE": "Tipo",
-			"T_UNPUBLISHED": "#!#DATABASE.INFORMATIONS.T_UNPUBLISHED"
+			"T_UNPUBLISHED": "No publicado"
 		},
 		"KNOWLEDGE_TYPE_DIG": {
 			"T_TITLE": "Excavación"
@@ -328,34 +328,34 @@
 			"T_TITLE": "Sondeo arqueológico"
 		},
 		"MESSAGE": {
-			"T_DELETE_FAILED": "#!#DATABASE.MESSAGE.T_DELETE_FAILED",
-			"T_DELETE_OK": "#!#DATABASE.MESSAGE.T_DELETE_OK"
+			"T_DELETE_FAILED": "Error en el borrado",
+			"T_DELETE_OK": "La base de donnée a été supprimée avec succès"
 		},
 		"POPUP_EXPORT": {
-			"T_TITLE": "#!#DATABASE.POPUP_EXPORT.T_TITLE"
+			"T_TITLE": "Exportación de datos y metadatos"
 		},
 		"POPUP_EXPORT_ARKEOGIS": {
-			"T_TITLE": "#!#DATABASE.POPUP_EXPORT_ARKEOGIS.T_TITLE"
+			"T_TITLE": "Descargar datos en formato ArkeoGIS (CSV)"
 		},
 		"POPUP_EXPORT_ARKEOGIS_INTEROPERABLE": {
-			"T_TITLE": "#!#DATABASE.POPUP_EXPORT_ARKEOGIS_INTEROPERABLE.T_TITLE"
+			"T_TITLE": "Descarga de datos en un formato interoperable (CSV)"
 		},
 		"POPUP_EXPORT_ARKEOGIS_XML": {
-			"T_TITLE": "#!#DATABASE.POPUP_EXPORT_ARKEOGIS_XML.T_TITLE"
+			"T_TITLE": "Carga de metadatos en un formato interoperable (XML)"
 		},
 		"POPUP_EXPORT_OMEKA": {
-			"T_TITLE": "#!#DATABASE.POPUP_EXPORT_OMEKA.T_TITLE"
+			"T_TITLE": "Descarga de datos en formato OMEKA (CSV)"
 		},
 		"POPUP_EXPORT_OMEKA_CHOOSECHRONO": {
-			"T_CHOOSECHRONO": "#!#DATABASE.POPUP_EXPORT_OMEKA_CHOOSECHRONO.T_CHOOSECHRONO",
-			"T_NOCHRONO": "#!#DATABASE.POPUP_EXPORT_OMEKA_CHOOSECHRONO.T_NOCHRONO",
-			"T_TITLE": "#!#DATABASE.POPUP_EXPORT_OMEKA_CHOOSECHRONO.T_TITLE"
+			"T_CHOOSECHRONO": "Posibles opciones",
+			"T_NOCHRONO": "No hay cronología",
+			"T_TITLE": "¿Qué cronología debe utilizar ArkeoGIS para la expresión semántica de los períodos de exportación?"
 		},
 		"POPUP_HANDLE_HISTORY": {
-			"T_TITLE": "#!#DATABASE.POPUP_HANDLE_HISTORY.T_TITLE"
+			"T_TITLE": "Historia de los identificadores creados"
 		},
 		"POPUP_IMPORT_HISTORY": {
-			"T_TITLE": "#!#DATABASE.POPUP_IMPORT_HISTORY.T_TITLE"
+			"T_TITLE": "Historia de la importación"
 		},
 		"SCALE_RESOLUTION_COUNTRY": {
 			"T_TITLE": "País"
@@ -385,7 +385,7 @@
 			"T_TITLE": "Ocupación múltiple"
 		},
 		"SITE_OCCUPATION_NOT_DOCUMENTED": {
-			"T_TITLE": "#!#DATABASE.SITE_OCCUPATION_NOT_DOCUMENTED.T_TITLE"
+			"T_TITLE": "Por favor, rellene el campo de la ocupación."
 		},
 		"SITE_OCCUPATION_SINGLE": {
 			"T_TITLE": "Ocupación única"
