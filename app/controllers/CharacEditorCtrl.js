@@ -142,8 +142,6 @@
 				$scope.arbo.cached_langs = fulltrads.join(',');
 			}
 
-			if (!publishable)
-				$scope.arbo.active = false;
 			$scope.publishable = publishable;
 		}
 
