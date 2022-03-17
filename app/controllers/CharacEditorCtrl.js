@@ -242,7 +242,7 @@
 			var downloadLink = angular.element('<a></a>');
             //downloadLink.attr('href', '/api/characs/csv?name='+$scope.arbo.name_cur+'&isocode='+arkeoLang.getTranslationLang()+'&dl=1');
             downloadLink.attr('href', '/api/characs/csv?id='+$scope.arbo.id+'&isocode='+arkeoLang.getTranslationLang()+'&dl=1');
-            downloadLink.attr('download', $scope.arbo.name_cur+'.csv');
+            downloadLink.attr('download', $scope.arbo.name_cur+'-'+arkeoLang.getTranslationLang()+'.csv');
                 var event = new MouseEvent('click', {
                   'view': window,
                   'bubbles': true,
