@@ -201,13 +201,17 @@
             $translate(str).then(function(translations) {
                     for (var k in translations) {
                         if (translations.hasOwnProperty(k)) {
-                            $mdToast.show($mdToast.simple().textContent(translations[k]).position('top right'));
+                            var message = ""+translations[k];
+                            var hideDelay = 2000 + message.length * 100;
+                            $mdToast.show($mdToast.simple().textContent(message).position('top right').hideDelay(hideDelay));
                         }
                     }
                 },
                 function(err) {
                     console.log('arkeoService.showMessage: translation not found');
-                    $mdToast.show($mdToast.simple().textContent('GLOBAL.TOASTER.T_OK').position('top right'));
+                    var message = ""+'GLOBAL.TOASTER.T_OK';
+                    var hideDelay = 2000 + message.length * 100;
+                    $mdToast.show($mdToast.simple().textContent(message).position('top right').hideDelay(hideDelay01));
                 });
         }
 
