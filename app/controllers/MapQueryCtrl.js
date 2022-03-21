@@ -719,7 +719,13 @@
 			function buildPaths(selecteds) {
 				var paths=[];
 				while (selecteds.length > 0) {
-					paths.push(buildPath(arkeoProject.getCharacById(selecteds[0]), selecteds));
+					var charac = arkeoProject.getCharacById(selecteds[0]);
+					if (charac)
+						paths.push(buildPath(charac, selecteds));
+					else {
+						console.warn("a charac doesn't exist anymore, id: ", selecteds[0])
+						selecteds.splice(0, 1);
+					}
 				}
 				return paths;
 			}
